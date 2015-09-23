@@ -1,7 +1,10 @@
 #Ignore everything
 *
 
+
 #But not this files
 !.gitignore
-!wp-content/themes/Avada/*
-!wp-content/themes/wristbandcreation/*
+!/wp-content/themes/Avada/
+!/wp-content/themes/Avada/*
+!/wp-content/themes/wristbandcreation/
+!/wp-content/themes/wristbandcreation/*
