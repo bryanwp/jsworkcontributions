@@ -1,0 +1,24 @@
+/*.acf_options_panel .options_group {
+    padding:0 15px;
+}
+
+.acf_options_panel .options_group label {
+    margin-left:0;
+}
+
+.acf_options_panel .options_group p.label label {
+    padding: 0;
+    width:100%;
+    font-weight: bold;
+    font-size:16px;
+}
+
+
+.acf_options_panel .options_group ul.acf-checkbox-list.checkbox.vertical li label {
+    display: block;
+    float: none;
+}*/
+
+.wbc_hide-toggle .handlediv {
+    display:none;
+}

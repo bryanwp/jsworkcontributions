@@ -1,11 +1,9 @@
-#Ignore everything
-
-*/*
-*.*
-
-
-
-#But not this files
+/*
 !.gitignore
-!wp-content/themes/
-!wp-content/themes/*
+
+!wp-content
+wp-content/*
+!wp-content/themes
+wp-content/themes/*
+!wp-content/themes/wristbandcreation
+!wp-content/themes/wristbandcreation/*

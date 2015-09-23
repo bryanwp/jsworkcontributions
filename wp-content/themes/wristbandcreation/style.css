@@ -1,0 +1,60 @@
+/*
+Theme Name: Wristband Creation
+Description: Child theme for Avada theme
+Author: ThemeFusion
+Author URI: https://theme-fusion.com
+Template: Avada
+Version: 1.0.0
+Text Domain:  Avada
+*/
+
+/** Header - Banner Code **/
+h2.banner_code {
+	font-size: 20px !important;
+	color: #e73906;
+	margin-bottom: 0px;
+	text-align: right;
+}
+h2.banner_code span {
+	color: #0070ce;
+}
+p.banner_code {
+	padding: 0;
+	margin: 0;
+	text-align: right;
+}
+	@media (max-width: 800px) {
+		.banner_code {
+			display: none;
+		}
+	}
+
+/** Header - Navigation **/
+.fusion-main-menu > ul > li {
+	padding-right: 35px !important;
+}
+.order-now > a {
+	height: 45px !important;
+}
+.order-now > a span {
+	color: #fff !important;
+	/* text-transform: none !important; */
+	/* font-size: 14px; */
+}
+
+/** Footer - Copyright **/
+dl.footer dd {
+	margin-left: 25px;
+}
+.fusion-copyright-content {
+	text-align: center;
+}
+.social-icons .fusion-social-networks {
+	text-align: left;
+}
+
+
+/** Main Content **/
+#main {
+	padding-top: 0px !important;
+}
