@@ -18,6 +18,8 @@ if (!class_exists('WBC_Shortcodes')) {
                 'id' => '',
             ), $atts, 'wc-product-price'));
 
+            $arr_ids = explode(',', $id);
+
             ob_start();
 
             include_once('views/html-wc-product-price.php');
