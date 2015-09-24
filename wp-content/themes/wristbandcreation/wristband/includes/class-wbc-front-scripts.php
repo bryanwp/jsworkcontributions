@@ -18,7 +18,7 @@ if (!class_exists('WBC_Front_Scripts')) {
 
         public function load_scripts() {
 
-            wp_register_script('wristband-mustache_js', WBC_ASSETS_URL . '/js/vendor/mustache.js', array('jquery'), WBC_VERSION, true);
+            wp_register_script('wristband-mustache_js', WBC_ASSETS_URL . '/js/vendor/mustache.min.js', array('jquery'), WBC_VERSION, true);
             wp_register_script('wristband_js', WBC_ASSETS_URL . '/js/wristband.js', array('jquery', 'wristband-mustache_js'), WBC_VERSION, true);
 
             wp_enqueue_script('wristband-mustache_js');

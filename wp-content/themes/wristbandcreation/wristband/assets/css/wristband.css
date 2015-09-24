@@ -1,3 +1,55 @@
-.color-style-item {
-    display: inline-block;
+.form-group .form-control {
+    display:block;
+    padding:5px 10px;
+    width:100%;
+    margin:10px 0;
+}
+
+
+span.fusion-popover {
+    padding: 0 5px;
+    background-color: #9ABCF9;
+    border-radius: 30px;
+    font-size: 12px;
+    color: #FFF;
+}
+
+.form-group {
+    padding: 10px 5px;
+}
+span.char_left_wrapper {
+    width:105px;
+}
+
+span.char_left_wrapper .input-text-xs {
+    padding: 3px 2px;
+}
+
+input.input-text.input-text-xs {
+    display: inline;
+    width: 40px;
+
+}
+
+.button-xsmall {
+    padding: 4px 5px;
+    font-size: 12px;
+}
+
+
+p.form-row:after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.image-preview {
+    border: solid 1px #F0F0F0;
+    text-align: center;
+    height: 300px;
+    vertical-align: middle;
+}
+
+.link-buttons {
+    padding: 10px 0;
 }
