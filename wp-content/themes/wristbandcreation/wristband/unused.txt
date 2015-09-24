@@ -1,0 +1,12 @@
+
+/**
+add_action( 'woocommerce_product_write_panel_tabs', 'create_admin_tabx' );
+
+function create_admin_tabx() {
+    echo '<li class="cdog_product_options_tab"><a href="#cdog_product_options">'. __('Product Options', 'woocommerce'). '</a></li>';
+}
+
+add_action( 'woocommerce_product_write_panels', 'sb_woocommerce_new_panel', 40 );
+function sb_woocommerce_new_panel() {
+'14-inch-price-list',
+}*/
