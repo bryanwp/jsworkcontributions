@@ -6,8 +6,6 @@ if (!defined('ABSPATH')) {
 if (!class_exists('WBC_Manager')) {
     class WBC_Manager
     {
-
-
         public function __construct() {
             add_action('init', array($this, 'load_product_data_fields'), 10);
             add_action('wp_loaded', array($this, 'wp_loaded'));
@@ -40,6 +38,7 @@ if (!class_exists('WBC_Manager')) {
          */
 
         public function wp_loaded() {
+
             if (is_admin()) return;
 
             //strong the settings to option table will make data fetch more faster
@@ -51,8 +50,6 @@ if (!class_exists('WBC_Manager')) {
                 update_option( 'wbc_settings', $result );
             }
 
-
-
         }
 
 
@@ -62,7 +59,6 @@ if (!class_exists('WBC_Manager')) {
                 'id' => 'acf_wristband_data',
                 'title' => 'Wristband Configuration',
                 'fields' => apply_filters('wristband_product_data_fields', array()),
-
                 'location' => array (
                     array (
                         array (
@@ -82,9 +78,6 @@ if (!class_exists('WBC_Manager')) {
                 ),
                 'menu_order' => 0,
             );
-
-
-
 
             $this->register_field_group($field_groups);
 
