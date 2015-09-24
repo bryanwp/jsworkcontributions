@@ -132,7 +132,6 @@ if (!class_exists('WBC_Additional_Option_Manager')) {
 
         public function get_settings($settings) {
 
-
             $additional_options = array();
 
             if (get_field('additional_options', 'option')) {

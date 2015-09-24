@@ -22,15 +22,8 @@ if (!class_exists('WBC_Install')) {
          * @return none
          */
         function includes() {
-
             include_once ('wbc-core-functions.php');
-
-            if (!is_admin()) {
-
-                include_once ('class-wbc-front-scripts.php');
-                include_once ('class-wbc-shortcodes.php');
-            }
-
+            include_once ('class-wbc-front-scripts.php');
             // Manager
             include_once ('class-wbc-manager.php');
             include_once ('manager/class-wbc-size-manager.php');
@@ -62,10 +55,6 @@ if (!class_exists('WBC_Install')) {
 
 
             }
-
-
-
-
 
 
 

@@ -11,48 +11,10 @@ if (!class_exists('WBC_Manager')) {
         public function __construct() {
             add_action('init', array($this, 'load_product_data_fields'), 10);
             add_action('wp_loaded', array($this, 'wp_loaded'));
-
-            // Empty wbc_settings if there are product that has been save
-            add_action( 'save_post', array($this, 'empty_wbc_settings'), 10, 3 );
-            add_action( 'admin_head', array($this, 'empty_wbc_settings'), 10, 3 );
         }
-
-
-        public function empty_wbc_settings($post_id = null, $post = null, $update = null) {
-
-            if( (isset($_POST['acf_nonce']) && wp_verify_nonce($_POST['acf_nonce'], 'input') )
-
-                || ($post != null && $post->post_type == 'product')
-            )
-            {
-                update_option('wbc_settings', null);
-            }
-        }
-
-
-        /**
-         * wp_loaded()
-         *
-         * Load global wristband settings
-         * from products and option pages
-         * @param none
-         * @return none
-         */
 
         public function wp_loaded() {
-            if (is_admin()) return;
-
-            //strong the settings to option table will make data fetch more faster
-            $GLOBALS['wbc_settings'] = json_decode (get_option('wbc_settings'));
-            if ( null == $GLOBALS['wbc_settings'] ) {
-                $result = json_encode (apply_filters('wristband_settings_array', array()));
-
-                $GLOBALS['wbc_settings'] = json_decode($result);
-                update_option( 'wbc_settings', $result );
-            }
-
-
-
+            $GLOBALS['wbc_settings'] = json_decode (json_encode (apply_filters('wristband_settings_array', array())), FALSE);
         }
 
 

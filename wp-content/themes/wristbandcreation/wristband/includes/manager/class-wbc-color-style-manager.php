@@ -141,8 +141,6 @@ if (!class_exists('WBC_Color_Style_Manager')) {
 
         public function get_color_style_list($settings) {
 
-
-
             $color_style = array();
             if (get_field('color_style_list', 'option')) {
                 foreach (get_field('color_style_list', 'option') as $key => $value) {

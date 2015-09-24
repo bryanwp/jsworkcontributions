@@ -65,15 +65,15 @@ if (!class_exists('WBC_Color_Style_Price_List_Manager')) {
         {
             $color_style_price_tab_list = array();
 
-            if( get_field('color_style_list', 'option') )
+            if( have_rows('color_style_list', 'option') )
             {
-                foreach( get_field('color_style_list', 'option') as $key => $field )
+                while( have_rows('color_style_list', 'option') )
                 {
-//                    the_row();
-                    if( isset($field['add_price']) )
+                    the_row();
+                    if( get_sub_field('add_price') )
                     {
                         //tab
-                        $tab_label = $field['name'];
+                        $tab_label = get_sub_field('name');
                         $tab_name = sanitize_title_with_underscore( $tab_label );
                         array_push( $color_style_price_tab_list, array (
                             'key' => 'field_'.$group.'_'.$tab_name,
@@ -83,7 +83,7 @@ if (!class_exists('WBC_Color_Style_Price_List_Manager')) {
                         ) );
 
                         //repeater
-                        $repeater_label = $field['name'];
+                        $repeater_label = get_sub_field('name');
                         $repeater_name = sanitize_title_with_underscore( $repeater_label.' Price List' );
                         array_push( $color_style_price_tab_list, array (
                             'key' => 'field_'.$group.'_'.$repeater_name,
