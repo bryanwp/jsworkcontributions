@@ -71,42 +71,68 @@ get_header();
                     <div class="form-group">
                         <h2>Message on Wristbands</h2>
                         <p class="form-row">
-                            <input type="radio" name="mesage_type" value="front_and_back" />
+                            <input type="radio" name="mesage_type" value="front_and_back" checked/>
                             <label for="mesage_type" class="checkbox">
                                 Front and Back
+                                 <span class="fusion-popover" data-animation="" data-class="popover-1"
+                                       data-content="Front and Back Message" data-placement="top"
+                                       data-title="" data-toggle="popover" data-trigger="hover"
+                                       data-original-title="">?</span>
                             </label>
                         </p>
                         <p class="form-row">
                             <input type="radio" name="mesage_type" value="continues" />
                             <label for="message" class="checkbox">
                                 Continues
+                                <span class="fusion-popover" data-animation="" data-class="popover-1"
+                                      data-content="Continues Message" data-placement="top"
+                                      data-title="" data-toggle="popover" data-trigger="hover"
+                                      data-original-title="">?</span>
                             </label>
                         </p>
                     </div><!-- /.form-group -->
-                    <div class="form-group">
+                    <div class="form-group hide-if-message_type-continues">
                         <label for="width">Front Message
                             <span class="char_left_wrapper pull-right">
-                                <input type="text" name="front_message_chars_left" class="input-text input-text-xs" value="0" size="5" disabled=""> Chars Left
+                                <input type="text" name="front_message_chars_left" class="input-text input-text-xs"
+                                       value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
                             </span>
                         </label>
-                        <input type="" name="front_message"  class="form-control" >
+                        <input type="text" name="front_message" class="form-control trigger-limit-char"
+                               data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" />
                     </div><!-- /.form-group -->
-                    <div class="form-group">
+                    <div class="form-group  hide-if-message_type-continues">
                         <label for="width">Back Message
                             <span class="char_left_wrapper pull-right">
-                                <input type="text" name="back_message_chars_left" class="input-text input-text-xs" value="0" size="5" disabled=""> Chars Left
+                                <input type="text" name="back_message_chars_left" class="input-text input-text-xs"
+                                       value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
                             </span>
                         </label>
-                        <input type="" name="back_message"  class="form-control" >
+                        <input type="text" name="back_message"  class="form-control trigger-limit-char"
+                               data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" >
+                    </div><!-- /.form-group -->
+
+
+                    <div class="form-group  hide-if-message_type-front_and_back">
+                        <label for="width">Continues Message
+                            <span class="char_left_wrapper pull-right">
+                                <input type="text" name="continues_message_chars_left" class="input-text input-text-xs"
+                                       value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
+                            </span>
+                        </label>
+                        <input type="text" name="continues_message" class="form-control trigger-limit-char"
+                               data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>">
                     </div><!-- /.form-group -->
 
                     <div class="form-group">
                         <label for="width">Inside Message
                             <span class="char_left_wrapper pull-right">
-                                <input type="text" name="inside_message_chars_left" class="input-text input-text-xs" value="0" size="5" disabled=""> Chars Left
+                                <input type="text" name="inside_message_chars_left" class="input-text input-text-xs"
+                                       value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
                             </span>
                         </label>
-                        <input type="" name="inside_message"  class="form-control" >
+                        <input type="" name="inside_message" class="form-control trigger-limit-char"
+                               data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" />
                     </div><!-- /.form-group -->
                     <div class="form-group">
                         <label for="font">Font</label>
@@ -118,9 +144,14 @@ get_header();
                             <label for="clipart_front_start" class="checkbox">
                                 <span class="text-label fusion-one-third one_third fusion-layout-column fusion-spacing-no">Front Start</span>
                                 <span class="input-wrapper fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-no">
-                                    <select name="clipart_front_start">
-                                        <option>Select</option>
-                                        </select> or
+                                    <button class="fusion-button button-flat button-round button-small button-default"
+                                            target="_blank" href="#" data-toggle="modal" data-target=".avada_modal">
+                                        <span class="fusion-button-text-right">
+                                            <i class="fa fa-taxi icon-preview hide"></i>
+                                            select</span>
+                                        <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
+                                    </button>
+                                    or
                                     <a class="fusion-button button-flat button-round button-xsmall button-default" target="_blank" href="#"><span class="fusion-button-text">Upload</span></a>
                                 </span>
                             </label>
@@ -129,9 +160,13 @@ get_header();
                             <label for="clipart_front_end" class="checkbox">
                                 <span class="text-label fusion-one-third one_third fusion-layout-column fusion-spacing-no">Front End</span>
                                 <span class="input-wrapper fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-no">
-                                    <select name="clipart_front_end">
-                                        <option>Select</option>
-                                    </select> or
+                                    <button class="fusion-button button-flat button-round button-small button-default"
+                                            target="_blank" href="#" data-toggle="modal" data-target=".avada_modal">
+                                        <span class="fusion-button-text-right">
+                                            <i class="fa fa-taxi icon-preview hide"></i>
+                                            select</span>
+                                        <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
+                                    </button> or
                                     <a class="fusion-button button-flat button-round button-xsmall button-default" target="_blank" href="#"><span class="fusion-button-text">Upload</span></a>
                                 </span>
                             </label>
@@ -140,9 +175,12 @@ get_header();
                             <label for="clipart_back_start" class="checkbox">
                                 <span class="text-label fusion-one-third one_third fusion-layout-column fusion-spacing-no">Back Start</span>
                                 <span class="input-wrapper fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-no">
-                                    <select name="clipart_back_start">
-                                        <option>Select</option>
-                                    </select> or
+                                    <button class="fusion-button button-flat button-round button-small button-default">
+                                        <span class="fusion-button-text-right">
+                                            <i class="fa fa-taxi icon-preview hide"></i>
+                                            select</span>
+                                        <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
+                                    </button> or
                                     <a class="fusion-button button-flat button-round button-xsmall button-default" target="_blank" href="#"><span class="fusion-button-text">Upload</span></a>
                                 </span>
                             </label>
@@ -151,9 +189,12 @@ get_header();
                             <label for="clipart_back_end" class="checkbox">
                                 <span class="text-label fusion-one-third one_third fusion-layout-column fusion-spacing-no">Back End</span>
                                 <span class="input-wrapper fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-no">
-                                    <select name="clipart_back_end">
-                                        <option>Select</option>
-                                    </select> or
+                                    <button class="fusion-button button-flat button-round button-small button-default">
+                                        <span class="fusion-button-text-right">
+                                            <i class="fa fa-taxi icon-preview hide"></i>
+                                            select</span>
+                                        <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
+                                    </button> or
                                     <a class="fusion-button button-flat button-round button-xsmall button-default" target="_blank" href="#"><span class="fusion-button-text">Upload</span></a>
                                 </span>
                             </label>
@@ -278,9 +319,26 @@ get_header();
 
 </div>
 
-
-
-
+<div class="fusion-modal modal fade modal-1 avada_modal" tabindex="-1" role="dialog"
+     aria-labelledby="modal-heading-1" aria-hidden="true" style="display: none;">
+    <style type="text/css">.modal-1 .modal-header, .modal-1 .modal-footer{border-color:#ebebeb}</style>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content fusion-modal-content" style="background-color:#f6f6f6">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title" id="modal-heading-1" data-dismiss="modal" aria-hidden="true"
+                    data-fontsize="17" data-lineheight="36">
+                    Choose your Front Start Clipart</h3>
+            </div>
+            <div class="modal-body">
+               ...
+            </div>
+            <div class="modal-footer">
+                <a class="fusion-button button-default button-medium button default medium" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div><!-- /.fusion-modal -->
 <?php
 
 echo '<pre>';

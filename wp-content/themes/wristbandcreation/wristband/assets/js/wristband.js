@@ -17,9 +17,8 @@ jQuery( function ( $ ) {
                 $( '#price_chart table tr:first-child' ).append( output_qty_tpl );
                 $( '#price_chart table tr:eq(1)' ).append( output_price_tpl );
             }
-
-
         }
+
     };
 
 
@@ -43,10 +42,35 @@ jQuery( function ( $ ) {
             })
             .on( 'change', 'select#width', function() {
                 WRISTBAND.init();
+            })
+            // Hide/Show message type fields
+            .on( 'change', 'input[name="mesage_type"]', function() {
+                if ( this.checked ) {
+
+                    $( '[class*="hide-if-message_type-"]' ).css({ display: 'block' });
+
+                    $( '.hide-if-message_type-' + this.value).css({ 'display': 'none' });
+                }
+            })
+
+            .on( 'keyup', '.trigger-limit-char', function(e) {
+                var limit       = $(this).data('limit'),
+                    cur_len     = $(this).val().length,
+                    cur_name    = $(this).attr('name'),
+                    char_left   = limit - cur_len;
+
+                if ( char_left < 0 ) char_left = 0;
+
+
+                $( 'input[name="' + cur_name + '_chars_left"]' ).val( char_left );
+
+
             });
 
-
-            $( 'select[name="style"]' ).trigger('change');
+            // Trigger change on ready
+            $( 'select[name="style"], input[name="mesage_type"]' ).trigger( 'change' );
+            // Trigger keyup on ready
+            $( '.trigger-limit-char').trigger( 'keyup' );
     });
 
 
