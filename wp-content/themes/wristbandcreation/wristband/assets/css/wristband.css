@@ -53,6 +53,14 @@ p.form-row:after {
     padding: 10px 0;
 }
 
+#price_chart {
+    overflow-x: auto;
+}
+
+#price_chart table td {
+    padding: 5px;
+    border: solid 1px #E5E5E5;
+}
 
 #additional-option-section  .fusion-column-wrapper {
     border: solid 1px #ECECEC;
@@ -75,4 +83,9 @@ p.form-row:after {
     left: 5px;
     right: 5px;
     box-sizing: border-box;
+}
+
+
+img.image-upload.hide-if-icon {
+    display: none;
 }

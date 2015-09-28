@@ -58,19 +58,51 @@ jQuery( function ( $ ) {
                     cur_len     = $(this).val().length,
                     cur_name    = $(this).attr('name'),
                     char_left   = limit - cur_len;
-
                 if ( char_left < 0 ) char_left = 0;
-
-
                 $( 'input[name="' + cur_name + '_chars_left"]' ).val( char_left );
-
-
             });
 
-            // Trigger change on ready
-            $( 'select[name="style"], input[name="mesage_type"]' ).trigger( 'change' );
-            // Trigger keyup on ready
-            $( '.trigger-limit-char').trigger( 'keyup' );
+        // Trigger change on ready
+        $( 'select[name="style"], input[name="mesage_type"]' ).trigger( 'change' );
+        // Trigger keyup on ready
+        $( '.trigger-limit-char').trigger( 'keyup' );
+
+
+
+
+        // Change this to the location of your server-side upload handler:
+        $( '.fileupload' ).fileupload( {
+            url             : WBC.ajax_url,
+            formData        : {
+                action: 'blueimp-fileupload',
+            },
+            dataType        : 'json',
+            maxNumberOfFiles: 1,
+            done: function ( e, data ) {
+
+                var $self = $( this );
+
+                $.each( data.result.files, function ( index, file ) {
+
+                    $self.closest( '.fusion-column-wrapper' )
+                        .find( '.image-upload' )
+                        .attr( 'src', file.thumbnailUrl )
+                        .css( { display: 'inline-block' } );
+
+                    $self.closest( '.fusion-column-wrapper' )
+                        .find( '.hide-if-upload' )
+                        .css( { display : 'none' } );
+
+                    $self.closest( '.fileinput-button' ).find( 'span' ).text( 'Upload' );
+                });
+            },
+            progressall: function ( e, data ) {
+                var $self = $( this );
+                $self.closest( '.fileinput-button' ).find( 'span' ).text( 'Uploading...' );
+            }
+        } )
+            .prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
     });
 
 

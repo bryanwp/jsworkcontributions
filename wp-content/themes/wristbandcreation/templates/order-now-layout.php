@@ -140,65 +140,113 @@ get_header();
                     </div><!-- /.form-group -->
                     <div class="form-group">
                         <h2>Add Clipart</h2>
-                        <p class="form-row">
-                            <label for="clipart_front_start" class="checkbox">
-                                <span class="text-label fusion-one-third one_third fusion-layout-column fusion-spacing-no">Front Start</span>
-                                <span class="input-wrapper fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-no">
-                                    <button class="fusion-button button-flat button-round button-small button-default"
+                        <div class="form-row">
+
+                            <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
+                                <div class="fusion-column-wrapper">
+                                    <label class="text-label">Front Start</label>
+                                </div>
+                            </div><!-- /.fusion-one-third -->
+
+                            <div class="fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-yes">
+                                <div class="fusion-column-wrapper">
+                                    <button class="fusion-button button-flat button-round button-small button-green"
                                             target="_blank" href="#" data-toggle="modal" data-target=".avada_modal">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-taxi icon-preview hide"></i>
+                                            <i class="fa fa-taxi icon-preview hide-if-upload"></i>
+                                                <img class="image-upload hide-if-icon" width="16" height="16"/>
                                             select</span>
                                         <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                     </button>
                                     or
-                                    <a class="fusion-button button-flat button-round button-xsmall button-default" target="_blank" href="#"><span class="fusion-button-text">Upload</span></a>
-                                </span>
-                            </label>
-                        </p>
-                        <p class="form-row">
-                            <label for="clipart_front_end" class="checkbox">
-                                <span class="text-label fusion-one-third one_third fusion-layout-column fusion-spacing-no">Front End</span>
-                                <span class="input-wrapper fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-no">
-                                    <button class="fusion-button button-flat button-round button-small button-default"
+                                    <span class="fusion-button button-flat button-round button-xsmall button-default fileinput-button">
+                                        <span>Upload</span>
+                                        <!-- The file input field used as target for the file upload widget -->
+                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                               data-clipart-type="frontstart">
+                                    </span>
+                                </div>
+                            </div><!-- /.fusion-two-third -->
+                            <div class="fusion-clearfix"></div>
+                            <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
+                                <div class="fusion-column-wrapper">
+                                    <label class="text-label">Front End</label>
+                                </div>
+                            </div><!-- /.fusion-one-third -->
+
+                            <div class="fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-yes">
+                                <div class="fusion-column-wrapper">
+                                    <button class="fusion-button button-flat button-round button-small button-green"
                                             target="_blank" href="#" data-toggle="modal" data-target=".avada_modal">
-                                        <span class="fusion-button-text-right">
-                                            <i class="fa fa-taxi icon-preview hide"></i>
-                                            select</span>
+                                            <span class="fusion-button-text-right">
+                                                <i class="fa fa-taxi icon-preview hide-if-upload"></i>
+                                                <img class="image-upload hide-if-icon" width="16" height="16"/>
+                                                select</span>
                                         <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
-                                    </button> or
-                                    <a class="fusion-button button-flat button-round button-xsmall button-default" target="_blank" href="#"><span class="fusion-button-text">Upload</span></a>
-                                </span>
-                            </label>
-                        </p>
-                        <p class="form-row">
-                            <label for="clipart_back_start" class="checkbox">
-                                <span class="text-label fusion-one-third one_third fusion-layout-column fusion-spacing-no">Back Start</span>
-                                <span class="input-wrapper fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-no">
-                                    <button class="fusion-button button-flat button-round button-small button-default">
-                                        <span class="fusion-button-text-right">
-                                            <i class="fa fa-taxi icon-preview hide"></i>
-                                            select</span>
+                                    </button>
+                                    or
+                                        <span class="fusion-button button-flat button-round button-xsmall button-default fileinput-button">
+                                            <span>Upload</span>
+                                            <!-- The file input field used as target for the file upload widget -->
+                                            <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                                   data-clipart-type="frontend">
+                                        </span>
+                                </div>
+                            </div><!--/.fusion-two-third-->
+                            <div class="fusion-clearfix"></div>
+                            <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
+                                <div class="fusion-column-wrapper">
+                                    <label class="text-label">Back Start</label>
+                                </div>
+                            </div><!-- /.fusion-one-third -->
+
+                            <div class="fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-yes">
+                                <div class="fusion-column-wrapper">
+                                    <button class="fusion-button button-flat button-round button-small button-green"
+                                            target="_blank" href="#" data-toggle="modal" data-target=".avada_modal">
+                                            <span class="fusion-button-text-right">
+                                                <i class="fa fa-taxi icon-preview hide-if-upload"></i>
+                                                <img class="image-upload hide-if-icon" width="16" height="16"/>
+                                                select</span>
                                         <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
-                                    </button> or
-                                    <a class="fusion-button button-flat button-round button-xsmall button-default" target="_blank" href="#"><span class="fusion-button-text">Upload</span></a>
-                                </span>
-                            </label>
-                        </p>
-                        <p class="form-row">
-                            <label for="clipart_back_end" class="checkbox">
-                                <span class="text-label fusion-one-third one_third fusion-layout-column fusion-spacing-no">Back End</span>
-                                <span class="input-wrapper fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-no">
-                                    <button class="fusion-button button-flat button-round button-small button-default">
-                                        <span class="fusion-button-text-right">
-                                            <i class="fa fa-taxi icon-preview hide"></i>
-                                            select</span>
+                                    </button>
+                                    or
+                                        <span class="fusion-button button-flat button-round button-xsmall button-default fileinput-button">
+                                            <span>Upload</span>
+                                            <!-- The file input field used as target for the file upload widget -->
+                                            <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                                   data-clipart-type="backstart">
+                                        </span>
+                                </div>
+                            </div><!--/.fusion-two-third-->
+                            <div class="fusion-clearfix"></div>
+                            <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
+                                <div class="fusion-column-wrapper">
+                                    <label class="text-label">Back End</label>
+                                </div>
+                            </div><!-- /.fusion-one-third -->
+
+                            <div class="fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-yes">
+                                <div class="fusion-column-wrapper">
+                                    <button class="fusion-button button-flat button-round button-small button-green"
+                                            target="_blank" href="#" data-toggle="modal" data-target=".avada_modal">
+                                            <span class="fusion-button-text-right">
+                                                <i class="fa fa-taxi icon-preview hide-if-upload"></i>
+                                                <img class="image-upload hide-if-icon" width="16" height="16"/>
+                                                select</span>
                                         <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
-                                    </button> or
-                                    <a class="fusion-button button-flat button-round button-xsmall button-default" target="_blank" href="#"><span class="fusion-button-text">Upload</span></a>
-                                </span>
-                            </label>
-                        </p>
+                                    </button>
+                                    or
+                                        <span class="fusion-button button-flat button-round button-xsmall button-default fileinput-button">
+                                            <span>Upload</span>
+                                            <!-- The file input field used as target for the file upload widget -->
+                                            <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                                   data-clipart-type="backend">
+                                        </span>
+                                </div>
+                            </div><!--/.fusion-two-third-->
+
+                        </div>
                     </div><!-- /.form-group -->
                 </div><!-- /.fusion-column-wrapper -->
             </div><!--/.fusion-one-third-->

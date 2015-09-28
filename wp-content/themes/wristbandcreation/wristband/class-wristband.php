@@ -33,6 +33,7 @@ if (!class_exists('Wristband')) {
             $this->define('WBC_TEXT_DOMAIN', 'wristband');
             $this->define('WBC_VERSION', '1.0');
             $this->define('WBC_URL', untrailingslashit(get_stylesheet_directory_uri()) . '/'. $path);
+            $this->define('WBC_DIR', untrailingslashit(get_stylesheet_directory()) . '/'. $path);
 
             $this->define('WBC_ASSETS_URL', WBC_URL . '/assets');
             $this->define('WBC_MESSAGE_CHAR_LIMIT', 22);

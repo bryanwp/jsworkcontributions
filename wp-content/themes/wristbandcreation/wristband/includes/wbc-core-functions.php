@@ -75,4 +75,23 @@ if (!function_exists('wbc_post_image')) {
 }
 
 
+//add_action('wp_ajax_priv_blueimp-fileupload', 'wbc_blueimp_uploadhandler');
+//add_action('wp_ajax_nopriv_blueimp-fileupload', 'wbc_blueimp_uploadhandler');
+
+
+
+add_action('init', 'wbc_blueimp_uploadhandler');
+
+
+if (!function_exists('wbc_blueimp_uploadhandler')) {
+    function wbc_blueimp_uploadhandler() {
+        if (isset($_POST['action']) && $_POST['action'] == 'blueimp-fileupload') {
+
+            include_once('lib/UploadHandler.php');
+            include_once('class-wbc-uploadhandler.php');
+
+            $wbc_uploadhandler = new WBC_UploadHandler();
+        }
+    }
+}
 
