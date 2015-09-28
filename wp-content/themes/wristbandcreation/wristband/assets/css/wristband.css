@@ -2,7 +2,7 @@
     display:block;
     padding:5px 10px;
     width:100%;
-    margin:10px 0;
+    margin: 10px 0 0 0;
 }
 
 
@@ -44,7 +44,6 @@ p.form-row:after {
 }
 
 .image-preview {
-    border: solid 1px #F0F0F0;
     text-align: center;
     height: 300px;
     vertical-align: middle;
@@ -52,4 +51,28 @@ p.form-row:after {
 
 .link-buttons {
     padding: 10px 0;
+}
+
+
+#additional-option-section  .fusion-column-wrapper {
+    border: solid 1px #ECECEC;
+    border-radius: 7px;
+    padding: 5px;
+    min-height: 150px;
+    height: auto;
+    background-color: rgba(255, 255, 255, 0.901961);
+}
+
+
+#additional-option-section .fusion-imageframe .img-responsive {
+    height: 80px;
+}
+
+
+#additional-option-section .fusion-column-wrapper label {
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    right: 5px;
+    box-sizing: border-box;
 }
