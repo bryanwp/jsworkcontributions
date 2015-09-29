@@ -3,6 +3,7 @@ jQuery( function ( $ ) {
     var WRISTBAND = {
         init: function() {
             this.render_price_chart();
+            $.material.init();
         },
         on_load: function() {
             // Trigger change on ready

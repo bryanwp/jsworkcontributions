@@ -28,7 +28,7 @@ get_header();
                 <div class="fusion-column-wrapper">
                     <div class="form-group">
                         <label for="style">Select Style
-                            <span class="fusion-popover" data-toggle="tooltip" data-placement="right" title="Select Style">?</span>
+                            <span class="fusion-popover" data-toggle="tooltip" data-placement="top" title="Select Style">?</span>
                         </label>
                         <select name="style" id="style" class="form-control">
                             <?php if (isset($GLOBALS['wbc_settings']->products)):
@@ -40,7 +40,7 @@ get_header();
                     </div><!-- /.form-group -->
                     <div class="form-group">
                         <label for="width">Select Width
-                            <span class="fusion-popover" data-toggle="tooltip" data-placement="right"
+                            <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="Select Width">?</span>
                         </label>
                         <select name="width" id="width" class="form-control enable-if-style-selected" disabled></select>
@@ -48,20 +48,24 @@ get_header();
                     <div class="form-group">
                         <h2 class="form-group-heading" >Message on Wristbands</h2 class="form-group-heading" >
                         <p class="form-row">
-                            <input type="radio" name="mesage_type" value="front_and_back" checked/>
-                            <label for="mesage_type" class="checkbox">
-                                Front and Back
-                                 <span class="fusion-popover" data-toggle="tooltip" data-placement="right"
-                                       title="Front and Back Message" data-placement="top">?</span>
-                            </label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="mesage_type" value="front_and_back" checked/>
+                                    Front and Back
+                                </label>
+                            <span class="fusion-popover alignright" data-toggle="tooltip" data-placement="top"
+                                  title="Front and Back Message" data-placement="top">?</span>
+                            </div>
                         </p>
                         <p class="form-row">
-                            <input type="radio" name="mesage_type" value="continues" />
-                            <label for="message" class="checkbox">
-                                Continues
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="right"
-                                      title="Continues Message">?</span>
-                            </label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="mesage_type" value="continues" checked/>
+                                    Continues
+                                </label>
+                            <span class="fusion-popover alignright" data-toggle="tooltip" data-placement="top"
+                                  title="Front and Back Message" data-placement="top">?</span>
+                            </div>
                         </p>
                     </div><!-- /.form-group -->
                     <div class="form-group hide-if-message_type-continues">
@@ -304,7 +308,7 @@ get_header();
                                             foreach($color_list as $key => $list):
                                             if (strpos($key, 'color_') === false) continue;?>
                                         <li>
-                                            <div class="color-wrap" data-toggle="tooltip" data-placement="right"
+                                            <div class="color-wrap" data-toggle="tooltip" data-placement="top"
                                             title="<?php echo $color_list->name; ?>">
 
                                                 <div style="background-color: <?php echo $list; ?>">
@@ -364,7 +368,11 @@ get_header();
                     <div class="fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
                         <div class="fusion-column-wrapper">
                             <div class="addon">
-                                <input type="checkbox" name="additional_option[]" value="<?php echo $index; ?>" />
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" name="additional_option[]" value="<?php echo $index; ?>" />
+                                    </label>
+                                </div>
                                 <span class="addon-price-handler"></span>
                             </div>
                             <div class="imageframe-align-center">
@@ -377,7 +385,7 @@ get_header();
                             <div class="fusion-sep-clear"></div>
                             <label class="aligncenter">
                                 <?php echo $option->name; ?>
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="right"
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                       title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
                             </label>
 
@@ -395,7 +403,7 @@ get_header();
                                     data-price="<?php echo esc_attr($cus_location->price); ?>"/>
                             <label for="customization_location">
                                 <?php echo esc_attr($cus_location->name); ?>
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="right"
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                       title="<?php echo esc_attr($cus_location->tool_tip_text); ?>">?</span>
                             </label><br />
                         <?php endforeach; ?>
