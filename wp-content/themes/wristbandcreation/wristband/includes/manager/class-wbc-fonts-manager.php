@@ -88,7 +88,7 @@ if (!class_exists('WBC_Fonts_Manager')) {
             if (get_field('fonts', 'option')) {
                 foreach (get_field('fonts', 'option') as $key => $value) {
                     if (isset($value['enable']) && $value['enable'] != '') {
-                        $fonts[] = $value['name'];
+                        $fonts[] = trim($value['name']);
                     }
                 }
             }

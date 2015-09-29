@@ -69,7 +69,7 @@ get_header();
                         <select name="width" id="width" class="form-control enable-if-style-selected" disabled></select>
                     </div><!-- /.form-group -->
                     <div class="form-group">
-                        <h2>Message on Wristbands</h2>
+                        <h2 class="form-group-heading" >Message on Wristbands</h2 class="form-group-heading" >
                         <p class="form-row">
                             <input type="radio" name="mesage_type" value="front_and_back" checked/>
                             <label for="mesage_type" class="checkbox">
@@ -149,7 +149,7 @@ get_header();
                         </select>
                     </div><!-- /.form-group -->
                     <div class="form-group" id="add-clipart">
-                        <h2>Add Clipart</h2>
+                        <h2 class="form-group-heading" >Add Clipart</h2 class="form-group-heading" >
                         <div class="form-row">
 
                             <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
@@ -282,8 +282,8 @@ get_header();
                     </div>
 
                     <div class="form-row">
-                        <h2>Total Price: <span class="price-handler">$100.00</span></h2>
-                        <h2>Quantity: <span class="qty-handler">10 + 100 Free</span></h2>
+                        <h2 class="form-group-heading" >Total Price: <span class="price-handler">$100.00</span></h2 class="form-group-heading" >
+                        <h2 class="form-group-heading" >Quantity: <span class="qty-handler">10 + 100 Free</span></h2 class="form-group-heading" >
                     </div>
 
 
@@ -303,9 +303,53 @@ get_header();
             </div><!--/.fusion-one-third-->
             <div class="fusion-one-third one_third fusion-layout-column fusion-column-last fusion-spacing-yes">
                 <div class="fusion-column-wrapper">
+                    <div class="form-group">
+                        <h2 class="form-group-heading" >Select Wristband Color</h2 class="form-group-heading" >
+                        <ul class="color-type-list">
+                            <?php foreach ($GLOBALS['wbc_settings']->color_style as $style => $data ): ?>
+                            <li>
+                                <input type="radio" name="color_style" value="<?php echo esc_attr($style); ?>" />
+                                <label for="color_style"><?php echo esc_attr($style); ?></label>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <div class="form-group">
+                        <h2 class="form-group-heading" >Select Text Color</h2 class="form-group-heading" >
+                    </div><!-- /.fusion-row -->
+                    <div class="form-group">
+                        <h2 class="form-group-heading" >Input Quantity <span>(Side View Guide)</span></h2 class="form-group-heading" >
+                        <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
+                            <div class="fusion-column-wrapper">
+                                <div class="form-group">
+                                    <label for="qty_adult">Adult</label>
+                                    <input type="text" name="qty_adult[]" class="input-text form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
+                            <div class="fusion-column-wrapper">
+                                <div class="form-group">
+                                    <label for="qty_medium">Medium</label>
+                                    <input type="text" name="qty_medium[]" class="input-text form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes fusion-column-last">
+                            <div class="fusion-column-wrapper">
+                                <div class="form-group">
+                                    <label for="qty_youth">Youth</label>
+                                    <input type="text" name="qty_youth[]" class="input-text form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="fusion-clearfix"></div>
+                        <a class="fusion-button button-flat button-round button-xsmall button-default alignright" target="_blank"
+                           href="#"><span class="fusion-button-text">Add an additional color</span></a>
+                    </div><!-- /.fusion-row -->
                 <?php if (isset($GLOBALS['wbc_settings']->additional_options)):?>
                     <div class="fusion-row" id="additional-option-section">
-                        <h2 data-fontsize="19" data-lineheight="20">Additional Options</h2>
+                        <h2 class="form-group-heading"  data-fontsize="19" data-lineheight="20">Additional Options</h2 class="form-group-heading" >
                     <?php $i = 1; foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option):?>
 
 
@@ -338,7 +382,7 @@ get_header();
                     <?php endif;
                     if (isset($GLOBALS['wbc_settings']->customization)):?>
                     <div class="fusion-row" id="customization-section">
-                        <h2 data-fontsize="19" data-lineheight="20">Production and Shipping</h2>
+                        <h2 class="form-group-heading"  data-fontsize="19" data-lineheight="20">Production and Shipping</h2 class="form-group-heading" >
                         <?php foreach ($GLOBALS['wbc_settings']->customization->location as $index => $cus_location): ?>
                             <input type="radio" name="customization_location"
                                    value="<?php echo sanitize_title_with_underscore($cus_location->name) ;?>"

@@ -10,8 +10,8 @@ if (!class_exists('WBC_Manager')) {
             add_action('init', array($this, 'load_product_data_fields'), 10);
             add_action('wp_loaded', array($this, 'wp_loaded'));
 
-            add_action('save_post', 'delete_wbc_settings', 10, 3);
-            add_action('admin_head', 'delete_wbc_settings');
+            add_action('save_post', array($this, 'delete_wbc_settings'), 10, 3);
+            add_action('admin_head', array($this, 'delete_wbc_settings'));
 
 
 

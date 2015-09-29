@@ -16,6 +16,7 @@ span.fusion-popover {
 
 .form-group {
     padding: 10px 5px;
+    clear:both;
 }
 span.char_left_wrapper {
     width:105px;
@@ -133,4 +134,24 @@ img.image-upload.hide-if-icon {
     left:0;
 }
 
+.color-type-list {
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+.color-type-list:after {
+    clear:both;
+    display:block;
+
+}
+
+.color-type-list li {
+    display:inline-block;
+}
+
+
+
+h2.form-group-heading span {
+    font-size:14px;
+}
 
