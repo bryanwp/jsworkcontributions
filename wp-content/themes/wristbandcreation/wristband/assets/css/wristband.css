@@ -155,3 +155,21 @@ h2.form-group-heading span {
     font-size:14px;
 }
 
+
+#wristband-color-items .tab-pane ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#wristband-color-items .tab-pane ul li {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.color-wrap div {
+    width:20px;
+    height:20px;
+    border:solid 2px #F1F2F2;
+}

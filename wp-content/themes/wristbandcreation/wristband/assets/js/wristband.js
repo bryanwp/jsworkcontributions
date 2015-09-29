@@ -28,6 +28,8 @@ jQuery( function ( $ ) {
             });
 
 
+            // With transparent color
+            //$( '.color-selector' ).colorpicker();
             // Change this to the location of your server-side upload handler:
             $( '.fileupload' ).fileupload( {
                 url             : WBC.ajax_url,
@@ -111,6 +113,7 @@ jQuery( function ( $ ) {
                 }
 
             })
+            // Populate width dropdown
             .on( 'change', 'select#width', function() {
                 WRISTBAND.init();
             })
@@ -123,7 +126,7 @@ jQuery( function ( $ ) {
                     $( '.hide-if-message_type-' + this.value).css({ 'display': 'none' });
                 }
             })
-
+            // Message character limit
             .on( 'keyup', '.trigger-limit-char', function(e) {
                 var limit       = $(this).data('limit'),
                     cur_len     = $(this).val().length,
@@ -131,7 +134,13 @@ jQuery( function ( $ ) {
                     char_left   = limit - cur_len;
                 if ( char_left < 0 ) char_left = 0;
                 $( 'input[name="' + cur_name + '_chars_left"]' ).val( char_left );
+            })
+            // Wristband color style tab
+            .on( 'shown.bs.tab', '#wristband-color-tab li a[data-toggle="tab"]', function() {
+                $( this ).find( 'input[type=radio]' ).attr( 'checked', true );
             });
+
+
 
         // Call function on load
         WRISTBAND.on_load();

@@ -22,7 +22,8 @@ if (!class_exists('WBC_Front_Scripts')) {
             wp_register_script('jquery-iframe-transport_js', WBC_ASSETS_URL . '/js/vendor/jquery-fileupload/jquery.iframe-transport.js', array('jquery'), WBC_VERSION, true);
             wp_register_script('jquery-fileupload_js', WBC_ASSETS_URL . '/js/vendor/jquery-fileupload/jquery.fileupload.js', array('jquery'), WBC_VERSION, true);
             wp_register_script('select2_js', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js', array('jquery'), WBC_VERSION, true);
-
+            wp_register_script('jquery_ui_js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js', array('jquery'), WBC_VERSION, true);
+            wp_register_script('evol_colopicker_js', WBC_ASSETS_URL . '/js/vendor/colorpicker-master/evol.colorpicker.min.js', array('jquery'), WBC_VERSION, true);
             wp_register_script('mustache_js', WBC_ASSETS_URL . '/js/vendor/mustache.min.js', array('jquery'), WBC_VERSION, true);
             wp_register_script('wristband_js', WBC_ASSETS_URL . '/js/wristband.js', array('jquery'), WBC_VERSION, true);
 
@@ -33,6 +34,8 @@ if (!class_exists('WBC_Front_Scripts')) {
             wp_enqueue_script('jquery-iframe-transport_js');
             wp_enqueue_script('jquery-fileupload_js');
             wp_enqueue_script('select2_js');
+            wp_enqueue_script('jquery_ui_js');
+            wp_enqueue_script('evol_colopicker_js');
             wp_enqueue_script('mustache_js');
             wp_enqueue_script('wristband_js');
 
@@ -47,11 +50,15 @@ if (!class_exists('WBC_Front_Scripts')) {
         public function load_styles() {
             wp_register_style('jquery-file-upload_style', WBC_ASSETS_URL . '/css/vendor/jquery-fileupload/jquery.fileupload.css', array(), WBC_VERSION);
             wp_register_style('select2_style', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css', array(), WBC_VERSION);
+            wp_register_style('jquery_ui_style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css', array(), WBC_VERSION);
+            wp_register_style('evol_colorpicker_style', WBC_ASSETS_URL . '/css/vendor/colorpicker-master/evol.colorpicker.min.css', array(), WBC_VERSION);
             wp_register_style('wristband_style', WBC_ASSETS_URL . '/css/wristband.css', array(), WBC_VERSION);
 
 
             wp_enqueue_style('jquery-file-upload_style');
             wp_enqueue_style('select2_style');
+            wp_enqueue_style('jquery_ui_style');
+            wp_enqueue_style('evol_colorpicker_style');
             wp_enqueue_style('wristband_style');
 
         }

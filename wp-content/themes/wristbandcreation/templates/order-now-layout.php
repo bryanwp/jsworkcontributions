@@ -12,29 +12,11 @@ get_header();
             <table class="table table-bordered">
                 <tr>
                     <td>Qty</td>
-                    <td>1</td>
-                    <td>5</td>
-                    <td>10</td>
-                    <td>1</td>
-                    <td>5</td>
-                    <td>10</td>
-                    <td>1</td>
-                    <td>5</td>
-                    <td>10</td>
                 </tr>
                 <tr>
                     <td>
                         Price $
                     </td>
-                    <td>1</td>
-                    <td>5</td>
-                    <td>10</td>
-                    <td>1</td>
-                    <td>5</td>
-                    <td>10</td>
-                    <td>1</td>
-                    <td>5</td>
-                    <td>10</td>
                 </tr>
             </table>
         </div>
@@ -46,10 +28,7 @@ get_header();
                 <div class="fusion-column-wrapper">
                     <div class="form-group">
                         <label for="style">Select Style
-                            <span class="fusion-popover" data-animation="" data-class="popover-1"
-                                  data-container="popover-1"
-                                  data-content="This is the content" data-placement="top" data-title="Select Style"
-                                  data-toggle="popover" data-trigger="hover" data-original-title="">?</span>
+                            <span class="fusion-popover" data-toggle="tooltip" data-placement="right" title="Select Style">?</span>
                         </label>
                         <select name="style" id="style" class="form-control">
                             <?php if (isset($GLOBALS['wbc_settings']->products)):
@@ -61,10 +40,8 @@ get_header();
                     </div><!-- /.form-group -->
                     <div class="form-group">
                         <label for="width">Select Width
-                            <span class="fusion-popover" data-animation="" data-class="popover-1"
-                                  data-container="popover-1"
-                                  data-content="This is the content" data-placement="top" data-title="Select Style"
-                                  data-toggle="popover" data-trigger="hover" data-original-title="">?</span>
+                            <span class="fusion-popover" data-toggle="tooltip" data-placement="right"
+                                  title="Select Width">?</span>
                         </label>
                         <select name="width" id="width" class="form-control enable-if-style-selected" disabled></select>
                     </div><!-- /.form-group -->
@@ -74,20 +51,16 @@ get_header();
                             <input type="radio" name="mesage_type" value="front_and_back" checked/>
                             <label for="mesage_type" class="checkbox">
                                 Front and Back
-                                 <span class="fusion-popover" data-animation="" data-class="popover-1"
-                                       data-content="Front and Back Message" data-placement="top"
-                                       data-title="" data-toggle="popover" data-trigger="hover"
-                                       data-original-title="">?</span>
+                                 <span class="fusion-popover" data-toggle="tooltip" data-placement="right"
+                                       title="Front and Back Message" data-placement="top">?</span>
                             </label>
                         </p>
                         <p class="form-row">
                             <input type="radio" name="mesage_type" value="continues" />
                             <label for="message" class="checkbox">
                                 Continues
-                                <span class="fusion-popover" data-animation="" data-class="popover-1"
-                                      data-content="Continues Message" data-placement="top"
-                                      data-title="" data-toggle="popover" data-trigger="hover"
-                                      data-original-title="">?</span>
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="right"
+                                      title="Continues Message">?</span>
                             </label>
                         </p>
                     </div><!-- /.form-group -->
@@ -305,14 +278,49 @@ get_header();
                 <div class="fusion-column-wrapper">
                     <div class="form-group">
                         <h2 class="form-group-heading" >Select Wristband Color</h2 class="form-group-heading" >
-                        <ul class="color-type-list">
-                            <?php foreach ($GLOBALS['wbc_settings']->color_style as $style => $data ): ?>
-                            <li>
-                                <input type="radio" name="color_style" value="<?php echo esc_attr($style); ?>" />
-                                <label for="color_style"><?php echo esc_attr($style); ?></label>
-                            </li>
-                            <?php endforeach; ?>
-                        </ul>
+                        <div id="wristband-color-tab" class="fusion-tabs classic horizontal-tabs">
+                            <div class="nav">
+                                <ul class="nav-tabs nav-justified">
+                                    <?php $flag = true; foreach ($GLOBALS['wbc_settings']->color_style as $style => $data ): ?>
+                                    <li class="<?php echo $flag ? 'active' : ''; ?>">
+                                        <a class="tab-link" id="<?php echo sanitize_title($style); ?>" href="#tab-<?php echo sanitize_title($style); ?>"
+                                           data-toggle="tab">
+                                            <input type="radio" name="color_style" value="<?php echo esc_attr($style); ?>"
+                                                <?php echo $flag ? 'checked' : ''; ?>/>
+                                            <span class="fusion-tab-heading" data-fontsize="14" data-lineheight="30"><?php echo esc_attr($style); ?></span>
+                                        </a>
+                                    </li>
+                                    <?php $flag = false; endforeach; ?>
+                                </ul>
+                            </div>
+
+                            <div class="tab-content" id="wristband-color-items">
+
+                                <?php $flag = true; foreach ($GLOBALS['wbc_settings']->color_style as $style => $data):?>
+
+                                <div class="tab-pane fade <?php echo $flag ? 'active in' : ''; ?>" id="tab-<?php echo sanitize_title($style); ?>">
+                                    <ul>
+                                        <?php foreach ($data->color_list as $color_list):
+                                            foreach($color_list as $key => $list):
+                                            if (strpos($key, 'color_') === false) continue;?>
+                                        <li>
+                                            <div class="color-wrap" data-toggle="tooltip" data-placement="right"
+                                            title="<?php echo $color_list->name; ?>">
+
+                                                <div style="background-color: <?php echo $list; ?>">
+                                                    <input type="hidden" class="color-selector" value="<?php echo $list; ?>" />
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <?php endforeach;
+                                            $flag = false; endforeach; ?>
+                                    </ul>
+                                </div>
+
+                                <?php endforeach; ?>
+
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <h2 class="form-group-heading" >Select Text Color</h2 class="form-group-heading" >
@@ -369,10 +377,8 @@ get_header();
                             <div class="fusion-sep-clear"></div>
                             <label class="aligncenter">
                                 <?php echo $option->name; ?>
-                                <span class="fusion-popover" data-animation="" data-class="popover-1"
-                                      data-content="<?php echo esc_attr($option->tool_tip_text); ?>" data-placement="top"
-                                      data-title="<?php echo $option->name; ?>" data-toggle="popover" data-trigger="hover"
-                                      data-original-title="">?</span>
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="right"
+                                      title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
                             </label>
 
                         </div><!-- /.fusion-column-wrapper -->
@@ -389,10 +395,8 @@ get_header();
                                     data-price="<?php echo esc_attr($cus_location->price); ?>"/>
                             <label for="customization_location">
                                 <?php echo esc_attr($cus_location->name); ?>
-                                <span class="fusion-popover" data-animation="" data-class="popover-1"
-                                      data-content="<?php echo esc_attr($cus_location->tool_tip_text); ?>" data-placement="top"
-                                      data-title="<?php echo $cus_location->name; ?>" data-toggle="popover" data-trigger="hover"
-                                      data-original-title="">?</span>
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="right"
+                                      title="<?php echo esc_attr($cus_location->tool_tip_text); ?>">?</span>
                             </label><br />
                         <?php endforeach; ?>
 
