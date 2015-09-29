@@ -90,6 +90,8 @@ if (!function_exists('wbc_blueimp_uploadhandler')) {
             include_once('lib/UploadHandler.php');
             include_once('class-wbc-uploadhandler.php');
 
+
+
             $wbc_uploadhandler = new WBC_UploadHandler();
         }
     }

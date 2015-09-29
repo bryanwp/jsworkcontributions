@@ -4,6 +4,77 @@ jQuery( function ( $ ) {
         init: function() {
             this.render_price_chart();
         },
+        on_load: function() {
+            // Trigger change on ready
+            $( 'select[name="style"], input[name="mesage_type"]' ).trigger( 'change' );
+            // Trigger keyup on ready
+            $( '.trigger-limit-char').trigger( 'keyup' );
+
+
+            $( 'select:not(#font)' ).select2();
+            $( 'select#font' ).select2({
+                templateResult: function( font ) {
+
+                    if ( ! font.id || font.id == '-1' ) { return font.text; }
+
+
+                    var $font = $(
+                        '<span style="font-size:16px; font-family: \''+ font.text +'\'">' + font.text + '</span>'
+                    );
+
+
+                    return $font;
+                }
+            });
+
+
+            // Change this to the location of your server-side upload handler:
+            $( '.fileupload' ).fileupload( {
+                url             : WBC.ajax_url,
+                formData        : {
+                    action: 'blueimp-fileupload',
+                    clipart_type: $( this ),
+                },
+                dataType        : 'json',
+                maxNumberOfFiles: 1,
+                done: function ( e, data ) {
+
+                    var $self = $( this );
+
+                    $.each( data.result.files, function ( index, file ) {
+
+                        $self.closest( '.fusion-column-wrapper' )
+                            .find( '.image-upload' )
+                            .attr( 'src', file.thumbnailUrl )
+                            .css( { display: 'inline-block' } );
+
+                        $self.closest( '.fusion-column-wrapper' )
+                            .find( '.hide-if-upload' )
+                            .css( { display : 'none' } );
+
+                        $self.closest( '.fileinput-button' )
+                            .find( 'span' )
+                            .css( { 'padding-left' : '0' } )
+                            .end()
+                            .find( '.fa-spinner' )
+                            .remove();
+
+
+                    });
+                },
+                progressall: function ( e, data ) {
+                    var $self = $( this );
+
+                    $self.closest( '.fileinput-button' )
+                        .find( 'span' )
+                        .css( { 'padding-left' : '10px' } )
+                        .prepend( '<i class="fa fa-spinner" /> ' );
+                }
+            } )
+                .prop('disabled', !$.support.fileInput)
+                .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+        },
         render_price_chart: function() {
 
             var price_charts = WBC.settings.products[$( 'select[name="style"]').val()]['sizes'][$( 'select#width' ).val()]['price_chart'];
@@ -62,47 +133,9 @@ jQuery( function ( $ ) {
                 $( 'input[name="' + cur_name + '_chars_left"]' ).val( char_left );
             });
 
-        // Trigger change on ready
-        $( 'select[name="style"], input[name="mesage_type"]' ).trigger( 'change' );
-        // Trigger keyup on ready
-        $( '.trigger-limit-char').trigger( 'keyup' );
+        // Call function on load
+        WRISTBAND.on_load();
 
-
-
-
-        // Change this to the location of your server-side upload handler:
-        $( '.fileupload' ).fileupload( {
-            url             : WBC.ajax_url,
-            formData        : {
-                action: 'blueimp-fileupload',
-            },
-            dataType        : 'json',
-            maxNumberOfFiles: 1,
-            done: function ( e, data ) {
-
-                var $self = $( this );
-
-                $.each( data.result.files, function ( index, file ) {
-
-                    $self.closest( '.fusion-column-wrapper' )
-                        .find( '.image-upload' )
-                        .attr( 'src', file.thumbnailUrl )
-                        .css( { display: 'inline-block' } );
-
-                    $self.closest( '.fusion-column-wrapper' )
-                        .find( '.hide-if-upload' )
-                        .css( { display : 'none' } );
-
-                    $self.closest( '.fileinput-button' ).find( 'span' ).text( 'Upload' );
-                });
-            },
-            progressall: function ( e, data ) {
-                var $self = $( this );
-                $self.closest( '.fileinput-button' ).find( 'span' ).text( 'Uploading...' );
-            }
-        } )
-            .prop('disabled', !$.support.fileInput)
-            .parent().addClass($.support.fileInput ? undefined : 'disabled');
     });
 
 

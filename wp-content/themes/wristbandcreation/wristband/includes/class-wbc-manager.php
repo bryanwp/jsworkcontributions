@@ -9,6 +9,21 @@ if (!class_exists('WBC_Manager')) {
         public function __construct() {
             add_action('init', array($this, 'load_product_data_fields'), 10);
             add_action('wp_loaded', array($this, 'wp_loaded'));
+
+            add_action('save_post', 'delete_wbc_settings', 10, 3);
+            add_action('admin_head', 'delete_wbc_settings');
+
+
+
+        }
+
+
+        public function delete_wbc_settings($post_id = null, $post = null, $update = null) {
+
+            if (($post != null && $post->post_type == 'product') ||
+                (isset($_POST['acf_nonce']) && wp_verify_nonce($_POST['acf_nonce'], 'input'))) {
+                update_option('wbc_settings', null);
+            }
         }
 
         public function wp_loaded() {

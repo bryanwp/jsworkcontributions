@@ -131,18 +131,28 @@ get_header();
                                        value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
                             </span>
                         </label>
-                        <input type="" name="inside_message" class="form-control trigger-limit-char"
+                        <input type="text" name="inside_message" class="form-control trigger-limit-char"
                                data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" />
                     </div><!-- /.form-group -->
                     <div class="form-group">
                         <label for="font">Font</label>
-                        <select name="font" id="font" class="form-control enable-if-style-selected" disabled></select>
+                        <select name="font" id="font" class="form-control enable-if-style-selected">
+                            <option value="-1">-- Select --</option>
+
+                            <?php if (isset($GLOBALS['wbc_settings']->fonts)):
+                                foreach ($GLOBALS['wbc_settings']->fonts as $font):?>
+                                    <option style="font-family: <?php echo esc_attr($font); ?>"
+                                            value="<?php echo esc_attr($font); ?>"><?php echo esc_attr($font); ?>
+                                    </option>
+                            <?php endforeach;
+                                endif; ?>
+                        </select>
                     </div><!-- /.form-group -->
-                    <div class="form-group">
+                    <div class="form-group" id="add-clipart">
                         <h2>Add Clipart</h2>
                         <div class="form-row">
 
-                            <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
+                            <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
                                 <div class="fusion-column-wrapper">
                                     <label class="text-label">Front Start</label>
                                 </div>
@@ -158,8 +168,8 @@ get_header();
                                             select</span>
                                         <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                     </button>
-                                    or
-                                    <span class="fusion-button button-flat button-round button-xsmall button-default fileinput-button">
+                                    <span class="space-separator">or</span>
+                                    <span class="fusion-button button-flat button-round button-small button-default fileinput-button">
                                         <span>Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
                                         <input class="fileupload" type="file" name="files[]" accept="image/png"
@@ -168,7 +178,7 @@ get_header();
                                 </div>
                             </div><!-- /.fusion-two-third -->
                             <div class="fusion-clearfix"></div>
-                            <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
+                            <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
                                 <div class="fusion-column-wrapper">
                                     <label class="text-label">Front End</label>
                                 </div>
@@ -184,8 +194,8 @@ get_header();
                                                 select</span>
                                         <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                     </button>
-                                    or
-                                        <span class="fusion-button button-flat button-round button-xsmall button-default fileinput-button">
+                                    <span class="space-separator">or</span>
+                                        <span class="fusion-button button-flat button-round button-small button-default fileinput-button">
                                             <span>Upload</span>
                                             <!-- The file input field used as target for the file upload widget -->
                                             <input class="fileupload" type="file" name="files[]" accept="image/png"
@@ -194,7 +204,7 @@ get_header();
                                 </div>
                             </div><!--/.fusion-two-third-->
                             <div class="fusion-clearfix"></div>
-                            <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
+                            <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
                                 <div class="fusion-column-wrapper">
                                     <label class="text-label">Back Start</label>
                                 </div>
@@ -210,8 +220,8 @@ get_header();
                                                 select</span>
                                         <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                     </button>
-                                    or
-                                        <span class="fusion-button button-flat button-round button-xsmall button-default fileinput-button">
+                                    <span class="space-separator">or</span>
+                                        <span class="fusion-button button-flat button-round button-small button-default fileinput-button">
                                             <span>Upload</span>
                                             <!-- The file input field used as target for the file upload widget -->
                                             <input class="fileupload" type="file" name="files[]" accept="image/png"
@@ -220,7 +230,7 @@ get_header();
                                 </div>
                             </div><!--/.fusion-two-third-->
                             <div class="fusion-clearfix"></div>
-                            <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
+                            <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
                                 <div class="fusion-column-wrapper">
                                     <label class="text-label">Back End</label>
                                 </div>
@@ -236,8 +246,8 @@ get_header();
                                                 select</span>
                                         <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                     </button>
-                                    or
-                                        <span class="fusion-button button-flat button-round button-xsmall button-default fileinput-button">
+                                    <span class="space-separator">or</span>
+                                        <span class="fusion-button button-flat button-round button-small button-default fileinput-button">
                                             <span>Upload</span>
                                             <!-- The file input field used as target for the file upload widget -->
                                             <input class="fileupload" type="file" name="files[]" accept="image/png"
@@ -281,7 +291,7 @@ get_header();
                         <p>Guaranteed to be delived on or by</p>
                         <div class="form-group">
                             <label for="additional_notes">Addition Notes</label>
-                            <textarea class="form-control" name="additional_notes" id="additional_notes" cols="30" rows="5"></textarea>
+                            <textarea class="form-control input-text" name="additional_notes" id="additional_notes" cols="30" rows="5"></textarea>
                         </div>
                     </div>
 
