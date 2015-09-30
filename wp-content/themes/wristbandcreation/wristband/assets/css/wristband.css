@@ -78,12 +78,15 @@ p.form-row:after {
 }
 
 
-#additional-option-section .fusion-column-wrapper label {
-    position: absolute;
-    bottom: 10px;
-    left: 5px;
-    right: 5px;
-    box-sizing: border-box;
+#additional-option-section .fusion-column-wrapper .checkbox label {
+    padding:0;
+    margin-left:-10px;
+}
+
+
+.radio label {
+    padding-left:30px;
+    color:#747474;
 }
 
 

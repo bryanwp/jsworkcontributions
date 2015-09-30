@@ -289,9 +289,13 @@ get_header();
                                     <li class="<?php echo $flag ? 'active' : ''; ?>">
                                         <a class="tab-link" id="<?php echo sanitize_title($style); ?>" href="#tab-<?php echo sanitize_title($style); ?>"
                                            data-toggle="tab">
-                                            <input type="radio" name="color_style" value="<?php echo esc_attr($style); ?>"
-                                                <?php echo $flag ? 'checked' : ''; ?>/>
-                                            <span class="fusion-tab-heading" data-fontsize="14" data-lineheight="30"><?php echo esc_attr($style); ?></span>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="color_style" value="<?php echo esc_attr($style); ?>"
+                                                        <?php echo $flag ? 'checked' : ''; ?>/>
+                                                    <?php echo esc_attr($style); ?>
+                                                </label>
+                                            </div>
                                         </a>
                                     </li>
                                     <?php $flag = false; endforeach; ?>
