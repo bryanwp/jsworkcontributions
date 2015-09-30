@@ -311,17 +311,25 @@ get_header();
                                             <li data-toggle="tooltip" data-placement="top"
                                                 title="<?php echo $color_list->name; ?>">
                                                 <div class="color-wrap">
-                                            <?php foreach($color_list as $key => $list):
-                                            if (strpos($key, 'color_') === false) continue;?>
+                                            <?php
+                                            $colorx = array();
+                                            foreach($color_list as $key => $list):
+                                            if (strpos($key, 'color_') === false || empty($list)) continue;
 
-
-
-                                                <div style="background-color: <?php echo $list; ?>">
-                                                    <input type="hidden" class="color-selector" value="<?php echo $list; ?>" />
-                                                </div>
-
-
+                                                $colorx[] = $list?>
                                             <?php endforeach; ?>
+
+
+                                            <div style="
+                                                background-color: <?php echo implode( ',', $colorx ); ?>;
+                                                background: -webkit-linear-gradient(<?php echo implode( ',', $colorx ); ?>); /* For Safari 5.1 to 6.0 */
+                                                background: -o-linear-gradient(<?php echo implode( ',', $colorx ); ?>); /* For Opera 11.1 to 12.0 */
+                                                background: -moz-linear-gradient(<?php echo implode( ',', $colorx ); ?>); /* For Firefox 3.6 to 15 */
+                                                background: linear-gradient(<?php echo implode( ',', $colorx ); ?>); /* Standard syntax */">
+                                                <input type="hidden" class="color-selector" value="<?php echo implode( ',', $colorx ); ?>" />
+                                            </div>
+
+
                                                 </div>
                                             </li>
                                         <?php $flag = false; endforeach; ?>
