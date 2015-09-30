@@ -7,23 +7,22 @@ get_header();
 
 ?>
 <div id="wristband-builder-content">
-    <section id="price_chart">
-        <div class="panel-body table-responsive">
-            <table class="table table-bordered">
-                <tr>
-                    <td>Qty</td>
-                </tr>
-                <tr>
-                    <td>
-                        Price $
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </section>
-
     <section id="wristband-builder">
         <div class="fusion-row">
+            <div id="price_chart" class="">
+                <div class="fusion-column-wrapper">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td>Qty</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Price $
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div><!-- /.fusion-fifth-fifth -->
             <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
                 <div class="fusion-column-wrapper">
                     <div class="form-group">
@@ -308,20 +307,24 @@ get_header();
 
                                 <div class="tab-pane fade <?php echo $flag ? 'active in' : ''; ?>" id="tab-<?php echo sanitize_title($style); ?>">
                                     <ul>
-                                        <?php foreach ($data->color_list as $color_list):
-                                            foreach($color_list as $key => $list):
+                                        <?php foreach ($data->color_list as $color_list): ?>
+                                            <li data-toggle="tooltip" data-placement="top"
+                                                title="<?php echo $color_list->name; ?>">
+                                                <div class="color-wrap">
+                                            <?php foreach($color_list as $key => $list):
                                             if (strpos($key, 'color_') === false) continue;?>
-                                        <li>
-                                            <div class="color-wrap" data-toggle="tooltip" data-placement="top"
-                                            title="<?php echo $color_list->name; ?>">
+
+
 
                                                 <div style="background-color: <?php echo $list; ?>">
                                                     <input type="hidden" class="color-selector" value="<?php echo $list; ?>" />
                                                 </div>
-                                            </div>
-                                        </li>
-                                        <?php endforeach;
-                                            $flag = false; endforeach; ?>
+
+
+                                            <?php endforeach; ?>
+                                                </div>
+                                            </li>
+                                        <?php $flag = false; endforeach; ?>
                                     </ul>
                                 </div>
 
@@ -402,14 +405,17 @@ get_header();
                     <div class="fusion-row" id="customization-section">
                         <h2 class="form-group-heading"  data-fontsize="19" data-lineheight="20">Production and Shipping</h2 class="form-group-heading" >
                         <?php foreach ($GLOBALS['wbc_settings']->customization->location as $index => $cus_location): ?>
-                            <input type="radio" name="customization_location"
-                                   value="<?php echo sanitize_title_with_underscore($cus_location->name) ;?>"
-                                    data-price="<?php echo esc_attr($cus_location->price); ?>"/>
-                            <label for="customization_location">
-                                <?php echo esc_attr($cus_location->name); ?>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="customization_location"
+                                           value="<?php echo sanitize_title_with_underscore($cus_location->name) ;?>"
+                                           data-price="<?php echo esc_attr($cus_location->price); ?>"
+                                        <?php echo $index == 0 ? 'checked' : ''; ?>/>
+                                    <?php echo esc_attr($cus_location->name); ?>
+                                </label>
                                 <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                       title="<?php echo esc_attr($cus_location->tool_tip_text); ?>">?</span>
-                            </label><br />
+                           </div><br />
                         <?php endforeach; ?>
 
                         <?php foreach ($GLOBALS['wbc_settings']->customization->dates as $type => $date): ?>

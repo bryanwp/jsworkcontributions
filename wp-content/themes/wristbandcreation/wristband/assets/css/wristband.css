@@ -171,8 +171,18 @@ h2.form-group-heading span {
     padding: 0;
 }
 
-.color-wrap div {
-    width:20px;
-    height:20px;
-    border:solid 2px #F1F2F2;
+.color-wrap {
+    display: inline-block;
+    padding: 0;
+    border: solid 1px #DDDDDD;
+    margin: 0;
 }
+
+.color-wrap div {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin: 0;
+    padding: 2px 10px;
+}
+
