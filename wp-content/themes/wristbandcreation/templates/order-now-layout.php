@@ -320,12 +320,11 @@ get_header();
                                             <?php endforeach; ?>
 
 
-                                            <div style="
-                                                background-color: <?php echo implode( ',', $colorx ); ?>;
-                                                background: -webkit-linear-gradient(<?php echo implode( ',', $colorx ); ?>); /* For Safari 5.1 to 6.0 */
-                                                background: -o-linear-gradient(<?php echo implode( ',', $colorx ); ?>); /* For Opera 11.1 to 12.0 */
-                                                background: -moz-linear-gradient(<?php echo implode( ',', $colorx ); ?>); /* For Firefox 3.6 to 15 */
-                                                background: linear-gradient(<?php echo implode( ',', $colorx ); ?>); /* Standard syntax */">
+                                            <div style="background-color: <?php echo implode( ',', $colorx ); ?>;
+                                                background: -webkit-linear-gradient(90deg,<?php echo implode( ',', $colorx ); ?>); /* For Safari 5.1 to 6.0 */
+                                                background: -o-linear-gradient(90deg,<?php echo implode( ',', $colorx ); ?>); /* For Opera 11.1 to 12.0 */
+                                                background: -moz-linear-gradient(90deg,<?php echo implode( ',', $colorx ); ?>); /* For Firefox 3.6 to 15 */
+                                                background: linear-gradient(90deg,<?php echo implode( ',', $colorx ); ?>); /* Standard syntax */">
                                                 <input type="hidden" class="color-selector" value="<?php echo implode( ',', $colorx ); ?>" />
                                             </div>
 
@@ -343,6 +342,9 @@ get_header();
                     </div>
                     <div class="form-group">
                         <h2 class="form-group-heading" >Select Text Color</h2 class="form-group-heading" >
+                        <div id="text-color-section">
+
+                        </div>
                     </div><!-- /.fusion-row -->
                     <div class="form-group">
                         <h2 class="form-group-heading" >Input Quantity <span>(Side View Guide)</span></h2 class="form-group-heading" >

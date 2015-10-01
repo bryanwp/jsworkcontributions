@@ -158,17 +158,28 @@ h2.form-group-heading span {
     font-size:14px;
 }
 
+#wristband-color-items
+.radio label span {
+    left:0;
+}
 
-#wristband-color-items .tab-pane ul {
+
+#wristband-color-items .tab-pane ul,
+#text-color-section ul{
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-#wristband-color-items .tab-pane ul li {
+#wristband-color-items .tab-pane ul li,
+#text-color-section ul li{
     display: inline-block;
     margin: 0;
     padding: 0;
+}
+
+#text-color-section ul li {
+    margin-right:4px;
 }
 
 .color-wrap {
@@ -184,5 +195,17 @@ h2.form-group-heading span {
     float: left;
     margin: 0;
     padding: 2px 10px;
+}
+
+#wristband-color-tab.fusion-tabs .nav-tabs,
+#wristband-color-tab.fusion-tabs .tab-pane{
+    border:none !important;
+}
+
+
+.form-group:after {
+    content: '';
+    clear: both;
+    display: block;
 }
 

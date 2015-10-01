@@ -85,8 +85,8 @@ jQuery( function ( $ ) {
 
             for ( var _qty in price_charts ) {
 
-                var output_qty_tpl = Mustache.render('<td>{{qty}}</td>', {qty: _qty});
-                var output_price_tpl = Mustache.render('<td>{{price}}</td>', {price: price_charts[_qty]});
+                var output_qty_tpl = Mustache.render( '<td>{{qty}}</td>', { qty: _qty } );
+                var output_price_tpl = Mustache.render( '<td>{{price}}</td>', { price: price_charts[_qty] } );
 
                 $( '#price_chart table tr:first-child' ).append( output_qty_tpl );
                 $( '#price_chart table tr:eq(1)' ).append( output_price_tpl );
@@ -111,8 +111,22 @@ jQuery( function ( $ ) {
                         $( 'select#width' ).append($option);
                     }
                     WRISTBAND.init();
-                }
 
+                    $( '#text-color-section').empty();
+
+
+                    var text_color_tpl = '';
+
+                    for( var i in slctd_product.text_color ) {
+                        text_color_tpl += Mustache.render( '<li data-toggle="tooltip" data-placement="top" title="{{name}}" data-original-title="{{name}}"><div class="color-wrap"><div style="background-color: {{color}};">' +
+                            '<input type="hidden" class="text-color-selector" value="{{name}}::{{color}}" /></div></div></li>',
+                            { name: slctd_product.text_color[i].name, color: slctd_product.text_color[i].color } );
+
+                    }
+
+                    $( '#text-color-section').html( '<ul>' + text_color_tpl + '</ul>' );
+
+                }
             })
             // Populate width dropdown
             .on( 'change', 'select#width', function() {

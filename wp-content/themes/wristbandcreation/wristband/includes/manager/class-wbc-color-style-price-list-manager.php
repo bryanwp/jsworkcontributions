@@ -11,7 +11,7 @@ if (!class_exists('WBC_Color_Style_Price_List_Manager')) {
             add_action('init', array($this, 'register'));
 
             if (!is_admin()) {
-                add_filter('wristband_settings_array', array($this, 'get_settings'), 30);
+                add_filter('wristband_settings_array', array($this, 'get_settings'), 35);
             }
         }
 
@@ -123,7 +123,8 @@ if (!class_exists('WBC_Color_Style_Price_List_Manager')) {
 
                     $repeater_name = sanitize_title_with_underscore($name . '_price_list');
 
-                    if (get_field($repeater_name, 'option')) {
+                    $opts = get_field($repeater_name, 'option');
+                    if (is_array($opts) && count($opts) != 0) {
                         foreach (get_field($repeater_name, 'option') as $key => $value) {
 
                             if (!isset($value['quantity'])) continue;

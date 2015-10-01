@@ -217,6 +217,81 @@ if (!class_exists('WBC_Color_Manager')) {
                     'menu_order' => 0,
                 ));
 
+
+
+            $this->register_field_group(array (
+                'id' => 'acf_text-color',
+                'title' => 'Text Color',
+                'fields' => array (
+                    array (
+                        'key' => 'field_560b4d254736a',
+                        'label' => 'Text Color',
+                        'name' => 'text_color',
+                        'type' => 'repeater',
+                        'sub_fields' => array (
+                            array (
+                                'key' => 'field_560b517a4736b',
+                                'label' => 'Name',
+                                'name' => 'name',
+                                'type' => 'text',
+                                'column_width' => '',
+                                'default_value' => '',
+                                'placeholder' => '',
+                                'prepend' => '',
+                                'append' => '',
+                                'formatting' => 'none',
+                                'maxlength' => '',
+                            ),
+                            array (
+                                'key' => 'field_560b518b4736c',
+                                'label' => 'Color',
+                                'name' => 'color',
+                                'type' => 'color_picker',
+                                'column_width' => '',
+                                'default_value' => '#FFFFFF',
+                            ),
+                            array (
+                                'key' => 'field_560cd01719fb7',
+                                'label' => 'Product',
+                                'name' => 'product',
+                                'type' => 'post_object',
+                                'column_width' => '',
+                                'post_type' => array (
+                                    0 => 'product',
+                                ),
+                                'taxonomy' => array (
+                                    0 => 'all',
+                                ),
+                                'allow_null' => 0,
+                                'multiple' => 1,
+                            ),
+                        ),
+                        'row_min' => '',
+                        'row_limit' => '',
+                        'layout' => 'table',
+                        'button_label' => 'Add Row',
+                    ),
+                ),
+                'location' => array (
+                    array (
+                        array (
+                            'param' => 'options_page',
+                            'operator' => '==',
+                            'value' => 'wristband-configuration-colors',
+                            'order_no' => 0,
+                            'group_no' => 0,
+                        ),
+                    ),
+                ),
+                'options' => array (
+                    'position' => 'normal',
+                    'layout' => 'no_box',
+                    'hide_on_screen' => array (
+                    ),
+                ),
+                'menu_order' => 0,
+            ));
+
         }
 
         public function load_field_color_style_choices( $field )
@@ -313,6 +388,21 @@ if (!class_exists('WBC_Color_Manager')) {
                         foreach (get_field($repeater_name, 'option') as $key => $value) {
                             $settings['color_style'][$name]['color_list'][] = $value;
                         }
+                    }
+
+
+                }
+            }
+
+
+
+            if (get_field('text_color', 'option')) {
+                foreach (get_field('text_color', 'option') as $key => $value) {
+
+                    if (!isset($value['name']) && !empty($value['name'])  && !empty($value['product'])) continue;
+
+                    foreach ($value['product'] as $product) {
+                        $settings['products'][$product->ID]['text_color'][] = array('name' => $value['name'], 'color' => $value['color']);
                     }
 
 
