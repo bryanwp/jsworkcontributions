@@ -279,6 +279,23 @@ get_header();
             </div><!--/.fusion-one-third-->
             <div class="fusion-one-third one_third fusion-layout-column fusion-column-last fusion-spacing-yes">
                 <div class="fusion-column-wrapper">
+                    <div id="colors-seleted-info" class="form-group table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Adult</th>
+                                    <th>Medium</th>
+                                    <th>Youth</th>
+                                    <th>Color</th>
+                                    <th>Text Color</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="form-group">
                         <h2 class="form-group-heading" >Select Wristband Color</h2 class="form-group-heading" >
                         <div id="wristband-color-tab" class="fusion-tabs classic horizontal-tabs">
@@ -320,12 +337,11 @@ get_header();
                                             <?php endforeach; ?>
 
 
-                                            <div style="background-color: <?php echo implode( ',', $colorx ); ?>;
+                                            <div data-color="<?php echo implode( ',', $colorx ); ?>" style="background-color: <?php echo implode( ',', $colorx ); ?>;
                                                 background: -webkit-linear-gradient(90deg,<?php echo implode( ',', $colorx ); ?>); /* For Safari 5.1 to 6.0 */
                                                 background: -o-linear-gradient(90deg,<?php echo implode( ',', $colorx ); ?>); /* For Opera 11.1 to 12.0 */
                                                 background: -moz-linear-gradient(90deg,<?php echo implode( ',', $colorx ); ?>); /* For Firefox 3.6 to 15 */
                                                 background: linear-gradient(90deg,<?php echo implode( ',', $colorx ); ?>); /* Standard syntax */">
-                                                <input type="hidden" class="color-selector" value="<?php echo implode( ',', $colorx ); ?>" />
                                             </div>
 
 
@@ -340,7 +356,7 @@ get_header();
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <h2 class="form-group-heading" >Select Text Color</h2 class="form-group-heading" >
                         <div id="text-color-section">
 
@@ -352,7 +368,10 @@ get_header();
                             <div class="fusion-column-wrapper">
                                 <div class="form-group">
                                     <label for="qty_adult">Adult</label>
-                                    <input type="text" name="qty_adult[]" class="input-text form-control">
+                                    <input type="text" name="qty_adult" id="qty_adult" class="input-text form-control">
+                                </div>
+                                <div class="form-group">
+                                    <select name="adult_text_color" class="form-control text-color-list"></select>
                                 </div>
                             </div>
                         </div>
@@ -360,7 +379,10 @@ get_header();
                             <div class="fusion-column-wrapper">
                                 <div class="form-group">
                                     <label for="qty_medium">Medium</label>
-                                    <input type="text" name="qty_medium[]" class="input-text form-control">
+                                    <input type="text" name="qty_medium" id="qty_medium" class="input-text form-control">
+                                </div>
+                                <div class="form-group">
+                                    <select name="medium_text_color" class="form-control text-color-list"></select>
                                 </div>
                             </div>
                         </div>
@@ -368,13 +390,16 @@ get_header();
                             <div class="fusion-column-wrapper">
                                 <div class="form-group">
                                     <label for="qty_youth">Youth</label>
-                                    <input type="text" name="qty_youth[]" class="input-text form-control">
+                                    <input type="text" name="qty_youth" id="qty_youth" class="input-text form-control">
+                                </div>
+                                <div class="form-group">
+                                    <select name="youth_text_color" class="form-control text-color-list"></select>
                                 </div>
                             </div>
                         </div>
                         <div class="fusion-clearfix"></div>
-                        <a class="fusion-button button-flat button-round button-xsmall button-default alignright" target="_blank"
-                           href="#"><span class="fusion-button-text">Add an additional color</span></a>
+                        <a class="fusion-button button-flat button-round button-xsmall button-default alignright"
+                           target="_blank" href="#" id="add-an-additional-color"><span class="fusion-button-text">Add an additional color</span></a>
                     </div><!-- /.fusion-row -->
                 <?php if (isset($GLOBALS['wbc_settings']->additional_options)):?>
                     <div class="fusion-row" id="additional-option-section">

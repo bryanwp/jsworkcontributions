@@ -185,8 +185,25 @@ h2.form-group-heading span {
 .color-wrap {
     display: inline-block;
     padding: 0;
-    border: solid 1px #DDDDDD;
+    border: solid 1px #FAF9F9;
     margin: 0;
+    position: relative;
+    font: normal normal normal 14px/1 FontAwesome;
+}
+
+.color-wrap.selected {
+    border-color: #36BA09;
+}
+
+
+.color-wrap.selected:before {
+    content: "\f00c";
+    position: absolute;
+    color: #36BA09;
+    top: -5px;
+    right: 1px;
+    width: 10px;
+    padding: 2px;
 }
 
 .color-wrap div {
@@ -208,4 +225,21 @@ h2.form-group-heading span {
     clear: both;
     display: block;
 }
+#colors-seleted-info table tr,
+#colors-seleted-info table td,
+#colors-seleted-info table th{
+    padding:0;
+}
 
+
+
+.select2-results__option .color-wrap {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.select2-results__option .color-wrap div {
+    width: 10px;
+    height: 10px;
+    padding: 2px 2px;
+}

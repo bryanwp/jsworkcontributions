@@ -6,13 +6,9 @@ jQuery( function ( $ ) {
             $.material.init();
         },
         on_load: function() {
-            // Trigger change on ready
-            $( 'select[name="style"], input[name="mesage_type"]' ).trigger( 'change' );
-            // Trigger keyup on ready
-            $( '.trigger-limit-char').trigger( 'keyup' );
 
+            $( 'select:not(#font, .text-color-list)' ).select2();
 
-            $( 'select:not(#font)' ).select2();
             $( 'select#font' ).select2({
                 templateResult: function( font ) {
 
@@ -27,6 +23,33 @@ jQuery( function ( $ ) {
                     return $font;
                 }
             });
+
+
+            $( 'select.text-color-list' ).select2({
+                templateResult: function( color ) {
+
+                    if ( ! color.id || color.id == '-1' ) { return color.text; }
+
+                    var data_color = $( color.element ).data( 'color' );
+
+                    var $text_color = $(
+                        '<span><div class="color-wrap"><div style="background-color: '+ data_color +';"></div></div>' + color.text + '</span>'
+                    );
+
+
+                    return $text_color;
+                }
+            });
+
+
+            // Trigger change on ready
+            $( 'select[name="style"], input[name="mesage_type"]' ).trigger( 'change' );
+            // Trigger keyup on ready
+            $( '.trigger-limit-char').trigger( 'keyup' );
+
+
+
+
 
 
             // With transparent color
@@ -112,19 +135,26 @@ jQuery( function ( $ ) {
                     }
                     WRISTBAND.init();
 
-                    $( '#text-color-section').empty();
+                    //$( '#text-color-section').empty();
+                    $('.text-color-list' ).empty();
+
+                    if (  slctd_product.text_color ) {
+                        $( '.text-color-list').closest( '.form-group' ).show();
+                        $('.text-color-list' ).select2( 'data', null );
+
+                        for ( var i in slctd_product.text_color ) {
+                            var text_color_tpl = $( '<option />' )
+                                .val( slctd_product.text_color[i].name )
+                                .text( slctd_product.text_color[i].name )
+                                .attr( 'data-color', slctd_product.text_color[i].color );
+
+                            $('.text-color-list' ).append( text_color_tpl );
+                        }
 
 
-                    var text_color_tpl = '';
-
-                    for( var i in slctd_product.text_color ) {
-                        text_color_tpl += Mustache.render( '<li data-toggle="tooltip" data-placement="top" title="{{name}}" data-original-title="{{name}}"><div class="color-wrap"><div style="background-color: {{color}};">' +
-                            '<input type="hidden" class="text-color-selector" value="{{name}}::{{color}}" /></div></div></li>',
-                            { name: slctd_product.text_color[i].name, color: slctd_product.text_color[i].color } );
-
+                    } else {
+                        $( '.text-color-list').closest( '.form-group' ).hide();
                     }
-
-                    $( '#text-color-section').html( '<ul>' + text_color_tpl + '</ul>' );
 
                 }
             })
@@ -153,7 +183,48 @@ jQuery( function ( $ ) {
             // Wristband color style tab
             .on( 'shown.bs.tab', '#wristband-color-tab li a[data-toggle="tab"]', function() {
                 $( this ).find( 'input[type=radio]' ).attr( 'checked', true );
+            })
+            // Text Color Selection
+            .on( 'click', '#text-color-section .color-wrap', function() {
+                $( '#text-color-section .color-wrap').removeClass( 'selected' );
+
+                $( this).addClass( 'selected' );
+            })
+            // Wristband Color Selection
+            .on( 'click', '#wristband-color-items .color-wrap', function() {
+                $( '#wristband-color-items .color-wrap').removeClass( 'selected' );
+
+                $( this).addClass( 'selected' );
+            })
+            .on( 'click', '#add-an-additional-color', function(e) {
+                e.preventDefault();
+
+                var $slctd_color     = $( '#wristband-color-tab .color-wrap.selected' ),
+                    $slctd_txt_color = $( '#text-color-section .color-wrap.selected' ),
+                    qty_adult       = $( '#qty_adult').val(),
+                    qty_medium      = $( '#qty_medium').val(),
+                    qty_youth       = $( '#qty_youth').val();
+
+
+
+
+                var tpl = Mustache.render(
+                    '<tr>' +
+                    '<td>{{qty_adult}}</td><td>{{qty_medium}}</td><td>{{qty_youth}}</td><td>{{color}}</td><td></td>' +
+                    '</tr>',
+                    {
+                        qty_adult   : qty_adult,
+                        qty_medium  : qty_medium,
+                        qty_youth   : qty_youth,
+                    }
+                );
+
+                $( '#colors-seleted-info table > tbody' ).append( tpl );
+
+                return false;
             });
+
+
 
 
 
