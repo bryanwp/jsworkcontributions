@@ -258,8 +258,9 @@ get_header();
                     </div>
 
                     <div class="form-row">
-                        <h2 class="form-group-heading" >Total Price: <span class="price-handler">$100.00</span></h2 class="form-group-heading" >
-                        <h2 class="form-group-heading" >Quantity: <span class="qty-handler">10 + 100 Free</span></h2 class="form-group-heading" >
+                        <h2 class="form-group-heading" >Total Price: <?php echo get_woocommerce_currency_symbol(); ?>
+                            <span class="price-handler" id="price_handler">0.00</span></h2 class="form-group-heading" >
+                        <h2 class="form-group-heading" >Quantity: <span id="qty_handler" class="qty-handler">0</span></h2 class="form-group-heading" >
                     </div>
 
 
@@ -279,15 +280,14 @@ get_header();
             </div><!--/.fusion-one-third-->
             <div class="fusion-one-third one_third fusion-layout-column fusion-column-last fusion-spacing-yes">
                 <div class="fusion-column-wrapper">
-                    <div id="colors-seleted-info" class="form-group table-responsive">
-                        <table class="table table-bordered">
+                    <div class="form-group table-responsive">
+                        <table id="selected_color_table" class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th>Adult</th>
                                     <th>Medium</th>
                                     <th>Youth</th>
                                     <th>Color</th>
-                                    <th>Text Color</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -337,7 +337,7 @@ get_header();
                                             <?php endforeach; ?>
 
 
-                                            <div data-color="<?php echo implode( ',', $colorx ); ?>" style="background-color: <?php echo implode( ',', $colorx ); ?>;
+                                            <div data-name="<?php echo $color_list->name; ?>" data-color="<?php echo implode( ',', $colorx ); ?>" style="background-color: <?php echo implode( ',', $colorx ); ?>;
                                                 background: -webkit-linear-gradient(90deg,<?php echo implode( ',', $colorx ); ?>); /* For Safari 5.1 to 6.0 */
                                                 background: -o-linear-gradient(90deg,<?php echo implode( ',', $colorx ); ?>); /* For Opera 11.1 to 12.0 */
                                                 background: -moz-linear-gradient(90deg,<?php echo implode( ',', $colorx ); ?>); /* For Firefox 3.6 to 15 */
@@ -356,19 +356,13 @@ get_header();
                             </div>
                         </div>
                     </div>
-                    <!--<div class="form-group">
-                        <h2 class="form-group-heading" >Select Text Color</h2 class="form-group-heading" >
-                        <div id="text-color-section">
-
-                        </div>
-                    </div><!-- /.fusion-row -->
                     <div class="form-group">
                         <h2 class="form-group-heading" >Input Quantity <span>(Side View Guide)</span></h2 class="form-group-heading" >
                         <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
                             <div class="fusion-column-wrapper">
                                 <div class="form-group">
                                     <label for="qty_adult">Adult</label>
-                                    <input type="text" name="qty_adult" id="qty_adult" class="input-text form-control">
+                                    <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text form-control">
                                 </div>
                                 <div class="form-group">
                                     <select name="adult_text_color" class="form-control text-color-list"></select>
@@ -379,7 +373,7 @@ get_header();
                             <div class="fusion-column-wrapper">
                                 <div class="form-group">
                                     <label for="qty_medium">Medium</label>
-                                    <input type="text" name="qty_medium" id="qty_medium" class="input-text form-control">
+                                    <input type="number" name="qty_medium" id="qty_medium"  min="0" class="input-text form-control">
                                 </div>
                                 <div class="form-group">
                                     <select name="medium_text_color" class="form-control text-color-list"></select>
@@ -390,7 +384,7 @@ get_header();
                             <div class="fusion-column-wrapper">
                                 <div class="form-group">
                                     <label for="qty_youth">Youth</label>
-                                    <input type="text" name="qty_youth" id="qty_youth" class="input-text form-control">
+                                    <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text form-control">
                                 </div>
                                 <div class="form-group">
                                     <select name="youth_text_color" class="form-control text-color-list"></select>
@@ -399,7 +393,7 @@ get_header();
                         </div>
                         <div class="fusion-clearfix"></div>
                         <a class="fusion-button button-flat button-round button-xsmall button-default alignright"
-                           target="_blank" href="#" id="add-an-additional-color"><span class="fusion-button-text">Add an additional color</span></a>
+                           target="_blank" href="#" id="add_color_to_selections"><span class="fusion-button-text">Add an additional color</span></a>
                     </div><!-- /.fusion-row -->
                 <?php if (isset($GLOBALS['wbc_settings']->additional_options)):?>
                     <div class="fusion-row" id="additional-option-section">

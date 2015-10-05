@@ -185,15 +185,11 @@ h2.form-group-heading span {
 .color-wrap {
     display: inline-block;
     padding: 0;
-    border: solid 1px #FAF9F9;
     margin: 0;
     position: relative;
     font: normal normal normal 14px/1 FontAwesome;
 }
 
-.color-wrap.selected {
-    border-color: #36BA09;
-}
 
 
 .color-wrap.selected:before {
@@ -206,13 +202,23 @@ h2.form-group-heading span {
     padding: 2px;
 }
 
+
+
 .color-wrap div {
     width: 20px;
     height: 20px;
     float: left;
     margin: 0;
-    padding: 2px 10px;
+    padding: 10px 10px;
+    border-radius: 15px;
+    border: solid 1px #EDEDED;
 }
+
+
+.color-wrap.added div {
+    border:solid 1px #D04F4F;
+}
+
 
 #wristband-color-tab.fusion-tabs .nav-tabs,
 #wristband-color-tab.fusion-tabs .tab-pane{
@@ -225,9 +231,9 @@ h2.form-group-heading span {
     clear: both;
     display: block;
 }
-#colors-seleted-info table tr,
-#colors-seleted-info table td,
-#colors-seleted-info table th{
+#selected_color_table tr,
+#selected_color_table td,
+#selected_color_table th{
     padding:0;
 }
 
@@ -242,4 +248,27 @@ h2.form-group-heading span {
     width: 10px;
     height: 10px;
     padding: 2px 2px;
+}
+
+#selected_color_table .color-wrap {
+    display:inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+#selected_color_table .color-wrap div {
+    width: 10px;
+    height: 10px;
+    padding: 5px 5px;
+    border-radius: 15px;
+}
+
+
+a.edit-selection {
+    margin-right: 10px;
+    display: inline-block;
+}
+
+a.delete-selection {
+    display:inline-block;
 }

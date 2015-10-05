@@ -44,11 +44,6 @@ if (!class_exists('WBC_Install')) {
 
 
 
-
-
-
-
-
             // Check if in the admin
             if (is_admin()) {
                 include_once ('admin/class-wbc-admin.php');

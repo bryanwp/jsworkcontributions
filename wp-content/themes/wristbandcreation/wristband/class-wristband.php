@@ -37,6 +37,7 @@ if (!class_exists('Wristband')) {
 
             $this->define('WBC_ASSETS_URL', WBC_URL . '/assets');
             $this->define('WBC_MESSAGE_CHAR_LIMIT', 22);
+            $this->define('WBC_QTY_MAX', 100);
 
         }
 

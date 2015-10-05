@@ -13,7 +13,9 @@ if (!class_exists('WBC_Manager')) {
             add_action('save_post', array($this, 'delete_wbc_settings'), 10, 3);
             add_action('admin_head', array($this, 'delete_wbc_settings'));
 
-
+            if (!is_admin()) {
+                add_filter( 'wristband_settings_array', array( $this, 'get_settings' ));
+            }
 
         }
 
@@ -98,7 +100,13 @@ if (!class_exists('WBC_Manager')) {
                 register_field_group($args);
             }
 
+        }
 
+        public function get_settings($settings) {
+
+            $settings['max_qty'] = WBC_QTY_MAX;
+
+            return $settings;
         }
 
 

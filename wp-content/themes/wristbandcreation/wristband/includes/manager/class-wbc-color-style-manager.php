@@ -12,11 +12,11 @@ if (!class_exists('WBC_Color_Style_Manager')) {
         public function __construct() {
             add_action('init', array($this, 'register_color_style_field_group'));
 
-
-            add_filter( 'wristband_settings_array', array( $this, 'get_color_style_list' ), 20 );
-
             add_filter('wristband_product_data_fields', array($this, 'register_product_data_fields'), 20);
 
+            if (!is_admin()) {
+                add_filter( 'wristband_settings_array', array( $this, 'get_color_style_list' ), 20 );
+            }
 
 
         }
