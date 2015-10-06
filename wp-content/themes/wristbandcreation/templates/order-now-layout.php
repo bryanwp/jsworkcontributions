@@ -137,16 +137,18 @@ get_header();
 
                             <div class="fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-yes">
                                 <div class="fusion-column-wrapper">
-                                    <button class="fusion-button button-flat button-round button-small button-green"
-                                            target="_blank" href="#" data-toggle="modal" data-target=".avada_modal">
+                                    <button id="front_start_btn" data-position="front_start" href="#" data-title="Front Start" data-toggle="modal"
+                                            data-target="#wristband-clipart-modal"
+                                            class="toggle-modal-clipart fusion-button button-flat button-round
+                                            button-small button-green">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-taxi icon-preview hide-if-upload"></i>
+                                            <i class="fa icon-preview hide-if-upload"></i>
                                                 <img class="image-upload hide-if-icon" width="16" height="16"/>
                                             select</span>
                                         <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                     </button>
                                     <span class="space-separator">or</span>
-                                    <span class="fusion-button button-flat button-round button-small button-default fileinput-button">
+                                    <span href="#" class="fusion-button button-flat button-round button-small button-default fileinput-button">
                                         <span>Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
                                         <input class="fileupload" type="file" name="files[]" accept="image/png"
@@ -163,16 +165,15 @@ get_header();
 
                             <div class="fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-yes">
                                 <div class="fusion-column-wrapper">
-                                    <button class="fusion-button button-flat button-round button-small button-green"
-                                            target="_blank" href="#" data-toggle="modal" data-target=".avada_modal">
+                                    <button id="front_end_btn" data-position="front_end" href="#" data-title="Front End" data-toggle="modal" data-target="#wristband-clipart-modal" class="toggle-modal-clipart fusion-button button-flat button-round button-small button-green">
                                             <span class="fusion-button-text-right">
-                                                <i class="fa fa-taxi icon-preview hide-if-upload"></i>
+                                                <i class="fa icon-preview hide-if-upload"></i>
                                                 <img class="image-upload hide-if-icon" width="16" height="16"/>
                                                 select</span>
                                         <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                     </button>
                                     <span class="space-separator">or</span>
-                                        <span class="fusion-button button-flat button-round button-small button-default fileinput-button">
+                                        <span href="#" class="fusion-button button-flat button-round button-small button-default fileinput-button">
                                             <span>Upload</span>
                                             <!-- The file input field used as target for the file upload widget -->
                                             <input class="fileupload" type="file" name="files[]" accept="image/png"
@@ -189,16 +190,15 @@ get_header();
 
                             <div class="fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-yes">
                                 <div class="fusion-column-wrapper">
-                                    <button class="fusion-button button-flat button-round button-small button-green"
-                                            target="_blank" href="#" data-toggle="modal" data-target=".avada_modal">
+                                    <button id="back_start_btn" data-position="back_start" href="#" data-title="Back Start" data-toggle="modal" data-target="#wristband-clipart-modal" class="toggle-modal-clipart fusion-button button-flat button-round button-small button-green">
                                             <span class="fusion-button-text-right">
-                                                <i class="fa fa-taxi icon-preview hide-if-upload"></i>
+                                                <i class="fa icon-preview hide-if-upload"></i>
                                                 <img class="image-upload hide-if-icon" width="16" height="16"/>
                                                 select</span>
                                         <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                     </button>
                                     <span class="space-separator">or</span>
-                                        <span class="fusion-button button-flat button-round button-small button-default fileinput-button">
+                                        <span href="#" class="fusion-button button-flat button-round button-small button-default fileinput-button">
                                             <span>Upload</span>
                                             <!-- The file input field used as target for the file upload widget -->
                                             <input class="fileupload" type="file" name="files[]" accept="image/png"
@@ -215,16 +215,15 @@ get_header();
 
                             <div class="fusion-two-third fusion-layout-column fusion-column-last fusion-spacing-yes">
                                 <div class="fusion-column-wrapper">
-                                    <button class="fusion-button button-flat button-round button-small button-green"
-                                            target="_blank" href="#" data-toggle="modal" data-target=".avada_modal">
+                                    <button id="back_end_btn" data-position="back_end" href="#" data-title="Back End" data-toggle="modal" data-target="#wristband-clipart-modal"  class="toggle-modal-clipart fusion-button button-flat button-round button-small button-green">
                                             <span class="fusion-button-text-right">
-                                                <i class="fa fa-taxi icon-preview hide-if-upload"></i>
+                                                <i class="fa icon-preview hide-if-upload"></i>
                                                 <img class="image-upload hide-if-icon" width="16" height="16"/>
                                                 select</span>
                                         <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                     </button>
                                     <span class="space-separator">or</span>
-                                        <span class="fusion-button button-flat button-round button-small button-default fileinput-button">
+                                        <span href="#" class="fusion-button button-flat button-round button-small button-default fileinput-button">
                                             <span>Upload</span>
                                             <!-- The file input field used as target for the file upload widget -->
                                             <input class="fileupload" type="file" name="files[]" accept="image/png"
@@ -473,9 +472,7 @@ get_header();
 
 </div>
 
-<div id="wristband-cliparts-modal" class="fusion-modal modal fade modal-1 avada_modal" tabindex="-1" role="dialog"
-     aria-labelledby="modal-heading-1" aria-hidden="true" style="display: none;">
-    <style type="text/css">.modal-1 .modal-header, .modal-1 .modal-footer{border-color:#ebebeb}</style>
+<div id="wristband-clipart-modal" class="fusion-modal modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content fusion-modal-content" style="background-color:#f6f6f6">
             <div class="modal-header">
@@ -486,7 +483,7 @@ get_header();
             </div>
             <div class="modal-body">
                 <?php if (count($GLOBALS['wbc_settings']->logo->list) != 0): ?>
-               <ul class="cliparts-list">
+               <ul class="clipart-list">
 
                    <li class="fusion-li-item active">
                        <label for="">

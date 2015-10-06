@@ -282,7 +282,7 @@ i.alert-notify {
 
 
 
-#wristband-cliparts-modal .modal-dialog {
+#wristband-clipart-modal .modal-dialog {
     width: 95%;
 }
 
@@ -296,46 +296,59 @@ i.alert-notify {
     text-transform: uppercase;
 }
 
-ul.cliparts-list {
+ul.clipart-list {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
 
-ul.cliparts-list li {
+ul.clipart-list li {
     display: inline-block;
-    border: solid 1px #C2C2C2;
+    border: solid 1px #F6F6F6;
     text-align: center;
     width: 70px;
     height: 70px;
     border-radius: 5px;
-    background-color: #E5E5E5;
+    background-color: #FFFFFF;
     margin: 3px 0;
     color: #000;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-ul.cliparts-list li.fusion-li-item.active {
+ul.clipart-list li.fusion-li-item.active {
     background-color: rgb(233, 242, 208);
-    border-color: #CDE0AA;
 }
 
 
-ul.cliparts-list li .icon-preview {
+ul.clipart-list li .icon-preview {
     padding: 5px 10px;
     height: 40px;
 }
 
+ul.clipart-list li .clearpart-info.text-center {
+    font-size: 11px;
+}
 
-ul.cliparts-list li i {
+
+ul.clipart-list li i {
     font-size: 30px;
     color: #5F9DBD;
 }
 
 
-ul.cliparts-list li i.color-red {
+ul.clipart-list li i.color-red {
     color: rgb(190, 11, 11);
     margin-top: 10px;
     font-size: 18px;
+}
+
+span#price_handler {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+
+span#qty_handler {
+    font-size: 20px;
 }
