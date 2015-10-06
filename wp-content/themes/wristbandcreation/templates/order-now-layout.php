@@ -59,7 +59,7 @@ get_header();
                         <p class="form-row">
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="mesage_type" value="continues" checked/>
+                                    <input type="radio" name="mesage_type" value="continues"/>
                                     Continues
                                 </label>
                             <span class="fusion-popover alignright" data-toggle="tooltip" data-placement="top"
@@ -76,6 +76,7 @@ get_header();
                         </label>
                         <input type="text" name="front_message" class="form-control trigger-limit-char"
                                data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" />
+
                     </div><!-- /.form-group -->
                     <div class="form-group  hide-if-message_type-continues">
                         <label for="width">Back Message
@@ -472,7 +473,7 @@ get_header();
 
 </div>
 
-<div class="fusion-modal modal fade modal-1 avada_modal" tabindex="-1" role="dialog"
+<div id="wristband-cliparts-modal" class="fusion-modal modal fade modal-1 avada_modal" tabindex="-1" role="dialog"
      aria-labelledby="modal-heading-1" aria-hidden="true" style="display: none;">
     <style type="text/css">.modal-1 .modal-header, .modal-1 .modal-footer{border-color:#ebebeb}</style>
     <div class="modal-dialog modal-lg">
@@ -484,10 +485,33 @@ get_header();
                     Choose your Front Start Clipart</h3>
             </div>
             <div class="modal-body">
-               ...
-            </div>
-            <div class="modal-footer">
-                <a class="fusion-button button-default button-medium button default medium" data-dismiss="modal">Close</a>
+                <?php if (count($GLOBALS['wbc_settings']->logo->list) != 0): ?>
+               <ul class="cliparts-list">
+
+                   <li class="fusion-li-item active">
+                       <label for="">
+                           <div class="icon-preview">
+                               <i class="fusion-li-icon fa fa-times color-red"></i>
+                           </div>
+                           <div class="clearpart-info text-center">
+                               None
+                           </div>
+                       </label>
+                   </li>
+                   <?php foreach ($GLOBALS['wbc_settings']->logo->list as $name => $icon): ?>
+                   <li class="fusion-li-item" data-icon="<?php echo esc_attr($icon); ?>" data-icon-name="<?php echo esc_attr($name); ?>">
+                       <label for="">
+                           <div class="icon-preview">
+                                <i class="fusion-li-icon fa <?php echo esc_attr($icon); ?>"></i>
+                           </div>
+                           <div class="clearpart-info text-center">
+                                <?php echo esc_attr($name); ?>
+                           </div>
+                       </label>
+                   </li>
+                   <?php endforeach; ?>
+               </ul>
+                <?php endif; ?>
             </div>
         </div>
     </div>

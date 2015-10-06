@@ -6,48 +6,33 @@ jQuery( function ( $ ) {
             n = parseInt( n );
 
             return isNaN( n ) ? 0 : n;
-        }
-    };
-
-
-    var CALCULATOR = {
-
-
-        get_price: function( qty ) {
-
-
-            var price_charts = WRISTBAND.price_charts;
-
-            var keys = Object.keys( price_charts );
-
-            for (var i = 0; i < keys.length; i++) {
-
-                console.log( keys.length - 1 );
-
-                var z = i < keys.length - 1 ? i + 1 : i;
-                if ( HELPER.int_val( keys[i] ) >= qty && qty <= HELPER.int_val( keys[z] ) ) {
-                    return price_charts[keys[i]];
-                } else if ( i >= keys.length - 1 &&  HELPER.int_val( keys[i] ) <= qty) {
-
-                    return price_charts[keys[i]];
-                }
-            }
-
-
-            return 0;
-
-
         },
-        get_total_price: function() {
+        float_val: function( n ) {
+            n = parseFloat( n );
 
-            return this.get_price( HELPER.int_val( WRISTBAND.get_total_quantity() ) );
 
+            return isNaN( n ) ? 0 : n;
+        },
+        number_format: function( n, f ) {
+
+            f = f == undefined ? 2 : f;
+
+
+
+            return  n.toFixed( f ).replace(/./g, function(c, i, a) {
+                return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+            });
         }
     };
+
 
     var WRISTBAND = {
         data: {
-          colors: []
+            total_price     : 0,
+            total_qty       : 0,
+            has_color_split : false,
+            has_extra_size  : false,
+            colors          : []
         },
         price_charts: [],
         is_color_exist: function( name ) {
@@ -69,8 +54,42 @@ jQuery( function ( $ ) {
             WRISTBAND.observer();
 
         },
-        get_total_quantity: function( ) {
-            var total_qty = 0;
+        check_color_split_and_extra_size: function() {
+
+            WRISTBAND.data['has_color_split']   = false;
+            WRISTBAND.data['has_extra_size']    = false;
+
+            var array_sizes = [];
+
+
+
+            if ( Object.keys( WRISTBAND.data.colors).length > 1 ) {
+                WRISTBAND.data['has_color_split'] = true;
+            }
+
+            for ( var color in WRISTBAND.data.colors ) {
+
+                for ( var size in WRISTBAND.data.colors[color].sizes ) {
+
+
+                    if ( array_sizes.length > 1 ) {
+
+                        WRISTBAND.data['has_extra_size'] = true;
+                        return;
+                    }
+
+                    if ( array_sizes.indexOf( size ) == -1 && WRISTBAND.data.colors[color].sizes[size].qty > 0 ) {
+                        array_sizes.push(size);
+                    }
+
+
+                }
+
+            }
+        },
+        collect_quantity: function( ) {
+            var total_qty       = 0;
+
             for ( var color in WRISTBAND.data.colors ) {
 
                 for ( var size in WRISTBAND.data.colors[color].sizes ) {
@@ -79,28 +98,204 @@ jQuery( function ( $ ) {
 
             }
 
-            return total_qty;
+            WRISTBAND.data.total_qty = total_qty;
 
         },
+
+        /**=========================================================================
+         * Start Price Collection
+         *==========================================================================*/
+
+        collect_prices: function() {
+
+            WRISTBAND.data.total_price = 0;
+
+            var qty = WRISTBAND.data.total_qty;
+
+            this._price_chart( qty );
+            this._color_split( qty );
+            this._extra_size( qty );
+            this._message_more_than_char( qty );
+            this._back_inside_message( qty );
+
+        },
+        _price_chart: function( qty ) {
+
+            if ( qty <= 0 ) return 0;
+
+            var price_charts = WRISTBAND.price_charts;
+
+            WRISTBAND.data.total_price += this.range_price( price_charts, qty );
+        },
+        _color_split: function( qty ) {
+
+            if ( !WRISTBAND.data.has_color_split ) return;
+
+            var color_split_cost = WBC.settings.color_split_cost_price_list;
+
+            WRISTBAND.data.total_price += this.range_price( color_split_cost, qty );
+
+        },
+        _extra_size: function( qty ) {
+
+
+            if ( !WRISTBAND.data.has_extra_size ) return;
+
+
+            var extra_size_cost = WBC.settings.color_extra_size_cost_price_list;
+
+            WRISTBAND.data.total_price += this.range_price( extra_size_cost, qty );
+
+
+        },
+
+
+        _message_more_than_char: function( qty ) {
+
+
+            if ( qty <= 0 ) return;
+
+            var price_list = WBC.settings.messages.more_than_22_characters_price_list;
+
+            var additional_price = this.range_price( price_list, qty );
+
+            var array_el = ['front_message', 'back_message', 'inside_message', 'continues_message'];
+
+            $( '.alert-notify.more-than-char' ).remove();
+
+            for ( var i = 0; i < array_el.length; i++ ) {
+
+                if ( ( $( 'input[name="mesage_type"]:checked' ).val() == 'continues' &&
+                        ( array_el[i] == 'front_message' || array_el[i] == 'back_message' ) ) ||
+                    ( $( 'input[name="mesage_type"]:checked' ).val() == 'front_and_back' &&
+                    array_el[i] == 'continues_message' ) ) {
+                    continue;
+                }
+
+                var el  = $( 'input[name="'+ array_el[i] +'"]' ).val();
+
+                if ( el.length > WBC.settings.messages.message_char_limit ) {
+                    WRISTBAND.data.total_price += additional_price;
+
+                    // Render alert message
+                    var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each for more than {{limit}} characters.',
+                        {
+                            currency_symbol: WBC.settings.currency_symbol,
+                            price: additional_price,
+                            limit: WBC.settings.messages.message_char_limit
+                        }
+                    );
+
+                    this.append_alert_msg( tpl, 'input[name="'+ array_el[i] +'"]', 'more-than-char' );
+                }
+
+            }
+
+
+        },
+
+        _back_inside_message: function( qty ) {
+
+            if ( qty <= 0 ) return;
+
+            var array_el = ['back_message', 'inside_message'];
+
+
+            $( '.alert-notify.each-message' ).remove();
+
+            for ( var i = 0; i < array_el.length; i++ ) {
+                var len = $('input[name="' + array_el[i] + '"]').val().length;
+                if (len > 0) {
+                    var price_list = WBC.settings.messages[array_el[i] + '_price_list'];
+                    if ( price_list != undefined ) {
+
+                        var additional_price = this.range_price( price_list, qty );
+                        WRISTBAND.data.total_price += additional_price;
+
+
+
+                        // Render alert message
+                        var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.',
+                            {
+                                currency_symbol: WBC.settings.currency_symbol,
+                                price: additional_price,
+                            }
+                        );
+
+                        this.append_alert_msg( tpl, 'input[name="'+ array_el[i] +'"]', 'each-message' );
+
+                    }
+                }
+            }
+
+        },
+
+
+        /**=========================================================================
+         * End Prices Collection
+         *==========================================================================*/
+
 
         init: function() {
             this.render_price_chart();
             $.material.init();
         },
 
+        append_alert_msg: function( _msg, el, uniq_class ) {
+            var tpl  = Mustache.render( '<i class="alert-notify '+ uniq_class +'">{{{message}}}</i>', { message: _msg } );
+
+            if ( uniq_class != undefined )
+                $( el).parent().find( '.' + uniq_class).remove();
+
+            $( tpl ).insertAfter( $( el ) );
+        },
+
+        range_price: function( range, qty ) {
+
+            var price = 0;
+            var keys = Object.keys( range );
+
+            for ( var i = 0; i < keys.length; i++ ) {
+
+                var z = i < keys.length - 1 ? i + 1 : i;
+                if ( ( i < keys.length && qty >= HELPER.int_val( keys[i] ) && qty < HELPER.int_val( keys[z] ) ) ||
+                    ( i >= keys.length - 1 && HELPER.int_val( keys[i] ) <= qty ) ) {
+
+                    price = HELPER.float_val( range[keys[i]] );
+                    break;
+                }
+            }
+
+
+            return price;
+
+        },
+
         observer: function() {
 
-            $( '#qty_handler').text( WRISTBAND.get_total_quantity() );
+
+            WRISTBAND.check_color_split_and_extra_size();
 
 
-            $( '#price_handler').text( CALCULATOR.get_total_price() );
+            WRISTBAND.collect_quantity();
+            WRISTBAND.collect_prices();
+
+
+            var total_qty   = WRISTBAND.data.total_qty,
+                total_price = WRISTBAND.data.total_price;
+
+
+            WRISTBAND.data['total_qty'] = total_qty;
+            WRISTBAND.data['total_price'] = total_price;
+
+            $( '#qty_handler' ).text( HELPER.number_format( total_qty, 0 ) + ( total_qty > WBC.settings.max_qty ? ' + 100 Free' : '' ) );
+            $( '#price_handler' ).text( HELPER.number_format( total_price ) );
 
 
 
 
 
         },
-
         on_load: function() {
 
             $( 'select:not(#font, .text-color-list)' ).select2();
@@ -316,9 +511,9 @@ jQuery( function ( $ ) {
                     $mtc   = $( 'select[name="medium_text_color"]'),
                     $ytc   = $( 'select[name="youth_text_color"]');
 
-                var _adult_text_color_box   = Mustache.render( bg_style_tpl, {hide: ( HELPER.int_val( $aq.val() ) <= 0 ? 'hide' : '' ), bg_color: $('option:selected', $atc).data( 'color' ), qty: HELPER.int_val( $aq.val() ) }),
-                    _medium_text_color_box  = Mustache.render( bg_style_tpl, {hide: ( HELPER.int_val( $mq.val() ) <= 0 ? 'hide' : '' ), bg_color: $('option:selected', $mtc).data( 'color' ), qty: HELPER.int_val( $mq.val() ) }),
-                    _youth_text_color_box   = Mustache.render( bg_style_tpl, {hide: ( HELPER.int_val( $yq.val() ) <= 0 ? 'hide' : '' ), bg_color: $('option:selected', $ytc).data( 'color' ), qty: HELPER.int_val( $yq.val() ) }),
+                var _adult_text_color_box   = Mustache.render( bg_style_tpl, {hide: ( HELPER.int_val( $aq.val() ) <= 0 ? 'hide' : '' ), bg_color: $('option:selected', $atc).data( 'color' ), qty: HELPER.number_format( HELPER.int_val( $aq.val() ), 0 ) }),
+                    _medium_text_color_box  = Mustache.render( bg_style_tpl, {hide: ( HELPER.int_val( $mq.val() ) <= 0 ? 'hide' : '' ), bg_color: $('option:selected', $mtc).data( 'color' ), qty: HELPER.number_format( HELPER.int_val( $mq.val() ), 0 ) }),
+                    _youth_text_color_box   = Mustache.render( bg_style_tpl, {hide: ( HELPER.int_val( $yq.val() ) <= 0 ? 'hide' : '' ), bg_color: $('option:selected', $ytc).data( 'color' ), qty: HELPER.number_format( HELPER.int_val( $yq.val() ), 0 ) }),
                     _wristband_color_box    = Mustache.render( bg_style_tpl, {hide: '', bg_color: $wc.data( 'color' ), qty: '' });
 
 
@@ -403,6 +598,30 @@ jQuery( function ( $ ) {
                 $row.remove();
 
                 return false;
+
+            })
+
+
+            .on( 'keyup', 'input[name="front_message"], input[name="back_message"], input[name="inside_message"]', function() {
+                WRISTBAND.observer();
+            })
+
+            // Trigger change when message type is choosen
+            .on( 'change', 'input[name="mesage_type"]', function() {
+                WRISTBAND.observer();
+            })
+
+
+            // Cliparts selection
+            .on( 'click', '.cliparts-list li', function() {
+
+                $( '.cliparts-list li').removeClass( 'active' );
+
+                $( this ).addClass( 'active' );
+
+
+
+
 
             });
 

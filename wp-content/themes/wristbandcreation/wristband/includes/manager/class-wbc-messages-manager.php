@@ -263,6 +263,7 @@ if (!class_exists('WBC_Messages_Manager')) {
             }
 
             $settings['messages'] = $messages;
+            $settings['messages']['message_char_limit'] = WBC_MESSAGE_CHAR_LIMIT;
 
             $settings['tool_tip_text'] = array(
                 'front' => get_field('front', 'option'),
