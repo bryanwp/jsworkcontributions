@@ -32,13 +32,7 @@ jQuery( function ( $ ) {
             total_qty       : 0,
             has_color_split : false,
             has_extra_size  : false,
-            colors          : [],
-            clipart         : {
-                front_start: '',
-                front_end: '',
-                back_start: '',
-                back_end: '',
-            },
+            colors          : []
         },
         price_charts: [],
         is_color_exist: function( name ) {
@@ -352,67 +346,50 @@ jQuery( function ( $ ) {
             // With transparent color
             //$( '.color-selector' ).colorpicker();
             // Change this to the location of your server-side upload handler:
+            $( '.fileupload' ).fileupload( {
+                url             : WBC.ajax_url,
+                formData        : {
+                    action: 'blueimp-fileupload',
+                    clipart_type: $( this ),
+                },
+                dataType        : 'json',
+                maxNumberOfFiles: 1,
+                done: function ( e, data ) {
 
+                    var $self = $( this );
 
-            $( '.fileupload' ).each(function() {
+                    $.each( data.result.files, function ( index, file ) {
 
+                        $self.closest( '.fusion-column-wrapper' )
+                            .find( '.image-upload' )
+                            .attr( 'src', file.thumbnailUrl )
+                            .css( { display: 'inline-block' } );
 
-                var $self = $( this );
-
-                $( this ).fileupload( {
-                    url             : WBC.ajax_url,
-                    formData        : {
-                        action: 'blueimp-fileupload',
-                        clipart_type: $self.data( 'clipart-type' ),
-                    },
-                    dataType        : 'json',
-                    maxNumberOfFiles: 1,
-                    done: function ( e, data ) {
-
-                        var $self = $( this );
-
-                        $.each( data.result.files, function ( index, file ) {
-
-
-
-                            $self.closest( '.fusion-column-wrapper' )
-                                .find( '.image-upload' )
-                                .attr( 'src', file.thumbnailUrl )
-                                .css( { display: 'inline-block' } );
-
-                            $self.closest( '.fusion-column-wrapper' )
-                                .find( '.hide-if-upload' )
-                                .css( { display : 'none' } );
-
-                            $self.closest( '.fileinput-button' )
-                                .find( 'span' )
-                                .css( { 'padding-left' : '0' } )
-                                .end()
-                                .find( '.fa-spinner' )
-                                .remove();
-
-
-                            var button = $self.closest( '.fusion-column-wrapper' ).find('.toggle-modal-clipart');
-
-                            button.attr( 'data-deleteUrl', file.deleteUrl );
-
-                            WRISTBAND.data.clipart[button.data('position')] = file.thumbnailUrl;
-
-                        });
-                    },
-                    progressall: function ( e, data ) {
-                        var $self = $( this );
+                        $self.closest( '.fusion-column-wrapper' )
+                            .find( '.hide-if-upload' )
+                            .css( { display : 'none' } );
 
                         $self.closest( '.fileinput-button' )
                             .find( 'span' )
-                            .css( { 'padding-left' : '10px' } )
-                            .prepend( '<i class="fa fa-spinner" /> ' );
-                    }
-                } )
-                    .prop('disabled', !$.support.fileInput)
-                    .parent().addClass($.support.fileInput ? undefined : 'disabled');
-            });
+                            .css( { 'padding-left' : '0' } )
+                            .end()
+                            .find( '.fa-spinner' )
+                            .remove();
 
+
+                    });
+                },
+                progressall: function ( e, data ) {
+                    var $self = $( this );
+
+                    $self.closest( '.fileinput-button' )
+                        .find( 'span' )
+                        .css( { 'padding-left' : '10px' } )
+                        .prepend( '<i class="fa fa-spinner" /> ' );
+                }
+            } )
+                .prop('disabled', !$.support.fileInput)
+                .parent().addClass($.support.fileInput ? undefined : 'disabled');
 
         },
         render_price_chart: function() {
@@ -634,45 +611,19 @@ jQuery( function ( $ ) {
                 WRISTBAND.observer();
             })
 
-            .on( 'show.bs.modal', '#wristband-clipart-modal', function(e){
 
-                var button = $( e.relatedTarget );
+            // Cliparts selection
+            .on( 'click', '.cliparts-list li', function() {
 
-
-                var modal = $( this );
-
-                modal.find( '.modal-title' ).text( 'Choose your '+ button.data( 'title' ) +' Clipart ' );
-                modal.find( '.clipart-list').data( 'target', '#' + button.attr( 'id' ) );
-                modal.find( '.clipart-list').data( 'position', button.attr( 'id' ) );
-
-            })
-
-
-            .on( 'click', '.clipart-list li', function() {
-
-                $( '.clipart-list li').removeClass( 'active' );
+                $( '.cliparts-list li').removeClass( 'active' );
 
                 $( this ).addClass( 'active' );
 
 
-                var button = $( $( this).closest( '.clipart-list').data( 'target' ) );
-
-                button.find( '.icon-preview' ).removeClass(function (index, css) {
-                    return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
-                });
-
-                button.find( '.icon-preview' ).addClass( $( this ).data( 'icon' ) );
 
 
-                WRISTBAND.data['clipart'][button.data('position')] =  $( this ).data( 'icon' );
-
-                console.log( WRISTBAND.data );
-
-                $( '#wristband-clipart-modal' ).modal( 'hide' );
 
             });
-
-
 
 
 
