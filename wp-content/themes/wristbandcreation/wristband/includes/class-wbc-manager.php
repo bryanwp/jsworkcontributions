@@ -105,7 +105,7 @@ if (!class_exists('WBC_Manager')) {
         public function get_settings($settings) {
 
             $settings['max_qty'] = WBC_QTY_MAX;
-            $settings['currency_symbol'] = get_woocommerce_currency_symbol();
+            $settings['currency_symbol'] = html_entity_decode( get_woocommerce_currency_symbol() );
 
 
             return $settings;

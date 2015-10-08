@@ -80,12 +80,11 @@ if (!function_exists('wbc_post_image')) {
 
 
 
-add_action('init', 'wbc_blueimp_uploadhandler');
+add_action('init', 'wbc_clipart_uploadhandler');
 
-
-if (!function_exists('wbc_blueimp_uploadhandler')) {
-    function wbc_blueimp_uploadhandler() {
-        if (isset($_POST['action']) && $_POST['action'] == 'blueimp-fileupload') {
+if (!function_exists('wbc_clipart_uploadhandler')) {
+    function wbc_clipart_uploadhandler() {
+        if (isset($_POST['action']) && $_POST['action'] == 'clipart-fileupload') {
 
             include_once('lib/UploadHandler.php');
             include_once('class-wbc-uploadhandler.php');
@@ -96,4 +95,20 @@ if (!function_exists('wbc_blueimp_uploadhandler')) {
         }
     }
 }
+
+add_action('init', 'wbc_clipart_delete_file');
+
+if (!function_exists('wbc_clipart_delete_file')) {
+    function wbc_clipart_delete_file() {
+        if (isset($_GET['action']) && $_GET['action'] == 'delete_clipart') {
+
+            include_once('lib/UploadHandler.php');
+            include_once('class-wbc-uploadhandler.php');
+
+            $wbc_uploadhandler = new WBC_UploadHandler();
+        }
+    }
+}
+
+
 

@@ -9,10 +9,12 @@ if (!class_exists('WBC_UploadHandler')) {
     {
         public function __construct() {
 
+            $upload_dir = wp_upload_dir();
+
             $options = array(
                 'script_url' => WBC_URL,
-                'upload_dir' => WBC_DIR . '/files/',
-                'upload_url' => WBC_URL . '/files/',
+                'upload_dir' => $upload_dir['basedir'] . '/clipart/',
+                'upload_url' => $upload_dir['baseurl'] . '/clipart/',
                 'image_versions' => array(
                     // The empty image version key defines options for the original image:
                     '' => array(

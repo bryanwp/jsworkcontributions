@@ -114,7 +114,7 @@ if (!class_exists('WBC_Customization_Option_Manager')) {
 
             if (get_field('customization_options', 'option')) {
                 foreach (get_field('customization_options', 'option') as $key => $value) {
-                    $settings['customization']['options'][] = $value;
+                    $settings['customization']['options'][sanitize_title_with_underscore($value['name'])] = $value;
                 }
             }
 

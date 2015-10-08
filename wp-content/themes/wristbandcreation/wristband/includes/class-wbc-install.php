@@ -25,6 +25,7 @@ if (!class_exists('WBC_Install')) {
 
             include_once ('wbc-core-functions.php');
             include_once ('class-wbc-front-scripts.php');
+            include_once ('class-wbc-cart.php');
             // Manager
             include_once ('class-wbc-manager.php');
             include_once ('manager/class-wbc-size-manager.php');
