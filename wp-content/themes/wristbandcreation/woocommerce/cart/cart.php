@@ -281,12 +281,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 </table>
 
 <?php do_action( 'woocommerce_after_cart_table' ); ?>
-	<?php
 
-	echo '<pre>'; ;
-	print_r( $cart_item );
-	echo '</pre>';
-	?>
 </form>
 
 <div class="cart-collaterals">

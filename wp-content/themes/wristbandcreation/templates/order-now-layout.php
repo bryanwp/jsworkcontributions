@@ -532,8 +532,4 @@ get_header();
 
 <?php
 
-echo '<pre style="display:none;">';
-print_r($GLOBALS['wbc_settings']);
-echo '</pre>';
-
 get_footer();
