@@ -275,7 +275,7 @@ get_header();
                             </div>
                         </div>
 
-                        <button id="wbc_add_to_cart" class="fusion-button button-flat button-round button-large button-default alignright">
+                        <button id="wbc_add_to_cart" href="#" class="fusion-button button-flat button-round button-large button-default alignright">
                             <span class="button-icon-divider-left"><i class="fa fa-shopping-cart"></i></span>
                              <span class="fusion-button-text-left">Add to Cart</span>
                         </button>

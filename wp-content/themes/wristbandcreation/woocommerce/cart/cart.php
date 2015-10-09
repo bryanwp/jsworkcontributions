@@ -113,6 +113,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 					<?php endif; ?>
 					<label>Text on Wristbands</label>
 					<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
+						<?php if (isset($meta['font']) && $meta['font'] == '-1'): ?>
 						<li class="fusion-li-item">
 								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
 									<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
@@ -122,6 +123,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 								<span>Font Style</span> – <?php echo $meta['font']; ?>
 							</div>
 						</li>
+						<?php endif; ?>
 						<?php if (isset($meta['messages'])): foreach ($meta['messages'] as $label => $val): if (empty($val)) continue; ?>
 							<li class="fusion-li-item">
 								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
@@ -154,7 +156,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 					<?php if (isset($meta['clipart'])): ?>
 						<label>Clipart</label>
 						<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
-							<?php foreach ($meta['clipart'] as $k => $clipart): ?>
+							<?php foreach ($meta['clipart'] as $k => $clipart): if (empty($clipart)) continue;?>
 								<li class="fusion-li-item">
 									<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
 										<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
