@@ -47,9 +47,12 @@ if (!class_exists('WBC_Cart')) {
                     wp_send_json_error(array( 'message' => 'Already added to cart.'));
                 } else {
                     $woocommerce->session->set_customer_session_cookie(true);
-                    $woocommerce->cart->add_to_cart($meta['product']);
-
-                    wp_send_json_success(array( 'message' => 'Successfully added to cart.'));
+                    $result = $woocommerce->cart->add_to_cart($meta['product']);
+                    if ($result) {
+                        wp_send_json_success(array('message' => 'Successfully added to cart.'));
+                    } else {
+                        wp_send_json_error(array( 'message' => $result));
+                    }
                 }
 
 
