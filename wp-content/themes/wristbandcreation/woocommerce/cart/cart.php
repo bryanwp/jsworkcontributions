@@ -40,109 +40,118 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 			if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 				?>
-				<tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
+				<tr class="<?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
 
-					<td class="product-remove">
-						<?php
-							echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf(
-								'<a href="%s" class="remove" title="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
-								esc_url( WC()->cart->get_remove_url( $cart_item_key ) ),
-								__( 'Remove this item', 'woocommerce' ),
-								esc_attr( $product_id ),
-								esc_attr( $_product->get_sku() )
-							), $cart_item_key );
-						?>
-					</td>
+				<td class="product-remove">
+					<?php
+					echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
+						'<a href="%s" class="remove" title="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
+						esc_url(WC()->cart->get_remove_url($cart_item_key)),
+						__('Remove this item', 'woocommerce'),
+						esc_attr($product_id),
+						esc_attr($_product->get_sku())
+					), $cart_item_key);
+					?>
+				</td>
 
-					<td class="product-name">
-						<?php
-							if ( ! $_product->is_visible() ) {
-								echo apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key ) . '&nbsp;';
-							} else {
-								echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s </a>', esc_url( $_product->get_permalink( $cart_item ) ), $_product->get_title() ), $cart_item, $cart_item_key );
-							}
+				<td class="product-name">
+					<?php
+					if (!$_product->is_visible()) {
+						echo apply_filters('woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key) . '&nbsp;';
+					} else {
+						echo apply_filters('woocommerce_cart_item_name', sprintf('<a href="%s">%s </a>', esc_url($_product->get_permalink($cart_item)), $_product->get_title()), $cart_item, $cart_item_key);
+					}
 
-							// Meta data
-							echo WC()->cart->get_item_data( $cart_item );
+					// Meta data
+					echo WC()->cart->get_item_data($cart_item);
 
-							// Backorder notification
-							if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
-								echo '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>';
-							}
-						?>
-					</td>
+					// Backorder notification
+					if ($_product->backorders_require_notification() && $_product->is_on_backorder($cart_item['quantity'])) {
+						echo '<p class="backorder_notification">' . esc_html__('Available on backorder', 'woocommerce') . '</p>';
+					}
+					?>
+				</td>
 
-					<td class="product-summary">
-							<label class="t-heading"><?php echo $_product->get_title() .' - '. $meta['size'] . ' Inch.';?></label>
-							<label>Quantity & Colors</label>
-							<?php if (isset($meta['colors'])): ?>
-								<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
-								<?php foreach($meta['colors'] as $color): if ( !isset($color['name']) || empty($color['name']) ) continue; ?>
+				<td class="product-summary">
+					<label
+						class="t-heading"><?php echo $_product->get_title() . ' - ' . $meta['size'] . ' Inch.'; ?></label>
+					<label>Quantity & Colors</label>
+					<?php if (isset($meta['colors'])): ?>
+						<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
+							<?php foreach ($meta['colors'] as $color): if (!isset($color['name']) || empty($color['name'])) continue; ?>
 
-									<li class="fusion-li-item">
+								<li class="fusion-li-item">
 										<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
 											<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
 										</span>
-										<div class="fusion-li-item-content">
-											<span><?php echo $color['name']; ?></span> – <?php echo $color['type']; ?>: <em>(<?php echo $color['color']; ?>)</em>
-										</div>
 
-										<?php if (isset($color['sizes']) && count($color['sizes']) !=0): ?>
-											<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
-											<?php foreach ($color['sizes'] as $k => $size): if ( $size['qty'] <= 0 ) continue; ?>
+									<div class="fusion-li-item-content">
+										<span><?php echo $color['name']; ?></span> – <?php echo $color['type']; ?>: <em>(<?php echo $color['color']; ?>
+											)</em>
+									</div>
+
+									<?php if (isset($color['sizes']) && count($color['sizes']) != 0): ?>
+										<ul class="fusion-checklist fusion-checklist-1"
+											style="font-size:12px;line-height:22.1px;">
+											<?php foreach ($color['sizes'] as $k => $size): if ($size['qty'] <= 0) continue; ?>
 												<li class="fusion-li-item">
 													<div class="fusion-li-item-content">
-														<span><?php echo ucfirst($k) .' <em>('. $size['qty'] . ')</em>'; ?></span> –
-															<?php if (isset($size['name'])): ?>
-																<?php echo $size['name']; ?>: <em>(<?php echo $size['color']; ?>)</em>
-															<?php endif; ?>
+														<span><?php echo ucfirst($k) . ' <em>(' . $size['qty'] . ')</em>'; ?></span>
+														–
+														<?php if (isset($size['name'])): ?>
+															<?php echo $size['name']; ?>:
+															<em>(<?php echo $size['color']; ?>)</em>
+														<?php endif; ?>
 													</div>
 												</li>
 											<?php endforeach; ?>
-											</ul>
-										<?php endif; ?>
-									</li>
-								<?php endforeach; ?>
-								</ul>
-							<?php endif; ?>
-						<label>Text on Wristbands</label>
-						<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
+										</ul>
+									<?php endif; ?>
+								</li>
+							<?php endforeach; ?>
+						</ul>
+					<?php endif; ?>
+					<label>Text on Wristbands</label>
+					<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
+						<li class="fusion-li-item">
+								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+									<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
+								</span>
+
+							<div class="fusion-li-item-content">
+								<span>Font Style</span> – <?php echo $meta['font']; ?>
+							</div>
+						</li>
+						<?php if (isset($meta['messages'])): foreach ($meta['messages'] as $label => $val): if (empty($val)) continue; ?>
 							<li class="fusion-li-item">
 								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
 									<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
 								</span>
+
 								<div class="fusion-li-item-content">
-									<span>Font Style</span> – <?php echo $meta['font']; ?>
+									<span><?php echo $label; ?></span> – <?php echo $val; ?>
 								</div>
 							</li>
-							<?php foreach ($meta['messages'] as $label => $val): if (empty($val)) continue;?>
-								<li class="fusion-li-item">
-								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
-									<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
-								</span>
-									<div class="fusion-li-item-content">
-										<span><?php echo $label; ?></span> – <?php echo $val; ?>
-									</div>
-								</li>
-							<?php endforeach; ?>
-						</ul>
+						<?php endforeach; endif; ?>
+					</ul>
 
-						<?php if (isset($meta['additional_options']) && count($meta['additional_options']) != 0): ?>
+					<?php if (isset($meta['additional_options']) && count($meta['additional_options']) > 0): ?>
 						<label>Additional Options</label>
 						<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
-							<?php foreach ($meta['additional_options'] as $option): ?>
+							<?php foreach ($meta['additional_options'] as $k => $option): ?>
 								<li class="fusion-li-item">
 									<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
 										<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
 									</span>
+
 									<div class="fusion-li-item-content">
 										<span><?php echo $option; ?></span>
 									</div>
 								</li>
 							<?php endforeach; ?>
 						</ul>
-						<?php endif; ?>
-
+					<?php endif; ?>
+					<?php if (isset($meta['clipart'])): ?>
 						<label>Clipart</label>
 						<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
 							<?php foreach ($meta['clipart'] as $k => $clipart): ?>
@@ -150,11 +159,14 @@ do_action( 'woocommerce_before_cart' ); ?>
 									<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
 										<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
 									</span>
+
 									<div class="fusion-li-item-content">
 										<span><?php echo ucfirst(str_replace('_', ' ', $k)); ?></span> -
 										<?php if (preg_match('/(\.jpg|\.png|\.bmp)$/', $clipart)): ?>
-											<img src="<?php echo wp_upload_dir()['baseurl'] . '/clipart/' .$clipart; ?>" alt="" width="16px" height="16px">
-											<?php else: ?>
+											<img
+												src="<?php echo wp_upload_dir()['baseurl'] . '/clipart/' . $clipart; ?>"
+												alt="" width="16px" height="16px">
+										<?php else: ?>
 											<i class="fa <?php echo $clipart; ?>"></i>
 										<?php endif; ?>
 										(<em><?php echo $clipart; ?></em>)
@@ -162,50 +174,74 @@ do_action( 'woocommerce_before_cart' ); ?>
 								</li>
 							<?php endforeach; ?>
 						</ul>
+					<?php endif; ?>
 
-						<label>Production and Shipping</label>
-						<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
+					<label>Production and Shipping</label>
+					<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
+						<li class="fusion-li-item">
+								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+										<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
+									</span>
+
+							<div class="fusion-li-item-content">
+								<span><?php echo $meta['customization_location']; ?></span>
+							</div>
+						</li>
+						<?php if (isset($meta['customization_date_production'])): ?>
 							<li class="fusion-li-item">
 								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
 										<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
 									</span>
-								<div class="fusion-li-item-content">
-									<span><?php echo $meta['customization_location']; ?></span>
-								</div>
-							</li>
-							<li class="fusion-li-item">
-								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
-										<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
-									</span>
+
 								<div class="fusion-li-item-content">
 									<span>Production Time</span> - <?php echo $meta['customization_date_production']; ?>
 								</div>
 							</li>
-
+						<?php endif; ?>
+						<?php if (isset($meta['customization_date_shipping'])): ?>
 							<li class="fusion-li-item">
 								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
 										<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
 									</span>
+
 								<div class="fusion-li-item-content">
 									<span>Shipping Time</span> - <?php echo $meta['customization_date_shipping']; ?>
 								</div>
 							</li>
-
+						<?php endif; ?>
+						<?php if (isset($meta['guaranteed_delivery'])): ?>
 							<li class="fusion-li-item">
 								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
 										<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
 									</span>
+
 								<div class="fusion-li-item-content">
 									<span>Guaranteed delivery</span> - <?php echo $meta['guaranteed_delivery']; ?>
 								</div>
 							</li>
-						</ul>
-					</td>
+						<?php endif; ?>
+					</ul>
+				</td>
 
-					<td class="product-quantity">
-						<?php
-							echo $meta['total_qty'];
-						?>
+				<td class="product-quantity">
+					<?php
+					if (isset($meta['total_qty'])) {
+						echo $meta['total_qty'];
+					} else {
+						if ($_product->is_sold_individually()) {
+							$product_quantity = sprintf('1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key);
+						} else {
+							$product_quantity = woocommerce_quantity_input(array(
+								'input_name' => "cart[{$cart_item_key}][qty]",
+								'input_value' => $cart_item['quantity'],
+								'max_value' => $_product->backorders_allowed() ? '' : $_product->get_stock_quantity(),
+								'min_value' => '0'
+							), $_product, false);
+						}
+
+						echo apply_filters('woocommerce_cart_item_quantity', $product_quantity, $cart_item_key, $cart_item);
+					}
+					?>
 					</td>
 
 					<td class="product-subtotal">
