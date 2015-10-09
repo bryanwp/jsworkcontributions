@@ -72,7 +72,7 @@ get_header();
                         </div><!-- /.form-group -->
                         <div class="form-group hide-if-message_type-continues">
                             <label for="width">Front Message
-                                <span class="char_left_wrapper pull-right">
+                                <span class="char_left_wrapper alignright">
                                     <input type="text" name="front_message_chars_left" class="input-text input-text-xs"
                                            value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
                                 </span>
@@ -83,7 +83,7 @@ get_header();
                         </div><!-- /.form-group -->
                         <div class="form-group  hide-if-message_type-continues">
                             <label for="width">Back Message
-                                <span class="char_left_wrapper pull-right">
+                                <span class="char_left_wrapper alignright">
                                     <input type="text" name="back_message_chars_left" class="input-text input-text-xs"
                                            value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
                                 </span>
@@ -95,7 +95,7 @@ get_header();
 
                         <div class="form-group  hide-if-message_type-front_and_back">
                             <label for="width">Continues Message
-                                <span class="char_left_wrapper pull-right">
+                                <span class="char_left_wrapper alignright">
                                     <input type="text" name="continues_message_chars_left" class="input-text input-text-xs"
                                            value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
                                 </span>
@@ -106,7 +106,7 @@ get_header();
 
                         <div class="form-group">
                             <label for="width">Inside Message
-                                <span class="char_left_wrapper pull-right">
+                                <span class="char_left_wrapper alignright">
                                     <input type="text" name="inside_message_chars_left" class="input-text input-text-xs"
                                            value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
                                 </span>
