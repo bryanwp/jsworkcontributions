@@ -24,8 +24,10 @@ span.fusion-popover {
     padding: 10px 5px;
     clear:both;
 }
+
 span.char_left_wrapper {
-    width:125px;
+    min-width: 120px;
+    text-align:right;
 }
 
 span.char_left_wrapper .input-text-xs {
@@ -416,24 +418,44 @@ span#qty_handler {
     left: 0;
 }
 
+input.button,
+input[type="submit"],
+button {
+    border-radius:2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    padding: 9px 9px
+
+}
+
+
+
+
+input.button,
+input[type="submit"],
+button,
+.fusion-button.button-large.button-3d,
 .button-flat.button-default,
 .button-flat.button-blue{
+    border:solid 1px #1A80B6;
     background: #1A80B6;
     color: #FFF;
 
 }
 
-#wbc_add_to_cart {
+#wbc_add_to_cart,
+.fusion-button.button-large.button-3d{
     box-shadow: inset 0 -4px 0 0 #02476C;
+    -webkit-box-shadow: inset 0 -4px 0 0 #02476C;
+    -moz-box-shadow: inset 0 -4px 0 0 #02476C;
+
 }
 
 
 .button-flat.button-default:hover,
 .button-flat.button-default:focus,
-.button-flat.button-default:visited,
 .button-flat.button-blue:hover,
-.button-flat.button-blue:focus,
-.button-flat.button-blue:visited {
+.button-flat.button-blue:focus{
     background: #05547E;
     color: #FFF;
 }
@@ -451,8 +473,7 @@ span#qty_handler {
 
 
 .button-flat.button-green:hover,
-.button-flat.button-green:focus,
-.button-flat.button-green:visited{
+.button-flat.button-green:focus{
     background: #679907;
     color: #FFF;
     border-color: #679907;
@@ -467,8 +488,7 @@ span#qty_handler {
 
 
 .button-flat.button-orange:hover,
-.button-flat.button-orange:focus,
-.button-flat.button-orange:visited{
+.button-flat.button-orange:focus{
     background: #CF8414;
     color: #FFF;
 }
@@ -506,23 +526,35 @@ span#qty_handler {
     text-align:left;
 }
 
-.shop_table thead {
-    background-color: #60c5eb;
+.shop_table thead tr {
+    background-color: #1A80B6;
     color: #FFF;
 }
 
 .shop_table thead tr th,
-.shop_table thead tr td {
-    color:#FFF !important;
+.shop_table thead tr th.product-remove,
+.shop_table thead tr th.product-details,
+.shop_table thead tr th.product-summary,
+.shop_table thead tr th.product-quantity,
+.shop_table thead tr th.product-subtotal
+{
+    color:#FFF;
     padding: 15px 25px;
 }
 
-.shop_table tbody tr {
-    height: auto !important;
+
+.shop_table tbody tr td.product-remove,
+.shop_table tbody tr td.product-details,
+.shop_table tbody tr td.product-summary,
+.shop_table tbody tr td.product-quantity,
+.shop_table tbody tr td.product-subtotal {
+    border: solid 1px #EDEDED;
+    padding: 5px 25px;
 }
 
+
 .shop_table .product-name {
-    width: auto !important;
+    width: 30%;
 }
 .shop_table .product-summary {
     width: 50%;
@@ -530,10 +562,6 @@ span#qty_handler {
 
 
 
-.shop_table th, .shop_table td {
-    border: solid 1px #E0DEDE;
-    padding: 5px 15px;
-}
 
 
 .shop_table th {
@@ -542,7 +570,6 @@ span#qty_handler {
 
 .shop_table td {
     vertical-align: top;
-    padding: 5px 25px !important;
 }
 
 .shop_table .product-remove a {
@@ -573,4 +600,14 @@ td.product-summary label {
 
 .product-summary .fusion-checklist .fusion-li-item {
     margin-bottom:0px;
+}
+
+
+.woocommerce-content-box.full-width.clearfix {
+    border:none;
+    padding:0;
+}
+
+div.coupon {
+    margin: 10px 0;
 }
