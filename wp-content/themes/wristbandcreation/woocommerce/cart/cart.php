@@ -34,7 +34,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 		<?php
 		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-			$meta = $cart_item['wristband_meta'];
+			$meta = isset($cart_item['wristband_meta']) ? $cart_item['wristband_meta'] : array();
 			$_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 			$product_id   = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
 
@@ -74,7 +74,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 				<td class="product-summary">
 					<label
-						class="t-heading"><?php echo $_product->get_title() . ' - ' . $meta['size'] . ' Inch.'; ?></label>
+						class="t-heading"><?php echo $_product->get_title() . ' - ' . (isset($meta['size']) ? $meta['size'] : '') . ' Inch.'; ?></label>
 					<label>Quantity & Colors</label>
 					<?php if (isset($meta['colors'])): ?>
 						<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
@@ -180,6 +180,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 					<label>Production and Shipping</label>
 					<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
+						<?php if (isset($meta['customization_location'])): ?>
 						<li class="fusion-li-item">
 								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
 										<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
@@ -189,6 +190,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 								<span><?php echo $meta['customization_location']; ?></span>
 							</div>
 						</li>
+						<?php endif; ?>
 						<?php if (isset($meta['customization_date_production'])): ?>
 							<li class="fusion-li-item">
 								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">

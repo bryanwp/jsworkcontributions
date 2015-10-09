@@ -84,6 +84,7 @@ add_action('init', 'wbc_clipart_uploadhandler');
 
 if (!function_exists('wbc_clipart_uploadhandler')) {
     function wbc_clipart_uploadhandler() {
+
         if (isset($_POST['action']) && $_POST['action'] == 'clipart-fileupload') {
 
             include_once('lib/UploadHandler.php');
@@ -92,6 +93,7 @@ if (!function_exists('wbc_clipart_uploadhandler')) {
 
 
             $wbc_uploadhandler = new WBC_UploadHandler();
+            die;
         }
     }
 }
