@@ -296,11 +296,23 @@ i.alert-notify {
     display: block;
 }
 
+#modal_message .modal-title:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    margin-right: 5px;
+    font-size: 18px;
+}
+
+.error .modal-title:before {
+    content: "\f071";
+    color: #A90F0F;
+}
 
 
-/*#wristband-clipart-modal .modal-dialog {*/
-    /*width: 95%;*/
-/*}*/
+.success .modal-title:before {
+    content: "\f00c";
+    color: #6A9A0D;
+
+}
 
 
 .info .modal-header {
@@ -422,7 +434,7 @@ span#qty_handler {
 .button-flat.button-blue:hover,
 .button-flat.button-blue:focus,
 .button-flat.button-blue:visited {
-    background: #1273A6;
+    background: #05547E;
     color: #FFF;
 }
 
@@ -462,17 +474,103 @@ span#qty_handler {
 }
 
 
+
+.fusion-button.button-red:hover,
+.fusion-button.button-red:focus {
+    background:rgb(147, 8, 8);
+    border-color:rgb(147, 8, 8);
+    color:#FFF;
+}
+
+
 .fusion-button.button-red {
-    background: rgb(221, 51, 51);
-    border-color: #DD3333;
+    background: rgb(211, 34, 34);
+    border-color: rgb(211, 34, 34);
     color: #FFF;
 }
 
 
-.fusion-button.button-red:hover,
-.fusion-button.button-red:focus,
-.fusion-button.button-red:visited {
-    background:rgb(199, 18, 18);
-    border-color:rgb(199, 18, 18);
-    color:#FFF;
+#price_qty_wrapper {
+    margin-top:3em;
+}
+#price_qty_wrapper h2 {
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+#price_chart table {
+    text-align:center;
+}
+
+#price_chart table tr td:first-child {
+    text-align:left;
+}
+
+.shop_table thead {
+    background-color: #60c5eb;
+    color: #FFF;
+}
+
+.shop_table thead tr th,
+.shop_table thead tr td {
+    color:#FFF !important;
+    padding: 15px 25px;
+}
+
+.shop_table tbody tr {
+    height: auto !important;
+}
+
+.shop_table .product-name {
+    width: auto !important;
+}
+.shop_table .product-summary {
+    width: 50%;
+}
+
+
+
+.shop_table th, .shop_table td {
+    border: solid 1px #E0DEDE;
+    padding: 5px 15px;
+}
+
+
+.shop_table th {
+    vertical-align: middle;
+}
+
+.shop_table td {
+    vertical-align: top;
+    padding: 5px 25px !important;
+}
+
+.shop_table .product-remove a {
+    float:none !important;
+}
+
+
+td.product-summary label.t-heading {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+td.product-summary label {
+    font-weight: bold;
+    display: block;
+    text-transform: uppercase;
+    margin-top:2em;
+}
+
+.product-summary .fusion-checklist {
+    margin-top:0px;
+}
+
+.fusion-checklist ul {
+    margin-left: 15px;
+    margin-top: 0;
+}
+
+
+.product-summary .fusion-checklist .fusion-li-item {
+    margin-bottom:0px;
 }

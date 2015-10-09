@@ -49,7 +49,7 @@ jQuery( function ( $ ) {
                 back_end: '',               // Back End Clipart
             },
         },
-        hasUpload: false,                   // Check if there are any files uploaded
+        has_upload: false,                   // Check if there are any files uploaded
         price_charts: [],                   // Array of price chart
 
         init: function() {
@@ -328,7 +328,7 @@ jQuery( function ( $ ) {
 
                             button.attr( 'data-file', file.name );
 
-                            WRISTBAND.hasUpload = true;
+                            WRISTBAND.has_upload = true;
                             WRISTBAND.data.clipart[button.data('position')] = file.name;
 
                             $self.closest( '.fusion-column-wrapper' )
@@ -420,21 +420,37 @@ jQuery( function ( $ ) {
 
         collect_data_to_post: function() {
 
+            var addtional_options    = [],
+                messages            = {},
+                $production_time    = $( 'select[name="customization_date_production"] option:selected'),
+                $shipping_time      = $( 'select[name="customization_date_shipping"] option:selected');
+
+            $( 'input[name="additional_option[]"]:checked' ).each(function() {
+               addtional_options.push( $( this).val() );
+            });
+
+
+            if ( $( 'input[name="mesage_type"]' ).val() == 'front_and_back' ) {
+                messages['Front Message']   = $( 'input[name="front_message"]' ).val();
+                messages['Back Message']    = $( 'input[name="back_message"]' ).val();
+                messages['Inside Message']  = $( 'input[name="inside_message"]' ).val();
+            } else {
+                messages['Continues Message'] = $( 'input[name="continues_message"]' ).val();
+            }
+
+            messages['Additional Notes'] = $( 'textarea#additional_notes').val();
 
             $.extend(WRISTBAND.data, {
                 product                 : $( 'select#style' ).val(),
                 size                    : $( 'select#width' ).val(),
-                message_type            : $( 'input[name="mesage_type"]' ).val(),
-                front_message           : $( 'input[name="front_message"]' ).val(),
-                back_message            : $( 'input[name="back_message"]' ).val(),
-                inside_message          : $( 'input[name="inside_message"]' ).val(),
-                continues_message       : $( 'input[name="continues_message"]' ).val(),
                 font                    : $( 'select#font').val(),
-                additional_notes        : $( 'textarea#additional_notes').val(),
-                additional_options      : $( 'input[name="additional_option[]"]').val(),
-                customization_location  : $( 'input[name="customization_location"]').val(),
-                customization_date_production : $( 'select[name="customization_date_production"]').val(),
-                customization_date_shipping : $( 'select[name="customization_date_shipping"]').val()
+                message_type            : $( 'input[name="mesage_type"]' ).val(),
+                messages                : messages,
+                additional_options      : addtional_options,
+                customization_location  : $( 'input[name="customization_location"]').data('title'),
+                customization_date_production : $production_time.text(),
+                customization_date_shipping : $production_time.text(),
+                guaranteed_delivery: 'Oct 4, 2016'
             });
 
 
@@ -453,6 +469,32 @@ jQuery( function ( $ ) {
 
 
 
+        },
+        validate_form: function() {
+            var flag    = true,
+                msg     = '';
+
+
+            if ( WRISTBAND.data.colors.length == 0 ) {
+                msg += 'Please select a color/quantity.<br />';
+                flag = false;
+            }
+
+            if ( $( 'select[name="customization_date_production"]').val() == -1 ) {
+                msg += 'Production time is required.<br />';
+                flag = false;
+            }
+
+            if ( $( 'select[name="customization_date_shipping"]').val() == -1 ) {
+                msg += 'Shipping Time is required.<br />';
+                flag = false;
+            }
+
+            if ( !flag )
+                WRISTBAND.popup_message( 'error', 'Error', msg );
+
+
+            return flag;
         },
 
         /**=========================================================================
@@ -591,7 +633,7 @@ jQuery( function ( $ ) {
 
 
             $( 'input[name="additional_option[]"]:checked').each( function(  ) {
-                var price_list = WBC.settings['additional_options'][$( this ).val()].price_list;
+                var price_list = WBC.settings['additional_options'][$( this ).data('key')].price_list;
 
                 var additional_price = WRISTBAND.range_price( price_list, qty );
 
@@ -818,7 +860,11 @@ jQuery( function ( $ ) {
 
 
                 if ( $wc.length == 0 || ( HELPER.iv( $aq.val() ) <= 0 && HELPER.iv( $mq.val() ) <= 0 &&
-                    HELPER.iv( $yq.val() ) <= 0 ) ) return;
+                    HELPER.iv( $yq.val() ) <= 0 ) ) {
+
+                    WRISTBAND.popup_message( 'error', 'Error', 'Please select color/quantity.' );
+                    return;
+                }
 
 
 
@@ -970,16 +1016,17 @@ jQuery( function ( $ ) {
 
                 var button = $( $( this).closest( '.clipart-list').data( 'target' ) );
 
+                var icon = $( this ).data( 'icon' );
+
                 button.find( '.icon-preview' ).removeClass(function (index, css) {
                     return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
                 });
 
-                button.find( '.icon-preview' ).addClass( $( this ).data( 'icon' ) );
+                button.find( '.icon-preview' ).addClass( icon == undefined ? 'fa-ban' : icon );
 
-                var icon = $( this ).data( 'icon' );
 
                 WRISTBAND.data['clipart'][button.data('position')] =  icon == undefined ? '' : icon;
-                WRISTBAND.hasUpload = false;
+                WRISTBAND.has_upload = false;
 
                 $( '#wristband-clipart-modal' ).modal( 'hide' );
 
@@ -1005,10 +1052,8 @@ jQuery( function ( $ ) {
 
             .on( 'click', '#wbc_add_to_cart', function(e) {
                 e.preventDefault();
-                console.log( WRISTBAND.data.colors.length );
 
-                if ( WRISTBAND.data.colors.length == 0 ) {
-                    WRISTBAND.popup_message( 'error', 'Error', 'Please select a color.' );
+                if ( !WRISTBAND.validate_form() ) {
                     return;
                 }
 
@@ -1039,8 +1084,8 @@ jQuery( function ( $ ) {
                         type = 'error';
                         title = 'Error';
                     }
-
-                    WRISTBAND.popup_message( type, title, response.data.message );
+                    WRISTBAND.has_upload = false;
+                    WRISTBAND.popup_message( type, title, response.data.message + ' <a href="'+ WBC.settings.site_url +'/cart">view cart <i class="fa fa-long-arrow-right"></i></a>' );
 
                 });
 
@@ -1052,20 +1097,20 @@ jQuery( function ( $ ) {
 
         // Alert message if attempt to leave/unload page
         $( window ).on( 'beforeunload', function() {
-            if ( WRISTBAND.hasUpload )
+            if ( WRISTBAND.has_upload )
                 return 'There are unsaved data.';
         });
 
         // Delete any uploaded clipart before leaving page
         $( window ).on( 'unload',function(){
-            if ( WRISTBAND.hasUpload ) {
+            if ( WRISTBAND.has_upload ) {
                 //Delete file clipart if page is leave/unload
                 for ( var i in WRISTBAND.data.clipart ) {
                     if ( WRISTBAND.data.clipart[i].match(/\.(jpeg|jpg|png|gif)$/) != null ) {
 
                         var result = WRISTBAND.delete_clipart( WRISTBAND.data.clipart[i] );
                         result.success( function() {
-                            WRISTBAND.hasUpload = false;
+                            WRISTBAND.has_upload = false;
                         } );
                     }
                 }

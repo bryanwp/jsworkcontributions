@@ -46,7 +46,7 @@ if (!class_exists('WBC_Cart')) {
                 if ( $this->check_already_in_cart( $meta['product'] ) ) {
                     wp_send_json_error(array( 'message' => 'Already added to cart.'));
                 } else {
-                    $woocommerce->cart->add_to_cart($meta['product'], $meta['total_qty']);
+                    $woocommerce->cart->add_to_cart($meta['product'], 1);
                     wp_send_json_success(array( 'message' => 'Successfully added to cart.'));
                 }
 

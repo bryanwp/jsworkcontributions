@@ -260,7 +260,7 @@ get_header();
                             </div>
                         </div>
 
-                        <div class="form-row">
+                        <div class="form-row" id="price_qty_wrapper">
                             <h2 class="form-group-heading" >Total Price: <?php echo get_woocommerce_currency_symbol(); ?>
                                 <span class="price-handler" id="price_handler">0.00</span></h2 class="form-group-heading" >
                             <h2 class="form-group-heading" >Quantity: <span id="qty_handler" class="qty-handler">0</span></h2 class="form-group-heading" >
@@ -409,7 +409,7 @@ get_header();
                                 <div class="addon">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="additional_option[]" value="<?php echo $index; ?>" />
+                                            <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" />
                                         </label>
                                     </div>
                                     <span class="addon-price-handler"></span>
@@ -439,7 +439,7 @@ get_header();
                             <?php $flag = false; foreach ($GLOBALS['wbc_settings']->customization->location as $cus_location): ?>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="customization_location"
+                                        <input type="radio" name="customization_location" data-title="<?php echo esc_attr($cus_location->name); ?>"
                                                value="<?php echo sanitize_title_with_underscore($cus_location->name) ;?>"
                                                data-price="<?php echo esc_attr($cus_location->price); ?>"
                                             <?php echo !$flag ? 'checked' : ''; ?>/>
@@ -523,7 +523,7 @@ get_header();
                     data-fontsize="17" data-lineheight="36">{{title}}</h3>
                 </div>
                 <div class="modal-body">
-                    <p>{{message}}</p>
+                    {{{message}}}
                 </div>
             </div>
         </div>
