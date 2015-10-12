@@ -219,13 +219,8 @@ if (!class_exists('WBC_Calendar')) {
                             addEventButton: {
                                 text: 'Add',
                                 click: function() {
-                                    var template  = $( '#calendar_form_template').html();
-                                    var tpl  = Mustache.render( template, {button_text: 'Add', class: 'hidden', date:moment().format('MM/DD/YYYY')} );
-                                    $('#calendar_event_wrapper').html(tpl);
 
-
-                                    tb_show('Add Holiday', '#TB_inline?width=350&height=250&inlineId=calendar_event_wrapper');
-                                    $( '#event_date').datepicker();
+                                    show_calendar_modal_form('Add Holiday', '#TB_inline?width=350&height=250&inlineId=calendar_event_wrapper', {button_text: 'Add', class: 'hidden', date:moment().format('MM/DD/YYYY')})
                                 }
                             }
                         },
@@ -248,22 +243,31 @@ if (!class_exists('WBC_Calendar')) {
                         },
                         eventClick: function(calEvent, jsEvent, view) {
 
-                            // change the border color just for fun
-//                            $(this).css({'border-color': '#FF004D', 'background-color': '#FF004D'});
 
+                            show_calendar_modal_form('Edit Holiday', '#TB_inline?width=350&height=450&inlineId=calendar_event_wrapper', {button_text: 'Update', id: calEvent.id, title: calEvent.title, date: calEvent.start.format('MM/DD/YYYY')})
+                        },
+                        dayClick: function(date, jsEvent, view) {
 
-                            var template  = $( '#calendar_form_template').html();
-                            var tpl  = Mustache.render( template, {button_text: 'Update', id: calEvent.id, title: calEvent.title, date: calEvent.start.format('MM/DD/YYYY')} );
-
-                            $('#calendar_event_wrapper').html(tpl);
-
-                            tb_show('Edit Holiday', '#TB_inline?width=350&height=450&inlineId=calendar_event_wrapper');
-
-                            $( '#event_date').datepicker();
+                            show_calendar_modal_form('Add Holiday', '#TB_inline?width=350&height=250&inlineId=calendar_event_wrapper', {button_text: 'Add', class: 'hidden', date:date.format('MM/DD/YYYY')})
                         }
+
                     });
 
+
+                    function show_calendar_modal_form(modal_title, url, data) {
+                        var template  = $( '#calendar_form_template').html();
+                        var tpl  = Mustache.render( template, data );
+                        $('#calendar_event_wrapper').html(tpl);
+
+
+                        tb_show(modal_title, url);
+                        $( '#event_date').datepicker();
+                    }
+
                 });
+
+
+
             </script>
             <?php
         }
@@ -281,7 +285,6 @@ if (!class_exists('WBC_Calendar')) {
             <?php add_thickbox(); ?>
             <script id="calendar_form_template" type="x-tmpl-mustache">
                 <form action="#" method="POST">
-                    <p>If title is already exists it will override the existing.</p>
                 <p>
                 <label for="event_title">Title</label><br />
                     <input type="text" id="event_title" name="event_title" class="regular-text" value="{{title}}">
