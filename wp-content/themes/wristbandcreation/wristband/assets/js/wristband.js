@@ -497,6 +497,68 @@ jQuery( function ( $ ) {
             return flag;
         },
 
+        calculate_delivery_date: function() {
+            var $production_time    = $( 'select#customization_date_production' ),
+                $shipping_time      = $( 'select#customization_date_shipping'),
+                the_date            = new Date();
+
+
+            if ($production_time.val() == -1 || $shipping_time.val() == -1) return;
+
+            var total_days          = HELPER.iv( $production_time.val() ) + HELPER.iv( $shipping_time.val() );
+
+
+
+
+
+            // Start escape saturday and sunday and holiday
+            var flag = true,
+                cntr = 0;
+
+            while ( flag == true ) {
+
+                the_date.setDate( the_date.getDate() + 1 );
+
+                if ( HELPER.iv( the_date.getDay() )  != 0 && HELPER.iv( the_date.getDay() ) != 6 && !this.is_holiday( the_date ) ) {
+                    cntr++;
+                }
+
+                if (cntr >= total_days) {
+                    break;
+                }
+            }
+
+            var month_name = [
+                "January", "February", "March",
+                "April", "May", "June", "July",
+                "August", "September", "October",
+                "November", "December"
+            ];
+            var week_name = [
+              "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
+            ];
+            // End escape
+            var delivery_date = week_name[the_date.getDay()] + ' ' + month_name[the_date.getMonth()] +' '+ the_date.getDate() + ', ' + the_date.getUTCFullYear();
+            $( '#delivery_date').text( delivery_date )
+            WRISTBAND.data['guaranteed_delivery'] = delivery_date;
+
+
+
+        },
+
+        is_holiday: function(t) {
+
+            for ( var i = 0; i < WBC.settings.holidays.length; i++ ) {
+                var now = new Date(WBC.settings.holidays[i] * 1000);
+                if ( now.getDate() == t.getDate() && now.getMonth() == t.getMonth() && now.getYear() == t.getYear() ) {
+                    return true;
+                }
+            }
+
+            return false;
+
+        },
+
         /**=========================================================================
          * Start Price Collection
          *==========================================================================*/
@@ -1092,7 +1154,11 @@ jQuery( function ( $ ) {
 
 
                 return false;
-            } );
+            } )
+            .on( 'change', 'select#customization_date_production, select#customization_date_shipping', function() {
+                WRISTBAND.calculate_delivery_date();
+
+            });
 
 
         // Alert message if attempt to leave/unload page

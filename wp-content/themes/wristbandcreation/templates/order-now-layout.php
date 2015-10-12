@@ -268,7 +268,7 @@ get_header();
 
 
                         <div class="form-row">
-                            <p>Guaranteed to be delived on or by</p>
+                            <p>Guaranteed to be delived on or by : <strong id="delivery_date"></strong></p>
                             <div class="form-group">
                                 <label for="additional_notes">Addition Notes</label>
                                 <textarea class="form-control input-text" name="additional_notes" id="additional_notes" cols="30" rows="5"></textarea>

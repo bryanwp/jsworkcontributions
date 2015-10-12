@@ -37,6 +37,8 @@ if (!class_exists('WBC_Calendar')) {
 
 
                 update_option('_wbc_calendar_event', json_encode($events));
+                //Empty wbc settings to update the settings on frontend
+                update_option('wbc_settings', null);
 
                 wp_send_json_success(array('events' => json_encode($events)));
                 exit;
@@ -48,9 +50,9 @@ if (!class_exists('WBC_Calendar')) {
             $events = json_decode(get_option('_wbc_calendar_event'), true);
             if (is_array($events) && count($events) != 0) {
 
-                for ($i = 0; $i < count($events); $i++) {
-                    if ($events[$i]['id'] == $event_id) {
-                        return $i;
+                foreach ($events as $k => $event) {
+                    if ($event['id'] == $event_id) {
+                        return $k;
                     }
                 }
 
@@ -105,6 +107,15 @@ if (!class_exists('WBC_Calendar')) {
                     background-color: rgb(255, 255, 255);
                     width: 50%;
                     margin: 30% auto;
+                }
+
+
+                button#delete_event {
+                    width: 100%;
+                    padding: 10px 0;
+                    background-color: #AD0000;
+                    background-image: none;
+                    color: #FFF;
                 }
             </style>
             <?php
@@ -245,7 +256,7 @@ if (!class_exists('WBC_Calendar')) {
                         eventClick: function(calEvent, jsEvent, view) {
 
 
-                            show_calendar_modal_form('Edit Holiday', '#TB_inline?width=350&height=400&inlineId=calendar_event_wrapper', {button_text: 'Update', id: calEvent.id, title: calEvent.title, date: calEvent.start.format('MM/DD/YYYY')})
+                            show_calendar_modal_form('Edit Holiday', '#TB_inline?width=350&height=300&inlineId=calendar_event_wrapper', {button_text: 'Update', id: calEvent.id, title: calEvent.title, date: calEvent.start.format('MM/DD/YYYY')})
                         },
                         dayClick: function(date, jsEvent, view) {
 
@@ -301,9 +312,6 @@ if (!class_exists('WBC_Calendar')) {
 
                      <form action="#" method="post" class="{{class}}">
                      <h2 class="separator">OR</h2>
-                <p>{{title}}</p>
-                <p>{{date}}</p>
-
                 <input type="hidden" name="event_id" value="{{id}}" />
                 <button type="button" id="delete_event" class="fc-addEventButton-button fc-button fc-state-default fc-corner-left fc-corner-right">Delete</button>
                 </form>

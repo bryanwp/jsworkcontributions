@@ -103,7 +103,21 @@ if (!class_exists('WBC_Manager')) {
         }
 
         public function get_settings($settings) {
+            $holidays = array();
 
+
+            $events = json_decode(get_option('_wbc_calendar_event'), true);
+
+
+            if ( is_array($events) && count($events) != 0 ) {
+                foreach ($events as $event) {
+                    $holidays[] = strtotime($event['start']);
+                }
+            }
+
+
+
+            $settings['holidays'] = $holidays;
             $settings['site_url'] = site_url();
             $settings['max_qty'] = WBC_QTY_MAX;
             $settings['currency_symbol'] = html_entity_decode( get_woocommerce_currency_symbol() );
