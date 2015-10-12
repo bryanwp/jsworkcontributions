@@ -130,6 +130,8 @@ class acf_options_page_plugin
 
 
 		foreach ($this->settings as $i => $settings) {
+
+
 			if (!is_array($settings)) continue;
 			// vars
 			$parent_slug = (isset($settings['slug']) && !empty($settings['slug']) ? $settings['slug'] : 'acf-options'). '-';
@@ -158,6 +160,7 @@ class acf_options_page_plugin
 				foreach ($settings['pages'] as $c) {
 					$sub_title = $c;
 					$sub_slug = (isset($settings['slug']) && !empty($settings['slug']) ? $settings['slug'] : 'acf-options'). '-' . sanitize_title($sub_title);
+
 
 					$child_page = add_submenu_page($parent_slug, $sub_title, $sub_title, $settings['capability'], $sub_slug, array($this, 'html'));
 

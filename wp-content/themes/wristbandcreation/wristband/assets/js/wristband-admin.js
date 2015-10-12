@@ -1,3 +1,5 @@
-/**
- * Created by seo on 9/17/15.
- */
+jQuery(function($) {
+    $('#calendar').fullCalendar({
+        // put your options and callbacks here
+    })
+});

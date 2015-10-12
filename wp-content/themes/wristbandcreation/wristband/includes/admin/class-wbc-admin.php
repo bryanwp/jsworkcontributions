@@ -21,6 +21,7 @@ if (!class_exists('WBC_Admin')) {
 
 
 
+
             $menus = array(
 
                 array(
@@ -29,7 +30,20 @@ if (!class_exists('WBC_Admin')) {
                     'icon'  => 'dashicons-marker',
                     'menu_order' => '59.1',
                     'capability' => 'edit_posts', // capability to view options page
-                    'pages' => array('Sizes','Color Styles', 'Colors', 'Messages', 'Fonts', 'Logo', 'Additional Options', 'Customization Location', 'Dates For Customization', 'Customization Options'), // an array of sub pages ('Header, Footer, Home, etc')
+                    'pages' => array(
+                        'Sizes',
+                        'Color Styles',
+                        'Colors',
+                        'Messages',
+                        'Fonts',
+                        'Logo',
+                        'Additional Options',
+                        'Customization Location',
+                        'Dates For Customization',
+                        'Customization Options',
+                        'Calendar'
+                    ), // an array of sub pages ('Header, Footer, Home, etc')
+
 
                 ),
 
@@ -45,6 +59,8 @@ if (!class_exists('WBC_Admin')) {
 
 
             new acf_options_page_plugin($menus);
+
+            include_once ('class-wbc-calendar.php');
         }
 
 
