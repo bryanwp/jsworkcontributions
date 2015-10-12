@@ -14,15 +14,17 @@ if (!class_exists('WBC_Admin_Assets')) {
 
 
         public function load_scripts() {
-//            wp_register_script('wristband-admin-js', WBC_ASSETS_URL . '/js/wristband-admin.js', array('jquery'), WBC_VERSION, true);
-//            wp_enqueue_script('wristband-admin-js');
+
+            //wp_register_script('wristband_admin_js', WBC_ASSETS_URL . '/js/wristband-admin.js', array('jquery'), WBC_VERSION, true);
+            //wp_enqueue_script('wristband_admin_js');
+
         }
 
 
         public function load_styles() {
-            wp_register_style('wristband-admin-style',  WBC_ASSETS_URL . '/css/wristband-admin.css', array(), WBC_VERSION);
 
-            wp_enqueue_style('wristband-admin-style');
+            wp_register_style('wristband-admin_style', WBC_ASSETS_URL . '/css/wristband-admin.css', array(), WBC_VERSION);
+            wp_enqueue_style('wristband-admin_style');
         }
     }
 }
