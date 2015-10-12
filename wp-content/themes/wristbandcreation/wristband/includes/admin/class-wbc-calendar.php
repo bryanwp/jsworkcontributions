@@ -194,6 +194,7 @@ if (!class_exists('WBC_Calendar')) {
                         .on( 'click', '#delete_event', function(e) {
                             e.preventDefault();
 
+                            if (!confirm('Are you sure?')) return;
 
                             var $self  = $(this),
                                 data   = $self.closest('form').serialize();
@@ -220,7 +221,7 @@ if (!class_exists('WBC_Calendar')) {
                                 text: 'Add',
                                 click: function() {
 
-                                    show_calendar_modal_form('Add Holiday', '#TB_inline?width=350&height=250&inlineId=calendar_event_wrapper', {button_text: 'Add', class: 'hidden', date:moment().format('MM/DD/YYYY')})
+                                    show_calendar_modal_form('Add Holiday', '#TB_inline?width=350&height=220&inlineId=calendar_event_wrapper', {button_text: 'Add', class: 'hidden', date:moment().format('MM/DD/YYYY')})
                                 }
                             }
                         },
@@ -244,11 +245,11 @@ if (!class_exists('WBC_Calendar')) {
                         eventClick: function(calEvent, jsEvent, view) {
 
 
-                            show_calendar_modal_form('Edit Holiday', '#TB_inline?width=350&height=450&inlineId=calendar_event_wrapper', {button_text: 'Update', id: calEvent.id, title: calEvent.title, date: calEvent.start.format('MM/DD/YYYY')})
+                            show_calendar_modal_form('Edit Holiday', '#TB_inline?width=350&height=400&inlineId=calendar_event_wrapper', {button_text: 'Update', id: calEvent.id, title: calEvent.title, date: calEvent.start.format('MM/DD/YYYY')})
                         },
                         dayClick: function(date, jsEvent, view) {
 
-                            show_calendar_modal_form('Add Holiday', '#TB_inline?width=350&height=250&inlineId=calendar_event_wrapper', {button_text: 'Add', class: 'hidden', date:date.format('MM/DD/YYYY')})
+                            show_calendar_modal_form('Add Holiday', '#TB_inline?width=350&height=220&inlineId=calendar_event_wrapper', {button_text: 'Add', class: 'hidden', date:date.format('MM/DD/YYYY')})
                         }
 
                     });
