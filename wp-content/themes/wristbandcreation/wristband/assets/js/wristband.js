@@ -226,9 +226,9 @@ jQuery( function ( $ ) {
                 .text( $( 'input[name="'+ input  +'"]' ).val().toUpperCase() );
 
             $( '#insidetextpath' )
-                .text( $( 'input[name="inside_message"' ).val().toUpperCase());
+                .text( $( 'input[name="inside_message"]' ).val().toUpperCase() );
 
-            $( '#fronttext' )
+            $( '.bandtext' )
                 .attr( 'font-family', $( 'select[name="font"] option:selected').val() );
 
             var $svgelement = $("#svgelement");
