@@ -246,14 +246,10 @@ get_header();
                                 <div id="preview_container" class="container--ph"></div>
                             </div>
                             <div class="link-buttons">
-                                <a class="fusion-button button-flat button-round button-xsmall button-orange" target="_blank"
-                                   href="#"><span class="fusion-button-text">Product Info</span></a>
-                                <a class="fusion-button button-flat button-round button-xsmall button-default" target="_blank"
-                                   href="#"><span class="fusion-button-text">Save Design</span></a>
-                                <a class="fusion-button button-flat button-round button-xsmall button-default" target="_blank"
-                                   href="#"><span class="fusion-button-text">Front</span></a>
-                                <a class="fusion-button button-flat button-round button-xsmall button-default" target="_blank"
-                                   href="#"><span class="fusion-button-text">Back</span></a>
+                                <a class="fusion-button button-flat button-round button-xsmall button-orange" href="#"><span class="fusion-button-text">Product Info</span></a>
+                                <a class="fusion-button button-flat button-round button-xsmall button-default" href="#"><span class="fusion-button-text">Save Design</span></a>
+                                <a class="fusion-button button-flat button-round button-xsmall button-default" href="#" id="front_view_button"><span class="fusion-button-text">Front</span></a>
+                                <a class="fusion-button button-flat button-round button-xsmall button-default" id="back_view_button" href="#"><span class="fusion-button-text">Back</span></a>
                             </div>
                         </div>
 
