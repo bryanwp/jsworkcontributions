@@ -243,10 +243,7 @@ get_header();
                     <div class="fusion-column-wrapper">
                         <div class="form-row">
                             <div class="imageframe-align-center image-preview">
-                                <span class="fusion-imageframe imageframe-none imageframe-17 hover-type-zoomin">
-                                    <img src="http://wristband.local/wp-content/uploads/2015/09/main-debossed-fill.png"
-                                         alt="Individual Packaging" class="img-responsive" heigt="250">
-                                </span>
+                                <div id="preview_container" class="container--ph"></div>
                             </div>
                             <div class="link-buttons">
                                 <a class="fusion-button button-flat button-round button-xsmall button-orange" target="_blank"
@@ -268,7 +265,7 @@ get_header();
 
 
                         <div class="form-row">
-                            <p>Guaranteed to be delived on or by : <strong id="delivery_date"></strong></p>
+                            <p>Guaranteed to be delived on or by : <h2 id="delivery_date"></h2></p>
                             <div class="form-group">
                                 <label for="additional_notes">Addition Notes</label>
                                 <textarea class="form-control input-text" name="additional_notes" id="additional_notes" cols="30" rows="5"></textarea>

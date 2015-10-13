@@ -24,6 +24,7 @@ if (!class_exists('WBC_Front_Scripts')) {
             wp_register_script('jquery-fileupload_js', WBC_ASSETS_URL . '/js/vendor/jquery-fileupload/jquery.fileupload.js', array('jquery'), WBC_VERSION, true);
             wp_register_script('select2_js', WBC_ASSETS_URL . '/js/vendor/select2.min.js', array('jquery'), WBC_VERSION, true);
             wp_register_script('material_js', WBC_ASSETS_URL . '/js/vendor/material.min.js', array('jquery'), WBC_VERSION, true);
+            wp_register_script('pablo_js', WBC_ASSETS_URL . '/js/vendor/pablo.js', array('jquery'), WBC_VERSION, true);
 //            wp_register_script('jquery_ui_js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js', array('jquery'), WBC_VERSION, true);
 //            wp_register_script('evol_colopicker_js', WBC_ASSETS_URL . '/js/vendor/colorpicker-master/evol.colorpicker.min.js', array('jquery'), WBC_VERSION, true);
             wp_register_script('mustache_js', WBC_ASSETS_URL . '/js/vendor/mustache.min.js', array('jquery'), WBC_VERSION, true);
@@ -37,6 +38,7 @@ if (!class_exists('WBC_Front_Scripts')) {
             wp_enqueue_script('jquery-fileupload_js');
             wp_enqueue_script('select2_js');
             wp_enqueue_script('material_js');
+            wp_enqueue_script('pablo_js');
 
 //            wp_enqueue_script('jquery_ui_js');
 //            wp_enqueue_script('evol_colopicker_js');
