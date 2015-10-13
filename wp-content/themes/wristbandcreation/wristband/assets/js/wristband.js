@@ -217,9 +217,9 @@ jQuery( function ( $ ) {
 
 
             var message_type = $( 'input[name="mesage_type"]:checked').val();
+            var a = $( '.preview-button.active').data( 'input' );
 
-
-            var input = message_type == 'continues' ? 'continues_message' : 'front_message';
+            var input = message_type == 'continues' ? 'continues_message' : a;
 
 
             $( "#fronttextpath" )
@@ -231,7 +231,6 @@ jQuery( function ( $ ) {
             $( '.bandtext' )
                 .attr( 'font-family', $( 'select[name="font"] option:selected').val() );
 
-            var $svgelement = $("#svgelement");
 
             var y = $('#wristband-color-items .color-wrap.selected > div').data( 'color');
             if ( y != undefined ) {
@@ -1219,32 +1218,18 @@ jQuery( function ( $ ) {
                 WRISTBAND.calculate_delivery_date();
 
             })
-            .on( 'click', '#front_view_button', function(e) {
+            .on( 'click', '#front_view_button, #back_view_button', function(e) {
                 e.preventDefault();
 
+                $( '.preview-button').removeClass( 'active' );
 
-                var message_type = $( 'input[name="mesage_type"]:checked').val();
+                $( this).addClass( 'active' );
 
-
-                var input = message_type == 'continues' ? 'continues_message' : 'front_message';
-
-
-                $( "#fronttextpath" )
-                    .text( $( 'input[name="'+ input  +'"]' ).val().toUpperCase() );
+                WRISTBAND.observer();
 
 
                 return false;
             })
-
-            .on( 'click', '#back_view_button', function(e) {
-                e.preventDefault();
-
-                $( "#fronttextpath" )
-                    .text( $( 'input[name="back_message"]' ).val().toUpperCase() );
-
-
-                return false;
-            });
 
 
         // Alert message if attempt to leave/unload page

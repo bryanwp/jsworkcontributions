@@ -455,7 +455,8 @@ button,
 .button-flat.button-default:hover,
 .button-flat.button-default:focus,
 .button-flat.button-blue:hover,
-.button-flat.button-blue:focus{
+.button-flat.button-blue:focus,
+.button-flat.active{
     background: #05547E;
     color: #FFF;
 }
