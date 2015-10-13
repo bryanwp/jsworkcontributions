@@ -208,6 +208,52 @@ jQuery( function ( $ ) {
             $( '#price_handler' ).text( HELPER.nf( total_price ) );
 
 
+            this.build_preview();
+
+
+        },
+
+        build_preview: function() {
+
+
+            var message_type = $( 'input[name="mesage_type"]:checked').val();
+
+
+            var input = message_type == 'continues' ? 'continues_message' : 'front_message';
+
+
+            $( "#fronttextpath" )
+                .text( $( 'input[name="'+ input  +'"]' ).val().toUpperCase() );
+
+            $( '#fronttext' )
+                .attr( 'font-family', $( 'select[name="font"] option:selected').val() );
+
+            var $svgelement = $("#svgelement");
+
+            var y = $('#wristband-color-items .color-wrap.selected > div').data( 'color');
+            if ( y != undefined ) {
+                var colors = y.split(',');
+
+                if (colors.length > 0) {
+
+
+                    var x = '<stop offset="0.001" stop-color="#DADADA"/>';
+                    var z = 1 / ( colors.length - 1 ) ;
+
+                    for (var i = 0; i < colors.length; i++) {
+                        var offset = i * z;
+                        offset = isNaN(offset) ? 1 : offset;
+                        x += '<stop class="bandcolor" offset="' + (offset - 0.01)  + '" stop-opacity="1" stop-color="' + colors[i] + '"></stop>';
+                    }
+
+                    $(".color").html( x );
+
+                }
+            }
+
+            //$svgelement.find('.bandcolor').attr( 'stop-color', $('#wristband-color-items .color-wrap.selected > div').data( 'color') );
+
+
 
         },
 
@@ -899,6 +945,9 @@ jQuery( function ( $ ) {
                 $( '#wristband-color-items .color-wrap').removeClass( 'selected' );
 
                 $( this ).addClass( 'selected' );
+
+                WRISTBAND.observer();
+
             })
 
 
@@ -921,6 +970,7 @@ jQuery( function ( $ ) {
                     _medium_text_color_box  = Mustache.render( bg_style_tpl, {hide: ( HELPER.iv( $mq.val() ) <= 0 ? 'hide' : '' ), bg_color: $('option:selected', $mtc).data( 'color' ), qty: HELPER.nf( HELPER.iv( $mq.val() ), 0 ) }),
                     _youth_text_color_box   = Mustache.render( bg_style_tpl, {hide: ( HELPER.iv( $yq.val() ) <= 0 ? 'hide' : '' ), bg_color: $('option:selected', $ytc).data( 'color' ), qty: HELPER.nf( HELPER.iv( $yq.val() ), 0 ) }),
                     _wristband_color_box    = Mustache.render( bg_style_tpl, {hide: '', bg_color: $wc.data( 'color' ), qty: '' });
+
 
 
 
@@ -1047,10 +1097,10 @@ jQuery( function ( $ ) {
 
             })
 
-            .on( 'keyup', 'input[name="front_message"], input[name="back_message"], input[name="inside_message"]', function() {
+            .on( 'keyup', 'input[name="front_message"], input[name="continues_message"], input[name="back_message"], input[name="inside_message"]', function() {
                 WRISTBAND.observer();
 
-                $("#bandtextpath").text($(this).val().toUpperCase());
+
             })
 
             // Trigger change when message type is choosen
@@ -1113,7 +1163,7 @@ jQuery( function ( $ ) {
 
             })
 
-            .on( 'change', 'input[name="additional_option[]"], input[name="customization_location"]', function(){
+            .on( 'change', 'input[name="additional_option[]"], input[name="customization_location"], select#font', function(){
                WRISTBAND.observer();
             })
 
