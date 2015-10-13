@@ -255,6 +255,9 @@ jQuery( function ( $ ) {
         // Bind element to jquery library/packages on load
         on_load: function() {
 
+            Pablo(preview_container).load(WBC.settings.svg);
+
+
             $( 'select:not(#font, .text-color-list)' ).select2();
 
             $( 'select#font' ).select2({
@@ -1046,6 +1049,8 @@ jQuery( function ( $ ) {
 
             .on( 'keyup', 'input[name="front_message"], input[name="back_message"], input[name="inside_message"]', function() {
                 WRISTBAND.observer();
+
+                $("#bandtextpath").text($(this).val().toUpperCase());
             })
 
             // Trigger change when message type is choosen

@@ -116,7 +116,7 @@ if (!class_exists('WBC_Manager')) {
             }
 
 
-
+            $settings['svg']    = WBC_ASSETS_URL . '/images/wristband.svg';
             $settings['holidays'] = $holidays;
             $settings['site_url'] = site_url();
             $settings['max_qty'] = WBC_QTY_MAX;
