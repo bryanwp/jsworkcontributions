@@ -237,7 +237,7 @@ jQuery( function ( $ ) {
                 if (colors.length > 0) {
 
 
-                    var x = '<stop offset="0.001" stop-color="#DADADA"/>';
+                    var x = '<stop class="box-shadow" offset="0" stop-color="#EEEEEE"/>';
                     var z = 1 / ( colors.length - 1 ) ;
 
                     for (var i = 0; i < colors.length; i++) {
@@ -249,9 +249,11 @@ jQuery( function ( $ ) {
                     $(".color").html( x );
 
                 }
-            }
 
-            //$svgelement.find('.bandcolor').attr( 'stop-color', $('#wristband-color-items .color-wrap.selected > div').data( 'color') );
+                if ( colors[0] != '#ffffff' && colors.length <= 1 ) {
+                    $('#color-4 > .box-shadow').remove();
+                }
+            }
 
 
 
