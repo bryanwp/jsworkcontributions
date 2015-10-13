@@ -1218,6 +1218,32 @@ jQuery( function ( $ ) {
             .on( 'change', 'select#customization_date_production, select#customization_date_shipping', function() {
                 WRISTBAND.calculate_delivery_date();
 
+            })
+            .on( 'click', '#front_view_button', function(e) {
+                e.preventDefault();
+
+
+                var message_type = $( 'input[name="mesage_type"]:checked').val();
+
+
+                var input = message_type == 'continues' ? 'continues_message' : 'front_message';
+
+
+                $( "#fronttextpath" )
+                    .text( $( 'input[name="'+ input  +'"]' ).val().toUpperCase() );
+
+
+                return false;
+            })
+
+            .on( 'click', '#back_view_button', function(e) {
+                e.preventDefault();
+
+                $( "#fronttextpath" )
+                    .text( $( 'input[name="back_message"]' ).val().toUpperCase() );
+
+
+                return false;
             });
 
 
