@@ -225,6 +225,9 @@ jQuery( function ( $ ) {
             $( "#fronttextpath" )
                 .text( $( 'input[name="'+ input  +'"]' ).val().toUpperCase() );
 
+            $( '#insidetextpath' )
+                .text( $( 'input[name="inside_message"' ).val().toUpperCase());
+
             $( '#fronttext' )
                 .attr( 'font-family', $( 'select[name="font"] option:selected').val() );
 

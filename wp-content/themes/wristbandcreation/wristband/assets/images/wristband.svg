@@ -1,7 +1,7 @@
 <svg id="svgelement" viewBox="0 0 360 250" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!--<svg id="svgelement" x="0" y="0" width="1000" height="800" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">-->
     <defs>
-        <style type="text/css">@import url(http://fonts.googleapis.com/css?family=Rubik+One);</style>
+        <style type="text/css">@import url(//fonts.googleapis.com/css?family=Rubik+One);</style>
         <!--<style type="text/css">@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);</style>-->
         <radialGradient cx="165" cy="0" r="210.41318" gradientUnits="userSpaceOnUse" class="color" id="color-1">
             <stop offset="0.01" stop-color="#ffffff"/>
@@ -20,7 +20,8 @@
             <stop class="bandcolor" offset="1" stop-color="#3399ff"/>
         </linearGradient>
         <!--<path id="MyPath" d="M 42 155 q 140 80 278 0"/>-->
-        <!--<path id="MyPath" d="M 47 170 q 140 60 264 0"/>-->    
+        <!--<path id="MyPath" d="M 47 170 q 140 60 264 0"/>-->
+        <path id="InsideTextPath" d="M 47 130 q 140 -50 264 0"/>
         <path id="FrontTextPath" d="M 47 180 q 140 65 264 0"/>
     </defs>    
     <g fill="none" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="sans-serif" font-weight="normal" font-size="12" text-anchor="start" mix-blend-mode="normal">                
@@ -40,6 +41,8 @@
         <!--for continuous text-->
         <!--<text id="bandtext" font-family="Verdana" font-weight="900" font-size="4em" fill="black" text-anchor="middle">-->
             <textPath id="fronttextpath" startOffset="50%" xlink:href="#FrontTextPath"></textPath>
+            <textPath id="insidetextpath" startOffset="50%" xlink:href="#InsideTextPath"></textPath>
+
         </text>
     </g>    
 </svg>
