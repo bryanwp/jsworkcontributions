@@ -29,7 +29,7 @@ get_header();
 
 
                         <div class="form-group">
-                            <label for="style">Select Style
+                            <label for="style" class="form-group-heading">Select Style
                                 <span class="fusion-popover" data-toggle="tooltip" data-placement="top" title="Select Style">?</span>
                             </label>
                             <select name="style" id="style" class="form-control">
@@ -41,37 +41,33 @@ get_header();
                             </select>
                         </div><!-- /.form-group -->
                         <div class="form-group">
-                            <label for="width">Select Width
+                            <label for="width" class="form-group-heading">Select Width
                                 <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                       title="Select Width">?</span>
                             </label>
                             <select name="width" id="width" class="form-control enable-if-style-selected" disabled></select>
                         </div><!-- /.form-group -->
                         <div class="form-group">
-                            <h2 class="form-group-heading" >Message on Wristbands</h2 class="form-group-heading" >
+                            <label for="message_type" class="form-group-heading">Message on Wristbands</label class="form-group-heading" >
                             <p class="form-row">
                                 <div class="radio">
-                                    <label>
-                                        <input type="radio" name="mesage_type" value="front_and_back" checked/>
-                                        Front and Back
-                                    </label>
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                    <input type="radio" name="message_type" value="front_and_back" checked/>
+                                    Front and Back
+                                    <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                       title="Front and Back Message" data-placement="top">?</span>
                                 </div>
                             </p>
                             <p class="form-row">
                                 <div class="radio">
-                                    <label>
-                                        <input type="radio" name="mesage_type" value="continues"/>
-                                        Continues
-                                    </label>
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
-                                      title="Front and Back Message" data-placement="top">?</span>
+                                    <input type="radio" name="message_type" value="continues"/>
+                                    Continues
+                                    <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                          title="Front and Back Message" data-placement="top">?</span>
                                 </div>
                             </p>
                         </div><!-- /.form-group -->
                         <div class="form-group hide-if-message_type-continues">
-                            <label for="width">Front Message
+                            <label for="front_message"  class="form-group-heading">Front Message
                                 <span class="char_left_wrapper alignright">
                                     <input type="text" name="front_message_chars_left" class="input-text input-text-xs"
                                            value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
@@ -82,7 +78,7 @@ get_header();
 
                         </div><!-- /.form-group -->
                         <div class="form-group  hide-if-message_type-continues">
-                            <label for="width">Back Message
+                            <label for="back_message"  class="form-group-heading">Back Message
                                 <span class="char_left_wrapper alignright">
                                     <input type="text" name="back_message_chars_left" class="input-text input-text-xs"
                                            value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
@@ -94,7 +90,7 @@ get_header();
 
 
                         <div class="form-group  hide-if-message_type-front_and_back">
-                            <label for="width">Continues Message
+                            <label for="continues_message"  class="form-group-heading">Continues Message
                                 <span class="char_left_wrapper alignright">
                                     <input type="text" name="continues_message_chars_left" class="input-text input-text-xs"
                                            value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
@@ -105,7 +101,7 @@ get_header();
                         </div><!-- /.form-group -->
 
                         <div class="form-group">
-                            <label for="width">Inside Message
+                            <label for="inside_message"  class="form-group-heading">Inside Message
                                 <span class="char_left_wrapper alignright">
                                     <input type="text" name="inside_message_chars_left" class="input-text input-text-xs"
                                            value="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" size="5" disabled=""> Chars Left
@@ -115,7 +111,7 @@ get_header();
                                    data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" />
                         </div><!-- /.form-group -->
                         <div class="form-group">
-                            <label for="font">Font</label>
+                            <label for="font" class="form-group-heading">Font</label>
                             <select name="font" id="font" class="form-control enable-if-style-selected">
                                 <option value="-1">-- Select --</option>
 
@@ -129,12 +125,12 @@ get_header();
                             </select>
                         </div><!-- /.form-group -->
                         <div class="form-group" id="add-clipart">
-                            <h2 class="form-group-heading" >Add Clipart</h2 class="form-group-heading" >
+                            <label class="form-group-heading" >Add Clipart</label>
                             <div class="form-row">
 
                                 <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
                                     <div class="fusion-column-wrapper">
-                                        <label class="text-label">Front Start</label>
+                                        <span class="text-label">Front Start</span>
                                     </div>
                                 </div><!-- /.fusion-one-third -->
 
@@ -162,7 +158,7 @@ get_header();
                                 <div class="fusion-clearfix"></div>
                                 <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
                                     <div class="fusion-column-wrapper">
-                                        <label class="text-label">Front End</label>
+                                        <span class="text-label">Front End</span>
                                     </div>
                                 </div><!-- /.fusion-one-third -->
 
@@ -187,7 +183,7 @@ get_header();
                                 <div class="fusion-clearfix"></div>
                                 <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
                                     <div class="fusion-column-wrapper">
-                                        <label class="text-label">Back Start</label>
+                                        <span class="text-label">Back Start</span>
                                     </div>
                                 </div><!-- /.fusion-one-third -->
 
@@ -212,7 +208,7 @@ get_header();
                                 <div class="fusion-clearfix"></div>
                                 <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
                                     <div class="fusion-column-wrapper">
-                                        <label class="text-label">Back End</label>
+                                        <span class="text-label">Back End</span>
                                     </div>
                                 </div><!-- /.fusion-one-third -->
 
@@ -254,16 +250,16 @@ get_header();
                         </div>
 
                         <div class="form-row" id="price_qty_wrapper">
-                            <h2 class="form-group-heading" >Total Price: <?php echo get_woocommerce_currency_symbol(); ?>
-                                <span class="price-handler" id="price_handler">0.00</span></h2 class="form-group-heading" >
-                            <h2 class="form-group-heading" >Quantity: <span id="qty_handler" class="qty-handler">0</span></h2 class="form-group-heading" >
+                            <h2 >Total Price: <?php echo get_woocommerce_currency_symbol(); ?>
+                                <span class="price-handler" id="price_handler">0.00</span></h2>
+                            <h2>Quantity: <span id="qty_handler" class="qty-handler">0</span></h2>
                         </div>
 
 
                         <div class="form-row">
-                            <p>Guaranteed to be delived on or by : <h2 id="delivery_date"></h2></p>
+                            <p>Guaranteed to be delived on or by : <strong id="delivery_date"></strong></p>
                             <div class="form-group">
-                                <label for="additional_notes">Addition Notes</label>
+                                <label for="additional_notes"  class="form-group-heading">Addition Notes</label>
                                 <textarea class="form-control input-text" name="additional_notes" id="additional_notes" cols="30" rows="5"></textarea>
                             </div>
                         </div>
@@ -293,7 +289,7 @@ get_header();
                             </table>
                         </div>
                         <div class="form-group">
-                            <h2 class="form-group-heading" >Select Wristband Color</h2 class="form-group-heading" >
+                            <label class="form-group-heading" >Select Wristband Color</label>
                             <div id="wristband-color-tab" class="fusion-tabs classic horizontal-tabs">
                                 <div class="nav">
                                     <ul class="nav-tabs nav-justified">
@@ -353,15 +349,20 @@ get_header();
                             </div>
                         </div>
                         <div class="form-group">
-                            <h2 class="form-group-heading" >Input Quantity <span>(Side View Guide)</span></h2 class="form-group-heading" >
+                            <label class="form-group-heading" >Select Text Color</label>
+                            <div id="wristband-text-color">
+                                <ul>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-group-heading" >Input Quantity <span>(Side View Guide)</span></label>
                             <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
                                 <div class="fusion-column-wrapper">
                                     <div class="form-group">
                                         <label for="qty_adult">Adult</label>
                                         <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <select name="adult_text_color" class="form-control text-color-list"></select>
                                     </div>
                                 </div>
                             </div>
@@ -371,9 +372,6 @@ get_header();
                                         <label for="qty_medium">Medium</label>
                                         <input type="number" name="qty_medium" id="qty_medium"  min="0" class="input-text form-control">
                                     </div>
-                                    <div class="form-group">
-                                        <select name="medium_text_color" class="form-control text-color-list"></select>
-                                    </div>
                                 </div>
                             </div>
                             <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes fusion-column-last">
@@ -381,9 +379,6 @@ get_header();
                                     <div class="form-group">
                                         <label for="qty_youth">Youth</label>
                                         <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <select name="youth_text_color" class="form-control text-color-list"></select>
                                     </div>
                                 </div>
                             </div>
@@ -393,7 +388,7 @@ get_header();
                         </div><!-- /.fusion-row -->
                     <?php if (isset($GLOBALS['wbc_settings']->additional_options)):?>
                         <div class="fusion-row" id="additional-option-section">
-                            <h2 class="form-group-heading"  data-fontsize="19" data-lineheight="20">Additional Options</h2 class="form-group-heading" >
+                            <label class="form-group-heading"  data-fontsize="19" data-lineheight="20">Additional Options</label>
                         <?php $i = 1; foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option):?>
 
 
@@ -401,9 +396,7 @@ get_header();
                             <div class="fusion-column-wrapper">
                                 <div class="addon">
                                     <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" />
-                                        </label>
+                                        <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" />
                                     </div>
                                     <span class="addon-price-handler"></span>
                                 </div>
@@ -415,11 +408,11 @@ get_header();
                                 </div>
 
                                 <div class="fusion-sep-clear"></div>
-                                <label class="aligncenter">
+                                <span class="aligncenter">
                                     <?php echo $option->name; ?>
                                     <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                           title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
-                                </label>
+                                </span>
 
                             </div><!-- /.fusion-column-wrapper -->
                         </div><!-- /.fusion-one-third -->
@@ -428,7 +421,7 @@ get_header();
                         <?php endif;
                         if (isset($GLOBALS['wbc_settings']->customization)):?>
                         <div class="fusion-row" id="customization-section">
-                            <h2 class="form-group-heading"  data-fontsize="19" data-lineheight="20">Production and Shipping</h2 class="form-group-heading" >
+                            <label class="form-group-heading">Production and Shipping</label>
                             <?php $flag = false; foreach ($GLOBALS['wbc_settings']->customization->location as $cus_location): ?>
                                 <div class="radio">
                                     <label>

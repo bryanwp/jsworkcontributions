@@ -25,6 +25,12 @@ span.fusion-popover {
     clear:both;
 }
 
+.form-group-heading {
+    display:block;
+    clear:both;
+    font-weight:bold;
+}
+
 span.char_left_wrapper {
     min-width: 120px;
     text-align:right;
@@ -68,7 +74,6 @@ p.form-row:after {
 
 #price_chart table td {
     padding: 5px;
-    border: solid 1px #E5E5E5;
 }
 
 #additional-option-section  .fusion-column-wrapper {
@@ -86,16 +91,6 @@ p.form-row:after {
 }
 
 
-#additional-option-section .fusion-column-wrapper .checkbox label {
-    padding:0;
-    margin-left:-10px;
-}
-
-
-.radio label {
-    padding-left:30px;
-    color:#747474;
-}
 
 
 img.image-upload.hide-if-icon {
@@ -164,7 +159,7 @@ img.image-upload.hide-if-icon {
 
 
 
-h2.form-group-heading span {
+.form-group-heading span {
     font-size:14px;
 }
 
@@ -175,20 +170,20 @@ h2.form-group-heading span {
 
 
 #wristband-color-items .tab-pane ul,
-#text-color-section ul{
+#wristband-text-color ul{
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
 #wristband-color-items .tab-pane ul li,
-#text-color-section ul li{
+#wristband-text-color ul li{
     display: inline-block;
     margin: 0;
     padding: 0;
 }
 
-#text-color-section ul li {
+#wristband-text-color ul li {
     margin-right:4px;
 }
 
@@ -206,30 +201,34 @@ h2.form-group-heading span {
 .color-wrap.added:before{
     content: "\f00c";
     position: absolute;
-    color: #36BA09;
-    top: 10px;
-    right: 14px;
-    width: 10px;
+    color: #898989;
+    top: 1px;
+    left: 2px;
     padding: 2px;
+    font-size: 18px;
+}
+
+
+.color-wrap.added:before{
+    content: "\f00d";
 }
 
 
 
 .color-wrap div {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     float: left;
-    margin: 5px 5px;
+    margin: 0;
     padding: 10px 10px;
-    border-radius: 15px;
-    border: solid 4px #FDEFEF;
+    border: solid 1px #000000;
 }
 
 
-.color-wrap.added div {
-    border: solid 4px #F09D9D;
+#wristband-color-tab  .tab-link {
+    background:none;
+    border:none;
 }
-
 #wristband-color-tab.fusion-tabs {
     margin-bottom: 0;
 }
@@ -277,7 +276,6 @@ h2.form-group-heading span {
     width: 15px;
     height: 15px;
     padding: 5px 5px;
-    border-radius: 15px;
     border-width: 1px;
 }
 
@@ -395,10 +393,9 @@ span#qty_handler {
     width:100% !important;
 }
 
+
+
 .select2-container--default .select2-selection--single {
-    background-color: #fff;
-    border:none;
-    border-bottom: 1px solid #AAA;
     border-radius:0;
 }
 
@@ -409,16 +406,7 @@ span#qty_handler {
 #wristband-color-tab.fusion-tabs .nav-tabs li {
     text-align:left;
 }
-
-.radio label {
-    padding-left: 19px;
-}
-
-.radio label span {
-    left: 0;
-}
-
-input.button,
+/*input.button,
 input[type="submit"],
 button {
     border-radius:2px;
@@ -509,12 +497,13 @@ button,
     border-color: rgb(211, 34, 34);
     color: #FFF;
 }
+*/
 
 
 #price_qty_wrapper {
     margin-top:3em;
 }
-#price_qty_wrapper h2 {
+#price_qty_wrapper .form-group-heading {
     text-transform: uppercase;
     font-size: 14px;
 }
