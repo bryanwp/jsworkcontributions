@@ -1,6 +1,5 @@
 .form-group .form-control {
     display:block;
-    padding:5px 10px;
     width:100%;
     margin: 10px 0 0 0;
 }
@@ -160,7 +159,7 @@ img.image-upload.hide-if-icon {
 
 
 .form-group-heading span {
-    font-size:14px;
+    font-size:12px;
 }
 
 #wristband-color-items

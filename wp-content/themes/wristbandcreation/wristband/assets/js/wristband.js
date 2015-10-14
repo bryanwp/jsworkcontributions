@@ -303,8 +303,9 @@ jQuery( function ( $ ) {
         },
         // Bind element to jquery library/packages on load
         on_load: function() {
-
-            Pablo(preview_container).load(WBC.settings.svg);
+            if ( $( '#preview_container').length ) {
+                Pablo(preview_container).load(WBC.settings.svg);
+            }
 
 
             $( 'select:not(#font, .text-color-list)' ).select2();
