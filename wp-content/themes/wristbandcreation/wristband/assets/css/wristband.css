@@ -117,7 +117,6 @@ img.image-upload.hide-if-icon {
 
 
 #add-clipart .button-small {
-    padding: 9px 9px;
     font-size:10px;
 }
 
@@ -131,7 +130,7 @@ img.image-upload.hide-if-icon {
 
 #add-clipart span.space-separator {
     font-weight: bold;
-    padding: 0 5px;
+    padding: 0 11px;
     display:table-cell;
 }
 
@@ -601,4 +600,9 @@ td.product-summary label {
 
 div.coupon {
     margin: 10px 0;
+}
+
+.input-select {
+    width: 100%;
+    padding: 8px 0;
 }
