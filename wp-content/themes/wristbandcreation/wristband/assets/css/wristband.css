@@ -118,6 +118,7 @@ img.image-upload.hide-if-icon {
 
 #add-clipart .button-small {
     font-size:10px;
+    padding-left: 10px;
 }
 
 #add-clipart .fusion-column-wrapper {
@@ -333,26 +334,18 @@ ul.clipart-list {
 
 ul.clipart-list li {
     display: inline-block;
-    border: solid 1px #F6F6F6;
     text-align: center;
     width: 70px;
     height: 70px;
-    border-radius: 5px;
-    background-color: #FFFFFF;
     margin: 3px 0;
     color: #000;
     cursor: pointer;
 }
 
-ul.clipart-list li.fusion-li-item.active,
-ul.clipart-list li.fusion-li-item:hover{
-    background-color: rgb(233, 242, 208);
-}
 
 
 ul.clipart-list li .icon-preview {
     padding: 5px 10px;
-    height: 40px;
 }
 
 ul.clipart-list li .clearpart-info.text-center {
@@ -361,16 +354,19 @@ ul.clipart-list li .clearpart-info.text-center {
 
 
 ul.clipart-list li i {
-    font-size: 30px;
-    color: #5F9DBD;
+    font-size: 4em;
+    color: #626262;
+}
+
+ul.clipart-list li i:hover {
+    color:#000;
 }
 
 
 ul.clipart-list li i.color-red {
-    color: rgb(190, 11, 11);
-    margin-top: 10px;
-    font-size: 18px;
+    color: rgb(179, 5, 5);
 }
+
 
 span#price_handler {
     font-size: 25px;
