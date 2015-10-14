@@ -93,15 +93,15 @@ do_action( 'woocommerce_before_cart' ); ?>
 									<?php if (isset($color['sizes']) && count($color['sizes']) != 0): ?>
 										<ul class="fusion-checklist fusion-checklist-1"
 											style="font-size:12px;line-height:22.1px;">
-											<?php foreach ($color['sizes'] as $k => $size): if ($size['qty'] <= 0) continue; ?>
+											<li class="fusion-li-item">
+												<div class="fusion-li-item-content">
+													<span>Text Color: <?php echo $color['text_color_name'] . ' <em>(' . $color['text_color'] . ')</em>'; ?></span>
+												</div>
+											</li>
+											<?php foreach ($color['sizes'] as $k => $qty): if ($qty <= 0) continue; ?>
 												<li class="fusion-li-item">
 													<div class="fusion-li-item-content">
-														<span><?php echo ucfirst($k) . ' <em>(' . $size['qty'] . ')</em>'; ?></span>
-														–
-														<?php if (isset($size['name'])): ?>
-															<?php echo $size['name']; ?>:
-															<em>(<?php echo $size['color']; ?>)</em>
-														<?php endif; ?>
+														<span><?php echo ucfirst($k) . ' <em>(' . $qty . ')</em>'; ?></span>
 													</div>
 												</li>
 											<?php endforeach; ?>
