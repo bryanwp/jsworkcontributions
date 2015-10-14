@@ -54,7 +54,6 @@ jQuery( function ( $ ) {
 
         init: function() {
             this.render_price_chart();
-            $.material.init();
         },
         reset: function() {
             WRISTBAND.data['total_price']       = 0;
@@ -145,7 +144,7 @@ jQuery( function ( $ ) {
             for ( var color in WRISTBAND.data.colors ) {
 
                 for ( var size in WRISTBAND.data.colors[color].sizes ) {
-                    total_qty += WRISTBAND.data.colors[color].sizes[size].qty;
+                    total_qty += WRISTBAND.data.colors[color].sizes[size];
                 }
 
             }
@@ -216,7 +215,7 @@ jQuery( function ( $ ) {
         build_preview: function() {
 
 
-            var message_type = $( 'input[name="mesage_type"]:checked').val();
+            var message_type = $( 'input[name="message_type"]:checked').val();
             var a = $( '.preview-button.active').data( 'input' );
 
             var input = message_type == 'continues' ? 'continues_message' : a;
@@ -325,7 +324,7 @@ jQuery( function ( $ ) {
                 }
             });
 
-
+            /*
             $( 'select.text-color-list' ).select2({
                 templateResult: function( color ) {
 
@@ -340,11 +339,11 @@ jQuery( function ( $ ) {
 
                     return $text_color;
                 }
-            });
+            });*/
 
 
             // Trigger change on ready
-            $( 'select[name="style"], input[name="mesage_type"]' ).trigger( 'change' );
+            $( 'select[name="style"], input[name="message_type"]' ).trigger( 'change' );
             // Trigger keyup on ready
             $( '.trigger-limit-char').trigger( 'keyup' );
 
@@ -483,7 +482,7 @@ jQuery( function ( $ ) {
             });
 
 
-            if ( $( 'input[name="mesage_type"]' ).val() == 'front_and_back' ) {
+            if ( $( 'input[name="message_type"]' ).val() == 'front_and_back' ) {
                 messages['Front Message']   = $( 'input[name="front_message"]' ).val();
                 messages['Back Message']    = $( 'input[name="back_message"]' ).val();
                 messages['Inside Message']  = $( 'input[name="inside_message"]' ).val();
@@ -497,7 +496,7 @@ jQuery( function ( $ ) {
                 product                 : $( 'select#style' ).val(),
                 size                    : $( 'select#width' ).val(),
                 font                    : $( 'select#font').val(),
-                message_type            : $( 'input[name="mesage_type"]' ).val(),
+                message_type            : $( 'input[name="message_type"]' ).val(),
                 messages                : messages,
                 additional_options      : addtional_options,
                 customization_location  : $( 'input[name="customization_location"]').data('title'),
@@ -679,9 +678,9 @@ jQuery( function ( $ ) {
 
             for ( var i = 0; i < array_el.length; i++ ) {
 
-                if ( ( $( 'input[name="mesage_type"]:checked' ).val() == 'continues' &&
+                if ( ( $( 'input[name="message_type"]:checked' ).val() == 'continues' &&
                     ( array_el[i] == 'front_message' || array_el[i] == 'back_message' ) ) ||
-                    ( $( 'input[name="mesage_type"]:checked' ).val() == 'front_and_back' &&
+                    ( $( 'input[name="message_type"]:checked' ).val() == 'front_and_back' &&
                     array_el[i] == 'continues_message' ) ) {
                     continue;
                 }
@@ -841,7 +840,7 @@ jQuery( function ( $ ) {
             );
 
             $( '.clipart.each-message' ).remove();
-            WRISTBAND.append_alert_msg( tpl, '#add-clipart > h2', 'clipart each-message' );
+            WRISTBAND.append_alert_msg( tpl, '#add-clipart > .form-group-heading', 'clipart each-message' );
 
         },
 
@@ -883,25 +882,26 @@ jQuery( function ( $ ) {
 
                     WRISTBAND.init();
 
-                    $( '.text-color-list' ).empty();
+                    $( '#wristband-text-color ul' ).empty();
 
                     if (  slctd_product.text_color ) {
-                        $( '.text-color-list' ).closest( '.form-group' ).show();
-                        $( '.text-color-list' ).select2( 'data', null );
+                        $( '#wristband-text-color' ).closest( '.form-group' ).show();
 
                         for ( var i in slctd_product.text_color ) {
-                            var text_color_tpl = $( '<option />' )
-                                .val( slctd_product.text_color[i].name )
-                                .text( slctd_product.text_color[i].name )
-                                .attr( 'data-color', slctd_product.text_color[i].color);
 
-                            $( '.text-color-list' ).append( text_color_tpl );
+                            var tpl = '<li><div class="color-wrap"><div data-name="{{name}}" data-color="{{color}}" style="background-color:{{color}};"></div></div></li>';
+
+                            var render = Mustache.render(tpl, {
+                                name: slctd_product.text_color[i].name,
+                                color: slctd_product.text_color[i].color
+                            });
+
+                            $( '#wristband-text-color ul' ).append( render );
+
                         }
 
-                        $( '.text-color-list option:first-child' ).attr( 'selected', 'selected').trigger( 'change' );
-
                     } else {
-                        $( '.text-color-list' ).closest( '.form-group' ).hide();
+                        $( '#wristband-text-color' ).closest( '.form-group' ).hide();
                     }
 
                 }
@@ -914,7 +914,7 @@ jQuery( function ( $ ) {
 
             })
             // Hide/Show message type fields
-            .on( 'change', 'input[name="mesage_type"]', function() {
+            .on( 'change', 'input[name="message_type"]', function() {
                 if ( this.checked ) {
 
                     $( '[class*="hide-if-message_type-"]' ).css({ display: 'block' });
@@ -936,10 +936,16 @@ jQuery( function ( $ ) {
                 $( this ).find( 'input[type=radio]' ).attr( 'checked', true );
             })
             // Text Color Selection
-            .on( 'click', '#text-color-section .color-wrap', function() {
-                $( '#text-color-section .color-wrap').removeClass( 'selected' );
+            .on( 'click', '#wristband-text-color .color-wrap', function() {
+                if ( $( this).hasClass( 'added' )  ) return;
 
-                $( this).addClass( 'selected' );
+                $( '#wristband-text-color .color-wrap').removeClass( 'selected' );
+
+                $( this ).addClass( 'selected' );
+
+                WRISTBAND.observer();
+
+
             })
             // Wristband Color Selection
             .on( 'click', '#wristband-color-items .color-wrap', function() {
@@ -965,14 +971,11 @@ jQuery( function ( $ ) {
 
                 var $aq    = $( '#qty_adult'),
                     $mq    = $( '#qty_medium'),
-                    $yq    = $( '#qty_youth'),
-                    $atc   = $( 'select[name="adult_text_color"]'),
-                    $mtc   = $( 'select[name="medium_text_color"]'),
-                    $ytc   = $( 'select[name="youth_text_color"]');
+                    $yq    = $( '#qty_youth');
 
-                var _adult_text_color_box   = Mustache.render( bg_style_tpl, {hide: ( HELPER.iv( $aq.val() ) <= 0 ? 'hide' : '' ), bg_color: $('option:selected', $atc).data( 'color' ), qty: HELPER.nf( HELPER.iv( $aq.val() ), 0 ) }),
-                    _medium_text_color_box  = Mustache.render( bg_style_tpl, {hide: ( HELPER.iv( $mq.val() ) <= 0 ? 'hide' : '' ), bg_color: $('option:selected', $mtc).data( 'color' ), qty: HELPER.nf( HELPER.iv( $mq.val() ), 0 ) }),
-                    _youth_text_color_box   = Mustache.render( bg_style_tpl, {hide: ( HELPER.iv( $yq.val() ) <= 0 ? 'hide' : '' ), bg_color: $('option:selected', $ytc).data( 'color' ), qty: HELPER.nf( HELPER.iv( $yq.val() ), 0 ) }),
+                var _adult_qty   = HELPER.nf( HELPER.iv( $aq.val() ), 0),
+                    _medium_qty  = HELPER.nf( HELPER.iv( $mq.val() ), 0),
+                    _youth_qty   = HELPER.nf( HELPER.iv( $yq.val() ), 0),
                     _wristband_color_box    = Mustache.render( bg_style_tpl, {hide: '', bg_color: $wc.data( 'color' ), qty: '' });
 
 
@@ -987,24 +990,20 @@ jQuery( function ( $ ) {
 
 
 
-                //if ( WRISTBAND.is_color_exist( $wc.data( 'name' ) ) ) {
-                //    alert( 'Color already selected' );
-                //    return;
-                //}
 
                 var row_tpl = Mustache.render(
                     '<tr data-name="{{name}}">'
-                        + '<td>{{{adult_text_color_box}}}</td>'
-                        + '<td>{{{medium_text_color_box}}}</td>'
-                        + '<td>{{{youth_text_color_box}}}</td>'
+                        + '<td>{{{adult_qt}}}</td>'
+                        + '<td>{{{medium_qty}}}</td>'
+                        + '<td>{{{youth_qty}}}</td>'
                         + '<td>{{{wristband_color_box}}}</td>'
                         + '<td><a href="#" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
                     + '</tr>',
                     {
                         name                    : $wc.data( 'name' ),
-                        adult_text_color_box    : _adult_text_color_box,
-                        medium_text_color_box   : _medium_text_color_box,
-                        youth_text_color_box    : _youth_text_color_box,
+                        adult_qt    : _adult_qty,
+                        medium_qty   : _medium_qty,
+                        youth_qty    : _youth_qty,
                         wristband_color_box     : _wristband_color_box,
                     }
                 );
@@ -1014,25 +1013,12 @@ jQuery( function ( $ ) {
                     name: $wc.data('name'),
                     color: $wc.data('color'),
                     type: $('input[name="color_style"]:checked').val(),
+                    text_color_name: $( '#wristband-text-color .color-wrap.selected > div' ).data( 'name' ),
+                    text_color: $( '#wristband-text-color .color-wrap.selected > div' ).data( 'color' ),
                     sizes: {
-                        adult: {
-                            qty: HELPER.iv($aq.val()),
-                            name: $('option:selected', $atc).val(),
-                            color: $('option:selected', $atc).data('color'),
-
-                        },
-                        medium: {
-                            qty: HELPER.iv($mq.val()),
-                            name: $('option:selected', $mtc).val(),
-                            color: $('option:selected', $mtc).data('color'),
-
-                        },
-                        youth: {
-                            qty: HELPER.iv($yq.val()),
-                            name: $('option:selected', $ytc).val(),
-                            color: $('option:selected', $ytc).data('color'),
-
-                        }
+                        adult: HELPER.iv($aq.val()),
+                        medium: HELPER.iv($mq.val()),
+                        youth: HELPER.iv($yq.val()),
                     }
                 });
 
@@ -1055,6 +1041,9 @@ jQuery( function ( $ ) {
 
 
                 WRISTBAND.render_production_shipping_options();
+
+
+                console.log(WRISTBAND.data);
 
                 return false;
             })
@@ -1108,7 +1097,7 @@ jQuery( function ( $ ) {
             })
 
             // Trigger change when message type is choosen
-            .on( 'change', 'input[name="mesage_type"], .customization-date-select', function() {
+            .on( 'change', 'input[name="message_type"], .customization-date-select', function() {
                 WRISTBAND.observer();
             })
 
