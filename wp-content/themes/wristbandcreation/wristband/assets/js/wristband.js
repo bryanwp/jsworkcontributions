@@ -68,13 +68,6 @@ jQuery( function ( $ ) {
             $( '#selected_color_table > tbody' ).empty();
 
         },
-        // Check if color is already selected
-        is_color_exist: function( name ) {
-
-            if ( WRISTBAND.data.colors[name] != undefined ) return true;
-
-            return false;
-        },
         // Add color selected to wristband data
         add_color: function( key, value ) {
 
@@ -305,7 +298,7 @@ jQuery( function ( $ ) {
                 Pablo(preview_container).load(WBC.settings.svg);
             }
 
-
+            /*
             $( 'select:not(#font, .text-color-list)' ).select2();
 
             $( 'select#font' ).select2({
@@ -322,7 +315,7 @@ jQuery( function ( $ ) {
                     return $font;
                 }
             });
-
+            */
 
 
             // Trigger change on ready
@@ -782,7 +775,7 @@ jQuery( function ( $ ) {
             );
 
             $( '.customization_location.each-message' ).remove();
-            WRISTBAND.append_alert_msg( tpl, $( 'input[name="customization_location"]:checked' ).closest( '.radio' ), 'customization_location each-message' );
+            WRISTBAND.append_alert_msg( tpl, $( 'input[name="customization_location"]:checked').closest('label'), 'customization_location each-message' );
 
         },
 
@@ -916,7 +909,8 @@ jQuery( function ( $ ) {
                     cur_name    = $(this).attr('name'),
                     char_left   = limit - cur_len;
                 if ( char_left < 0 ) char_left = 0;
-                $( 'input[name="' + cur_name + '_chars_left"]' ).val( char_left );
+
+                $( '.' + cur_name + '_chars_left' ).text( char_left );
             })
             // Wristband color style tab
             .on( 'shown.bs.tab', '#wristband-color-tab li a[data-toggle="tab"]', function() {
