@@ -237,7 +237,7 @@ get_header();
                 </div><!--/.fusion-one-third-->
                 <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
-                        <div class="form-row">
+                        <div class="fusion-row">
                             <div class="imageframe-align-center image-preview">
                                 <div id="preview_container" class="container--ph"></div>
                             </div>
@@ -249,10 +249,20 @@ get_header();
                             </div>
                         </div>
 
-                        <div class="form-row" id="price_qty_wrapper">
-                            <h2 >Total Price: <?php echo get_woocommerce_currency_symbol(); ?>
-                                <span class="price-handler" id="price_handler">0.00</span></h2>
-                            <h2>Quantity: <span id="qty_handler" class="qty-handler">0</span></h2>
+                        <div class="fusion-row">
+                            <div class="panel-body pricing-row">
+                                <div class="price price-with-decimal">
+                                    <span class="currency"><?php echo get_woocommerce_currency_symbol(); ?></span>
+                                    <span class="integer-part price-handler" id="price_handler">0.00</span>
+                                    <span class="time">Each</span>
+                                </div>
+                            </div>
+                            <div class="panel-footer footer-row">
+                                <div class="quantity-row">
+                                    <span id="qty_handler" class="qty-handler">0</span> Quantity
+                                </div>
+                            </div>
+
                         </div>
 
 
