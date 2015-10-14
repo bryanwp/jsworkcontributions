@@ -135,7 +135,7 @@ get_header();
                                                 button-small button-green">
                                             <span class="fusion-button-text-right">
                                                 <i class="fa fa-ban icon-preview hide-if-upload"></i>
-                                                    <img class="image-upload hide-if-icon" width="16" height="16"/>
+                                                    <img class="image-upload hide-if-icon" width="10" height="16"/>
                                                 select</span>
                                             <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                         </button>
@@ -160,7 +160,7 @@ get_header();
                                         <button id="front_end_btn" data-position="front_end" href="#" data-title="Front End" data-toggle="modal" data-target="#wristband-clipart-modal" class="toggle-modal-clipart fusion-button button-flat button-round button-small button-green">
                                                 <span class="fusion-button-text-right">
                                                     <i class="fa fa-ban icon-preview hide-if-upload"></i>
-                                                    <img class="image-upload hide-if-icon" width="16" height="16"/>
+                                                    <img class="image-upload hide-if-icon" width="10" height="16"/>
                                                     select</span>
                                             <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                         </button>
@@ -185,7 +185,7 @@ get_header();
                                         <button id="back_start_btn" data-position="back_start" href="#" data-title="Back Start" data-toggle="modal" data-target="#wristband-clipart-modal" class="toggle-modal-clipart fusion-button button-flat button-round button-small button-green">
                                                 <span class="fusion-button-text-right">
                                                     <i class="fa fa-ban icon-preview hide-if-upload"></i>
-                                                    <img class="image-upload hide-if-icon" width="16" height="16"/>
+                                                    <img class="image-upload hide-if-icon" width="10" height="16"/>
                                                     select</span>
                                             <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                         </button>
@@ -210,7 +210,7 @@ get_header();
                                         <button id="back_end_btn" data-position="back_end" href="#" data-title="Back End" data-toggle="modal" data-target="#wristband-clipart-modal"  class="toggle-modal-clipart fusion-button button-flat button-round button-small button-green">
                                                 <span class="fusion-button-text-right">
                                                     <i class="fa fa-ban icon-preview hide-if-upload"></i>
-                                                    <img class="image-upload hide-if-icon" width="16" height="16"/>
+                                                    <img class="image-upload hide-if-icon" width="10" height="16"/>
                                                     select</span>
                                             <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
                                         </button>
@@ -448,7 +448,7 @@ get_header();
 
 </div><!-- /#wristband-builder-content -->
 
-<div id="wristband-clipart-modal" class="fusion-modal modal fade info" tabindex="-1" role="dialog">
+<div id="wristband-clipart-modal" class="fusion-modal modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content fusion-modal-content" style="background-color:#f6f6f6">
             <div class="modal-header">
@@ -466,9 +466,6 @@ get_header();
                            <div class="icon-preview">
                                <i class="fusion-li-icon fa fa-times color-red"></i>
                            </div>
-                           <div class="clearpart-info text-center">
-                               None
-                           </div>
                        </label>
                    </li>
                    <?php foreach ($GLOBALS['wbc_settings']->logo->list as $name => $icon): ?>
@@ -477,9 +474,9 @@ get_header();
                            <div class="icon-preview">
                                 <i class="fusion-li-icon fa <?php echo esc_attr($icon); ?>"></i>
                            </div>
-                           <div class="clearpart-info text-center">
+                           <!--<div class="clearpart-info text-center">
                                 <?php echo esc_attr($name); ?>
-                           </div>
+                           </div>-->
                        </label>
                    </li>
                    <?php endforeach; ?>
