@@ -120,9 +120,7 @@ if (!class_exists('WBC_Color_Style_Price_List_Manager')) {
 
             if (isset($settings['color_style']) && count($settings['color_style']) != 0) {
                 foreach ($settings['color_style'] as $name => $style) {
-
                     $repeater_name = sanitize_title_with_underscore($name . '_price_list');
-
                     $opts = get_field($repeater_name, 'option');
                     if (is_array($opts) && count($opts) != 0) {
                         foreach (get_field($repeater_name, 'option') as $key => $value) {
@@ -131,8 +129,6 @@ if (!class_exists('WBC_Color_Style_Price_List_Manager')) {
                             $settings['color_style'][$name]['price_list'][$value['quantity']] = $value['price'];
                         }
                     }
-
-
                 }
             }
 

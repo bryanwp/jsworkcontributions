@@ -298,25 +298,6 @@ jQuery( function ( $ ) {
                 Pablo(preview_container).load(WBC.settings.svg);
             }
 
-            /*
-            $( 'select:not(#font, .text-color-list)' ).select2();
-
-            $( 'select#font' ).select2({
-                templateResult: function( font ) {
-
-                    if ( ! font.id || font.id == '-1' ) { return font.text; }
-
-
-                    var $font = $(
-                        '<span style="font-size:16px; font-family: \''+ font.text +'\'">' + font.text + '</span>'
-                    );
-
-
-                    return $font;
-                }
-            });
-            */
-
 
             // Trigger change on ready
             $( 'select[name="style"], input[name="message_type"]' ).trigger( 'change' );
@@ -1247,13 +1228,9 @@ jQuery( function ( $ ) {
 
         });
 
-
-
         // Call function on load
         WRISTBAND.on_load();
 
     });
-
-
 
 });

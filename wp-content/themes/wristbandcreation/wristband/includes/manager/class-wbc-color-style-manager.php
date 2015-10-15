@@ -148,7 +148,6 @@ if (!class_exists('WBC_Color_Style_Manager')) {
                     if (!isset($value['name'])) continue;
 
                     $color_style[$value['name']] = array(
-
                         'color_limit' => $value['color_limit'],
                         'image' => array(
                             'id' => $value['image']['id'],

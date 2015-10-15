@@ -27,10 +27,7 @@ if (!class_exists('WBC_Shipping_Price_List_Manager')) {
                 foreach (get_field('customization_options', 'option') as $key => $field) {
                     $group_label = $field['name'];
                     $group_name = sanitize_title_with_underscore($group_label);
-
                     $group = $cust_name . '_price_list_' . $group_name;
-
-
                     $args = array(
                         'id' => 'acf_' . $group,
                         'title' => $cust_label . ' Price List - ' . $group_label,
@@ -51,8 +48,6 @@ if (!class_exists('WBC_Shipping_Price_List_Manager')) {
                             'hide_on_screen' => array(),
                         ),
                     );
-
-
                     // Price List - Option Page > Wristband Manager
                     register_field_group($args);
                 }
@@ -63,7 +58,6 @@ if (!class_exists('WBC_Shipping_Price_List_Manager')) {
         private function create_shipping_price_list( $group, $name )
         {
             $shipping_price_list = array();
-
             if( have_rows( $name.'_dates', 'option') )
             {
                 while( have_rows( $name.'_dates', 'option') )
@@ -113,9 +107,6 @@ if (!class_exists('WBC_Shipping_Price_List_Manager')) {
 
         public function get_settings($settings) {
 
-
-
-
             if (get_field('customization_options', 'option')) {
                 foreach (get_field('customization_options', 'option') as $key => $value) {
                     $cus = sanitize_title_with_underscore($value['name']);
@@ -139,8 +130,6 @@ if (!class_exists('WBC_Shipping_Price_List_Manager')) {
 
                 }
             }
-
-
             return $settings;
         }
 

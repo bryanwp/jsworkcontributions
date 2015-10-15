@@ -21,17 +21,11 @@ if (!class_exists('WBC_Product_Price_List_Manager')) {
             $cust = 'Production';
             $cust_label = $cust;
             $cust_name = sanitize_title_with_underscore($cust);
-
-
-
             if( have_rows('customization_options', 'option') ) {
                 foreach (get_field('customization_options', 'option') as $key => $field) {
                     $group_label = $field['name'];
                     $group_name = sanitize_title_with_underscore($group_label);
-
                     $group = $cust_name . '_price_list_' . $group_name;
-
-
                     $args = array(
                         'id' => 'acf_' . $group,
                         'title' => $cust_label . ' Price List - ' . $group_label,
@@ -52,8 +46,6 @@ if (!class_exists('WBC_Product_Price_List_Manager')) {
                             'hide_on_screen' => array(),
                         ),
                     );
-
-
                     // Price List - Option Page > Wristband Manager
                     register_field_group($args);
                 }
@@ -65,7 +57,6 @@ if (!class_exists('WBC_Product_Price_List_Manager')) {
         private function create_production_price_list( $group, $name )
         {
             $production_list = array();
-
             if( have_rows( $name.'_dates', 'option') )
             {
                 while( have_rows( $name.'_dates', 'option') )
@@ -117,12 +108,8 @@ if (!class_exists('WBC_Product_Price_List_Manager')) {
 
             if (get_field('customization_options', 'option')) {
                 foreach (get_field('customization_options', 'option') as $key => $value) {
-
                     $cus = sanitize_title_with_underscore($value['name']);
-
-
                     $repeater_field_name = 'production_price_list_'. $cus;
-
                     if (get_field('production_dates', 'option')) {
                         foreach (get_field('production_dates', 'option') as $key2 => $value2) {
 
@@ -136,13 +123,10 @@ if (!class_exists('WBC_Product_Price_List_Manager')) {
                                     $settings['production_price_list'][$cus][$dates][$value3['quantity']] = $value3['price'];
                                 }
                             }
-
                         }
                     }
-
                 }
             }
-
 
             return $settings;
         }

@@ -149,28 +149,19 @@ if (!class_exists('WBC_Logo_Manager')) {
         }
 
         public function get_settings($settings) {
-
             $prices = array();
             $list = array();
-
             if (get_field('logo_price', 'option')) {
                 foreach (get_field('logo_price', 'option') as $key => $value) {
-
-                        $prices[$value['quantity']] = $value['price'];
+                    $prices[$value['quantity']] = $value['price'];
                 }
             }
-
 
             if (get_field('logo_list', 'option')) {
                 foreach (get_field('logo_list', 'option') as $key => $value) {
-
                     $list[$value['name']] = $value['glyphicon'];
                 }
             }
-
-
-
-
             $settings['logo']['prices'] = $prices;
             $settings['logo']['list'] = $list;
 

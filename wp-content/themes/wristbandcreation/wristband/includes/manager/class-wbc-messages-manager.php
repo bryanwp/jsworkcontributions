@@ -16,8 +16,6 @@ if (!class_exists('WBC_Messages_Manager')) {
         }
 
         public function register() {
-
-
             $this->register_field_group(array (
                 'id' => 'acf_messages-price-list',
                 'title' => 'Messages',
@@ -247,14 +245,9 @@ if (!class_exists('WBC_Messages_Manager')) {
 
 
         public function get_settings($settings) {
-
             $messages = array();
-
             $types = array('back_message', 'inside_message', 'more_than_22_characters');
-
-
             foreach ($types as $type) {
-
                 if (get_field($type. '_price_list', 'option')) {
                     foreach (get_field($type.'_price_list', 'option') as $key => $value) {
                         $messages[$type.'_price_list'][$value['quantity']] = $value['price'];
@@ -264,7 +257,6 @@ if (!class_exists('WBC_Messages_Manager')) {
 
             $settings['messages'] = $messages;
             $settings['messages']['message_char_limit'] = WBC_MESSAGE_CHAR_LIMIT;
-
             $settings['tool_tip_text'] = array(
                 'front' => get_field('front', 'option'),
                 'wrap_around' => get_field('wrap_around', 'option'),
