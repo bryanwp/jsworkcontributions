@@ -394,8 +394,6 @@ if (!class_exists('WBC_Color_Manager')) {
                 }
             }
 
-
-
             if (get_field('text_color', 'option')) {
                 foreach (get_field('text_color', 'option') as $key => $value) {
 
@@ -404,11 +402,8 @@ if (!class_exists('WBC_Color_Manager')) {
                     foreach ($value['product'] as $product) {
                         $settings['products'][$product->ID]['text_color'][] = array('name' => $value['name'], 'color' => $value['color']);
                     }
-
-
                 }
             }
-
 
             if (get_field('color_size', 'option')) {
                 foreach (get_field('color_size', 'option') as $key => $value) {
@@ -416,7 +411,6 @@ if (!class_exists('WBC_Color_Manager')) {
                     $settings['color_size'][] = $value['name'];
                 }
             }
-
 
             if (get_field('color_extra_size_cost_price_list', 'option')) {
                 foreach (get_field('color_extra_size_cost_price_list', 'option') as $key => $value) {
@@ -431,9 +425,6 @@ if (!class_exists('WBC_Color_Manager')) {
                     $settings['color_split_cost_price_list'][$value['quantity']] = $value['price'];
                 }
             }
-
-
-
 
             return $settings;
         }

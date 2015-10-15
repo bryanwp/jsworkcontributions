@@ -219,10 +219,6 @@ if (!class_exists('WBC_Size_Manager')) {
             }
         }
 
-
-
-
-
          /**
          * create_size_price_list
          * Create size price list
@@ -258,10 +254,6 @@ if (!class_exists('WBC_Size_Manager')) {
                     // repeater
                     $repeater_label = $field.' Inch Price List';
                     $repeater_name = sanitize_title_with_underscore( $repeater_label );
-
-
-
-
                     array_push( $price_chart, array (
                         'key' => 'field_'.$group.'_'.$repeater_name,
                         'label' => $repeater_label,
@@ -301,9 +293,6 @@ if (!class_exists('WBC_Size_Manager')) {
             $price_chart = array();
 
             $repeater_name = sanitize_title_with_underscore($size . '_inch_price_list');
-
-
-
             if( get_field($repeater_name, $product_id) ) {
 
                 while(the_repeater_field($repeater_name, $product_id)) {
@@ -311,11 +300,8 @@ if (!class_exists('WBC_Size_Manager')) {
                 }
             }
 
-
             // Sort price chart by key
             ksort($price_chart);
-
-
             return $price_chart;
         }
 
@@ -328,10 +314,7 @@ if (!class_exists('WBC_Size_Manager')) {
          */
         public function get_all_price_chart_by_product($product_id) {
             $price_charts = array();
-
-
             $sizes = $this->get_enabled_product_sizes($product_id);
-
             if( is_array($sizes) && count($sizes) != 0 ) {
                 foreach ($sizes as $size) {
                     $price_charts[$size] = $this->get_product_price_chart($size, $product_id);
@@ -379,19 +362,13 @@ if (!class_exists('WBC_Size_Manager')) {
 
 
         public function get_settings($settings) {
-
             $product_sizes = array();
-
-
             $products = get_posts(array( 'posts_per_page' => -1, 'post_status' => 'any', 'post_type' => 'product' ));
             if ($products) {
                 foreach ($products as $product) {
                     $product_id = $product->ID;
-
-
                     $sizes_data = $this->get_sizes_option_data();
                     $sizes = $this->get_enabled_product_sizes($product_id);
-
                     if (is_array($sizes) && count($sizes) != 0) {
                         $product_sizes[$product_id]['product_ID'] = $product_id;
                         $product_sizes[$product_id]['product_title'] = $product->post_title;
@@ -407,8 +384,6 @@ if (!class_exists('WBC_Size_Manager')) {
                 }
             }
             $settings['products'] = $product_sizes;
-
-
             return $settings;
         }
 

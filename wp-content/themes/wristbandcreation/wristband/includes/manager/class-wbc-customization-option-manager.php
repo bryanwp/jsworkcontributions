@@ -111,13 +111,11 @@ if (!class_exists('WBC_Customization_Option_Manager')) {
         }
 
         public function get_settings($settings) {
-
             if (get_field('customization_options', 'option')) {
                 foreach (get_field('customization_options', 'option') as $key => $value) {
                     $settings['customization']['options'][sanitize_title_with_underscore($value['name'])] = $value;
                 }
             }
-
             return $settings;
         }
 
