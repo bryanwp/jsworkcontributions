@@ -13,7 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-get_header( 'shop' ); ?>
+get_header( 'shop' );
+
+echo '<pre style="display:none;">';
+print_r( $GLOBALS['wbc_settings']->products->{$post->ID}->sizes );
+echo '</pre>';
+?>
 
 	<?php
 		/**
