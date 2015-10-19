@@ -929,7 +929,7 @@ jQuery( function ( $ ) {
 
 
 
-                if ( $tc.length ==0 || $wc.length == 0 || ( HELPER.iv( $aq.val() ) <= 0 && HELPER.iv( $mq.val() ) <= 0 &&
+                if ( ($('#wristband-text-color ul li').length && $tc.length == 0) || $wc.length == 0 || ( HELPER.iv( $aq.val() ) <= 0 && HELPER.iv( $mq.val() ) <= 0 &&
                     HELPER.iv( $yq.val() ) <= 0 ) ) {
                     return;
                 }
@@ -970,7 +970,7 @@ jQuery( function ( $ ) {
 
 
 
-                if ( $tc.length ==0 || $wc.length == 0 || ( HELPER.iv( $aq.val() ) <= 0 && HELPER.iv( $mq.val() ) <= 0 &&
+                if ( ($('#wristband-text-color ul li').length && $tc.length == 0) || $wc.length == 0 || ( HELPER.iv( $aq.val() ) <= 0 && HELPER.iv( $mq.val() ) <= 0 &&
                     HELPER.iv( $yq.val() ) <= 0 ) ) {
 
                     WRISTBAND.popup_message( 'error', 'Error', 'Please select wristband color/text color/quantity.' );
