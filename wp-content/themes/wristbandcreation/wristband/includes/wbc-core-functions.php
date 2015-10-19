@@ -122,6 +122,7 @@ add_action('init', 'wc_custom_add_action');
 if (!function_exists('wc_custom_remove_action')) {
     function wc_custom_remove_action()
     {
+        global $fusion_template_woo;
         //woocommerce_single_product_summary
         remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 11);
         remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
@@ -134,9 +135,24 @@ if (!function_exists('wc_custom_remove_action')) {
 //        remove_action( 'woocommerce_after_single_product_summary', 'avada_woocommerce_upsell_display', 10 );
 //        remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20);
 //        remove_action('woocommerce_after_single_product_summary', 'avada_woocommerce_output_related_products', 15);
+
+        //woocommerce_after_shop_loop_item_title
+        remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5);
+        remove_action('woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10);
+        //woocommerce_after_shop_loop_item
+        remove_action('woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10);
+
+        remove_action('woocommerce_after_shop_loop_item',  array( $fusion_template_woo, 'avada_woocommerce_template_loop_add_to_cart' ), 10);
+        add_action('woocommerce_after_shop_loop_item',  'wc_woocommerce_template_loop_add_to_cart', 10);
     }
 }
 
+
+if (!function_exists('wc_woocommerce_template_loop_add_to_cart')) {
+    function wc_woocommerce_template_loop_add_to_cart() {
+        echo '<a href="'. site_url('/order-now') .'"><i class="fa fa-cubes"></i> Customize Now</a>';
+    }
+}
 
 if (!function_exists('wc_custom_add_action')) {
     function wc_custom_add_action() {
