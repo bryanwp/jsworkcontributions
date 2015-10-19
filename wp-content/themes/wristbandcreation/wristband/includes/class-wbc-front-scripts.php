@@ -9,7 +9,7 @@ if (!class_exists('WBC_Front_Scripts')) {
     {
         public function __construct() {
 
-            if (!is_admin() && is_page('order-now')) {
+            if (!is_admin()) {
                 add_action('wp_enqueue_scripts', array($this, 'load_scripts'));
                 add_action('wp_enqueue_scripts', array($this, 'load_styles'));
             }
@@ -17,7 +17,7 @@ if (!class_exists('WBC_Front_Scripts')) {
 
 
         public function load_scripts() {
-
+            if (!is_page('order-now') ) return;
             wp_register_script('jquery-ui-widget_js', WBC_ASSETS_URL . '/js/vendor/jquery-fileupload/vendor/jquery.ui.widget.js', array('jquery'), WBC_VERSION, true);
             wp_register_script('jquery-xdr-transport_js', WBC_ASSETS_URL . '/js/vendor/jquery-fileupload/cors/jquery.xdr-transport.js', array('jquery'), WBC_VERSION, true);
             wp_register_script('jquery-iframe-transport_js', WBC_ASSETS_URL . '/js/vendor/jquery-fileupload/jquery.iframe-transport.js', array('jquery'), WBC_VERSION, true);
