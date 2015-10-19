@@ -1,6 +1,8 @@
 <?php
 function theme_enqueue_styles() {
     wp_enqueue_style( 'parent-stylesheet', get_template_directory_uri() . '/style.css' );
+	wp_enqueue_script( 'avada' );
+
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 

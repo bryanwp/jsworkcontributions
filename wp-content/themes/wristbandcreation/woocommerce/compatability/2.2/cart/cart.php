@@ -4,7 +4,7 @@
  *
  * @author 		WooThemes
  * @package 	WooCommerce/Templates
- * @version	 2.3.8
+ * @version	 2.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -51,7 +51,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 								if ( ! $_product->is_visible() )
 									echo $thumbnail;
 								else
-									printf( '<a href="%s">%s</a>', $_product->get_permalink( $cart_item ), $thumbnail );
+									printf( '<a href="%s">%s</a>', $_product->get_permalink(), $thumbnail );
 							?>
 						</span>
 						<div class="product-info">
@@ -60,7 +60,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 								echo apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key );
 							else
 								// Avada edit
-								echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a class="product-title" href="%s">%s</a>', $_product->get_permalink( $cart_item ), $_product->get_title() ), $cart_item, $cart_item_key );
+								echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a class="product-title" href="%s">%s</a>', $_product->get_permalink(), $_product->get_title() ), $cart_item, $cart_item_key );
 
 							// Meta data
 							echo WC()->cart->get_item_data( $cart_item );
@@ -131,7 +131,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 		<input type="submit" class="fusion-button button-default button-medium button default medium" name="update_cart" value="<?php _e( 'Update Cart', 'woocommerce' ); ?>" />
 		<input type="submit" class="checkout-button fusion-button button-default button-medium button default medium alt wc-forward" name="proceed" value="<?php _e( 'Proceed to Checkout', 'woocommerce' ); ?> &rarr;" />
 
-		<?php do_action( 'woocommerce_cart_actions' ); ?>
+		<?php do_action( 'woocommerce_proceed_to_checkout' ); ?>
 	</div>
 </div>
 

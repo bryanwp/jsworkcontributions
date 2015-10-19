@@ -9,7 +9,7 @@ if (!class_exists('WBC_Front_Scripts')) {
     {
         public function __construct() {
 
-            if (!is_admin()) {
+            if (!is_admin() && is_page('order-now')) {
                 add_action('wp_enqueue_scripts', array($this, 'load_scripts'));
                 add_action('wp_enqueue_scripts', array($this, 'load_styles'));
             }
@@ -34,9 +34,7 @@ if (!class_exists('WBC_Front_Scripts')) {
             wp_enqueue_script('jquery-iframe-transport_js');
             wp_enqueue_script('jquery-fileupload_js');
             wp_enqueue_script('select2_js');
-            wp_enqueue_script('material_js');
             wp_enqueue_script('pablo_js');
-
             wp_enqueue_script('mustache_js');
             wp_enqueue_script('wristband_js');
 
