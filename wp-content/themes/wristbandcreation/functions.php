@@ -10,4 +10,9 @@ function avada_lang_setup() {
 }
 add_action( 'after_setup_theme', 'avada_lang_setup' );
 
+
+
+
 include_once (get_stylesheet_directory() . '/wristband/class-wristband.php');
+
+
