@@ -22,8 +22,11 @@ span.fusion-popover {
 
 
 .input-select {
+    border-color: #d2d2d2;
+    border-style: solid;
+    border-width: 1px;
+    height: 32px;
     width: 100%;
-    padding: 8px 0;
 }
 
 
@@ -63,7 +66,6 @@ p.form-row:after {
 
 .image-preview {
     text-align: center;
-    height: 300px;
     vertical-align: middle;
 }
 
@@ -126,9 +128,6 @@ img.image-upload.hide-if-icon {
     display:table;
 }
 
-#add-clipart .fileinput-button {
-    display:inherit;
-}
 
 #add-clipart span.space-separator {
     font-weight: bold;
@@ -368,10 +367,15 @@ ul.clipart-list li i.color-red {
     color: rgb(179, 5, 5);
 }
 
+.price.price-with-decimal {
+    padding: 3em 0;
+    text-align:right;
+}
 
 span#price_handler {
-    font-size: 25px;
+    font-size: 3em;
     font-weight: bold;
+    color: rgb(109, 182, 220);
 }
 
 
@@ -597,4 +601,33 @@ td.product-summary label {
 
 div.coupon {
     margin: 10px 0;
+}
+
+
+#add-clipart .button-box {
+    padding: 10px 0;
+    border-bottom: dashed 1px #ECECEC;
+}
+
+
+#add-clipart .button-box:after {
+    content: " ";
+    clear: both;
+    display: block;
+}
+
+
+#add-clipart span.text-label {
+    width: 80px;
+    display: inline-block;
+}
+
+#add-clipart .toggle-modal-clipart {
+    padding-right:15px;
+    border-right: solid 1px #000;
+}
+
+#add-clipart .fileinput-button {
+    display:inline-table;
+    padding-left: 15px;
 }

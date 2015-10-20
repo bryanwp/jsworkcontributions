@@ -24,7 +24,7 @@ get_header();
                         </table>
                     </div>
                 </div><!-- /#price_chart -->
-                <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
+                <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
                         <p class="form-row form-row-wide" id="style_field">
                             <label for="style" class="form-group-heading">Select Style
@@ -45,23 +45,19 @@ get_header();
                             </label>
                             <select name="width" id="width" class="input-select enable-if-style-selected" disabled></select>
                         </p>
-                        <div class="form-group">
+                        <div class="form-row">
                             <label for="message_type" class="form-group-heading">Message on Wristbands</label class="form-group-heading" >
-                            <p class="form-row">
-                                <div class="radio">
-                                    <input type="radio" name="message_type" value="front_and_back" checked/>
-                                    Front and Back
-                                    <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
-                                      title="Front and Back Message" data-placement="top">?</span>
-                                </div>
+                            <p class="radio">
+                                <input type="radio" name="message_type" value="front_and_back" checked/>
+                                Front and Back
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                  title="Front and Back Message" data-placement="top">?</span>
                             </p>
-                            <p class="form-row">
-                                <div class="radio">
-                                    <input type="radio" name="message_type" value="continues"/>
-                                    Continues
-                                    <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
-                                          title="Front and Back Message" data-placement="top">?</span>
-                                </div>
+                            <p class="radio">
+                                <input type="radio" name="message_type" value="continues"/>
+                                Continues
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                      title="Front and Back Message" data-placement="top">?</span>
                             </p>
                         </div><!-- /.form-group -->
                         <p class="form-row form-row-wide hide-if-message_type-continues" id="width_field">
@@ -120,141 +116,111 @@ get_header();
                         </p><!-- /.form-group -->
                         <div id="add-clipart">
                             <label class="form-group-heading" >Add Clipart</label>
+                            <div class="button-box">
+                                <span class="text-label">Front Start</span>
+                                <div class="alignright">
+                                    <a id="front_start_btn" data-position="front_start" href="#" data-title="Front Start" data-toggle="modal"
+                                            data-target="#wristband-clipart-modal"
+                                            class="toggle-modal-clipart">
+                                        <span class="fusion-button-text-right">
+                                            <i class="fa fa-ban icon-preview hide-if-upload"></i>
+                                                <img class="image-upload hide-if-icon" width="10" height="16"/>
+                                            select</span>
+                                    </a>
+                                    <a href="#" class="fileinput-button">
+                                        <span><i class="fa fa-cloud-upload"></i> Upload</span>
+                                        <!-- The file input field used as target for the file upload widget -->
+                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                               data-clipart-type="frontstart">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="button-box">
+                                <span class="text-label">Front End</span>
+                                <div class="alignright">
+                                    <a id="front_end_btn" data-position="front_end" href="#" data-title="Front End" data-toggle="modal"
+                                       data-target="#wristband-clipart-modal"
+                                       class="toggle-modal-clipart">
+                                        <span class="fusion-button-text-right">
+                                            <i class="fa fa-ban icon-preview hide-if-upload"></i>
+                                                <img class="image-upload hide-if-icon" width="10" height="16"/>
+                                            select</span>
+                                    </a>
+                                    <a href="#" class="fileinput-button">
+                                        <span><i class="fa fa-cloud-upload"></i> Upload</span>
+                                        <!-- The file input field used as target for the file upload widget -->
+                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                               data-clipart-type="frontend">
+                                    </a>
+                                </div>
+                            </div>
 
-                                <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
-                                    <div class="fusion-column-wrapper">
-                                        <span class="text-label">Front Start</span>
-                                    </div>
-                                </div><!-- /.fusion-one-third -->
+                            <div class="button-box">
+                                <span class="text-label">Back Start</span>
+                                <div class="alignright">
+                                    <a id="back_start_btn" data-position="back_start" href="#" data-title="Back Start" data-toggle="modal"
+                                       data-target="#wristband-clipart-modal"
+                                       class="toggle-modal-clipart">
+                                        <span class="fusion-button-text-right">
+                                            <i class="fa fa-ban icon-preview hide-if-upload"></i>
+                                                <img class="image-upload hide-if-icon" width="10" height="16"/>
+                                            select</span>
+                                    </a>
+                                    <a href="#" class="fileinput-button">
+                                        <span><i class="fa fa-cloud-upload"></i> Upload</span>
+                                        <!-- The file input field used as target for the file upload widget -->
+                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                               data-clipart-type="backstart">
+                                    </a>
+                                </div>
+                            </div>
 
-                                <div class="fusion-three-fourth fusion-layout-column fusion-column-last fusion-spacing-yes">
-                                    <div class="fusion-column-wrapper">
-                                        <button id="front_start_btn" data-position="front_start" href="#" data-title="Front Start" data-toggle="modal"
-                                                data-target="#wristband-clipart-modal"
-                                                class="toggle-modal-clipart fusion-button button-flat button-round
-                                                button-small button-green">
-                                            <span class="fusion-button-text-right">
-                                                <i class="fa fa-ban icon-preview hide-if-upload"></i>
-                                                    <img class="image-upload hide-if-icon" width="10" height="16"/>
-                                                select</span>
-                                            <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
-                                        </button>
-                                        <span class="space-separator">or</span>
-                                        <button href="#" class="fusion-button button-flat button-round button-small button-default fileinput-button">
-                                            <span><i class="fa fa-cloud-upload"></i> Upload</span>
-                                            <!-- The file input field used as target for the file upload widget -->
-                                            <input class="fileupload" type="file" name="files[]" accept="image/png"
-                                                   data-clipart-type="frontstart">
-                                        </button>
-                                    </div>
-                                </div><!-- /.fusion-two-third -->
-                                <div class="fusion-clearfix"></div>
-                                <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
-                                    <div class="fusion-column-wrapper">
-                                        <span class="text-label">Front End</span>
-                                    </div>
-                                </div><!-- /.fusion-one-third -->
 
-                                <div class="fusion-three-fourth fusion-layout-column fusion-column-last fusion-spacing-yes">
-                                    <div class="fusion-column-wrapper">
-                                        <button id="front_end_btn" data-position="front_end" href="#" data-title="Front End" data-toggle="modal" data-target="#wristband-clipart-modal" class="toggle-modal-clipart fusion-button button-flat button-round button-small button-green">
-                                                <span class="fusion-button-text-right">
-                                                    <i class="fa fa-ban icon-preview hide-if-upload"></i>
-                                                    <img class="image-upload hide-if-icon" width="10" height="16"/>
-                                                    select</span>
-                                            <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
-                                        </button>
-                                        <span class="space-separator">or</span>
-                                            <span href="#" class="fusion-button button-flat button-round button-small button-default fileinput-button">
-                                                <span><i class="fa fa-cloud-upload"></i> Upload</span>
-                                                <!-- The file input field used as target for the file upload widget -->
-                                                <input class="fileupload" type="file" name="files[]" accept="image/png"
-                                                       data-clipart-type="frontend">
-                                            </span>
-                                    </div>
-                                </div><!--/.fusion-two-third-->
-                                <div class="fusion-clearfix"></div>
-                                <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
-                                    <div class="fusion-column-wrapper">
-                                        <span class="text-label">Back Start</span>
-                                    </div>
-                                </div><!-- /.fusion-one-third -->
+                            <div class="button-box">
+                                <span class="text-label">Back End</span>
+                                <div class="alignright">
+                                    <a id="back_end_btn" data-position="back_end" href="#" data-title="Back End" data-toggle="modal"
+                                       data-target="#wristband-clipart-modal"
+                                       class="toggle-modal-clipart">
+                                        <span class="fusion-button-text-right">
+                                            <i class="fa fa-ban icon-preview hide-if-upload"></i>
+                                                <img class="image-upload hide-if-icon" width="10" height="16"/>
+                                            select</span>
+                                    </a>
+                                    <a href="#" class="fileinput-button">
+                                        <span><i class="fa fa-cloud-upload"></i> Upload</span>
+                                        <!-- The file input field used as target for the file upload widget -->
+                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                               data-clipart-type="backend">
+                                    </a>
+                                </div>
+                            </div>
 
-                                <div class="fusion-three-fourth fusion-layout-column fusion-column-last fusion-spacing-yes">
-                                    <div class="fusion-column-wrapper">
-                                        <button id="back_start_btn" data-position="back_start" href="#" data-title="Back Start" data-toggle="modal" data-target="#wristband-clipart-modal" class="toggle-modal-clipart fusion-button button-flat button-round button-small button-green">
-                                                <span class="fusion-button-text-right">
-                                                    <i class="fa fa-ban icon-preview hide-if-upload"></i>
-                                                    <img class="image-upload hide-if-icon" width="10" height="16"/>
-                                                    select</span>
-                                            <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
-                                        </button>
-                                        <span class="space-separator">or</span>
-                                            <span href="#" class="fusion-button button-flat button-round button-small button-default fileinput-button">
-                                                <span><i class="fa fa-cloud-upload"></i> Upload</span>
-                                                <!-- The file input field used as target for the file upload widget -->
-                                                <input class="fileupload" type="file" name="files[]" accept="image/png"
-                                                       data-clipart-type="backstart">
-                                            </span>
-                                    </div>
-                                </div><!--/.fusion-two-third-->
-                                <div class="fusion-clearfix"></div>
-                                <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
-                                    <div class="fusion-column-wrapper">
-                                        <span class="text-label">Back End</span>
-                                    </div>
-                                </div><!-- /.fusion-one-third -->
-
-                                <div class="fusion-three-fourth fusion-layout-column fusion-column-last fusion-spacing-yes">
-                                    <div class="fusion-column-wrapper">
-                                        <button id="back_end_btn" data-position="back_end" href="#" data-title="Back End" data-toggle="modal" data-target="#wristband-clipart-modal"  class="toggle-modal-clipart fusion-button button-flat button-round button-small button-green">
-                                                <span class="fusion-button-text-right">
-                                                    <i class="fa fa-ban icon-preview hide-if-upload"></i>
-                                                    <img class="image-upload hide-if-icon" width="10" height="16"/>
-                                                    select</span>
-                                            <span class="button-icon-divider-right"><i class="fa fa-caret-down"></i></span>
-                                        </button>
-                                        <span class="space-separator">or</span>
-                                            <span href="#" class="fusion-button button-flat button-round button-small button-default fileinput-button">
-                                                <span><i class="fa fa-cloud-upload"></i> Upload</span>
-                                                <!-- The file input field used as target for the file upload widget -->
-                                                <input class="fileupload" type="file" name="files[]" accept="image/png"
-                                                       data-clipart-type="backend">
-                                            </span>
-                                    </div>
-                                </div><!--/.fusion-two-third-->
-                        </div><!-- /.form-group -->
-                    </div><!-- /.fusion-column-wrapper -->
+                        </div><!-- /#add-clipart -->
+                    </div>
                 </div><!--/.fusion-one-third-->
-                <div class="fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
+                <div class="fusion-one-half one_half fusion-layout-column fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
                         <div class="fusion-row">
                             <div class="imageframe-align-center image-preview">
                                 <div id="preview_container" class="container--ph"></div>
                             </div>
-                            <div class="link-buttons">
-                                <a class="fusion-button button-flat button-round button-xsmall button-orange" href="#"><span class="fusion-button-text">Product Info</span></a>
-                                <a class="fusion-button button-flat button-round button-xsmall button-default" href="#"><span class="fusion-button-text">Save Design</span></a>
-                                <a class="fusion-button button-flat button-round button-xsmall button-default preview-button active" href="#" id="front_view_button" data-input="front_message"><span class="fusion-button-text">Front</span></a>
-                                <a class="fusion-button button-flat button-round button-xsmall button-default preview-button" id="back_view_button" data-input="back_message" href="#"><span class="fusion-button-text">Back</span></a>
+                            <div class="link-buttons aligncenter">
+                                <a class="fusion-button button-flat button-round button-small button-orange" href="#"><span class="fusion-button-text">Product Info</span></a>
+                                <a class="fusion-button button-flat button-round button-small button-default" href="#"><span class="fusion-button-text">Save Design</span></a>
+                                <a class="fusion-button button-flat button-round button-small button-default preview-button active" href="#" id="front_view_button" data-input="front_message"><span class="fusion-button-text">Front</span></a>
+                                <a class="fusion-button button-flat button-round button-small button-default preview-button" id="back_view_button" data-input="back_message" href="#"><span class="fusion-button-text">Back</span></a>
                             </div>
                         </div>
 
-                        <div class="fusion-row">
-                            <div class="panel-body pricing-row">
-                                <div class="price price-with-decimal">
-                                    <span class="currency"><?php echo get_woocommerce_currency_symbol(); ?></span>
-                                    <span class="integer-part price-handler" id="price_handler">0.00</span>
-                                    <span class="time">Each</span>
-                                </div>
-                            </div>
-                            <div class="panel-footer footer-row">
-                                <div class="quantity-row">
-                                    <span id="qty_handler" class="qty-handler">0</span> Quantity
-                                </div>
-                            </div>
+                        <p class="fusion-row price price-with-decimal">
+                            <span class="currency"><?php echo get_woocommerce_currency_symbol(); ?></span>
+                            <span class="integer-part price-handler" id="price_handler">0.00</span>
+                            <span class="time">Each</span>
+                            <br />
+                            <span id="qty_handler" class="qty-handler">0</span> Quantity
+                        </p>
 
-                        </div>
                         <p class="form-row form-row-wide">
                             Guaranteed to be delived on or by : <strong id="delivery_date"></strong>
                         </p>
@@ -270,7 +236,7 @@ get_header();
                         </button>
                     </div><!-- /.fusion-column-wrapper -->
                 </div><!--/.fusion-one-third-->
-                <div class="fusion-one-third one_third fusion-layout-column fusion-column-last fusion-spacing-yes">
+                <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-column-last fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
                         <div class="form-group table-responsive">
                             <table id="selected_color_table" class="table table-bordered">
@@ -316,10 +282,10 @@ get_header();
 
                                     <div class="tab-pane fade <?php echo $flag ? 'active in' : ''; ?>" id="tab-<?php echo sanitize_title($style); ?>">
                                         <ul>
-                                            <?php foreach ($data->color_list as $color_list): ?>
+                                            <?php foreach ($data->color_list as $i => $color_list): ?>
                                                 <li data-toggle="tooltip" data-placement="top"
                                                     title="<?php echo $color_list->name; ?>">
-                                                    <div class="color-wrap">
+                                                    <div class="color-wrap <?php echo $i == 0 ? 'selected' : ''; ?>">
                                                 <?php
                                                 $colorx = array();
                                                 foreach($color_list as $key => $list):
@@ -371,8 +337,7 @@ get_header();
                                 <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text">
                             </p>
                             <div class="clear"></div>
-                            <a class="fusion-button button-flat button-round button-xsmall button-red alignright"
-                               target="_blank" href="#" id="add_color_to_selections"><span class="fusion-button-text">Add an additional color</span></a>
+                            <a class="alignright" target="_blank" href="#" id="add_color_to_selections"><i class="fa fa-plus"></i> <span class="fusion-button-text">Add an additional color</span></a>
                         </div><!-- /.quantity_group_field -->
                     <?php if (isset($GLOBALS['wbc_settings']->additional_options)):?>
                         <div id="additional-option-section">
@@ -380,7 +345,7 @@ get_header();
                         <?php $i = 1; foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option):?>
 
 
-                        <div class="fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
+                        <div class="additional-option-item fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
                             <div class="fusion-column-wrapper">
                                 <div class="addon">
                                     <div class="checkbox">
@@ -389,10 +354,8 @@ get_header();
                                     <span class="addon-price-handler"></span>
                                 </div>
                                 <div class="imageframe-align-center">
-                                    <span class="fusion-imageframe imageframe-none imageframe-17 hover-type-zoomin">
-                                        <img height="80" src="<?php echo $option->image->url; ?>" alt="<?php echo $option->name; ?>"
-                                             class="img-responsive">
-                                    </span>
+                                    <img height="80" src="<?php echo $option->image->url; ?>" alt="<?php echo $option->name; ?>"
+                                         class="img-responsive">
                                 </div>
 
                                 <div class="fusion-sep-clear"></div>
