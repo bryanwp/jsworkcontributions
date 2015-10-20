@@ -203,7 +203,8 @@ get_header();
                     <div class="fusion-column-wrapper">
                         <div class="fusion-row">
                             <div class="imageframe-align-center image-preview">
-                                <div id="preview_container" class="container--ph"></div>
+                                <div id="preview_container" class="container--ph">
+                                </div>
                             </div>
                             <div class="link-buttons aligncenter">
                                 <a class="fusion-button button-flat button-round button-small button-orange" href="#"><span class="fusion-button-text">Product Info</span></a>
