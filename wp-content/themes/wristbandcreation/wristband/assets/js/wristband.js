@@ -21,6 +21,9 @@ jQuery( function ( $ ) {
             if ( n == undefined ) return 0;
             f = f == undefined ? 2 : f;
 
+            n = parseFloat( n );
+            f = parseInt( f );
+
             return  n.toFixed( f ).replace(/./g, function(c, i, a) {
                 return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
             });
@@ -329,7 +332,7 @@ jQuery( function ( $ ) {
 
                         $.each( data.result.files, function ( index, file ) {
 
-                            var button = $self.closest( '.fusion-column-wrapper' ).find( '.toggle-modal-clipart' );
+                            var button = $self.closest( '.button-box' ).find( '.toggle-modal-clipart' );
                             // Delete previous file
                             if (  HELPER.is_image( WRISTBAND.data.clipart[button.data('position')] ) ) {
                                 WRISTBAND.delete_clipart( WRISTBAND.data.clipart[button.data('position')] );
@@ -340,12 +343,12 @@ jQuery( function ( $ ) {
                             WRISTBAND.has_upload = true;
                             WRISTBAND.data.clipart[button.data('position')] = file.name;
 
-                            $self.closest( '.fusion-column-wrapper' )
+                            $self.closest( '.button-box' )
                                 .find( '.image-upload' )
                                 .attr( 'src', file.thumbnailUrl )
                                 .css( { display: 'inline-block' } );
 
-                            $self.closest( '.fusion-column-wrapper' )
+                            $self.closest( '.button-box' )
                                 .find( '.hide-if-upload' )
                                 .css( { display : 'none' } );
 
@@ -389,8 +392,8 @@ jQuery( function ( $ ) {
 
             for ( var _qty in price_charts ) {
 
-                var output_qty_tpl = Mustache.render( '<td>{{qty}}</td>', { qty: _qty } );
-                var output_price_tpl = Mustache.render( '<td>{{price}}</td>', { price: price_charts[_qty] } );
+                var output_qty_tpl = Mustache.render( '<td>{{qty}}</td>', { qty: HELPER.nf( _qty, 0 ) } );
+                var output_price_tpl = Mustache.render( '<td>{{price}}</td>', { price: HELPER.nf( price_charts[_qty], 2 ) } );
 
                 $( '#price_chart table tr:first-child' ).append( output_qty_tpl );
                 $( '#price_chart table tr:eq(1)' ).append( output_price_tpl );
@@ -850,7 +853,7 @@ jQuery( function ( $ ) {
 
                         for ( var i in slctd_product.text_color ) {
 
-                            var tpl = '<li><div class="color-wrap"><div data-name="{{name}}" data-color="{{color}}" style="background-color:{{color}};"></div></div></li>';
+                            var tpl = '<li><div class="color-wrap '+ (i == 0 ? 'selected' : '') +'"><div data-name="{{name}}" data-color="{{color}}" style="background-color:{{color}};"></div></div></li>';
 
                             var render = Mustache.render(tpl, {
                                 name: slctd_product.text_color[i].name,
@@ -928,8 +931,8 @@ jQuery( function ( $ ) {
 
 
 
-
-                if ( ($('#wristband-text-color ul li').length && $tc.length == 0) || $wc.length == 0 || ( HELPER.iv( $aq.val() ) <= 0 && HELPER.iv( $mq.val() ) <= 0 &&
+                // ($('#wristband-text-color ul li').length && $tc.length == 0) ||
+                if ($wc.length == 0 || ( HELPER.iv( $aq.val() ) <= 0 && HELPER.iv( $mq.val() ) <= 0 &&
                     HELPER.iv( $yq.val() ) <= 0 ) ) {
                     return;
                 }
@@ -950,6 +953,9 @@ jQuery( function ( $ ) {
                     temp: true, // This is for temporary color during keyup
                 });
 
+
+                WRISTBAND.render_production_shipping_options();
+
             } )
 
             .on( 'click', '#add_color_to_selections', function( e ) {
@@ -968,9 +974,9 @@ jQuery( function ( $ ) {
                     _wristband_color_box    = Mustache.render( bg_style_tpl, {hide: '', bg_color: $wc.data( 'color' ), qty: '' });
 
 
+                // ($('#wristband-text-color ul li').length && $tc.length == 0) ||
 
-
-                if ( ($('#wristband-text-color ul li').length && $tc.length == 0) || $wc.length == 0 || ( HELPER.iv( $aq.val() ) <= 0 && HELPER.iv( $mq.val() ) <= 0 &&
+                if ($wc.length == 0 || ( HELPER.iv( $aq.val() ) <= 0 && HELPER.iv( $mq.val() ) <= 0 &&
                     HELPER.iv( $yq.val() ) <= 0 ) ) {
 
                     WRISTBAND.popup_message( 'error', 'Error', 'Please select wristband color/text color/quantity.' );
@@ -1095,9 +1101,6 @@ jQuery( function ( $ ) {
                 modal.find( '.modal-title' ).text( 'Choose your '+ button.data( 'title' ) +' Clipart ' );
                 modal.find( '.clipart-list').data( 'target', '#' + button.attr( 'id' ) );
                 modal.find( '.clipart-list').data( 'position', button.attr( 'id' ) );
-
-
-
             })
 
 
@@ -1108,7 +1111,7 @@ jQuery( function ( $ ) {
                 $( this ).addClass( 'active' );
 
 
-                var button = $( $( this).closest( '.clipart-list').data( 'target' ) );
+                var button = $( $( this ).closest( '.clipart-list' ).data( 'target' ) );
 
                 var icon = $( this ).data( 'icon' );
 
@@ -1140,8 +1143,15 @@ jQuery( function ( $ ) {
 
             })
 
-            .on( 'change', 'input[name="additional_option[]"], input[name="customization_location"], select#font', function(){
+            .on( 'change', 'input[name="customization_location"], select#font', function(){
                WRISTBAND.observer();
+            })
+
+
+            .on( 'click', '.additional-option-item', function() {
+                var $checkbox = $( this ).find(':checkbox');
+                $checkbox.attr( 'checked', !$checkbox[0].checked );
+                WRISTBAND.observer();
             })
 
             .on( 'click', '#wbc_add_to_cart', function(e) {
@@ -1202,7 +1212,7 @@ jQuery( function ( $ ) {
 
 
                 return false;
-            })
+            });
 
 
         // Alert message if attempt to leave/unload page
