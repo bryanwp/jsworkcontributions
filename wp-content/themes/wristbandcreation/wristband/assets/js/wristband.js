@@ -1148,7 +1148,9 @@ jQuery( function ( $ ) {
             })
 
 
-            .on( 'click', '.additional-option-item', function() {
+            .on( 'click', '.additional-option-item', function(e) {
+                if ( $(e.target).is('input:checkbox') ) return;
+
                 var $checkbox = $( this ).find(':checkbox');
                 $checkbox.attr( 'checked', !$checkbox[0].checked );
                 WRISTBAND.observer();
