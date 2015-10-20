@@ -921,7 +921,7 @@ jQuery( function ( $ ) {
             })
 
 
-            .on( 'keyup', '#qty_adult, #qty_medium, #qty_youth', function() {
+            .on( 'keyup mouseup', '#qty_adult, #qty_medium, #qty_youth', function() {
 
                 var $wc = $( '#wristband-color-tab .color-wrap.selected > div' ),
                     $tc = $( '#wristband-text-color .color-wrap.selected > div'),
