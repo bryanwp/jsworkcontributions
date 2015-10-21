@@ -596,7 +596,11 @@ jQuery(function ($) {
 
 
     $(document).ready(function() {
-
+        $('#font').ddslick({
+            background: 'transparent',
+            height:'250px',
+            width:'100%',
+        });
         $(document.body)
             // Get Product sizes on style changed
             .on('change', 'select[name="style"]', function() {

@@ -107,9 +107,8 @@ get_header();
 
                                 <?php if (isset($GLOBALS['wbc_settings']->fonts)):
                                     foreach ($GLOBALS['wbc_settings']->fonts as $font):?>
-                                        <option style="font-family: <?php echo esc_attr($font); ?>"
-                                                value="<?php echo esc_attr($font); ?>"><?php echo esc_attr($font); ?>
-                                        </option>
+                                        <option style="font-size:18px;font-family: '<?php echo esc_attr($font); ?>' !important;"
+                                                value="<?php echo esc_attr($font); ?>"><?php echo esc_attr($font); ?></option>
                                 <?php endforeach;
                                     endif; ?>
                             </select>
