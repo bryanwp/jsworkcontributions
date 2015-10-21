@@ -83,8 +83,9 @@ if (!class_exists('WBC_Fonts_Manager')) {
 
         public function get_settings($settings) {
             $fonts = array();
-            if (get_field('fonts', 'option')) {
-                foreach (get_field('fonts', 'option') as $key => $value) {
+            $acf_fonts = get_field('fonts', 'option');
+            if ($acf_fonts) {
+                foreach ($acf_fonts as $key => $value) {
                     if (isset($value['enable']) && $value['enable'] != '') {
                         $fonts[] = trim($value['name']);
                     }

@@ -133,10 +133,9 @@ if (!class_exists('WBC_Additional_Option_Manager')) {
         public function get_settings($settings) {
 
             $additional_options = array();
-
-            if (get_field('additional_options', 'option')) {
-                foreach (get_field('additional_options', 'option') as $key => $value) {
-
+            $acf_addtnl_options = get_field('additional_options', 'option');
+            if ($acf_addtnl_options) {
+                foreach ($acf_addtnl_options as $key => $value) {
                     $additional_options[sanitize_title_with_underscore($value['name'])] = array(
                         'name' => $value['name'],
                         'cost_type' => $value['cost_type'],

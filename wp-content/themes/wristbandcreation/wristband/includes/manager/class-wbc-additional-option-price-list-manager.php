@@ -41,15 +41,13 @@ if (!class_exists('WBC_Additional_Option_Price_List_Manager')) {
 
 
             $additional_option_price_list = array();
-
-            if( have_rows('additional_options', 'option') )
+            $acf_addtnl_optns = get_field('additional_options', 'option');
+            if($acf_addtnl_optns)
             {
-                while( have_rows('additional_options', 'option') )
+                foreach($acf_addtnl_optns as $k => $value)
                 {
-                    the_row();
-
                     //tab
-                    $tab_label = get_sub_field('name');
+                    $tab_label = $value['name'];
                     $tab_name = sanitize_title_with_underscore( $tab_label );
                     array_push( $additional_option_price_list, array (
                         'key' => 'field_'.$group.'_'.$tab_name,
@@ -59,7 +57,7 @@ if (!class_exists('WBC_Additional_Option_Price_List_Manager')) {
                     ) );
 
                     //repeater
-                    $repeater_label = get_sub_field('name');
+                    $repeater_label = $value['name'];
                     $repeater_name = sanitize_title_with_underscore( $repeater_label.' Price List' );
 
                     array_push( $additional_option_price_list, array (
@@ -93,25 +91,20 @@ if (!class_exists('WBC_Additional_Option_Price_List_Manager')) {
 
             $additional_options = array();
 
-
-            if (get_field('additional_options', 'option')) {
-                foreach (get_field('additional_options', 'option') as $key => $value) {
+            $acf_addtnl_optns = get_field('additional_options', 'option');
+            if ($acf_addtnl_optns) {
+                foreach ($acf_addtnl_optns as $key => $value) {
                     $name = sanitize_title_with_underscore($value['name']);
                     $additional_options[$name] = $value;
-
                     $repeater_name = $name.'_price_list';
-
-                    if (get_field($repeater_name, 'option')) {
-                        foreach (get_field($repeater_name, 'option') as $key2 => $value2) {
+                    $acf_repeater = get_field($repeater_name, 'option');
+                    if ($acf_repeater) {
+                        foreach ($acf_repeater as $key2 => $value2) {
                             $settings['additional_options'][$name]['price_list'][$value2['quantity']] = $value2['price'];
                         }
                     }
-
-
                 }
             }
-
-
             return $settings;
         }
     }

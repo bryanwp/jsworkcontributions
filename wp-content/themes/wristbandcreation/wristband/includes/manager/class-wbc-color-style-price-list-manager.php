@@ -64,16 +64,15 @@ if (!class_exists('WBC_Color_Style_Price_List_Manager')) {
         private function create_color_style_price_list( $group )
         {
             $color_style_price_tab_list = array();
-
-            if( have_rows('color_style_list', 'option') )
+            $acf_color_styles = get_field('color_style_list', 'option');
+            if($acf_color_styles)
             {
-                while( have_rows('color_style_list', 'option') )
+                foreach($acf_color_styles as $key => $value)
                 {
-                    the_row();
-                    if( get_sub_field('add_price') )
+                    if( $value['add_price'] )
                     {
                         //tab
-                        $tab_label = get_sub_field('name');
+                        $tab_label = $value['name'];
                         $tab_name = sanitize_title_with_underscore( $tab_label );
                         array_push( $color_style_price_tab_list, array (
                             'key' => 'field_'.$group.'_'.$tab_name,
@@ -83,7 +82,7 @@ if (!class_exists('WBC_Color_Style_Price_List_Manager')) {
                         ) );
 
                         //repeater
-                        $repeater_label = get_sub_field('name');
+                        $repeater_label = $value['name'];
                         $repeater_name = sanitize_title_with_underscore( $repeater_label.' Price List' );
                         array_push( $color_style_price_tab_list, array (
                             'key' => 'field_'.$group.'_'.$repeater_name,
@@ -123,17 +122,13 @@ if (!class_exists('WBC_Color_Style_Price_List_Manager')) {
                     $repeater_name = sanitize_title_with_underscore($name . '_price_list');
                     $opts = get_field($repeater_name, 'option');
                     if (is_array($opts) && count($opts) != 0) {
-                        foreach (get_field($repeater_name, 'option') as $key => $value) {
-
+                        foreach ($opts as $key => $value) {
                             if (!isset($value['quantity'])) continue;
                             $settings['color_style'][$name]['price_list'][$value['quantity']] = $value['price'];
                         }
                     }
                 }
             }
-
-
-
             return $settings;
         }
     }

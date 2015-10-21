@@ -293,10 +293,10 @@ if (!class_exists('WBC_Size_Manager')) {
             $price_chart = array();
 
             $repeater_name = sanitize_title_with_underscore($size . '_inch_price_list');
-            if( get_field($repeater_name, $product_id) ) {
-
-                while(the_repeater_field($repeater_name, $product_id)) {
-                    $price_chart[get_sub_field('quantity')] = get_sub_field('price');
+            $acf_repeater = get_field($repeater_name, $product_id);
+            if($acf_repeater) {
+                foreach ($acf_repeater as $k => $value) {
+                    $price_chart[$value['quantity']] = $value['price'];
                 }
             }
 
@@ -343,8 +343,9 @@ if (!class_exists('WBC_Size_Manager')) {
          */
         public function get_sizes_option_data() {
             $size_list = array();
-            if (get_field('size_list', 'option')) {
-                foreach (get_field('size_list', 'option') as $key => $value) {
+            $acf_size_list = get_field('size_list', 'option');
+            if ($acf_size_list) {
+                foreach ($acf_size_list as $key => $value) {
 
                     if (!isset($value['inch'])) continue;
                     $size_list[$value['inch']] = array(

@@ -248,8 +248,9 @@ if (!class_exists('WBC_Messages_Manager')) {
             $messages = array();
             $types = array('back_message', 'inside_message', 'more_than_22_characters');
             foreach ($types as $type) {
-                if (get_field($type. '_price_list', 'option')) {
-                    foreach (get_field($type.'_price_list', 'option') as $key => $value) {
+                $acf_prices = get_field($type. '_price_list', 'option');
+                if ($acf_prices) {
+                    foreach ($acf_prices as $key => $value) {
                         $messages[$type.'_price_list'][$value['quantity']] = $value['price'];
                     }
                 }

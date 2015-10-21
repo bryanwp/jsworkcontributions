@@ -468,5 +468,7 @@ get_header();
 </script>
 
 <?php
-
+//echo '<pre>';
+//print_r($GLOBALS['wbc_settings']);
+//echo '</pre>';
 get_footer();
