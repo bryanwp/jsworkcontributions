@@ -83,18 +83,22 @@ p.form-row:after {
     border: solid 1px #ECECEC;
     border-radius: 7px;
     padding: 5px;
-    min-height: 150px;
+    min-height: 125px;
     height: auto;
     background-color: rgba(255, 255, 255, 0.901961);
 }
 
-
-#additional-option-section .fusion-imageframe .img-responsive {
-    height: 80px;
+.additional-option-item {
+    margin-bottom: 10px;
 }
 
+.additional-option-item .imageframe-align-center {
+    height: 50px;
+}
 
-
+.additional-option-item .imageframe-align-center img {
+    height: 100%;
+}
 
 img.image-upload.hide-if-icon {
     display: none;

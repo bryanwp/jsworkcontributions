@@ -142,11 +142,10 @@ if (!class_exists('WBC_Color_Style_Manager')) {
         public function get_color_style_list($settings) {
 
             $color_style = array();
-            if (get_field('color_style_list', 'option')) {
-                foreach (get_field('color_style_list', 'option') as $key => $value) {
-
+            $acf_color_style = get_field('color_style_list', 'option');
+            if ($acf_color_style) {
+                foreach ($acf_color_style as $key => $value) {
                     if (!isset($value['name'])) continue;
-
                     $color_style[$value['name']] = array(
                         'color_limit' => $value['color_limit'],
                         'image' => array(

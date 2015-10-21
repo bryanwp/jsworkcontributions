@@ -94,8 +94,9 @@ if (!class_exists('WBC_Customization_Location_Manager')) {
 
 
         public function get_settings($settings) {
-            if (get_field('customization_location', 'option')) {
-                foreach (get_field('customization_location', 'option') as $key => $value) {
+            $acf_customization_location = get_field('customization_location', 'option');
+            if ($acf_customization_location) {
+                foreach ($acf_customization_location as $key => $value) {
                     $settings['customization']['location'][sanitize_title_with_underscore($value['name'])] = $value;
                 }
             }

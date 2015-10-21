@@ -138,8 +138,9 @@ if (!class_exists('WBC_Date_For_Customization_Manager')) {
         public function get_settings($settings) {
             $types = array('production', 'shipping');
             foreach($types as $type) {
-                if (get_field($type. '_dates', 'option')) {
-                    foreach (get_field($type. '_dates', 'option') as $key => $value) {
+                $acf_dates = get_field($type. '_dates', 'option');
+                if ($acf_dates) {
+                    foreach ($acf_dates as $key => $value) {
                         $settings['customization']['dates'][$type][sanitize_title_with_underscore($value['name'])] = $value;
                     }
                 }

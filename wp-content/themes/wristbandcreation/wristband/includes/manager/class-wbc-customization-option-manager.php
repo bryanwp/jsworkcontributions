@@ -95,24 +95,21 @@ if (!class_exists('WBC_Customization_Option_Manager')) {
         {
             // reset choices
             $field['choices'] = array();
-
-            if( have_rows('size_list', 'option') ) {
-                while( have_rows('size_list', 'option') ) {
-                    the_row();
-                    $label = get_sub_field('inch');
+            $acf_sizes = get_field('size_list', 'option');
+            if($acf_sizes) {
+                foreach($acf_sizes as $key => $value) {
+                    $label = $value['inch'];
                     if (!$label) continue;
-
                     $field['choices'][$label] = $label;
                 }
             }
-
-
             return $field; // Important: return the field
         }
 
         public function get_settings($settings) {
-            if (get_field('customization_options', 'option')) {
-                foreach (get_field('customization_options', 'option') as $key => $value) {
+            $acf_customizations = get_field('customization_options', 'option');
+            if ($acf_customizations) {
+                foreach ($acf_customizations as $key => $value) {
                     $settings['customization']['options'][sanitize_title_with_underscore($value['name'])] = $value;
                 }
             }

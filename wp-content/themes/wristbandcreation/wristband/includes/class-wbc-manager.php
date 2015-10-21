@@ -8,12 +8,11 @@ if (!class_exists('WBC_Manager')) {
     {
         public function __construct() {
             add_action('init', array($this, 'load_product_data_fields'), 10);
-            add_action('wp_loaded', array($this, 'wp_loaded'));
-
             add_action('save_post', array($this, 'delete_wbc_settings'), 10, 3);
             add_action('admin_head', array($this, 'delete_wbc_settings'));
 
             if (!is_admin()) {
+                add_action('wp_loaded', array($this, 'wp_loaded'));
                 add_filter( 'wristband_settings_array', array( $this, 'get_settings' ));
             }
 
@@ -31,6 +30,9 @@ if (!class_exists('WBC_Manager')) {
         public function wp_loaded() {
 
             if (is_admin()) return;
+//            $result = json_encode (apply_filters('wristband_settings_array', array()));
+//
+//            $GLOBALS['wbc_settings'] = json_decode($result);
 
             //strong the settings to option table will make data fetch more faster
             $GLOBALS['wbc_settings'] = json_decode (get_option('wbc_settings'));

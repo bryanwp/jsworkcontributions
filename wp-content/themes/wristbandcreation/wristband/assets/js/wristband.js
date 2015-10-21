@@ -566,8 +566,6 @@ jQuery(function ($) {
 
     };
 
-
-
     // Convert string to integer
     function toInt(n) {
         n = parseInt(n);
@@ -597,18 +595,13 @@ jQuery(function ($) {
 
 
 
-
-
-
-
-
     $(document).ready(function() {
 
         $(document.body)
             // Get Product sizes on style changed
             .on('change', 'select[name="style"]', function() {
 
-                Builder.reset();
+               // Builder.reset();
 
                 var slctd_product = Settings.products[this.value];
 
@@ -683,7 +676,6 @@ jQuery(function ($) {
                 $(this).addClass('selected');
                 $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
                 Builder.observer();
-
             })
             .on('keyup mouseup', '#qty_adult, #qty_medium, #qty_youth', function() {
                 var $wc = $('#wristband-color-tab .color-wrap.selected > div'),

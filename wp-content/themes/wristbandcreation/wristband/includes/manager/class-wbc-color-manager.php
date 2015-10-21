@@ -299,10 +299,10 @@ if (!class_exists('WBC_Color_Manager')) {
             // reset choices
             $field['choices'] = array();
 
-            if( have_rows('color_style_list', 'option') ) {
-                while( have_rows('color_style_list', 'option') ) {
-                    the_row();
-                    $label = get_sub_field('name');
+            $acf_color_style_list = get_field('color_style_list', 'option');
+            if($acf_color_style_list) {
+                foreach($acf_color_style_list as $k => $value) {
+                    $label = $value['name'];
                     $field['choices'][ str_replace(' ', '_', strtolower($label)) ] = $label;
                 }
             }
@@ -321,15 +321,13 @@ if (!class_exists('WBC_Color_Manager')) {
         private function create_color_list ( $group )
         {
             $color_tab_list = array();
-
-            if( have_rows('color_style_list', 'option') )
+            $acf_color_style_list = get_field('color_style_list', 'option');
+            if($acf_color_style_list)
             {
-                while( have_rows('color_style_list', 'option') )
+                foreach($acf_color_style_list as $k => $value)
                 {
-                    the_row();
-
                     //tab
-                    $tab_label = get_sub_field('name');
+                    $tab_label = $value['name'];
                     $tab_name = sanitize_title_with_underscore( $tab_label );
                     array_push( $color_tab_list, array (
                         'key' => 'field_'.$group.'_'.$tab_name,
@@ -339,7 +337,7 @@ if (!class_exists('WBC_Color_Manager')) {
                     ) );
 
                     //repeater
-                    $repeater_label = get_sub_field('name');
+                    $repeater_label = $value['name'];
                     $repeater_name = sanitize_title_with_underscore( $repeater_label.'_color_list' );
 
                     $sub_fields = array();
@@ -351,7 +349,7 @@ if (!class_exists('WBC_Color_Manager')) {
                         'type' => 'text',
                     ) );
 
-                    for ( $i=1; $i <= intval(get_sub_field('color_limit')); $i++ )
+                    for ( $i=1; $i <= intval($value['color_limit']); $i++ )
                     {
                         $color_limit_label = 'Color '.$i;
                         $color_limit_name = sanitize_title_with_underscore( $color_limit_label );
@@ -383,9 +381,9 @@ if (!class_exists('WBC_Color_Manager')) {
                 foreach ($settings['color_style'] as $name => $style) {
 
                     $repeater_name = sanitize_title_with_underscore($name . '_color_list');
-
-                    if (get_field($repeater_name, 'option')) {
-                        foreach (get_field($repeater_name, 'option') as $key => $value) {
+                    $acf_repeater = get_field($repeater_name, 'option');
+                    if ($acf_repeater) {
+                        foreach ($acf_repeater as $key => $value) {
                             $settings['color_style'][$name]['color_list'][] = $value;
                         }
                     }
@@ -394,33 +392,33 @@ if (!class_exists('WBC_Color_Manager')) {
                 }
             }
 
-            if (get_field('text_color', 'option')) {
-                foreach (get_field('text_color', 'option') as $key => $value) {
-
+            $acf_text_color = get_field('text_color', 'option');
+            if ($acf_text_color) {
+                foreach ($acf_text_color as $key => $value) {
                     if (!isset($value['name']) && !empty($value['name'])  && !empty($value['product'])) continue;
-
                     foreach ($value['product'] as $product) {
                         $settings['products'][$product->ID]['text_color'][] = array('name' => $value['name'], 'color' => $value['color']);
                     }
                 }
             }
 
-            if (get_field('color_size', 'option')) {
-                foreach (get_field('color_size', 'option') as $key => $value) {
+            $acf_color_size = get_field('color_size', 'option');
+            if ($acf_color_size) {
+                foreach ($acf_color_size as $key => $value) {
                     if (!isset($value['name'])) continue;
                     $settings['color_size'][] = $value['name'];
                 }
             }
-
-            if (get_field('color_extra_size_cost_price_list', 'option')) {
-                foreach (get_field('color_extra_size_cost_price_list', 'option') as $key => $value) {
+            $acf_color_extra_size_cost_prices = get_field('color_extra_size_cost_price_list', 'option');
+            if ($acf_color_extra_size_cost_prices) {
+                foreach ($acf_color_extra_size_cost_prices as $key => $value) {
                     if (!isset($value['quantity'])) continue;
                     $settings['color_extra_size_cost_price_list'][$value['quantity']] = $value['price'];
                 }
             }
-
-            if (get_field('color_split_cost_price_list', 'option')) {
-                foreach (get_field('color_split_cost_price_list', 'option') as $key => $value) {
+            $acf_color_split_cost_prices = get_field('color_split_cost_price_list', 'option');
+            if ($acf_color_split_cost_prices) {
+                foreach ($acf_color_split_cost_prices as $key => $value) {
                     if (!isset($value['quantity'])) continue;
                     $settings['color_split_cost_price_list'][$value['quantity']] = $value['price'];
                 }

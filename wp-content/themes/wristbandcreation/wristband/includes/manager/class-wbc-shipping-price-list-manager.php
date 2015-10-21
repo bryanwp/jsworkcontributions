@@ -58,14 +58,13 @@ if (!class_exists('WBC_Shipping_Price_List_Manager')) {
         private function create_shipping_price_list( $group, $name )
         {
             $shipping_price_list = array();
-            if( have_rows( $name.'_dates', 'option') )
+            $acf_dates = get_field($name.'_dates', 'option') ;
+            if($acf_dates)
             {
-                while( have_rows( $name.'_dates', 'option') )
+                foreach($acf_dates as $key => $value)
                 {
-                    the_row();
-
                     //tab
-                    $tab_label = get_sub_field('name');
+                    $tab_label = $value['name'];
                     $tab_name = sanitize_title_with_underscore( $tab_label );
                     array_push( $shipping_price_list, array (
                         'key' => 'field_'. generate_uniqid($group.'_'.$tab_name),
@@ -75,7 +74,7 @@ if (!class_exists('WBC_Shipping_Price_List_Manager')) {
                     ) );
 
                     //repeater
-                    $repeater_label = get_sub_field('name');
+                    $repeater_label = $value['name'];
                     $repeater_name = sanitize_title_with_underscore( $group.'_'.$repeater_label.'_price_list' );
 
                     array_push( $shipping_price_list, array (
@@ -106,28 +105,25 @@ if (!class_exists('WBC_Shipping_Price_List_Manager')) {
 
 
         public function get_settings($settings) {
-
-            if (get_field('customization_options', 'option')) {
-                foreach (get_field('customization_options', 'option') as $key => $value) {
+            $acf_customization_options = get_field('customization_options', 'option');
+            if ($acf_customization_options) {
+                foreach ($acf_customization_options as $key => $value) {
                     $cus = sanitize_title_with_underscore($value['name']);
                     $repeater_field_name = 'shipping_price_list_'. $cus;
-
-                    if (get_field('shipping_dates', 'option')) {
-                        foreach (get_field('shipping_dates', 'option') as $key2 => $value2) {
+                    $acf_shipping_dates = get_field('shipping_dates', 'option');
+                    if ($acf_shipping_dates) {
+                        foreach ($acf_shipping_dates as $key2 => $value2) {
                             $dates = sanitize_title_with_underscore($value2['name']);
-
                             $rn = $repeater_field_name.'_'. $dates .'_price_list';
                             $gu = generate_uniqid($rn);
-
-                            if (get_field($gu, 'option')) {
-                                foreach(get_field($gu, 'option') as $key3 => $value3) {
+                            $acf_gu = get_field($gu, 'option');
+                            if ($acf_gu) {
+                                foreach($acf_gu as $key3 => $value3) {
                                     $settings['shipping_price_list'][$cus][$dates][$value3['quantity']] = $value3['price'];
                                 }
                             }
-
                         }
                     }
-
                 }
             }
             return $settings;
