@@ -24,6 +24,7 @@ get_header();
                         </table>
                     </div>
                 </div><!-- /#price_chart -->
+
                 <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
                         <p class="form-row form-row-wide" id="style_field">
@@ -55,9 +56,9 @@ get_header();
                             </p>
                             <p class="radio">
                                 <input type="radio" name="message_type" value="continues"/>
-                                Continues
+                                Continuous
                                 <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
-                                      title="Front and Back Message" data-placement="top">?</span>
+                                      title="Continuous Message" data-placement="top">?</span>
                             </p>
                         </div><!-- /.form-group -->
                         <p class="form-row form-row-wide hide-if-message_type-continues" id="width_field">
@@ -82,7 +83,7 @@ get_header();
 
 
                         <p class="form-row form-row-wide hide-if-message_type-front_and_back">
-                            <label for="continues_message"  class="form-group-heading">Continues Message
+                            <label for="continues_message"  class="form-group-heading">Continuous Message
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="continues_message_chars_left"><?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -216,7 +217,7 @@ get_header();
                         <p class="fusion-row price price-with-decimal">
                             <span class="currency"><?php echo get_woocommerce_currency_symbol(); ?></span>
                             <span class="integer-part price-handler" id="price_handler">0.00</span>
-                            <span class="time">Each</span>
+                            <span class="time">Total Amount</span>
                             <br />
                             <span id="qty_handler" class="qty-handler">0</span> Quantity
                         </p>

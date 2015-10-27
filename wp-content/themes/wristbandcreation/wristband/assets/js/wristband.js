@@ -69,6 +69,7 @@ jQuery(function ($) {
                     }
                     if (array_sizes.indexOf(size) == -1 && this.data.colors[i].sizes[size] > 0) {
                         array_sizes.push(size);
+
                     }
 
                 }
@@ -120,6 +121,7 @@ jQuery(function ($) {
             this.data.total_price = total_price;
             $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 Free' : ''));
             $('#price_handler').text(numberFormat(total_price));
+
             this.buildPreview();
         },
         buildPreview: function() {
@@ -423,9 +425,19 @@ jQuery(function ($) {
         _priceChart: function(qty) {
             if (qty <= 0) return 0;
             var price_charts = this.price_charts,
-                additional  = this.rangePrice(price_charts, qty);
+                additional  = this.rangePrice(price_charts, qty),
+                total = 0;
+                total  = additional * qty;
 
-            this.data.total_price += additional;
+                if ( qty == 0 )
+                {
+                    this.data.total_price += additional; 
+                }
+                else 
+                {
+                    this.data.total_price += total;
+                }
+
         },
         _colorSplit: function(qty) {
             if (!this.data.has_color_split) return;
@@ -688,8 +700,8 @@ jQuery(function ($) {
                     $mq    = $('#qty_medium'),
                     $yq    = $('#qty_youth');
                 // ($('#wristband-text-color ul li').length && $tc.length == 0) ||
-                if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 &&
-                    toInt($yq.val()) <= 0)) {
+                if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)) 
+                {
                     return;
                 }
                 Builder.addColor($wc.data('name'), {
@@ -725,8 +737,8 @@ jQuery(function ($) {
 
                 // ($('#wristband-text-color ul li').length && $tc.length == 0) ||
 
-                if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 &&
-                    toInt($yq.val()) <= 0)) {
+                if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)) 
+                {
 
                     Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.');
                     return;
@@ -931,3 +943,4 @@ jQuery(function ($) {
         Builder.onLoad();
     });
 });
+
