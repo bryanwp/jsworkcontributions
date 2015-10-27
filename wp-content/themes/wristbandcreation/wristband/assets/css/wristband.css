@@ -635,3 +635,6 @@ div.coupon {
     display:inline-table;
     padding-left: 15px;
 }
+.dd-selected {
+    padding: 7px 10px !important;
+}
