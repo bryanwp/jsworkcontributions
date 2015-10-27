@@ -177,7 +177,6 @@ if (!function_exists('wc_template_single_customize_now')) {
     }
 }
 
-
 if (!function_exists('wc_template_single_pricing_chart')) {
     function wc_template_single_pricing_chart() {
         global $post;
@@ -187,16 +186,7 @@ if (!function_exists('wc_template_single_pricing_chart')) {
 
 
         if (count($sizes) > 0) {
-            echo '<div class="fusion-column-wrapper">';
-            echo '<div class="accordian fusion-accordian">';
-            echo '<div class="panel-group" id="accordion-2300-1">';
-            echo '<div class="fusion-panel panel-default">';
-            echo '<div class="panel-heading">';
-            echo '<h4 data-lineheight="30" data-fontsize="14" class="panel-title toggle"><a class="active" data-toggle="collapse" data-parent="#accordion-2300-1" data-target="#f23f5bb7e324f83af" href="#f23f5bb7e324f83af"><div class="fusion-toggle-icon-wrapper"><i class="fa-fusion-box"></i></div><div class="fusion-toggle-heading">Pricing</div></a></h4>';
-            echo '</div>';
-            echo '<div style="height: auto;" id="f23f5bb7e324f83af" class="panel-collapse collapse">';
-            echo '<div class="panel-body toggle-content">';
-           
+
             echo '<div class="woocommerce-tabs wc-tabs-wrapper">';
 
             echo '<div class="tabs wc-tabs">';
@@ -230,14 +220,6 @@ if (!function_exists('wc_template_single_pricing_chart')) {
 
 
             echo '</div><!-- /.fusion-tabs -->';
-
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
-            echo '</div>';
-            echo '<div class="fusion-clearfix"></div>';
-            echo '</div>';           
         }
 
     }
