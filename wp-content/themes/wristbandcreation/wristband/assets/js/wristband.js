@@ -10,6 +10,7 @@ jQuery(function ($) {
             total_qty       : 0,            // Total Quantity of wristband selected
             has_color_split : false,        // Check if selection has color split
             has_extra_size  : false,        // Check if selection has extra sizes
+            size_number     : 0,           // Number of sizes that are inputted
             colors          : [],           // Color selected
             clipart         : {
                 front_start: '',            // Front Start Clipart
@@ -55,23 +56,30 @@ jQuery(function ($) {
         },
         // Check if there are any split color and extra sizes
         checkColorSplitAndExtraSize: function() {
-            var array_sizes = [];
+            var array_sizes = [], size_definition = [];
+
             this.data.has_color_split   = false;
             this.data.has_extra_size    = false;
+            this.data.size_number       = 0;
             if (this.data.colors.length > 1) {
                 this.data.has_color_split = true;
             }
             for (var i in this.data.colors) {
-                for (var size in this.data.colors[i].sizes) {
-                    if (array_sizes.length > 1) {
-                        this.data.has_extra_size = true;
-                        return;
-                    }
-                    if (array_sizes.indexOf(size) == -1 && this.data.colors[i].sizes[size] > 0) {
-                        array_sizes.push(size);
+                 for (var size in this.data.colors[i].sizes) {
 
+                    if ( this.data.colors[i].sizes[size] >= 1)
+                    {
+                        this.data.size_number++;
+                        if ( this.data.size_number == 2 )
+                        {
+                            this.data.has_extra_size = true;
+                        }
+                        else if ( this.data.size_number == 3 )
+                        {
+                            this.data.has_extra_size = true;
+                        }
                     }
-
+                    
                 }
 
             }
@@ -448,7 +456,19 @@ jQuery(function ($) {
         _extraSize: function(qty) {
             if (!this.data.has_extra_size) return;
             var extra_size_cost = Settings.color_extra_size_cost_price_list;
-            this.data.total_price += this.rangePrice(extra_size_cost, qty);
+
+                if (this.data.size_number == 2)
+                {
+                    this.data.total_price += this.rangePrice(extra_size_cost,qty);
+                }
+                else if (this.data.size_number == 3)
+                {
+                    this.data.total_price += this.rangePrice(extra_size_cost,qty) * 2;
+                }
+                else
+                {
+                    return;
+                }
         },
         _msgMoreThanCharLimit: function(qty) {
             if (qty <= 0) return;
@@ -725,6 +745,7 @@ jQuery(function ($) {
                 var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
                     $tc = $('#wristband-text-color .color-wrap.selected > div'),
                     bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap"><div style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>',
+                    bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap" style="display:{{style_display}}" ><div style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>',
                     $aq    = $('#qty_adult'),
                     $mq    = $('#qty_medium'),
                     $yq    = $('#qty_youth');
@@ -732,10 +753,21 @@ jQuery(function ($) {
                 var _adult_qty   = numberFormat(toInt($aq.val()), 0),
                     _medium_qty  = numberFormat(toInt($mq.val()), 0),
                     _youth_qty   = numberFormat(toInt($yq.val()), 0),
-                    _wristband_color_box    = Mustache.render(bg_style_tpl, {hide: '', bg_color: $wc.data('color'), qty: ''});
+                    _wristband_color_box    = Mustache.render(bg_style_tpl, {hide: '', bg_color: $wc.data('color'), qty: ''}),
+                    _wristband_text_color_box = '';
 
 
-                // ($('#wristband-text-color ul li').length && $tc.length == 0) ||
+
+
+                    if ( $tc.data('color') != null )
+                    {
+                        _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'inline-block', bg_color: $tc.data('color'), qty: ''});
+                    }
+                    else 
+                    {
+                        _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'none', bg_color: $tc.data('color'), qty: ''});
+                    }
+
 
                 if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)) 
                 {
@@ -759,10 +791,11 @@ jQuery(function ($) {
 
                 var row_tpl = Mustache.render(
                     '<tr data-name="{{name}}">'
-                    + '<td>{{{adult_qt}}}</td>'
-                    + '<td>{{{medium_qty}}}</td>'
-                    + '<td>{{{youth_qty}}}</td>'
-                    + '<td>{{{wristband_color_box}}}</td>'
+                    + '<td><center>{{{adult_qt}}}</center></td>'
+                    + '<td><center>{{{medium_qty}}}</center></td>'
+                    + '<td><center>{{{youth_qty}}}</center></td>'
+                    + '<td><center>{{{wristband_color_box}}}</center></td>'
+                    + '<td><center>{{{wristband_text_color_box}}}</center></td>'
                     + '<td><a href="#" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
                     + '</tr>',
                     {
@@ -771,6 +804,7 @@ jQuery(function ($) {
                         medium_qty   : _medium_qty,
                         youth_qty    : _youth_qty,
                         wristband_color_box     : _wristband_color_box,
+                        wristband_text_color_box : _wristband_text_color_box,
                    }
                 );
 
@@ -943,4 +977,3 @@ jQuery(function ($) {
         Builder.onLoad();
     });
 });
-

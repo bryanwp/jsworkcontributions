@@ -8,3 +8,4 @@ wp-content/themes/*
 !wp-content/themes/wristbandcreation
 !wp-content/themes/wristbandcreation/*
 wp-content/themes/wristbandcreation/wristband/assets/js/wristband.jd
+wp-content/themes/wristbandcreation/templates/order-now-layout-php.bck
