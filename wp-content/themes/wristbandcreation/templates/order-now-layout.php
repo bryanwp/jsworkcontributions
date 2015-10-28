@@ -247,6 +247,7 @@ get_header();
                                         <th>Medium</th>
                                         <th>Youth</th>
                                         <th>Color</th>
+                                        <th class = "text_to_alter">Text</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -266,9 +267,9 @@ get_header();
                                                data-toggle="tab">
                                                 <div class="radio">
                                                     <label>
-                                                        <input type="radio" name="color_style" value="<?php echo esc_attr($style); ?>"
+                                                        <center><input type="radio" name="color_style" value="<?php echo esc_attr($style); ?>"
                                                             <?php echo $flag ? 'checked' : ''; ?>/>
-                                                        <?php echo esc_attr($style); ?>
+                                                        <?php echo esc_attr($style); ?></center>
                                                     </label>
                                                 </div>
                                             </a>
@@ -349,10 +350,11 @@ get_header();
                         <div class="additional-option-item fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
                             <div class="fusion-column-wrapper">
                                 <div class="addon">
+                                    <span class="addon-price-handler">
                                     <div class="checkbox">
                                         <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" />
                                     </div>
-                                    <span class="addon-price-handler"></span>
+                                    </span>
                                 </div>
                                 <div class="imageframe-align-center">
                                     <img height="80" src="<?php echo $option->image->url; ?>" alt="<?php echo $option->name; ?>"
