@@ -62,26 +62,27 @@ jQuery(function ($) {
             this.data.has_extra_size    = false;
             this.data.size_number       = 0;
             if (this.data.colors.length > 1) {
+                //console.log(this.data.colors.length);
                 this.data.has_color_split = true;
             }
             for (var i in this.data.colors) {
                  for (var size in this.data.colors[i].sizes) {
 
-                    if ( this.data.colors[i].sizes[size] >= 1)
-                    {
-                        this.data.size_number++;
-                        if ( this.data.size_number == 2 )
-                        {
-                            this.data.has_extra_size = true;
-                        }
-                        else if ( this.data.size_number == 3 )
-                        {
-                            this.data.has_extra_size = true;
-                        }
+                    if (array_sizes.indexOf(size) == -1 && this.data.colors[i].sizes[size] > 0) {
+                        array_sizes.push(size);
                     }
-                    
+                    if (array_sizes.length == 2)
+                    {
+                        this.data.has_extra_size = true;
+                        this.data.size_number = 2;
+                    }
+                    if (array_sizes.length == 3)
+                    {
+                        this.data.has_extra_size = true;
+                        this.data.size_number = 3;
+                    }
+                   
                 }
-
             }
         },
         // Collect all quantity
@@ -336,6 +337,7 @@ jQuery(function ($) {
                 guaranteed_delivery: 'Oct 4, 2016'
             });
         },
+       
         popupMsg: function(_status, _title, _message) {
             var template  = $('#modal_message_template').html();
             var tpl  = Mustache.render(template, {status: _status, title: _title, message: _message});
@@ -450,25 +452,27 @@ jQuery(function ($) {
         _colorSplit: function(qty) {
             if (!this.data.has_color_split) return;
             var color_split_cost = Settings.color_split_cost_price_list,
-                additional = this.rangePrice(color_split_cost, qty);
+                additional = this.rangePrice(color_split_cost, qty) * ( this.data.colors.length - 1 ) ;
             this.data.total_price += additional;
         },
         _extraSize: function(qty) {
             if (!this.data.has_extra_size) return;
             var extra_size_cost = Settings.color_extra_size_cost_price_list;
 
-                if (this.data.size_number == 2)
-                {
-                    this.data.total_price += this.rangePrice(extra_size_cost,qty);
-                }
-                else if (this.data.size_number == 3)
-                {
-                    this.data.total_price += this.rangePrice(extra_size_cost,qty) * 2;
-                }
-                else
+                if (this.data.size_number == 1)
                 {
                     return;
                 }
+                else if (this.data.size_number == 2)
+                {
+                    this.data.total_price += this.rangePrice(extra_size_cost,qty);
+                }
+                else
+                {
+                    this.data.total_price += this.rangePrice(extra_size_cost,qty) * 2;
+                }
+               // console.log(this.data.size_number);
+
         },
         _msgMoreThanCharLimit: function(qty) {
             if (qty <= 0) return;
@@ -669,7 +673,9 @@ jQuery(function ($) {
                    } else {
                         $('#wristband-text-color').closest('.form-group').hide();
                    }
+
                 }
+
             })
             // Populate width dropdown
             .on('change', 'select#width', function() {
@@ -809,17 +815,18 @@ jQuery(function ($) {
                 );
 
                 var $tr = $('#selected_color_table > tbody tr[data-name="'+ $wc.data('name') +'"]');
-
-                if ($tr.length) {
-                   $tr.replaceWith(row_tpl);
-                } else {
-                    $('#selected_color_table > tbody').append(row_tpl);
-                }
+                    
+                    if ($tr.length) {
+                       $tr.replaceWith(row_tpl);
+                    } else {
+                       $('#selected_color_table > tbody').append(row_tpl);
+                    }
                 $wc.closest('.color-wrap').addClass('added');
                 $('#wristband-color-items .color-wrap, #wristband-text-colors .color-wrap').removeClass('selected');
                 $('#qty_adult, #qty_medium, #qty_youth').val('');
                 $(this).find('.fusion-button-text').text('Add an additional color');
                 Builder.renderProductionShippingOptions();
+               // console.log(row_tpl);
                 return false;
             })
 
@@ -833,13 +840,17 @@ jQuery(function ($) {
                 $row.remove();
                 return false;
             })
-            .on('click', '.edit-selection', function(e) {
+            .on('click', '.fa-pencil', function(e) {
                 e.preventDefault();
 
                 var color_name  = $(this).closest('tr').data('name'),
                     i = Builder.getColorIndex(color_name),
                     color   = Builder.data.colors[i];
+                    
 
+                    
+
+                $(this).removeClass('fa-pencil').addClass('fa-undo'); 
                 $('#qty_adult ').val(color.sizes.adult);
                 $('#qty_medium').val(color.sizes.medium);
                 $('#qty_youth').val(color.sizes.youth);
@@ -847,9 +858,19 @@ jQuery(function ($) {
                 $('input[name=color_style][value="'+ color.type +'"]').trigger('click');
                 $('#wristband-color-items .color-wrap > div[data-name^="'+ color.name +'"]').closest('.color-wrap').addClass('selected');
                 $('#wristband-text-color .color-wrap > div[data-name^="'+ color.text_color_name +'"]').closest('.color-wrap').addClass('selected');
-                $('#addColor_to_selections > .fusion-button-text').text('Update Color');
+                $('#add_color_to_selections > .fusion-button-text').text('Update Color');
 
             })
+    
+            .on('click','.fa-undo', function(e){
+                e.preventDefault();
+                //$('.fa-pencil').val($('.fa-pencil').data('default-value'));
+                $(this).removeClass('fa-undo').addClass('fa-pencil');
+                $('#wristband-color-items .color-wrap, #wristband-text-colors .color-wrap').removeClass('selected');
+                $('#qty_adult, #qty_medium, #qty_youth').val('');
+                $('#add_color_to_selections > .fusion-button-text').text('Add an additional color');
+            }) 
+
             .on('keyup', 'input[name="front_message"], input[name="continues_message"], input[name="back_message"], input[name="inside_message"]', function() {
                 Builder.observer();
             })
