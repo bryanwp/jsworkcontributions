@@ -66,6 +66,7 @@ if (!class_exists('WBC_Size_Manager')) {
                     the_row();
                     $label = get_sub_field('inch');
                     if (!$label) continue;
+                    //array_multisort( $field['choices'], SORT_DESC, SORT_NUMERIC );
 
                     $field['choices'][$label] = $label;
                 }
@@ -181,7 +182,8 @@ if (!class_exists('WBC_Size_Manager')) {
                     'hide_on_screen' => array (
                     ),
                 ),
-                'menu_order' => 0,
+                //'menu_order' => 0,
+                'order' => 'DESC',
             ));
 
 
@@ -344,6 +346,7 @@ if (!class_exists('WBC_Size_Manager')) {
         public function get_sizes_option_data() {
             $size_list = array();
             $acf_size_list = get_field('size_list', 'option');
+
             if ($acf_size_list) {
                 foreach ($acf_size_list as $key => $value) {
 
@@ -357,13 +360,13 @@ if (!class_exists('WBC_Size_Manager')) {
                     );
                 }
             }
-
+            //var_dump($size_list);
             return $size_list;
         }
 
 
         public function get_settings($settings) {
-            $product_sizes = array();
+            $product_sizes = array();            
             $products = get_posts(array( 'posts_per_page' => -1, 'post_status' => 'any', 'post_type' => 'product' ));
             if ($products) {
                 foreach ($products as $product) {
@@ -374,18 +377,22 @@ if (!class_exists('WBC_Size_Manager')) {
                         $product_sizes[$product_id]['product_ID'] = $product_id;
                         $product_sizes[$product_id]['product_title'] = $product->post_title;
                         $product_sizes[$product_id]['default_size'] = get_field('default_size', $product_id);
+                        $count = 0;
                         foreach ($sizes as $size) {
                             $data = isset($sizes_data[$size]) ? $sizes_data[$size] : array();
                             $data['price_chart'] = $this->get_product_price_chart($size, $product_id);
+                            $data['count'] = $count;
                             ksort($data['price_chart']);
                             $product_sizes[$product_id]['sizes'][$size] = $data;
+                            $count++;
                         }
+                        //$product_sizes[$product_id]['count'] = $count;
                     }
 
                 }
             }
             $settings['products'] = $product_sizes;
-            return $settings;
+        return $settings;
         }
 
     }

@@ -30,17 +30,17 @@ if (!class_exists('WBC_Manager')) {
         public function wp_loaded() {
 
             if (is_admin()) return;
-//            $result = json_encode (apply_filters('wristband_settings_array', array()));
-//
-//            $GLOBALS['wbc_settings'] = json_decode($result);
-
             //strong the settings to option table will make data fetch more faster
+            
             $GLOBALS['wbc_settings'] = json_decode (get_option('wbc_settings'));
             if ( null == $GLOBALS['wbc_settings'] ) {
-                $result = json_encode (apply_filters('wristband_settings_array', array()));
 
-                $GLOBALS['wbc_settings'] = json_decode($result);
+                $array = apply_filters('wristband_settings_array', array());
+                $result = json_encode ($array);
+                $new_result = json_decode($result);
+                $GLOBALS['wbc_settings'] = $new_result;
                 update_option( 'wbc_settings', $result );
+
             }
         }
 
