@@ -85,6 +85,7 @@ get_header();
                                       title="Continuous Message" data-placement="top">?</span>
                             </p>
                         </div><!-- /.form-group -->
+                        <?php if (isset($GLOBALS['wbc_settings']->tool_tip_text)):?>
                         <p class="form-row form-row-wide hide-if-message_type-continues" id="width_field">
                             <label for="front_message"  class="form-group-heading">Front Message
                                 <span class="char_left_wrapper alignright">
@@ -125,6 +126,8 @@ get_header();
                             <input type="text" name="inside_message" class="trigger-limit-char"
                                    data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" />
                         </p><!-- /.form-group -->
+
+                    <?php endif;?>
                         <p class="form-row form-row-wide">
                             <label for="font" class="form-group-heading">Font</label>
                             <select name="font" id="font" class="input-select enable-if-style-selected">
@@ -219,6 +222,8 @@ get_header();
                                     </a>
                                 </div>
                             </div>
+
+                           
 
                         </div><!-- /#add-clipart -->
                     </div>

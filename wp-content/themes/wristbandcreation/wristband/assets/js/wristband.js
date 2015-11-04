@@ -490,7 +490,7 @@ jQuery(function ($) {
                 }
                 var el  = $('input[name="'+ array_el[i] +'"]').val();
                 if (el.length > Settings.messages.message_char_limit) {
-                    this.data.total_price += additional_price;
+                    this.data.total_price += additional_price * qty;
                     // Render alert message
                     var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each for more than {{limit}} characters.',
                         {
@@ -513,7 +513,7 @@ jQuery(function ($) {
                     var price_list = Settings.messages[array_el[i] + '_price_list'];
                     if (price_list != undefined) {
                         var additional_price = this.rangePrice(price_list, qty);
-                        this.data.total_price += additional_price;
+                        this.data.total_price += additional_price * qty;
                         // Render alert message
                         var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.',
                             {
@@ -529,11 +529,14 @@ jQuery(function ($) {
         _additionalOptions: function(qty) {
             $('input[name="additional_option[]"]:checked').each(function() {
                 var price_list = Settings['additional_options'][$(this).data('key')].price_list,
+                    costType = Settings['additional_options'][$(this).data('key')].cost_type,
                     additional_price = Builder.rangePrice(price_list, qty);
 
                 $(this).closest('.checkbox').closest('.checkbox').find('.each-message').remove();
                 if (additional_price > 0) {
-                    Builder.data.total_price += additional_price;
+                    if(costType == 'Each Quantity')
+                    {
+                          Builder.data.total_price += additional_price * qty;
                     // Render alert message
                     var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.',
                         {
@@ -542,7 +545,21 @@ jQuery(function ($) {
                         }
                     );
                     Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'each-message');
-                }
+                    }
+                    else
+                    {
+
+                    Builder.data.total_price += additional_price;
+                    // Render alert message
+                    var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} per order.',
+                        {
+                            currency_symbol: Settings.currency_symbol,
+                            price: additional_price,
+                        }
+                    );
+                    Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'per-order');
+                    }
+                }   
             });
         },
         _customizationLocation: function() {
@@ -584,7 +601,7 @@ jQuery(function ($) {
 
             var price_list =  Settings.logo.prices,
                 additional_price = this.rangePrice(price_list, qty);
-            this.data.total_price += additional_price;
+            this.data.total_price += additional_price * qty;
 
             // Render alert message
             var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.',
@@ -634,9 +651,7 @@ jQuery(function ($) {
 
     $(document).ready(function() {
         $('#font').ddslick({
-            background: 'transparent',
-            height:'250px',
-            width:'100%',
+           
         });
         $(document.body)
             // Get Product sizes on style changed
@@ -651,10 +666,6 @@ jQuery(function ($) {
                     $('#wbc_add_to_cart').removeAttr('disabled');
 
                     $('select#width').empty().removeAttr('disabled');
-                    console.log(this.value);
-                    console.log(slctd_product);
-                    console.log(slctd_product.sizes);
-                    console.log(slctd_product.sizes);
 
                     for( var size in slctd_product.sizes)
                      {
@@ -663,7 +674,6 @@ jQuery(function ($) {
                      } 
                         
                      var hold_index_sort = i.sort();
-                     console.log(hold_index_sort);
 
                     for( var index_size in hold_index_sort)
                      {
@@ -864,7 +874,6 @@ jQuery(function ($) {
                 $('#qty_adult, #qty_medium, #qty_youth').val('');
                 $(this).find('.fusion-button-text').text('Add an additional color');
                 Builder.renderProductionShippingOptions();
-               // console.log(row_tpl);
                 return false;
             })
 
@@ -905,7 +914,6 @@ jQuery(function ($) {
                 $('#wristband-color-items .color-wrap > div[data-name^="'+ color.name +'"]').closest('.color-wrap').addClass('selected');
                 $('#wristband-text-color .color-wrap > div[data-name^="'+ color.text_color_name +'"]').closest('.color-wrap').addClass('selected');
                 $('#add_color_to_selections').attr('id', 'edit-button-text').html('<i class="fa fa-plus"></i> <span class="fusion-button-text">Update Color</span>');
-                console.log(color);
             })
             
             .on('click','#edit-button-text',function(e){
@@ -922,12 +930,10 @@ jQuery(function ($) {
     
             .on('click','.fa-undo', function(e){
                 e.preventDefault();
-                //$('.fa-pencil').val($('.fa-pencil').data('default-value'));
                 $(this).removeClass('fa-undo').addClass('fa-pencil');
                 $('#wristband-color-items .color-wrap, #wristband-text-colors .color-wrap').removeClass('selected');
                 $('#qty_adult, #qty_medium, #qty_youth').val('');
-                //$('#add_color_to_selections > .fusion-button-text').text('Add an additional color');
-                $('#edit-button-text').attr('id','fusion-button-text').html('<i class="fa fa-plus"></i> <span class="fusion-button-text">Add an additional color</span>');
+                $('#edit-button-text').attr('id','add_color_to_selections').html('<i class="fa fa-plus"></i> <span class="fusion-button-text">Add an additional color</span>');
                 return false;
             }) 
 
@@ -981,8 +987,13 @@ jQuery(function ($) {
                 var $checkbox = $(this).find(':checkbox');
                 $checkbox.attr('checked', !$checkbox[0].checked);
                 Builder.observer();
+                //$('#textbox1').val($(this).is(':checked'))
             })
 
+            .on('change','input[name = "additional_option[]"]',function(e) {
+                    Builder.observer();
+
+            })
             .on('click', '#wbc_add_to_cart', function(e) {
                 e.preventDefault();
 

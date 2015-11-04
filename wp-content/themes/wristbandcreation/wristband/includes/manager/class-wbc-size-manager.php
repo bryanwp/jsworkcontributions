@@ -367,7 +367,7 @@ if (!class_exists('WBC_Size_Manager')) {
 
         public function get_settings($settings) {
             $product_sizes = array();            
-            $products = get_posts(array( 'posts_per_page' => -1, 'post_status' => 'any', 'post_type' => 'product' ));
+            $products = get_posts(array( 'posts_per_page' => -1, 'post_status' => 'any', 'post_type' => 'product', 'order' => 'ASC'));
             if ($products) {
                 foreach ($products as $product) {
                     $product_id = $product->ID;

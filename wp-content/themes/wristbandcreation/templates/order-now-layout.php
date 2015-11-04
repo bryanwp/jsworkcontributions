@@ -61,8 +61,13 @@ get_header();
                                       title="Continuous Message" data-placement="top">?</span>
                             </p>
                         </div><!-- /.form-group -->
+                        <?php if (isset($GLOBALS['wbc_settings']->tool_tip_text)):
+                                $tooltip = $GLOBALS['wbc_settings']->tool_tip_text ; ?>
                         <p class="form-row form-row-wide hide-if-message_type-continues" id="width_field">
                             <label for="front_message"  class="form-group-heading">Front Message
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                  title="<?php echo $tooltip->front;?>" data-placement="top">?
+                                </span>
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="front_message_chars_left"> <?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -73,6 +78,9 @@ get_header();
 
                         <p class="form-row form-row-wide hide-if-message_type-continues">
                             <label for="back_message"  class="form-group-heading">Back Message
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                  title="<?php echo $tooltip->back;?>" data-placement="top">?
+                                </span>
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="back_message_chars_left"> <?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -84,6 +92,9 @@ get_header();
 
                         <p class="form-row form-row-wide hide-if-message_type-front_and_back">
                             <label for="continues_message"  class="form-group-heading">Continuous Message
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                  title="<?php echo $tooltip->wrap_around;?>" data-placement="top">?
+                                </span>
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="continues_message_chars_left"><?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -94,6 +105,9 @@ get_header();
 
                         <p class="form-row form-row-wide">
                             <label for="inside_message"  class="form-group-heading">Inside Message
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                  title="<?php echo $tooltip->inside;?>" data-placement="top">?
+                                </span>
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="inside_message_chars_left"> <?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -101,6 +115,7 @@ get_header();
                             <input type="text" name="inside_message" class="trigger-limit-char"
                                    data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" />
                         </p><!-- /.form-group -->
+                    <?php endif; ?>
                         <p class="form-row form-row-wide">
                             <label for="font" class="form-group-heading">Font</label>
                             <select name="font" id="font" class="input-select enable-if-style-selected">
@@ -116,7 +131,7 @@ get_header();
                         </p><!-- /.form-group -->
                         <div id="add-clipart">
                             <label class="form-group-heading" >Add Clipart</label>
-                            <div class="button-box">
+                            <div class="button-box hide-if-message_type-continues">
                                 <span class="text-label">Front Start</span>
                                 <div class="alignright">
                                     <a id="front_start_btn" data-position="front_start" href="#" data-title="Front Start" data-toggle="modal"
@@ -135,7 +150,7 @@ get_header();
                                     </a>
                                 </div>
                             </div>
-                            <div class="button-box">
+                            <div class="button-box hide-if-message_type-continues">
                                 <span class="text-label">Front End</span>
                                 <div class="alignright">
                                     <a id="front_end_btn" data-position="front_end" href="#" data-title="Front End" data-toggle="modal"
@@ -155,7 +170,7 @@ get_header();
                                 </div>
                             </div>
 
-                            <div class="button-box">
+                            <div class="button-box hide-if-message_type-continues">
                                 <span class="text-label">Back Start</span>
                                 <div class="alignright">
                                     <a id="back_start_btn" data-position="back_start" href="#" data-title="Back Start" data-toggle="modal"
@@ -176,10 +191,52 @@ get_header();
                             </div>
 
 
-                            <div class="button-box">
-                                <span class="text-label">Back End</span>
+                            <div class="button-box hide-if-message_type-continues">
+                                <span class="text-label ">Back End</span>
                                 <div class="alignright">
                                     <a id="back_end_btn" data-position="back_end" href="#" data-title="Back End" data-toggle="modal"
+                                       data-target="#wristband-clipart-modal"
+                                       class="toggle-modal-clipart">
+                                        <span class="fusion-button-text-right">
+                                            <i class="fa fa-ban icon-preview hide-if-upload"></i>
+                                                <img class="image-upload hide-if-icon" width="10" height="16"/>
+                                            select</span>
+                                    </a>
+                                    <a href="#" class="fileinput-button">
+                                        <span><i class="fa fa-cloud-upload"></i> Upload</span>
+                                        <!-- The file input field used as target for the file upload widget -->
+                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                               data-clipart-type="backend">
+                                    </a>
+                                </div>
+                            </div>
+
+
+                             <div class="button-box hide-if-message_type-front_and_back">
+                                <span class="text-label">Wrap Around Start</span>
+                                <div class="alignright">
+                                    <a id="wrap_around_start" data-position="wrap_start" href="#" data-title="Wrap Around Start" data-toggle="modal"
+                                       data-target="#wristband-clipart-modal"
+                                       class="toggle-modal-clipart">
+                                        <span class="fusion-button-text-right">
+                                            <i class="fa fa-ban icon-preview hide-if-upload"></i>
+                                                <img class="image-upload hide-if-icon" width="10" height="16"/>
+                                            select</span>
+                                    </a>
+                                    <a href="#" class="fileinput-button">
+                                        <span><i class="fa fa-cloud-upload"></i> Upload</span>
+                                        <!-- The file input field used as target for the file upload widget -->
+                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                               data-clipart-type="backend">
+                                    </a>
+                                </div>
+                            </div>
+
+
+                            <div class="button-box hide-if-message_type-front_and_back">
+                                <span class="text-label">Wrap Around End</span>
+                                <div class="alignright">
+                                    <a id="wrap_around_end" data-position="wrap_end" href="#" data-title="Wrap Around End" data-toggle="modal"
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
