@@ -33,6 +33,7 @@ span.fusion-popover {
 span.char_left_wrapper {
     min-width: 120px;
     text-align:right;
+    margin-left: 0px;
 }
 
 span.char_left_wrapper .input-text-xs {

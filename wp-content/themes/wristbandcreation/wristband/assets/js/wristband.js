@@ -1,6 +1,7 @@
 jQuery(function ($) {
     'use strict';
 
+   // console.log(WBC.settings);
     var Settings = WBC.settings,
         Builder = {
         has_upload: false,                   // Check if there are any files uploaded
@@ -489,7 +490,7 @@ jQuery(function ($) {
                 }
                 var el  = $('input[name="'+ array_el[i] +'"]').val();
                 if (el.length > Settings.messages.message_char_limit) {
-                    this.data.total_price += additional_price;
+                    this.data.total_price += additional_price * qty;
                     // Render alert message
                     var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each for more than {{limit}} characters.',
                         {
@@ -512,7 +513,7 @@ jQuery(function ($) {
                     var price_list = Settings.messages[array_el[i] + '_price_list'];
                     if (price_list != undefined) {
                         var additional_price = this.rangePrice(price_list, qty);
-                        this.data.total_price += additional_price;
+                        this.data.total_price += additional_price * qty;
                         // Render alert message
                         var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.',
                             {
@@ -528,11 +529,14 @@ jQuery(function ($) {
         _additionalOptions: function(qty) {
             $('input[name="additional_option[]"]:checked').each(function() {
                 var price_list = Settings['additional_options'][$(this).data('key')].price_list,
+                    costType = Settings['additional_options'][$(this).data('key')].cost_type,
                     additional_price = Builder.rangePrice(price_list, qty);
 
                 $(this).closest('.checkbox').closest('.checkbox').find('.each-message').remove();
                 if (additional_price > 0) {
-                    Builder.data.total_price += additional_price;
+                    if(costType == 'Each Quantity')
+                    {
+                          Builder.data.total_price += additional_price * qty;
                     // Render alert message
                     var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.',
                         {
@@ -541,7 +545,21 @@ jQuery(function ($) {
                         }
                     );
                     Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'each-message');
-                }
+                    }
+                    else
+                    {
+
+                    Builder.data.total_price += additional_price;
+                    // Render alert message
+                    var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} per order.',
+                        {
+                            currency_symbol: Settings.currency_symbol,
+                            price: additional_price,
+                        }
+                    );
+                    Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'per-order');
+                    }
+                }   
             });
         },
         _customizationLocation: function() {
@@ -583,7 +601,7 @@ jQuery(function ($) {
 
             var price_list =  Settings.logo.prices,
                 additional_price = this.rangePrice(price_list, qty);
-            this.data.total_price += additional_price;
+            this.data.total_price += additional_price * qty;
 
             // Render alert message
             var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.',
@@ -633,9 +651,7 @@ jQuery(function ($) {
 
     $(document).ready(function() {
         $('#font').ddslick({
-            background: 'transparent',
-            height:'250px',
-            width:'100%',
+           
         });
         $(document.body)
             // Get Product sizes on style changed
@@ -643,21 +659,53 @@ jQuery(function ($) {
 
                // Builder.reset();
 
-                var slctd_product = Settings.products[this.value];
+                var slctd_product = Settings.products[this.value],
+                    i = [];
 
                 if (slctd_product != undefined) {
                     $('#wbc_add_to_cart').removeAttr('disabled');
 
                     $('select#width').empty().removeAttr('disabled');
-                    for(var size in slctd_product.sizes) {
-                        var $option = $('<option>').val(size).text(size);
-                        $option.attr('data-group', Builder.getSizeGroup(size));
-                        $('select#width').append($option);
-                    }
+
+                    for( var size in slctd_product.sizes)
+                     {
+                        i.push(slctd_product.sizes[size].count);
+
+                     } 
+                        
+                     var hold_index_sort = i.sort();
+
+                    for( var index_size in hold_index_sort)
+                     {
+
+                        for(var size in slctd_product.sizes)
+                        {
+                            if(index_size == slctd_product.sizes[size].count )
+                            {
+                                var $option = $('<option>').val(size).text(size);
+                                                       
+                                    if (size == slctd_product.default_size)
+                                        {
+                                            $option = $('<option>').val(size).attr('selected','selected').text(size).attr('data-group', Builder.getSizeGroup(size));
+                                        }
+                                        else
+                                        {
+                                            $option.attr('data-group', Builder.getSizeGroup(size));   
+                                        }                      
+                                    
+                                    $('select#width').append($option);
+                                    break;
+                            }
+                        }
+
+                     } 
+
                     $('select#width option:first-child').trigger('change');
 
                     Builder.init();
                     $('#wristband-text-color ul').empty();
+
+
                     if ( slctd_product.text_color) {
                         $('#wristband-text-color').closest('.form-group').show();
 
@@ -802,7 +850,7 @@ jQuery(function ($) {
                     + '<td><center>{{{youth_qty}}}</center></td>'
                     + '<td><center>{{{wristband_color_box}}}</center></td>'
                     + '<td><center>{{{wristband_text_color_box}}}</center></td>'
-                    + '<td><a href="#" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
+                    + '<td><a href="#" id="edit" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
                     + '</tr>',
                     {
                         name                    : $wc.data('name'),
@@ -826,7 +874,6 @@ jQuery(function ($) {
                 $('#qty_adult, #qty_medium, #qty_youth').val('');
                 $(this).find('.fusion-button-text').text('Add an additional color');
                 Builder.renderProductionShippingOptions();
-               // console.log(row_tpl);
                 return false;
             })
 
@@ -840,17 +887,25 @@ jQuery(function ($) {
                 $row.remove();
                 return false;
             })
-            .on('click', '.fa-pencil', function(e) {
+            .on('click', '.edit-selection', function(e) {
                 e.preventDefault();
 
                 var color_name  = $(this).closest('tr').data('name'),
                     i = Builder.getColorIndex(color_name),
-                    color   = Builder.data.colors[i];
-                    
+                    color   = Builder.data.colors[i],
+                    hasSpan = $(this).find('span').hasClass('fusion-button-text'),
+                    collapsed = $(this).find('i').hasClass('fa-pencil');
 
-                    
+                                        
 
-                $(this).removeClass('fa-pencil').addClass('fa-undo'); 
+                //$(this).toggleClass('fa-pencil fa-undo');
+                $('.edit-selection').find('i').removeClass('fa-undo');
+                $('.edit-selection').find('i').addClass('fa-pencil');
+
+                    if (collapsed) {
+                        $(this).find('i').toggleClass('fa-pencil fa-undo');
+                    }
+
                 $('#qty_adult ').val(color.sizes.adult);
                 $('#qty_medium').val(color.sizes.medium);
                 $('#qty_youth').val(color.sizes.youth);
@@ -858,17 +913,28 @@ jQuery(function ($) {
                 $('input[name=color_style][value="'+ color.type +'"]').trigger('click');
                 $('#wristband-color-items .color-wrap > div[data-name^="'+ color.name +'"]').closest('.color-wrap').addClass('selected');
                 $('#wristband-text-color .color-wrap > div[data-name^="'+ color.text_color_name +'"]').closest('.color-wrap').addClass('selected');
-                $('#add_color_to_selections > .fusion-button-text').text('Update Color');
+                $('#add_color_to_selections').attr('id', 'edit-button-text').html('<i class="fa fa-plus"></i> <span class="fusion-button-text">Update Color</span>');
+            })
+            
+            .on('click','#edit-button-text',function(e){
 
+                e.preventDefault();
+                var $row = $(this).closest('tr');
+                // Remove color from selections
+                Builder.removeColor($row.data('name'));
+                // Remove "added" class in wristband colors
+                $('#wristband-color-tab  div[data-name^="'+ $row.data('name')  +'"]').closest('.color-wrap').removeClass('added selected');
+                $row.remove();
+                return false;
             })
     
             .on('click','.fa-undo', function(e){
                 e.preventDefault();
-                //$('.fa-pencil').val($('.fa-pencil').data('default-value'));
                 $(this).removeClass('fa-undo').addClass('fa-pencil');
                 $('#wristband-color-items .color-wrap, #wristband-text-colors .color-wrap').removeClass('selected');
                 $('#qty_adult, #qty_medium, #qty_youth').val('');
-                $('#add_color_to_selections > .fusion-button-text').text('Add an additional color');
+                $('#edit-button-text').attr('id','add_color_to_selections').html('<i class="fa fa-plus"></i> <span class="fusion-button-text">Add an additional color</span>');
+                return false;
             }) 
 
             .on('keyup', 'input[name="front_message"], input[name="continues_message"], input[name="back_message"], input[name="inside_message"]', function() {
@@ -921,8 +987,13 @@ jQuery(function ($) {
                 var $checkbox = $(this).find(':checkbox');
                 $checkbox.attr('checked', !$checkbox[0].checked);
                 Builder.observer();
+                //$('#textbox1').val($(this).is(':checked'))
             })
 
+            .on('change','input[name = "additional_option[]"]',function(e) {
+                    Builder.observer();
+
+            })
             .on('click', '#wbc_add_to_cart', function(e) {
                 e.preventDefault();
 
