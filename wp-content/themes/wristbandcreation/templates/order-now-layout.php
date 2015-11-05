@@ -266,8 +266,8 @@ get_header();
                             <div class="link-buttons aligncenter">
                                 <a class="fusion-button button-flat button-round button-small button-orange" href="#"><span class="fusion-button-text">Product Info</span></a>
                                 <a class="fusion-button button-flat button-round button-small button-default" href="#"><span class="fusion-button-text">Save Design</span></a>
-                                <a class="fusion-button button-flat button-round button-small button-default preview-button active" href="#" id="front_view_button" data-input="front_message"><span class="fusion-button-text">Front</span></a>
-                                <a class="fusion-button button-flat button-round button-small button-default preview-button" id="back_view_button" data-input="back_message" href="#"><span class="fusion-button-text">Back</span></a>
+                                <a class="fusion-button button-flat button-round button-small button-default preview-button active if-message_type_is-continues" href="#" id="front_view_button" data-input="front_message" ><span class="fusion-button-text">Front</span></a>
+                                <a class="fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues" id="back_view_button" data-input="back_message" href="#" ><span class="fusion-button-text">Back</span></a>
                             </div>
                         </div>
 
@@ -404,7 +404,7 @@ get_header();
                         <?php $i = 1; foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option):?>
 
 
-                        <div class="additional-option-item fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
+                        <div id="<?php echo 'id_'.$index; ?>" class="additional-option-item fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
                             <div class="fusion-column-wrapper">
                                 <div class="addon">
                                     <span class="addon-price-handler">

@@ -119,6 +119,37 @@ jQuery(function ($) {
             }
             return price;
         },
+
+        //get the additional option
+        additionalOptionsShow: function(size){
+            var addOption = Settings.additional_options,
+                value = '';
+                for( var option in addOption)
+                {
+                     var choose_size = addOption[option].choose_size;
+                    for (var i = 0; i < choose_size.length; i++) 
+                    {
+                            if ( choose_size[i] === size ) 
+                            {
+                               value = 'true';
+                               break;
+                            }   
+                            else{
+                                    value = 'not true';
+                            }  
+                    } 
+                        if(value == 'true')
+                        {
+                            $('#id_'+option).show();
+                        }
+                        else if(value == 'not true')
+                        {
+                            $('#id_'+option).hide();
+                        }
+                }
+                
+        },
+
         // Observe any changes and calcuate price and quantity for display
         observer: function() {
             this.checkColorSplitAndExtraSize();
@@ -127,10 +158,18 @@ jQuery(function ($) {
             var total_qty   = this.data.total_qty,
                 total_price = this.data.total_price;
 
+
             this.data.total_qty = total_qty;
             this.data.total_price = total_price;
             $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 Free' : ''));
             $('#price_handler').text(numberFormat(total_price));
+            if( total_qty < 100)
+            {
+                $('#id_convert_to_keychains').hide();
+            }else
+            {
+                $('#id_convert_to_keychains').show();
+            }
 
             this.buildPreview();
         },
@@ -367,6 +406,8 @@ jQuery(function ($) {
 
             return flag;
         },
+        
+
         calculateDeliveryDate: function() {
             var $production_time    = $('select#customization_date_production'),
                 $shipping_time      = $('select#customization_date_shipping'),
@@ -651,7 +692,8 @@ jQuery(function ($) {
 
     $(document).ready(function() {
         $('#font').ddslick({
-           
+            height: 500   
+                    
         });
         $(document.body)
             // Get Product sizes on style changed
@@ -670,7 +712,6 @@ jQuery(function ($) {
                     for( var size in slctd_product.sizes)
                      {
                         i.push(slctd_product.sizes[size].count);
-
                      } 
                         
                      var hold_index_sort = i.sort();
@@ -721,13 +762,13 @@ jQuery(function ($) {
                    } else {
                         $('#wristband-text-color').closest('.form-group').hide();
                    }
-
                 }
 
             })
             // Populate width dropdown
             .on('change', 'select#width', function() {
                 Builder.reset();
+                Builder.additionalOptionsShow(this.value);
                 Builder.init();
                 Builder.renderProductionShippingOptions();
             })
@@ -736,6 +777,8 @@ jQuery(function ($) {
                 if (this.checked) {
                     $('[class*="hide-if-message_type-"]').css({display: 'block'});
                     $('.hide-if-message_type-' + this.value).css({'display': 'none'});
+                    $('[class*="if-message_type_is-"]').css({display: ''});
+                    $('.if-message_type_is-' + this.value).css({display: 'none'});
                 }
             })
             // Message character limit
@@ -1044,8 +1087,6 @@ jQuery(function ($) {
                 Builder.observer();
                 return false;
             });
-
-
         // Alert message if attempt to leave/unload page
         $(window).on('beforeunload', function() {
             if (Builder.has_upload)
