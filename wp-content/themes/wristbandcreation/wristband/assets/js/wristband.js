@@ -237,13 +237,13 @@ jQuery(function ($) {
         onLoad: function() {
             if ($('#preview_container').length) {
                 Pablo(preview_container).load(Settings.svg);
+
            }
             // Trigger change on ready
             $('select[name="style"], input[name="message_type"]').trigger('change');
             // Trigger keyup on ready
             $('.trigger-limit-char').trigger('keyup');
             //trigger change on text color
-            $
             // With transparent color
             //$('.color-selector').colorpicker();
             // Change this to the location of your server-side upload handler:
@@ -535,8 +535,8 @@ jQuery(function ($) {
                 else
                 {
                     return;
-                }
-                    
+                } 
+                   
         },
         _msgMoreThanCharLimit: function(qty) {
             if (qty <= 0) return;
@@ -1102,8 +1102,14 @@ jQuery(function ($) {
                 //save button
             .on('click','#save_button',function(e) {
                 e.preventDefault();
-                console.log('this');
+                //console.log('this');
+                if ($('#preview_container').length) {
+                    
+                Pablo(preview_container).download('svg'.Settings.svg, function(result){
+                    alert(result.error ? 'Fail' : 'Success');
+                });
 
+                }
             })
 
             .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {
