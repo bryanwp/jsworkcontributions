@@ -265,7 +265,7 @@ get_header();
                             </div>
                             <div class="link-buttons aligncenter">
                                 <a class="fusion-button button-flat button-round button-small button-orange" href="#"><span class="fusion-button-text">Product Info</span></a>
-                                <a class="fusion-button button-flat button-round button-small button-default" href="#"><span class="fusion-button-text">Save Design</span></a>
+                                <a id= "save_button" class="fusion-button button-flat button-round button-small button-default" href="#"><span class="fusion-button-text">Save Design</span></a>
                                 <a class="fusion-button button-flat button-round button-small button-default preview-button active if-message_type_is-continues" href="#" id="front_view_button" data-input="front_message" ><span class="fusion-button-text">Front</span></a>
                                 <a class="fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues" id="back_view_button" data-input="back_message" href="#" ><span class="fusion-button-text">Back</span></a>
                             </div>
@@ -337,20 +337,21 @@ get_header();
 
                                 <div class="tab-content" id="wristband-color-items">
 
-                                    <?php $flag = true; foreach ($GLOBALS['wbc_settings']->color_style as $style => $data):?>
+                                    <?php $flag = true; $x = 0; foreach ($GLOBALS['wbc_settings']->color_style as $style => $data):?>
 
                                     <div class="tab-pane fade <?php echo $flag ? 'active in' : ''; ?>" id="tab-<?php echo sanitize_title($style); ?>">
                                         <ul>
                                             <?php foreach ($data->color_list as $i => $color_list): ?>
                                                 <li data-toggle="tooltip" data-placement="top"
                                                     title="<?php echo $color_list->name; ?>">
-                                                    <div class="color-wrap <?php echo $i == 0 ? 'selected' : ''; ?>">
+                                                    <div id="colorStyleBox" title= "<?php echo $style; ?>" class="color-wrap <?php if( $x == 0){ if ($i == 0){echo "selected";}}else{echo '';}?>">
                                                 <?php
                                                 $colorx = array();
                                                 foreach($color_list as $key => $list):
                                                 if (strpos($key, 'color_') === false || empty($list)) continue;
 
                                                     $colorx[] = $list?>
+
                                                 <?php endforeach; ?>
 
 
@@ -368,7 +369,7 @@ get_header();
                                         </ul>
                                     </div>
 
-                                    <?php endforeach; ?>
+                                    <?php $x++; endforeach; ?>
 
                                 </div>
                             </div>
