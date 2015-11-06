@@ -63,13 +63,14 @@ jQuery(function ($) {
             this.data.has_extra_size    = false;
             this.data.size_number       = 0;
             if (this.data.colors.length > 1) {
-                //console.log(this.data.colors.length);
+                console.log(this.data.colors);
                 this.data.has_color_split = true;
             }
             for (var i in this.data.colors) {
                  for (var size in this.data.colors[i].sizes) {
-
-                    if (array_sizes.indexOf(size) == -1 && this.data.colors[i].sizes[size] > 0) {
+                    //console.log(this.data);
+                    if (array_sizes.indexOf(size) == -1 && this.data.colors[i].sizes[size] > 0)
+                    {
                         array_sizes.push(size);
                     }
                     if (array_sizes.length == 2)
@@ -84,9 +85,11 @@ jQuery(function ($) {
                     }
                    
                 }
+
             }
         },
-        // Collect all quantity
+      
+         // Collect all quantity
         collectQuantity: function() {
             var total_qty       = 0;
             for (var color in this.data.colors) {
@@ -239,7 +242,8 @@ jQuery(function ($) {
             $('select[name="style"], input[name="message_type"]').trigger('change');
             // Trigger keyup on ready
             $('.trigger-limit-char').trigger('keyup');
-
+            //trigger change on text color
+            $
             // With transparent color
             //$('.color-selector').colorpicker();
             // Change this to the location of your server-side upload handler:
@@ -467,6 +471,7 @@ jQuery(function ($) {
             this._priceChart(qty);
             this._colorSplit(qty);
             this._extraSize(qty);
+            this._colorStylePrice(qty);
             this._msgMoreThanCharLimit(qty);
             this._backInsideMsg(qty);
             this._additionalOptions(qty);
@@ -513,8 +518,25 @@ jQuery(function ($) {
                 {
                     this.data.total_price += this.rangePrice(extra_size_cost,qty) * 2;
                 }
-               // console.log(this.data.size_number);
-
+        },
+        _colorStylePrice: function(qty) {
+            if(qty <= 0) return;
+            var color_style_price = Settings.price_list,
+                styleID = $('.color-wrap.selected').eq(0).attr('title');
+                console.log(Settings);
+                console.log(Settings.color_style);
+                console.log(Settings.color_style[styleID]);
+                if(Settings.color_style[styleID].price_list)
+                {
+                    var color_style_cost = Settings.color_style[styleID].price_list,
+                        additional = this.rangePrice(color_style_cost, qty);
+                    this.data.total_price += additional;
+                }
+                else
+                {
+                    return;
+                }
+                    
         },
         _msgMoreThanCharLimit: function(qty) {
             if (qty <= 0) return;
@@ -691,10 +713,10 @@ jQuery(function ($) {
 
 
     $(document).ready(function() {
-        $('#font').ddslick({
-            height: 500   
+        // $('#font').ddslick({
+        //     height: 500   
                     
-        });
+        // });
         $(document.body)
             // Get Product sizes on style changed
             .on('change', 'select[name="style"]', function() {
@@ -1077,9 +1099,17 @@ jQuery(function ($) {
                 });
                 return false;
             })
+                //save button
+            .on('click','#save_button',function(e) {
+                e.preventDefault();
+                console.log('this');
+
+            })
+
             .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {
                 Builder.calculateDeliveryDate();
             })
+
             .on('click', '#front_view_button, #back_view_button', function(e) {
                 e.preventDefault();
                 $('.preview-button').removeClass('active');
@@ -1087,6 +1117,8 @@ jQuery(function ($) {
                 Builder.observer();
                 return false;
             });
+
+            
         // Alert message if attempt to leave/unload page
         $(window).on('beforeunload', function() {
             if (Builder.has_upload)
