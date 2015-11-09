@@ -71,6 +71,7 @@ dl.footer dd {
 .modProgressBar .progress{
     height: 100%;
 }
+/*
 #faqtabs.fusion-tabs .nav-tabs .active h4{
 color: #1A80BA !important;
 border-top: solid #1A80BA;
@@ -86,6 +87,7 @@ margin-top: -9px;
 margin-bottom: -5px;
 text-align: left;
 }
+
 .modImageCarousel .fusion-image-wrapper:hover {
 -webkit-box-shadow: 0px 2px 13px 0px rgba(50, 50, 50, 0.66);
 -moz-box-shadow:    0px 2px 13px 0px rgba(50, 50, 50, 0.66);
@@ -103,3 +105,7 @@ width: auto !important;
     padding-bottom: 5px;
     padding-left: 5px;
 }
+.ilightbox-title {
+display: none !important;
+}
+*/

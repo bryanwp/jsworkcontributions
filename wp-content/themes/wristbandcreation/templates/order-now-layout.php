@@ -65,9 +65,9 @@ get_header();
                                 $tooltip = $GLOBALS['wbc_settings']->tool_tip_text ; ?>
                         <p class="form-row form-row-wide hide-if-message_type-continues" id="width_field">
                             <label for="front_message"  class="form-group-heading">Front Message
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                             <!--    <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="<?php echo $tooltip->front;?>" data-placement="top">?
-                                </span>
+                                </span> -->
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="front_message_chars_left"> <?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -78,9 +78,9 @@ get_header();
 
                         <p class="form-row form-row-wide hide-if-message_type-continues">
                             <label for="back_message"  class="form-group-heading">Back Message
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                               <!--  <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="<?php echo $tooltip->back;?>" data-placement="top">?
-                                </span>
+                                </span> -->
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="back_message_chars_left"> <?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -92,9 +92,9 @@ get_header();
 
                         <p class="form-row form-row-wide hide-if-message_type-front_and_back">
                             <label for="continues_message"  class="form-group-heading">Continuous Message
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                <!-- <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="<?php echo $tooltip->wrap_around;?>" data-placement="top">?
-                                </span>
+                                </span> -->
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="continues_message_chars_left"><?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -105,14 +105,14 @@ get_header();
 
                         <p class="form-row form-row-wide">
                             <label for="inside_message"  class="form-group-heading">Inside Message
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                <!-- <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="<?php echo $tooltip->inside;?>" data-placement="top">?
-                                </span>
+                                </span> -->
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="inside_message_chars_left"> <?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
                             </label>
-                            <input type="text" name="inside_message" class="trigger-limit-char"
+                            <input type="text" name="inside_message" class="input-text trigger-limit-char"
                                    data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" />
                         </p><!-- /.form-group -->
                     <?php endif; ?>
@@ -342,8 +342,8 @@ get_header();
                                     <div class="tab-pane fade <?php echo $flag ? 'active in' : ''; ?>" id="tab-<?php echo sanitize_title($style); ?>">
                                         <ul>
                                             <?php foreach ($data->color_list as $i => $color_list): ?>
-                                                <li data-toggle="tooltip" data-placement="top"
-                                                    title="<?php echo $color_list->name; ?>">
+                                                <li data-toggles="tooltip" data-placements="top"
+                                                    titles="<?php echo $color_list->name; ?>">
                                                     <div id="colorStyleBox" title= "<?php echo $style; ?>" class="color-wrap <?php if( $x == 0){ if ($i == 0){echo "selected";}}else{echo '';}?>">
                                                 <?php
                                                 $colorx = array();
@@ -386,7 +386,7 @@ get_header();
                             <label class="form-group-heading" >Input Quantity <span>(Side View Guide)</span></label>
                             <p class="form-row quantity-row fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
                                 <label for="qty_adult">Adult</label>
-                                <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text">
+                                <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text" value="1">
                             </p>
                             <p class="form-row quantity-row fusion-one-third one_third fusion-layout-column fusion-spacing-yes">
                                 <label for="qty_medium">Medium</label>
@@ -397,8 +397,9 @@ get_header();
                                 <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text">
                             </p>
                             <div class="clear"></div>
-                            <a class="alignright" target="_blank" href="#" id="add_color_to_selections"><i class="fa fa-plus"></i> <span class="fusion-button-text">Add an additional color</span></a>
+                            
                         </div><!-- /.quantity_group_field -->
+                        <a class="alignright" target="_blank" href="#" id="add_color_to_selections"><i class="fa fa-plus"></i> <span class="fusion-button-text">Add an additional color</span></a>
                     <?php if (isset($GLOBALS['wbc_settings']->additional_options)):?>
                         <div id="additional-option-section">
                             <label class="form-group-heading"  data-fontsize="19" data-lineheight="20">Additional Options</label>

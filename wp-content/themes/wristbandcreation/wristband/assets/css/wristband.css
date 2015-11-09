@@ -639,3 +639,19 @@ div.coupon {
 .dd-selected {
     padding: 7px 10px !important;
 }
+
+
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+/* For Firefox */
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+.input-text, .input-select {
+    color: #000000 !important
+}

@@ -713,6 +713,9 @@ jQuery(function ($) {
 
 
     $(document).ready(function() {
+
+
+
         // $('#font').ddslick({
         //     height: 500   
                     
@@ -833,6 +836,8 @@ jQuery(function ($) {
                 Builder.observer();
             })
             .on('keyup mouseup', '#qty_adult, #qty_medium, #qty_youth', function() {
+                $('.alert-notify.each-message').remove(); //remove old price message
+
                 var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
                     $tc = $('#wristband-text-color .color-wrap.selected > div'),
                     $aq    = $('#qty_adult'),
@@ -915,7 +920,7 @@ jQuery(function ($) {
                     + '<td><center>{{{youth_qty}}}</center></td>'
                     + '<td><center>{{{wristband_color_box}}}</center></td>'
                     + '<td><center>{{{wristband_text_color_box}}}</center></td>'
-                    + '<td><a href="#" id="edit" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
+                    + '<td><a href="#" id="edit" data-name="{{name}}" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
                     + '</tr>',
                     {
                         name                    : $wc.data('name'),
@@ -945,8 +950,10 @@ jQuery(function ($) {
             .on('click', '.delete-selection', function(e) {
                 e.preventDefault();
                 var $row = $(this).closest('tr');
+
                 // Remove color from selections
-                Builder.removeColor($row.data('name'));
+                //Builder.removeColor($row.data('name'));
+                
                 // Remove "added" class in wristband colors
                 $('#wristband-color-tab  div[data-name^="'+ $row.data('name')  +'"]').closest('.color-wrap').removeClass('added selected');
                 $row.remove();
@@ -954,23 +961,26 @@ jQuery(function ($) {
             })
             .on('click', '.edit-selection', function(e) {
                 e.preventDefault();
-
+                console.log($(this).data('name'));
                 var color_name  = $(this).closest('tr').data('name'),
                     i = Builder.getColorIndex(color_name),
                     color   = Builder.data.colors[i],
                     hasSpan = $(this).find('span').hasClass('fusion-button-text'),
-                    collapsed = $(this).find('i').hasClass('fa-pencil');
-
-                                        
-
+                    collapsed = $(this).find('i').hasClass('fa-pencil'),
+                     collapsed = $(this).find('i').hasClass('fa-pencil');
+                          
                 //$(this).toggleClass('fa-pencil fa-undo');
                 $('.edit-selection').find('i').removeClass('fa-undo');
                 $('.edit-selection').find('i').addClass('fa-pencil');
 
                     if (collapsed) {
-                        $(this).find('i').toggleClass('fa-pencil fa-undo');
-                    }
 
+                        $(this).find('i').toggleClass('fa-pencil fa-undo');
+                        $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').removeClass('added');
+                        $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').addClass('selected');
+                    } 
+
+                    
                 $('#qty_adult ').val(color.sizes.adult);
                 $('#qty_medium').val(color.sizes.medium);
                 $('#qty_youth').val(color.sizes.youth);
@@ -978,23 +988,36 @@ jQuery(function ($) {
                 $('input[name=color_style][value="'+ color.type +'"]').trigger('click');
                 $('#wristband-color-items .color-wrap > div[data-name^="'+ color.name +'"]').closest('.color-wrap').addClass('selected');
                 $('#wristband-text-color .color-wrap > div[data-name^="'+ color.text_color_name +'"]').closest('.color-wrap').addClass('selected');
+               
+
                 $('#add_color_to_selections').attr('id', 'edit-button-text').html('<i class="fa fa-plus"></i> <span class="fusion-button-text">Update Color</span>');
             })
             
-            .on('click','#edit-button-text',function(e){
+            .on('click','.edit-button-text',function(e){
 
                 e.preventDefault();
                 var $row = $(this).closest('tr');
                 // Remove color from selections
-                Builder.removeColor($row.data('name'));
+              //  Builder.removeColor($row.data('name'));
                 // Remove "added" class in wristband colors
                 $('#wristband-color-tab  div[data-name^="'+ $row.data('name')  +'"]').closest('.color-wrap').removeClass('added selected');
                 $row.remove();
                 return false;
             })
+            .on('click', '#edit-button-text',function(e) {
+                e.preventDefault();
+                console.log('trigger');
+            })
     
             .on('click','.fa-undo', function(e){
                 e.preventDefault();
+
+                var color_name  = $(this).closest('tr').data('name');
+
+
+                $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').removeClass('selected');
+                $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').addClass('added');
+                     
                 $(this).removeClass('fa-undo').addClass('fa-pencil');
                 $('#wristband-color-items .color-wrap, #wristband-text-colors .color-wrap').removeClass('selected');
                 $('#qty_adult, #qty_medium, #qty_youth').val('');
@@ -1140,5 +1163,6 @@ jQuery(function ($) {
         });
         // Call function on load
         Builder.onLoad();
+        $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup'); // trigger  the Input Quanity field when the page is reloaded to calculate the total.
     });
 });
