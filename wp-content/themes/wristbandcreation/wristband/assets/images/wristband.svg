@@ -1,40 +1,25 @@
-<svg id="svgelement" viewBox="30 0 300 230" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-        <style type="text/css">@import url(//fonts.googleapis.com/css?family=Rubik+One);</style>
-        <!--<style type="text/css">@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);</style>-->
-        <radialGradient cx="165" cy="0" r="210.41318" gradientUnits="userSpaceOnUse" class="color" id="color-1">
-            <stop offset="0.01" stop-color="#ffffff"/>
-            <stop class="bandcolor" offset="0.8" stop-color="#3399ff"/>
-        </radialGradient>
-        <linearGradient cx="165" cy="0" r="208.74245" gradientUnits="userSpaceOnUse" class="color" id="color-2">
-            <stop offset="0.1" stop-color="#ffffff"/>
-            <stop class="bandcolor" offset="0.7" stop-color="#3399ff"/>
-            <stop offset="1" stop-color="#000000"/>
-        </linearGradient>
-        <radialGradient cx="200" cy="170" r="124.12341" gradientUnits="userSpaceOnUse" class="color" id="color-3">
-            <stop offset="0.01" stop-color="#ffffff"/>
-            <stop class="bandcolor" offset="0.9" stop-color="#3399ff"/>
-        </radialGradient>
-        <linearGradient cx="179.51898" cy="156.4653" r="238.13537" gradientUnits="userSpaceOnUse" class="color" id="color-4">
-            <stop class="bandcolor" offset="1" stop-color="#3399ff"/>
-        </linearGradient>
-        <path id="InsideTextPath" d="M 47 130 q 140 -50 264 0"/>
-        <path id="FrontTextPath" d="M 47 180 q 140 65 264 0"/>
-    </defs>    
-    <g fill="none" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="sans-serif" font-weight="normal" font-size="12" text-anchor="start" mix-blend-mode="normal">                
-        <path d="M38,101c0,-77.87215 282,-77.87215 282,0c0,77.87215 -63.12785,141 -141,141c-77.87215,0 -141,-63.12785 -141,-141z" fill="url(#color-1)"/>
-        <path id="inside" d="M42,104c0,-75.66301 274,-75.66301 274,0c0,75.66301 -61.33699,137 -137,137c-75.66301,0 -137,-61.33699 -137,-137z" fill="url(#color-2)"/>
-         <text class="bandtext" id="insidetext" font-family="Verdana" font-weight="900" font-size="3em" fill="black" textLength="280" text-anchor="middle" lengthAdjust="spacingAndGlyphs" style="fill: #999999; stroke: #000000; opacity: 0.4;">
-            <textPath id="insidetextpath" startOffset="50%" xlink:href="#InsideTextPath"></textPath>
-        </text>
-        <path d="M41,178c0,-76.2153 276,-76.2153 276,0c0,76.2153 -61.7847,138 -138,138c-76.2153,0 -138,-61.7847 -138,-138z" fill="#ffffff"/>
-        <path d="M90,160l-50,-42l1,-67l3,1l8,15l21,15l32,11l25,5l50,4l50,-4l25,-5l32,-11l22,-15l6,-17l3,0l1,68l-54,42l-85,12z"/>
-        <path d="M90,205c-25.61292,-7.90593 -43.56573,-19.83452 -50,-42c-6.43427,-22.16548 -1.35,-54.56787 1,-67c2.35,-12.43213 1.96572,-4.894 3,1c1.03428,5.894 3.48712,10.14386 8,15c4.51288,4.85614 11.08582,10.31857 21,15c9.91418,4.68143 23.16961,8.58187 32,11c8.83039,2.41813 13.23574,3.35393 25,5c11.76426,1.64607 30.88743,4.00239 50,4c19.11257,-0.00239 38.21453,-2.3635 50,-4c11.78547,-1.6365 16.25446,-2.5484 25,-5c8.74554,-2.4516 21.76764,-6.44289 32,-11c10.23236,-4.55711 17.67497,-9.68003 22,-15c4.32503,-5.31997 5.53247,-10.837 6,-17c0.46753,-6.163 0.19516,-12.97199 3,0c2.80484,12.97199 8.80583,46.49007 1,68c-7.80583,21.50993 -29.00596,33.66158 -54,42c-24.99404,8.33842 -53.89343,12.15463 -85,12c-31.10657,-0.15463 -64.38708,-4.09407 -90,-12z" fill="url(#color-3)"/>
-        <path d="M90,159l-50,-49l-1,-67l11,24l80,31l100,0l80,-31l8.5,-23l0.5,71l-54,45l-85,12z"/>
-        <path d="M90,209c-25.59818,-9.28434 -43.51588,-24.37041 -50,-49c-6.48412,-24.62959 -1.53465,-58.80271 -1,-67c0.53465,-8.19729 -3.34552,9.58126 11,24c14.34552,14.41874 46.91673,25.47768 80,31c33.08327,5.52232 66.67859,5.50801 100,0c33.32141,-5.50801 66.36892,-16.50971 80,-31c13.63108,-14.49029 7.84572,-32.46915 8.5,-23c0.65428,9.46915 7.99621,47.44807 0.5,71c-7.49621,23.55193 -28.96469,36.35364 -54,45c-25.03531,8.64636 -53.88115,12.15435 -85,12c-31.11885,-0.15435 -64.40182,-3.71566 -90,-13z" fill="url(#color-4)"/>
+<svg id="svgelement" viewBox="0 0 300 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <rect id="bandcolor" height="100%" width="100%" style="fill: blue"/>
+  <path id="insidePath" fill-opacity="0" d="M17 70 q 150 -50 264 0"/>  
+  <path id="FrontPath" fill-opacity="0" d="M17 95 q 150 55 270 -5"/> 
 
-        <text class="bandtext" id="fronttext" font-family="Verdana" font-weight="900" font-size="3em" fill="black" textLength="280" text-anchor="middle" lengthAdjust="spacingAndGlyphs" style="fill: #999999; stroke: #000000; opacity: 0.4;">
-            <textPath id="fronttextpath" startOffset="50%" xlink:href="#FrontTextPath"></textPath>
-        </text>
-    </g>    
+  <image height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/WRISTBAND.png" />
+
+  <text class="bandtext" id="insidetext" font-family="Verdana" font-weight="900" font-size="2em" fill="black" textLength="285" text-anchor="middle" lengthAdjust="spacingAndGlyphs" style="fill: #999999; stroke: #000000; opacity: 0.4;"  >        
+    <!--for continuous text-->
+    <!--<text id="bandtext" font-family="Verdana" font-weight="900" font-size="4em" fill="black" text-anchor="middle">-->        
+        <textPath id="insidetextpath" startOffset="50%" xlink:href="#insidePath"></textPath>            
+        <!--<tspan class="fa">&#xf0e0;</tspan>-->
+    </text>  
+
+
+    <text class="bandtext" id="fronttext" font-family="Verdana" font-weight="900" font-size="2em" fill="black" textLength="285" text-anchor="middle" lengthAdjust="spacingAndGlyphs" style="fill: #999999; stroke: #000000; opacity: 0.4;"  >        
+    <!--for continuous text-->
+    <!--<text id="bandtext" font-family="Verdana" font-weight="900" font-size="4em" fill="black" text-anchor="middle">-->        
+        <textPath id="fronttextpath" startOffset="50%" xlink:href="#FrontPath"></textPath>            
+        <!--<tspan class="fa">&#xf0e0;</tspan>-->
+    </text>  
+    
+  <image height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/WRISTBAND.png" />  
+ 
 </svg>

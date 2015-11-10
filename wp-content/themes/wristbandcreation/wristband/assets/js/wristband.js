@@ -1,7 +1,7 @@
 jQuery(function ($) {
     'use strict';
 
-   // console.log(WBC.settings);
+    //console.log(WBC.settings);
     var Settings = WBC.settings,
         Builder = {
         has_upload: false,                   // Check if there are any files uploaded
@@ -91,13 +91,17 @@ jQuery(function ($) {
       
          // Collect all quantity
         collectQuantity: function() {
+
             var total_qty       = 0;
-            for (var color in this.data.colors) {
-                for (var size in this.data.colors[color].sizes) {
-                    total_qty += this.data.colors[color].sizes[size];
+
+                for (var color in this.data.colors) {
+                    for (var size in this.data.colors[color].sizes) {
+                        total_qty += this.data.colors[color].sizes[size];
+                    }
                 }
-            }
-            this.data.total_qty = total_qty;
+
+                this.data.total_qty = total_qty;
+   
         },
         // Append alert messages
         appendAlertMsg: function(_msg, el, uniq_class) {
@@ -155,28 +159,42 @@ jQuery(function ($) {
 
         // Observe any changes and calcuate price and quantity for display
         observer: function() {
-            this.checkColorSplitAndExtraSize();
-            this.collectQuantity();
-            this.collectPrices();
-            var total_qty   = this.data.total_qty,
-                total_price = this.data.total_price;
 
+            if( $('#qty_adult').val() <= 0 && $('#qty_medium').val() <= 0 && $('#qty_youth').val() <= 0) {
 
-            this.data.total_qty = total_qty;
-            this.data.total_price = total_price;
-            $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 Free' : ''));
-            $('#price_handler').text(numberFormat(total_price));
-            if( total_qty < 100)
-            {
-                $('#id_convert_to_keychains').hide();
-            }else
-            {
-                $('#id_convert_to_keychains').show();
+                  $('.alert-notify.each-message').remove(); //remove old price message  
+                  $('#price_handler').text('0.00');
+                  $('#qty_handler').text('0');
+
+            } else {
+
+                this.checkColorSplitAndExtraSize();
+                this.collectQuantity();
+                this.collectPrices();
+                var total_qty   = this.data.total_qty,
+                    total_price = this.data.total_price;
+
+                this.data.total_qty = total_qty;
+                this.data.total_price = total_price;  
+
+                $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 Free' : ''));
+                $('#price_handler').text(numberFormat(total_price));
+                if( total_qty < 100)
+                {
+                    $('#id_convert_to_keychains').hide();
+                }else
+                {
+                    $('#id_convert_to_keychains').show();
+                }
+
             }
 
+
             this.buildPreview();
+            
         },
         buildPreview: function() {
+           
             var message_type = $('input[name="message_type"]:checked').val(),
                 a = $('.preview-button.active').data('input'),
                 input = message_type == 'continues' ? 'continues_message' : a;
@@ -190,27 +208,35 @@ jQuery(function ($) {
             $('.bandtext')
                 .attr('font-family', $('select[name="font"] option:selected').val());
 
-
+     
             var y = $('#wristband-color-items .color-wrap.selected > div').data('color');
             if (y != undefined) {
-                var colors = y.split(',');
-                if (colors.length > 0) {
-                    var x = '<stop class="box-shadow" offset="0" stop-color="#EEEEEE"/>';
-                    var z = 1 / (colors.length - 1) ;
-                    for (var i = 0; i < colors.length; i++) {
-                        var offset = i * z;
-                        offset = isNaN(offset) ? 1 : offset;
-                        x += '<stop class="bandcolor" offset="' + (offset - 0.01)  + '" stop-opacity="1" stop-color="' + colors[i] + '"></stop>';
-                   }
-                    $(".color").html(x);
-                }
 
-                if (colors[0] != '#ffffff' && colors.length <= 1) {
-                    $('#color-4 > .box-shadow').remove();
-                }
+             if($('#bandcolor').length) {
+                 var background = document.getElementById("bandcolor"); 
+                 background.style.fill=y;
+
+           }
+       
+                // var colors = y.split(',');
+                // if (colors.length > 0) {
+                //     var x = '<stop class="box-shadow" offset="0" stop-color="#EEEEEE"/>';
+                //     var z = 1 / (colors.length - 1) ;
+                //     for (var i = 0; i < colors.length; i++) {
+                //         var offset = i * z;
+                //         offset = isNaN(offset) ? 1 : offset;
+                //         x += '<stop class="bandcolor" offset="' + (offset - 0.01)  + '" stop-opacity="1" stop-color="' + colors[i] + '"></stop>';
+                //    }
+                //     $(".color").html(x);
+                // }
+
+                // if (colors[0] != '#ffffff' && colors.length <= 1) {
+                //     $('#color-4 > .box-shadow').remove();
+                // }
            }
        },
         renderProductionShippingOptions: function() {
+     
             if (this.data.total_qty <= 0)return;
             var $size =  $('#width option:selected'),
                 c = ['production', 'shipping'];
@@ -235,9 +261,9 @@ jQuery(function ($) {
         },
         // Bind element to jquery library/packages on load
         onLoad: function() {
+
             if ($('#preview_container').length) {
                 Pablo(preview_container).load(Settings.svg);
-
            }
             // Trigger change on ready
             $('select[name="style"], input[name="message_type"]').trigger('change');
@@ -835,7 +861,11 @@ jQuery(function ($) {
                 $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
                 Builder.observer();
             })
+            // .on('change','#qty_adult', function() {
+
+            // })
             .on('keyup mouseup', '#qty_adult, #qty_medium, #qty_youth', function() {
+
                 $('.alert-notify.each-message').remove(); //remove old price message
 
                 var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
@@ -843,6 +873,14 @@ jQuery(function ($) {
                     $aq    = $('#qty_adult'),
                     $mq    = $('#qty_medium'),
                     $yq    = $('#qty_youth');
+                  
+                if($aq.val() <= 0 && $mq.val() <= 0 && $yq.val() <= 0) {
+                     
+                      $('#price_handler').text('0.00');
+                      $('#qty_handler').text('0');
+
+                }
+
                 // ($('#wristband-text-color ul li').length && $tc.length == 0) ||
                 if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)) 
                 {
@@ -961,7 +999,7 @@ jQuery(function ($) {
             })
             .on('click', '.edit-selection', function(e) {
                 e.preventDefault();
-                console.log($(this).data('name'));
+             
                 var color_name  = $(this).closest('tr').data('name'),
                     i = Builder.getColorIndex(color_name),
                     color   = Builder.data.colors[i],
@@ -1026,7 +1064,7 @@ jQuery(function ($) {
             }) 
 
             .on('keyup', 'input[name="front_message"], input[name="continues_message"], input[name="back_message"], input[name="inside_message"]', function() {
-                Builder.observer();
+               Builder.observer();
             })
             // Trigger change when message type is choosen
             .on('change', 'input[name="message_type"], .customization-date-select', function() {
@@ -1126,6 +1164,7 @@ jQuery(function ($) {
             .on('click','#save_button',function(e) {
                 e.preventDefault();
                 //console.log('this');
+
                 if ($('#preview_container').length) {
                     
                 Pablo(preview_container).download('svg'.Settings.svg, function(result){
@@ -1167,8 +1206,12 @@ jQuery(function ($) {
                 }
             }
         });
+
+
+
         // Call function on load
         Builder.onLoad();
         $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup'); // trigger  the Input Quanity field when the page is reloaded to calculate the total.
+
     });
 });
