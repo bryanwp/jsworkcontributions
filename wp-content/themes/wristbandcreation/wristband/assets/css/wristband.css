@@ -655,3 +655,8 @@ input[type=number] {
 .input-text, .input-select {
     color: #000000 !important
 }
+
+.is-disabled {
+    opacity: .5;
+    pointer-events: none;
+}
