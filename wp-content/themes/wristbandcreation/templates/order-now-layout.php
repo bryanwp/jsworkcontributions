@@ -6,6 +6,7 @@ get_header();
 
 
 ?>
+
 <div id="wristband-builder-content">
     <section id="wristband-builder">
         <form action="#" method="post">
@@ -65,9 +66,9 @@ get_header();
                                 $tooltip = $GLOBALS['wbc_settings']->tool_tip_text ; ?>
                         <p class="form-row form-row-wide hide-if-message_type-continues" id="width_field">
                             <label for="front_message"  class="form-group-heading">Front Message
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                <!-- <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="<?php echo $tooltip->front;?>" data-placement="top">?
-                                </span>
+                                </span> -->
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="front_message_chars_left"> <?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -78,9 +79,9 @@ get_header();
 
                         <p class="form-row form-row-wide hide-if-message_type-continues">
                             <label for="back_message"  class="form-group-heading">Back Message
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                               <!--  <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="<?php echo $tooltip->back;?>" data-placement="top">?
-                                </span>
+                                </span> -->
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="back_message_chars_left"> <?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -92,9 +93,9 @@ get_header();
 
                         <p class="form-row form-row-wide hide-if-message_type-front_and_back">
                             <label for="continues_message"  class="form-group-heading">Continuous Message
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                <!-- <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="<?php echo $tooltip->wrap_around;?>" data-placement="top">?
-                                </span>
+                                </span> -->
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="continues_message_chars_left"><?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -105,9 +106,9 @@ get_header();
 
                         <p class="form-row form-row-wide">
                             <label for="inside_message"  class="form-group-heading">Inside Message
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                <!-- <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="<?php echo $tooltip->inside;?>" data-placement="top">?
-                                </span>
+                                </span> -->
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="inside_message_chars_left"> <?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
