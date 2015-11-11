@@ -66,9 +66,9 @@ get_header();
                                 $tooltip = $GLOBALS['wbc_settings']->tool_tip_text ; ?>
                         <p class="form-row form-row-wide hide-if-message_type-continues" id="width_field">
                             <label for="front_message"  class="form-group-heading">Front Message
-                                <!-- <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="<?php echo $tooltip->front;?>" data-placement="top">?
-                                </span> -->
+                                </span>
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="front_message_chars_left"> <?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -79,9 +79,9 @@ get_header();
 
                         <p class="form-row form-row-wide hide-if-message_type-continues">
                             <label for="back_message"  class="form-group-heading">Back Message
-                               <!--  <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="<?php echo $tooltip->back;?>" data-placement="top">?
-                                </span> -->
+                                </span>
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="back_message_chars_left"> <?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -93,9 +93,9 @@ get_header();
 
                         <p class="form-row form-row-wide hide-if-message_type-front_and_back">
                             <label for="continues_message"  class="form-group-heading">Continuous Message
-                                <!-- <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="<?php echo $tooltip->wrap_around;?>" data-placement="top">?
-                                </span> -->
+                                </span>
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="continues_message_chars_left"><?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -106,9 +106,9 @@ get_header();
 
                         <p class="form-row form-row-wide">
                             <label for="inside_message"  class="form-group-heading">Inside Message
-                                <!-- <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                   title="<?php echo $tooltip->inside;?>" data-placement="top">?
-                                </span> -->
+                                </span>
                                 <span class="char_left_wrapper alignright">
                                     ( <em class="inside_message_chars_left"> <?php echo WBC_MESSAGE_CHAR_LIMIT; ?></em> ) Chars Left
                                 </span>
@@ -265,7 +265,7 @@ get_header();
                                 </div>
                             </div>
                             <div class="link-buttons aligncenter">
-                                <a class="fusion-button button-flat button-round button-small button-orange" href="#"><span class="fusion-button-text">Product Info</span></a>
+                                <a class="fusion-button button-flat button-round button-small button-orange prdct-info" href="#"><span class="fusion-button-text">Product Info</span></a>
                                 <a id= "save_button" class="fusion-button button-flat button-round button-small button-default" href="#"><span class="fusion-button-text">Save Design</span></a>
                                 <a class="fusion-button button-flat button-round button-small button-default preview-button active if-message_type_is-continues" href="#" id="front_view_button" data-input="front_message" ><span class="fusion-button-text">Front</span></a>
                                 <a class="fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues" id="back_view_button" data-input="back_message" href="#" ><span class="fusion-button-text">Back</span></a>
@@ -343,8 +343,8 @@ get_header();
                                     <div class="tab-pane fade <?php echo $flag ? 'active in' : ''; ?>" id="tab-<?php echo sanitize_title($style); ?>">
                                         <ul>
                                             <?php foreach ($data->color_list as $i => $color_list): ?>
-                                                <li data-toggles="tooltip" data-placements="top"
-                                                    titles="<?php echo $color_list->name; ?>">
+                                                <li data-toggle="tooltip" data-placement="top"
+                                                    title="<?php echo $color_list->name; ?>">
                                                     <div id="colorStyleBox" title= "<?php echo $style; ?>" class="color-wrap <?php if( $x == 0){ if ($i == 0){echo "selected";}}else{echo '';}?>">
                                                 <?php
                                                 $colorx = array();
@@ -445,8 +445,8 @@ get_header();
                                             <?php echo !$flag ? 'checked' : ''; ?>/>
                                         <?php echo esc_attr($cus_location->name); ?>
 
-                                        <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
-                                              title="<?php echo esc_attr($cus_location->tool_tip_text); ?>">?</span>
+                                       <!--  <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                              title="<?php echo esc_attr($cus_location->tool_tip_text); ?>">?</span> -->
                                     </label>
 
                                </p>
@@ -511,7 +511,43 @@ get_header();
             </div>
         </div>
     </div>
-</div><!-- /.fusion-modal -->
+</div>
+
+<div class="fusion-modal modal fade modal-2 modal1" tabindex="-1" role="dialog" aria-labelledby="modal-heading-2" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content fusion-modal-content">
+            <div class="modal-header"><button class="close" type="button" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true" data-fontsize="17" data-lineheight="36"></h3>
+            </div>
+            <div class="modal-body">
+               
+                    <?php echo wbc_post_content(70) ?>
+                    <?php echo wbc_post_image(70) ?>
+            
+           </div>
+           <div class="modal-footer"><a class="fusion-button button-default button-medium button default medium" data-dismiss="modal">Close</a></div>
+        </div>
+    </div>
+</div>
+
+<script id="modal_message_template2" type="x-tmpl-mustache">
+    <div id="modal_message2" class="fusion-modal modal fade {{status}}" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content fusion-modal-content" style="background-color:#f6f6f6">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 class="modal-title" id="modal-heading-1" data-dismiss="modal" aria-hidden="true"
+                    data-fontsize="17" data-lineheight="36">{{title}}</h3>
+                </div>
+                <div class="modal-body">
+                    {{{message}}}
+                </div>
+            </div>
+        </div>
+    </div><!-- /.fusion-modal -->
+</script>
+
+<!-- /.fusion-modal -->
 <script id="modal_message_template" type="x-tmpl-mustache">
     <div id="modal_message" class="fusion-modal modal fade {{status}}" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-sm">
@@ -522,7 +558,7 @@ get_header();
                     data-fontsize="17" data-lineheight="36">{{title}}</h3>
                 </div>
                 <div class="modal-body">
-                    {{{message}}}
+                    {{{message}}} asdasd
                 </div>
             </div>
         </div>

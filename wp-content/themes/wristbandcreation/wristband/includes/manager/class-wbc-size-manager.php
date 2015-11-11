@@ -376,6 +376,7 @@ if (!class_exists('WBC_Size_Manager')) {
                     if (is_array($sizes) && count($sizes) != 0) {
                         $product_sizes[$product_id]['product_ID'] = $product_id;
                         $product_sizes[$product_id]['product_title'] = $product->post_title;
+                        $product_sizes[$product_id]['product_content'] = $product->post_content;
                         $product_sizes[$product_id]['default_size'] = get_field('default_size', $product_id);
                         $count = 0;
                         foreach ($sizes as $size) {

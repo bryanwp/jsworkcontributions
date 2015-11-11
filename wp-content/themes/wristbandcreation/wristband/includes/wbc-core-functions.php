@@ -74,6 +74,18 @@ if (!function_exists('wbc_post_image')) {
     }
 }
 
+if (!function_exists('wbc_post_content')) {
+
+    function wbc_post_content ($post_id = null)
+    {
+        $post = get_post($post_id); 
+        $content = apply_filters('the_content', $post->post_content); 
+        
+        echo $content;
+
+    }
+}
+
 
 //add_action('wp_ajax_priv_blueimp-fileupload', 'wbc_blueimp_uploadhandler');
 //add_action('wp_ajax_nopriv_blueimp-fileupload', 'wbc_blueimp_uploadhandler');

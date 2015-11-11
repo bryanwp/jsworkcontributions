@@ -1,7 +1,7 @@
 jQuery(function ($) {
     'use strict';
 
-    //console.log(WBC.settings);
+    console.log(WBC.settings);
     var Settings = WBC.settings,
         Builder = {
         has_upload: false,                   // Check if there are any files uploaded
@@ -457,6 +457,13 @@ jQuery(function ($) {
             $('body').append(tpl);
             $('#modal_message').modal('show');
         },
+        popupProductInfo: function(_status, _title, _message) {
+            var template  = $('#modal_message_template2').html();
+            var tpl  = Mustache.render(template, {status: _status, title: _title, message: _message});
+            $('#modal_message2').remove();
+            $('body').append(tpl);
+            $('#modal_message2').modal('show');
+        },
         validateForm: function() {
             var flag    = true,
                 msg     = '';
@@ -783,12 +790,20 @@ jQuery(function ($) {
     $(document).ready(function() {
 
 
-
         // $('#font').ddslick({
         //     height: 500   
                     
         // });
         $(document.body)
+
+            .on('click','.prdct-info', function(e) {
+                e.preventDefault();
+
+                var slctd_product = Settings.products[$('#style').val()];
+                console.log(slctd_product);
+                Builder.popupProductInfo('info', slctd_product.product_title, slctd_product.product_content);
+                return;
+            })
             // Get Product sizes on style changed
             .on('change', 'select[name="style"]', function() {
               
@@ -798,7 +813,7 @@ jQuery(function ($) {
                     slctd_style = $(this).val(),
                     color_lists = Builder.getColorLists();
 
-
+                console.log(slctd_product);
                 if (slctd_product != undefined) {
                     $('#wbc_add_to_cart').removeAttr('disabled');
 
@@ -1175,6 +1190,7 @@ jQuery(function ($) {
                         console.log('undo');
 
                         $('.option-tr').removeClass('is-disabled'); // allow all additional option to be editable
+                         $('.delete-selection').removeClass('is-disabled'); // disable all additioanl option to be editable first
                         $(this).find('i').toggleClass('fa-undo fa-pencil');
                         $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').removeClass('selected');
                         $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').addClass('added');
@@ -1190,6 +1206,7 @@ jQuery(function ($) {
                         console.log('pencil');
 
                         $('.option-tr').addClass('is-disabled'); // disable all additioanl option to be editable first
+                        $('.delete-selection').addClass('is-disabled'); // disable all additioanl option to be editable first
                         $(this).closest('tr').removeClass('is-disabled'); // enable to specific additional option to be editable
 
                         $(this).find('i').toggleClass('fa-pencil fa-undo');
@@ -1421,15 +1438,20 @@ jQuery(function ($) {
                 //save button
             .on('click','#save_button',function(e) {
                 e.preventDefault();
-                //console.log('this');
+
+                // console.log('this');
+                // console.log( preview_container );
+                // console.log($('#preview_container').html());
+                //Builder.popupProductInfo('info', 'Preview', $('#preview_container').html());
 
                 if ($('#preview_container').length) {
                     
-                Pablo(preview_container).download('svg'.Settings.svg, function(result){
-                    alert(result.error ? 'Fail' : 'Success');
-                });
+                    Pablo(preview_container).download('svg',Settings.svg, function(result){
+                        alert(result.error ? 'Fail' : 'Success');
+                    });
 
                 }
+
             })
 
             .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {
@@ -1464,7 +1486,7 @@ jQuery(function ($) {
                 }
             }
         });
-        
+
         // Call function on load
         Builder.onLoad();
         $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup'); // trigger  the Input Quanity field when the page is reloaded to calculate the total.

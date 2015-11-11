@@ -228,6 +228,7 @@ img.image-upload.hide-if-icon {
     margin: 0;
     padding: 10px 10px;
     border: solid 1px #000000;
+    cursor: pointer;
 }
 
 
@@ -656,7 +657,13 @@ input[type=number] {
     color: #000000 !important
 }
 
-.is-disabled {
+.is-disabled{
     opacity: .5;
     pointer-events: none;
+}
+.tooltip {
+    pointer-events: none;
+}
+input[type="checkbox"],input[type="radio"] {
+  cursor: pointer;
 }

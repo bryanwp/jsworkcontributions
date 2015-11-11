@@ -1,9 +1,9 @@
 <svg id="svgelement" viewBox="0 0 300 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <rect id="bandcolor" height="100%" width="100%" style="fill: blue"/>
+  <rect id="bandcolor" height="100%" width="100%" style="fill: black"/>
   <path id="insidePath" fill-opacity="0" d="M17 70 q 150 -50 264 0"/>  
   <path id="FrontPath" fill-opacity="0" d="M17 95 q 150 55 270 -5"/> 
 
-  <image height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/WRISTBAND.png" />
+  <image height="100%" width="100%" xlink:href="http://gwplabs.com//wp-content/themes/wristbandcreation/wristband/assets/images/WRISTBAND.png" />
 
   <text class="bandtext" id="insidetext" font-family="Verdana" font-weight="900" font-size="2em" fill="black" textLength="285" text-anchor="middle" lengthAdjust="spacingAndGlyphs" style="fill: #999999; stroke: #000000; opacity: 0.4;"  >        
     <!--for continuous text-->
@@ -20,6 +20,6 @@
         <!--<tspan class="fa">&#xf0e0;</tspan>-->
     </text>  
     
-  <image height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/WRISTBAND.png" />  
+  <image height="100%" width="100%" xlink:href="http://gwplabs.com/wp-content/themes/wristbandcreation/wristband/assets/images/WRISTBAND.png" />  
  
 </svg>
