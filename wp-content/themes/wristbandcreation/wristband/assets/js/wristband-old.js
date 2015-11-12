@@ -1,7 +1,7 @@
 jQuery(function ($) {
     'use strict';
 
-    console.log(WBC.settings);
+   // console.log(WBC.settings);
     var Settings = WBC.settings,
         Builder = {
         has_upload: false,                   // Check if there are any files uploaded
@@ -39,47 +39,6 @@ jQuery(function ($) {
             this.data.colors.push(value);
             this.observer();
         },
-        updateColor: function(name, lists) {
-
-            for (var i in this.data.colors) {
-                    
-                if( name != '') {
-
-                    if( this.data.colors[i].name ==  name ) {
-
-                        this.data.colors[i].name            = (lists.name != '') ? lists.name : this.data.colors[i].color;
-                        this.data.colors[i].color           = (lists.color != '') ? lists.color : this.data.colors[i].color;
-                        this.data.colors[i].type            = (lists.type != '') ? lists.type : this.data.colors[i].type;
-                        this.data.colors[i].text_color      = lists.text_color;
-                        this.data.colors[i].text_color_name = lists.text_color_name;
-                        this.data.colors[i].sizes['adult']  = (lists.sizes['adult'] != '') ? lists.sizes['adult'] : this.data.colors[i].sizes['adult'];
-                        this.data.colors[i].sizes['medium'] = (lists.sizes['medium'] != '') ? lists.sizes['medium'] : this.data.colors[i].sizes['medium'];
-                        this.data.colors[i].sizes['youth']  = (lists.sizes['youth'] != '') ? lists.sizes['youth'] : this.data.colors[i].sizes['youth']; 
-
-                        break;
-
-                    }
-                             
-                } else {
-
-                        this.data.colors[i].color           = (lists.color != '') ? lists.color : this.data.colors[i].color;
-                        this.data.colors[i].type            = (lists.type != '') ? lists.type : this.data.colors[i].type;
-                        this.data.colors[i].text_color      = lists.text_color;
-                        this.data.colors[i].text_color_name = lists.text_color_name;
-                        this.data.colors[i].sizes['adult']  = (lists.sizes['adult'] != '') ? lists.sizes['adult'] : this.data.colors[i].sizes['adult'];
-                        this.data.colors[i].sizes['medium'] = (lists.sizes['medium'] != '') ? lists.sizes['medium'] : this.data.colors[i].sizes['medium'];
-                        this.data.colors[i].sizes['youth']  = (lists.sizes['youth'] != '') ? lists.sizes['youth'] : this.data.colors[i].sizes['youth'];    
-
-                    }
-            }
-
-            this.observer();
-
-        },
-        // Get color list
-        getColorLists: function() {
-            return this.data.colors;
-        },
         getColorIndex: function(name) {
             for (var i in this.data.colors) {
                 if(this.data.colors[i].name == name) {
@@ -89,10 +48,7 @@ jQuery(function ($) {
         },
         // Remove color selected
         removeColor: function(name) {
-            console.log(this.data.colors);
-            console.log(name);
             for (var i in this.data.colors) {
-                //console.log(this.data.colors);
                 if(this.data.colors[i].name == name || this.data.colors[i].temp == true) {
                     this.data.colors.splice(i, 1);
                 }
@@ -107,7 +63,7 @@ jQuery(function ($) {
             this.data.has_extra_size    = false;
             this.data.size_number       = 0;
             if (this.data.colors.length > 1) {
-                //console.log(this.data.colors);
+                console.log(this.data.colors);
                 this.data.has_color_split = true;
             }
             for (var i in this.data.colors) {
@@ -135,17 +91,13 @@ jQuery(function ($) {
       
          // Collect all quantity
         collectQuantity: function() {
-
             var total_qty       = 0;
-
-                for (var color in this.data.colors) {
-                    for (var size in this.data.colors[color].sizes) {
-                        total_qty += this.data.colors[color].sizes[size];
-                    }
+            for (var color in this.data.colors) {
+                for (var size in this.data.colors[color].sizes) {
+                    total_qty += this.data.colors[color].sizes[size];
                 }
-
-                this.data.total_qty = total_qty;
-   
+            }
+            this.data.total_qty = total_qty;
         },
         // Append alert messages
         appendAlertMsg: function(_msg, el, uniq_class) {
@@ -203,42 +155,28 @@ jQuery(function ($) {
 
         // Observe any changes and calcuate price and quantity for display
         observer: function() {
+            this.checkColorSplitAndExtraSize();
+            this.collectQuantity();
+            this.collectPrices();
+            var total_qty   = this.data.total_qty,
+                total_price = this.data.total_price;
 
-            // if( $('#qty_adult').val() <= 0 && $('#qty_medium').val() <= 0 && $('#qty_youth').val() <= 0) {
 
-            //       $('.alert-notify.each-message').remove(); //remove old price message  
-            //       $('#price_handler').text('0.00');
-            //       $('#qty_handler').text('0');
-
-            // } else {
-
-                this.checkColorSplitAndExtraSize();
-                this.collectQuantity();
-                this.collectPrices();
-                var total_qty   = this.data.total_qty,
-                    total_price = this.data.total_price;
-
-                this.data.total_qty = total_qty;
-                this.data.total_price = total_price;  
-
-                $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 Free' : ''));
-                $('#price_handler').text(numberFormat(total_price));
-                if( total_qty < 100)
-                {
-                    $('#id_convert_to_keychains').hide();
-                }else
-                {
-                    $('#id_convert_to_keychains').show();
-                }
-
-         //   }
-
+            this.data.total_qty = total_qty;
+            this.data.total_price = total_price;
+            $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 Free' : ''));
+            $('#price_handler').text(numberFormat(total_price));
+            if( total_qty < 100)
+            {
+                $('#id_convert_to_keychains').hide();
+            }else
+            {
+                $('#id_convert_to_keychains').show();
+            }
 
             this.buildPreview();
-            
         },
         buildPreview: function() {
-           
             var message_type = $('input[name="message_type"]:checked').val(),
                 a = $('.preview-button.active').data('input'),
                 input = message_type == 'continues' ? 'continues_message' : a;
@@ -252,34 +190,27 @@ jQuery(function ($) {
             $('.bandtext')
                 .attr('font-family', $('select[name="font"] option:selected').val());
 
-     
+
             var y = $('#wristband-color-items .color-wrap.selected > div').data('color');
             if (y != undefined) {
-
-                if($('#bandcolor').length) {
-                    var background = document.getElementById("bandcolor"); 
-                    background.style.fill=y;
+                var colors = y.split(',');
+                if (colors.length > 0) {
+                    var x = '<stop class="box-shadow" offset="0" stop-color="#EEEEEE"/>';
+                    var z = 1 / (colors.length - 1) ;
+                    for (var i = 0; i < colors.length; i++) {
+                        var offset = i * z;
+                        offset = isNaN(offset) ? 1 : offset;
+                        x += '<stop class="bandcolor" offset="' + (offset - 0.01)  + '" stop-opacity="1" stop-color="' + colors[i] + '"></stop>';
+                   }
+                    $(".color").html(x);
                 }
 
-                // var colors = y.split(',');
-                // if (colors.length > 0) {
-                //     var x = '<stop class="box-shadow" offset="0" stop-color="#EEEEEE"/>';
-                //     var z = 1 / (colors.length - 1) ;
-                //     for (var i = 0; i < colors.length; i++) {
-                //         var offset = i * z;
-                //         offset = isNaN(offset) ? 1 : offset;
-                //         x += '<stop class="bandcolor" offset="' + (offset - 0.01)  + '" stop-opacity="1" stop-color="' + colors[i] + '"></stop>';
-                //    }
-                //     $(".color").html(x);
-                // }
-
-                // if (colors[0] != '#ffffff' && colors.length <= 1) {
-                //     $('#color-4 > .box-shadow').remove();
-                // }
+                if (colors[0] != '#ffffff' && colors.length <= 1) {
+                    $('#color-4 > .box-shadow').remove();
+                }
            }
        },
         renderProductionShippingOptions: function() {
-     
             if (this.data.total_qty <= 0)return;
             var $size =  $('#width option:selected'),
                 c = ['production', 'shipping'];
@@ -304,16 +235,15 @@ jQuery(function ($) {
         },
         // Bind element to jquery library/packages on load
         onLoad: function() {
-
             if ($('#preview_container').length) {
                 Pablo(preview_container).load(Settings.svg);
-            }
-
+           }
             // Trigger change on ready
             $('select[name="style"], input[name="message_type"]').trigger('change');
             // Trigger keyup on ready
             $('.trigger-limit-char').trigger('keyup');
             //trigger change on text color
+            $
             // With transparent color
             //$('.color-selector').colorpicker();
             // Change this to the location of your server-side upload handler:
@@ -459,13 +389,6 @@ jQuery(function ($) {
             $('body').append(tpl);
             $('#modal_message').modal('show');
         },
-        popupProductInfo: function(_status, _title, _message) {
-            var template  = $('#modal_message_template2').html();
-            var tpl  = Mustache.render(template, {status: _status, title: _title, message: _message});
-            $('#modal_message2').remove();
-            $('body').append(tpl);
-            $('#modal_message2').modal('show');
-        },
         validateForm: function() {
             var flag    = true,
                 msg     = '';
@@ -600,9 +523,9 @@ jQuery(function ($) {
             if(qty <= 0) return;
             var color_style_price = Settings.price_list,
                 styleID = $('.color-wrap.selected').eq(0).attr('title');
-                // console.log(Settings);
-                // console.log(Settings.color_style);
-                // console.log(Settings.color_style[styleID]);
+                console.log(Settings);
+                console.log(Settings.color_style);
+                console.log(Settings.color_style[styleID]);
                 if(Settings.color_style[styleID].price_list)
                 {
                     var color_style_cost = Settings.color_style[styleID].price_list,
@@ -612,8 +535,8 @@ jQuery(function ($) {
                 else
                 {
                     return;
-                } 
-                   
+                }
+                    
         },
         _msgMoreThanCharLimit: function(qty) {
             if (qty <= 0) return;
@@ -790,32 +713,19 @@ jQuery(function ($) {
 
 
     $(document).ready(function() {
-
-
         // $('#font').ddslick({
         //     height: 500   
                     
         // });
         $(document.body)
-
-            .on('click','.prdct-info', function(e) {
-                e.preventDefault();
-
-                var slctd_product = Settings.products[$('#style').val()];
-                console.log(slctd_product);
-                Builder.popupProductInfo('info', slctd_product.product_title, slctd_product.product_content);
-                return;
-            })
             // Get Product sizes on style changed
             .on('change', 'select[name="style"]', function() {
-              
-               // Builder.reset();
-                var slctd_product = Settings.products[this.value],
-                    i = [],
-                    slctd_style = $(this).val(),
-                    color_lists = Builder.getColorLists();
 
-                console.log(slctd_product);
+               // Builder.reset();
+
+                var slctd_product = Settings.products[this.value],
+                    i = [];
+
                 if (slctd_product != undefined) {
                     $('#wbc_add_to_cart').removeAttr('disabled');
 
@@ -863,13 +773,6 @@ jQuery(function ($) {
                         $('#wristband-text-color').closest('.form-group').show();
 
                         for (var i in slctd_product.text_color) {
-                            
-
-                            if(i == 0 && slctd_product.text_color[0].name !=  '') {
-
-                                var default_tc = slctd_product.text_color[0].name; // set if there is default text color set on the backend.
-                                 
-                            }
 
                             var tpl = '<li><div class="color-wrap '+ (i == 0 ? 'selected' : '') +'"><div data-name="{{name}}" data-color="{{color}}" style="background-color:{{color}};"></div></div></li>';
                             var render = Mustache.render(tpl, {
@@ -877,90 +780,10 @@ jQuery(function ($) {
                                 color: slctd_product.text_color[i].color
                             });
                             $('#wristband-text-color ul').append(render);
-
                         }
-                        
-                        Builder.updateColor('', {name: '',
-                                                   color: '',
-                                                   type: '',
-                                                   text_color: slctd_product.text_color[0].color,
-                                                   text_color_name: slctd_product.text_color[0].name,
-                                                   sizes: {
-                                                        adult: '',
-                                                        medium: '',
-                                                        youth: '',
-                                                    }
-                                                 });
-
                    } else {
-
                         $('#wristband-text-color').closest('.form-group').hide();
-                        Builder.updateColor('', {name: '',
-                                                      color: '',
-                                                      type: '',
-                                                      text_color: '#FFFFFF',
-                                                      text_color_name: 'White',
-                                                      sizes: {
-                                                            adult: '',
-                                                            medium: '',
-                                                            youth: '',
-                                                        }
-                                                    });
-
                    }
-
-                    //get the color list and update the additional color table list
-                    var lists = Builder.getColorLists();
-
-                    for (var index in lists) {
-
-                        var bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap"><div style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>',
-                            bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap" style="display:{{style_display}}" ><div style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>';
-
-                        var _wristband_color_box    = Mustache.render(bg_style_tpl, {hide: '', bg_color: lists[index].color, qty: ''}),
-                            _wristband_text_color_box = '';
-
-                            if ( lists[index].text_color != null ){
-                                
-                                _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'inline-block', bg_color: lists[index].text_color, qty: ''});
-                            } else {
-                                _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'none', bg_color: lists[index].text_color, qty: ''});
-                            }
-
-                            var  $tr = $('#selected_color_table > tbody tr[data-name="'+ lists[index].name +'"]');
-           
-                            var row_tpl = Mustache.render(
-                                        '<tr data-name="{{name}}" class="option-tr">'
-                                        + '<td><center>{{{adult_qt}}}</center></td>'
-                                        + '<td><center>{{{medium_qty}}}</center></td>'
-                                        + '<td><center>{{{youth_qty}}}</center></td>'
-                                        + '<td><center>{{{wristband_color_box}}}</center></td>'
-                                        + '<td><center>{{{wristband_text_color_box}}}</center></td>'
-                                        + '<td><a href="#" id="edit" data-name="{{name}}" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
-                                        + '</tr>',
-                                        {
-                                            name         : lists[index].name,
-                                            adult_qt     : lists[index].sizes['adult'],
-                                            medium_qty   : lists[index].sizes['medium'],
-                                            youth_qty    : lists[index].sizes['youth'],
-                                            wristband_color_box     : _wristband_color_box,
-                                            wristband_text_color_box : _wristband_text_color_box,
-                                       }
-                                    );
-    
-
-                            $tr.replaceWith(row_tpl);
-                    }
-
-
-                    if(slctd_product.text_color) {
-                        $('.colortext--wrap').show(); // show text color in the additional table list
-                        $('.text_to_alter').show();   // show th color in the additional table list
-                    } else {
-                        $('.colortext--wrap').hide(); // hide text color in the additional table list
-                        $('.text_to_alter').hide();   // hide text color in the additional table list
-                    }
-
                 }
 
             })
@@ -996,15 +819,6 @@ jQuery(function ($) {
             })
             // Text Color Selection
             .on('click', '#wristband-text-color .color-wrap', function() {
-
-                var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name');
-                
-                if(tbl_color){
-                     $('#wristband-text-color .color-wrap').removeClass('selected');
-                     $(this).addClass('selected');
-                    return;
-                } 
-
                 $('#wristband-text-color .color-wrap').removeClass('selected');
                 $(this).addClass('selected');
                 $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
@@ -1012,16 +826,6 @@ jQuery(function ($) {
             })
             // Wristband Color Selection
             .on('click', '#wristband-color-items .color-wrap', function() {
-
-                var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name');
-
-                if(tbl_color){
-
-                    $('#wristband-color-items .color-wrap').removeClass('selected');
-                    $(this).addClass('selected');
-                    return;
-                } 
-
                 if ($(this).hasClass('added') ) return;
                 $('#wristband-color-items .color-wrap').removeClass('selected');
                 $(this).addClass('selected');
@@ -1029,58 +833,38 @@ jQuery(function ($) {
                 Builder.observer();
             })
             .on('keyup mouseup', '#qty_adult, #qty_medium, #qty_youth', function() {
-
-                $('.alert-notify.each-message').remove(); //remove old price message
-
-                var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name');
-
                 var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
                     $tc = $('#wristband-text-color .color-wrap.selected > div'),
                     $aq    = $('#qty_adult'),
                     $mq    = $('#qty_medium'),
                     $yq    = $('#qty_youth');
-                  
-                if($aq.val() <= 0 && $mq.val() <= 0 && $yq.val() <= 0) {
-                     
-                      $('#price_handler').text('0.00');
-                      $('#qty_handler').text('0');
-
-                }
-
                 // ($('#wristband-text-color ul li').length && $tc.length == 0) ||
                 if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)) 
                 {
                     return;
                 }
-
-                if(tbl_color == undefined){
-
-                   //do this process if it's not updating the additional table list     
-                   Builder.addColor($wc.data('name'), {
-                        name: $wc.data('name'),
-                        color: $wc.data('color'),
-                        type: $('input[name="color_style"]:checked').val(),
-                        text_color_name: $tc.data('name'),
-                        text_color: $tc.data('color'),
-                        sizes: {
-                            adult: toInt($aq.val()),
-                            medium: toInt($mq.val()),
-                            youth: toInt($yq.val()),
-                        },
-                        temp: true, // This is for temporary color during keyup
-                    });
-                    Builder.renderProductionShippingOptions();
-
-                } 
+                Builder.addColor($wc.data('name'), {
+                    name: $wc.data('name'),
+                    color: $wc.data('color'),
+                    type: $('input[name="color_style"]:checked').val(),
+                    text_color_name: $tc.data('name'),
+                    text_color: $tc.data('color'),
+                    sizes: {
+                        adult: toInt($aq.val()),
+                        medium: toInt($mq.val()),
+                        youth: toInt($yq.val()),
+                    },
+                    temp: true, // This is for temporary color during keyup
+                });
+                Builder.renderProductionShippingOptions();
 
             })
             .on('click', '#add_color_to_selections', function(e) {
                 e.preventDefault();
-
                 var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
                     $tc = $('#wristband-text-color .color-wrap.selected > div'),
                     bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap"><div style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>',
-                    bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap" style="display:{{style_display}}" ><div style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>',
+                    bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap" style="display:{{style_display}}" ><div style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>',
                     $aq    = $('#qty_adult'),
                     $mq    = $('#qty_medium'),
                     $yq    = $('#qty_youth');
@@ -1125,13 +909,13 @@ jQuery(function ($) {
                 });
 
                 var row_tpl = Mustache.render(
-                    '<tr data-name="{{name}}" class="option-tr">'
+                    '<tr data-name="{{name}}">'
                     + '<td><center>{{{adult_qt}}}</center></td>'
                     + '<td><center>{{{medium_qty}}}</center></td>'
                     + '<td><center>{{{youth_qty}}}</center></td>'
                     + '<td><center>{{{wristband_color_box}}}</center></td>'
                     + '<td><center>{{{wristband_text_color_box}}}</center></td>'
-                    + '<td><a href="#" id="edit" data-name="{{name}}" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
+                    + '<td><a href="#" id="edit" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
                     + '</tr>',
                     {
                         name                    : $wc.data('name'),
@@ -1150,10 +934,8 @@ jQuery(function ($) {
                     } else {
                        $('#selected_color_table > tbody').append(row_tpl);
                     }
-
                 $wc.closest('.color-wrap').addClass('added');
                 $('#wristband-color-items .color-wrap, #wristband-text-colors .color-wrap').removeClass('selected');
-              //  $tc.closest('.color-wrap').addClass('added');
                 $('#qty_adult, #qty_medium, #qty_youth').val('');
                 $(this).find('.fusion-button-text').text('Add an additional color');
                 Builder.renderProductionShippingOptions();
@@ -1163,181 +945,56 @@ jQuery(function ($) {
             .on('click', '.delete-selection', function(e) {
                 e.preventDefault();
                 var $row = $(this).closest('tr');
-                console.log($row.data('name'));
-                //return;
-
-                $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
-                
-
+                // Remove color from selections
+                Builder.removeColor($row.data('name'));
                 // Remove "added" class in wristband colors
                 $('#wristband-color-tab  div[data-name^="'+ $row.data('name')  +'"]').closest('.color-wrap').removeClass('added selected');
                 $row.remove();
-                // Remove color from selections
-                Builder.removeColor($row.data('name'));
-
                 return false;
             })
             .on('click', '.edit-selection', function(e) {
                 e.preventDefault();
 
-
                 var color_name  = $(this).closest('tr').data('name'),
                     i = Builder.getColorIndex(color_name),
                     color   = Builder.data.colors[i],
                     hasSpan = $(this).find('span').hasClass('fusion-button-text'),
-                    collapsed = $(this).find('i').hasClass('fa-pencil'),
-                    undo = $(this).find('i').hasClass('fa-undo');
-                          
-                // $(this).toggleClass('fa-pencil fa-undo');
-                // $('.edit-selection').find('i').removeClass('fa-undo');
-                // $('.edit-selection').find('i').addClass('fa-pencil');
+                    collapsed = $(this).find('i').hasClass('fa-pencil');
 
-                    if( undo ) {
+                                        
 
-                        console.log('undo');
+                //$(this).toggleClass('fa-pencil fa-undo');
+                $('.edit-selection').find('i').removeClass('fa-undo');
+                $('.edit-selection').find('i').addClass('fa-pencil');
 
-                        $('.option-tr').removeClass('is-disabled'); // allow all additional option to be editable
-                         $('.delete-selection').removeClass('is-disabled'); // disable all additioanl option to be editable first
-                        $(this).find('i').toggleClass('fa-undo fa-pencil');
-                        $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').removeClass('selected');
-                        $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').addClass('added');
-                             
-                        $('#wristband-color-items .color-wrap, #wristband-text-colors .color-wrap').removeClass('selected');
-                        $('#qty_adult, #qty_medium, #qty_youth').val('');
-                        $('#edit-button-text').attr('id','add_color_to_selections').html('<i class="fa fa-plus"></i> <span class="fusion-button-text">Add an additional color</span>');
-
-                    }
-
-                    if ( collapsed ) {
-
-                        console.log('pencil');
-
-                        $('.option-tr').addClass('is-disabled'); // disable all additioanl option to be editable first
-                        $('.delete-selection').addClass('is-disabled'); // disable all additioanl option to be editable first
-                        $(this).closest('tr').removeClass('is-disabled'); // enable to specific additional option to be editable
-
+                    if (collapsed) {
                         $(this).find('i').toggleClass('fa-pencil fa-undo');
-                        $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').removeClass('added');
-                        $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').addClass('selected');
-
-                        $('#qty_adult ').val(color.sizes.adult);
-                        $('#qty_medium').val(color.sizes.medium);
-                        $('#qty_youth').val(color.sizes.youth);
-                        $('.color-wrap').removeClass('selected');
-                        $('input[name=color_style][value="'+ color.type +'"]').trigger('click');
-                        $('#wristband-color-items .color-wrap > div[data-name^="'+ color.name +'"]').closest('.color-wrap').addClass('selected');
-                        $('#wristband-text-color .color-wrap > div[data-name^="'+ color.text_color_name +'"]').closest('.color-wrap').addClass('selected');
-
-
-                        $('#add_color_to_selections').attr('id', 'edit-button-text').html('<i class="fa fa-plus"></i> <span class="fusion-button-text">Update Color</span>');
                     }
+
+                $('#qty_adult ').val(color.sizes.adult);
+                $('#qty_medium').val(color.sizes.medium);
+                $('#qty_youth').val(color.sizes.youth);
+                $('.color-wrap').removeClass('selected');
+                $('input[name=color_style][value="'+ color.type +'"]').trigger('click');
+                $('#wristband-color-items .color-wrap > div[data-name^="'+ color.name +'"]').closest('.color-wrap').addClass('selected');
+                $('#wristband-text-color .color-wrap > div[data-name^="'+ color.text_color_name +'"]').closest('.color-wrap').addClass('selected');
+                $('#add_color_to_selections').attr('id', 'edit-button-text').html('<i class="fa fa-plus"></i> <span class="fusion-button-text">Update Color</span>');
             })
             
-            .on('click','.edit-button-text',function(e){
+            .on('click','#edit-button-text',function(e){
 
                 e.preventDefault();
                 var $row = $(this).closest('tr');
                 // Remove color from selections
-              //  Builder.removeColor($row.data('name'));
+                Builder.removeColor($row.data('name'));
                 // Remove "added" class in wristband colors
                 $('#wristband-color-tab  div[data-name^="'+ $row.data('name')  +'"]').closest('.color-wrap').removeClass('added selected');
                 $row.remove();
                 return false;
             })
-            .on('click', '#edit-button-text',function(e) {
-                e.preventDefault();
-                
-                var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name'),
-                    slctd_product = Settings.products[$('#style').val()];
- 
-                var $aq    = $('#qty_adult'),
-                    $mq    = $('#qty_medium'),
-                    $yq    = $('#qty_youth'),
-                    $tc    = $('#wristband-text-color .color-wrap.selected > div'),
-                    $wc    = $('#wristband-color-tab .color-wrap.selected > div');
-
-               
-                Builder.updateColor(tbl_color, {
-                                                name: $wc.data('name'),
-                                                color: $wc.data('color'),
-                                                type: $('input[name="color_style"]:checked').val(),
-                                                text_color: ($tc.data('color') == null)? '#FFFFFF' : $tc.data('color'),
-                                                text_color_name: ($tc.data('name') == null)? 'White' : $tc.data('name'),
-                                                sizes: {
-                                                    adult: toInt($aq.val()),
-                                                    medium:toInt($mq.val()),
-                                                    youth: toInt($yq.val()),
-                                               }
-                                            });
-
-                    $('#selected_color_table > tbody').empty().html(''); //empty first the additional color table list
-
-                    //get the color list and update the additional color table list
-                    var lists = Builder.getColorLists();
-
-                    for (var index in lists) {
-
-                        var bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap"><div style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>',
-                            bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap" style="display:{{style_display}}" ><div style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>';
-
-                        var _wristband_color_box    = Mustache.render(bg_style_tpl, {hide: '', bg_color: lists[index].color, qty: ''}),
-                            _wristband_text_color_box = '';
-
-                            if ( lists[index].text_color != null ){
-                                
-                                _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'inline-block', bg_color: lists[index].text_color, qty: ''});
-                            } else {
-                                _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'none', bg_color: lists[index].text_color, qty: ''});
-                            }
-
-                            var  $tr = $('#selected_color_table > tbody tr[data-name="'+ lists[index].name +'"]');
-           
-                            var row_tpl = Mustache.render(
-                                        '<tr data-name="{{name}}" class="option-tr">'
-                                        + '<td><center>{{{adult_qt}}}</center></td>'
-                                        + '<td><center>{{{medium_qty}}}</center></td>'
-                                        + '<td><center>{{{youth_qty}}}</center></td>'
-                                        + '<td><center>{{{wristband_color_box}}}</center></td>'
-                                        + '<td><center>{{{wristband_text_color_box}}}</center></td>'
-                                        + '<td><a href="#" id="edit" data-name="{{name}}" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
-                                        + '</tr>',
-                                        {
-                                            name         : lists[index].name,
-                                            adult_qt     : lists[index].sizes['adult'],
-                                            medium_qty   : lists[index].sizes['medium'],
-                                            youth_qty    : lists[index].sizes['youth'],
-                                            wristband_color_box     : _wristband_color_box,
-                                            wristband_text_color_box : _wristband_text_color_box,
-                                       }
-                                    );
-            
-                             
-                             $('#selected_color_table > tbody').append(row_tpl);
-                    }
-
-                 $wc.closest('.color-wrap').addClass('added');   
-                 $('#qty_adult, #qty_medium, #qty_youth').val('');
-                 $('#edit-button-text').attr('id','add_color_to_selections').html('<i class="fa fa-plus"></i> <span class="fusion-button-text">Add an additional color</span>');
-
-               if(slctd_product.text_color) {
-                    $('.colortext--wrap').show(); // show text color in the additional table list
-                    $('.text_to_alter').show();   // show th color in the additional table list
-                } else {
-                    $('.colortext--wrap').hide(); // hide text color in the additional table list
-                    $('.text_to_alter').hide();   // hide text color in the additional table list
-                }
-
-            })
     
-            .on('click','.fa-undo-old', function(e){
+            .on('click','.fa-undo', function(e){
                 e.preventDefault();
-
-                var color_name  = $(this).closest('tr').data('name');
-
-
-                $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').removeClass('selected');
-                $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').addClass('added');
-                     
                 $(this).removeClass('fa-undo').addClass('fa-pencil');
                 $('#wristband-color-items .color-wrap, #wristband-text-colors .color-wrap').removeClass('selected');
                 $('#qty_adult, #qty_medium, #qty_youth').val('');
@@ -1346,7 +1003,7 @@ jQuery(function ($) {
             }) 
 
             .on('keyup', 'input[name="front_message"], input[name="continues_message"], input[name="back_message"], input[name="inside_message"]', function() {
-               Builder.observer();
+                Builder.observer();
             })
             // Trigger change when message type is choosen
             .on('change', 'input[name="message_type"], .customization-date-select', function() {
@@ -1365,7 +1022,7 @@ jQuery(function ($) {
                 $(this).addClass('active');
                 var button = $($(this).closest('.clipart-list').data('target')),
                     icon = $(this).data('icon');
-
+                console.log( button );
                 button.find('.icon-preview').removeClass(function (index, css) {
                     return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
                 });
@@ -1445,19 +1102,7 @@ jQuery(function ($) {
                 //save button
             .on('click','#save_button',function(e) {
                 e.preventDefault();
-
-                // console.log('this');
-                // console.log( preview_container );
-                // console.log($('#preview_container').html());
-                //Builder.popupProductInfo('info', 'Preview', $('#preview_container').html());
-
-                if ($('#preview_container').length) {
-                    
-                    Pablo(preview_container).download('svg',Settings.svg, function(result){
-                        alert(result.error ? 'Fail' : 'Success');
-                    });
-
-                }
+                console.log('this');
 
             })
 
@@ -1493,10 +1138,7 @@ jQuery(function ($) {
                 }
             }
         });
-
         // Call function on load
         Builder.onLoad();
-        $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup'); // trigger  the Input Quanity field when the page is reloaded to calculate the total.
-
     });
 });

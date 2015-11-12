@@ -558,7 +558,7 @@ get_header();
                     data-fontsize="17" data-lineheight="36">{{title}}</h3>
                 </div>
                 <div class="modal-body">
-                    {{{message}}} asdasd
+                    {{{message}}}
                 </div>
             </div>
         </div>
