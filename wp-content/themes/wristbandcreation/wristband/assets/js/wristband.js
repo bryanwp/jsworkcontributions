@@ -221,6 +221,10 @@ jQuery(function ($) {
                 this.data.total_qty = total_qty;
                 this.data.total_price = total_price;  
 
+                console.log('this.data.total_qty this.data.total_price');
+                 console.log(this.data.total_qty);
+                 console.log(this.data.total_price);
+
                 $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 Free' : ''));
                 $('#price_handler').text(numberFormat(total_price));
                 if( total_qty < 100)
@@ -787,7 +791,13 @@ jQuery(function ($) {
         return file.match(/\.(jpeg|jpg|png|gif)$/) != null;
     }
 
-
+    // Loop not added color and make it as a default selected color the first color in the loop
+    function wctColorEnable() {
+        $('#wristband-color-tab li.color-enabled').each(function(){
+            $(this).find('div.color-wrap').addClass('selected');
+            return false;
+        });
+    }
 
     $(document).ready(function() {
 
@@ -1152,12 +1162,20 @@ jQuery(function ($) {
                     }
 
                 $wc.closest('.color-wrap').addClass('added');
+                $wc.closest('li').removeClass('color-enabled');
+                $wc.closest('li').addClass('color-disabled');
                 $('#wristband-color-items .color-wrap, #wristband-text-colors .color-wrap').removeClass('selected');
-              //  $tc.closest('.color-wrap').addClass('added');
+
+                //loop not added color and make it as a default selected color the first color in the loop
+                wctColorEnable();
+                
                 $('#qty_adult, #qty_medium, #qty_youth').val('');
                 $(this).find('.fusion-button-text').text('Add an additional color');
+                
+
                 Builder.renderProductionShippingOptions();
                 return false;
+
             })
 
             .on('click', '.delete-selection', function(e) {
@@ -1167,14 +1185,24 @@ jQuery(function ($) {
                 //return;
 
                 $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
-                
 
                 // Remove "added" class in wristband colors
-                $('#wristband-color-tab  div[data-name^="'+ $row.data('name')  +'"]').closest('.color-wrap').removeClass('added selected');
+                $('#wristband-color-tab  div[data-name^="'+ $row.data('name')  +'"]').closest('.color-wrap').removeClass('added');
+                // Remove all "selected" class in wristband colors
+                $('#wristband-color-tab  .color-wrap').removeClass('selected');
+
+                $('#wristband-color-tab  div[data-name^="'+ $row.data('name')  +'"]').closest('li').removeClass('color-disabled'); 
+                $('#wristband-color-tab  div[data-name^="'+ $row.data('name')  +'"]').closest('li').addClass('color-enabled'); 
+
+
+                //loop not added color and make it as a default selected color the first color in the loop
+                wctColorEnable();
+
+                //Remove it on the additional color table list
                 $row.remove();
+
                 // Remove color from selections
                 Builder.removeColor($row.data('name'));
-
                 return false;
             })
             .on('click', '.edit-selection', function(e) {
@@ -1188,10 +1216,6 @@ jQuery(function ($) {
                     collapsed = $(this).find('i').hasClass('fa-pencil'),
                     undo = $(this).find('i').hasClass('fa-undo');
                           
-                // $(this).toggleClass('fa-pencil fa-undo');
-                // $('.edit-selection').find('i').removeClass('fa-undo');
-                // $('.edit-selection').find('i').addClass('fa-pencil');
-
                     if( undo ) {
 
                         console.log('undo');
@@ -1315,7 +1339,11 @@ jQuery(function ($) {
                              $('#selected_color_table > tbody').append(row_tpl);
                     }
 
-                 $wc.closest('.color-wrap').addClass('added');   
+                 $wc.closest('.color-wrap').addClass('added');
+                 
+                 //loop not added color and make it as a default selected color the first color in the loop
+                 wctColorEnable();
+
                  $('#qty_adult, #qty_medium, #qty_youth').val('');
                  $('#edit-button-text').attr('id','add_color_to_selections').html('<i class="fa fa-plus"></i> <span class="fusion-button-text">Add an additional color</span>');
 

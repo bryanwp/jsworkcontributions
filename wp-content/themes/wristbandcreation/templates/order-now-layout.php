@@ -343,7 +343,7 @@ get_header();
                                     <div class="tab-pane fade <?php echo $flag ? 'active in' : ''; ?>" id="tab-<?php echo sanitize_title($style); ?>">
                                         <ul>
                                             <?php foreach ($data->color_list as $i => $color_list): ?>
-                                                <li data-toggle="tooltip" data-placement="top"
+                                                <li  class="color-enabled" data-toggle="tooltip" data-placement="top"
                                                     title="<?php echo $color_list->name; ?>">
                                                     <div id="colorStyleBox" title= "<?php echo $style; ?>" class="color-wrap <?php if( $x == 0){ if ($i == 0){echo "selected";}}else{echo '';}?>">
                                                 <?php
