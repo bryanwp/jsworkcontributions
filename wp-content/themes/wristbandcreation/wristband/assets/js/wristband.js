@@ -89,8 +89,6 @@ jQuery(function ($) {
         },
         // Remove color selected
         removeColor: function(name) {
-            console.log(this.data.colors);
-            console.log(name);
             for (var i in this.data.colors) {
                 //console.log(this.data.colors);
                 if(this.data.colors[i].name == name || this.data.colors[i].temp == true) {
@@ -204,14 +202,6 @@ jQuery(function ($) {
         // Observe any changes and calcuate price and quantity for display
         observer: function() {
 
-            // if( $('#qty_adult').val() <= 0 && $('#qty_medium').val() <= 0 && $('#qty_youth').val() <= 0) {
-
-            //       $('.alert-notify.each-message').remove(); //remove old price message  
-            //       $('#price_handler').text('0.00');
-            //       $('#qty_handler').text('0');
-
-            // } else {
-
                 this.checkColorSplitAndExtraSize();
                 this.collectQuantity();
                 this.collectPrices();
@@ -221,7 +211,7 @@ jQuery(function ($) {
                 this.data.total_qty = total_qty;
                 this.data.total_price = total_price;  
 
-                console.log('this.data.total_qty this.data.total_price');
+                 console.log('this.data.total_qty this.data.total_price');
                  console.log(this.data.total_qty);
                  console.log(this.data.total_price);
 
@@ -235,9 +225,6 @@ jQuery(function ($) {
                     $('#id_convert_to_keychains').show();
                 }
 
-         //   }
-
-
             this.buildPreview();
             
         },
@@ -247,7 +234,7 @@ jQuery(function ($) {
                 a = $('.preview-button.active').data('input'),
                 input = message_type == 'continues' ? 'continues_message' : a;
 
-            $("#fronttextpath")
+            $("#front-text")
                 .text($('input[name="'+ input  +'"]').val().toUpperCase());
 
             $('#insidetextpath')
@@ -264,22 +251,6 @@ jQuery(function ($) {
                     var background = document.getElementById("bandcolor"); 
                     background.style.fill=y;
                 }
-
-                // var colors = y.split(',');
-                // if (colors.length > 0) {
-                //     var x = '<stop class="box-shadow" offset="0" stop-color="#EEEEEE"/>';
-                //     var z = 1 / (colors.length - 1) ;
-                //     for (var i = 0; i < colors.length; i++) {
-                //         var offset = i * z;
-                //         offset = isNaN(offset) ? 1 : offset;
-                //         x += '<stop class="bandcolor" offset="' + (offset - 0.01)  + '" stop-opacity="1" stop-color="' + colors[i] + '"></stop>';
-                //    }
-                //     $(".color").html(x);
-                // }
-
-                // if (colors[0] != '#ffffff' && colors.length <= 1) {
-                //     $('#color-4 > .box-shadow').remove();
-                // }
            }
        },
         renderProductionShippingOptions: function() {
@@ -315,12 +286,9 @@ jQuery(function ($) {
 
             // Trigger change on ready
             $('select[name="style"], input[name="message_type"]').trigger('change');
+
             // Trigger keyup on ready
             $('.trigger-limit-char').trigger('keyup');
-            //trigger change on text color
-            // With transparent color
-            //$('.color-selector').colorpicker();
-            // Change this to the location of your server-side upload handler:
 
             $('.fileupload').each(function() {
                 var $self = $(this);
@@ -604,7 +572,11 @@ jQuery(function ($) {
             if(qty <= 0) return;
             var color_style_price = Settings.price_list,
                 styleID = $('.color-wrap.selected').eq(0).attr('title');
-                // console.log(Settings);
+                 console.log('Settings');
+                 console.log(Settings);
+                 console.log('styleID');
+                 console.log(styleID);
+                 
                 // console.log(Settings.color_style);
                 // console.log(Settings.color_style[styleID]);
                 if(Settings.color_style[styleID].price_list)
@@ -799,33 +771,80 @@ jQuery(function ($) {
         });
     }
 
+    function wbTextColor() {
+        var $frontext   = document.getElementById("fronttext"),
+            $insidetext = document.getElementById("insidetext")  
+
+        if( $('#wristband-text-color div.selected').find('div').data('color') ) {
+
+            $frontext.style.fill = $('#wristband-text-color div.selected').find('div').data('color');
+            $insidetext.style.fill = $('#wristband-text-color div.selected').find('div').data('color');
+            $frontext.style.opacity = "1"; 
+            $insidetext.style.opacity = "1"; 
+
+       } else {
+
+            if($frontext != null && $insidetext != null) {
+
+                $frontext.style.fill = '#999999';
+                $insidetext.style.fill = '#999999';
+                $frontext.style.opacity = "0.4"; 
+                $insidetext.style.opacity = "0.4"; 
+            }
+            
+        }
+
+    }
+
+    //Display the default message option which front, back & inside
+    function messageOptionDisplay(value) {
+
+        $('[class*="hide-if-message_type-"]').css({display: 'block'});
+        $('.hide-if-message_type-' + value).css({'display': 'none'});
+        $('[class*="if-message_type_is-"]').css({display: ''});
+        $('.if-message_type_is-' + value).css({display: 'none'});
+
+    }
+
     $(document).ready(function() {
 
-
-        // $('#font').ddslick({
-        //     height: 500   
-                    
-        // });
         $(document.body)
 
-            .on('click','.prdct-info', function(e) {
-                e.preventDefault();
+            .on('click','.prdct-info', function() {
 
                 var slctd_product = Settings.products[$('#style').val()];
                 console.log(slctd_product);
                 Builder.popupProductInfo('info', slctd_product.product_title, slctd_product.product_content);
+
+
+                var img = Pablo.image(preview_container);
+                console.log('pabloimage');
+               
+
+                var svgDiv = $("#svgelement");
+                 
+                var svg = svgDiv[0].outerHTML;
+
+                 console.log(svg);
+                var canvas = document.getElementById('hiddenCanvas');
+                 canvg(canvas, svg);
+                 
+                var theImage = canvas.toDataURL('image/png');
+                $("#hiddenPng").attr('href', theImage);
+              //$("#hiddenPng").click();
+
                 return;
             })
             // Get Product sizes on style changed
-            .on('change', 'select[name="style"]', function() {
-              
+            .on('change', 'select[name="style"]', function(e) {
+               e.preventDefault();
                // Builder.reset();
                 var slctd_product = Settings.products[this.value],
                     i = [],
                     slctd_style = $(this).val(),
                     color_lists = Builder.getColorLists();
 
-                console.log(slctd_product);
+                // console.log(slctd_product);
                 if (slctd_product != undefined) {
                     $('#wbc_add_to_cart').removeAttr('disabled');
 
@@ -867,7 +886,7 @@ jQuery(function ($) {
 
                     Builder.init();
                     $('#wristband-text-color ul').empty();
-
+                   
 
                     if ( slctd_product.text_color) {
                         $('#wristband-text-color').closest('.form-group').show();
@@ -902,9 +921,12 @@ jQuery(function ($) {
                                                     }
                                                  });
 
+                          
+                       
                    } else {
 
                         $('#wristband-text-color').closest('.form-group').hide();
+
                         Builder.updateColor('', {name: '',
                                                       color: '',
                                                       type: '',
@@ -918,6 +940,12 @@ jQuery(function ($) {
                                                     });
 
                    }
+                   
+
+
+                    messageOptionDisplay($('input[name="message_type"]:checked').val()); // display the default message option which front, back & inside
+                    wbTextColor(); //display the text color in the wristband preview
+
 
                     //get the color list and update the additional color table list
                     var lists = Builder.getColorLists();
@@ -966,9 +994,11 @@ jQuery(function ($) {
                     if(slctd_product.text_color) {
                         $('.colortext--wrap').show(); // show text color in the additional table list
                         $('.text_to_alter').show();   // show th color in the additional table list
+                         wbTextColor();
                     } else {
                         $('.colortext--wrap').hide(); // hide text color in the additional table list
                         $('.text_to_alter').hide();   // hide text color in the additional table list
+
                     }
 
                 }
@@ -984,10 +1014,8 @@ jQuery(function ($) {
             // Hide/Show message type fields
             .on('change', 'input[name="message_type"]', function() {
                 if (this.checked) {
-                    $('[class*="hide-if-message_type-"]').css({display: 'block'});
-                    $('.hide-if-message_type-' + this.value).css({'display': 'none'});
-                    $('[class*="if-message_type_is-"]').css({display: ''});
-                    $('.if-message_type_is-' + this.value).css({display: 'none'});
+
+                    messageOptionDisplay(this.value); // display the default message option which front, back & inside
                 }
             })
             // Message character limit
@@ -1017,6 +1045,10 @@ jQuery(function ($) {
 
                 $('#wristband-text-color .color-wrap').removeClass('selected');
                 $(this).addClass('selected');
+
+                //display the text color in the wristband preview;
+                 wbTextColor();
+
                 $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
                 Builder.observer();
             })
@@ -1392,8 +1424,20 @@ jQuery(function ($) {
                 $('.clipart-list li').removeClass('active');
                 $(this).addClass('active');
                 var button = $($(this).closest('.clipart-list').data('target')),
-                    icon = $(this).data('icon');
+                    icon = $(this).data('icon'),
+                    glyp = $(this).data('icon-code'),
+                    position = button.data('position'),
+                    view = button.data('view'),
+                    preview = $('.preview-button.active').data('view');
+          
+                    $('#'+position).text(glyp);
 
+                    $('#icon_start').text(  $('#'+preview+'_start').text() );
+                    $('#icon_end').text(  $('#'+preview+'_end').text() );
+
+
+
+                
                 button.find('.icon-preview').removeClass(function (index, css) {
                     return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
                 });
@@ -1495,8 +1539,16 @@ jQuery(function ($) {
 
             .on('click', '#front_view_button, #back_view_button', function(e) {
                 e.preventDefault();
+                var view = $(this).data('view');
+
+                $('#icon_start').text(  $('#'+view+'_start').text() );
+                $('#icon_end').text(  $('#'+view+'_end').text() );
+
                 $('.preview-button').removeClass('active');
                 $(this).addClass('active');
+
+
+
                 Builder.observer();
                 return false;
             });
@@ -1524,6 +1576,7 @@ jQuery(function ($) {
 
         // Call function on load
         Builder.onLoad();
+
         $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup'); // trigger  the Input Quanity field when the page is reloaded to calculate the total.
 
     });

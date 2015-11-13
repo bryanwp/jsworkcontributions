@@ -135,7 +135,7 @@ get_header();
                             <div class="button-box hide-if-message_type-continues">
                                 <span class="text-label">Front Start</span>
                                 <div class="alignright">
-                                    <a id="front_start_btn" data-position="front_start" href="#" data-title="Front Start" data-toggle="modal"
+                                    <a id="front_start_btn" data-view="front" data-position="front_start" href="#" data-title="Front Start" data-toggle="modal"
                                             data-target="#wristband-clipart-modal"
                                             class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
@@ -154,7 +154,7 @@ get_header();
                             <div class="button-box hide-if-message_type-continues">
                                 <span class="text-label">Front End</span>
                                 <div class="alignright">
-                                    <a id="front_end_btn" data-position="front_end" href="#" data-title="Front End" data-toggle="modal"
+                                    <a id="front_end_btn" data-view="front" data-position="front_end" href="#" data-title="Front End" data-toggle="modal"
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
@@ -174,7 +174,7 @@ get_header();
                             <div class="button-box hide-if-message_type-continues">
                                 <span class="text-label">Back Start</span>
                                 <div class="alignright">
-                                    <a id="back_start_btn" data-position="back_start" href="#" data-title="Back Start" data-toggle="modal"
+                                    <a id="back_start_btn" data-view="back" data-position="back_start" href="#" data-title="Back Start" data-toggle="modal"
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
@@ -195,7 +195,7 @@ get_header();
                             <div class="button-box hide-if-message_type-continues">
                                 <span class="text-label ">Back End</span>
                                 <div class="alignright">
-                                    <a id="back_end_btn" data-position="back_end" href="#" data-title="Back End" data-toggle="modal"
+                                    <a id="back_end_btn" data-view="back" data-position="back_end" href="#" data-title="Back End" data-toggle="modal"
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
@@ -264,11 +264,17 @@ get_header();
                                 <div id="preview_container" class="container--ph">
                                 </div>
                             </div>
+
+                            <div id="hiddenDiv" style="display:none" >
+                              <canvas id="hiddenCanvas"></canvas>
+                              <a id="hiddenPng" />
+                            </div>
+
                             <div class="link-buttons aligncenter">
                                 <a class="fusion-button button-flat button-round button-small button-orange prdct-info" href="#"><span class="fusion-button-text">Product Info</span></a>
                                 <a id= "save_button" class="fusion-button button-flat button-round button-small button-default" href="#"><span class="fusion-button-text">Save Design</span></a>
-                                <a class="fusion-button button-flat button-round button-small button-default preview-button active if-message_type_is-continues" href="#" id="front_view_button" data-input="front_message" ><span class="fusion-button-text">Front</span></a>
-                                <a class="fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues" id="back_view_button" data-input="back_message" href="#" ><span class="fusion-button-text">Back</span></a>
+                                <a class="fusion-button button-flat button-round button-small button-default preview-button active if-message_type_is-continues" href="#" id="front_view_button" data-input="front_message" data-view="front"><span class="fusion-button-text">Front</span></a>
+                                <a class="fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues" id="back_view_button" data-input="back_message" data-view="back" href="#" ><span class="fusion-button-text">Back</span></a>
                             </div>
                         </div>
 
@@ -483,7 +489,6 @@ get_header();
                     data-fontsize="17" data-lineheight="36">
                     Choose your Front Start Clipart</h3>
             </div>
-            <div class="modal-body">
                 <?php if (count($GLOBALS['wbc_settings']->logo->list) != 0): ?>
                <ul class="clipart-list">
 
@@ -494,11 +499,12 @@ get_header();
                            </div>
                        </label>
                    </li>
-                   <?php foreach ($GLOBALS['wbc_settings']->logo->list as $name => $icon): ?>
-                   <li class="fusion-li-item" data-icon="<?php echo esc_attr($icon); ?>" data-icon-name="<?php echo esc_attr($name); ?>">
+                   <?php foreach ($GLOBALS['wbc_settings']->logo->list as $name => $icon): 
+                   ?>
+                   <li class="fusion-li-item" data-icon-code="<?php echo esc_attr($icon->glyp_code); ?>" data-icon="<?php echo esc_attr($icon->glyphicon); ?>" data-icon-name="<?php echo esc_attr($icon->name); ?>">
                        <label for="">
                            <div class="icon-preview">
-                                <i class="fusion-li-icon fa <?php echo esc_attr($icon); ?>"></i>
+                                <i class="fusion-li-icon fa <?php echo esc_attr($icon->glyphicon); ?>"></i>
                            </div>
                            <!--<div class="clearpart-info text-center">
                                 <?php echo esc_attr($name); ?>
@@ -509,23 +515,6 @@ get_header();
                </ul>
                 <?php endif; ?>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="fusion-modal modal fade modal-2 modal1" tabindex="-1" role="dialog" aria-labelledby="modal-heading-2" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content fusion-modal-content">
-            <div class="modal-header"><button class="close" type="button" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 class="modal-title" id="modal-heading-2" data-dismiss="modal" aria-hidden="true" data-fontsize="17" data-lineheight="36"></h3>
-            </div>
-            <div class="modal-body">
-               
-                    <?php echo wbc_post_content(70) ?>
-                    <?php echo wbc_post_image(70) ?>
-            
-           </div>
-           <div class="modal-footer"><a class="fusion-button button-default button-medium button default medium" data-dismiss="modal">Close</a></div>
         </div>
     </div>
 </div>

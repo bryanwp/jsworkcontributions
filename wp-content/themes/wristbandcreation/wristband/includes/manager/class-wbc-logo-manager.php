@@ -120,6 +120,19 @@ if (!class_exists('WBC_Logo_Manager')) {
                                 'formatting' => 'html',
                                 'maxlength' => '',
                             ),
+                               array (
+                                'key' => 'field_55f3066e8900e',
+                                'label' => 'Code',
+                                'name' => 'glyp_code',
+                                'type' => 'text',
+                                'column_width' => '',
+                                'default_value' => '',
+                                'placeholder' => '',
+                                'prepend' => '',
+                                'append' => '',
+                                'formatting' => 'html',
+                                'maxlength' => '',
+                            ),
                         ),
                         'row_min' => '',
                         'row_limit' => '',
@@ -160,7 +173,8 @@ if (!class_exists('WBC_Logo_Manager')) {
             $acf_logos = get_field('logo_list', 'option');
             if ($acf_logos) {
                 foreach ($acf_logos as $key => $value) {
-                    $list[$value['name']] = $value['glyphicon'];
+                    //$list[$value['name']] = $value['glyphicon'];
+                  $list[$key] = array('name' => $value['name'],'glyphicon' => $value['glyphicon'],'glyp_code' => $value['glyp_code']);
                 }
             }
             $settings['logo']['prices'] = $prices;
