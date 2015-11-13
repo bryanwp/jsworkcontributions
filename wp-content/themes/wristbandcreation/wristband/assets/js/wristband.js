@@ -817,20 +817,20 @@ jQuery(function ($) {
                 Builder.popupProductInfo('info', slctd_product.product_title, slctd_product.product_content);
 
 
-                var img = Pablo.image(preview_container);
-                console.log('pabloimage');
+                // var img = Pablo.image(preview_container);
+                // console.log('pabloimage');
                
 
-                var svgDiv = $("#svgelement");
+                // var svgDiv = $("#svgelement");
                  
-                var svg = svgDiv[0].outerHTML;
+                // var svg = svgDiv[0].outerHTML;
 
-                 console.log(svg);
-                var canvas = document.getElementById('hiddenCanvas');
-                 canvg(canvas, svg);
+                //  console.log(svg);
+                // var canvas = document.getElementById('hiddenCanvas');
+                //  canvg(canvas, svg);
                  
-                var theImage = canvas.toDataURL('image/png');
-                $("#hiddenPng").attr('href', theImage);
+                // var theImage = canvas.toDataURL('image/png');
+                // $("#hiddenPng").attr('href', theImage);
               //$("#hiddenPng").click();
 
                 return;

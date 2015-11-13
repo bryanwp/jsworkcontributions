@@ -264,11 +264,11 @@ get_header();
                                 <div id="preview_container" class="container--ph">
                                 </div>
                             </div>
-
+<!-- 
                             <div id="hiddenDiv" style="display:none" >
                               <canvas id="hiddenCanvas"></canvas>
                               <a id="hiddenPng" />
-                            </div>
+                            </div> -->
 
                             <div class="link-buttons aligncenter">
                                 <a class="fusion-button button-flat button-round button-small button-orange prdct-info" href="#"><span class="fusion-button-text">Product Info</span></a>

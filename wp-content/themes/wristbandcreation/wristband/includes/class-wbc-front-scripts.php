@@ -26,8 +26,8 @@ if (!class_exists('WBC_Front_Scripts')) {
             wp_register_script('pablo_js', WBC_ASSETS_URL . '/js/vendor/pablo.js', array('jquery'), WBC_VERSION, true);
             wp_register_script('mustache_js', WBC_ASSETS_URL . '/js/vendor/mustache.min.js', array('jquery'), WBC_VERSION, true);
 
-            wp_register_script('rgbcolor_js', WBC_ASSETS_URL . '/js/rgbcolor.js', array('jquery'), WBC_VERSION, true);
-            wp_register_script('canvg_js', WBC_ASSETS_URL . '/js/canvg.js', array('jquery'), WBC_VERSION, true);
+            // wp_register_script('rgbcolor_js', WBC_ASSETS_URL . '/js/rgbcolor.js', array('jquery'), WBC_VERSION, true);
+            // wp_register_script('canvg_js', WBC_ASSETS_URL . '/js/canvg.js', array('jquery'), WBC_VERSION, true);
 
             wp_register_script('wristband_js', WBC_ASSETS_URL . '/js/wristband.js', array('jquery'), WBC_VERSION, true);
 
@@ -41,8 +41,8 @@ if (!class_exists('WBC_Front_Scripts')) {
             wp_enqueue_script('pablo_js');
             wp_enqueue_script('mustache_js');
 
-            wp_enqueue_script('rgbcolor_js');
-             wp_enqueue_script('canvg_js');
+            // wp_enqueue_script('rgbcolor_js');
+            //  wp_enqueue_script('canvg_js');
 
             wp_enqueue_script('wristband_js');
 
