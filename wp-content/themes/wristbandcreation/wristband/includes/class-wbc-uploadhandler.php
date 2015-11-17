@@ -160,11 +160,6 @@ if (!class_exists('WBC_UploadHandler')) {
 
 
             if (defined('DOING_AJAX') && DOING_AJAX) {
-<<<<<<< HEAD
-                
-=======
-
->>>>>>> a5245b111a325f9aaac504098521fcee42a50d35
                 die;
             }
         }

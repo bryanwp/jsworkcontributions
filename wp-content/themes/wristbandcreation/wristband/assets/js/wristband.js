@@ -547,9 +547,13 @@ jQuery(function ($) {
         },
         _colorSplit: function(qty) {
             if (!this.data.has_color_split) return;
-            var color_split_cost = Settings.color_split_cost_price_list,
-                additional = this.rangePrice(color_split_cost, qty) * ( this.data.colors.length - 1 ) ;
-            this.data.total_price += additional;
+            
+            if(this.data.colors.length > 1)
+            {
+                var color_split_cost = Settings.color_split_cost_price_list,
+                additional = this.rangePrice(color_split_cost, qty) * 1 ;
+                this.data.total_price += additional;
+            }
         },
         _extraSize: function(qty) {
             if (!this.data.has_extra_size) return;
