@@ -201,7 +201,7 @@ jQuery(function ($) {
 
         // Observe any changes and calcuate price and quantity for display
         observer: function() {
-
+            //    alert("sadas")
                 this.checkColorSplitAndExtraSize();
                 this.collectQuantity();
                 this.collectPrices();
@@ -309,6 +309,7 @@ jQuery(function ($) {
                             // Delete previous file
                             if (isImg(Builder.data.clipart[button.data('position')])) {
                                 Builder.deleteClipart(Builder.data.clipart[button.data('position')]);
+                                alert("asdsa");
                             }
                             button.attr('data-file', file.name);
 
@@ -334,6 +335,7 @@ jQuery(function ($) {
 
                             Builder.observer();
 
+                            console.log("asd");
                        });
 
 
@@ -351,6 +353,9 @@ jQuery(function ($) {
                     }
                 }).prop('disabled', !$.support.fileInput)
                     .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+
+
            });
 
 
@@ -1429,15 +1434,19 @@ jQuery(function ($) {
                     position = button.data('position'),
                     view = button.data('view'),
                     preview = $('.preview-button.active').data('view');
-          
-                    $('#'+position).text(glyp);
+            
+                    //console.log(icon);
+                    //M1
 
+                    if(icon == undefined) {
+                         $('#'+position).text('');
+                    }  else {
+                        $('#'+position).text(glyp);
+                    }
+                
                     $('#icon_start').text(  $('#'+preview+'_start').text() );
                     $('#icon_end').text(  $('#'+preview+'_end').text() );
 
-
-
-                
                 button.find('.icon-preview').removeClass(function (index, css) {
                     return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
                 });
@@ -1524,22 +1533,31 @@ jQuery(function ($) {
                 //Builder.popupProductInfo('info', 'Preview', $('#preview_container').html());
 
                 if ($('#preview_container').length) {
-                    
-                    Pablo(preview_container).download('svg',Settings.svg, function(result){
+
+
+                    Pablo(document.getElementById("svgelement")).download('png',Settings.png, function(result){
                         alert(result.error ? 'Fail' : 'Success');
+
                     });
 
+                    //Pablo(preview_container).download('svg',Settings.svg, function(result){
+                    //    alert(result.error ? 'Fail' : 'Success');
+                    //});
                 }
-
             })
 
             .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {
                 Builder.calculateDeliveryDate();
             })
 
+
+
             .on('click', '#front_view_button, #back_view_button', function(e) {
                 e.preventDefault();
                 var view = $(this).data('view');
+
+
+                console.log(view + "===" + $('#'+view+'_start').text());
 
                 $('#icon_start').text(  $('#'+view+'_start').text() );
                 $('#icon_end').text(  $('#'+view+'_end').text() );
@@ -1547,11 +1565,15 @@ jQuery(function ($) {
                 $('.preview-button').removeClass('active');
                 $(this).addClass('active');
 
-
+                //m
 
                 Builder.observer();
                 return false;
             });
+
+
+
+
 
             
         // Alert message if attempt to leave/unload page
@@ -1578,6 +1600,9 @@ jQuery(function ($) {
         Builder.onLoad();
 
         $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup'); // trigger  the Input Quanity field when the page is reloaded to calculate the total.
+
+
+
 
     });
 });

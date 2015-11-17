@@ -4,8 +4,9 @@
 
 get_header();
 
-
 ?>
+
+
 
 <div id="wristband-builder-content">
     <section id="wristband-builder">
@@ -518,6 +519,11 @@ get_header();
         </div>
     </div>
 </div>
+
+
+
+
+
 
 <script id="modal_message_template2" type="x-tmpl-mustache">
     <div id="modal_message2" class="fusion-modal modal fade {{status}}" tabindex="-1" role="dialog">
