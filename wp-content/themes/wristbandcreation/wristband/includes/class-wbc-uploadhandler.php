@@ -160,7 +160,6 @@ if (!class_exists('WBC_UploadHandler')) {
 
 
             if (defined('DOING_AJAX') && DOING_AJAX) {
-            
                 die;
             }
         }

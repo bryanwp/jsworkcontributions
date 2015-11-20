@@ -18,8 +18,16 @@ jQuery(function ($) {
                 front_end: '',              // Front End Clipart
                 back_start: '',             // Back Start Clipart
                 back_end: '',               // Back End Clipart
+                wrap_start: '',             // Wrap Start Clipart
+                wrap_end: '',               // Wrap End Clipart
+
+                view_position: 'front',
+                wristband_stat: 'front_and_back',
             },
         },
+
+
+
         init: function() {
             this.renderPriceChart();
         },
@@ -552,9 +560,13 @@ jQuery(function ($) {
         },
         _colorSplit: function(qty) {
             if (!this.data.has_color_split) return;
-            var color_split_cost = Settings.color_split_cost_price_list,
-                additional = this.rangePrice(color_split_cost, qty) * ( this.data.colors.length - 1 ) ;
-            this.data.total_price += additional;
+            
+            if(this.data.colors.length > 1)
+            {
+                var color_split_cost = Settings.color_split_cost_price_list,
+                additional = this.rangePrice(color_split_cost, qty) * 1 ;
+                this.data.total_price += additional;
+            }
         },
         _extraSize: function(qty) {
             if (!this.data.has_extra_size) return;
@@ -810,6 +822,13 @@ jQuery(function ($) {
         $('.if-message_type_is-' + value).css({display: 'none'});
 
     }
+
+    function TempReloadSVG(){
+        var ContainerID =  document.getElementById("preview_container")
+        var Temp = ContainerID.innerHTML;
+        ContainerID.innerHTML = Temp;
+    }
+
 
     $(document).ready(function() {
 
@@ -1412,11 +1431,31 @@ jQuery(function ($) {
 
             .on('keyup', 'input[name="front_message"], input[name="continues_message"], input[name="back_message"], input[name="inside_message"]', function() {
                Builder.observer();
+
+
+
             })
             // Trigger change when message type is choosen
             .on('change', 'input[name="message_type"], .customization-date-select', function() {
                 Builder.observer();
+                TempReloadSVG();
+
+                if (this.value == "continues"){
+                        $('#icon_start').text( $('#wrap_start').text() );
+                        $('#icon_end').text( $('#wrap_end').text() );
+                } else {
+                    if (Builder.data.clipart.view_position == "front"){
+                        $('#icon_start').text( $('#front_start').text() );
+                        $('#icon_end').text( $('#front_end').text() );
+                    } else {
+                        $('#icon_start').text( $('#back_start').text() );
+                        $('#icon_end').text( $('#back_end').text() );
+                    }
+                }
+                
+               // Builder.observer();
             })
+
             .on('show.bs.modal', '#wristband-clipart-modal', function(e){
                 var button = $(e.relatedTarget),
                     modal = $(this);
@@ -1434,22 +1473,27 @@ jQuery(function ($) {
                     position = button.data('position'),
                     view = button.data('view'),
                     preview = $('.preview-button.active').data('view');
-            
-                    //console.log(icon);
-                    //M1
+
 
                     if(icon == undefined) {
                          $('#'+position).text('');
                     }  else {
                         $('#'+position).text(glyp);
                     }
+
+                   if (position == "wrap_start" || position == "wrap_end"){
+                        $('#icon_start').text(  $('#wrap_start').text() );
+                        $('#icon_end').text(  $('#wrap_end').text() );
+                   } else {
+                        $('#icon_start').text(  $('#'+preview+'_start').text() );
+                        $('#icon_end').text(  $('#'+preview+'_end').text() );
+                   }
                 
-                    $('#icon_start').text(  $('#'+preview+'_start').text() );
-                    $('#icon_end').text(  $('#'+preview+'_end').text() );
 
                 button.find('.icon-preview').removeClass(function (index, css) {
                     return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
                 });
+                
                 button.find('.icon-preview').addClass(icon == undefined ? 'fa-ban' : icon);
                 Builder.data['clipart'][button.data('position')] =  icon == undefined ? '' : icon;
                 Builder.has_upload = false;
@@ -1465,11 +1509,14 @@ jQuery(function ($) {
                         button.find('.image-upload').css({display: 'none'});
                     });
                 }
+                
                 Builder.observer();
             })
+
             .on('change', 'input[name="customization_location"], select#font', function(){
                Builder.observer();
             })
+
             .on('click', '.additional-option-item', function(e) {
                 if ($(e.target).is('input:checkbox')) return;
 
@@ -1554,18 +1601,15 @@ jQuery(function ($) {
 
             .on('click', '#front_view_button, #back_view_button', function(e) {
                 e.preventDefault();
+                TempReloadSVG();
                 var view = $(this).data('view');
-
-
-                console.log(view + "===" + $('#'+view+'_start').text());
-
+                Builder.data.clipart.view_position = view;
+              
                 $('#icon_start').text(  $('#'+view+'_start').text() );
                 $('#icon_end').text(  $('#'+view+'_end').text() );
 
                 $('.preview-button').removeClass('active');
                 $(this).addClass('active');
-
-                //m
 
                 Builder.observer();
                 return false;
