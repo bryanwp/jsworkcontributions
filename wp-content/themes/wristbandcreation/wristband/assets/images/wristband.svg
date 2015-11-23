@@ -6,6 +6,9 @@
   <tspan id="front_end"></tspan>
   <tspan id="back_start"></tspan>
   <tspan id="back_end"></tspan>
+  <tspan id="wrap_start"></tspan>
+  <tspan id="wrap_end"></tspan>
+  
 
   <image height="100%" width="100%" xlink:href="https://gwplabs.com//wp-content/themes/wristbandcreation/wristband/assets/images/WRISTBAND.png" />
 

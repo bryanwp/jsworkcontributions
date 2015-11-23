@@ -29,7 +29,6 @@ if (!class_exists('WBC_Cart')) {
                     return true;
                 }
             }
-
             return false;
         }
 
@@ -43,20 +42,19 @@ if (!class_exists('WBC_Cart')) {
 
                 $meta = json_decode( str_replace("\\", "", $_POST['meta'] ), true);
 
-                if ( $this->check_already_in_cart( $meta['product'] ) ) {
-                    wp_send_json_error(array( 'message' => 'Already added to cart.'));
-                } else {
+                //if ( $this->check_already_in_cart( $meta['product'] ) ) {
+                //    wp_send_json_error(array( 'message' => 'Already added to cart.'));
+                //} else {
                     $result = $woocommerce->cart->add_to_cart($meta['product']);
                     if ($result) {
                         wp_send_json_success(array('message' => 'Successfully added to cart.'));
                     } else {
-                        wp_send_json_error(array( 'message' => $result));
+                        //wp_send_json_error(array( 'message' => $result));
+                        wp_send_json_error(array( 'message' => 'Already added to cart.'));
                     }
-                }
-
+               // }
 
             }
-
 
         }
 

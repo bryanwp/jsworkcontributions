@@ -18,8 +18,16 @@ jQuery(function ($) {
                 front_end: '',              // Front End Clipart
                 back_start: '',             // Back Start Clipart
                 back_end: '',               // Back End Clipart
+                wrap_start: '',             // Wrap Start Clipart
+                wrap_end: '',               // Wrap End Clipart
+
+                view_position: 'front',
+                wristband_stat: 'front_and_back',
             },
         },
+
+
+
         init: function() {
             this.renderPriceChart();
         },
@@ -201,7 +209,7 @@ jQuery(function ($) {
 
         // Observe any changes and calcuate price and quantity for display
         observer: function() {
-
+            //    alert("sadas")
                 this.checkColorSplitAndExtraSize();
                 this.collectQuantity();
                 this.collectPrices();
@@ -309,6 +317,7 @@ jQuery(function ($) {
                             // Delete previous file
                             if (isImg(Builder.data.clipart[button.data('position')])) {
                                 Builder.deleteClipart(Builder.data.clipart[button.data('position')]);
+                                alert("asdsa");
                             }
                             button.attr('data-file', file.name);
 
@@ -334,6 +343,7 @@ jQuery(function ($) {
 
                             Builder.observer();
 
+                            console.log("asd");
                        });
 
 
@@ -351,6 +361,9 @@ jQuery(function ($) {
                     }
                 }).prop('disabled', !$.support.fileInput)
                     .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+
+
            });
 
 
@@ -809,6 +822,13 @@ jQuery(function ($) {
         $('.if-message_type_is-' + value).css({display: 'none'});
 
     }
+
+    function TempReloadSVG(){
+        var ContainerID =  document.getElementById("preview_container")
+        var Temp = ContainerID.innerHTML;
+        ContainerID.innerHTML = Temp;
+    }
+
 
     $(document).ready(function() {
 
@@ -1426,11 +1446,31 @@ jQuery(function ($) {
 
             .on('keyup', 'input[name="front_message"], input[name="continues_message"], input[name="back_message"], input[name="inside_message"]', function() {
                Builder.observer();
+
+
+
             })
             // Trigger change when message type is choosen
             .on('change', 'input[name="message_type"], .customization-date-select', function() {
                 Builder.observer();
+                TempReloadSVG();
+
+                if (this.value == "continues"){
+                        $('#icon_start').text( $('#wrap_start').text() );
+                        $('#icon_end').text( $('#wrap_end').text() );
+                } else {
+                    if (Builder.data.clipart.view_position == "front"){
+                        $('#icon_start').text( $('#front_start').text() );
+                        $('#icon_end').text( $('#front_end').text() );
+                    } else {
+                        $('#icon_start').text( $('#back_start').text() );
+                        $('#icon_end').text( $('#back_end').text() );
+                    }
+                }
+                
+               // Builder.observer();
             })
+
             .on('show.bs.modal', '#wristband-clipart-modal', function(e){
                 var button = $(e.relatedTarget),
                     modal = $(this);
@@ -1448,18 +1488,27 @@ jQuery(function ($) {
                     position = button.data('position'),
                     view = button.data('view'),
                     preview = $('.preview-button.active').data('view');
-          
-                    $('#'+position).text(glyp);
-
-                    $('#icon_start').text(  $('#'+preview+'_start').text() );
-                    $('#icon_end').text(  $('#'+preview+'_end').text() );
 
 
+                    if(icon == undefined) {
+                         $('#'+position).text('');
+                    }  else {
+                        $('#'+position).text(glyp);
+                    }
 
+                   if (position == "wrap_start" || position == "wrap_end"){
+                        $('#icon_start').text(  $('#wrap_start').text() );
+                        $('#icon_end').text(  $('#wrap_end').text() );
+                   } else {
+                        $('#icon_start').text(  $('#'+preview+'_start').text() );
+                        $('#icon_end').text(  $('#'+preview+'_end').text() );
+                   }
                 
+
                 button.find('.icon-preview').removeClass(function (index, css) {
                     return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
                 });
+                
                 button.find('.icon-preview').addClass(icon == undefined ? 'fa-ban' : icon);
                 Builder.data['clipart'][button.data('position')] =  icon == undefined ? '' : icon;
                 Builder.has_upload = false;
@@ -1475,11 +1524,14 @@ jQuery(function ($) {
                         button.find('.image-upload').css({display: 'none'});
                     });
                 }
+                
                 Builder.observer();
             })
+
             .on('change', 'input[name="customization_location"], select#font', function(){
                Builder.observer();
             })
+
             .on('click', '.additional-option-item', function(e) {
                 if ($(e.target).is('input:checkbox')) return;
 
@@ -1543,34 +1595,44 @@ jQuery(function ($) {
                 //Builder.popupProductInfo('info', 'Preview', $('#preview_container').html());
 
                 if ($('#preview_container').length) {
-                    
-                    Pablo(preview_container).download('svg',Settings.svg, function(result){
+
+
+                    Pablo(document.getElementById("svgelement")).download('png',Settings.png, function(result){
                         alert(result.error ? 'Fail' : 'Success');
+
                     });
 
+                    //Pablo(preview_container).download('svg',Settings.svg, function(result){
+                    //    alert(result.error ? 'Fail' : 'Success');
+                    //});
                 }
-
             })
 
             .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {
                 Builder.calculateDeliveryDate();
             })
 
+
+
             .on('click', '#front_view_button, #back_view_button', function(e) {
                 e.preventDefault();
+                TempReloadSVG();
                 var view = $(this).data('view');
-
+                Builder.data.clipart.view_position = view;
+              
                 $('#icon_start').text(  $('#'+view+'_start').text() );
                 $('#icon_end').text(  $('#'+view+'_end').text() );
 
                 $('.preview-button').removeClass('active');
                 $(this).addClass('active');
 
-
-
                 Builder.observer();
                 return false;
             });
+
+
+
+
 
             
         // Alert message if attempt to leave/unload page
@@ -1597,6 +1659,9 @@ jQuery(function ($) {
         Builder.onLoad();
 
         $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup'); // trigger  the Input Quanity field when the page is reloaded to calculate the total.
+
+
+
 
     });
 });
