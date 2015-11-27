@@ -1,0 +1,33 @@
+<svg id="svgelement" viewBox="0 0 300 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <style>
+        #bandtext{
+            font-family: Arial;
+            font-weight: 600;
+            font-size: 30px;
+            fill: #999999; 
+            opacity: 0.6;
+        }
+    </style>    
+<defs>
+<path id="MyPath" fill-opacity="0" d="M28 98 q 125 23 250 -2"/>
+<!--<path id="MyPath" fill-opacity="0" d="M60 95 q 125 23 200 -2"/>-->
+</defs>
+<rect id="bandcolor" height="100%" width="100%" style="fill: gray" />
+<image height="100%" width="100%" xlink:href="WRISTBAND2.png" />
+
+<text id="bandtext" text-anchor="middle" fill="#9d1d20">
+<textPath id="bandtextpath" xlink:href="#MyPath" startOffset="50%">
+    <!--<tspan id="front-start" class="fa fa-2x" dominant-baseline="middle">&#xf0c8;</tspan>-->
+    <!--<tspan id="front-start" class="fa" dominant-baseline="middle">&#xf0c8;</tspan>-->
+    <tspan id="front-start" class="fa" dominant-baseline="middle">&#xf17c;</tspan>
+    <tspan id="front-text" dominant-baseline="middle">AAA</tspan>
+    <!--<tspan id="front-end" class="fa fa-2x" dominant-baseline="middle">&#xf111;</tspan>-->
+    <!--<tspan id="front-end" class="fa" dominant-baseline="middle">&#xf111;</tspan>-->
+    <tspan id="front-end" class="fa" dominant-baseline="middle">&#xf11c;</tspan>
+</textPath>
+</text>
+
+<image height="100%" width="100%" xlink:href="WRISTBAND2.png" />
+<!--<use xlink:href="#MyPath" fill="none" stroke="red"  />-->
+
+</svg>

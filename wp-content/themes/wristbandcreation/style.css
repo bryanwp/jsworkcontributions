@@ -109,3 +109,30 @@ width: auto !important;
 display: none !important;
 }
 */
+
+
+/*Checkout Table*/
+
+.woocomerce-checkout-table thead tr th, .woocomerce-checkout-table tbody .cart_item td {
+    display: inline-block;
+}
+
+.woocomerce-checkout-table thead tr .product-details, .woocomerce-checkout-table tbody .cart_item .product-details  {
+    width: 35%;
+}
+
+.woocomerce-checkout-table thead tr .product-summary, .woocomerce-checkout-table tbody .cart_item .product-summary {
+    width: 40% !important;
+}
+
+.woocomerce-checkout-table thead tr .product-total, .woocomerce-checkout-table tbody .cart_item .product-total {
+    width: 25% !important;
+}
+
+
+/*Thank Cart*/
+
+
+.sssss{
+	vertical-align: center;
+}

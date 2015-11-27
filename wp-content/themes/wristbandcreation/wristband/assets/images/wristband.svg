@@ -1,3 +1,4 @@
+<!--
 <svg id="svgelement" viewBox="0 0 300 150" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
   <rect id="bandcolor" height="100%" width="100%" style="fill: black"/>
   <path id="insidePath" fill-opacity="0" d="M17 70 q 150 -50 264 0"/>  
@@ -27,4 +28,48 @@
     
   <image height="100%" width="100%" xlink:href="https://gwplabs.com/wp-content/themes/wristbandcreation/wristband/assets/images/WRISTBAND.png" />  
  
+</svg>
+
+-->
+<svg id="svgelement" viewBox="0 0 300 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <style>
+        #bandtext{
+            font-family: Arial;
+            font-weight: 600;
+            font-size: 30px;
+            fill: #999999; 
+
+
+            opacity: 0.6;
+        }
+    </style>    
+<defs>
+
+  <path id="insidePath" fill-opacity="0" d="M17 70 q 150 -50 264 0"/>  
+  <path id="FrontPath" fill-opacity="0" d="M17 95 q 150 55 270 -5"/> 
+  <tspan id="front_start"></tspan>
+  <tspan id="front_end"></tspan>
+  <tspan id="back_start"></tspan>
+  <tspan id="back_end"></tspan>
+  <tspan id="wrap_start"></tspan>
+  <tspan id="wrap_end"></tspan>
+  
+
+<path id="MyPath" fill-opacity="0" d="M28 98 q 125 23 250 -2"/>
+<!--<path id="MyPath" fill-opacity="0" d="M60 95 q 125 23 200 -2"/>-->
+</defs>
+<rect id="bandcolor" height="100%" width="100%" style="fill: black" />
+<image height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/WRISTBAND2.png" />
+
+<text id="bandtext" text-anchor="middle">
+<textPath id="bandtextpath" xlink:href="#MyPath" startOffset="50%">
+    <tspan id="icon_start" class="fa" dominant-baseline="middle" stroke=""></tspan>
+    <tspan id="front-text" dominant-baseline="middle" stroke=""></tspan>
+    <tspan id="icon_end" class="fa" dominant-baseline="middle" stroke=""></tspan>
+</textPath>
+</text>
+
+<image height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/WRISTBAND2.png" />
+<!--<use xlink:href="#MyPath" fill="none" stroke="red"  />-->
+
 </svg>

@@ -241,14 +241,13 @@ jQuery(function ($) {
             var message_type = $('input[name="message_type"]:checked').val(),
                 a = $('.preview-button.active').data('input'),
                 input = message_type == 'continues' ? 'continues_message' : a;
-
             $("#front-text")
                 .text($('input[name="'+ input  +'"]').val().toUpperCase());
 
             $('#insidetextpath')
                 .text($('input[name="inside_message"]').val().toUpperCase());
 
-            $('.bandtext')
+            $('#front-text')
                 .attr('font-family', $('select[name="font"] option:selected').val());
 
      
@@ -288,8 +287,10 @@ jQuery(function ($) {
         // Bind element to jquery library/packages on load
         onLoad: function() {
 
+          
             if ($('#preview_container').length) {
                 Pablo(preview_container).load(Settings.svg);
+
             }
 
             // Trigger change on ready
@@ -298,9 +299,11 @@ jQuery(function ($) {
             // Trigger keyup on ready
             $('.trigger-limit-char').trigger('keyup');
 
-            $('.fileupload').each(function() {
-                var $self = $(this);
+     
 
+            $('.fileupload').each(function() {
+
+                var $self = $(this);
                 $self.fileupload({
                     url             : WBC.ajax_url,
                     formData        : {
@@ -317,7 +320,6 @@ jQuery(function ($) {
                             // Delete previous file
                             if (isImg(Builder.data.clipart[button.data('position')])) {
                                 Builder.deleteClipart(Builder.data.clipart[button.data('position')]);
-                                alert("asdsa");
                             }
                             button.attr('data-file', file.name);
 
@@ -342,8 +344,6 @@ jQuery(function ($) {
                                 .addClass('fa-cloud-upload');
 
                             Builder.observer();
-
-                            console.log("asd");
                        });
 
 
@@ -361,12 +361,7 @@ jQuery(function ($) {
                     }
                 }).prop('disabled', !$.support.fileInput)
                     .parent().addClass($.support.fileInput ? undefined : 'disabled');
-
-
-
            });
-
-
         },
         renderPriceChart: function() {
             var price_charts = this.price_charts = Settings.products[$('select[name="style"]').val()]['sizes'][$('select#width').val()]['price_chart'];
@@ -404,6 +399,7 @@ jQuery(function ($) {
             return this.rangePrice(list, this.data.total_price);
         },
         collectDataToPost: function() {
+
             var addtional_options   = [],
                 messages            = {},
                 $production_time    = $('select[name="customization_date_production"] option:selected'),
@@ -789,28 +785,16 @@ jQuery(function ($) {
     }
 
     function wbTextColor() {
-        var $frontext   = document.getElementById("fronttext"),
-            $insidetext = document.getElementById("insidetext")  
-
-        if( $('#wristband-text-color div.selected').find('div').data('color') ) {
-
-            $frontext.style.fill = $('#wristband-text-color div.selected').find('div').data('color');
-            $insidetext.style.fill = $('#wristband-text-color div.selected').find('div').data('color');
-            $frontext.style.opacity = "1"; 
-            $insidetext.style.opacity = "1"; 
-
-       } else {
-
-            if($frontext != null && $insidetext != null) {
-
-                $frontext.style.fill = '#999999';
-                $insidetext.style.fill = '#999999';
-                $frontext.style.opacity = "0.4"; 
-                $insidetext.style.opacity = "0.4"; 
+        var SetColor = $('#wristband-text-color div.selected').find('div').data('color');
+        if(SetColor == undefined) {
+            if (document.getElementById("bandtext")){
+                document.getElementById("bandtext").style.fill = '#999999';
+                document.getElementById("bandtext").style.opacity = "0.4";
             }
-            
+        } else {
+            document.getElementById("bandtext").style.fill = SetColor;
+            document.getElementById("bandtext").style.opacity = "1";
         }
-
     }
 
     //Display the default message option which front, back & inside
@@ -828,6 +812,24 @@ jQuery(function ($) {
         var Temp = ContainerID.innerHTML;
         ContainerID.innerHTML = Temp;
     }
+
+    function ChangeStyle(val){
+        switch (val) { 
+                case 'Imprinted': 
+                        $("#bandtext").css({textShadow: "0 0 0"});
+                        break;
+                case 'Debossed': 
+                        //$("#bandtext").css({textShadow: "0 1.5px 0 black"});
+                        $("#bandtext").css({textShadow: "0px -1px 1px black"});
+                        break;
+                case 'Embossed': 
+                        $("#bandtext").css({textShadow: "rgba(255, 255, 255, 0.1) -2px -2px 2px, rgba(0, 0, 0, 0.5) 2px 2px 2px"});
+                        break;      
+                default:
+                        $("#bandtext").css({textShadow: "0 0 0"});
+        } 
+    }
+
 
 
     $(document).ready(function() {
@@ -861,6 +863,9 @@ jQuery(function ($) {
             })
             // Get Product sizes on style changed
             .on('change', 'select[name="style"]', function(e) {
+                var textStyle = this.options[this.selectedIndex].text;
+                ChangeStyle(textStyle);
+
                e.preventDefault();
                // Builder.reset();
                 var slctd_product = Settings.products[this.value],
@@ -1058,7 +1063,6 @@ jQuery(function ($) {
             })
             // Text Color Selection
             .on('click', '#wristband-text-color .color-wrap', function() {
-
                 var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name');
                 
                 if(tbl_color){
@@ -1070,8 +1074,10 @@ jQuery(function ($) {
                 $('#wristband-text-color .color-wrap').removeClass('selected');
                 $(this).addClass('selected');
 
+
                 //display the text color in the wristband preview;
                  wbTextColor();
+                 //milbert
 
                 $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
                 Builder.observer();
@@ -1489,12 +1495,8 @@ jQuery(function ($) {
                     view = button.data('view'),
                     preview = $('.preview-button.active').data('view');
 
-
-                    if(icon == undefined) {
-                         $('#'+position).text('');
-                    }  else {
-                        $('#'+position).text(glyp);
-                    }
+                    if(icon == undefined) { $('#'+position).text(''); }  
+                    else { $('#'+position).text(glyp); }
 
                    if (position == "wrap_start" || position == "wrap_end"){
                         $('#icon_start').text(  $('#wrap_start').text() );
@@ -1503,12 +1505,11 @@ jQuery(function ($) {
                         $('#icon_start').text(  $('#'+preview+'_start').text() );
                         $('#icon_end').text(  $('#'+preview+'_end').text() );
                    }
-                
 
                 button.find('.icon-preview').removeClass(function (index, css) {
                     return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
                 });
-                
+
                 button.find('.icon-preview').addClass(icon == undefined ? 'fa-ban' : icon);
                 Builder.data['clipart'][button.data('position')] =  icon == undefined ? '' : icon;
                 Builder.has_upload = false;
@@ -1526,6 +1527,7 @@ jQuery(function ($) {
                 }
                 
                 Builder.observer();
+
             })
 
             .on('change', 'input[name="customization_location"], select#font', function(){
@@ -1597,7 +1599,7 @@ jQuery(function ($) {
                 if ($('#preview_container').length) {
 
 
-                    Pablo(document.getElementById("svgelement")).download('png',Settings.png, function(result){
+                    Pablo(document.getElementById("svgelement")).download('svg',Settings.svg, function(result){
                         alert(result.error ? 'Fail' : 'Success');
 
                     });
@@ -1617,6 +1619,7 @@ jQuery(function ($) {
             .on('click', '#front_view_button, #back_view_button', function(e) {
                 e.preventDefault();
                 TempReloadSVG();
+
                 var view = $(this).data('view');
                 Builder.data.clipart.view_position = view;
               
@@ -1627,6 +1630,16 @@ jQuery(function ($) {
                 $(this).addClass('active');
 
                 Builder.observer();
+
+
+
+                var normalClass = "fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues active";
+                var SelectedClass = "fusion-button button-flat button-round button-small button-orange preview-button if-message_type_is-continues active";
+                document.getElementById("front_view_button").className = normalClass;
+                document.getElementById("back_view_button").className = normalClass;
+                document.getElementById(this.id).className = SelectedClass;
+
+              //  
                 return false;
             });
 

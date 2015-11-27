@@ -39,7 +39,6 @@ if ( $order ) : ?>
 		</p>
 
 	<?php else : ?>
-
 		<?php //Avada edit ?>
 		<h2><?php echo apply_filters( 'woocommerce_thankyou_order_received_text', __( 'Thank you. Your order has been received.', 'woocommerce' ), $order ); ?></h2>
 

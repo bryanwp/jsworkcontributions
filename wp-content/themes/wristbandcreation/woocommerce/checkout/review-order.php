@@ -11,7 +11,7 @@
 		exit;
 	}
 ?>
-<table class="shop_table woocommerce-checkout-review-order-table">
+<table class="shop_table woocommerce-checkout-review-order-table woocomerce-checkout-table">
 	<thead>
 	<tr>
 		<th class="product-details"><?php _e( 'Wristband Details', 'woocommerce' ); ?></th>
@@ -68,7 +68,6 @@
 											<span><?php echo $color['name']; ?></span> – <?php echo $color['type']; ?>: <em>(<?php echo $color['color']; ?>
 												)</em>
 										</div>
-
 										<?php if (isset($color['sizes']) && count($color['sizes']) != 0): ?>
 											<ul class="fusion-checklist fusion-checklist-1"
 												style="font-size:12px;line-height:22.1px;">
@@ -94,7 +93,7 @@
 						<?php endif; ?>
 						<label>Text on Wristbands</label>
 						<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
-							<?php if (isset($meta['font']) && $meta['font'] == '-1'): ?>
+							<?php if (!isset($meta['font']) || $meta['font'] != '-1'): ?>
 								<li class="fusion-li-item">
 								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
 									<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>

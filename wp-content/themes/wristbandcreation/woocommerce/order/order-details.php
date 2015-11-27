@@ -13,6 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $order = wc_get_order( $order_id );
 ?>
+
+
+
+aaaa
 <h2><?php _e( 'Order Details', 'woocommerce' ); ?></h2>
 <table class="shop_table order_details">
 	<thead>

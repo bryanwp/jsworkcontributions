@@ -190,22 +190,30 @@ get_header();
                 <div class="fusion-one-half one_half fusion-layout-column fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
                         <div class="fusion-row">
+                            <div class="link-buttons aligncenter">
+                                <a class="fusion-button button-flat button-round button-small button-orange preview-button active if-message_type_is-continues" href="#" id="front_view_button" data-input="front_message" data-view="front"><span class="fusion-button-text">Front</span></a>
+                                <a class="fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues" id="back_view_button" data-input="back_message" data-view="back" href="#" ><span class="fusion-button-text">Back</span></a>
+                            </div>
+
+
                             <div class="imageframe-align-center image-preview">
                                 <div id="preview_container" class="container--ph">
                                 </div>
                             </div>
-<!-- 
-                            <div id="hiddenDiv" style="display:none" >
-                              <canvas id="hiddenCanvas"></canvas>
-                              <a id="hiddenPng" />
-                            </div> -->
+
 
                             <div class="link-buttons aligncenter">
                                 <a class="fusion-button button-flat button-round button-small button-orange prdct-info" href="#"><span class="fusion-button-text">Product Info</span></a>
                                 <a id= "save_button" class="fusion-button button-flat button-round button-small button-default" href="#"><span class="fusion-button-text">Save Design</span></a>
-                                <a class="fusion-button button-flat button-round button-small button-default preview-button active if-message_type_is-continues" href="#" id="front_view_button" data-input="front_message" data-view="front"><span class="fusion-button-text">Front</span></a>
-                                <a class="fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues" id="back_view_button" data-input="back_message" data-view="back" href="#" ><span class="fusion-button-text">Back</span></a>
                             </div>
+
+
+
+                            <!-- 
+                            <div id="hiddenDiv" style="display:none" >
+                              <canvas id="hiddenCanvas"></canvas>
+                              <a id="hiddenPng" />
+                            </div> -->
                         </div>
 
                         <p class="fusion-row price price-with-decimal">

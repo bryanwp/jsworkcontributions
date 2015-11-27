@@ -40,17 +40,28 @@ do_action( 'woocommerce_before_cart' ); ?>
 		if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
 			?>
 			<tr class="<?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
+				
+				<td class="product-remove" style="text-align:center;">
+					<table><tr>
+						<td>
+							<?php $EditLink = "http://kulayfulwp.local/order-now/?id=".$product_id; ?>
+							<a href="<?php echo $EditLink; ?>"  data-product_id="%s" data-product_sku="%s">Edit</a>
+						</td>
+						<td>
+							<?php
+							echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
+								'<a href="%s" class="remove" title="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
+								esc_url(WC()->cart->get_remove_url($cart_item_key)),
+								__('Remove this item', 'woocommerce'),
+								esc_attr($product_id),
+								esc_attr($_product->get_sku())
+							), $cart_item_key);
+							?>
+						</td>
+					</tr></table>
 
-				<td class="product-remove">
-					<?php
-					echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
-						'<a href="%s" class="remove" title="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
-						esc_url(WC()->cart->get_remove_url($cart_item_key)),
-						__('Remove this item', 'woocommerce'),
-						esc_attr($product_id),
-						esc_attr($_product->get_sku())
-					), $cart_item_key);
-					?>
+
+
 				</td>
 
 				<td class="product-details">
@@ -114,12 +125,11 @@ do_action( 'woocommerce_before_cart' ); ?>
 					<?php endif; ?>
 					<label>Text on Wristbands</label>
 					<ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
-						<?php if (isset($meta['font']) && $meta['font'] == '-1'): ?>
+						<?php if (!isset($meta['font']) || $meta['font'] != '-1'): ?>
 							<li class="fusion-li-item">
 								<span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
 									<i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
 								</span>
-
 								<div class="fusion-li-item-content">
 									<span>Font Style</span> – <?php echo $meta['font']; ?>
 								</div>
