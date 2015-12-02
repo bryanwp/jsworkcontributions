@@ -44,7 +44,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 				<td class="product-remove" style="text-align:center;">
 					<table><tr>
 						<td>
-							<?php $EditLink = "http://kulayfulwp.local/order-now/?id=".$product_id; ?>
+							<?php $EditLink = "http://kulayfulwp.local/order-now/?id=".$cart_item_key."&Status=edit"; ?>
 							<a href="<?php echo $EditLink; ?>"  data-product_id="%s" data-product_sku="%s">Edit</a>
 						</td>
 						<td>
@@ -73,7 +73,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 					}
 
 					// Meta data
-					echo WC()->cart->get_item_data($cart_item);
+					WC()->cart->get_item_data($cart_item);
 
 					// Backorder notification
 					if ($_product->backorders_require_notification() && $_product->is_on_backorder($cart_item['quantity'])) {

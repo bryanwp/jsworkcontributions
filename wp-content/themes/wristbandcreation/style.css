@@ -131,8 +131,58 @@ display: none !important;
 
 
 /*Thank Cart*/
+.CuzTdCss{
+	width: 200px;
+}
 
 
-.sssss{
-	vertical-align: center;
+
+
+.InpCss{
+	display: none; border: 1px solid transparent !important;
+	border-bottom: 1px solid #d2d2d2 !important;
+	width: 50px; padding: 10px;
+	text-align: center; margin-bottom: 5px;
+}
+
+.TdTitleCss{
+	width: 165px;
+}
+
+#ForContiID{
+	display: none;
+}
+
+.TempCss1{
+	text-align: center;
+}
+
+.SpanColorbox{
+	font-family: tahoma; font-size: 13px;
+}
+
+.CssTitleBlack{
+	color: black !important;
+}
+
+.CurrencyAddup {
+	font-size: 3em; font-weight: bold;   color: rgb(109, 182, 220);
+}
+
+.SaveBtnAddup{
+	float: right;
+}
+
+.SelectCss{
+	margin-top: -25px; margin-bottom: 10px;
+	font-size: 17px;
+}
+
+.TempAddCss{
+  float: left; margin-left: 10px; margin-top: 5px;
+}
+
+.CssAddup{
+	font-family: tahoma;
+	color :blue;
 }
