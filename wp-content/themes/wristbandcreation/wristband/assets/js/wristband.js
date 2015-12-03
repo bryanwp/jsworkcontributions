@@ -1372,6 +1372,8 @@ jQuery(function ($) {
             })
 
             .on('click', '.delete-selection', function(e) {
+                e.preventDefault();
+                
                 var Stat = $(this).html();
                 var TempId = $(this).attr( "data-tempID" );
 
