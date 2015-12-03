@@ -937,26 +937,30 @@ jQuery(function ($) {
         }
     }
 
-    function DistributeAddup(){
+     function DistributeAddup(){
         var TempCnt = Builder.CntID;
         if (TempCnt > 0){
             var CntDis = 0,
                 ArrayID = [],
-                CntTemp = 0;
+                CntTemp = 0,
+                TotalCnt = 0;
             for(var x=0;x<= TempCnt;x++){
                 if (document.getElementById("inpAdult-" + x)){
                     if (toInt($("#inpAdult-" + x).val()) > 0){
                         ArrayID[CntTemp] = "spanAdultup-" + x;
+                        TotalCnt = Number(TotalCnt) + toInt($("#inpAdult-" + x).val());
                         CntTemp++;
                     } 
 
                     if (toInt($("#inpMedium-" + x).val()) > 0){
                         ArrayID[CntTemp] = "spanMediumup-" + x;
+                        TotalCnt = Number(TotalCnt) + toInt($("#inpMedium-" + x).val());
                         CntTemp++;
                     }
 
                     if (toInt($("#inpYouth-" + x).val()) > 0){
                         ArrayID[CntTemp] = "spanYouthup-" + x;
+                        TotalCnt = Number(TotalCnt) + toInt($("#inpYouth-" + x).val());
                         CntTemp++;
                     }
                     $("#spanAdultup-" + x).html("");
@@ -964,17 +968,17 @@ jQuery(function ($) {
                     $("#spanYouthup-" + x).html("");
                 }
             }
-
               var b = 100,      c = ArrayID.length,
                   d = 100%c,    e = b - d,
                   f = e / c,    g = f + d,
                   first = true;
-
-            for(var a=0;a <= ArrayID.length-1;a++){
-                if (first){
-                    $("#" + ArrayID[a]).html("&nbsp; ( +" + g + " )");
-                    first = false;
-                } else { $("#" + ArrayID[a]).html("&nbsp; ( +" + f + " )"); }
+            if (TotalCnt > 100){
+                for(var a=0;a <= ArrayID.length-1;a++){
+                    if (first){
+                        $("#" + ArrayID[a]).html("&nbsp; ( +" + g + " )");
+                        first = false;
+                    } else { $("#" + ArrayID[a]).html("&nbsp; ( +" + f + " )"); }
+                }
             }
         }
     }
