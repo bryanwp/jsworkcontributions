@@ -109,6 +109,30 @@ width: auto !important;
 display: none !important;
 }
 */
+/* changes in dev */
+.home-separator-2{
+	margin-top: -80px !important;
+}
+@media screen and (min-width: 200px) {
+#home-fusion-content-boxes> #wrapper .content-boxes-icon-boxed .content-box-column, #wrapper .content-boxes-icon-on-top .content-box-column{
+	margin-bottom: 20px !important;
+}
+#full-home-clients{
+	margin-bottom: -80px !important;
+}
+}
+@media all and (min-width: 800px) {
+#home-two-third{
+	margin-top: -60px !important;
+	margin-bottom: -100px !important;
+}
+}
+@media all and (max-width: 800px) {
+#home-two-third{
+	margin-top: -60px !important;
+	margin-bottom: -50px !important;
+}
+/* changes in dev - end */
 
 
 /*Checkout Table*/
@@ -127,62 +151,4 @@ display: none !important;
 
 .woocomerce-checkout-table thead tr .product-total, .woocomerce-checkout-table tbody .cart_item .product-total {
     width: 25% !important;
-}
-
-
-/*Thank Cart*/
-.CuzTdCss{
-	width: 200px;
-}
-
-
-
-
-.InpCss{
-	display: none; border: 1px solid transparent !important;
-	border-bottom: 1px solid #d2d2d2 !important;
-	width: 50px; padding: 10px;
-	text-align: center; margin-bottom: 5px;
-}
-
-.TdTitleCss{
-	width: 165px;
-}
-
-#ForContiID{
-	display: none;
-}
-
-.TempCss1{
-	text-align: center;
-}
-
-.SpanColorbox{
-	font-family: tahoma; font-size: 13px;
-}
-
-.CssTitleBlack{
-	color: black !important;
-}
-
-.CurrencyAddup {
-	font-size: 3em; font-weight: bold;   color: rgb(109, 182, 220);
-}
-
-.SaveBtnAddup{
-	float: right;
-}
-
-.SelectCss{
-	margin-top: -25px; margin-bottom: 10px;
-	font-size: 17px;
-}
-
-.TempAddCss{
-  float: left; margin-left: 10px; margin-top: 5px;
-}
-
-.CssAddup{
-	font-family: tahoma;
-	color :blue;
 }
