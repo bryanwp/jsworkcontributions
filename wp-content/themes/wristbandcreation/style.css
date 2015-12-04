@@ -183,6 +183,14 @@ display: none !important;
 }
 
 .CssAddup{
-	font-family: tahoma;
-	color :blue;
+	font-size: 12px;
+}
+
+.CssEditSave{
+	cursor: pointer; font-size: 15px;
+}
+
+.CssDisabledDel{
+  	pointer-events: none;
+   	cursor: default; opacity: 0.5;
 }

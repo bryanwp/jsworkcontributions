@@ -41,13 +41,14 @@ do_action( 'woocommerce_before_cart' ); ?>
 			?>
 			<tr class="<?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
 				
-				<td class="product-remove" style="text-align:center;">
-					<table><tr>
-						<td>
-							<?php $EditLink = "http://kulayfulwp.local/order-now/?id=".$cart_item_key."&Status=edit"; ?>
+				<td class="product-remove">
+
+							<?php 
+								$CurrentLink = get_site_url(); 
+								$EditLink = $CurrentLink."/order-now/?id=".$cart_item_key."&Status=edit";
+							?>
 							<a href="<?php echo $EditLink; ?>"  data-product_id="%s" data-product_sku="%s">Edit</a>
-						</td>
-						<td>
+
 							<?php
 							echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
 								'<a href="%s" class="remove" title="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
@@ -57,8 +58,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 								esc_attr($_product->get_sku())
 							), $cart_item_key);
 							?>
-						</td>
-					</tr></table>
+
 
 
 

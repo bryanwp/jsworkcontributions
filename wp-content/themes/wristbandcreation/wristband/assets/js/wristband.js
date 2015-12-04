@@ -44,23 +44,26 @@ jQuery(function ($) {
         },
         // Add color selected to wristband data
         addColor: function(key, value) {
+            for (var i in value) {
+                alert(value[i].name)
+            }
+
+
             this.removeColor(key);
             this.data.colors.push(value);
             this.observer();
         },
-        updateColor: function(name, lists) {
-
+        updateColor: function(name, textColorName, lists) {
             for (var i in this.data.colors) {
-                    
                 if( name != '') {
+                    alert(this.data.colors[i].name + "==" + name + "&&" + this.data.colors[i].text_color_name + "==" + textColorName)
 
-                    if( this.data.colors[i].name ==  name ) {
-
-                        this.data.colors[i].name            = (lists.name != '') ? lists.name : this.data.colors[i].color;
-                        this.data.colors[i].color           = (lists.color != '') ? lists.color : this.data.colors[i].color;
-                        this.data.colors[i].type            = (lists.type != '') ? lists.type : this.data.colors[i].type;
-                        this.data.colors[i].text_color      = lists.text_color;
-                        this.data.colors[i].text_color_name = lists.text_color_name;
+                    if( this.data.colors[i].name ==  name && this.data.colors[i].text_color_name == textColorName) {
+                        //this.data.colors[i].name            = (lists.name != '') ? lists.name : this.data.colors[i].color;
+                        //this.data.colors[i].color           = (lists.color != '') ? lists.color : this.data.colors[i].color;
+                        //this.data.colors[i].type            = (lists.type != '') ? lists.type : this.data.colors[i].type;
+                        //this.data.colors[i].text_color      = lists.text_color;
+                        //this.data.colors[i].text_color_name = lists.text_color_name;
                         this.data.colors[i].sizes['adult']  = (lists.sizes['adult'] != '' || lists.sizes['adult'] == 0) ? lists.sizes['adult'] : this.data.colors[i].sizes['adult'];
                         this.data.colors[i].sizes['medium'] = (lists.sizes['medium'] != '' || lists.sizes['medium'] == 0) ? lists.sizes['medium'] : this.data.colors[i].sizes['medium'];
                         this.data.colors[i].sizes['youth']  = (lists.sizes['youth'] != '' || lists.sizes['youth'] == 0) ? lists.sizes['youth'] : this.data.colors[i].sizes['youth']; 
@@ -81,9 +84,7 @@ jQuery(function ($) {
 
                     }
             }
-
             this.observer();
-
         },
         // Get color list
         getColorLists: function() {
@@ -238,26 +239,21 @@ jQuery(function ($) {
             
         },
         buildPreview: function() {
-           
             var message_type = $('input[name="message_type"]:checked').val(),
                 a = $('.preview-button.active').data('input'),
                 input = message_type == 'continues' ? 'continues_message' : a;
-            $("#front-text")
-                .text($('input[name="'+ input  +'"]').val().toUpperCase());
 
-            $('#insidetextpath')
-                .text($('input[name="inside_message"]').val().toUpperCase());
+            $("#front-text").text($('input[name="'+ input  +'"]').val().toUpperCase());
+            $('#insidetextpath').text($('input[name="inside_message"]').val().toUpperCase());
+            $('#front-text').attr('font-family', $('select[name="font"] option:selected').val());
 
-            $('#front-text')
-                .attr('font-family', $('select[name="font"] option:selected').val());
-
-     
+            var StyleColor = $('input[name="color_style"]:checked').val();
             var y = $('#wristband-color-items .color-wrap.selected > div').data('color');
-            if (y != undefined) {
 
+            if (y != undefined) {
                 if($('#bandcolor').length) {
-                    var background = document.getElementById("bandcolor"); 
-                    background.style.fill=y;
+                //backme
+                    SelectBandColor(StyleColor,y);
                 }
            }
        },
@@ -288,9 +284,7 @@ jQuery(function ($) {
         // Bind element to jquery library/packages on load
         onLoad: function() {
 //milbert
-
-
-            if ($('#preview_container').length) { Pablo(preview_container).load(Settings.svg); }
+            //if ($('#preview_container').length) { Pablo(preview_container).load(Settings.svg); }
                 // Trigger change on ready
                 $('select[name="style"], input[name="message_type"]').trigger('change');
 
@@ -468,34 +462,23 @@ jQuery(function ($) {
             }
             if (!flag)
                 this.popupMsg('error', 'Error', msg);
-
-
             return flag;
         },
-        
 
         calculateDeliveryDate: function() {
             var $production_time    = $('select#customization_date_production'),
                 $shipping_time      = $('select#customization_date_shipping'),
                 the_date            = new Date();
             if ($production_time.val() == -1 || $shipping_time.val() == -1) return;
-            var total_days          = toInt($production_time.val()) + toInt($shipping_time.val());
+            var total_days = toInt($production_time.val()) + toInt($shipping_time.val());
 
             // Start escape saturday and sunday and holiday
-            var flag = true,
-                cntr = 0;
+            var flag = true, cntr = 0;
 
             while (flag == true) {
-
                 the_date.setDate(the_date.getDate() + 1);
-
-                if (toInt(the_date.getDay())  != 0 && toInt(the_date.getDay()) != 6 && !this.isHoliday(the_date)) {
-                    cntr++;
-                }
-
-                if (cntr >= total_days) {
-                    break;
-                }
+                if (toInt(the_date.getDay())  != 0 && toInt(the_date.getDay()) != 6 && !this.isHoliday(the_date)) { cntr++; }
+                if (cntr >= total_days) { break; }
             }
 
             var month_name = [
@@ -503,16 +486,15 @@ jQuery(function ($) {
                 "April", "May", "June", "July",
                 "August", "September", "October",
                 "November", "December"
-            ];
-            var week_name = [
-              "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-            ];
+                ];
+            var week_name = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ];
             // End escape
             var delivery_date = week_name[the_date.getDay()] + ' ' + month_name[the_date.getMonth()] +' '+ the_date.getDate() + ', ' + the_date.getUTCFullYear();
             $('#delivery_date').text(delivery_date)
             this.data['guaranteed_delivery'] = delivery_date;
 
         },
+
         isHoliday: function(t) {
             for (var i = 0; i < Settings.holidays.length; i++) {
                 var now = new Date(Settings.holidays[i] * 1000);
@@ -664,33 +646,26 @@ jQuery(function ($) {
                 var price_list = Settings['additional_options'][$(this).data('key')].price_list,
                     costType = Settings['additional_options'][$(this).data('key')].cost_type,
                     additional_price = Builder.rangePrice(price_list, qty);
-
+                    //alert(costType + "====" + additional_price)
                 $(this).closest('.checkbox').closest('.checkbox').find('.each-message').remove();
                 if (additional_price > 0) {
-                    if(costType == 'Each Quantity')
-                    {
-                          Builder.data.total_price += additional_price * qty;
-                    // Render alert message
-                    var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.',
-                        {
-                            currency_symbol: Settings.currency_symbol,
-                            price: additional_price,
-                        }
-                    );
-                    Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'each-message');
-                    }
-                    else
-                    {
-
-                    Builder.data.total_price += additional_price;
-                    // Render alert message
-                    var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} per order.',
-                        {
-                            currency_symbol: Settings.currency_symbol,
-                            price: additional_price,
-                        }
-                    );
-                    Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'per-order');
+                    if(costType == 'Each Quantity') {
+                        Builder.data.total_price += additional_price * qty;
+                        // Render alert message
+                        var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.', {
+                                currency_symbol: Settings.currency_symbol,
+                                price: additional_price,
+                            } );
+                        Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'each-message');
+                    } else {
+                        Builder.data.total_price += additional_price;
+                        // Render alert message
+                        var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} per order.', {
+                                currency_symbol: Settings.currency_symbol,
+                                price: additional_price,
+                            }
+                        );
+                        Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'per-order');
                     }
                 }   
             });
@@ -791,13 +766,19 @@ jQuery(function ($) {
     function wbTextColor() {
         var SetColor = $('#wristband-text-color div.selected').find('div').data('color');
         if(SetColor == undefined) {
-            if (document.getElementById("bandtext")){
-                document.getElementById("bandtext").style.fill = '#999999';
-                document.getElementById("bandtext").style.opacity = "0.4";
+            if (document.getElementById("bandtextpathinside")){
+                document.getElementById("bandtextpathinside").style.fill = '#999999';
+                document.getElementById("bandtextpathinside").style.opacity = "0.4";
+
+                document.getElementById("bandtextpath").style.fill = '#999999';
+                document.getElementById("bandtextpath").style.opacity = "0.4";
             }
         } else {
-            document.getElementById("bandtext").style.fill = SetColor;
-            document.getElementById("bandtext").style.opacity = "1";
+            document.getElementById("bandtextpathinside").style.fill = SetColor;
+            document.getElementById("bandtextpathinside").style.opacity = "1";
+
+            document.getElementById("bandtextpath").style.fill = SetColor;
+            document.getElementById("bandtextpath").style.opacity = "1";
         }
     }
 
@@ -844,13 +825,19 @@ jQuery(function ($) {
         var val = document.getElementById('EditModeID').name;
         val = val.split("|");
 
-
+        //milbert
 
         var MultiAdd = val[2];
 
         SetWristStyel(val[0]);
         SetWristSize(val[1]);
         EditAdditionalColor(MultiAdd);
+        Builder.renderProductionShippingOptions();
+        SetProdShipTime();
+
+        //alert("1111");
+        Builder.observer();
+        //alert("1111");
     }
 
     function SetWristStyel(Style){
@@ -873,90 +860,95 @@ jQuery(function ($) {
         }
     }
 
+
     function EditAdditionalColor(MultiAdd){
-        //milbert
         var SplitItem = MultiAdd.split("~");
-        for(var x=0;x<=SplitItem.length;x++){
+        for(var x=0;x<=SplitItem.length-1;x++){
             var TempSplit = SplitItem[x].split("^");
-            
-            var bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap color-added">'
-                             + '<div data-color="{{bg_color}}" style="background-color:{{bg_color}};' 
-                             + 'background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});' 
-                             + 'background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>';
-            var bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" ' 
-                                  + 'style="display:{{style_display}}" ><div data-color="{{bg_color}}" style="background-color:{{bg_color}}; ' 
-                                  + 'background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}}); ' 
-                                  + 'background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>';
-                 
-            var BoxColor = Mustache.render(bg_style_tpl, {hide: '', bg_color: TempSplit[2], qty: ''});
-            var BoxTextColor = "";
 
-            if ( TempSplit[4] != null ) {
-                BoxTextColor = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'inline-block', bg_color: TempSplit[4], qty: ''});
-            } else  {
-                BoxTextColor = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'none', bg_color: TempSplit[4], qty: ''});
-            }
+            var bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap color-added"><div data-color="{{bg_color}}" ' +
+                               'style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});' +
+                               'background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});' +
+                               'background: linear-gradient(90deg,{{bg_color}});"></div>&nbsp;<span class="SpanColorbox">' + TempSplit[0] + '</span></div>{{qty}}</div>',
+                bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" style="display:{{style_display}}" >' +
+                               '<div data-color="{{bg_color}}" style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});' +
+                               'background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});' +
+                               'background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>',
+                WristColor    = Mustache.render(bg_style_tpl, {hide: '', bg_color: TempSplit[0], qty: ''}),
+                TextColor = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'none', bg_color: TempSplit[4], qty: ''});
 
-            Builder.addColor(TempSplit[0], {
-                name: TempSplit[0],
-                color: TempSplit[2],
-                type: TempSplit[1],
-                text_color_name: TempSplit[3],
-                text_color: TempSplit[4],
-                sizes: {
-                    adult: toInt(TempSplit[5]),
-                    medium: toInt(TempSplit[6]),
-                    youth: toInt(TempSplit[7]),
-               }
-            });
+                Builder.addColor(TempSplit[0], {
+                    name: TempSplit[0],
+                    color: TempSplit[2],
+                    type: TempSplit[1],
+                    text_color_name: TempSplit[3],
+                    text_color: TempSplit[4],
+                    sizes: {
+                        adult: toInt(TempSplit[5]),
+                        medium: toInt(TempSplit[6]),
+                        youth: toInt(TempSplit[7]),
+                   }
+                });
+                numberFormat(toInt(TempSplit[5]), 0)
+                var row_tpl = Mustache.render(
+                    '<tr data-name="{{name}}" class="option-tr" id="Tr-' + x + '">'
+                    + '<td style="text-align: left" id="colorBox-' + x + '">{{{wristband_color_box}}}</td>'
+                    + '<td><center><span style="font-weight: bold;" id="spanAdult-' + x +'">{{{adult_qt}}}</span><span id="spanAdultup-' + x + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpAdult-' + x + '" value="{{{num_aq}}}"></center></td>'
+                    + '<td><center><span style="font-weight: bold;" id="spanMedium-' + x +'">{{{medium_qty}}}</span><span id="spanMediumup-' + x + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpMedium-' + x + '" value="{{{num_mq}}}"></center></td>'
+                    + '<td><center><span style="font-weight: bold;" id="spanYouth-' + x +'">{{{youth_qty}}}</span><span id="spanYouthup-' + x + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpYouth-' + x + '" value="{{{num_yq}}}"></center></td>'
+                    + '<td style="text-align: center" id="colorTextBox-' + x + '"><center>{{{wristband_text_color_box}}}</center></td>'
+                    + '<td colspan="2" style="text-align: right;"><a href="#" id="EditID-' + x +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + x +'">Edit</a><a id="DelID-' + x +'" href="#" class="delete-selection" data-tempID="' + x +'" data-name="{{name}}" >Delete</a></td>'
+                    + '</tr>',
+                    {
+                        name                        : TempSplit[0],
+                        adult_qt                    : numberFormat(toInt(TempSplit[5]), 0),
+                        medium_qty                  : numberFormat(toInt(TempSplit[6]), 0),
+                        youth_qty                   : numberFormat(toInt(TempSplit[7]), 0),
+                        wristband_color_box         : WristColor,
+                        wristband_text_color_box    : TextColor,
+                        num_aq                      : toInt(TempSplit[5]),
+                        num_mq                      : toInt(TempSplit[6]),
+                        num_yq                      : toInt(TempSplit[7]),
+                   }
+                );
 
-            var row_tpl = Mustache.render(
-                '<tr data-name="{{name}}" class="option-tr">'
-                + '<td><center>{{{adult_qt}}}</center></td>'
-                + '<td><center>{{{medium_qty}}}</center></td>'
-                + '<td><center>{{{youth_qty}}}</center></td>'
-                + '<td><center>{{{wristband_color_box}}}</center></td>'
-                + '<td><center>{{{wristband_text_color_box}}}</center></td>'
-                + '<td><a href="#" id="edit" data-name="{{name}}" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
-                + '</tr>',
-                {
-                    name        : TempSplit[0],
-                    adult_qt    : TempSplit[5],
-                    medium_qty   : TempSplit[6],
-                    youth_qty    : TempSplit[7],
-                    wristband_color_box     : BoxColor,
-                    wristband_text_color_box : BoxTextColor,
-               }
-            );
+                var $tr = $('#selected_color_table > tbody tr[data-name="'+ TempSplit[0] +'"]');
+                    if ($tr.length) { $tr.replaceWith(row_tpl); } 
+                    else { $('#selected_color_table > tbody').append(row_tpl); }
 
-            var $tr = $('#selected_color_table > tbody tr[data-name="'+ TempSplit[0] +'"]');
-            if ($tr.length) { $tr.replaceWith(row_tpl); } 
-            else { $('#selected_color_table > tbody').append(row_tpl); }
-
-             Builder.renderProductionShippingOptions();
+                $('#wristband-color-tab  div[data-name^="'+ TempSplit[0]  +'"]').closest('.color-wrap').addClass('added');
+                if (TempSplit[4] != ""){ $('#wristband-text-color .color-wrap > div[data-name^="'+ TempSplit[4] +'"]').closest('.color-wrap').addClass('added'); }
         }
+        Builder.CntID = x;
+        DistributeAddup();
+    }
+
+    function SetProdShipTime(){
+       // alert(Builder.CntID);
     }
 
     function DistributeAddup(){
         var TempCnt = Builder.CntID;
         if (TempCnt > 0){
-            var CntDis = 0,
-                ArrayID = [],
-                CntTemp = 0;
+            var CntDis = 0,     ArrayID = [],
+                CntTemp = 0,    TotalCnt = 0;
             for(var x=0;x<= TempCnt;x++){
                 if (document.getElementById("inpAdult-" + x)){
                     if (toInt($("#inpAdult-" + x).val()) > 0){
                         ArrayID[CntTemp] = "spanAdultup-" + x;
+                        TotalCnt = Number(TotalCnt) + toInt($("#inpAdult-" + x).val());
                         CntTemp++;
                     } 
 
                     if (toInt($("#inpMedium-" + x).val()) > 0){
                         ArrayID[CntTemp] = "spanMediumup-" + x;
+                        TotalCnt = Number(TotalCnt) + toInt($("#inpMedium-" + x).val());
                         CntTemp++;
                     }
 
                     if (toInt($("#inpYouth-" + x).val()) > 0){
                         ArrayID[CntTemp] = "spanYouthup-" + x;
+                        TotalCnt = Number(TotalCnt) + toInt($("#inpYouth-" + x).val());
                         CntTemp++;
                     }
                     $("#spanAdultup-" + x).html("");
@@ -965,19 +957,264 @@ jQuery(function ($) {
                 }
             }
 
-              var b = 100,      c = ArrayID.length,
-                  d = 100%c,    e = b - d,
-                  f = e / c,    g = f + d,
-                  first = true;
+            var b = 100,      c = ArrayID.length,
+                d = 100%c,    e = b - d,
+                f = e / c,    g = f + d,          first = true;
 
-            for(var a=0;a <= ArrayID.length-1;a++){
-                if (first){
-                    $("#" + ArrayID[a]).html("&nbsp; ( +" + g + " )");
-                    first = false;
-                } else { $("#" + ArrayID[a]).html("&nbsp; ( +" + f + " )"); }
+            if (TotalCnt >= 100){
+                for(var a=0;a <= ArrayID.length-1;a++){
+                    if (first){
+                        $("#" + ArrayID[a]).html("&nbsp; ( +" + g + " )");
+                        first = false;
+                    } else { $("#" + ArrayID[a]).html("&nbsp; ( +" + f + " )"); }
+                }
             }
         }
     }
+
+    function SelectBandColor(StyleColor,y){
+        var insidesolid = document.getElementById("insidesolid");
+        var outsidesolid = document.getElementById("outsidesolid");
+        var bandcolor = document.getElementById("bandcolor");
+
+        var mask1       = document.getElementById("mask1");               
+        var mask1inside = document.getElementById("mask1inside");
+
+        var mask2       = document.getElementById("mask2");             
+        var mask2inside = document.getElementById("mask2inside");
+
+        mask1.style.opacity = 1;            
+        mask1inside.style.opacity = 1; 
+
+        mask2.style.opacity = 1;            
+        mask2inside.style.opacity = 1;
+
+        if (StyleColor == "Segmented"){
+
+        } else if (StyleColor == "Swirl"){
+            var SplitColor = y.split(",");
+
+            insidesolid.style.fill = SplitColor[0];
+            bandcolor.style.fill = SplitColor[0];
+
+            outsidesolid.style.fill = SplitColor[0];
+          
+            mask1.style.fill = SplitColor[1];            
+            mask1inside.style.fill = SplitColor[1];
+
+            mask2.style.fill = SplitColor[2];               
+            mask2inside.style.fill = SplitColor[2];
+        } else {
+            insidesolid.style.fill=y;
+            outsidesolid.style.fill=y;
+            bandcolor.style.fill=y;
+            mask1.style.fill = y;            
+            mask1inside.style.fill = y;
+            mask2.style.fill = y;               
+            mask2inside.style.fill = y;
+        }
+    }
+
+
+    function AddNewColor(){
+
+        var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
+            $tc = $('#wristband-text-color .color-wrap.selected > div'),
+            bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap color-added"><div data-color="{{bg_color}}" ' + 
+                           ' style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});' +
+                           'background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});' +
+                           'background: linear-gradient(90deg,{{bg_color}});"></div>&nbsp;<span class="SpanColorbox">' + $wc.data('name') + '</span></div>{{qty}}</div>',
+            bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" ' +
+                                'style="display:{{style_display}}" ><div data-color="{{bg_color}}" style="background-color:{{bg_color}}; ' +
+                                'background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}}); ' +
+                                'background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>',
+            $aq    = $('#qty_adult'),
+            $mq    = $('#qty_medium'),
+            $yq    = $('#qty_youth');
+
+        var _adult_qty   = numberFormat(toInt($aq.val()), 0),
+            _medium_qty  = numberFormat(toInt($mq.val()), 0),
+            _youth_qty   = numberFormat(toInt($yq.val()), 0),
+            _wristband_color_box    = Mustache.render(bg_style_tpl, {hide: '', bg_color: $wc.data('color'), qty: ''}),
+            _wristband_text_color_box = '';
+
+        if ((toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)) { Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.'); return; }
+
+        //====================== Check table
+        var _txtColorName = "White",
+            _txtColor = "#FFFFFF";
+
+        var textStyle = $("#style").find("option:selected").text();
+        if (textStyle == "Blank" || textStyle == "Figured" || textStyle == "Embossed" || textStyle == "Debossed"){ _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'none', bg_color: '#ffffff', qty: ''});
+        } else {
+            _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'inline-block', bg_color: $tc.data('color'), qty: ''}); 
+            _txtColorName = $tc.data('name');
+            _txtColor = $tc.data('color');
+        }
+
+        var SaveStatus = true,
+            SelectedID = "";
+        for(var x=0;x<=Builder.CntID;x++){
+            if (document.getElementById("inpAdult-" + x)){ 
+                if ($("#DelID-" + x).attr('data-name') == $wc.data('name') && $("#DelID-" + x).attr('data-textname') == _txtColorName){ SaveStatus = false; SelectedID = x; break; } 
+            }
+        }
+
+        if (SaveStatus){
+        //===============Add Color
+            Builder.CntID++;
+            Builder.addColor($wc.data('name'), {
+                name                : $wc.data('name'),
+                color               : $wc.data('color'),
+                type                : $('input[name="color_style"]:checked').val(),
+                text_color_name     : _txtColorName,
+                text_color          : _txtColor,
+                sizes: {
+                    adult           : toInt($aq.val()),
+                    medium          : toInt($mq.val()),
+                    youth           : toInt($yq.val()),
+               }
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            var TempID = Builder.CntID; 
+            var row_tpl = Mustache.render(
+                '<tr data-name="{{name}}" class="option-tr" id="Tr-' + TempID + '">'
+                + '<td style="text-align: left" id="colorBox-' + TempID + '"><div class="DivColorBox">{{{wristband_color_box}}}</div></td>'
+                + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanAdult-' + TempID +'">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpAdult-' + TempID + '" value="{{{num_aq}}}"></center></td>'
+                + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"></center></td>'
+                + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"></center></td>'
+                + '<td style="text-align: center" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
+                + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" >Delete</a></td>'
+                + '</tr>',
+                {
+                    name                        : $wc.data('name'),
+                    adult_qt                    : _adult_qty,
+                    medium_qty                  : _medium_qty,
+                    youth_qty                   : _youth_qty,
+                    wristband_color_box         : _wristband_color_box,
+                    wristband_text_color_box    : _wristband_text_color_box,
+                    num_aq                      : toInt($aq.val()),
+                    num_mq                      : toInt($mq.val()),
+                    num_yq                      : toInt($yq.val()),
+                    textColorName               : ($tc.data('name') == null)? _txtColorName : $tc.data('name'),
+               }
+            );
+            var $tr = $('#selected_color_table > tbody tr[data-name="'+ $wc.data('name') +'"]');
+            $('#selected_color_table > tbody').append(row_tpl); 
+        //===================================
+        } else {
+            var Total_aq = Number(_adult_qty) + Number($("#inpAdult-" + SelectedID).val());
+            var Total_mq = Number(_medium_qty) + Number($("#inpMedium-" + SelectedID).val());
+            var Total_yq = Number(_youth_qty) + Number($("#inpYouth-" + SelectedID).val());
+
+            $("#spanAdult-" + SelectedID).html(numberFormat(toInt(Total_aq), 0));
+            $("#spanMedium-" + SelectedID).html(numberFormat(toInt(Total_mq), 0));
+            $("#spanYouth-" + SelectedID).html(numberFormat(toInt(Total_yq), 0));
+
+            $("#inpAdult-" + SelectedID).val(toInt(Total_aq));
+            $("#inpMedium-" + SelectedID).val(toInt(Total_mq));
+            $("#inpYouth-" + SelectedID).val(toInt(Total_yq));
+         
+            alert(Total_aq + "==" + Total_mq + "==" + Total_yq)
+
+
+            Builder.updateColor($wc.data('name'), _txtColorName, {
+                                            name: $wc.data('name'),
+                                            color: $wc.data('color'),
+                                            type: $('input[name="color_style"]:checked').val(),
+                                            text_color: ($tc.data('color') == null)? '#FFFFFF' : $tc.data('color'),
+                                            text_color_name: _txtColorName,
+                                            sizes: {
+                                                adult: toInt(Total_aq),
+                                                medium:toInt(Total_mq),
+                                                youth: toInt(Total_yq),
+                                           }
+                                        });
+
+        }
+
+        alert("done")
+        $('#qty_adult, #qty_medium, #qty_youth').val('');
+        //$('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
+        DistributeAddup();//Addup
+        Builder.renderProductionShippingOptions();
+        return false;
+    }
+
+
+    function Enab_Dis(Stat){
+        for(var x=0;x<=Builder.CntID;x++){
+            if (document.getElementById("inpAdult-" + x)){
+            var TempId = x;
+                if (Stat == "Enabled" || Stat == "SaveEdit"){
+                    $("#spanAdult-" + TempId).show();
+                    $("#spanMedium-" + TempId).show();
+                    $("#spanYouth-" + TempId).show();
+
+                    $("#spanAdultup-" + TempId).show();
+                    $("#spanMediumup-" + TempId).show();
+                    $("#spanYouthup-" + TempId).show();
+
+                    $("#inpAdult-" + TempId).hide();
+                    $("#inpMedium-" + TempId).hide();
+                    $("#inpYouth-" + TempId).hide();
+
+                    if (Stat == "SaveEdit"){
+                        $("#spanAdult-" + TempId).html(numberFormat(toInt($("#inpAdult-" + TempId).val()), 0));
+                        $("#spanMedium-" + TempId).html(numberFormat(toInt($("#inpMedium-" + TempId).val()), 0));
+                        $("#spanYouth-" + TempId).html(numberFormat(toInt($("#inpYouth-" + TempId).val()), 0));
+                    } else {
+                        $("#inpAdult-" + TempId).val($("#spanAdult-" + TempId).html().replace(",",""));
+                        $("#inpMedium-" + TempId).val($("#spanMedium-" + TempId).html().replace(",",""));
+                        $("#inpYouth-" + TempId).val($("#spanYouth-" + TempId).html().replace(",",""));
+                    }
+                    $("#DelID-" + TempId).closest('.delete-selection').removeClass('CssDisabledDel');
+                } else {
+                    $("#spanAdult-" + TempId).hide();
+                    $("#spanMedium-" + TempId).hide();
+                    $("#spanYouth-" + TempId).hide();
+
+                    $("#spanAdultup-" + TempId).hide();
+                    $("#spanMediumup-" + TempId).hide();
+                    $("#spanYouthup-" + TempId).hide();
+
+                    $("#inpAdult-" + TempId).show();
+                    $("#inpMedium-" + TempId).show();
+                    $("#inpYouth-" + TempId).show();
+                    $("#DelID-" + TempId).closest('.delete-selection').addClass('CssDisabledDel');
+                    $("#inpAdult-" + TempId).val($("#spanAdult-" + TempId).html().replace(",",""));
+                    $("#inpMedium-" + TempId).val($("#spanMedium-" + TempId).html().replace(",",""));
+                    $("#inpYouth-" + TempId).val($("#spanYouth-" + TempId).html().replace(",",""));
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
 
 
 
@@ -1025,39 +1262,25 @@ jQuery(function ($) {
                 // console.log(slctd_product);
                 if (slctd_product != undefined) {
                     $('#wbc_add_to_cart').removeAttr('disabled');
-
                     $('select#width').empty().removeAttr('disabled');
 
-                    for( var size in slctd_product.sizes)
-                     {
-                        i.push(slctd_product.sizes[size].count);
-                     } 
-                        
-                     var hold_index_sort = i.sort();
+                    for( var size in slctd_product.sizes) { i.push(slctd_product.sizes[size].count); } 
+                    var hold_index_sort = i.sort();
 
-                    for( var index_size in hold_index_sort)
-                     {
-
-                        for(var size in slctd_product.sizes)
-                        {
-                            if(index_size == slctd_product.sizes[size].count )
-                            {
+                    for( var index_size in hold_index_sort) {
+                        for(var size in slctd_product.sizes) {
+                            if(index_size == slctd_product.sizes[size].count ) {
                                 var $option = $('<option>').val(size).text(size);
                                                        
-                                    if (size == slctd_product.default_size)
-                                        {
-                                            $option = $('<option>').val(size).attr('selected','selected').text(size).attr('data-group', Builder.getSizeGroup(size));
-                                        }
-                                        else
-                                        {
-                                            $option.attr('data-group', Builder.getSizeGroup(size));   
-                                        }                      
-                                    
+                                    if (size == slctd_product.default_size) {
+                                        $option = $('<option>').val(size).attr('selected','selected').text(size).attr('data-group', Builder.getSizeGroup(size));
+                                    } else {
+                                        $option.attr('data-group', Builder.getSizeGroup(size));   
+                                    }                      
                                     $('select#width').append($option);
                                     break;
                             }
                         }
-
                      } 
 
                     $('select#width option:first-child').trigger('change');
@@ -1080,10 +1303,9 @@ jQuery(function ($) {
                                 color: slctd_product.text_color[i].color
                             });
                             $('#wristband-text-color ul').append(render);
-
                         }
                         
-                        Builder.updateColor('', {name: '',
+                        Builder.updateColor('','', {name: '',
                                                    color: '',
                                                    type: '',
                                                    text_color: slctd_product.text_color[0].color,
@@ -1093,11 +1315,11 @@ jQuery(function ($) {
                                                         medium: '',
                                                         youth: '',
                                                     }
-                                                 });
+                                            });
                 
                    } else {
                         $('#wristband-text-color').closest('.form-group').hide();
-                        Builder.updateColor('', {name: '',
+                        Builder.updateColor('','', {name: '',
                                                       color: '',
                                                       type: '',
                                                       text_color: '#FFFFFF',
@@ -1135,31 +1357,34 @@ jQuery(function ($) {
                         } else {
                             _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'none', bg_color: lists[index].text_color, qty: ''});
                         }
-
+                        alert(lists[index].text_color_name)
                         var  $tr = $('#selected_color_table > tbody tr[data-name="'+ lists[index].name +'"]'); 
                         var row_tpl = Mustache.render(
                             '<tr data-name="{{name}}" class="option-tr" id="Tr-' + TempID + '">'
                             + '<td style="text-align: left" id="colorBox-' + TempID + '">{{{wristband_color_box}}}</td>'
-                            + '<td><center><span id="spanAdult-' + TempID +'">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpAdult-' + TempID + '" value="{{{adult_qt}}}"></center></td>'
-                            + '<td><center><span id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpMedium-' + TempID + '" value="{{{medium_qty}}}"></center></td>'
-                            + '<td><center><span id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpYouth-' + TempID + '" value="{{{youth_qty}}}"></center></td>'
+                            + '<td><center><span style="font-weight: bold;" id="spanAdult-' + TempID +'">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpAdult-' + TempID + '" value="{{{num_aq}}}"></center></td>'
+                            + '<td><center><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"></center></td>'
+                            + '<td><center><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"></center></td>'
                             + '<td style="text-align: center" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
-                            + '<td style="text-align: right;"><a href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection" data-tempID="' + TempID +'" data-name="{{name}}" >Delete</a></td>'
+                            + '<td colspan="2" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" >Delete</a></td>' 
                             + '</tr>',
                             {
-                                name         : lists[index].name,
-                                adult_qt     : lists[index].sizes['adult'],
-                                medium_qty   : lists[index].sizes['medium'],
-                                youth_qty    : lists[index].sizes['youth'],
-                                wristband_color_box     : _wristband_color_box,
-                                wristband_text_color_box : _wristband_text_color_box,
+                                name                        : lists[index].name,
+                                adult_qt                    : numberFormat(toInt(lists[index].sizes['adult']), 0),
+                                medium_qty                  : numberFormat(toInt(lists[index].sizes['medium']), 0),
+                                youth_qty                   : numberFormat(toInt(lists[index].sizes['youth']), 0),
+                                wristband_color_box         : _wristband_color_box,
+                                wristband_text_color_box    : _wristband_text_color_box,
+                                num_aq                      : lists[index].sizes['adult'],
+                                num_mq                      : lists[index].sizes['medium'],
+                                num_yq                      : lists[index].sizes['youth'],
+                                textColorName               : lists[index].text_color_name,
                            }
                         );
                         $tr.replaceWith(row_tpl);
                     TempID++;
                     }
-
-
+                    Builder.CntID = TempID;
                     if(slctd_product.text_color) {
                         $('.colortext--wrap').show(); // show text color in the additional table list
                         $('.text_to_alter').show();   // show th color in the additional table list
@@ -1171,6 +1396,7 @@ jQuery(function ($) {
                 }
                 var width = $("#width").val();
                 $("#SelectStyleID").html(textStyle + "&nbsp;-" + width);
+                wbTextColor();
             })
             // Populate width dropdown
             .on('change', 'select#width', function() {
@@ -1209,8 +1435,8 @@ jQuery(function ($) {
 
             // Text Color Selection
             .on('click', '#wristband-text-color .color-wrap', function() {
+
                 var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name');
-                
                 if(tbl_color){
                      $('#wristband-text-color .color-wrap').removeClass('selected');
                      $(this).addClass('selected');
@@ -1227,21 +1453,23 @@ jQuery(function ($) {
 
             // Wristband Color Selection
             .on('click', '#wristband-color-items .color-wrap', function() {
+                var $aq    = $('#qty_adult'),
+                    $mq    = $('#qty_medium'),
+                    $yq    = $('#qty_youth');
 
-                var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name');
+                    var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name');
+                    if(tbl_color){
+                        $('#wristband-color-items .color-wrap').removeClass('selected');
+                        $(this).addClass('selected');
+                        return;
+                    } 
 
-                if(tbl_color){
-
+                    if ($(this).hasClass('added') ) return;
                     $('#wristband-color-items .color-wrap').removeClass('selected');
                     $(this).addClass('selected');
-                    return;
-                } 
-
-                if ($(this).hasClass('added') ) return;
-                $('#wristband-color-items .color-wrap').removeClass('selected');
-                $(this).addClass('selected');
-                $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
-                Builder.observer();
+                    $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
+                    if ((toInt($aq.val()) > 0 ||toInt($mq.val()) > 0 || toInt($yq.val()) > 0)) { AddNewColor(); }
+                    Builder.observer();
             })
             .on('keyup mouseup', '#qty_adult, #qty_medium, #qty_youth', function() {
                 $('.alert-notify.each-message').remove(); //remove old price message
@@ -1255,17 +1483,12 @@ jQuery(function ($) {
                     $yq    = $('#qty_youth');
                   
                 if($aq.val() <= 0 && $mq.val() <= 0 && $yq.val() <= 0) {
-                     
                       $('#price_handler').text('0.00');
                       $('#qty_handler').text('0');
-
                 }
 
                 // ($('#wristband-text-color ul li').length && $tc.length == 0) ||
-                if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)) 
-                {
-                    return;
-                }
+                if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)){ return; }
 
                 if(tbl_color == undefined) {
                    //do this process if it's not updating the additional table list     
@@ -1288,87 +1511,31 @@ jQuery(function ($) {
             })
             .on('click', '#add_color_to_selections', function(e) {
                 e.preventDefault();
-                Builder.CntID++;
+                AddNewColor();
+            })
 
-                var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
-                    $tc = $('#wristband-text-color .color-wrap.selected > div'),
-                    bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap color-added"><div data-color="{{bg_color}}" style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div>&nbsp;<span class="SpanColorbox">' + $wc.data('name') + '</span></div>{{qty}}</div>',
-                    bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" style="display:{{style_display}}" ><div data-color="{{bg_color}}" style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>',
-                    $aq    = $('#qty_adult'),
-                    $mq    = $('#qty_medium'),
-                    $yq    = $('#qty_youth');
+            .on('click', '#EditSaveID', function(e) {
+                var Stat = $(this).html();
+                if (Stat == "Edit"){
+                    $(this).html("Save");
+                    $("#CancelID").html("Cancel");
+                    Enab_Dis("Disabled");
 
-
-                var _adult_qty   = numberFormat(toInt($aq.val()), 0),
-                    _medium_qty  = numberFormat(toInt($mq.val()), 0),
-                    _youth_qty   = numberFormat(toInt($yq.val()), 0),
-                    _wristband_color_box    = Mustache.render(bg_style_tpl, {hide: '', bg_color: $wc.data('color'), qty: ''}),
-                    _wristband_text_color_box = '';
-
-                    if ( $tc.data('color') != null ) {
-                        _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'inline-block', bg_color: $tc.data('color'), qty: ''});
-                    } else  {
-                        _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'none', bg_color: $tc.data('color'), qty: ''});
-                    }
-
-
-                if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)) {
-                    Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.');
-                    return;
+                } else {
+                    $(this).html("Edit");
+                    $("#CancelID").html("");
+                    Enab_Dis("SaveEdit");
                 }
+            })
 
-                Builder.addColor($wc.data('name'), {
-                    name: $wc.data('name'),
-                    color: $wc.data('color'),
-                    type: $('input[name="color_style"]:checked').val(),
-                    text_color_name: $tc.data('name'),
-                    text_color: $tc.data('color'),
-                    sizes: {
-                        adult: toInt($aq.val()),
-                        medium: toInt($mq.val()),
-                        youth: toInt($yq.val()),
-                   }
-                });
+            .on('click', '#CancelID', function(e) {
+                var Stat = $(this).html();
 
-                var TempID = Builder.CntID; 
-                var row_tpl = Mustache.render(
-                    '<tr data-name="{{name}}" class="option-tr" id="Tr-' + TempID + '">'
-                    + '<td style="text-align: left" id="colorBox-' + TempID + '"><div class="DivColorBox">{{{wristband_color_box}}}</div></td>'
-                    + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanAdult-' + TempID +'">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpAdult-' + TempID + '" value="{{{adult_qt}}}"></center></td>'
-                    + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpMedium-' + TempID + '" value="{{{medium_qty}}}"></center></td>'
-                    + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpYouth-' + TempID + '" value="{{{youth_qty}}}"></center></td>'
-                    + '<td style="text-align: center" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
-                    //+ '<td><a href="#" id="edit" data-name="{{name}}" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
-                    + '<td style="text-align: right;"><a href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection" data-tempID="' + TempID +'" data-name="{{name}}" >Delete</a></td>'
-                    + '</tr>',
-                    {
-                        name        : $wc.data('name'),
-                        adult_qt    : _adult_qty,
-                        medium_qty   : _medium_qty,
-                        youth_qty    : _youth_qty,
-                        wristband_color_box     : _wristband_color_box,
-                        wristband_text_color_box : _wristband_text_color_box,
-                   }
-                );
-
-                var $tr = $('#selected_color_table > tbody tr[data-name="'+ $wc.data('name') +'"]');
-                    if ($tr.length) { $tr.replaceWith(row_tpl); } 
-                    else { $('#selected_color_table > tbody').append(row_tpl); }
-
-                $wc.closest('.color-wrap').addClass('added');
-                $wc.closest('li').removeClass('color-enabled');
-                $wc.closest('li').addClass('color-disabled');
-                $('#wristband-color-items .color-wrap, #wristband-text-colors .color-wrap').removeClass('selected');
-
-                //loop not added color and make it as a default selected color the first color in the loop
-                wctColorEnable();
-                
-                $('#qty_adult, #qty_medium, #qty_youth').val('');
-                $(this).find('.fusion-button-text').text('Add');
-                $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
-                DistributeAddup();//Addup
-                Builder.renderProductionShippingOptions();
-                return false;
+                if (Stat == "Cancel"){
+                    $("#EditSaveID").html("Edit");
+                    $(this).html("");
+                    Enab_Dis("Enabled");
+                }
             })
 
             .on('click', '.delete-selection', function(e) {
@@ -1428,6 +1595,7 @@ jQuery(function ($) {
 
 
 
+
                 if (Stat == "Edit"){
                     $("#DelID-" + TempId).html("Cancel");
                     $(this).html("Save");
@@ -1444,9 +1612,9 @@ jQuery(function ($) {
                     $("#inpMedium-" + TempId).show();
                     $("#inpYouth-" + TempId).show();
 
-                    $("#inpAdult-" + TempId).val($("#spanAdult-" + TempId).html());
-                    $("#inpMedium-" + TempId).val($("#spanMedium-" + TempId).html());
-                    $("#inpYouth-" + TempId).val($("#spanYouth-" + TempId).html());
+                    $("#inpAdult-" + TempId).val($("#spanAdult-" + TempId).html().replace(",",""));
+                    $("#inpMedium-" + TempId).val($("#spanMedium-" + TempId).html().replace(",",""));
+                    $("#inpYouth-" + TempId).val($("#spanYouth-" + TempId).html().replace(",",""));
 
                     $('.option-tr').addClass('is-disabled'); // disable all additioanl option to be editable first
                     $(this).closest('tr').removeClass('is-disabled'); // enable to specific additional option to be editable
@@ -1478,9 +1646,10 @@ jQuery(function ($) {
                     $("#colorBox-" + TempId).html(_wristband_color_box);
                     $("#colorTextBox-" + TempId).html(_wristband_text_color_box);
 
-                    $("#spanAdult-" + TempId).html($("#inpAdult-" + TempId).val());
-                    $("#spanMedium-" + TempId).html($("#inpMedium-" + TempId).val());
-                    $("#spanYouth-" + TempId).html($("#inpYouth-" + TempId).val());
+                    $("#spanAdult-" + TempId).html(numberFormat(toInt($("#inpAdult-" + TempId).val()), 0));
+                    $("#spanMedium-" + TempId).html(numberFormat(toInt($("#inpMedium-" + TempId).val()), 0));
+                    $("#spanYouth-" + TempId).html(numberFormat(toInt($("#inpYouth-" + TempId).val()), 0));
+
 
 
                     $("#spanAdult-" + TempId).show();
@@ -1524,7 +1693,6 @@ jQuery(function ($) {
             })
             
             .on('click','.edit-button-text',function(e){
-
                 e.preventDefault();
                 var $row = $(this).closest('tr');
                 // Remove color from selections
@@ -1624,8 +1792,16 @@ jQuery(function ($) {
             })
 
             .on('click', '.color-added', function(e){
-                var background = document.getElementById("bandcolor"); 
-                background.style.fill = $(this).find('div').data('color');
+                //milbert
+                var StyleColor = $('input[name="color_style"]:checked').val();
+                var SelectedColor = $(this).find('div').data('color');
+                var SplitColor = $(this).find('div').data('color').split(",");
+
+                if (SplitColor.length == 3){ StyleColor = "Swirl"; }
+
+
+                
+                SelectBandColor(StyleColor,SelectedColor);
             })
 
             .on('click', '.color-text-added', function(e){
@@ -1656,10 +1832,8 @@ jQuery(function ($) {
 
             .on('keyup', 'input[name="front_message"], input[name="continues_message"], input[name="back_message"], input[name="inside_message"]', function() {
                Builder.observer();
-
-
-
             })
+
             // Trigger change when message type is choosen
             .on('change', 'input[name="message_type"], .customization-date-select', function() {
                 Builder.observer();
@@ -1729,7 +1903,6 @@ jQuery(function ($) {
                         button.find('.image-upload').css({display: 'none'});
                     });
                 }
-                
                 Builder.observer();
 
             })
@@ -1740,7 +1913,6 @@ jQuery(function ($) {
 
             .on('click', '.additional-option-item', function(e) {
                 if ($(e.target).is('input:checkbox')) return;
-
                 var $checkbox = $(this).find(':checkbox');
                 $checkbox.attr('checked', !$checkbox[0].checked);
                 Builder.observer();
@@ -1803,10 +1975,15 @@ jQuery(function ($) {
                 if ($('#preview_container').length) {
 
 
-                    Pablo(document.getElementById("svgelement")).download('svg',Settings.svg, function(result){
-                        alert(result.error ? 'Fail' : 'Success');
+                   // Pablo(document.getElementById("svgelement")).download('png',Settings.svg, function(result){
+                   //     alert(result.error ? 'Fail' : 'Success');
 
+                    Pablo(document.getElementById("svgelement"))
+                    .download('png', 'circle.png', function(result){
+                        alert(result.error ? 'Fail' : 'Success');
                     });
+
+
 
                     //Pablo(preview_container).download('svg',Settings.svg, function(result){
                     //    alert(result.error ? 'Fail' : 'Success');

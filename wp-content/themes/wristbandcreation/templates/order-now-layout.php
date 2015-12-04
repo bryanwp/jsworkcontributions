@@ -69,6 +69,7 @@ if (isset($_REQUEST['id'])){
             break;
         }
     }
+    $Info = $Info."|".$customization_date_production."|".$customization_date_production;
 ?>
     <input id="EditModeID" name="<?php echo $Info; ?>" style="display:none;">
 
@@ -78,8 +79,7 @@ if (isset($_REQUEST['id'])){
 ?>
 
 
-
-
+<?php require_once(get_stylesheet_directory().'/wristband/includes/check_mask.php'); ?>
 
 <div id="wristband-builder-content">
     <div>
@@ -210,24 +210,21 @@ if (isset($_REQUEST['id'])){
                             <label class="form-group-heading CssTitleBlack" >Input Quantity <span>(Side View Guide)</span></label>
                             <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
                                 <label for="qty_adult">Adult</label>
-                                <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text" value="<?php echo $adult; ?>">
+                                <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text">
                             </p>
                             <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
                                 <label for="qty_medium">Medium</label>
-                                <input type="number" name="qty_medium" id="qty_medium"  min="0" class="input-text" value="<?php echo $medium; ?>">
+                                <input type="number" name="qty_medium" id="qty_medium"  min="0" class="input-text">
                             </p>
                             <p class="form-row form-row-last fusion-one-fourth one_third fusion-layout-column fusion-column-last fusion-spacing-yes">
                                 <label for="qty_youth">Youth</label>
-                                <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text" value="<?php echo $youth; ?>">
+                                <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text">
                             </p>
                             <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
                                 <br>
-                                    <a class="TempAddCss" target="_blank" href="#" id="add_color_to_selections"><span class="fusion-button-text">Add</span></a>
-                             </p>
-                                
-                     
-                            
-                            <div class="clear"></div>
+                                <a class="TempAddCss" target="_blank" href="#" id="add_color_to_selections"><span class="fusion-button-text">Add</span></a>
+                             </p>                    
+                        <div class="clear"></div>
                             
                         </div><!-- /.quantity_group_field -->
                         
@@ -235,26 +232,17 @@ if (isset($_REQUEST['id'])){
                         <div id="additional-option-section">
                             <label class="form-group-heading CssTitleBlack"  data-fontsize="19" data-lineheight="20">Additional Options</label>
                         <?php $i = 1; foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option):?>
-                            <?php 
-                                $Stat = "";
-                                if ($option->name == $InPackaging){ $Stat = "checked"; } 
-                                elseif ($option->name == $Eco){ $Stat = "checked"; } 
-                                elseif ($option->name == $Thick){ $Stat = "checked"; } 
-                                elseif ($option->name == $DigitalPro){ $Stat = "checked"; }
-                            ?>
-
                         <div id="<?php echo 'id_'.$index; ?>" class="additional-option-item fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
                             <div class="fusion-column-wrapper">
                                 <div class="addon">
                                     <span class="addon-price-handler">
                                     <div class="checkbox">
-                                        <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" <?php echo $Stat;  ?> />
+                                        <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" />
                                     </div>
                                     </span>
                                 </div>
                                 <div class="imageframe-align-center">
-                                    <img height="80" src="<?php echo $option->image->url; ?>" alt="<?php echo $option->name; ?>"
-                                         class="img-responsive">
+                                    <img height="80" src="<?php echo $option->image->url; ?>" alt="<?php echo $option->name; ?>" class="img-responsive">
                                 </div>
 
                                 <div class="fusion-sep-clear"></div>
@@ -283,122 +271,156 @@ if (isset($_REQUEST['id'])){
 
                             <div class="imageframe-align-center image-preview">
                                 <div id="preview_container" class="container--ph">
+                                    <svg id="svgelement" viewBox="0 0 300 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <defs>
+                                            <path id="MyPath" fill-opacity="0" d="M28 98 q 125 23 250 -2"/>
+                                            <path id="MyPathInside" fill-opacity="0" d="M28 90 q 80 -18 250 -2"/>
+
+                                            <filter id="blurFilter8" x="-20" y="-20" width="200" height="200">
+                                                <feGaussianBlur in="SourceAlpha" stdDeviation="20" />
+                                            </filter>
+                                        </defs>
+                                        <rect id="bandcolor" height="100%" width="100%" style="fill: gray" />
+
+                                          <tspan id="front_start"></tspan>
+                                          <tspan id="front_end"></tspan>
+                                          <tspan id="back_start"></tspan>
+                                          <tspan id="back_end"></tspan>
+                                          <tspan id="wrap_start"></tspan>
+                                          <tspan id="wrap_end"></tspan>
+
+                                        <?php echo $mask_inside_band; ?>
+                                        <?php echo $mask1_inside . $mask2_inside; ?> 
+
+                                        <text id="bandtextinside" text-anchor="middle" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+                                        <textPath id="bandtextpathinside" xlink:href="#MyPathInside" startOffset="50%">
+                                            <tspan id="insidetextpath" dominant-baseline="middle"></tspan>
+                                        </textPath>
+                                        </text>
+
+                                        <?php echo $mask_outside_band; ?>
+                                        <?php echo $mask1 . $mask2; ?>
+
+                                        <text id="bandtext" text-anchor="middle" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+                                            <textPath id="bandtextpath" xlink:href="#MyPath" startOffset="50%">
+                                                <tspan id="icon_start" class="fa" dominant-baseline="middle"></tspan>
+                                                <tspan id="front-text" dominant-baseline="middle"></tspan>
+                                                <tspan id="icon_end" class="fa" dominant-baseline="middle"></tspan>
+                                            </textPath>
+                                        </text>            
+                                        <rect x="15" y="75" width="30" height="50" style="stroke: none; fill: #00ff00; filter: url(#blurFilter8);" />
+                                        <rect x="260" y="75" width="30" height="50" style="stroke: none; fill: #00ff00; filter: url(#blurFilter8);" />
+                                        <image height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/WRISTBAND2.png" />
+                                    </svg> 
                                 </div>
                             </div>
 
+                            <div>
+                                <div class="form-group table-responsive">
+                                    <table id="selected_color_table" class="table table-bordered" border="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 150px;">Color</th>
+                                                <th class="TempCss1">Adult</th>
+                                                <th class="TempCss1">Medium</th>
+                                                <th class="TempCss1">Youth</th>
+                                                <th class = "text_to_alter">Text</th>
+                                                <th colspan="2" style="text-align:right;"><a class="CssEditSave" id="EditSaveID">Edit</a>&nbsp; <a class="CssEditSave"  id="CancelID"></a></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-
-                        <div>
-                            <div class="form-group table-responsive">
-                                <table id="selected_color_table" class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 150px;">Color</th>
-                                            <th class="TempCss1">Adult</th>
-                                            <th class="TempCss1">Medium</th>
-                                            <th class="TempCss1">Youth</th>
-                                            <th class = "text_to_alter">Text</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-
-
-
-
-                        <div>
-                            <div class="form-row">
-                                <label for="message_type" class="form-group-heading CssTitleBlack">Message on Wristbands</label class="form-group-heading CssTitleBlack" >
-
-                                <div style="float: right;">
-                                    <input type="radio" name="message_type" value="front_and_back" checked/>
-                                    Front/Back
-                                    <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
-                                      title="Front and Back Message" data-placement="top">?</span>
-
-                                    &nbsp;
-                                    <input type="radio" name="message_type" value="continues"/>
-                                    Wrap Around
-                                    <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
-                                          title="Continuous Message" data-placement="top">?</span>
-                             
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
 
-                            <?php if (isset($GLOBALS['wbc_settings']->tool_tip_text)):
-                                $tooltip = $GLOBALS['wbc_settings']->tool_tip_text ; ?>
-                                <div id="ForFrontBackID">
-                                    <p class="form-row form-row-wide hide-if-message_type-continues" id="width_field">
-                                        <table style="width: 100%;" border="0" cellspacing="0"><tr>
-                                            <td class="TdTitleCss">
-                                                <label for="front_message"  class="form-group-heading">Front Message
-                                                    <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
-                                                      title="<?php echo $tooltip->front;?>" data-placement="top">?
-                                                    </span>
-                                                </label>
-                                            </td><td>
-                                                <input type="text" name="front_message" class="input-text trigger-limit-char"
-                                                       data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Front_msg; ?>">
-                                            </td>
-                                        </tr></table>
-                                    </p>
+                            <div>
+                                <div class="form-row">
+                                    <label for="message_type" class="form-group-heading CssTitleBlack">Message on Wristbands</label class="form-group-heading CssTitleBlack" >
 
-                                    <p class="form-row form-row-wide hide-if-message_type-continues">
+                                    <div style="float: right;">
+                                        <input type="radio" name="message_type" value="front_and_back" checked/>
+                                        Front/Back
+                                        <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                          title="Front and Back Message" data-placement="top">?</span>
+
+                                        &nbsp;
+                                        <input type="radio" name="message_type" value="continues"/>
+                                        Wrap Around
+                                        <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                              title="Continuous Message" data-placement="top">?</span>
+                                 
+                                    </div>
+                                </div>
+
+                                <?php if (isset($GLOBALS['wbc_settings']->tool_tip_text)):
+                                    $tooltip = $GLOBALS['wbc_settings']->tool_tip_text ; ?>
+                                    <div id="ForFrontBackID">
+                                        <p class="form-row form-row-wide hide-if-message_type-continues" id="width_field">
+                                            <table style="width: 100%;" border="0" cellspacing="0"><tr>
+                                                <td class="TdTitleCss">
+                                                    <label for="front_message"  class="form-group-heading">Front Message
+                                                        <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                                          title="<?php echo $tooltip->front;?>" data-placement="top">?
+                                                        </span>
+                                                    </label>
+                                                </td><td>
+                                                    <input type="text" name="front_message" class="input-text trigger-limit-char"
+                                                           data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Front_msg; ?>">
+                                                </td>
+                                            </tr></table>
+                                        </p>
+
+                                        <p class="form-row form-row-wide hide-if-message_type-continues">
+                                            <table style="width: 100%;" border="0" cellspacing="0"><tr>
+                                                <td class="TdTitleCss">
+                                                    <label for="back_message"  class="form-group-heading">Back Message
+                                                        <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                                          title="<?php echo $tooltip->back;?>" data-placement="top">?
+                                                        </span>
+                                                    </label>
+                                                </td><td>
+                                                    <input type="text" name="back_message"  class="input-text trigger-limit-char"
+                                                           data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Back_msg; ?>"  />
+                                                </td>
+                                            </tr></table>
+                                        </p><!-- /.form-group -->
+                                    </div>
+
+                                <div id="ForContiID">
+                                    <p class="form-row form-row-wide hide-if-message_type-front_and_back">
                                         <table style="width: 100%;" border="0" cellspacing="0"><tr>
                                             <td class="TdTitleCss">
-                                                <label for="back_message"  class="form-group-heading">Back Message
+                                                <label for="continues_message"  class="form-group-heading">Continuous Message
                                                     <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
-                                                      title="<?php echo $tooltip->back;?>" data-placement="top">?
+                                                      title="<?php echo $tooltip->wrap_around;?>" data-placement="top">?
                                                     </span>
                                                 </label>
                                             </td><td>
-                                                <input type="text" name="back_message"  class="input-text trigger-limit-char"
-                                                       data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Back_msg; ?>"  />
+                                                <input type="text" name="continues_message" class="input-text trigger-limit-char"
+                                                       data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" />
                                             </td>
                                         </tr></table>
                                     </p><!-- /.form-group -->
                                 </div>
 
-                            <div id="ForContiID">
-                                <p class="form-row form-row-wide hide-if-message_type-front_and_back">
+                                <p class="form-row form-row-wide">
                                     <table style="width: 100%;" border="0" cellspacing="0"><tr>
                                         <td class="TdTitleCss">
-                                            <label for="continues_message"  class="form-group-heading">Continuous Message
+                                            <label for="inside_message"  class="form-group-heading">Inside Message
                                                 <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
-                                                  title="<?php echo $tooltip->wrap_around;?>" data-placement="top">?
+                                                  title="<?php echo $tooltip->inside;?>" data-placement="top">?
                                                 </span>
                                             </label>
                                         </td><td>
-                                            <input type="text" name="continues_message" class="input-text trigger-limit-char"
-                                                   data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" />
+                                            <input type="text" name="inside_message" class="input-text trigger-limit-char"
+                                                   data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Inside_msg; ?>" />
                                         </td>
                                     </tr></table>
                                 </p><!-- /.form-group -->
+                                <?php endif; ?>
                             </div>
-
-                            <p class="form-row form-row-wide">
-                                <table style="width: 100%;" border="0" cellspacing="0"><tr>
-                                    <td class="TdTitleCss">
-                                        <label for="inside_message"  class="form-group-heading">Inside Message
-                                            <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
-                                              title="<?php echo $tooltip->inside;?>" data-placement="top">?
-                                            </span>
-                                        </label>
-                                    </td><td>
-                                        <input type="text" name="inside_message" class="input-text trigger-limit-char"
-                                               data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Inside_msg; ?>" />
-                                    </td>
-                                </tr></table>
-                            </p><!-- /.form-group -->
-                            <?php endif; ?>
-
-                        </div>
                             <!-- 
                             <div id="hiddenDiv" style="display:none" >
                               <canvas id="hiddenCanvas"></canvas>
