@@ -927,11 +927,15 @@ jQuery(function ($) {
        // alert(Builder.CntID);
     }
 
-    function DistributeAddup(){
+     function DistributeAddup(){
         var TempCnt = Builder.CntID;
         if (TempCnt > 0){
-            var CntDis = 0,     ArrayID = [],
-                CntTemp = 0,    TotalCnt = 0;
+
+            var CntDis = 0,
+                ArrayID = [],
+                CntTemp = 0,
+                TotalCnt = 0;
+
             for(var x=0;x<= TempCnt;x++){
                 if (document.getElementById("inpAdult-" + x)){
                     if (toInt($("#inpAdult-" + x).val()) > 0){
@@ -957,11 +961,12 @@ jQuery(function ($) {
                 }
             }
 
+
             var b = 100,      c = ArrayID.length,
                 d = 100%c,    e = b - d,
                 f = e / c,    g = f + d,          first = true;
 
-            if (TotalCnt >= 100){
+            if (TotalCnt > 100){
                 for(var a=0;a <= ArrayID.length-1;a++){
                     if (first){
                         $("#" + ArrayID[a]).html("&nbsp; ( +" + g + " )");
@@ -1539,6 +1544,8 @@ jQuery(function ($) {
             })
 
             .on('click', '.delete-selection', function(e) {
+                e.preventDefault();
+                
                 var Stat = $(this).html();
                 var TempId = $(this).attr( "data-tempID" );
 

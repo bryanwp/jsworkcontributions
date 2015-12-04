@@ -109,6 +109,30 @@ width: auto !important;
 display: none !important;
 }
 */
+/* changes in dev */
+.home-separator-2{
+	margin-top: -80px !important;
+}
+@media screen and (min-width: 200px) {
+#home-fusion-content-boxes> #wrapper .content-boxes-icon-boxed .content-box-column, #wrapper .content-boxes-icon-on-top .content-box-column{
+	margin-bottom: 20px !important;
+}
+#full-home-clients{
+	margin-bottom: -80px !important;
+}
+}
+@media all and (min-width: 800px) {
+#home-two-third{
+	margin-top: -60px !important;
+	margin-bottom: -100px !important;
+}
+}
+@media all and (max-width: 800px) {
+#home-two-third{
+	margin-top: -60px !important;
+	margin-bottom: -50px !important;
+}
+/* changes in dev - end */
 
 
 /*Checkout Table*/
