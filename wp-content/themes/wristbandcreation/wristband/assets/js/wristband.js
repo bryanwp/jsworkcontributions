@@ -4,8 +4,9 @@ jQuery(function ($) {
     console.log(WBC.settings);
     var Settings = WBC.settings,
         Builder = {
-        has_upload: false,                   // Check if there are any files uploaded
+        has_upload  : false,                   // Check if there are any files uploaded
         CntID : 0,
+        TempColors  : [],
         price_charts: [],                   // Array of price chart
         data: {
             total_price     : 0,            // Total Price of wristband selected
@@ -44,21 +45,16 @@ jQuery(function ($) {
         },
         // Add color selected to wristband data
         addColor: function(key, value) {
-            for (var i in value) {
-                alert(value[i].name)
-            }
-
-
-            this.removeColor(key);
+            //this.removeColor(key);
             this.data.colors.push(value);
             this.observer();
         },
-        updateColor: function(name, textColorName, lists) {
+        updateColor: function(name, textColorName, Type, lists) {
+
+  
             for (var i in this.data.colors) {
                 if( name != '') {
-                    alert(this.data.colors[i].name + "==" + name + "&&" + this.data.colors[i].text_color_name + "==" + textColorName)
-
-                    if( this.data.colors[i].name ==  name && this.data.colors[i].text_color_name == textColorName) {
+                    if( this.data.colors[i].name ==  name && this.data.colors[i].text_color_name == textColorName && Type == this.data.colors[i].type) {
                         //this.data.colors[i].name            = (lists.name != '') ? lists.name : this.data.colors[i].color;
                         //this.data.colors[i].color           = (lists.color != '') ? lists.color : this.data.colors[i].color;
                         //this.data.colors[i].type            = (lists.type != '') ? lists.type : this.data.colors[i].type;
@@ -67,13 +63,9 @@ jQuery(function ($) {
                         this.data.colors[i].sizes['adult']  = (lists.sizes['adult'] != '' || lists.sizes['adult'] == 0) ? lists.sizes['adult'] : this.data.colors[i].sizes['adult'];
                         this.data.colors[i].sizes['medium'] = (lists.sizes['medium'] != '' || lists.sizes['medium'] == 0) ? lists.sizes['medium'] : this.data.colors[i].sizes['medium'];
                         this.data.colors[i].sizes['youth']  = (lists.sizes['youth'] != '' || lists.sizes['youth'] == 0) ? lists.sizes['youth'] : this.data.colors[i].sizes['youth']; 
-
                         break;
-
-                    }
-                             
+                    }          
                 } else {
-
                         this.data.colors[i].color           = (lists.color != '') ? lists.color : this.data.colors[i].color;
                         this.data.colors[i].type            = (lists.type != '') ? lists.type : this.data.colors[i].type;
                         this.data.colors[i].text_color      = lists.text_color;
@@ -81,7 +73,6 @@ jQuery(function ($) {
                         this.data.colors[i].sizes['adult']  = (lists.sizes['adult'] != '') ? lists.sizes['adult'] : this.data.colors[i].sizes['adult'];
                         this.data.colors[i].sizes['medium'] = (lists.sizes['medium'] != '') ? lists.sizes['medium'] : this.data.colors[i].sizes['medium'];
                         this.data.colors[i].sizes['youth']  = (lists.sizes['youth'] != '') ? lists.sizes['youth'] : this.data.colors[i].sizes['youth'];    
-
                     }
             }
             this.observer();
@@ -98,10 +89,10 @@ jQuery(function ($) {
             }
         },
         // Remove color selected
-        removeColor: function(name) {
+        removeColor: function(name, color_Textname) {
             for (var i in this.data.colors) {
                 //console.log(this.data.colors);
-                if(this.data.colors[i].name == name || this.data.colors[i].temp == true) {
+                if((this.data.colors[i].name == name && this.data.colors[i].text_color_name == color_Textname) || this.data.colors[i].temp == true) {
                     this.data.colors.splice(i, 1);
                 }
             }
@@ -121,39 +112,30 @@ jQuery(function ($) {
             for (var i in this.data.colors) {
                  for (var size in this.data.colors[i].sizes) {
                     //console.log(this.data);
-                    if (array_sizes.indexOf(size) == -1 && this.data.colors[i].sizes[size] > 0)
-                    {
+                    if (array_sizes.indexOf(size) == -1 && this.data.colors[i].sizes[size] > 0) {
                         array_sizes.push(size);
                     }
-                    if (array_sizes.length == 2)
-                    {
+                    if (array_sizes.length == 2) {
                         this.data.has_extra_size = true;
                         this.data.size_number = 2;
                     }
-                    if (array_sizes.length == 3)
-                    {
+                    if (array_sizes.length == 3) {
                         this.data.has_extra_size = true;
                         this.data.size_number = 3;
                     }
-                   
                 }
-
             }
         },
       
          // Collect all quantity
         collectQuantity: function() {
-
             var total_qty       = 0;
-
                 for (var color in this.data.colors) {
                     for (var size in this.data.colors[color].sizes) {
                         total_qty += this.data.colors[color].sizes[size];
                     }
                 }
-
                 this.data.total_qty = total_qty;
-   
         },
         // Append alert messages
         appendAlertMsg: function(_msg, el, uniq_class) {
@@ -183,35 +165,21 @@ jQuery(function ($) {
         additionalOptionsShow: function(size){
             var addOption = Settings.additional_options,
                 value = '';
-                for( var option in addOption)
-                {
+                for( var option in addOption) {
                      var choose_size = addOption[option].choose_size;
-                    for (var i = 0; i < choose_size.length; i++) 
-                    {
-                            if ( choose_size[i] === size ) 
-                            {
+                    for (var i = 0; i < choose_size.length; i++) {
+                            if ( choose_size[i] === size ) {
                                value = 'true';
                                break;
-                            }   
-                            else{
-                                    value = 'not true';
-                            }  
+                            } else { value = 'not true'; }  
                     } 
-                        if(value == 'true')
-                        {
-                            $('#id_'+option).show();
-                        }
-                        else if(value == 'not true')
-                        {
-                            $('#id_'+option).hide();
-                        }
+                        if(value == 'true') { $('#id_'+option).show(); } 
+                        else if(value == 'not true') { $('#id_'+option).hide(); }
                 }
-                
         },
 
         // Observe any changes and calcuate price and quantity for display
         observer: function() {
-            //    alert("sadas")
                 this.checkColorSplitAndExtraSize();
                 this.collectQuantity();
                 this.collectPrices();
@@ -221,28 +189,17 @@ jQuery(function ($) {
                 this.data.total_qty = total_qty;
                 this.data.total_price = total_price;  
 
-                 console.log('this.data.total_qty this.data.total_price');
-                 console.log(this.data.total_qty);
-                 console.log(this.data.total_price);
-
                 $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 Free' : ''));
                 $('#price_handler').text(numberFormat(total_price));
-                if( total_qty < 100)
-                {
-                    $('#id_convert_to_keychains').hide();
-                }else
-                {
-                    $('#id_convert_to_keychains').show();
-                }
-
+                if( total_qty < 100){ $('#id_convert_to_keychains').hide(); } 
+                else { $('#id_convert_to_keychains').show(); }
             this.buildPreview();
-            
         },
+
         buildPreview: function() {
             var message_type = $('input[name="message_type"]:checked').val(),
                 a = $('.preview-button.active').data('input'),
                 input = message_type == 'continues' ? 'continues_message' : a;
-
             $("#front-text").text($('input[name="'+ input  +'"]').val().toUpperCase());
             $('#insidetextpath').text($('input[name="inside_message"]').val().toUpperCase());
             $('#front-text').attr('font-family', $('select[name="font"] option:selected').val());
@@ -250,15 +207,10 @@ jQuery(function ($) {
             var StyleColor = $('input[name="color_style"]:checked').val();
             var y = $('#wristband-color-items .color-wrap.selected > div').data('color');
 
-            if (y != undefined) {
-                if($('#bandcolor').length) {
-                //backme
-                    SelectBandColor(StyleColor,y);
-                }
-           }
-       },
+            if (y != undefined) { if($('#bandcolor').length) { SelectBandColor(StyleColor,y); } }
+        },
+
         renderProductionShippingOptions: function() {
-     
             if (this.data.total_qty <= 0)return;
             var $size =  $('#width option:selected'),
                 c = ['production', 'shipping'];
@@ -281,25 +233,15 @@ jQuery(function ($) {
                 $select.trigger('change');
            }
         },
+
         // Bind element to jquery library/packages on load
         onLoad: function() {
-//milbert
-            //if ($('#preview_container').length) { Pablo(preview_container).load(Settings.svg); }
-                // Trigger change on ready
-                $('select[name="style"], input[name="message_type"]').trigger('change');
+            $('select[name="style"], input[name="message_type"]').trigger('change');
 
-                // Trigger keyup on ready
-                $('.trigger-limit-char').trigger('keyup');
-
-
-            if (document.getElementById("EditModeID")){
-                StartEdit();
-            }
-
-
+            // Trigger keyup on ready
+            $('.trigger-limit-char').trigger('keyup');
 
             $('.fileupload').each(function() {
-
                 var $self = $(this);
                 $self.fileupload({
                     url             : WBC.ajax_url,
@@ -342,8 +284,6 @@ jQuery(function ($) {
 
                             Builder.observer();
                        });
-
-
                    },
                     progressall: function (e, data) {
                         var $self = $(this);
@@ -359,8 +299,8 @@ jQuery(function ($) {
                 }).prop('disabled', !$.support.fileInput)
                     .parent().addClass($.support.fileInput ? undefined : 'disabled');
            });
-
         },
+
         renderPriceChart: function() {
             var price_charts = this.price_charts = Settings.products[$('select[name="style"]').val()]['sizes'][$('select#width').val()]['price_chart'];
             $('#price_chart table tr td:not(:first-child)').remove();
@@ -371,6 +311,7 @@ jQuery(function ($) {
                 $('#price_chart table tr:eq(1)').append(output_price_tpl);
             }
         },
+
         deleteClipart: function(file) {
             return $.ajax({
                 url     : WBC.ajax_url + '?file=' + file + '&action=delete_clipart',
@@ -393,11 +334,12 @@ jQuery(function ($) {
             }
             return group
         },
+
         getDayPrice: function(list) {
             return this.rangePrice(list, this.data.total_price);
         },
-        collectDataToPost: function() {
 
+        collectDataToPost: function() {
             var addtional_options   = [],
                 messages            = {},
                 $production_time    = $('select[name="customization_date_production"] option:selected'),
@@ -426,7 +368,7 @@ jQuery(function ($) {
                 additional_options      : addtional_options,
                 customization_location  : $('input[name="customization_location"]').data('title'),
                 customization_date_production : $production_time.text(),
-                customization_date_shipping : $production_time.text(),
+                customization_date_shipping : $shipping_time.text(),
                 guaranteed_delivery: 'Oct 4, 2016'
             });
         },
@@ -523,6 +465,7 @@ jQuery(function ($) {
             this._customizationLocation();
             this._customizationDate();
         },
+
         _priceChart: function(qty) {
             if (qty <= 0) return 0;
             var price_charts = this.price_charts,
@@ -530,66 +473,45 @@ jQuery(function ($) {
                 total = 0;
                 total  = additional * qty;
 
-                if ( qty == 0 )
-                {
-                    this.data.total_price += additional; 
-                }
-                else 
-                {
-                    this.data.total_price += total;
-                }
-
+                if ( qty == 0 ) { this.data.total_price += additional; } 
+                else { this.data.total_price += total; }
         },
+
         _colorSplit: function(qty) {
             if (!this.data.has_color_split) return;
-            
-            if(this.data.colors.length > 1)
-            {
+            if(this.data.colors.length > 1) {
                 var color_split_cost = Settings.color_split_cost_price_list,
                 additional = this.rangePrice(color_split_cost, qty) * 1 ;
                 this.data.total_price += additional;
             }
         },
+
         _extraSize: function(qty) {
             if (!this.data.has_extra_size) return;
             var extra_size_cost = Settings.color_extra_size_cost_price_list;
 
-                if (this.data.size_number == 1)
-                {
-                    return;
-                }
-                else if (this.data.size_number == 2)
-                {
-                    this.data.total_price += this.rangePrice(extra_size_cost,qty);
-                }
-                else
-                {
-                    this.data.total_price += this.rangePrice(extra_size_cost,qty) * 2;
-                }
+            if (this.data.size_number == 1) { return; } 
+            else if (this.data.size_number == 2) { this.data.total_price += this.rangePrice(extra_size_cost,qty);} 
+            else { this.data.total_price += this.rangePrice(extra_size_cost,qty) * 2; }
         },
+
         _colorStylePrice: function(qty) {
+   
             if(qty <= 0) return;
+
             var color_style_price = Settings.price_list,
                 styleID = $('.color-wrap.selected').eq(0).attr('title');
-                 console.log('Settings');
-                 console.log(Settings);
-                 console.log('styleID');
-                 console.log(styleID);
-                 
-                // console.log(Settings.color_style);
-                // console.log(Settings.color_style[styleID]);
-                if(Settings.color_style[styleID].price_list)
-                {
-                    var color_style_cost = Settings.color_style[styleID].price_list,
-                        additional = this.rangePrice(color_style_cost, qty);
-                    this.data.total_price += additional;
-                }
-                else
-                {
-                    return;
-                } 
-                   
+
+            if ($('.color-wrap.selected').eq(0).attr('title')){ /* nothing*/ } 
+            else { styleID = $('input[name="color_style"]:checked').val(); }
+
+            if(Settings.color_style[styleID].price_list) {
+                var color_style_cost = Settings.color_style[styleID].price_list,
+                    additional = this.rangePrice(color_style_cost, qty);
+                this.data.total_price += additional;
+            } else { return; } 
         },
+
         _msgMoreThanCharLimit: function(qty) {
             if (qty <= 0) return;
             var price_list = Settings.messages.more_than_22_characters_price_list,
@@ -782,6 +704,27 @@ jQuery(function ($) {
         }
     }
 
+
+   function wbTextColorFromTbl(SetColor) {
+        if(SetColor == undefined) {
+            if (document.getElementById("bandtextpathinside")){
+                document.getElementById("bandtextpathinside").style.fill = '#999999';
+                document.getElementById("bandtextpathinside").style.opacity = "0.4";
+
+                document.getElementById("bandtextpath").style.fill = '#999999';
+                document.getElementById("bandtextpath").style.opacity = "0.4";
+            }
+        } else {
+            document.getElementById("bandtextpathinside").style.fill = SetColor;
+            document.getElementById("bandtextpathinside").style.opacity = "1";
+
+            document.getElementById("bandtextpath").style.fill = SetColor;
+            document.getElementById("bandtextpath").style.opacity = "1";
+        }
+    }
+
+
+
     //Display the default message option which front, back & inside
     function messageOptionDisplay(value) {
         if (value == "front_and_back"){ 
@@ -821,111 +764,136 @@ jQuery(function ($) {
         } 
     }
 
+    function CheckEdit(){ if(document.getElementById("EditModeID")){ StartEdit(); } }
+
     function StartEdit(){
         var val = document.getElementById('EditModeID').name;
         val = val.split("|");
-
-        //milbert
-
         var MultiAdd = val[2];
 
-        SetWristStyel(val[0]);
-        SetWristSize(val[1]);
-        EditAdditionalColor(MultiAdd);
-        Builder.renderProductionShippingOptions();
-        SetProdShipTime();
+        SetSelectCheckedText("style", val[0]);
+        SetSelectCheckedText("width", val[1]);
+        LoadTOArray(MultiAdd);
+        $("#style").change();
 
-        //alert("1111");
+        LoadAdditionalOption(val[6],val[7],val[8],val[9]);
+        LoadPicture(val[10],val[11],val[12],val[13],val[14],val[15]);
+
         Builder.observer();
-        //alert("1111");
+        Builder.renderProductionShippingOptions();
+        SetProdShipTime(val[3],val[4],val[5]);
+        $("#delivery_date").html(val[16])
+
+
+        setTimeout(function(){ ComputeAll(); }, 100);
     }
 
-    function SetWristStyel(Style){
-        var sel = document.getElementById('style');
-        for(var i = 0, j = sel.options.length; i < j; ++i) {
-            if(sel.options[i].innerHTML === Style) {
-               sel.selectedIndex = i;
+    function ComputeAll(){
+        Builder.checkColorSplitAndExtraSize();
+        Builder.collectQuantity();
+        Builder.collectPrices();
+        var total_qty   = Builder.data.total_qty,
+        total_price = Builder.data.total_price;
+
+        Builder.data.total_qty = total_qty;
+        Builder.data.total_price = total_price;  
+
+        $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 Free' : ''));
+        $('#price_handler').text(numberFormat(total_price));
+        if( total_qty < 100){ $('#id_convert_to_keychains').hide(); } 
+        else { $('#id_convert_to_keychains').show(); }
+    }
+
+    function SetSelectCheckedText(Obj, setSelected){
+        var myObj = document.getElementById(Obj);
+        for(var i = 0, j = myObj.options.length; i < j; ++i) {
+            if(myObj.options[i].innerHTML === setSelected) {
+               myObj.selectedIndex = i;
                break;
             }
         }
     }
 
-    function SetWristSize(Size){
-        var sel = document.getElementById('width');
-        for(var i = 0, j = sel.options.length; i < j; ++i) {
-            if(sel.options[i].innerHTML === Size) {
-               sel.selectedIndex = i;
-               break;
-            }
-        }
-    }
-
-
-    function EditAdditionalColor(MultiAdd){
+    function LoadTOArray(MultiAdd){
         var SplitItem = MultiAdd.split("~");
         for(var x=0;x<=SplitItem.length-1;x++){
             var TempSplit = SplitItem[x].split("^");
 
-            var bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap color-added"><div data-color="{{bg_color}}" ' +
-                               'style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});' +
-                               'background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});' +
-                               'background: linear-gradient(90deg,{{bg_color}});"></div>&nbsp;<span class="SpanColorbox">' + TempSplit[0] + '</span></div>{{qty}}</div>',
-                bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" style="display:{{style_display}}" >' +
-                               '<div data-color="{{bg_color}}" style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});' +
-                               'background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});' +
-                               'background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>',
-                WristColor    = Mustache.render(bg_style_tpl, {hide: '', bg_color: TempSplit[0], qty: ''}),
-                TextColor = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'none', bg_color: TempSplit[4], qty: ''});
-
-                Builder.addColor(TempSplit[0], {
-                    name: TempSplit[0],
-                    color: TempSplit[2],
-                    type: TempSplit[1],
-                    text_color_name: TempSplit[3],
-                    text_color: TempSplit[4],
-                    sizes: {
-                        adult: toInt(TempSplit[5]),
-                        medium: toInt(TempSplit[6]),
-                        youth: toInt(TempSplit[7]),
-                   }
-                });
-                numberFormat(toInt(TempSplit[5]), 0)
-                var row_tpl = Mustache.render(
-                    '<tr data-name="{{name}}" class="option-tr" id="Tr-' + x + '">'
-                    + '<td style="text-align: left" id="colorBox-' + x + '">{{{wristband_color_box}}}</td>'
-                    + '<td><center><span style="font-weight: bold;" id="spanAdult-' + x +'">{{{adult_qt}}}</span><span id="spanAdultup-' + x + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpAdult-' + x + '" value="{{{num_aq}}}"></center></td>'
-                    + '<td><center><span style="font-weight: bold;" id="spanMedium-' + x +'">{{{medium_qty}}}</span><span id="spanMediumup-' + x + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpMedium-' + x + '" value="{{{num_mq}}}"></center></td>'
-                    + '<td><center><span style="font-weight: bold;" id="spanYouth-' + x +'">{{{youth_qty}}}</span><span id="spanYouthup-' + x + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpYouth-' + x + '" value="{{{num_yq}}}"></center></td>'
-                    + '<td style="text-align: center" id="colorTextBox-' + x + '"><center>{{{wristband_text_color_box}}}</center></td>'
-                    + '<td colspan="2" style="text-align: right;"><a href="#" id="EditID-' + x +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + x +'">Edit</a><a id="DelID-' + x +'" href="#" class="delete-selection" data-tempID="' + x +'" data-name="{{name}}" >Delete</a></td>'
-                    + '</tr>',
-                    {
-                        name                        : TempSplit[0],
-                        adult_qt                    : numberFormat(toInt(TempSplit[5]), 0),
-                        medium_qty                  : numberFormat(toInt(TempSplit[6]), 0),
-                        youth_qty                   : numberFormat(toInt(TempSplit[7]), 0),
-                        wristband_color_box         : WristColor,
-                        wristband_text_color_box    : TextColor,
-                        num_aq                      : toInt(TempSplit[5]),
-                        num_mq                      : toInt(TempSplit[6]),
-                        num_yq                      : toInt(TempSplit[7]),
-                   }
-                );
-
-                var $tr = $('#selected_color_table > tbody tr[data-name="'+ TempSplit[0] +'"]');
-                    if ($tr.length) { $tr.replaceWith(row_tpl); } 
-                    else { $('#selected_color_table > tbody').append(row_tpl); }
-
-                $('#wristband-color-tab  div[data-name^="'+ TempSplit[0]  +'"]').closest('.color-wrap').addClass('added');
-                if (TempSplit[4] != ""){ $('#wristband-text-color .color-wrap > div[data-name^="'+ TempSplit[4] +'"]').closest('.color-wrap').addClass('added'); }
+            var value = {
+                name: TempSplit[0],
+                color: TempSplit[2],
+                type: TempSplit[1],
+                text_color_name: TempSplit[3],
+                text_color: TempSplit[4],
+                sizes: {
+                    adult: toInt(TempSplit[5]),
+                    medium: toInt(TempSplit[6]),
+                    youth: toInt(TempSplit[7]),
+               }
+            }
+            Builder.data.colors.push(value);
         }
-        Builder.CntID = x;
-        DistributeAddup();
     }
 
-    function SetProdShipTime(){
-       // alert(Builder.CntID);
+    function SetProdShipTime(C_location,C_date_prod,C_date_ship){
+        var TmpDateprod = C_date_prod.split(" ")[0],
+            TmpDateship = C_date_ship.split(" ")[0];
+       $('input[name="customization_location"]').each( function () {
+            if ($(this).attr("data-title") == C_location){
+                $(this).attr('checked', true);
+            }
+        });       
+
+        $("#customization_date_production").val(TmpDateprod);
+        if (!Number(TmpDateship)){ 
+            SetSelectCheckedText("customization_date_shipping", "International Shipping - Free");
+        } else {
+            $("#customization_date_shipping").val(TmpDateship);
+        }
     }
+
+    function LoadAdditionalOption(InPackaging, Eco, Thick, DigitalPro){
+        
+       $('input[name="additional_option[]"]').each( function () {
+            if ($(this).val() == InPackaging){ $(this).attr('checked', true); } 
+            else if ($(this).val() == Eco){ $(this).attr('checked', true); } 
+            else if ($(this).val() == Thick){ $(this).attr('checked', true); } 
+            else if ($(this).val() == DigitalPro){ $(this).attr('checked', true); }
+        });
+    }
+
+    function LoadPicture(FS,FE,BS,BE,VP,WristStat){
+        $('.clipart-list li').each( function () {
+            var glyp = $(this).data('icon-code');
+
+            if ($(this).data('icon') == FS){ 
+                $('#FsID').removeClass('fa fa-ban icon-preview hide-if-upload');
+                $('#FsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
+                $('#front_start').text(glyp);
+                $('#icon_start').text(  $('#front_start').text());
+                $('#icon_end').text(  $('#front_end').text());
+            } else if ($(this).data('icon') == FE){
+                $('#FeID').removeClass('fa fa-ban icon-preview hide-if-upload');
+                $('#FeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
+                $('#front_end').text(glyp);
+                $('#icon_start').text(  $('#front_start').text());
+                $('#icon_end').text(  $('#front_end').text());
+            } else if ($(this).data('icon') == BS){
+                $('#BsID').removeClass('fa fa-ban icon-preview hide-if-upload');
+                $('#BsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
+                $('#back_start').text(glyp);
+                $('#icon_start').text(  $('#back_start').text());
+                $('#icon_end').text(  $('#back_end').text());
+            } else if ($(this).data('icon') == BE){
+                $('#BeID').removeClass('fa fa-ban icon-preview hide-if-upload');
+                $('#BeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));;
+                $('#back_end').text(glyp);
+                $('#icon_start').text(  $('#back_start').text());
+                $('#icon_end').text(  $('#back_end').text());
+            }
+        });
+    }
+
 
      function DistributeAddup(){
         var TempCnt = Builder.CntID;
@@ -1022,13 +990,8 @@ jQuery(function ($) {
 
 
     function AddNewColor(){
-
         var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
             $tc = $('#wristband-text-color .color-wrap.selected > div'),
-            bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap color-added"><div data-color="{{bg_color}}" ' + 
-                           ' style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});' +
-                           'background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});' +
-                           'background: linear-gradient(90deg,{{bg_color}});"></div>&nbsp;<span class="SpanColorbox">' + $wc.data('name') + '</span></div>{{qty}}</div>',
             bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" ' +
                                 'style="display:{{style_display}}" ><div data-color="{{bg_color}}" style="background-color:{{bg_color}}; ' +
                                 'background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}}); ' +
@@ -1040,7 +1003,6 @@ jQuery(function ($) {
         var _adult_qty   = numberFormat(toInt($aq.val()), 0),
             _medium_qty  = numberFormat(toInt($mq.val()), 0),
             _youth_qty   = numberFormat(toInt($yq.val()), 0),
-            _wristband_color_box    = Mustache.render(bg_style_tpl, {hide: '', bg_color: $wc.data('color'), qty: ''}),
             _wristband_text_color_box = '';
 
         if ((toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)) { Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.'); return; }
@@ -1057,11 +1019,19 @@ jQuery(function ($) {
             _txtColor = $tc.data('color');
         }
 
+        var bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap color-added" data-textColor="' + _txtColor + '" data-W_type="' + $('input[name="color_style"]:checked').val() + '"><div data-color="{{bg_color}}" ' + 
+            ' style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});' +
+            'background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});' +
+            'background: linear-gradient(90deg,{{bg_color}});"></div>&nbsp;<span class="SpanColorbox">' + $wc.data('name') + " - " + $('input[name="color_style"]:checked').val() + '</span></div>{{qty}}</div>',
+            _wristband_color_box    = Mustache.render(bg_style_tpl, {hide: '', bg_color: $wc.data('color'), qty: ''});
+
+
+
         var SaveStatus = true,
             SelectedID = "";
         for(var x=0;x<=Builder.CntID;x++){
             if (document.getElementById("inpAdult-" + x)){ 
-                if ($("#DelID-" + x).attr('data-name') == $wc.data('name') && $("#DelID-" + x).attr('data-textname') == _txtColorName){ SaveStatus = false; SelectedID = x; break; } 
+                if ($("#DelID-" + x).attr('data-name') == $wc.data('name') && $("#DelID-" + x).attr('data-textname') == _txtColorName && $("#DelID-" + x).attr('data-type') == $('input[name="color_style"]:checked').val()){ SaveStatus = false; SelectedID = x; break; } 
             }
         }
 
@@ -1081,24 +1051,6 @@ jQuery(function ($) {
                }
             });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             var TempID = Builder.CntID; 
             var row_tpl = Mustache.render(
                 '<tr data-name="{{name}}" class="option-tr" id="Tr-' + TempID + '">'
@@ -1107,7 +1059,7 @@ jQuery(function ($) {
                 + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"></center></td>'
                 + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"></center></td>'
                 + '<td style="text-align: center" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
-                + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" >Delete</a></td>'
+                + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}">Delete</a></td>'
                 + '</tr>',
                 {
                     name                        : $wc.data('name'),
@@ -1120,10 +1072,15 @@ jQuery(function ($) {
                     num_mq                      : toInt($mq.val()),
                     num_yq                      : toInt($yq.val()),
                     textColorName               : ($tc.data('name') == null)? _txtColorName : $tc.data('name'),
+                    Wrist_Type                  : $('input[name="color_style"]:checked').val(),
                }
             );
             var $tr = $('#selected_color_table > tbody tr[data-name="'+ $wc.data('name') +'"]');
             $('#selected_color_table > tbody').append(row_tpl); 
+
+
+            if ($("#EditSaveID").html() == "Save"){ Enab_Dis("Disabled"); }
+         //   
         //===================================
         } else {
             var Total_aq = Number(_adult_qty) + Number($("#inpAdult-" + SelectedID).val());
@@ -1138,10 +1095,7 @@ jQuery(function ($) {
             $("#inpMedium-" + SelectedID).val(toInt(Total_mq));
             $("#inpYouth-" + SelectedID).val(toInt(Total_yq));
          
-            alert(Total_aq + "==" + Total_mq + "==" + Total_yq)
-
-
-            Builder.updateColor($wc.data('name'), _txtColorName, {
+            Builder.updateColor($wc.data('name'), _txtColorName, $('input[name="color_style"]:checked').val(), {
                                             name: $wc.data('name'),
                                             color: $wc.data('color'),
                                             type: $('input[name="color_style"]:checked').val(),
@@ -1153,12 +1107,8 @@ jQuery(function ($) {
                                                 youth: toInt(Total_yq),
                                            }
                                         });
-
         }
-
-        alert("done")
         $('#qty_adult, #qty_medium, #qty_youth').val('');
-        //$('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
         DistributeAddup();//Addup
         Builder.renderProductionShippingOptions();
         return false;
@@ -1214,6 +1164,95 @@ jQuery(function ($) {
     }
 
 
+    function WithTextColor(textStyle){
+        var items = [];
+
+        if (textStyle){ /*nothing */ } 
+        else {
+            for (var i in Builder.data.colors) {
+                var TempName = Builder.data.colors[i].name,
+                    TempColor = Builder.data.colors[i].color,
+                    TempType = Builder.data.colors[i].type,
+                    TempText_color = Builder.data.colors[i].text_color,
+                    TempText_color_name = Builder.data.colors[i].text_color_name,
+                    TempAdult = Builder.data.colors[i].sizes['adult'],
+                    TempMedium = Builder.data.colors[i].sizes['medium'],
+                    TempYouth = Builder.data.colors[i].sizes['youth'];
+
+
+            //---------------------------------------------
+
+                var AddStatus = true,
+                    FullItem = "";
+
+                 for (var x in items) {
+                    if (items[x].name == TempName && items[x].type == TempType){
+                        items[x].sizes['adult'] = Number(TempAdult) + Number(items[x].sizes['adult']);
+                        items[x].sizes['medium'] = Number(TempMedium) + Number(items[x].sizes['medium']);
+                        items[x].sizes['youth'] = Number(TempYouth) + Number(items[x].sizes['youth']);
+                        AddStatus = false;
+                        break;
+                    }
+                 }
+
+                //*******************************
+  
+                if (AddStatus){
+                    FullItem = {            
+                                    name: TempName,
+                                    color: TempColor,
+                                    type: TempType,
+                                    text_color: "#ffffff",
+                                    text_color_name: "White",
+                                    sizes: {
+                                        adult: TempAdult,
+                                        medium: TempMedium,
+                                        youth: TempYouth,
+                                    }
+                                };
+                    items.push(FullItem)   
+                } 
+            //---------------------------------------------
+            }
+            Builder.data.colors = items;
+        }
+    }
+
+
+    function DeleteRows(){
+        var myTable = document.getElementById("selected_color_table");
+        var rowCount = myTable.rows.length;
+        for (var x=rowCount-1; x>0; x--) { myTable.deleteRow(x); }
+    }
+
+
+    function CheckItems(){
+        Builder.TempColors = Builder.data.colors;
+        var textStyle = $("#style").find("option:selected").text(),
+            TempArray = [];
+  
+
+        if (textStyle == "Blank" || textStyle == "Figured" || textStyle == "Embossed" || textStyle == "Debossed"){
+            for (var i in Builder.data.colors) {
+                var Tmp = {
+                    name                : Builder.data.colors[i].name,
+                    color               : Builder.data.colors[i].color,
+                    type                : Builder.data.colors[i].type,
+                    sizes: {
+                        adult           : Builder.data.colors[i].sizes['adult'],
+                        medium          : Builder.data.colors[i].sizes['medium'],
+                        youth           : Builder.data.colors[i].sizes['youth'],
+                   }
+                }
+                TempArray.push(Tmp);
+            }
+            Builder.data.colors = TempArray;
+        }
+    }
+
+
+    function ConnectItems(){ Builder.data.colors = Builder.TempColors; }
+
 
 
 
@@ -1254,19 +1293,23 @@ jQuery(function ($) {
             })
             // Get Product sizes on style changed
             .on('change', 'select[name="style"]', function(e) {
-                var textStyle = this.options[this.selectedIndex].text;
+                var textStyle = this.options[this.selectedIndex].text,
+                    slctd_product = Settings.products[this.value];
                 ChangeStyle(textStyle);
 
                 e.preventDefault();
                // Builder.reset();
-                var slctd_product = Settings.products[this.value],
-                    i = [],
+
+                WithTextColor(slctd_product.text_color);
+                var i = [],
                     slctd_style = $(this).val(),
-                    color_lists = Builder.getColorLists();
+                    color_lists = Builder.data.colors;
 
                 // console.log(slctd_product);
                 if (slctd_product != undefined) {
-                    $('#wbc_add_to_cart').removeAttr('disabled');
+                    if (document.getElementById("wbc_add_to_cart")){
+                        $('#wbc_add_to_cart').removeAttr('disabled');
+                    }
                     $('select#width').empty().removeAttr('disabled');
 
                     for( var size in slctd_product.sizes) { i.push(slctd_product.sizes[size].count); } 
@@ -1292,16 +1335,13 @@ jQuery(function ($) {
 
                     Builder.init();
                     $('#wristband-text-color ul').empty();
-                   
 
                     if ( slctd_product.text_color) {
                         $('#wristband-text-color').closest('.form-group').show();
-
                         for (var i in slctd_product.text_color) {
                             if(i == 0 && slctd_product.text_color[0].name !=  '') {
                                 var default_tc = slctd_product.text_color[0].name; // set if there is default text color set on the backend.
                             }
-
                             var tpl = '<li><div class="color-wrap '+ (i == 0 ? 'selected' : '') +'"><div data-name="{{name}}" data-color="{{color}}" style="background-color:{{color}};"></div></div></li>';
                             var render = Mustache.render(tpl, {
                                 name: slctd_product.text_color[i].name,
@@ -1309,46 +1349,21 @@ jQuery(function ($) {
                             });
                             $('#wristband-text-color ul').append(render);
                         }
-                        
-                        Builder.updateColor('','', {name: '',
-                                                   color: '',
-                                                   type: '',
-                                                   text_color: slctd_product.text_color[0].color,
-                                                   text_color_name: slctd_product.text_color[0].name,
-                                                   sizes: {
-                                                        adult: '',
-                                                        medium: '',
-                                                        youth: '',
-                                                    }
-                                            });
-                
-                   } else {
-                        $('#wristband-text-color').closest('.form-group').hide();
-                        Builder.updateColor('','', {name: '',
-                                                      color: '',
-                                                      type: '',
-                                                      text_color: '#FFFFFF',
-                                                      text_color_name: 'White',
-                                                      sizes: {
-                                                            adult: '',
-                                                            medium: '',
-                                                            youth: '',
-                                                        }
-                                                    });
+                   } else { /* $('#wristband-text-color').closest('.form-group').hide(); */ }
 
-                   }
                     messageOptionDisplay($('input[name="message_type"]:checked').val()); // display the default message option which front, back & inside
                     wbTextColor(); //display the text color in the wristband preview
+                    DeleteRows();
 
                     //get the color list and update the additional color table list
-                    var lists = Builder.getColorLists();
+                    var lists = Builder.data.colors;
                     Builder.CntID = 0;
                     var TempID = Builder.CntID;
                     for (var index in lists) {
-                        var bg_style_tpl =  '<div class="{{hide}}"><div class="color-wrap color-added"><div data-color="{{bg_color}}" ' + 
+                        var bg_style_tpl =  '<div class="{{hide}}"><div class="color-wrap color-added" data-textColor="' + lists[index].text_color + '" data-w_type="' + lists[index].type + '"><div data-color="{{bg_color}}" ' + 
                                             'style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});' +
                                             'background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});' + 
-                                            'background: linear-gradient(90deg,{{bg_color}});"></div>&nbsp;<span class="SpanColorbox">' + lists[index].name + '</span></div>{{qty}}</div>',
+                                            'background: linear-gradient(90deg,{{bg_color}});"></div>&nbsp;<span class="SpanColorbox">' + lists[index].name + " - " + lists[index].type + '</span></div>{{qty}}</div>',
                         bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" style="display:{{style_display}}" ' +
                                             '><div data-color="{{bg_color}}" style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});' +
                                             'background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});' +
@@ -1362,7 +1377,6 @@ jQuery(function ($) {
                         } else {
                             _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'none', bg_color: lists[index].text_color, qty: ''});
                         }
-                        alert(lists[index].text_color_name)
                         var  $tr = $('#selected_color_table > tbody tr[data-name="'+ lists[index].name +'"]'); 
                         var row_tpl = Mustache.render(
                             '<tr data-name="{{name}}" class="option-tr" id="Tr-' + TempID + '">'
@@ -1371,7 +1385,7 @@ jQuery(function ($) {
                             + '<td><center><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"></center></td>'
                             + '<td><center><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"></center></td>'
                             + '<td style="text-align: center" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
-                            + '<td colspan="2" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" >Delete</a></td>' 
+                            + '<td colspan="2" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}" >Delete</a></td>' 
                             + '</tr>',
                             {
                                 name                        : lists[index].name,
@@ -1384,11 +1398,14 @@ jQuery(function ($) {
                                 num_mq                      : lists[index].sizes['medium'],
                                 num_yq                      : lists[index].sizes['youth'],
                                 textColorName               : lists[index].text_color_name,
+                                Wrist_Type                  : lists[index].type 
                            }
                         );
-                        $tr.replaceWith(row_tpl);
+
+                    $('#selected_color_table > tbody').append(row_tpl); 
                     TempID++;
                     }
+
                     Builder.CntID = TempID;
                     if(slctd_product.text_color) {
                         $('.colortext--wrap').show(); // show text color in the additional table list
@@ -1440,7 +1457,6 @@ jQuery(function ($) {
 
             // Text Color Selection
             .on('click', '#wristband-text-color .color-wrap', function() {
-
                 var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name');
                 if(tbl_color){
                      $('#wristband-text-color .color-wrap').removeClass('selected');
@@ -1449,6 +1465,7 @@ jQuery(function ($) {
                 } 
                 $('#wristband-text-color .color-wrap').removeClass('selected');
                 $(this).addClass('selected');
+
 
                 //display the text color in the wristband preview;
                  wbTextColor();
@@ -1496,6 +1513,7 @@ jQuery(function ($) {
                 if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)){ return; }
 
                 if(tbl_color == undefined) {
+                    /*
                    //do this process if it's not updating the additional table list     
                    Builder.addColor($wc.data('name'), {
                         name: $wc.data('name'),
@@ -1510,6 +1528,7 @@ jQuery(function ($) {
                         },
                         temp: true, // This is for temporary color during keyup
                     });
+*/
                     Builder.renderProductionShippingOptions();
 
                 } 
@@ -1527,9 +1546,53 @@ jQuery(function ($) {
                     Enab_Dis("Disabled");
 
                 } else {
-                    $(this).html("Edit");
-                    $("#CancelID").html("");
-                    Enab_Dis("SaveEdit");
+                    var Saving = true;
+                    for (var x=0;x<= Builder.CntID;x++){
+                        if (document.getElementById("DelID-" + x)){
+                            var aq = $("#inpAdult-" + x).val(),
+                                mq = $("#inpMedium-" + x).val(),
+                                yq = $("#inpYouth-" + x).val();
+
+                                if((toInt(aq) <= 0 && toInt(mq) <= 0 && toInt(yq) <= 0)){
+                                    if (toInt(aq) > 0 || toInt(mq) > 0 || toInt(yq) > 0){ /*Nothing*/ }
+                                    else{ 
+                                        Saving = false; 
+                                        break; 
+                                    }
+                                }
+                        }
+                    }
+                    //------------------------------------------------
+                    if (Saving){
+                    //*************************************
+                        for (var x=0;x<= Builder.CntID;x++){
+                            if (document.getElementById("DelID-" + x)){
+                                var ColorName = $("#DelID-" + x).attr('data-name'),
+                                    TextColorName = $("#DelID-" + x).attr('data-textname'),
+                                    Type = $("#DelID-" + x).attr('data-type'),
+                                    aq = $("#inpAdult-" + x),
+                                    mq = $("#inpMedium-" + x),
+                                    yq = $("#inpYouth-" + x);
+
+                                    Builder.updateColor(ColorName, TextColorName,Type, {
+                                                                    name: "",
+                                                                    color: "",
+                                                                    type: "",
+                                                                    text_color: "",
+                                                                    text_color_name: "",
+                                                                    sizes: {
+                                                                        adult: toInt(aq.val()),
+                                                                        medium:toInt(mq.val()),
+                                                                        youth: toInt(yq.val()),
+                                                                   }
+                                                                });
+                            }
+                        }
+                        $(this).html("Edit");
+                        $("#CancelID").html("");
+                        Enab_Dis("SaveEdit");
+                    //*************************************
+                    } else { Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.'); return; }
                 }
             })
 
@@ -1564,10 +1627,11 @@ jQuery(function ($) {
 
                 } else {
                     e.preventDefault();
-                    var $row = $(this).closest('tr');
-                    var color_name = $(this).attr('data-name')
-                    //return;
+                    var $row = $(this).closest('tr'),
+                        color_name = $(this).attr('data-name'),
+                        color_Textname = $(this).attr('data-textname');
 
+                    //return;
                     $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
 
                     // Remove "added" class in wristband colors
@@ -1585,11 +1649,19 @@ jQuery(function ($) {
                     $row.remove();
                     DistributeAddup();//Addup
                     // Remove color from selections
-                    Builder.removeColor(color_name);
+                    Builder.removeColor(color_name,color_Textname);
+
+                    if (Builder.data.colors.length == 0){
+                        $("#EditSaveID").html("Edit");
+                        $("#CancelID").html("");
+                        Enab_Dis("SaveEdit");
+                    }
+
                     return false;
                 }
             })
 
+    /*
             .on('click', '.edit-selection', function(e) {
                 e.preventDefault();
                 var Stat = this.innerHTML;
@@ -1698,7 +1770,7 @@ jQuery(function ($) {
                     DistributeAddup();//Addup
                 }
             })
-            
+    */        
             .on('click','.edit-button-text',function(e){
                 e.preventDefault();
                 var $row = $(this).closest('tr');
@@ -1800,15 +1872,11 @@ jQuery(function ($) {
 
             .on('click', '.color-added', function(e){
                 //milbert
-                var StyleColor = $('input[name="color_style"]:checked').val();
-                var SelectedColor = $(this).find('div').data('color');
-                var SplitColor = $(this).find('div').data('color').split(",");
+                var SelectedColor = $(this).find('div').data('color'),
+                    StyleDColor = $(this).attr('data-W_type');
 
-                if (SplitColor.length == 3){ StyleColor = "Swirl"; }
-
-
-                
-                SelectBandColor(StyleColor,SelectedColor);
+                SelectBandColor(StyleDColor,SelectedColor);
+                wbTextColorFromTbl($(this).attr('data-textcolor'))
             })
 
             .on('click', '.color-text-added', function(e){
@@ -1871,6 +1939,7 @@ jQuery(function ($) {
                 modal.find('.clipart-list').data('position', button.attr('id'));
             })
             .on('click', '.clipart-list li', function() {
+
                 $('.clipart-list li').removeClass('active');
                 $(this).addClass('active');
                 var button = $($(this).closest('.clipart-list').data('target')),
@@ -1879,6 +1948,7 @@ jQuery(function ($) {
                     position = button.data('position'),
                     view = button.data('view'),
                     preview = $('.preview-button.active').data('view');
+
 
                     if(icon == undefined) { $('#'+position).text(''); }  
                     else { $('#'+position).text(glyp); }
@@ -1931,11 +2001,9 @@ jQuery(function ($) {
 
             })
             .on('click', '#wbc_add_to_cart', function(e) {
+                CheckItems();
                 e.preventDefault();
-
-                if (!Builder.validateForm()) {
-                    return;
-                }
+                if (!Builder.validateForm()) { return; }
 
                 var $self = $(this),
                     $icon = $self.find('.fa'),
@@ -1968,8 +2036,65 @@ jQuery(function ($) {
                     Builder.popupMsg(type, title, response.data.message + ' <a href="'+ Settings.site_url +'/cart">view cart <i class="fa fa-long-arrow-right"></i></a>');
 
                 });
+                ConnectItems();
                 return false;
             })
+
+
+
+            .on('click', '#wbc_edit_to_cart', function(e) {
+                CheckItems();
+                e.preventDefault();
+                if (!Builder.validateForm()) { return; }
+
+                var $self = $(this),
+                    $icon = $self.find('.fa'),
+                    UpdateID = $("#EditModeID").val(),
+                    $button_text = $self.find('.fusion-button-text-left');
+
+                $icon.removeClass('fa-shopping-cart');
+                $icon.addClass('fa-spinner');
+                $button_text.text('Processing...');
+
+                Builder.collectDataToPost();
+
+                $.ajax({
+                    url: WBC.ajax_url,
+                    type: 'POST',
+                    data: {UpdateID: UpdateID, meta: JSON.stringify(Builder.data), action: 'wbc_ajax_edit_to_cart'},
+                    dataType: 'JSON',
+                }).done(function(response) {
+                    var type = 'success',
+                        title = 'Success';
+
+                    $icon.removeClass('fa-spinner');
+                    $icon.addClass('fa-shopping-cart');
+                    $button_text.text('Add to Cart');
+
+                    if (!response.success) {
+                        type = 'error';
+                        title = 'Error';
+                    }
+                    Builder.has_upload = false;
+                    Builder.popupMsg(type, title, response.data.message + ' <a href="'+ Settings.site_url +'/cart">view cart <i class="fa fa-long-arrow-right"></i></a>');
+                    $("#mmk").html(response.data.message)
+                });
+                ConnectItems();
+                return false;
+            })
+
+
+
+
+
+
+
+
+
+
+
+
+
                 //save button
             .on('click','#save_button',function(e) {
                 e.preventDefault();
@@ -2007,26 +2132,19 @@ jQuery(function ($) {
             .on('click', '#front_view_button, #back_view_button', function(e) {
                 e.preventDefault();
                 TempReloadSVG();
-
                 var view = $(this).data('view');
                 Builder.data.clipart.view_position = view;
-              
                 $('#icon_start').text(  $('#'+view+'_start').text() );
                 $('#icon_end').text(  $('#'+view+'_end').text() );
-
                 $('.preview-button').removeClass('active');
                 $(this).addClass('active');
-
                 Builder.observer();
-
-
 
                 var normalClass = "fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues active";
                 var SelectedClass = "fusion-button button-flat button-round button-small button-orange preview-button if-message_type_is-continues active";
                 document.getElementById("front_view_button").className = normalClass;
                 document.getElementById("back_view_button").className = normalClass;
                 document.getElementById(this.id).className = SelectedClass;
-
               //  
                 return false;
             });
@@ -2058,6 +2176,7 @@ jQuery(function ($) {
 
         // Call function on load
         Builder.onLoad();
+        CheckEdit();
 
         $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup'); // trigger  the Input Quanity field when the page is reloaded to calculate the total.
 

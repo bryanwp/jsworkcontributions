@@ -560,6 +560,14 @@ function GetOrderDetail( $item_id, $item, $_product ){
   }
 
 
+
+
+
+
+
+
+
+
 /*
 
 function order_completed( $order_id ) {

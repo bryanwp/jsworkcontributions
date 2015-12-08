@@ -7,15 +7,18 @@ get_header();
 $TempID = $_REQUEST['id'];
 $OrderStatus = $_REQUEST['Status'];
 
-
+$Edit = false;      
 if (isset($_REQUEST['id'])){
-    $Edit = false;      $MultiAdd = "";
+    $MultiAdd = "";
     foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+
+
         $meta = isset($cart_item['wristband_meta']) ? $cart_item['wristband_meta'] : array();
         $_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
         $product_id   = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
 
         if ($cart_item_key == $TempID){
+            $Edit = true;
             $Wrist_Style = $_product->get_title();
             $Wrist_Size = (isset($meta['size']) ? $meta['size'] : '');
 
@@ -59,9 +62,10 @@ if (isset($_REQUEST['id'])){
                     elseif ($k == "view_position"){ $view_position = $clipart; }
                     else{ $wristband_stat = $clipart; }
                 endforeach;
-                $customization_location = $meta['customization_location']; 
-                $customization_date_production = $meta['customization_date_production']; 
-                $customization_date_shipping = $meta['customization_date_shipping']; 
+
+                $C_location = $meta['customization_location']; 
+                $C_date_prod = $meta['customization_date_production']; 
+                $C_date_ship = $meta['customization_date_shipping']; 
                 $guaranteed_delivery = $meta['guaranteed_delivery']; 
 
             $Info = $Wrist_Style."|".$Wrist_Size."|".$MultiAdd;
@@ -69,9 +73,11 @@ if (isset($_REQUEST['id'])){
             break;
         }
     }
-    $Info = $Info."|".$customization_date_production."|".$customization_date_production;
+    $Info = $Info."|".$C_location."|".$C_date_prod."|".$C_date_ship."|".$InPackaging.
+            "|".$Eco."|".$Thick."|".$DigitalPro.
+            "|".$front_start."|".$front_end."|".$back_start."|".$back_end."|".$view_position."|".$wristband_stat."|".$guaranteed_delivery;
 ?>
-    <input id="EditModeID" name="<?php echo $Info; ?>" style="display:none;">
+    <input id="EditModeID" name="<?php echo $Info; ?>" style="display:none;" value="<?php echo $TempID; ?>">
 
 <?php 
 
@@ -325,7 +331,7 @@ if (isset($_REQUEST['id'])){
                                                 <th class="TempCss1">Medium</th>
                                                 <th class="TempCss1">Youth</th>
                                                 <th class = "text_to_alter">Text</th>
-                                                <th colspan="2" style="text-align:right;"><a class="CssEditSave" id="EditSaveID">Edit</a>&nbsp; <a class="CssEditSave"  id="CancelID"></a></th>
+                                                <th colspan="2" style="text-align:right;"><a class="CssEditSave" id="EditSaveID" style="cursor: pointer;">Edit</a>&nbsp; <a style="cursor: pointer;" class="CssEditSave"  id="CancelID"></a></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -463,7 +469,7 @@ if (isset($_REQUEST['id'])){
                                             data-target="#wristband-clipart-modal"
                                             class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-ban icon-preview hide-if-upload"></i>
+                                            <i class="fa fa-ban icon-preview hide-if-upload" id="FsID"></i>
                                                 <img class="image-upload hide-if-icon" width="10" height="16"/>
                                             select</span>
                                     </a>
@@ -482,7 +488,7 @@ if (isset($_REQUEST['id'])){
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-ban icon-preview hide-if-upload"></i>
+                                            <i class="fa fa-ban icon-preview hide-if-upload" id="FeID"></i>
                                                 <img class="image-upload hide-if-icon" width="10" height="16"/>
                                             select</span>
                                     </a>
@@ -502,7 +508,7 @@ if (isset($_REQUEST['id'])){
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-ban icon-preview hide-if-upload"></i>
+                                            <i class="fa fa-ban icon-preview hide-if-upload" id="BsID"></i>
                                                 <img class="image-upload hide-if-icon" width="10" height="16"/>
                                             select</span>
                                     </a>
@@ -523,7 +529,7 @@ if (isset($_REQUEST['id'])){
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-ban icon-preview hide-if-upload"></i>
+                                            <i class="fa fa-ban icon-preview hide-if-upload" id="BeID"></i>
                                                 <img class="image-upload hide-if-icon" width="10" height="16"/>
                                             select</span>
                                     </a>
@@ -544,7 +550,7 @@ if (isset($_REQUEST['id'])){
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-ban icon-preview hide-if-upload"></i>
+                                            <i class="fa fa-ban icon-preview hide-if-upload" id="WsID"></i>
                                                 <img class="image-upload hide-if-icon" width="10" height="16"/>
                                             select</span>
                                     </a>
@@ -565,7 +571,7 @@ if (isset($_REQUEST['id'])){
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-ban icon-preview hide-if-upload"></i>
+                                            <i class="fa fa-ban icon-preview hide-if-upload" id="WeID"></i>
                                                 <img class="image-upload hide-if-icon" width="10" height="16"/>
                                             select</span>
                                     </a>
@@ -613,20 +619,12 @@ if (isset($_REQUEST['id'])){
                                 </p>
                             <?php endforeach; ?>
                         </div>
-
                         <?php endif; ?>
 
-
-
-                      <p class="form-row form-row-wide">
+                        <p class="form-row form-row-wide">
                             Guaranteed to be delived on or by : <strong id="delivery_date"></strong>
                         </p>
-
-
-
                     </div><!--/.fusion-column-wrapper -->
-
-
 
                         <div>
                             <p class="fusion-row price price-with-decimal">
@@ -637,10 +635,20 @@ if (isset($_REQUEST['id'])){
                                 <span id="qty_handler" class="qty-handler">0</span> Quantity
                             </p>
 
+                            <?php if ($Edit){ ?>
+                            <button id="wbc_edit_to_cart" href="#" class="fusion-button button-flat button-round button-large button-default alignright">
+                                <span class="button-icon-divider-left"><i class="fa fa-shopping-cart"></i></span>
+                                 <span class="fusion-button-text-left">Update to Cart</span>
+                            </button>
+                            <?php } else { ?>
                             <button id="wbc_add_to_cart" href="#" class="fusion-button button-flat button-round button-large button-default alignright">
                                 <span class="button-icon-divider-left"><i class="fa fa-shopping-cart"></i></span>
                                  <span class="fusion-button-text-left">Add to Cart</span>
                             </button>
+                            <?php } ?>
+
+
+
 
                             <div class="link-buttons aligncenter">
                                 <a id= "save_button" class="fusion-button button-flat button-round button-small button-default SaveBtnAddup" href="#"><span class="fusion-button-text">Save Design</span></a>
@@ -697,7 +705,7 @@ if (isset($_REQUEST['id'])){
 </div>
 
 
-
+<div id="mmk">dsdsd</div>
 
 
 <script id="modal_message_template2" type="x-tmpl-mustache">

@@ -211,8 +211,10 @@ display: none !important;
 }
 
 .CssEditSave{
-	cursor: pointer; font-size: 15px;
+	cursor: pointer; font-size: 15px !important;
+
 }
+
 
 .CssDisabledDel{
   	pointer-events: none;
