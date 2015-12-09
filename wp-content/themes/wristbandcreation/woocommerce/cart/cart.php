@@ -292,23 +292,6 @@ do_action( 'woocommerce_before_cart' ); ?>
 	</div>
 </div>
 
-<style type="text/css">
-	.EditCart
-	{
-	    float: left !important;
-	    font-size: 13px !important;
-	    color: #80C0E3 !important;
-	}
-
-	.RemoveCart
-	{
-	    float: left;
-	    font-size: 13px !important;
-	    color: #E17A7A !important;
-	    margin-right: 20px !important;
-	}
-</style>
-
 <?php do_action( 'woocommerce_after_cart' );
 
 // Omit closing PHP tag to avoid "Headers already sent" issues.

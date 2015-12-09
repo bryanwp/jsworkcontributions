@@ -723,7 +723,7 @@ input[type="checkbox"],input[type="radio"] {
 
 .CssAddup{
     font-family: tahoma;
-    color: #80C0E3 !important;
+    color: #0070ce !important;
     font-size: 11px;
 
 }
@@ -735,11 +735,11 @@ input[type="checkbox"],input[type="radio"] {
 }
 
 .CssTitleRed{
-    color: #E17A7A !important;
+    color: rgb(190, 11, 11) !important;
 }
 
 .CssTitleBlue{
-    color: #80C0E3 !important;
+    color: #0070ce !important;
 }
 
 #clipartTitle

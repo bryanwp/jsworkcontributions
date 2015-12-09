@@ -71,66 +71,30 @@ dl.footer dd {
 .modProgressBar .progress{
     height: 100%;
 }
-/*
-#faqtabs.fusion-tabs .nav-tabs .active h4{
-color: #1A80BA !important;
-border-top: solid #1A80BA;
-}
-#faqtabs.fusion-tabs .nav .nav-tabs{
-border-top: solid #E0DEDE;
-border-bottom: solid #E0DEDE;
-border-width: 1px;
-width: 100%;
-}
-#faqtabs.fusion-tabs .nav .nav-tabs li{
-margin-top: -9px;
-margin-bottom: -5px;
-text-align: left;
-}
 
-.modImageCarousel .fusion-image-wrapper:hover {
--webkit-box-shadow: 0px 2px 13px 0px rgba(50, 50, 50, 0.66);
--moz-box-shadow:    0px 2px 13px 0px rgba(50, 50, 50, 0.66);
-box-shadow:         0px 2px 13px 0px rgba(50, 50, 50, 0.66);
-}
-.modImageCarousel .fusion-image-wrapper {
--webkit-transition: all 1.3s ease;
-transition: all 1.3s ease;
-}
-.fusion-image-wrapper{
-height: auto !important;
-width: auto !important;
-    padding-top: 5px;
-    padding-right: 5px;
-    padding-bottom: 5px;
-    padding-left: 5px;
-}
-.ilightbox-title {
-display: none !important;
-}
-*/
 /* changes in dev */
 .home-separator-2{
 	margin-top: -80px !important;
 }
 @media screen and (min-width: 200px) {
-#home-fusion-content-boxes> #wrapper .content-boxes-icon-boxed .content-box-column, #wrapper .content-boxes-icon-on-top .content-box-column{
-	margin-bottom: 20px !important;
-}
-#full-home-clients{
-	margin-bottom: -80px !important;
-}
+	#home-fusion-content-boxes> #wrapper .content-boxes-icon-boxed .content-box-column, #wrapper .content-boxes-icon-on-top .content-box-column{
+		margin-bottom: 20px !important;
+	}
+	#full-home-clients{
+		margin-bottom: -80px !important;
+	}
 }
 @media all and (min-width: 800px) {
-#home-two-third{
-	margin-top: -60px !important;
-	margin-bottom: -100px !important;
-}
+	#home-two-third{
+		margin-top: -60px !important;
+		margin-bottom: -100px !important;
+	}
 }
 @media all and (max-width: 800px) {
-#home-two-third{
-	margin-top: -60px !important;
-	margin-bottom: -50px !important;
+	#home-two-third{
+		margin-top: -60px !important;
+		margin-bottom: -50px !important;
+	}
 }
 /* changes in dev - end */
 
@@ -219,4 +183,19 @@ display: none !important;
 .CssDisabledDel{
   	pointer-events: none;
    	cursor: default; opacity: 0.5;
+}
+
+.EditCart
+{
+    float: left !important;
+    font-size: 13px !important;
+    color: #0070ce !important;
+}
+
+.RemoveCart
+{
+    float: left;
+    font-size: 13px !important;
+    color: rgb(190, 11, 11) !important;
+    margin-right: 20px !important;
 }
