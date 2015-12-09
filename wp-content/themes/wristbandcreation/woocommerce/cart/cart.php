@@ -47,11 +47,11 @@ do_action( 'woocommerce_before_cart' ); ?>
 								$CurrentLink = get_site_url(); 
 								$EditLink = $CurrentLink."/order-now/?id=".$cart_item_key."&Status=edit";
 							?>
-							<a href="<?php echo $EditLink; ?>"  data-product_id="%s" data-product_sku="%s">Edit</a>
+							<a class="EditCart" href="<?php echo $EditLink; ?>"  data-product_id="%s" data-product_sku="%s">Edit</a>
 
 							<?php
 							echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
-								'<a href="%s" class="remove" title="%s" data-product_id="%s" data-product_sku="%s">&times;</a>',
+								'<a href="%s" class="remove RemoveCart" title="%s" data-product_id="%s" data-product_sku="%s">Remove</a>',
 								esc_url(WC()->cart->get_remove_url($cart_item_key)),
 								__('Remove this item', 'woocommerce'),
 								esc_attr($product_id),
@@ -291,6 +291,23 @@ do_action( 'woocommerce_before_cart' ); ?>
 		<?php do_action( 'woocommerce_cart_actions' ); ?>
 	</div>
 </div>
+
+<style type="text/css">
+	.EditCart
+	{
+	    float: left !important;
+	    font-size: 13px !important;
+	    color: #80C0E3 !important;
+	}
+
+	.RemoveCart
+	{
+	    float: left;
+	    font-size: 13px !important;
+	    color: #E17A7A !important;
+	    margin-right: 20px !important;
+	}
+</style>
 
 <?php do_action( 'woocommerce_after_cart' );
 

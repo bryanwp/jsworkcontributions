@@ -213,17 +213,17 @@ if (isset($_REQUEST['id'])){
 
 
                         <div id="quantity_group_field">
-                            <label class="form-group-heading CssTitleBlack" >Input Quantity <span>(Side View Guide)</span></label>
+                            <!-- <label class="form-group-heading CssTitleBlack" >Input Quantity <span>(Side View Guide)</span></label> -->
                             <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
-                                <label for="qty_adult">Adult</label>
+                                <label class="form-group-heading" for="qty_adult">Adult</label>
                                 <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text">
                             </p>
                             <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
-                                <label for="qty_medium">Medium</label>
+                                <label class="form-group-heading" for="qty_medium">Medium</label>
                                 <input type="number" name="qty_medium" id="qty_medium"  min="0" class="input-text">
                             </p>
                             <p class="form-row form-row-last fusion-one-fourth one_third fusion-layout-column fusion-column-last fusion-spacing-yes">
-                                <label for="qty_youth">Youth</label>
+                                <label class="form-group-heading" for="qty_youth">Youth</label>
                                 <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text">
                             </p>
                             <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
@@ -268,10 +268,31 @@ if (isset($_REQUEST['id'])){
                 <div class="fusion-one-half one_half fusion-layout-column fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
                         <div class="fusion-row">
-                            <div class="link-buttons aligncenter">
-                                <a class="fusion-button button-flat button-round button-small button-orange prdct-info" href="#"><span class="fusion-button-text">Product Info</span></a>
+                            <!-- <div class="link-buttons alignleft"> -->
+                            <div id="viewButtonGroup" class="col-md-2">
+                                <!-- <a class="fusion-button button-flat button-round button-small button-orange prdct-info" href="#"><span class="fusion-button-text">Product Info</span></a> -->
                                 <a class="fusion-button button-flat button-round button-small button-orange preview-button active if-message_type_is-continues" href="#" id="front_view_button" data-input="front_message" data-view="front"><span class="fusion-button-text">Front</span></a>
                                 <a class="fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues" id="back_view_button" data-input="back_message" data-view="back" href="#" ><span class="fusion-button-text">Back</span></a>
+                            </div>
+
+                            <div class="col-md-10">
+                                <div class="form-group table-responsive">
+                                    <table id="selected_color_table" class="table table-bordered" border="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 150px;">Color</th>
+                                                <th class="TempCss1">Adult</th>
+                                                <th class="TempCss1">Medium</th>
+                                                <th class="TempCss1">Youth</th>
+                                                <th class = "text_to_alter">Text</th>
+                                                <th colspan="2" style="text-align:right;"><a class="CssEditSave CssTitleBlue" id="EditSaveID" style="cursor: pointer;">Edit</a><br><a style="cursor: pointer;" class="CssEditSave CssTitleRed"  id="CancelID"></a></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
 
@@ -322,26 +343,6 @@ if (isset($_REQUEST['id'])){
                             </div>
 
                             <div>
-                                <div class="form-group table-responsive">
-                                    <table id="selected_color_table" class="table table-bordered" border="0">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 150px;">Color</th>
-                                                <th class="TempCss1">Adult</th>
-                                                <th class="TempCss1">Medium</th>
-                                                <th class="TempCss1">Youth</th>
-                                                <th class = "text_to_alter">Text</th>
-                                                <th colspan="2" style="text-align:right;"><a class="CssEditSave" id="EditSaveID" style="cursor: pointer;">Edit</a>&nbsp; <a style="cursor: pointer;" class="CssEditSave"  id="CancelID"></a></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <div>
                                 <div class="form-row">
                                     <label for="message_type" class="form-group-heading CssTitleBlack">Message on Wristbands</label class="form-group-heading CssTitleBlack" >
 
@@ -366,7 +367,7 @@ if (isset($_REQUEST['id'])){
                                         <p class="form-row form-row-wide hide-if-message_type-continues" id="width_field">
                                             <table style="width: 100%;" border="0" cellspacing="0"><tr>
                                                 <td class="TdTitleCss">
-                                                    <label for="front_message"  class="form-group-heading">Front Message
+                                                    <label for="front_message"  class="form-group-heading CssTitleBlack">Front Message
                                                         <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                                           title="<?php echo $tooltip->front;?>" data-placement="top">?
                                                         </span>
@@ -381,7 +382,7 @@ if (isset($_REQUEST['id'])){
                                         <p class="form-row form-row-wide hide-if-message_type-continues">
                                             <table style="width: 100%;" border="0" cellspacing="0"><tr>
                                                 <td class="TdTitleCss">
-                                                    <label for="back_message"  class="form-group-heading">Back Message
+                                                    <label for="back_message"  class="form-group-heading CssTitleBlack">Back Message
                                                         <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                                           title="<?php echo $tooltip->back;?>" data-placement="top">?
                                                         </span>
@@ -398,7 +399,7 @@ if (isset($_REQUEST['id'])){
                                     <p class="form-row form-row-wide hide-if-message_type-front_and_back">
                                         <table style="width: 100%;" border="0" cellspacing="0"><tr>
                                             <td class="TdTitleCss">
-                                                <label for="continues_message"  class="form-group-heading">Continuous Message
+                                                <label for="continues_message"  class="form-group-heading CssTitleBlack">Continuous Message
                                                     <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                                       title="<?php echo $tooltip->wrap_around;?>" data-placement="top">?
                                                     </span>
@@ -414,7 +415,7 @@ if (isset($_REQUEST['id'])){
                                 <p class="form-row form-row-wide">
                                     <table style="width: 100%;" border="0" cellspacing="0"><tr>
                                         <td class="TdTitleCss">
-                                            <label for="inside_message"  class="form-group-heading">Inside Message
+                                            <label for="inside_message"  class="form-group-heading CssTitleBlack">Inside Message
                                                 <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                                   title="<?php echo $tooltip->inside;?>" data-placement="top">?
                                                 </span>
@@ -433,6 +434,28 @@ if (isset($_REQUEST['id'])){
                               <a id="hiddenPng" />
                             </div> -->
                         </div>
+                        <table style="width: 100%;" border="0" cellspacing="0">
+                            <tr>
+                                <td class="TdTitleCss">
+                                    <label for="font" class="form-group-heading CssTitleBlack">Font</label>
+                                </td>
+                                <td>
+                                    <select name="font" id="font" class="input-select enable-if-style-selected">
+                                        <option value="-1">-- Select --</option>
+
+                                        <?php if (isset($GLOBALS['wbc_settings']->fonts)):
+                                            foreach ($GLOBALS['wbc_settings']->fonts as $font):?>
+                                                <?php   $Selected = "";
+                                                        if ($FontStyle == esc_attr($font)){ $Selected = "selected"; }
+                                                ?>
+                                                <option style="font-size:18px;font-family: '<?php echo esc_attr($font); ?>' !important;"
+                                                        value="<?php echo esc_attr($font); ?>" <?php echo $Selected; ?> ><?php echo esc_attr($font); ?></option>
+                                        <?php endforeach;
+                                            endif; ?>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>     
 
                         <p class="form-row form-row-wide">
                             <label for="additional_notes"  class="form-group-heading CssTitleBlack">Addition Notes</label>
@@ -444,25 +467,9 @@ if (isset($_REQUEST['id'])){
                 </div><!--/.fusion-one-third-->
                 <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-column-last fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
-                        <p class="form-row form-row-wide">
-                            <label for="font" class="form-group-heading CssTitleBlack">Font</label>
-                            <select name="font" id="font" class="input-select enable-if-style-selected">
-                                <option value="-1">-- Select --</option>
-
-                                <?php if (isset($GLOBALS['wbc_settings']->fonts)):
-                                    foreach ($GLOBALS['wbc_settings']->fonts as $font):?>
-                                        <?php   $Selected = "";
-                                                if ($FontStyle == esc_attr($font)){ $Selected = "selected"; }
-                                        ?>
-                                        <option style="font-size:18px;font-family: '<?php echo esc_attr($font); ?>' !important;"
-                                                value="<?php echo esc_attr($font); ?>" <?php echo $Selected; ?> ><?php echo esc_attr($font); ?></option>
-                                <?php endforeach;
-                                    endif; ?>
-                            </select>
-                        </p><!-- /.form-group -->
                         <div id="add-clipart">
-                            <label class="form-group-heading CssTitleBlack" >Add Clipart</label>
-                            <div class="button-box hide-if-message_type-continues">
+                            <label id="clipartTitle" class="form-group-heading CssTitleBlack col-md-6 col-xs-6" >Add Clipart</label>
+                            <div class="button-box hide-if-message_type-continues col-md-12 col-xs-12">
                                 <span class="text-label">Front Start</span>
                                 <div class="alignright">
                                     <a id="front_start_btn" data-view="front" data-position="front_start" href="#" data-title="Front Start" data-toggle="modal"
@@ -474,7 +481,7 @@ if (isset($_REQUEST['id'])){
                                             select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
-                                        <span><i class="fa fa-cloud-upload"></i> Upload</span>
+                                        <span><i class="fa fa-upload"></i> Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
                                         <input class="fileupload" type="file" name="files[]" accept="image/png"
                                                data-clipart-type="frontstart">
@@ -493,7 +500,7 @@ if (isset($_REQUEST['id'])){
                                             select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
-                                        <span><i class="fa fa-cloud-upload"></i> Upload</span>
+                                        <span><i class="fa fa-upload"></i> Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
                                         <input class="fileupload" type="file" name="files[]" accept="image/png"
                                                data-clipart-type="frontend">
@@ -513,7 +520,7 @@ if (isset($_REQUEST['id'])){
                                             select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
-                                        <span><i class="fa fa-cloud-upload"></i> Upload</span>
+                                        <span><i class="fa fa-upload"></i> Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
                                         <input class="fileupload" type="file" name="files[]" accept="image/png"
                                                data-clipart-type="backstart">
@@ -534,7 +541,7 @@ if (isset($_REQUEST['id'])){
                                             select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
-                                        <span><i class="fa fa-cloud-upload"></i> Upload</span>
+                                        <span><i class="fa fa-upload"></i> Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
                                         <input class="fileupload" type="file" name="files[]" accept="image/png"
                                                data-clipart-type="backend">
@@ -555,7 +562,7 @@ if (isset($_REQUEST['id'])){
                                             select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
-                                        <span><i class="fa fa-cloud-upload"></i> Upload</span>
+                                        <span><i class="fa fa-upload"></i> Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
                                         <input class="fileupload" type="file" name="files[]" accept="image/png"
                                                data-clipart-type="backend">
@@ -576,7 +583,7 @@ if (isset($_REQUEST['id'])){
                                             select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
-                                        <span><i class="fa fa-cloud-upload"></i> Upload</span>
+                                        <span><i class="fa fa-upload"></i> Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
                                         <input class="fileupload" type="file" name="files[]" accept="image/png"
                                                data-clipart-type="backend">
@@ -674,6 +681,7 @@ if (isset($_REQUEST['id'])){
                     data-fontsize="17" data-lineheight="36">
                     Choose your Front Start Clipart</h3>
             </div>
+            <div>
                 <?php if (count($GLOBALS['wbc_settings']->logo->list) != 0): ?>
                <ul class="clipart-list">
 
@@ -703,9 +711,6 @@ if (isset($_REQUEST['id'])){
         </div>
     </div>
 </div>
-
-
-<div id="mmk">dsdsd</div>
 
 
 <script id="modal_message_template2" type="x-tmpl-mustache">

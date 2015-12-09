@@ -280,7 +280,7 @@ jQuery(function ($) {
                                 .end()
                                 .find('.fa-spinner')
                                 .removeClass('fa-spinner')
-                                .addClass('fa-cloud-upload');
+                                .addClass('fa-upload');
 
                             Builder.observer();
                        });
@@ -292,8 +292,8 @@ jQuery(function ($) {
                             .find('span')
                             .css({'padding-left' : '10px'})
                             .end()
-                            .find('.fa-cloud-upload')
-                            .removeClass('fa-cloud-upload')
+                            .find('.fa-upload')
+                            .removeClass('fa-upload')
                             .addClass('fa-spinner');
                     }
                 }).prop('disabled', !$.support.fileInput)
@@ -552,7 +552,7 @@ jQuery(function ($) {
                         var additional_price = this.rangePrice(price_list, qty);
                         this.data.total_price += additional_price * qty;
                         // Render alert message
-                        var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.',
+                        var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each',
                             {
                                 currency_symbol: Settings.currency_symbol,
                                 price: additional_price,
@@ -574,7 +574,7 @@ jQuery(function ($) {
                     if(costType == 'Each Quantity') {
                         Builder.data.total_price += additional_price * qty;
                         // Render alert message
-                        var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.', {
+                        var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each', {
                                 currency_symbol: Settings.currency_symbol,
                                 price: additional_price,
                             } );
@@ -600,7 +600,7 @@ jQuery(function ($) {
 
             this.data.total_price += additional_price;
             // Render alert message
-            var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.',
+            var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each',
                 {
                     currency_symbol: Settings.currency_symbol,
                     price: additional_price,
@@ -621,12 +621,21 @@ jQuery(function ($) {
             if (qty <= 0) return;
             // Check if there are any cliparts uploaded/selected
             var flag = false;
-            for (var i in this.data.clipart) {
-                if (this.data.clipart[i] != '' && Builder.data.clipart[i] != undefined) {
+            //for (var i in this.data.clipart) {
+
+            if(this.data.clipart['wristband_stat'] == "front_and_back")
+            {
+                if (this.data.clipart['back_end'] != '' || this.data.clipart['back_start'] != '' || this.data.clipart['front_start'] != '' || this.data.clipart['front_end'] != '') {
                     flag = true;
-                    break;
                 }
             }
+            else
+            {
+                if (this.data.clipart['wrap_end'] != '' || this.data.clipart['wrap_start'] != '') {
+                    flag = true;
+                }
+            }
+           // }
             if (! flag) return;
 
             var price_list =  Settings.logo.prices,
@@ -634,7 +643,7 @@ jQuery(function ($) {
             this.data.total_price += additional_price * qty;
 
             // Render alert message
-            var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each.',
+            var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each',
                 {
                     currency_symbol: Settings.currency_symbol,
                     price: additional_price,
@@ -739,6 +748,8 @@ jQuery(function ($) {
         $('.hide-if-message_type-' + value).css({'display': 'none'});
         $('[class*="if-message_type_is-"]').css({display: ''});
         $('.if-message_type_is-' + value).css({display: 'none'});
+
+        Builder.data["clipart"]["wristband_stat"] = value;
     }
 
     function TempReloadSVG(){
@@ -902,24 +913,28 @@ jQuery(function ($) {
             var CntDis = 0,
                 ArrayID = [],
                 CntTemp = 0,
-                TotalCnt = 0;
+                TotalCnt = 0,
+                ArrayCount = [];
 
             for(var x=0;x<= TempCnt;x++){
                 if (document.getElementById("inpAdult-" + x)){
                     if (toInt($("#inpAdult-" + x).val()) > 0){
                         ArrayID[CntTemp] = "spanAdultup-" + x;
+                        ArrayCount[CntTemp] = toInt($("#inpAdult-" + x).val());
                         TotalCnt = Number(TotalCnt) + toInt($("#inpAdult-" + x).val());
                         CntTemp++;
                     } 
 
                     if (toInt($("#inpMedium-" + x).val()) > 0){
                         ArrayID[CntTemp] = "spanMediumup-" + x;
+                        ArrayCount[CntTemp] = toInt($("#inpMedium-" + x).val());
                         TotalCnt = Number(TotalCnt) + toInt($("#inpMedium-" + x).val());
                         CntTemp++;
                     }
 
                     if (toInt($("#inpYouth-" + x).val()) > 0){
                         ArrayID[CntTemp] = "spanYouthup-" + x;
+                        ArrayCount[CntTemp] = toInt($("#inpYouth-" + x).val());
                         TotalCnt = Number(TotalCnt) + toInt($("#inpYouth-" + x).val());
                         CntTemp++;
                     }
@@ -930,16 +945,44 @@ jQuery(function ($) {
             }
 
 
-            var b = 100,      c = ArrayID.length,
+            // Equal distribution
+            /* var b = 100,      c = ArrayID.length,
                 d = 100%c,    e = b - d,
                 f = e / c,    g = f + d,          first = true;
 
             if (TotalCnt > 100){
                 for(var a=0;a <= ArrayID.length-1;a++){
                     if (first){
-                        $("#" + ArrayID[a]).html("&nbsp; ( +" + g + " )");
+                        $("#" + ArrayID[a]).html("&nbsp; +" + g );
                         first = false;
-                    } else { $("#" + ArrayID[a]).html("&nbsp; ( +" + f + " )"); }
+                    } else { $("#" + ArrayID[a]).html("&nbsp; +" + f ); }
+                }
+            } */
+
+            // Proportional distribution
+            if (TotalCnt >= 100){
+                var calcTotal = 0, ArrayCalc = [], first = true;
+                for(var a=0;a <= ArrayID.length-1;a++){
+                    ArrayCalc[a] = toInt( ( toInt( ArrayCount[a] ) / toInt( TotalCnt ) ) * 100 );
+                    calcTotal += toInt( ( toInt( ArrayCount[a] ) / toInt( TotalCnt ) ) * 100 );
+                }
+
+                var reminder = 100 % toInt( calcTotal );
+                for(var a=0;a <= ArrayID.length-1;a++){
+                    if(first)
+                    {
+                        $("#" + ArrayID[a]).html("&nbsp; +" + (toInt( ArrayCalc[a] ) + toInt( reminder) ) );
+                        $("#" + ArrayID[a]).attr("data-plus", (toInt( ArrayCalc[a] ) + toInt( reminder) ) );
+                        first = false;
+                    }
+                    else
+                    {
+                        if(ArrayCalc[a] != 0)
+                        {
+                            $("#" + ArrayID[a]).html("&nbsp; +" + ArrayCalc[a] );
+                            $("#" + ArrayID[a]).attr("data-plus", ArrayCalc[a] );
+                        }
+                    }
                 }
             }
         }
@@ -1000,13 +1043,14 @@ jQuery(function ($) {
             $mq    = $('#qty_medium'),
             $yq    = $('#qty_youth');
 
-        var _adult_qty   = numberFormat(toInt($aq.val()), 0),
-            _medium_qty  = numberFormat(toInt($mq.val()), 0),
-            _youth_qty   = numberFormat(toInt($yq.val()), 0),
+        var _adult_qty   = toInt($aq.val()),
+            _medium_qty  = toInt($mq.val()),
+            _youth_qty   = toInt($yq.val()),
             _wristband_text_color_box = '';
 
         if ((toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)) { Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.'); return; }
-
+        if ( typeof($wc.data('name')) == 'undefined' ) { Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.'); return; }
+        
         //====================== Check table
         var _txtColorName = "White",
             _txtColor = "#FFFFFF";
@@ -1055,11 +1099,11 @@ jQuery(function ($) {
             var row_tpl = Mustache.render(
                 '<tr data-name="{{name}}" class="option-tr" id="Tr-' + TempID + '">'
                 + '<td style="text-align: left" id="colorBox-' + TempID + '"><div class="DivColorBox">{{{wristband_color_box}}}</div></td>'
-                + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanAdult-' + TempID +'">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpAdult-' + TempID + '" value="{{{num_aq}}}"></center></td>'
-                + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"></center></td>'
-                + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"></center></td>'
+                + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanAdult-' + TempID +'">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpAdult-' + TempID + '" value="{{{num_aq}}}"><span id="spanAdultupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpAdultE-' + TempID + '" value="{{{num_aqE}}}"></center></td>'
+                + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"><span id="spanMediumupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpMediumE-' + TempID + '" value="{{{num_mqE}}}"></center></td>'
+                + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"><span id="spanYouthupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpYouthE-' + TempID + '" value="{{{num_yqE}}}"></center></td>'
                 + '<td style="text-align: center" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
-                + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}">Delete</a></td>'
+                + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}">Delete</a></td>'
                 + '</tr>',
                 {
                     name                        : $wc.data('name'),
@@ -1071,6 +1115,9 @@ jQuery(function ($) {
                     num_aq                      : toInt($aq.val()),
                     num_mq                      : toInt($mq.val()),
                     num_yq                      : toInt($yq.val()),
+                    num_aqE                     : 0,
+                    num_mqE                     : 0,
+                    num_yqE                     : 0,
                     textColorName               : ($tc.data('name') == null)? _txtColorName : $tc.data('name'),
                     Wrist_Type                  : $('input[name="color_style"]:checked').val(),
                }
@@ -1105,7 +1152,7 @@ jQuery(function ($) {
                                                 adult: toInt(Total_aq),
                                                 medium:toInt(Total_mq),
                                                 youth: toInt(Total_yq),
-                                           }
+                                            }
                                         });
         }
         $('#qty_adult, #qty_medium, #qty_youth').val('');
@@ -1119,6 +1166,7 @@ jQuery(function ($) {
         for(var x=0;x<=Builder.CntID;x++){
             if (document.getElementById("inpAdult-" + x)){
             var TempId = x;
+                console.log(TempId);
                 if (Stat == "Enabled" || Stat == "SaveEdit"){
                     $("#spanAdult-" + TempId).show();
                     $("#spanMedium-" + TempId).show();
@@ -1132,10 +1180,36 @@ jQuery(function ($) {
                     $("#inpMedium-" + TempId).hide();
                     $("#inpYouth-" + TempId).hide();
 
+                    $("#spanAdultupE-" + TempId).hide();
+                    $("#spanMediumupE-" + TempId).hide();
+                    $("#spanYouthupE-" + TempId).hide();
+
+                    $("#inpAdultE-" + TempId).hide();
+                    $("#inpMediumE-" + TempId).hide();
+                    $("#inpYouthE-" + TempId).hide();
+
                     if (Stat == "SaveEdit"){
                         $("#spanAdult-" + TempId).html(numberFormat(toInt($("#inpAdult-" + TempId).val()), 0));
                         $("#spanMedium-" + TempId).html(numberFormat(toInt($("#inpMedium-" + TempId).val()), 0));
                         $("#spanYouth-" + TempId).html(numberFormat(toInt($("#inpYouth-" + TempId).val()), 0));
+
+                        if(toInt($("#inpAdultE-" + TempId).val()) > 0)
+                        {
+                            $("#spanAdultup-" + TempId).html('&nbsp; +'+numberFormat(toInt($("#inpAdultE-" + TempId).val()), 0));
+                            $("#spanAdultup-" + TempId).attr("data-plus", toInt($("#inpAdultE-" + TempId).val()));
+                        }
+
+                        if(toInt($("#inpMediumE-" + TempId).val()) > 0)
+                        {
+                            $("#spanMediumup-" + TempId).html('&nbsp; +'+numberFormat(toInt($("#inpMediumE-" + TempId).val()), 0));
+                            $("#spanMediumup-" + TempId).attr("data-plus", toInt($("#inpMediumE-" + TempId).val()));
+                        }
+
+                        if(toInt($("#inpYouthE-" + TempId).val()) > 0)
+                        {
+                            $("#spanYouthup-" + TempId).html('&nbsp; +'+numberFormat(toInt($("#inpYouthE-" + TempId).val()), 0));
+                            $("#spanYouthup-" + TempId).attr("data-plus", toInt($("#inpYouthE-" + TempId).val()));
+                        }
                     } else {
                         $("#inpAdult-" + TempId).val($("#spanAdult-" + TempId).html().replace(",",""));
                         $("#inpMedium-" + TempId).val($("#spanMedium-" + TempId).html().replace(",",""));
@@ -1158,6 +1232,28 @@ jQuery(function ($) {
                     $("#inpAdult-" + TempId).val($("#spanAdult-" + TempId).html().replace(",",""));
                     $("#inpMedium-" + TempId).val($("#spanMedium-" + TempId).html().replace(",",""));
                     $("#inpYouth-" + TempId).val($("#spanYouth-" + TempId).html().replace(",",""));
+
+                    if(Builder.data.total_qty >= 100)
+                    {
+                        $("#spanAdultupE-" + TempId).css( "display", "block") ;
+                        $("#inpAdultE-" + TempId).val($("#spanAdultup-" + TempId).attr('data-plus'));
+                        $("#inpAdultE-" + TempId).show();
+                    }
+
+                    if(Builder.data.total_qty >= 100)
+                    {
+                        $("#spanMediumupE-" + TempId).css( "display", "block") ;
+                        $("#inpMediumE-" + TempId).val($("#spanMediumup-" + TempId).attr('data-plus'));
+                        $("#inpMediumE-" + TempId).show();
+                        console.log($("#spanMediumup-" + TempId).data('plus'));
+                    }
+
+                    if(Builder.data.total_qty >= 100)
+                    {
+                        $("#spanYouthupE-" + TempId).css( "display", "block") ;
+                        $("#inpYouthE-" + TempId).val($("#spanYouthup-" + TempId).attr('data-plus'));
+                        $("#inpYouthE-" + TempId).show();
+                    }
                 }
             }
         }
@@ -1385,7 +1481,7 @@ jQuery(function ($) {
                             + '<td><center><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"></center></td>'
                             + '<td><center><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"></center></td>'
                             + '<td style="text-align: center" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
-                            + '<td colspan="2" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}" >Delete</a></td>' 
+                            + '<td colspan="2" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}" >Delete</a></td>' 
                             + '</tr>',
                             {
                                 name                        : lists[index].name,
@@ -1538,6 +1634,34 @@ jQuery(function ($) {
                 AddNewColor();
             })
 
+            .on('keyup', '.keyupTxtView', function(e) {
+                var total = 0;
+                $('.keyupTxtView').each(function(index, elem){
+                    total += toInt($(elem).val());
+                });
+
+                if(total >= 100)
+                {
+                    $('.keyupTxtEdit').css("display", "block");
+                    $('.keyupSpanEdit').css("display", "block");
+                }
+                else
+                {
+                    $('.keyupTxtEdit').val(0);
+
+                    $('.keyupTxtEdit').hide();
+                    $('.keyupSpanEdit').hide();
+                }
+            })
+
+            .on('keyup', '.keyupTxtEdit', function(e) {
+                var getVal = toInt($(this).parent('center').find('.keyupTxtView').val());
+                if(getVal == 0)
+                {
+                    $(this).val(0);
+                }
+            })
+
             .on('click', '#EditSaveID', function(e) {
                 var Stat = $(this).html();
                 if (Stat == "Edit"){
@@ -1547,24 +1671,37 @@ jQuery(function ($) {
 
                 } else {
                     var Saving = true;
+                    var total_qty = 0;
+                    var totalFree = 0;
                     for (var x=0;x<= Builder.CntID;x++){
                         if (document.getElementById("DelID-" + x)){
                             var aq = $("#inpAdult-" + x).val(),
                                 mq = $("#inpMedium-" + x).val(),
-                                yq = $("#inpYouth-" + x).val();
+                                yq = $("#inpYouth-" + x).val(),
+                                aqE = $("#inpAdultE-" + x).val(),
+                                mqE = $("#inpMediumE-" + x).val(),
+                                yqE = $("#inpYouthE-" + x).val();
 
-                                if((toInt(aq) <= 0 && toInt(mq) <= 0 && toInt(yq) <= 0)){
-                                    if (toInt(aq) > 0 || toInt(mq) > 0 || toInt(yq) > 0){ /*Nothing*/ }
-                                    else{ 
-                                        Saving = false; 
-                                        break; 
-                                    }
+                                if (toInt(aq) > 0 || toInt(mq) > 0 || toInt(yq) > 0){ 
+                                    total_qty += toInt(aq);
+                                    total_qty += toInt(mq);
+                                    total_qty += toInt(yq);
+
+                                    totalFree += toInt(aqE);
+                                    totalFree += toInt(mqE);
+                                    totalFree += toInt(yqE);
+                                }
+                                else{ 
+                                    Saving = false; 
+                                    break; 
                                 }
                         }
                     }
                     //------------------------------------------------
                     if (Saving){
                     //*************************************
+                        if(total_qty >= 100 && totalFree != 100) { Builder.popupMsg('error', 'Error', 'Current free wristband quantity is '+totalFree+'. Please make sure to make it 100 in all.');  return; }
+
                         for (var x=0;x<= Builder.CntID;x++){
                             if (document.getElementById("DelID-" + x)){
                                 var ColorName = $("#DelID-" + x).attr('data-name'),
@@ -1572,7 +1709,10 @@ jQuery(function ($) {
                                     Type = $("#DelID-" + x).attr('data-type'),
                                     aq = $("#inpAdult-" + x),
                                     mq = $("#inpMedium-" + x),
-                                    yq = $("#inpYouth-" + x);
+                                    yq = $("#inpYouth-" + x),
+                                    aqE = $("#inpAdultE-" + x),
+                                    mqE = $("#inpMediumE-" + x),
+                                    yqE = $("#inpYouthE-" + x);
 
                                     Builder.updateColor(ColorName, TextColorName,Type, {
                                                                     name: "",
@@ -1584,8 +1724,14 @@ jQuery(function ($) {
                                                                         adult: toInt(aq.val()),
                                                                         medium:toInt(mq.val()),
                                                                         youth: toInt(yq.val()),
-                                                                   }
+                                                                    },
+                                                                    free: {
+                                                                        adult: toInt(aqE.val()),
+                                                                        medium:toInt(mqE.val()),
+                                                                        youth: toInt(yqE.val()),
+                                                                    }
                                                                 });
+                        console.log(Builder.data);
                             }
                         }
                         $(this).html("Edit");
@@ -1838,7 +1984,7 @@ jQuery(function ($) {
                                         + '<td><center>{{{medium_qty}}}</center></td>'
                                         + '<td><center>{{{youth_qty}}}</center></td>'
                                         + '<td  style="text-align: center"><center>{{{wristband_text_color_box}}}</center></td>'
-                                        + '<td><a href="#" id="edit" data-name="{{name}}" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection"><i class="fa fa-trash"></i></a></td>'
+                                        + '<td><a href="#" id="edit" data-name="{{name}}" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection CssTitleRed"><i class="fa fa-trash"></i></a></td>'
                                         + '</tr>',
                                         {
                                             name         : lists[index].name,
@@ -2145,6 +2291,8 @@ jQuery(function ($) {
                 document.getElementById("front_view_button").className = normalClass;
                 document.getElementById("back_view_button").className = normalClass;
                 document.getElementById(this.id).className = SelectedClass;
+
+                Builder.data["clipart"]["view_position"] = view;
               //  
                 return false;
             });

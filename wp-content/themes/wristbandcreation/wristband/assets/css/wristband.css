@@ -723,5 +723,26 @@ input[type="checkbox"],input[type="radio"] {
 
 .CssAddup{
     font-family: tahoma;
-    color :blue;
+    color: #80C0E3 !important;
+    font-size: 11px;
+
+}
+
+#viewButtonGroup > a
+{
+    padding: 9px 15px;
+    margin-bottom: 5px;
+}
+
+.CssTitleRed{
+    color: #E17A7A !important;
+}
+
+.CssTitleBlue{
+    color: #80C0E3 !important;
+}
+
+#clipartTitle
+{
+    padding: 0px;
 }
