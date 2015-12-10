@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 			if ( $totals = $order->get_order_item_totals() ) {
 				$i = 0;
-				foreach ( $totals as $total ) {
+				foreach ( $totals as $total ) { if( $total['label'] == 'Shipping:') continue;
 					$i++;
 					?><tr>
 						<th class="td" scope="row" colspan="2" style="text-align:left; <?php if ( $i == 1 ) echo 'border-top-width: 4px;'; ?>"><?php echo $total['label']; ?></th>

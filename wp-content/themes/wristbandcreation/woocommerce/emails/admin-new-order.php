@@ -40,7 +40,7 @@ global $woocommerce;
 		<?php
 			if ( $totals = $order->get_order_item_totals() ) {
 				$i = 0;
-				foreach ( $totals as $total ) {
+				foreach ( $totals as $total ) { if( $total['label'] == 'Shipping:') continue;
 					$i++;
 					?><tr>
 						<th class="td" scope="col" colspan="2" style="font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif; text-align:left; <?php if ( $i == 1 ) echo 'border-top-width: 4px;'; ?>"><?php echo $total['label']; ?></th>

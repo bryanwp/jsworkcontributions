@@ -49,6 +49,7 @@ foreach ( $items as $item_id => $item ) :
 				// allow other plugins to add additional product information here
 				do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order );
 
+				echo "<br>";
 				foreach ($item_meta as $key => $value) {
                   if($key == 'meta'){
                     $meta = unserialize($value['wristband_meta'][0]);

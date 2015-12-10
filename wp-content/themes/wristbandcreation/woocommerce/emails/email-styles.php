@@ -176,4 +176,9 @@ img {
     font-weight: bold !important;
 }
 
+.icon-wrapper {
+    display: table;
+    float: left;
+}
+
 <?php
