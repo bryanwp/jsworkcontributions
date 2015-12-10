@@ -49,6 +49,13 @@ foreach ( $items as $item_id => $item ) :
 				// allow other plugins to add additional product information here
 				do_action( 'woocommerce_order_item_meta_end', $item_id, $item, $order );
 
+				foreach ($item_meta as $key => $value) {
+                  if($key == 'meta'){
+                    $meta = unserialize($value['wristband_meta'][0]);
+                    display_order_summary($_product, $meta);
+                  }
+                }
+
 			?></td>
 			<td class="td" style="text-align:left; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;"><?php echo apply_filters( 'woocommerce_email_order_item_quantity', $item['qty'], $item ); ?></td>
 			<td class="td" style="text-align:left; vertical-align:middle; border: 1px solid #eee; font-family: 'Helvetica Neue', Helvetica, Roboto, Arial, sans-serif;"><?php echo $order->get_formatted_line_subtotal( $item ); ?></td>

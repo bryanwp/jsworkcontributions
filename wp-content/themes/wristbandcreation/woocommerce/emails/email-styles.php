@@ -167,4 +167,13 @@ img {
     text-decoration: none;
     text-transform: capitalize;
 }
+
+.CssTitleBlack{
+    color: black !important;
+}
+
+.CssTitleBold{
+    font-weight: bold !important;
+}
+
 <?php
