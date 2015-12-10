@@ -27,19 +27,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php
 		if ( sizeof( $order->get_items() ) > 0 ) :
 			foreach ( $order->get_items() as $item ) :
+				$item_meta = new WC_Order_Item_Meta( $item['item_meta'] );
+				$_product  = apply_filters( 'woocommerce_order_item_product', $order->get_product_from_item( $item ), $item );
+                foreach ($item_meta as $key => $value) {
+                  if($key == 'meta'){
+                    $meta = unserialize($value['wristband_meta'][0]);
+                  }
+                }
 				echo '
 						<tr>
-							<td class="product-name">' . $item['name'].'</td>
+							<td class="product-name"><table><tr style="border:none"><td style="padding-right:50px">' . $item['name'].'</td><td>';
+				display_order_summary($_product, $meta);
+				echo '
+							</td></tr></table></td>
 							<td class="product-quantity">' . $item['qty'].'</td>
 							<td class="product-subtotal">' . $order->get_formatted_line_subtotal( $item ) . '</td>
-						</tr>';
+						</tr>';				
 			endforeach;
 		endif;
 		?>
 		</tbody>
 		<tfoot>
 		<?php
-		if ( $totals = $order->get_order_item_totals() ) foreach ( $totals as $total ) :
+		if ( $totals = $order->get_order_item_totals() ) foreach ( $totals as $total ) : if( $total['label'] == 'Shipping:') continue;
 			?>
 			<tr>
 				<th scope="row" colspan="2"><?php echo $total['label']; ?></th>

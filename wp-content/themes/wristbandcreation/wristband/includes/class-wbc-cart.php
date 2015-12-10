@@ -42,7 +42,7 @@ if (!class_exists('WBC_Cart')) {
             if ($_POST && isset($_POST['meta'])) {
                 global $woocommerce;
 
-                $meta = json_decode( str_replace("\\", "", $_POST['meta'] ), true);
+                $meta = $_POST['meta']; // json_decode( str_replace("\\", "", $_POST['meta'] ), true);
 
                 //if ( $this->check_already_in_cart( $meta['product'] ) ) {
                 //    wp_send_json_error(array( 'message' => 'Already added to cart.'));
@@ -127,7 +127,7 @@ wp_send_json_error(array( 'message' => $sss));
             global $woocommerce;
 
             if (isset($_POST['meta'])) {
-                $cart_item_meta['wristband_meta'] = json_decode(str_replace("\\", "", $_POST['meta']), true);
+                $cart_item_meta['wristband_meta'] = $_POST['meta']; // json_decode(str_replace("\\", "", $_POST['meta']), true);
             }
             return $cart_item_meta;
         }

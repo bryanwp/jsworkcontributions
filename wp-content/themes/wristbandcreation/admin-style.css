@@ -1,0 +1,14 @@
+
+
+.CssTitleBlack{
+	color: black !important;
+}
+
+.CssTitleBold{
+	font-weight: bold !important;
+}
+
+span.icon-wrapper {
+    display: table;
+    float: left;
+}

@@ -550,7 +550,7 @@ if (isset($_REQUEST['id'])){
                             </div>
 
 
-                             <div class="button-box hide-if-message_type-front_and_back">
+                             <div class="button-box hide-if-message_type-front_and_back col-md-12 col-xs-12">
                                 <span class="text-label">Wrap Around Start</span>
                                 <div class="alignright">
                                     <a id="wrap_around_start" data-position="wrap_start" href="#" data-title="Wrap Around Start" data-toggle="modal"

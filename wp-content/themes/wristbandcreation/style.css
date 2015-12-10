@@ -153,6 +153,10 @@ dl.footer dd {
 	color: black !important;
 }
 
+.CssTitleBold{
+	font-weight: bold !important;
+}
+
 .CurrencyAddup {
 	font-size: 3em; font-weight: bold;   color: rgb(109, 182, 220);
 }
