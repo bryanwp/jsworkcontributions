@@ -107,19 +107,18 @@ jQuery(function ($) {
         },
         // Check if there are any split color and extra sizes
         checkColorSplitAndExtraSize: function() {
-            var array_sizes = [], size_definition = [];
+            var array_sizes = [], size_definition = [], color_list = [];
 
             this.data.has_color_split   = false;
             this.data.has_extra_size    = false;
             this.data.size_number       = 0;
-            if (this.data.colors.length > 1) {
-                //console.log(this.data.colors);
-                this.data.has_color_split = true;
-            }
+
             for (var i in this.data.colors) {
+                if(color_list.indexOf(this.data.colors[i].color) == -1)                    
+                    color_list.push(this.data.colors[i].color);
+
                  for (var size in this.data.colors[i].sizes) {
-                    //console.log(this.data);
-                    if (array_sizes.indexOf(size) == -1 && this.data.colors[i].sizes[size] > 0) {
+                    if (array_sizes.indexOf(size) == -1 && toInt(this.data.colors[i].sizes[size]) > 0) {
                         array_sizes.push(size);
                     }
                     if (array_sizes.length == 2) {
@@ -131,6 +130,10 @@ jQuery(function ($) {
                         this.data.size_number = 3;
                     }
                 }
+            }
+
+            if (color_list.length > 1) {
+                this.data.has_color_split = true;
             }
         },
       
