@@ -474,7 +474,10 @@ function display_order_summary($_product, $meta)
     <label class="t-heading CssTitleBlack CssTitleBold"><?php echo $_product->get_title() . ' - ' . (isset($meta['size']) ? $meta['size'] : '') . ' Inch'; ?></label>
     <?php if (isset($meta['colors'])): ?>
       <ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
-        <?php foreach ($meta['colors'] as $color): if (!isset($color['name']) || empty($color['name'])) continue; ?>
+        <?php 
+          $free_colors = $meta['free_colors'];
+          foreach ($meta['colors'] as $pk => $color): if (!isset($color['name']) || empty($color['name'])) continue; 
+        ?>
 
           <li class="fusion-li-item">
               <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
@@ -499,7 +502,7 @@ function display_order_summary($_product, $meta)
                 <?php foreach ($color['sizes'] as $k => $qty): if ($qty <= 0) continue; ?>
                   <li class="fusion-li-item">
                     <div class="fusion-li-item-content">
-                      <span><?php echo ucfirst($k) . ' – <em>' . $qty . ($color['free'][$k] ? (' + ' . $color['free'][$k]) : '') . '</em>'; ?></span>
+                      <span><?php echo ucfirst($k) . ' – <em>' . $qty . ($free_colors[$pk]['free'][$k] ? (' + ' . $free_colors[$pk]['free'][$k]) : '') . '</em>'; ?></span>
                     </div>
                   </li>
                 <?php endforeach; ?>

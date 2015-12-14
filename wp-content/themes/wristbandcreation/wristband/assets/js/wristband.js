@@ -14,6 +14,7 @@ jQuery(function ($) {
             has_extra_size  : false,        // Check if selection has extra sizes
             size_number     : 0,           // Number of sizes that are inputted
             colors          : [],           // Color selected
+            free_colors          : [],           // Color selected
             clipart         : {
                 front_start: '',            // Front Start Clipart
                 front_end: '',              // Front End Clipart
@@ -48,9 +49,12 @@ jQuery(function ($) {
             this.data.colors.push(value);
             this.observer();
         },
+        addFreeColor: function(key, value) {
+            this.data.free_colors.push(value);
+            this.observer();
+        },
         updateColor: function(name, textColorName, Type, lists) {
 
-  
             for (var i in this.data.colors) {
                 if( name != '') {
                     if( this.data.colors[i].name ==  name && this.data.colors[i].text_color_name == textColorName && Type == this.data.colors[i].type) {
@@ -63,9 +67,13 @@ jQuery(function ($) {
                         this.data.colors[i].sizes['medium'] = (lists.sizes['medium'] != '' || lists.sizes['medium'] == 0) ? lists.sizes['medium'] : this.data.colors[i].sizes['medium'];
                         this.data.colors[i].sizes['youth']  = (lists.sizes['youth'] != '' || lists.sizes['youth'] == 0) ? lists.sizes['youth'] : this.data.colors[i].sizes['youth']; 
 
-                        this.data.colors[i].free['adult']  = (lists.free['adult'] != '' || lists.free['adult'] == 0) ? lists.free['adult'] : this.data.colors[i].free['adult'];
-                        this.data.colors[i].free['medium'] = (lists.free['medium'] != '' || lists.free['medium'] == 0) ? lists.free['medium'] : this.data.colors[i].free['medium'];
-                        this.data.colors[i].free['youth']  = (lists.free['youth'] != '' || lists.free['youth'] == 0) ? lists.free['youth'] : this.data.colors[i].free['youth']; 
+                        // this.data.colors[i].free['adult']  = (lists.free['adult'] != '' || lists.free['adult'] == 0) ? lists.free['adult'] : this.data.colors[i].free['adult'];
+                        // this.data.colors[i].free['medium'] = (lists.free['medium'] != '' || lists.free['medium'] == 0) ? lists.free['medium'] : this.data.colors[i].free['medium'];
+                        // this.data.colors[i].free['youth']  = (lists.free['youth'] != '' || lists.free['youth'] == 0) ? lists.free['youth'] : this.data.colors[i].free['youth']; 
+
+                        this.data.free_colors[i].free['adult']  = (lists.free['adult'] != '' || lists.free['adult'] == 0) ? lists.free['adult'] : this.data.free_colors[i].free['adult'];
+                        this.data.free_colors[i].free['medium'] = (lists.free['medium'] != '' || lists.free['medium'] == 0) ? lists.free['medium'] : this.data.free_colors[i].free['medium'];
+                        this.data.free_colors[i].free['youth']  = (lists.free['youth'] != '' || lists.free['youth'] == 0) ? lists.free['youth'] : this.data.free_colors[i].free['youth']; 
                         break;
                     }          
                 } else {
@@ -77,9 +85,13 @@ jQuery(function ($) {
                         this.data.colors[i].sizes['medium'] = (lists.sizes['medium'] != '') ? lists.sizes['medium'] : this.data.colors[i].sizes['medium'];
                         this.data.colors[i].sizes['youth']  = (lists.sizes['youth'] != '') ? lists.sizes['youth'] : this.data.colors[i].sizes['youth']; 
 
-                        this.data.colors[i].free['adult']  = (lists.free['adult'] != '') ? lists.free['adult'] : this.data.colors[i].free['adult'];
-                        this.data.colors[i].free['medium'] = (lists.free['medium'] != '') ? lists.free['medium'] : this.data.colors[i].free['medium'];
-                        this.data.colors[i].free['youth']  = (lists.free['youth'] != '') ? lists.free['youth'] : this.data.colors[i].free['youth'];     
+                        // this.data.colors[i].free['adult']  = (lists.free['adult'] != '') ? lists.free['adult'] : this.data.colors[i].free['adult'];
+                        // this.data.colors[i].free['medium'] = (lists.free['medium'] != '') ? lists.free['medium'] : this.data.colors[i].free['medium'];
+                        // this.data.colors[i].free['youth']  = (lists.free['youth'] != '') ? lists.free['youth'] : this.data.colors[i].free['youth'];     
+
+                        this.data.free_colors[i].free['adult']  = (lists.free['adult'] != '') ? lists.free['adult'] : this.data.free_colors[i].free['adult'];
+                        this.data.free_colors[i].free['medium'] = (lists.free['medium'] != '') ? lists.free['medium'] : this.data.free_colors[i].free['medium'];
+                        this.data.free_colors[i].free['youth']  = (lists.free['youth'] != '') ? lists.free['youth'] : this.data.free_colors[i].free['youth'];     
                     }
             }
             this.observer();
@@ -379,7 +391,7 @@ jQuery(function ($) {
                 customization_location  : $('input[name="customization_location"]:checked').data('title'),
                 customization_date_production : $production_time.text(),
                 customization_date_shipping : $shipping_time.text(),
-                guaranteed_delivery: 'Oct 4, 2016'
+                guaranteed_delivery: $('#delivery_date').text()
             });
         },
        
@@ -798,13 +810,12 @@ jQuery(function ($) {
         $("#style").change();
 
         LoadAdditionalOption(val[6],val[7],val[8],val[9]);
-        LoadPicture(val[10],val[11],val[12],val[13],val[14],val[15]);
+        LoadPicture(val[10],val[11],val[12],val[13],val[14],val[15],val[17],val[18]);
 
         Builder.observer();
         Builder.renderProductionShippingOptions();
         SetProdShipTime(val[3],val[4],val[5]);
-        $("#delivery_date").html(val[16])
-
+        $("#delivery_date").html(val[16]);
 
         setTimeout(function(){ ComputeAll(); }, 100);
     }
@@ -823,6 +834,9 @@ jQuery(function ($) {
         $('#price_handler').text(numberFormat(total_price));
         if( total_qty < 100){ $('#id_convert_to_keychains').hide(); } 
         else { $('#id_convert_to_keychains').show(); }
+
+        Builder._clipart(total_qty);
+        Builder.calculateDeliveryDate();
     }
 
     function SetSelectCheckedText(Obj, setSelected){
@@ -837,6 +851,7 @@ jQuery(function ($) {
 
     function LoadTOArray(MultiAdd){
         var SplitItem = MultiAdd.split("~");
+
         for(var x=0;x<=SplitItem.length-1;x++){
             var TempSplit = SplitItem[x].split("^");
 
@@ -850,9 +865,23 @@ jQuery(function ($) {
                     adult: toInt(TempSplit[5]),
                     medium: toInt(TempSplit[6]),
                     youth: toInt(TempSplit[7]),
+                },
+                free: {
+                    adult: toInt(TempSplit[8]),
+                    medium: toInt(TempSplit[9]),
+                    youth: toInt(TempSplit[10]),
+                }
+            }            
+            Builder.data.colors.push(value);
+
+            var value1 = {
+                free: {
+                    adult: toInt(TempSplit[8]),
+                    medium: toInt(TempSplit[9]),
+                    youth: toInt(TempSplit[10]),
                }
             }
-            Builder.data.colors.push(value);
+            Builder.data.free_colors.push(value1);
         }
     }
 
@@ -883,7 +912,7 @@ jQuery(function ($) {
         });
     }
 
-    function LoadPicture(FS,FE,BS,BE,VP,WristStat){
+    function LoadPicture(FS,FE,BS,BE,VP,WristStat,WS,WE){
         $('.clipart-list li').each( function () {
             var glyp = $(this).data('icon-code');
 
@@ -911,8 +940,72 @@ jQuery(function ($) {
                 $('#back_end').text(glyp);
                 $('#icon_start').text(  $('#back_start').text());
                 $('#icon_end').text(  $('#back_end').text());
+            } else if ($(this).data('icon') == WS){
+                $('#WsID').removeClass('fa fa-ban icon-preview hide-if-upload');
+                $('#WsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));;
+                $('#wrap_start').text(glyp);
+                $('#icon_start').text(  $('#wrap_start').text());
+                $('#icon_end').text(  $('#wrap_end').text());
+            } else if ($(this).data('icon') == WE){
+                $('#WeID').removeClass('fa fa-ban icon-preview hide-if-upload');
+                $('#WeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));;
+                $('#wrap_end').text(glyp);
+                $('#icon_start').text(  $('#wrap_start').text());
+                $('#icon_end').text(  $('#wrap_end').text());
             }
         });
+
+        if(FS.indexOf('.') > -1)
+        {
+            $('#FsID').css({display: 'none'});
+            $('#FsID').next('img.image-upload').css({display: 'inline-block'});
+            $('#FsID').next('img.image-upload').attr('src', '/wp-content/uploads/clipart/thumbnail/'+FS);
+        }
+
+        if(FE.indexOf('.') > -1)
+        {
+            $('#FeID').css({display: 'none'});
+            $('#FeID').next('img.image-upload').css({display: 'inline-block'});
+            $('#FeID').next('img.image-upload').attr('src', '/wp-content/uploads/clipart/thumbnail/'+FE);
+        }
+
+        if(BS.indexOf('.') > -1)
+        {
+            $('#BsID').css({display: 'none'});
+            $('#BsID').next('img.image-upload').css({display: 'inline-block'});
+            $('#BsID').next('img.image-upload').attr('src', '/wp-content/uploads/clipart/thumbnail/'+BS);
+        }
+
+        if(BE.indexOf('.') > -1)
+        {
+            $('#BeID').css({display: 'none'});
+            $('#BeID').next('img.image-upload').css({display: 'inline-block'});
+            $('#BeID').next('img.image-upload').attr('src', '/wp-content/uploads/clipart/thumbnail/'+BE);
+        }
+
+        if(WS.indexOf('.') > -1)
+        {
+            $('#WsID').css({display: 'none'});
+            $('#WsID').next('img.image-upload').css({display: 'inline-block'});
+            $('#WsID').next('img.image-upload').attr('src', '/wp-content/uploads/clipart/thumbnail/'+WS);
+        }
+
+        if(WE.indexOf('.') > -1)
+        {
+            $('#WeID').css({display: 'none'});
+            $('#WeID').next('img.image-upload').css({display: 'inline-block'});
+            $('#WeID').next('img.image-upload').attr('src', '/wp-content/uploads/clipart/thumbnail/'+WE);
+        }
+
+        Builder.data.clipart['front_start'] = FS;
+        Builder.data.clipart['front_end'] = FE;
+        Builder.data.clipart['back_start'] = BS;
+        Builder.data.clipart['back_end'] = BE;
+
+        Builder.data.clipart['wrap_end'] = '';
+        Builder.data.clipart['wrap_start'] = '';
+
+        Builder.data.clipart['wristband_stat'] = WristStat;
     }
 
 
@@ -1143,6 +1236,13 @@ jQuery(function ($) {
                     medium          : toInt($mq.val()),
                     youth           : toInt($yq.val()),
                 },
+                free: {
+                    adult           : toInt(_adult_qtyE),
+                    medium          : toInt(_medium_qtyE),
+                    youth           : toInt(_youth_qtyE),
+               }
+            });
+            Builder.addFreeColor($wc.data('name'), {
                 free: {
                     adult           : toInt(_adult_qtyE),
                     medium          : toInt(_medium_qtyE),
@@ -1516,6 +1616,7 @@ jQuery(function ($) {
                     DeleteRows();
 
                     //get the color list and update the additional color table list
+                    var free_lists = Builder.data.free_colors;
                     var lists = Builder.data.colors;
                     Builder.CntID = 0;
                     var TempID = Builder.CntID;
@@ -1539,13 +1640,13 @@ jQuery(function ($) {
                         }
                         var  $tr = $('#selected_color_table > tbody tr[data-name="'+ lists[index].name +'"]'); 
                         var row_tpl = Mustache.render(
-                            '<tr data-name="{{name}}" class="option-tr" id="Tr-' + TempID + '">'
-                            + '<td style="text-align: left" id="colorBox-' + TempID + '">{{{wristband_color_box}}}</td>'
-                            + '<td><center><span style="font-weight: bold;" id="spanAdult-' + TempID +'">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpAdult-' + TempID + '" value="{{{num_aq}}}"></center></td>'
-                            + '<td><center><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"></center></td>'
-                            + '<td><center><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"></center></td>'
+                           '<tr data-name="{{name}}" class="option-tr" id="Tr-' + TempID + '">'
+                            + '<td style="text-align: left" id="colorBox-' + TempID + '"><div class="DivColorBox">{{{wristband_color_box}}}</div></td>'
+                            + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanAdult-' + TempID +'">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '" class="CssAddup" data-plus="{{{num_aqE}}}">{{{num_aqE_view}}}</span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpAdult-' + TempID + '" value="{{{num_aq}}}"><span id="spanAdultupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpAdultE-' + TempID + '" value="{{{num_aqE}}}"></center></td>'
+                            + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup" data-plus="{{{num_mqE}}}">{{{num_mqE_view}}}</span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"><span id="spanMediumupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpMediumE-' + TempID + '" value="{{{num_mqE}}}"></center></td>'
+                            + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup" data-plus="{{{num_yqE}}}">{{{num_yqE_view}}}</span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"><span id="spanYouthupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpYouthE-' + TempID + '" value="{{{num_yqE}}}"></center></td>'
                             + '<td style="text-align: center" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
-                            + '<td colspan="2" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}" >Delete</a></td>' 
+                            + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}">Delete</a></td>'
                             + '</tr>',
                             {
                                 name                        : lists[index].name,
@@ -1557,6 +1658,12 @@ jQuery(function ($) {
                                 num_aq                      : lists[index].sizes['adult'],
                                 num_mq                      : lists[index].sizes['medium'],
                                 num_yq                      : lists[index].sizes['youth'],
+                                num_aqE                     : free_lists[index].free['adult'],
+                                num_mqE                     : free_lists[index].free['medium'],
+                                num_yqE                     : free_lists[index].free['youth'],
+                                num_aqE_view                : toInt(free_lists[index].free['adult']) > 0 ? ('&nbsp; +' + numberFormat(toInt(free_lists[index].free['adult']), 0)):'',
+                                num_mqE_view                : toInt(free_lists[index].free['medium']) > 0 ? ('&nbsp; +' + numberFormat(toInt(free_lists[index].free['medium']), 0)):'',
+                                num_yqE_view                : toInt(free_lists[index].free['youth']) > 0 ? ('&nbsp; +' + numberFormat(toInt(free_lists[index].free['youth']), 0)):'',
                                 textColorName               : lists[index].text_color_name,
                                 Wrist_Type                  : lists[index].type 
                            }
@@ -2223,7 +2330,7 @@ jQuery(function ($) {
                 $button_text.text('Processing...');
 
                 Builder.collectDataToPost();
-                console.log(Builder.data);
+
                 $.ajax({
                     url: WBC.ajax_url,
                     type: 'POST',

@@ -22,12 +22,20 @@ if (isset($_REQUEST['id'])){
             $Wrist_Style = $_product->get_title();
             $Wrist_Size = (isset($meta['size']) ? $meta['size'] : '');
 
-            foreach ($meta['colors'] as $color): if (!isset($color['name']) || empty($color['name'])) continue;
+            $free_colors = $meta['free_colors'];
+            foreach ($meta['colors'] as $pk => $color): if (!isset($color['name']) || empty($color['name'])) continue;
                 $ColorName = $color['name'];
                 $ColorType = $color['type'];
                 $WristColor = $color['color']; 
                 $TextColorName = $color['text_color_name'];
                 $TextColor = $color['text_color'];
+
+                $adult = 0;
+                $medium = 0;
+                $youth = 0;
+                $adult_free = 0;
+                $medium_free = 0;
+                $youth_free = 0;
 
                 foreach ($color['sizes'] as $k => $qty): if ($qty <= 0) continue; 
                    if ($k == "adult"){ $adult = $qty; } 
@@ -35,30 +43,42 @@ if (isset($_REQUEST['id'])){
                    else { $youth = $qty; }
                 endforeach;
 
+                foreach ($free_colors[$pk]['free'] as $k => $qty): if ($qty <= 0) continue; 
+                   if ($k == "adult"){ $adult_free = $qty; } 
+                   elseif ($k == "medium"){ $medium_free = $qty;} 
+                   else { $youth_free = $qty; }
+                endforeach;
 
-                if ($MultiAdd == ""){ $MultiAdd = $ColorName."^".$ColorType."^".$WristColor."^".$TextColorName."^".$TextColor."^".$adult."^".$medium."^".$youth;
-                } else { $MultiAdd = $MultiAdd."~".$ColorName."^".$ColorType."^".$WristColor."^".$TextColorName."^".$TextColor."^".$adult."^".$medium."^".$youth; }
+
+                if ($MultiAdd == ""){ $MultiAdd = $ColorName."^".$ColorType."^".$WristColor."^".$TextColorName."^".$TextColor."^".$adult."^".$medium."^".$youth."^".$adult_free."^".$medium_free."^".$youth_free;
+                } else { $MultiAdd = $MultiAdd."~".$ColorName."^".$ColorType."^".$WristColor."^".$TextColorName."^".$TextColor."^".$adult."^".$medium."^".$youth."^".$adult_free."^".$medium_free."^".$youth_free; }
                 $FontStyle =  $meta['font'];
 
                 foreach ($meta['messages'] as $label => $val): if (empty($val)) continue;
                     if ($label == "Front Message"){ $Front_msg = $val; }
                     elseif ($label == "Back Message"){ $Back_msg = $val; }
-                    else{ $Inside_msg = $val; }
+                    elseif ($label == "Continuous Message"){ $Wrap_msg = $val; }
+                    elseif ($label == "Inside Message"){ $Inside_msg = $val; }
+                    elseif ($label == "Additional Notes"){ $AddNotes_msg = $val; }
                 endforeach;
 
-
-                foreach ($meta['additional_options'] as $k => $option):
-                    if ($k == "0"){ $InPackaging = $option; }
-                    elseif ($k == "1"){ $Eco = $option; }
-                    elseif ($k == "2"){ $Thick = $option; }
-                    else { $DigitalPro = $option; }
-                endforeach;
+                if(isset($meta['additional_options']))
+                {
+                    foreach ($meta['additional_options'] as $k => $option):
+                        if ($k == "0"){ $InPackaging = $option; }
+                        elseif ($k == "1"){ $Eco = $option; }
+                        elseif ($k == "2"){ $Thick = $option; }
+                        else { $DigitalPro = $option; }
+                    endforeach;
+                }
 
                 foreach ($meta['clipart'] as $k => $clipart): if (empty($clipart)) continue;
                     if ($k == "front_start"){ $front_start = $clipart; }
                     elseif ($k == "front_end"){ $front_end = $clipart; }
                     elseif ($k == "back_start"){ $back_start = $clipart; }
                     elseif ($k == "back_end"){ $back_end = $clipart; }
+                    elseif ($k == "wrap_start"){ $wrap_start = $clipart; }
+                    elseif ($k == "wrap_end"){ $wrap_end = $clipart; }
                     elseif ($k == "view_position"){ $view_position = $clipart; }
                     else{ $wristband_stat = $clipart; }
                 endforeach;
@@ -75,7 +95,7 @@ if (isset($_REQUEST['id'])){
     }
     $Info = $Info."|".$C_location."|".$C_date_prod."|".$C_date_ship."|".$InPackaging.
             "|".$Eco."|".$Thick."|".$DigitalPro.
-            "|".$front_start."|".$front_end."|".$back_start."|".$back_end."|".$view_position."|".$wristband_stat."|".$guaranteed_delivery;
+            "|".$front_start."|".$front_end."|".$back_start."|".$back_end."|".$view_position."|".$wristband_stat."|".$guaranteed_delivery."|".$wrap_start."|".$wrap_end;
 ?>
     <input id="EditModeID" name="<?php echo $Info; ?>" style="display:none;" value="<?php echo $TempID; ?>">
 
@@ -347,13 +367,13 @@ if (isset($_REQUEST['id'])){
                                     <label for="message_type" class="form-group-heading CssTitleBlack">Message on Wristbands</label class="form-group-heading CssTitleBlack" >
 
                                     <div style="float: right;">
-                                        <input type="radio" name="message_type" value="front_and_back" checked/>
+                                        <input type="radio" name="message_type" value="front_and_back" <?php echo isset($wristband_stat)?($wristband_stat=='front_and_back'?'checked':''):'checked'; ?> />
                                         Front/Back
                                         <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                           title="Front and Back Message" data-placement="top">?</span>
 
                                         &nbsp;
-                                        <input type="radio" name="message_type" value="continues"/>
+                                        <input type="radio" name="message_type" value="continues" <?php echo $wristband_stat=='continues'?'checked':''; ?> />
                                         Wrap Around
                                         <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                               title="Continuous Message" data-placement="top">?</span>
@@ -406,7 +426,7 @@ if (isset($_REQUEST['id'])){
                                                 </label>
                                             </td><td>
                                                 <input type="text" name="continues_message" class="input-text trigger-limit-char"
-                                                       data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" />
+                                                       data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Wrap_msg; ?>" />
                                             </td>
                                         </tr></table>
                                     </p><!-- /.form-group -->
@@ -459,7 +479,7 @@ if (isset($_REQUEST['id'])){
 
                         <p class="form-row form-row-wide">
                             <label for="additional_notes"  class="form-group-heading CssTitleBlack">Addition Notes</label>
-                            <textarea class="input-text" name="additional_notes" id="additional_notes" cols="30" rows="5"></textarea>
+                            <textarea class="input-text" name="additional_notes" id="additional_notes" cols="30" rows="5"><?php echo $AddNotes_msg; ?></textarea>
                         </p>
 
 
@@ -477,7 +497,7 @@ if (isset($_REQUEST['id'])){
                                             class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
                                             <i class="fa fa-ban icon-preview hide-if-upload" id="FsID"></i>
-                                                <img class="image-upload hide-if-icon" width="10" height="16"/>
+                                                <img class="image-upload hide-if-icon" width="16" height="16"/>
                                             select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
@@ -496,7 +516,7 @@ if (isset($_REQUEST['id'])){
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
                                             <i class="fa fa-ban icon-preview hide-if-upload" id="FeID"></i>
-                                                <img class="image-upload hide-if-icon" width="10" height="16"/>
+                                                <img class="image-upload hide-if-icon" width="16" height="16"/>
                                             select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
@@ -516,7 +536,7 @@ if (isset($_REQUEST['id'])){
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
                                             <i class="fa fa-ban icon-preview hide-if-upload" id="BsID"></i>
-                                                <img class="image-upload hide-if-icon" width="10" height="16"/>
+                                                <img class="image-upload hide-if-icon" width="16" height="16"/>
                                             select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
@@ -537,7 +557,7 @@ if (isset($_REQUEST['id'])){
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
                                             <i class="fa fa-ban icon-preview hide-if-upload" id="BeID"></i>
-                                                <img class="image-upload hide-if-icon" width="10" height="16"/>
+                                                <img class="image-upload hide-if-icon" width="16" height="16"/>
                                             select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
@@ -558,7 +578,7 @@ if (isset($_REQUEST['id'])){
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
                                             <i class="fa fa-ban icon-preview hide-if-upload" id="WsID"></i>
-                                                <img class="image-upload hide-if-icon" width="10" height="16"/>
+                                                <img class="image-upload hide-if-icon" width="16" height="16"/>
                                             select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
@@ -579,7 +599,7 @@ if (isset($_REQUEST['id'])){
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
                                             <i class="fa fa-ban icon-preview hide-if-upload" id="WeID"></i>
-                                                <img class="image-upload hide-if-icon" width="10" height="16"/>
+                                                <img class="image-upload hide-if-icon" width="16" height="16"/>
                                             select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
@@ -769,10 +789,9 @@ if (isset($_REQUEST['id'])){
 <?php 
 if (isset($_REQUEST['id'])){
     echo "<script type='text/javascript'> 
-
-$('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
-
-alert('sdadas');
+        (function($){
+            $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
+        })(jQuery);
     </script>";
 }
 
