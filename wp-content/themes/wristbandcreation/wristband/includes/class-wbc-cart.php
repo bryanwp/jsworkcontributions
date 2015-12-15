@@ -51,7 +51,6 @@ if (!class_exists('WBC_Cart')) {
                     if ($result) {
                         wp_send_json_success(array('message' => 'Successfully added to cart.'));
                     } else {
-                        //wp_send_json_error(array( 'message' => $result));
                         wp_send_json_error(array( 'message' => 'Already added to cart.'));
                     }
                // }
@@ -60,66 +59,28 @@ if (!class_exists('WBC_Cart')) {
 
         }
 
-
+        
         function wbc_ajax_edit_to_cart() {
 
-            if ($_POST && isset($_POST['meta'])) {
+            if ($_POST && isset($_POST['meta']) && isset($_POST['UpdateID'])) {
                 global $woocommerce;
-               // $meta = json_decode( str_replace("\\", "", $_POST['meta'] ), true);
+
                 $UpdateID = $_POST["UpdateID"];
+                $meta = $_POST['meta'];
 
-                $updateStat = true;
-
-               unset($woocommerce->cart->get_cart()[$UpdateID]);
-
-      
-    
-                foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-       
-
-                    if ($cart_item_key == $UpdateID){
-                      ///  unset($cart_item['wristband_meta']);
-       
-                        //$sss = "<prev>".$cart_item['wristband_meta']."</prev><br><br><prev>".$meta['product']."</prev>";
-                        break;
+                $retVal = $woocommerce->cart->remove_cart_item( $UpdateID );
+                if($retVal)
+                {
+                    $result = $woocommerce->cart->add_to_cart($meta['product']);
+                    if ($result) {
+                        wp_send_json_success(array('message' => 'Successfully updated cart.'));
+                    } else {
+                        wp_send_json_error(array( 'message' => 'Already added to cart.'));
                     }
                 }
-        
-
-        //        foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-
-
-
-      //  $meta = isset($cart_item['wristband_meta']) ? $cart_item['wristband_meta'] : array();
-      //  $_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
-      //  $product_id   = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
-
-      //  if ($cart_item_key == $TempID){
-
-wp_send_json_error(array( 'message' => $sss));
-
-
-
-                //if ( $this->check_already_in_cart( $meta['product'] ) ) {
-                //    wp_send_json_error(array( 'message' => 'Already added to cart.'));
-                //} else {
-                //    $result = $woocommerce->cart->add_to_cart($meta['product']);
-                //    if ($result) {
-                //        wp_send_json_success(array('message' => 'Successfully added to cart.'));
-                //    } else {
-                        //wp_send_json_error(array( 'message' => $result));
-                //        wp_send_json_error(array( 'message' => 'Already added to cart.'));
-                //    }
-               // }
-
             }
 
-
-
-
         }
-
-
 
 
 

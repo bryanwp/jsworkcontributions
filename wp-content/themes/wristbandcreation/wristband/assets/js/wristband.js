@@ -2394,6 +2394,9 @@ jQuery(function ($) {
                     Builder.has_upload = false;
                     Builder.popupMsg(type, title, response.data.message + ' <a href="'+ Settings.site_url +'/cart">view cart <i class="fa fa-long-arrow-right"></i></a>');
                     $("#mmk").html(response.data.message)
+
+                    if (response.success)
+                        setTimeout(function(){ window.location = "/cart"; }, 1000);
                 });
                 ConnectItems();
                 return false;
