@@ -2484,6 +2484,8 @@ jQuery(function ($) {
 
                 if($('#SaveDesignEmail').val() != "" && emailFormat.test($('#SaveDesignEmail').val()))
                 {
+                    Builder.collectDataToPost();
+                    
                     var holdData = Builder.data;
                     var tempSelect = document.getElementById("style");
                     var tempVal = tempSelect.options[tempSelect.selectedIndex].text;
