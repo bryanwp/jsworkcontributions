@@ -211,7 +211,7 @@ jQuery(function ($) {
                 this.data.total_qty = total_qty;
                 this.data.total_price = total_price;  
 
-                $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 Free' : ''));
+                $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 FREE' : ''));
                 $('#price_handler').text(numberFormat(total_price));
                 if( total_qty < 100){ $('#id_convert_to_keychains').hide(); } 
                 else { $('#id_convert_to_keychains').show(); }
@@ -240,10 +240,17 @@ jQuery(function ($) {
                 var $select = $('select[name="customization_date_'+ c[i] +'"]');
                 $select.removeAttr('disabled');
                 $('option:not(:first-child)', $select).remove();
+
+
+                if (Settings[c[i] + "_price_list"][$size.data('group')] == undefined) continue;
+
                 var t = Settings.customization.dates[c[i]];
+                var g = Settings[c[i] + "_price_list"][$size.data('group')];
+
+
                 for (var y in t) {
                     var val = t[y].days;
-                    var price = toFloat(this.getDayPrice(Settings.production_price_list[$size.data('group')][y]));
+                    var price = toFloat(this.getDayPrice(g[y]));
                     var lbl = price > 0 ? Settings.currency_symbol + numberFormat(price) : 'Free';
 
                     var $option = $('<option />')
@@ -830,7 +837,7 @@ jQuery(function ($) {
         Builder.data.total_qty = total_qty;
         Builder.data.total_price = total_price;  
 
-        $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 Free' : ''));
+        $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 FREE' : ''));
         $('#price_handler').text(numberFormat(total_price));
         if( total_qty < 100){ $('#id_convert_to_keychains').hide(); } 
         else { $('#id_convert_to_keychains').show(); }
@@ -1135,9 +1142,9 @@ jQuery(function ($) {
     }
 
 
-    function AddNewColor(){
-        var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
-            $tc = $('#wristband-text-color .color-wrap.selected > div'),
+    function AddNewColor($wc){
+        // var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
+        var $tc = $('#wristband-text-color .color-wrap.selected > div'),
             bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" ' +
                                 'style="display:{{style_display}}" ><div data-color="{{bg_color}}" style="background-color:{{bg_color}}; ' +
                                 'background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}}); ' +
@@ -1193,11 +1200,11 @@ jQuery(function ($) {
             var row_tpl = Mustache.render(
                 '<tr data-name="{{name}}" class="option-tr" id="Tr-' + TempID + '">'
                 + '<td style="text-align: left" id="colorBox-' + TempID + '"><div class="DivColorBox">{{{wristband_color_box}}}</div></td>'
-                + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanAdult-' + TempID +'">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpAdult-' + TempID + '" value="{{{num_aq}}}"><span id="spanAdultupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpAdultE-' + TempID + '" value="{{{num_aqE}}}"></center></td>'
-                + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"><span id="spanMediumupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpMediumE-' + TempID + '" value="{{{num_mqE}}}"></center></td>'
-                + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"><span id="spanYouthupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpYouthE-' + TempID + '" value="{{{num_yqE}}}"></center></td>'
-                + '<td style="text-align: center" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
-                + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}">Delete</a></td>'
+                + '<td style="text-align: left"><left><span style="font-weight: bold;" id="spanAdult-' + TempID +'">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpAdult-' + TempID + '" value="{{{num_aq}}}"><span id="spanAdultupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpAdultE-' + TempID + '" value="{{{num_aqE}}}"></left></td>'
+                + '<td style="text-align: left"><left><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"><span id="spanMediumupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpMediumE-' + TempID + '" value="{{{num_mqE}}}"></left></td>'
+                + '<td style="text-align: left"><left><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"><span id="spanYouthupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpYouthE-' + TempID + '" value="{{{num_yqE}}}"></left></td>'
+                + '<td style="text-align: left" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
+                + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed font-size-11" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}">Delete</a></td>'
                 + '</tr>',
                 {
                     name                        : $wc.data('name'),
@@ -1595,6 +1602,7 @@ jQuery(function ($) {
 
                     Builder.init();
                     $('#wristband-text-color ul').empty();
+                    $('#selectTextColorLabel').hide();
 
                     if ( slctd_product.text_color) {
                         $('#wristband-text-color').closest('.form-group').show();
@@ -1609,6 +1617,7 @@ jQuery(function ($) {
                             });
                             $('#wristband-text-color ul').append(render);
                         }
+                        $('#selectTextColorLabel').show();
                    } else { /* $('#wristband-text-color').closest('.form-group').hide(); */ }
 
                     messageOptionDisplay($('input[name="message_type"]:checked').val()); // display the default message option which front, back & inside
@@ -1642,11 +1651,11 @@ jQuery(function ($) {
                         var row_tpl = Mustache.render(
                            '<tr data-name="{{name}}" class="option-tr" id="Tr-' + TempID + '">'
                             + '<td style="text-align: left" id="colorBox-' + TempID + '"><div class="DivColorBox">{{{wristband_color_box}}}</div></td>'
-                            + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanAdult-' + TempID +'">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '" class="CssAddup" data-plus="{{{num_aqE}}}">{{{num_aqE_view}}}</span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpAdult-' + TempID + '" value="{{{num_aq}}}"><span id="spanAdultupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpAdultE-' + TempID + '" value="{{{num_aqE}}}"></center></td>'
-                            + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup" data-plus="{{{num_mqE}}}">{{{num_mqE_view}}}</span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"><span id="spanMediumupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpMediumE-' + TempID + '" value="{{{num_mqE}}}"></center></td>'
-                            + '<td style="text-align: center"><center><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup" data-plus="{{{num_yqE}}}">{{{num_yqE_view}}}</span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"><span id="spanYouthupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpYouthE-' + TempID + '" value="{{{num_yqE}}}"></center></td>'
-                            + '<td style="text-align: center" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
-                            + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}">Delete</a></td>'
+                            + '<td style="text-align: left"><left><span style="font-weight: bold;" id="spanAdult-' + TempID +'">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '" class="CssAddup" data-plus="{{{num_aqE}}}">{{{num_aqE_view}}}</span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpAdult-' + TempID + '" value="{{{num_aq}}}"><span id="spanAdultupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpAdultE-' + TempID + '" value="{{{num_aqE}}}"></left></td>'
+                            + '<td style="text-align: left"><left><span style="font-weight: bold;" id="spanMedium-' + TempID +'">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup" data-plus="{{{num_mqE}}}">{{{num_mqE_view}}}</span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"><span id="spanMediumupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpMediumE-' + TempID + '" value="{{{num_mqE}}}"></left></td>'
+                            + '<td style="text-align: left"><left><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup" data-plus="{{{num_yqE}}}">{{{num_yqE_view}}}</span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"><span id="spanYouthupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpYouthE-' + TempID + '" value="{{{num_yqE}}}"></left></td>'
+                            + '<td style="text-align: left" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
+                            + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed font-size-11" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}">Delete</a></td>'
                             + '</tr>',
                             {
                                 name                        : lists[index].name,
@@ -1745,6 +1754,14 @@ jQuery(function ($) {
                 var $aq    = $('#qty_adult'),
                     $mq    = $('#qty_medium'),
                     $yq    = $('#qty_youth');
+                var previous_color_selected = "", previous_element = -1;
+                if ( $('#wristband-color-items .color-wrap.selected').length )
+                {
+                    previous_color_selected = $('#wristband-color-items .color-wrap.selected').find('div').data('color');
+                    previous_element = $('#wristband-color-items .color-wrap.selected').find('div');
+                }
+
+                var current_color_selected = $(this).find('div').data('color');
 
                     var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name');
                     if(tbl_color){
@@ -1757,7 +1774,11 @@ jQuery(function ($) {
                     $('#wristband-color-items .color-wrap').removeClass('selected');
                     $(this).addClass('selected');
                     $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
-                    if ((toInt($aq.val()) > 0 ||toInt($mq.val()) > 0 || toInt($yq.val()) > 0)) { AddNewColor(); }
+                    if ((toInt($aq.val()) > 0 ||toInt($mq.val()) > 0 || toInt($yq.val()) > 0)) 
+                    { 
+                        if(previous_color_selected != current_color_selected && previous_color_selected != "")
+                            AddNewColor(previous_element); 
+                    }
                     Builder.observer();
             })
             .on('keyup mouseup', '#qty_adult, #qty_medium, #qty_youth', function() {
@@ -1802,7 +1823,7 @@ jQuery(function ($) {
             })
             .on('click', '#add_color_to_selections', function(e) {
                 e.preventDefault();
-                AddNewColor();
+                AddNewColor($('#wristband-color-items .color-wrap.selected').find('div'));
             })
 
             .on('keyup', '.keyupTxtView', function(e) {
@@ -1815,6 +1836,16 @@ jQuery(function ($) {
                 {
                     $('.keyupTxtEdit').css("display", "block");
                     $('.keyupSpanEdit').css("display", "block");
+
+                    var totalFree = 0;
+                    $('.keyupTxtEdit').each(function(index, elem){
+                        totalFree += toInt($(elem).val());
+                    });
+                    $('#freeCounter').html('Total Free Wristband: '+totalFree);
+                    var classN = 'CssTitleBlue';
+                    if(totalFree != 100)
+                        classN = 'CssTitleRed';
+                    $('#freeCounter').attr('class', classN);
                 }
                 else
                 {
@@ -1822,23 +1853,48 @@ jQuery(function ($) {
 
                     $('.keyupTxtEdit').hide();
                     $('.keyupSpanEdit').hide();
+
+                    $('#freeCounter').html('');
                 }
             })
 
             .on('keyup', '.keyupTxtEdit', function(e) {
-                var getVal = toInt($(this).parent('center').find('.keyupTxtView').val());
+                var getVal = toInt($(this).parent('left').find('.keyupTxtView').val());
                 if(getVal == 0)
                 {
                     $(this).val(0);
+                }
+
+                var totalW = 0;
+                $('.keyupTxtView').each(function(index, elem){
+                    totalW += toInt($(elem).val());
+                });
+                if(totalW >= 100)
+                {
+                    var totalFree = 0;
+                    $('.keyupTxtEdit').each(function(index, elem){
+                        totalFree += toInt($(elem).val());
+                    });
+                    $('#freeCounter').html('Total Free Wristband: '+totalFree);
+                    var classN = 'CssTitleBlue';
+                    if(totalFree != 100)
+                        classN = 'CssTitleRed';
+                    $('#freeCounter').attr('class', classN);
                 }
             })
 
             .on('click', '#EditSaveID', function(e) {
                 var Stat = $(this).html();
-                if (Stat == "Edit"){
+                if (Stat == "Edit Quantity"){
                     $(this).html("Save");
                     $("#CancelID").html("Cancel");
                     Enab_Dis("Disabled");
+
+                    if(Builder.data.total_qty >= 100)
+                    {
+                        $('#freeCounter').html('Total Free Wristband: 100');
+                        $('#freeCounter').attr('class', 'CssTitleBlue');
+                    }
 
                 } else {
                     var Saving = true;
@@ -1904,7 +1960,8 @@ jQuery(function ($) {
                                                                 });
                             }
                         }
-                        $(this).html("Edit");
+                        $('#freeCounter').html('');
+                        $(this).html("Edit Quantity");
                         $("#CancelID").html("");
                         Enab_Dis("SaveEdit");
                     //*************************************
@@ -1916,7 +1973,8 @@ jQuery(function ($) {
                 var Stat = $(this).html();
 
                 if (Stat == "Cancel"){
-                    $("#EditSaveID").html("Edit");
+                    $('#freeCounter').html('');
+                    $("#EditSaveID").html("Edit Quantity");
                     $(this).html("");
                     Enab_Dis("Enabled");
                 }
@@ -1968,9 +2026,10 @@ jQuery(function ($) {
                     Builder.removeColor(color_name,color_Textname);
 
                     if (Builder.data.colors.length == 0){
-                        $("#EditSaveID").html("Edit");
+                        $("#EditSaveID").html("Edit Quantity");
                         $("#CancelID").html("");
                         Enab_Dis("SaveEdit");
+                        $('#freeCounter').html('');
                     }
 
                     return false;
@@ -2150,10 +2209,10 @@ jQuery(function ($) {
                             var row_tpl = Mustache.render(
                                         '<tr data-name="{{name}}" class="option-tr">'
                                         + '<td style="text-align: left">{{wristband_color_box}}}</td>'
-                                        + '<td><center>{{{adult_qt}}}</center></td>'
-                                        + '<td><center>{{{medium_qty}}}</center></td>'
-                                        + '<td><center>{{{youth_qty}}}</center></td>'
-                                        + '<td  style="text-align: center"><center>{{{wristband_text_color_box}}}</center></td>'
+                                        + '<td><left>{{{adult_qt}}}</left></td>'
+                                        + '<td><left>{{{medium_qty}}}</left></td>'
+                                        + '<td><left>{{{youth_qty}}}</left></td>'
+                                        + '<td  style="text-align: left"><center>{{{wristband_text_color_box}}}</center></td>'
                                         + '<td><a href="#" id="edit" data-name="{{name}}" class="edit-selection"><i class="fa fa-pencil"></i></a><a href="#" class="delete-selection CssTitleRed"><i class="fa fa-trash"></i></a></td>'
                                         + '</tr>',
                                         {

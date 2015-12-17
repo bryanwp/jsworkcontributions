@@ -96,11 +96,16 @@ if (isset($_REQUEST['id'])){
     $Info = $Info."|".$C_location."|".$C_date_prod."|".$C_date_ship."|".$InPackaging.
             "|".$Eco."|".$Thick."|".$DigitalPro.
             "|".$front_start."|".$front_end."|".$back_start."|".$back_end."|".$view_position."|".$wristband_stat."|".$guaranteed_delivery."|".$wrap_start."|".$wrap_end;
+
+
+    if($Edit == false && $OrderStatus == 'edit')
+    {
+        echo '<script>window.location = "'.get_site_url().'/order-now/";</script>';
+    }
 ?>
     <input id="EditModeID" name="<?php echo $Info; ?>" style="display:none;" value="<?php echo $TempID; ?>">
 
 <?php 
-
 }
 ?>
 
@@ -223,7 +228,7 @@ if (isset($_REQUEST['id'])){
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="form-group-heading CssTitleBlack" >Select Text Color</label>
+                            <label class="form-group-heading CssTitleBlack" id="selectTextColorLabel" style="display:none">Select Text Color</label>
                             <div id="wristband-text-color">
                                 <ul>
 
@@ -235,15 +240,15 @@ if (isset($_REQUEST['id'])){
                         <div id="quantity_group_field">
                             <!-- <label class="form-group-heading CssTitleBlack" >Input Quantity <span>(Side View Guide)</span></label> -->
                             <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
-                                <label class="form-group-heading" for="qty_adult">Adult</label>
+                                <label class="form-group-heading CssTitleBlack" for="qty_adult">Adult</label>
                                 <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text">
                             </p>
                             <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
-                                <label class="form-group-heading" for="qty_medium">Medium</label>
+                                <label class="form-group-heading CssTitleBlack" for="qty_medium">Medium</label>
                                 <input type="number" name="qty_medium" id="qty_medium"  min="0" class="input-text">
                             </p>
                             <p class="form-row form-row-last fusion-one-fourth one_third fusion-layout-column fusion-column-last fusion-spacing-yes">
-                                <label class="form-group-heading" for="qty_youth">Youth</label>
+                                <label class="form-group-heading CssTitleBlack" for="qty_youth">Youth</label>
                                 <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text">
                             </p>
                             <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
@@ -296,16 +301,17 @@ if (isset($_REQUEST['id'])){
                             </div>
 
                             <div class="col-md-10">
+                                <span id="freeCounter" class="CssTitleBlue"></span>
                                 <div class="form-group table-responsive">
                                     <table id="selected_color_table" class="table table-bordered" border="0">
                                         <thead>
                                             <tr>
                                                 <th style="width: 150px;">Color</th>
-                                                <th class="TempCss1">Adult</th>
-                                                <th class="TempCss1">Medium</th>
-                                                <th class="TempCss1">Youth</th>
+                                                <th class="TempCss1" style="text-align:left;">Adult</th>
+                                                <th class="TempCss1" style="text-align:left;">Medium</th>
+                                                <th class="TempCss1" style="text-align:left;">Youth</th>
                                                 <th class = "text_to_alter">Text</th>
-                                                <th colspan="2" style="text-align:right;"><a class="CssEditSave CssTitleBlue" id="EditSaveID" style="cursor: pointer;">Edit</a><br><a style="cursor: pointer;" class="CssEditSave CssTitleRed"  id="CancelID"></a></th>
+                                                <th colspan="2" style="text-align:right;"><a class="CssEditSave CssTitleBlue font-size-11" id="EditSaveID" style="cursor: pointer;">Edit Quantity</a><br><a style="cursor: pointer;" class="CssEditSave CssTitleRed font-size-11"  id="CancelID"></a></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -364,9 +370,9 @@ if (isset($_REQUEST['id'])){
 
                             <div>
                                 <div class="form-row">
-                                    <label for="message_type" class="form-group-heading CssTitleBlack">Message on Wristbands</label class="form-group-heading CssTitleBlack" >
+                                    <label for="message_type" class="form-group-heading CssTitleBlack marginTB-5" style="float:left">Message on Wristbands</label class="form-group-heading CssTitleBlack" >
 
-                                    <div style="float: right;">
+                                    <div class="marginTB-5" style="float: right;">
                                         <input type="radio" name="message_type" value="front_and_back" <?php echo isset($wristband_stat)?($wristband_stat=='front_and_back'?'checked':''):'checked'; ?> />
                                         Front/Back
                                         <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
@@ -384,8 +390,8 @@ if (isset($_REQUEST['id'])){
                                 <?php if (isset($GLOBALS['wbc_settings']->tool_tip_text)):
                                     $tooltip = $GLOBALS['wbc_settings']->tool_tip_text ; ?>
                                     <div id="ForFrontBackID">
-                                        <p class="form-row form-row-wide hide-if-message_type-continues" id="width_field">
-                                            <table style="width: 100%;" border="0" cellspacing="0"><tr>
+                                        <div class="form-row form-row-wide hide-if-message_type-continues" id="width_field">
+                                            <table class="marginTB-5" style="width: 100%;" border="0" cellspacing="0"><tr>
                                                 <td class="TdTitleCss">
                                                     <label for="front_message"  class="form-group-heading CssTitleBlack">Front Message
                                                         <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
@@ -397,10 +403,10 @@ if (isset($_REQUEST['id'])){
                                                            data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Front_msg; ?>">
                                                 </td>
                                             </tr></table>
-                                        </p>
+                                        </div>
 
-                                        <p class="form-row form-row-wide hide-if-message_type-continues">
-                                            <table style="width: 100%;" border="0" cellspacing="0"><tr>
+                                        <div class="form-row form-row-wide hide-if-message_type-continues">
+                                            <table class="marginTB-5" style="width: 100%;" border="0" cellspacing="0"><tr>
                                                 <td class="TdTitleCss">
                                                     <label for="back_message"  class="form-group-heading CssTitleBlack">Back Message
                                                         <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
@@ -412,12 +418,12 @@ if (isset($_REQUEST['id'])){
                                                            data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Back_msg; ?>"  />
                                                 </td>
                                             </tr></table>
-                                        </p><!-- /.form-group -->
+                                        </div><!-- /.form-group -->
                                     </div>
 
                                 <div id="ForContiID">
-                                    <p class="form-row form-row-wide hide-if-message_type-front_and_back">
-                                        <table style="width: 100%;" border="0" cellspacing="0"><tr>
+                                    <div class="form-row form-row-wide hide-if-message_type-front_and_back">
+                                        <table class="marginTB-5" style="width: 100%;" border="0" cellspacing="0"><tr>
                                             <td class="TdTitleCss">
                                                 <label for="continues_message"  class="form-group-heading CssTitleBlack">Continuous Message
                                                     <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
@@ -429,11 +435,11 @@ if (isset($_REQUEST['id'])){
                                                        data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Wrap_msg; ?>" />
                                             </td>
                                         </tr></table>
-                                    </p><!-- /.form-group -->
+                                    </div><!-- /.form-group -->
                                 </div>
 
-                                <p class="form-row form-row-wide">
-                                    <table style="width: 100%;" border="0" cellspacing="0"><tr>
+                                <div class="form-row form-row-wide">
+                                    <table class="marginTB-5" style="width: 100%;" border="0" cellspacing="0"><tr>
                                         <td class="TdTitleCss">
                                             <label for="inside_message"  class="form-group-heading CssTitleBlack">Inside Message
                                                 <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
@@ -445,7 +451,7 @@ if (isset($_REQUEST['id'])){
                                                    data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Inside_msg; ?>" />
                                         </td>
                                     </tr></table>
-                                </p><!-- /.form-group -->
+                                </div><!-- /.form-group -->
                                 <?php endif; ?>
                             </div>
                             <!-- 
@@ -478,7 +484,7 @@ if (isset($_REQUEST['id'])){
                         </table>     
 
                         <p class="form-row form-row-wide">
-                            <label for="additional_notes"  class="form-group-heading CssTitleBlack">Addition Notes</label>
+                            <label for="additional_notes"  class="form-group-heading CssTitleBlack">Additional Notes</label>
                             <textarea class="input-text" name="additional_notes" id="additional_notes" cols="30" rows="5"><?php echo $AddNotes_msg; ?></textarea>
                         </p>
 
@@ -489,7 +495,7 @@ if (isset($_REQUEST['id'])){
                     <div class="fusion-column-wrapper">
                         <div id="add-clipart">
                             <label id="clipartTitle" class="form-group-heading CssTitleBlack col-md-6 col-xs-6" >Add Clipart</label>
-                            <div class="button-box hide-if-message_type-continues col-md-12 col-xs-12">
+                            <div class="button-box hide-if-message_type-continues col-md-12 col-xs-12 marginB-10">
                                 <span class="text-label">Front Start</span>
                                 <div class="alignright">
                                     <a id="front_start_btn" data-view="front" data-position="front_start" href="#" data-title="Front Start" data-toggle="modal"
@@ -570,7 +576,7 @@ if (isset($_REQUEST['id'])){
                             </div>
 
 
-                             <div class="button-box hide-if-message_type-front_and_back col-md-12 col-xs-12">
+                             <div class="button-box hide-if-message_type-front_and_back col-md-12 col-xs-12 marginB-10">
                                 <span class="text-label">Wrap Around Start</span>
                                 <div class="alignright">
                                     <a id="wrap_around_start" data-position="wrap_start" href="#" data-title="Wrap Around Start" data-toggle="modal"
@@ -649,7 +655,7 @@ if (isset($_REQUEST['id'])){
                         <?php endif; ?>
 
                         <p class="form-row form-row-wide">
-                            Guaranteed to be delived on or by : <strong id="delivery_date"></strong>
+                            Guaranteed to be delivered on or before: <strong id="delivery_date"></strong>
                         </p>
                     </div><!--/.fusion-column-wrapper -->
 
@@ -657,9 +663,9 @@ if (isset($_REQUEST['id'])){
                             <p class="fusion-row price price-with-decimal">
                                 <span class="currency CurrencyAddup"><?php echo get_woocommerce_currency_symbol(); ?></span>
                                 <span class="integer-part price-handler" id="price_handler">0.00</span>
-                                <span class="time">Total Amount</span>
                                 <br />
-                                <span id="qty_handler" class="qty-handler">0</span> Quantity
+                                Total Quantity:
+                                <span id="qty_handler" class="qty-handler">0</span>
                             </p>
 
                             <?php if($Edit): ?>
@@ -773,24 +779,8 @@ if (isset($_REQUEST['id'])){
 </script>
 
 
-<script type="text/javascript">
-    function EditMode(){
-          
-
-
-    }
-
-
-
-
-
-
-</script>
-
-
-
-
 <?php 
+
 if (isset($_REQUEST['id'])){
     echo "<script type='text/javascript'> 
         (function($){
@@ -799,15 +789,4 @@ if (isset($_REQUEST['id'])){
     </script>";
 }
 
-?>
-
-
-
-
-
-
-<?php
-//echo '<pre>';
-//print_r($GLOBALS['wbc_settings']);
-//echo '</pre>';
 get_footer();

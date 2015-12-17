@@ -1,6 +1,7 @@
 <?php
 function theme_enqueue_styles() {
     wp_enqueue_style( 'parent-stylesheet', get_template_directory_uri() . '/style.css' );
+    wp_enqueue_style( 'custom-css', get_stylesheet_directory_uri() . '/responsive.css' );
 
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
@@ -65,206 +66,198 @@ function GetOrderDetail( $item_id, $item, $_product ){
 
 
 
+add_action( 'woocommerce_thankyou', 'Customize_avada_woocommerce_view_order', 10 );
+function Customize_avada_woocommerce_view_order( $order_id ) {
+  global $woocommerce;
 
+  $order = new WC_Order( $order_id );
 
-  //remove_action( 'woocommerce_view_order', 'avada_woocommerce_view_order', 10 );
+  ?>
+  <div class="avada-order-details woocommerce-content-box full-width">
+    <h2><?php _e( 'Order Details', 'woocommerce' ); ?></h2>
+    <table class="shop_table order_details">
+      <thead>
+      <tr>
+        <th class="product-details"><?php _e( 'Wristband Details', 'woocommerce' ); ?></th>
+        <th class="product-quantity"><?php _e( 'Quantity', 'woocommerce' ); ?></th>
+        <th class="product-subtotal"><?php _e( 'Total', 'woocommerce' ); ?></th>
+      </tr>
+      </thead>
+      <tfoot>
+      <?php
+        if ( $totals = $order->get_order_item_totals() ) {
+          foreach ( $totals as $total ) : if($total['label'] == 'Shipping:') continue;
+            ?>
+            <tr>
+              <td class="filler-td">&nbsp;</td>
+              <th scope="row"><?php echo $total['label']; ?></th>
+              <td class="product-total"><?php echo $total['value']; ?></td>
+            </tr>
+          <?php
+          endforeach;
+        }
+      ?>
+      </tfoot>
+      <tbody>
+      <?php
+        if ( sizeof( $order->get_items() ) > 0 ) {
 
-  //remove_action( 'woocommerce_view_order', 'avada_woocommerce_view_order', 10 );
- // add_action( 'woocommerce_view_order', 'Customize_avada_woocommerce_view_order', 10 );
+          foreach ( $order->get_items() as $item ) {
+            $_product  = apply_filters( 'woocommerce_order_item_product', $order->get_product_from_item( $item ), $item );
+            $item_meta = new WC_Order_Item_Meta( $item['item_meta'] );
+            ?>
+            <tr class="<?php echo esc_attr( apply_filters( 'woocommerce_order_item_class', 'order_item', $item, $order ) ); ?>">
+              <td class="product-name">
+                <table><tr>
+                  <td>
+                    <div class="product-details">
+                      <table><tr>
+                          <td>
+                            <span class="product-thumbnail">
+                              <?php
+                                $thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image() );
 
+                                if ( ! $_product->is_visible() ) {
+                                  echo $thumbnail;
+                                } else {
+                                  printf( '<a href="%s">%s</a>', $_product->get_permalink(), $thumbnail );
+                                }
+                              ?>
+                            </span>
+                          </td><td>
+                              <?php
+                                if ( $_product && ! $_product->is_visible() ) {
+                                  echo apply_filters( 'woocommerce_order_item_name', $item['name'], $item );
+                                } else {
+                                  echo apply_filters( 'woocommerce_order_item_name', sprintf( '<a href="%s">%s</a>', get_permalink( $item['product_id'] ), $item['name'] ), $item );
+                                }
 
-  add_action( 'woocommerce_thankyou', 'Customize_avada_woocommerce_view_order', 10 );
-  function Customize_avada_woocommerce_view_order( $order_id ) {
-    global $woocommerce;
+                                // Meta data
+                                do_action( 'woocommerce_order_item_meta_start', $item['product_id'], $item, $order );
+                                $order->display_item_meta( $item );
+                                $order->display_item_downloads( $item );
+                                do_action( 'woocommerce_order_item_meta_end', $item['product_id'], $item, $order );
+                              ?>
+                        </td>
+                      </tr></table>
+                    </div>
+                  </td>
+                  <td style="width: 30px;">&nbsp;</td>
+                  <td>
 
-    $order = new WC_Order( $order_id );
+                    <div>
+                    <?php 
+                      foreach ($item_meta as $key => $value) {
+                        if($key == 'meta'){
+                          $meta = unserialize($value['wristband_meta'][0]);
+                          display_order_summary($_product, $meta);
+                        }
+                      }
+                    ?>
+                    </div>  
+                </td>
+                </tr></table>
+              </td>
+              <td class="product-quantity">
+                <?php echo apply_filters( 'woocommerce_order_item_quantity_html', $item['qty'], $item ); ?>
+              </td>
+              <td class="product-total">
+                <?php echo $order->get_formatted_line_subtotal( $item ); ?>
+              </td>
+            </tr>
+            <?php
 
-    ?>
-    <div class="avada-order-details woocommerce-content-box full-width">
-      <h2><?php _e( 'Order Details', 'woocommerce' ); ?></h2>
-      <table class="shop_table order_details">
-        <thead>
-        <tr>
-          <th class="product-details"><?php _e( 'Wristband Details', 'woocommerce' ); ?></th>
-          <th class="product-quantity"><?php _e( 'Quantity', 'woocommerce' ); ?></th>
-          <th class="product-subtotal"><?php _e( 'Total', 'woocommerce' ); ?></th>
-        </tr>
-        </thead>
-        <tfoot>
-        <?php
-          if ( $totals = $order->get_order_item_totals() ) {
-            foreach ( $totals as $total ) : if($total['label'] == 'Shipping:') continue;
+            if ( in_array( $order->status, array(
+                  'processing',
+                  'completed'
+                ) ) && ( $purchase_note = get_post_meta( $_product->id, '_purchase_note', true ) )
+            ) {
               ?>
-              <tr>
-                <td class="filler-td">&nbsp;</td>
-                <th scope="row"><?php echo $total['label']; ?></th>
-                <td class="product-total"><?php echo $total['value']; ?></td>
+              <tr class="product-purchase-note">
+                <td colspan="3"><?php echo apply_filters( 'the_content', $purchase_note ); ?></td>
               </tr>
             <?php
-            endforeach;
-          }
-        ?>
-        </tfoot>
-        <tbody>
-        <?php
-          if ( sizeof( $order->get_items() ) > 0 ) {
-
-            foreach ( $order->get_items() as $item ) {
-              $_product  = apply_filters( 'woocommerce_order_item_product', $order->get_product_from_item( $item ), $item );
-              $item_meta = new WC_Order_Item_Meta( $item['item_meta'] );
-              ?>
-              <tr class="<?php echo esc_attr( apply_filters( 'woocommerce_order_item_class', 'order_item', $item, $order ) ); ?>">
-                <td class="product-name">
-                  <table><tr>
-                    <td>
-                      <div class="product-details">
-                        <table><tr>
-                            <td>
-                              <span class="product-thumbnail">
-                                <?php
-                                  $thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image() );
-
-                                  if ( ! $_product->is_visible() ) {
-                                    echo $thumbnail;
-                                  } else {
-                                    printf( '<a href="%s">%s</a>', $_product->get_permalink(), $thumbnail );
-                                  }
-                                ?>
-                              </span>
-                            </td><td>
-                                <?php
-                                  if ( $_product && ! $_product->is_visible() ) {
-                                    echo apply_filters( 'woocommerce_order_item_name', $item['name'], $item );
-                                  } else {
-                                    echo apply_filters( 'woocommerce_order_item_name', sprintf( '<a href="%s">%s</a>', get_permalink( $item['product_id'] ), $item['name'] ), $item );
-                                  }
-
-                                  // Meta data
-                                  do_action( 'woocommerce_order_item_meta_start', $item['product_id'], $item, $order );
-                                  $order->display_item_meta( $item );
-                                  $order->display_item_downloads( $item );
-                                  do_action( 'woocommerce_order_item_meta_end', $item['product_id'], $item, $order );
-                                ?>
-                          </td>
-                        </tr></table>
-                      </div>
-                    </td>
-                    <td style="width: 30px;">&nbsp;</td>
-                    <td>
-
-                      <div>
-                      <?php 
-                        foreach ($item_meta as $key => $value) {
-                          if($key == 'meta'){
-                            $meta = unserialize($value['wristband_meta'][0]);
-                            display_order_summary($_product, $meta);
-                          }
-                        }
-                      ?>
-                      </div>  
-                  </td>
-                  </tr></table>
-                </td>
-                <td class="product-quantity">
-                  <?php echo apply_filters( 'woocommerce_order_item_quantity_html', $item['qty'], $item ); ?>
-                </td>
-                <td class="product-total">
-                  <?php echo $order->get_formatted_line_subtotal( $item ); ?>
-                </td>
-              </tr>
-              <?php
-
-              if ( in_array( $order->status, array(
-                    'processing',
-                    'completed'
-                  ) ) && ( $purchase_note = get_post_meta( $_product->id, '_purchase_note', true ) )
-              ) {
-                ?>
-                <tr class="product-purchase-note">
-                  <td colspan="3"><?php echo apply_filters( 'the_content', $purchase_note ); ?></td>
-                </tr>
-              <?php
-              }
             }
           }
+        }
 
-          do_action( 'woocommerce_order_items_table', $order );
-        ?>
-        </tbody>
-      </table>
-      <?php do_action( 'woocommerce_order_details_after_order_table', $order ); ?>
-    </div>
+        do_action( 'woocommerce_order_items_table', $order );
+      ?>
+      </tbody>
+    </table>
+    <?php do_action( 'woocommerce_order_details_after_order_table', $order ); ?>
+  </div>
 
-    <div class="avada-customer-details woocommerce-content-box full-width">
-      <header>
-        <h2><?php _e( 'Customer details', 'woocommerce' ); ?></h2>
-      </header>
-      <dl class="customer_details">
-        <?php
-          if ( $order->billing_email ) {
-            echo '<dt>' . __( 'Email:', 'woocommerce' ) . '</dt> <dd>' . $order->billing_email . '</dd><br />';
-          }
-          if ( $order->billing_phone ) {
-            echo '<dt>' . __( 'Telephone:', 'woocommerce' ) . '</dt> <dd>' . $order->billing_phone . '</dd>';
-          }
+  <div class="avada-customer-details woocommerce-content-box full-width">
+    <header>
+      <h2><?php _e( 'Customer details', 'woocommerce' ); ?></h2>
+    </header>
+    <dl class="customer_details">
+      <?php
+        if ( $order->billing_email ) {
+          echo '<dt>' . __( 'Email:', 'woocommerce' ) . '</dt> <dd>' . $order->billing_email . '</dd><br />';
+        }
+        if ( $order->billing_phone ) {
+          echo '<dt>' . __( 'Telephone:', 'woocommerce' ) . '</dt> <dd>' . $order->billing_phone . '</dd>';
+        }
 
-          // Additional customer details hook
-          do_action( 'woocommerce_order_details_after_customer_details', $order );
-        ?>
-      </dl>
+        // Additional customer details hook
+        do_action( 'woocommerce_order_details_after_customer_details', $order );
+      ?>
+    </dl>
 
-      <?php if (get_option( 'woocommerce_ship_to_billing_address_only' ) === 'no' && get_option( 'woocommerce_calc_shipping' ) !== 'no') : ?>
+    <?php if (get_option( 'woocommerce_ship_to_billing_address_only' ) === 'no' && get_option( 'woocommerce_calc_shipping' ) !== 'no') : ?>
 
-      <div class="col2-set addresses">
+    <div class="col2-set addresses">
 
-        <div class="col-1">
+      <div class="col-1">
 
-          <?php endif; ?>
+        <?php endif; ?>
 
-          <header class="title">
-            <h3><?php _e( 'Billing Address', 'woocommerce' ); ?></h3>
-          </header>
-          <address><p>
-              <?php
-                if ( ! $order->get_formatted_billing_address() ) {
-                  _e( 'N/A', 'woocommerce' );
-                } else {
-                  echo $order->get_formatted_billing_address();
-                }
-              ?>
-            </p></address>
+        <header class="title">
+          <h3><?php _e( 'Billing Address', 'woocommerce' ); ?></h3>
+        </header>
+        <address><p>
+            <?php
+              if ( ! $order->get_formatted_billing_address() ) {
+                _e( 'N/A', 'woocommerce' );
+              } else {
+                echo $order->get_formatted_billing_address();
+              }
+            ?>
+          </p></address>
 
-          <?php if (get_option( 'woocommerce_ship_to_billing_address_only' ) === 'no' && get_option( 'woocommerce_calc_shipping' ) !== 'no') : ?>
+        <?php if (get_option( 'woocommerce_ship_to_billing_address_only' ) === 'no' && get_option( 'woocommerce_calc_shipping' ) !== 'no') : ?>
 
-        </div>
-        <!-- /.col-1 -->
-
-        <div class="col-2">
-
-          <header class="title">
-            <h3><?php _e( 'Shipping Address', 'woocommerce' ); ?></h3>
-          </header>
-          <address><p>
-              <?php
-                if ( ! $order->get_formatted_shipping_address() ) {
-                  _e( 'N/A', 'woocommerce' );
-                } else {
-                  echo $order->get_formatted_shipping_address();
-                }
-              ?>
-            </p></address>
-        </div>
-        <!-- /.col-2 -->
       </div>
-      <!-- /.col2-set -->
-    <?php endif; ?>
+      <!-- /.col-1 -->
 
-      <div class="clear"></div>
+      <div class="col-2">
 
+        <header class="title">
+          <h3><?php _e( 'Shipping Address', 'woocommerce' ); ?></h3>
+        </header>
+        <address><p>
+            <?php
+              if ( ! $order->get_formatted_shipping_address() ) {
+                _e( 'N/A', 'woocommerce' );
+              } else {
+                echo $order->get_formatted_shipping_address();
+              }
+            ?>
+          </p></address>
+      </div>
+      <!-- /.col-2 -->
     </div>
+    <!-- /.col2-set -->
+  <?php endif; ?>
 
-  <?php
-  }
+    <div class="clear"></div>
+
+  </div>
+
+<?php
+}
 
 
 add_action( 'woocommerce_view_order', 'Customize_avada_woocommerce_view_order_My_Account', 11 );
@@ -627,4 +620,101 @@ function display_order_summary($_product, $meta)
     </ul>
   <!-- EOL : View Product Summary Details -->
   <?php
+}
+
+
+function getMetaToAutoSet($TempID, $OrderStatus)
+{
+  var_dump( array_key_exists($TempID, WC()->cart->get_cart()) );
+  foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+
+        $meta = isset($cart_item['wristband_meta']) ? $cart_item['wristband_meta'] : array();
+        $_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+        $product_id   = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
+
+        if ($cart_item_key == $TempID){
+            $Edit = true;
+            $Wrist_Style = $_product->get_title();
+            $Wrist_Size = (isset($meta['size']) ? $meta['size'] : '');
+
+            $free_colors = $meta['free_colors'];
+            foreach ($meta['colors'] as $pk => $color): if (!isset($color['name']) || empty($color['name'])) continue;
+                $ColorName = $color['name'];
+                $ColorType = $color['type'];
+                $WristColor = $color['color']; 
+                $TextColorName = $color['text_color_name'];
+                $TextColor = $color['text_color'];
+
+                $adult = 0;
+                $medium = 0;
+                $youth = 0;
+                $adult_free = 0;
+                $medium_free = 0;
+                $youth_free = 0;
+
+                foreach ($color['sizes'] as $k => $qty): if ($qty <= 0) continue; 
+                   if ($k == "adult"){ $adult = $qty; } 
+                   elseif ($k == "medium"){ $medium = $qty;} 
+                   else { $youth = $qty; }
+                endforeach;
+
+                foreach ($free_colors[$pk]['free'] as $k => $qty): if ($qty <= 0) continue; 
+                   if ($k == "adult"){ $adult_free = $qty; } 
+                   elseif ($k == "medium"){ $medium_free = $qty;} 
+                   else { $youth_free = $qty; }
+                endforeach;
+
+
+                if ($MultiAdd == ""){ $MultiAdd = $ColorName."^".$ColorType."^".$WristColor."^".$TextColorName."^".$TextColor."^".$adult."^".$medium."^".$youth."^".$adult_free."^".$medium_free."^".$youth_free;
+                } else { $MultiAdd = $MultiAdd."~".$ColorName."^".$ColorType."^".$WristColor."^".$TextColorName."^".$TextColor."^".$adult."^".$medium."^".$youth."^".$adult_free."^".$medium_free."^".$youth_free; }
+                $FontStyle =  $meta['font'];
+
+                foreach ($meta['messages'] as $label => $val): if (empty($val)) continue;
+                    if ($label == "Front Message"){ $Front_msg = $val; }
+                    elseif ($label == "Back Message"){ $Back_msg = $val; }
+                    elseif ($label == "Continuous Message"){ $Wrap_msg = $val; }
+                    elseif ($label == "Inside Message"){ $Inside_msg = $val; }
+                    elseif ($label == "Additional Notes"){ $AddNotes_msg = $val; }
+                endforeach;
+
+                if(isset($meta['additional_options']))
+                {
+                    foreach ($meta['additional_options'] as $k => $option):
+                        if ($k == "0"){ $InPackaging = $option; }
+                        elseif ($k == "1"){ $Eco = $option; }
+                        elseif ($k == "2"){ $Thick = $option; }
+                        else { $DigitalPro = $option; }
+                    endforeach;
+                }
+
+                foreach ($meta['clipart'] as $k => $clipart): if (empty($clipart)) continue;
+                    if ($k == "front_start"){ $front_start = $clipart; }
+                    elseif ($k == "front_end"){ $front_end = $clipart; }
+                    elseif ($k == "back_start"){ $back_start = $clipart; }
+                    elseif ($k == "back_end"){ $back_end = $clipart; }
+                    elseif ($k == "wrap_start"){ $wrap_start = $clipart; }
+                    elseif ($k == "wrap_end"){ $wrap_end = $clipart; }
+                    elseif ($k == "view_position"){ $view_position = $clipart; }
+                    else{ $wristband_stat = $clipart; }
+                endforeach;
+
+                $C_location = $meta['customization_location']; 
+                $C_date_prod = $meta['customization_date_production']; 
+                $C_date_ship = $meta['customization_date_shipping']; 
+                $guaranteed_delivery = $meta['guaranteed_delivery']; 
+
+            $Info = $Wrist_Style."|".$Wrist_Size."|".$MultiAdd;
+            endforeach;
+            break;
+        }
+    }
+    $Info = $Info."|".$C_location."|".$C_date_prod."|".$C_date_ship."|".$InPackaging.
+            "|".$Eco."|".$Thick."|".$DigitalPro.
+            "|".$front_start."|".$front_end."|".$back_start."|".$back_end."|".$view_position."|".$wristband_stat."|".$guaranteed_delivery."|".$wrap_start."|".$wrap_end;
+
+
+    if($Edit == false && $OrderStatus == 'edit')
+    {
+        echo '<script>window.location = "'.get_site_url().'/order-now/";</script>';
+    }
 }
