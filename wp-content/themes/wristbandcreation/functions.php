@@ -714,6 +714,88 @@ function getMetaToAutoSet($TempID, $Status)
               "|".$Eco."|".$Thick."|".$DigitalPro.
               "|".$front_start."|".$front_end."|".$back_start."|".$back_end."|".$view_position."|".$wristband_stat."|".$guaranteed_delivery."|".$wrap_start."|".$wrap_end;
   }
+  elseif($Status == 'design')
+  {
+    $meta = (array)json_decode(custom_encrypt_decrypt('decrypt', $TempID));
+
+    $Wrist_Style = (isset($meta['title']) ? $meta['title'] : '');
+    $Wrist_Size = (isset($meta['size']) ? $meta['size'] : '');
+
+    $free_colors = $meta['free_colors'];
+    foreach ($meta['colors'] as $pk => $color): 
+      if (!isset($color['name']) || empty($color['name'])) continue;
+
+        $ColorName = $color['name'];
+        $ColorType = $color['type'];
+        $WristColor = $color['color']; 
+        $TextColorName = $color['text_color_name'];
+        $TextColor = $color['text_color'];
+
+        $adult = 0;
+        $medium = 0;
+        $youth = 0;
+        $adult_free = 0;
+        $medium_free = 0;
+        $youth_free = 0;
+
+        foreach ($color['sizes'] as $k => $qty): if ($qty <= 0) continue; 
+           if ($k == "adult"){ $adult = $qty; } 
+           elseif ($k == "medium"){ $medium = $qty;} 
+           else { $youth = $qty; }
+        endforeach;
+
+        foreach ($free_colors[$pk]['free'] as $k => $qty): if ($qty <= 0) continue; 
+           if ($k == "adult"){ $adult_free = $qty; } 
+           elseif ($k == "medium"){ $medium_free = $qty;} 
+           else { $youth_free = $qty; }
+        endforeach;
+
+
+        if ($MultiAdd == ""){ $MultiAdd = $ColorName."^".$ColorType."^".$WristColor."^".$TextColorName."^".$TextColor."^".$adult."^".$medium."^".$youth."^".$adult_free."^".$medium_free."^".$youth_free;
+        } else { $MultiAdd = $MultiAdd."~".$ColorName."^".$ColorType."^".$WristColor."^".$TextColorName."^".$TextColor."^".$adult."^".$medium."^".$youth."^".$adult_free."^".$medium_free."^".$youth_free; }
+        $Infos['FontStyle'] =  $meta['font'];
+
+        foreach ($meta['messages'] as $label => $val): if (empty($val)) continue;
+            if ($label == "Front Message"){ $Infos['Front_msg'] = $val; }
+            elseif ($label == "Back Message"){ $Infos['Back_msg'] = $val; }
+            elseif ($label == "Continuous Message"){ $Infos['Wrap_msg'] = $val; }
+            elseif ($label == "Inside Message"){ $Infos['Inside_msg'] = $val; }
+            elseif ($label == "Additional Notes"){ $Infos['AddNotes_msg'] = $val; }
+        endforeach;
+
+        if(isset($meta['additional_options']))
+        {
+            foreach ($meta['additional_options'] as $k => $option):
+                if ($k == "0"){ $InPackaging = $option; }
+                elseif ($k == "1"){ $Eco = $option; }
+                elseif ($k == "2"){ $Thick = $option; }
+                else { $DigitalPro = $option; }
+            endforeach;
+        }
+
+        foreach ($meta['clipart'] as $k => $clipart): if (empty($clipart)) continue;
+            if ($k == "front_start"){ $front_start = $clipart; }
+            elseif ($k == "front_end"){ $front_end = $clipart; }
+            elseif ($k == "back_start"){ $back_start = $clipart; }
+            elseif ($k == "back_end"){ $back_end = $clipart; }
+            elseif ($k == "wrap_start"){ $wrap_start = $clipart; }
+            elseif ($k == "wrap_end"){ $wrap_end = $clipart; }
+            elseif ($k == "view_position"){ $view_position = $clipart; }
+            else{ $wristband_stat = $clipart; }
+        endforeach;
+
+        $C_location = $meta['customization_location']; 
+        $C_date_prod = $meta['customization_date_production']; 
+        $C_date_ship = $meta['customization_date_shipping']; 
+        $guaranteed_delivery = $meta['guaranteed_delivery']; 
+
+    $Info = $Wrist_Style."|".$Wrist_Size."|".$MultiAdd;
+    endforeach;
+
+    $Infos['all'] = $Info."|".$C_location."|".$C_date_prod."|".$C_date_ship."|".$InPackaging.
+              "|".$Eco."|".$Thick."|".$DigitalPro.
+              "|".$front_start."|".$front_end."|".$back_start."|".$back_end."|".$view_position."|".$wristband_stat."|".$guaranteed_delivery."|".$wrap_start."|".$wrap_end;
+  }
 
   return $Infos;
 

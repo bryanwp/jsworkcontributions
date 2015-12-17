@@ -768,3 +768,8 @@ input[type="checkbox"],input[type="radio"] {
 {
     margin-bottom: 10px;
 }
+
+.borderRed
+{
+    border: 1px solid red !important;
+}

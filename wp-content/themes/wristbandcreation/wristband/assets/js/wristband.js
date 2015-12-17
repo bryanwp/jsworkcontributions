@@ -2466,38 +2466,65 @@ jQuery(function ($) {
             .on('click','#save_button',function(e) {
                 e.preventDefault();
 
-                var holdData = Builder.data;
-                var tempSelect = document.getElementById("style");
-                var tempVal = tempSelect.options[tempSelect.selectedIndex].text;
+                if(Builder.data.total_qty > 0)
+                {
+                    var message_design = 'In a hurry? Enter your email address here and we will send you a link to your saved design to complete later.';
+                    Builder.popupMsg('', 'Save Your Design', message_design+'<br><br><input type="text" placeholder="Email Address" id="SaveDesignEmail" style="width: 180px;"><a id="SendDesign" href="#" class="fusion-button button-default button-small">Send</a><div id="saveDesignMessage"></div>');
+                }
+                else
+                {
+                    Builder.popupMsg('error', 'Save Your Design', 'Please add color(s) to your wristband design.');
+                }
+            })
 
-                holdData.title = tempVal;
-                holdData.size = $('#width').val();
-                holdData.email = 'philwebservices.programmer04@gmail.com';
+            .on('click','#SendDesign',function(e) {
+                e.preventDefault();
+                $('#SaveDesignEmail').removeClass('borderRed');
+                 var emailFormat = /\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
 
-                    console.log(holdData);
-                $.ajax({
-                    url: WBC.ajax_url,
-                    type: 'POST',
-                    data: { meta: holdData, action: 'send_save_design'},
-                    dataType: 'JSON',
-                }).done(function(response) {
-                    console.log(response);
-                    var type = 'success',
-                        title = 'Success';
+                if($('#SaveDesignEmail').val() != "" && emailFormat.test($('#SaveDesignEmail').val()))
+                {
+                    var holdData = Builder.data;
+                    var tempSelect = document.getElementById("style");
+                    var tempVal = tempSelect.options[tempSelect.selectedIndex].text;
 
-                    if (!response.success) {
-                        type = 'error';
-                        title = 'Error';
-                    }
-                    Builder.has_upload = false;
-                    Builder.popupMsg(type, title, response.data.message);
-                    $("#mmk").html(response.data.message)
-                });
+                    holdData.title = tempVal;
+                    holdData.size = $('#width').val();
+                    holdData.email = $('#SaveDesignEmail').val();
+                    $('#SendDesign').html('<i class="fa fa-spinner"></i>Send');
 
-                // if ($('#preview_container').length) {
-                //     Pablo(document.getElementById("svgelement"))
-                //     .download('png', 'circle.png', function(result){ });
-                // }
+                    $.ajax({
+                        url: WBC.ajax_url,
+                        type: 'POST',
+                        data: { meta: holdData, action: 'send_save_design'},
+                        dataType: 'JSON',
+                    }).done(function(response) {
+
+                        $('#SaveDesignEmail').val('');
+                        $('#SendDesign').html('Send');
+
+                        var type = 'success',
+                            title = 'Success',
+                            classD = 'CssTitleBlue';
+
+                        if (!response.success) {
+                            type = 'error';
+                            title = 'Error';
+                            classD = 'CssTitleRed';
+                        }
+                        $('#saveDesignMessage').html('<span class="'+classD+'">'+response.data.message+'</span>');
+                        // Builder.popupMsg(type, title, response.data.message);
+                    });
+
+                    // if ($('#preview_container').length) {
+                    //     Pablo(document.getElementById("svgelement"))
+                    //     .download('png', 'circle.png', function(result){ });
+                    // }
+                }
+                else
+                {
+                    $('#SaveDesignEmail').addClass('borderRed');
+                }
             })
 
             .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {
