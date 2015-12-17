@@ -623,16 +623,109 @@ function display_order_summary($_product, $meta)
 }
 
 
-function getMetaToAutoSet($TempID, $OrderStatus)
+function getMetaToAutoSet($TempID, $Status)
 {
-  var_dump( array_key_exists($TempID, WC()->cart->get_cart()) );
+  $Infos = false;
+
+  if(array_key_exists($TempID, WC()->cart->get_cart()) && $Status == 'edit')
+  {
+    $cart_item_key = $TempID;
+    $cart_item = WC()->cart->get_cart()[$TempID];
+
+    $meta = isset($cart_item['wristband_meta']) ? $cart_item['wristband_meta'] : array();
+    $_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+    $product_id   = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
+
+    $Wrist_Style = $_product->get_title();
+    $Wrist_Size = (isset($meta['size']) ? $meta['size'] : '');
+
+    $free_colors = $meta['free_colors'];
+    foreach ($meta['colors'] as $pk => $color): 
+      if (!isset($color['name']) || empty($color['name'])) continue;
+
+        $ColorName = $color['name'];
+        $ColorType = $color['type'];
+        $WristColor = $color['color']; 
+        $TextColorName = $color['text_color_name'];
+        $TextColor = $color['text_color'];
+
+        $adult = 0;
+        $medium = 0;
+        $youth = 0;
+        $adult_free = 0;
+        $medium_free = 0;
+        $youth_free = 0;
+
+        foreach ($color['sizes'] as $k => $qty): if ($qty <= 0) continue; 
+           if ($k == "adult"){ $adult = $qty; } 
+           elseif ($k == "medium"){ $medium = $qty;} 
+           else { $youth = $qty; }
+        endforeach;
+
+        foreach ($free_colors[$pk]['free'] as $k => $qty): if ($qty <= 0) continue; 
+           if ($k == "adult"){ $adult_free = $qty; } 
+           elseif ($k == "medium"){ $medium_free = $qty;} 
+           else { $youth_free = $qty; }
+        endforeach;
+
+
+        if ($MultiAdd == ""){ $MultiAdd = $ColorName."^".$ColorType."^".$WristColor."^".$TextColorName."^".$TextColor."^".$adult."^".$medium."^".$youth."^".$adult_free."^".$medium_free."^".$youth_free;
+        } else { $MultiAdd = $MultiAdd."~".$ColorName."^".$ColorType."^".$WristColor."^".$TextColorName."^".$TextColor."^".$adult."^".$medium."^".$youth."^".$adult_free."^".$medium_free."^".$youth_free; }
+        $Infos['FontStyle'] =  $meta['font'];
+
+        foreach ($meta['messages'] as $label => $val): if (empty($val)) continue;
+            if ($label == "Front Message"){ $Infos['Front_msg'] = $val; }
+            elseif ($label == "Back Message"){ $Infos['Back_msg'] = $val; }
+            elseif ($label == "Continuous Message"){ $Infos['Wrap_msg'] = $val; }
+            elseif ($label == "Inside Message"){ $Infos['Inside_msg'] = $val; }
+            elseif ($label == "Additional Notes"){ $Infos['AddNotes_msg'] = $val; }
+        endforeach;
+
+        if(isset($meta['additional_options']))
+        {
+            foreach ($meta['additional_options'] as $k => $option):
+                if ($k == "0"){ $InPackaging = $option; }
+                elseif ($k == "1"){ $Eco = $option; }
+                elseif ($k == "2"){ $Thick = $option; }
+                else { $DigitalPro = $option; }
+            endforeach;
+        }
+
+        foreach ($meta['clipart'] as $k => $clipart): if (empty($clipart)) continue;
+            if ($k == "front_start"){ $front_start = $clipart; }
+            elseif ($k == "front_end"){ $front_end = $clipart; }
+            elseif ($k == "back_start"){ $back_start = $clipart; }
+            elseif ($k == "back_end"){ $back_end = $clipart; }
+            elseif ($k == "wrap_start"){ $wrap_start = $clipart; }
+            elseif ($k == "wrap_end"){ $wrap_end = $clipart; }
+            elseif ($k == "view_position"){ $view_position = $clipart; }
+            else{ $wristband_stat = $clipart; }
+        endforeach;
+
+        $C_location = $meta['customization_location']; 
+        $C_date_prod = $meta['customization_date_production']; 
+        $C_date_ship = $meta['customization_date_shipping']; 
+        $guaranteed_delivery = $meta['guaranteed_delivery']; 
+
+    $Info = $Wrist_Style."|".$Wrist_Size."|".$MultiAdd;
+    endforeach;
+
+    $Infos['all'] = $Info."|".$C_location."|".$C_date_prod."|".$C_date_ship."|".$InPackaging.
+              "|".$Eco."|".$Thick."|".$DigitalPro.
+              "|".$front_start."|".$front_end."|".$back_start."|".$back_end."|".$view_position."|".$wristband_stat."|".$guaranteed_delivery."|".$wrap_start."|".$wrap_end;
+  }
+
+  return $Infos;
+
+  /*
   foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 
         $meta = isset($cart_item['wristband_meta']) ? $cart_item['wristband_meta'] : array();
         $_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
         $product_id   = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
 
-        if ($cart_item_key == $TempID){
+        if ($cart_item_key == $TempID)
+        {
             $Edit = true;
             $Wrist_Style = $_product->get_title();
             $Wrist_Size = (isset($meta['size']) ? $meta['size'] : '');
@@ -711,10 +804,38 @@ function getMetaToAutoSet($TempID, $OrderStatus)
     $Info = $Info."|".$C_location."|".$C_date_prod."|".$C_date_ship."|".$InPackaging.
             "|".$Eco."|".$Thick."|".$DigitalPro.
             "|".$front_start."|".$front_end."|".$back_start."|".$back_end."|".$view_position."|".$wristband_stat."|".$guaranteed_delivery."|".$wrap_start."|".$wrap_end;
-
-
     if($Edit == false && $OrderStatus == 'edit')
     {
         echo '<script>window.location = "'.get_site_url().'/order-now/";</script>';
     }
+    */
+}
+
+function custom_encrypt_decrypt($action, $string)
+{
+    $output = false;
+
+    $encrypt_method = "AES-256-CBC";
+    $secret_key = 'WristbandCreation V2 2015 - key';
+    $secret_iv = 'WristbandCreation V2 2015 - iv';
+
+    // hash
+    $key = hash('sha256', $secret_key);
+    
+    // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+    $iv = substr(hash('sha256', $secret_iv), 0, 16);
+
+    if( $action == 'encrypt' ) {
+        $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+        $output = base64_encode($output);
+    }
+    else if( $action == 'decrypt' ){
+        $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+    }
+
+    return $output;
+}
+
+function set_html_content_type() {
+    return 'text/html';
 }

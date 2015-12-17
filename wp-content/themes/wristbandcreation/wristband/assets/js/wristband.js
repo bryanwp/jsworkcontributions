@@ -2462,43 +2462,42 @@ jQuery(function ($) {
             })
 
 
-
-
-
-
-
-
-
-
-
-
-
                 //save button
             .on('click','#save_button',function(e) {
                 e.preventDefault();
 
-                // console.log('this');
-                // console.log( preview_container );
-                // console.log($('#preview_container').html());
-                //Builder.popupProductInfo('info', 'Preview', $('#preview_container').html());
+                var holdData = Builder.data;
+                var tempSelect = document.getElementById("style");
+                var tempVal = tempSelect.options[tempSelect.selectedIndex].text;
 
-                if ($('#preview_container').length) {
+                holdData.title = tempVal;
+                holdData.size = $('#width').val();
+                holdData.email = 'philwebservices.programmer04@gmail.com';
 
+                    console.log(holdData);
+                $.ajax({
+                    url: WBC.ajax_url,
+                    type: 'POST',
+                    data: { meta: holdData, action: 'send_save_design'},
+                    dataType: 'JSON',
+                }).done(function(response) {
+                    console.log(response);
+                    var type = 'success',
+                        title = 'Success';
 
-                   // Pablo(document.getElementById("svgelement")).download('png',Settings.svg, function(result){
-                   //     alert(result.error ? 'Fail' : 'Success');
+                    if (!response.success) {
+                        type = 'error';
+                        title = 'Error';
+                    }
+                    Builder.has_upload = false;
+                    Builder.popupMsg(type, title, response.data.message);
+                    $("#mmk").html(response.data.message)
+                });
 
-                    Pablo(document.getElementById("svgelement"))
-                    .download('png', 'circle.png', function(result){
-                        alert(result.error ? 'Fail' : 'Success');
-                    });
-
-
-
-                    //Pablo(preview_container).download('svg',Settings.svg, function(result){
-                    //    alert(result.error ? 'Fail' : 'Success');
-                    //});
-                }
+                // if ($('#preview_container').length) {
+                //     Pablo(document.getElementById("svgelement"))
+                //     .download('png', 'circle.png', function(result){ });
+                // }
             })
 
             .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {

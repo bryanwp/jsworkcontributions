@@ -4,11 +4,29 @@
 
 get_header();
 
-$TempID = $_REQUEST['id'];
+$isEdit = false;
+$metaInfo = false;
+
+if(isset($_REQUEST['id']))
+{
+    $isEdit = isset($_REQUEST['Status']) && $_REQUEST['Status'] == 'edit'? true : false;
+
+    $metaInfo = getMetaToAutoSet($_REQUEST['id'], $_REQUEST['Status']);
+    if($metaInfo != false)
+    {
+        echo '<input id="EditModeID" name="'.$metaInfo['all'].'" value="'.$_REQUEST['id'].'" type="hidden">';
+    }
+    else
+    {
+        echo '<script>window.location = "'.get_site_url().'/order-now/";</script>';
+    }
+}
+/* $TempID = $_REQUEST['id'];
 $OrderStatus = $_REQUEST['Status'];
 
 $Edit = false;      
-if (isset($_REQUEST['id'])){
+if (isset($_REQUEST['id']))
+{
     $MultiAdd = "";
     foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
 
@@ -102,11 +120,9 @@ if (isset($_REQUEST['id'])){
     {
         echo '<script>window.location = "'.get_site_url().'/order-now/";</script>';
     }
-?>
-    <input id="EditModeID" name="<?php echo $Info; ?>" style="display:none;" value="<?php echo $TempID; ?>">
 
-<?php 
-}
+    echo '<input id="EditModeID" name="'.$Info.'" style="display:none;" value="'.$TempID.'">';
+}*/
 ?>
 
 
@@ -400,7 +416,7 @@ if (isset($_REQUEST['id'])){
                                                     </label>
                                                 </td><td>
                                                     <input type="text" name="front_message" class="input-text trigger-limit-char"
-                                                           data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Front_msg; ?>">
+                                                           data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Front_msg']; ?>">
                                                 </td>
                                             </tr></table>
                                         </div>
@@ -415,7 +431,7 @@ if (isset($_REQUEST['id'])){
                                                     </label>
                                                 </td><td>
                                                     <input type="text" name="back_message"  class="input-text trigger-limit-char"
-                                                           data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Back_msg; ?>"  />
+                                                           data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Back_msg']; ?>"  />
                                                 </td>
                                             </tr></table>
                                         </div><!-- /.form-group -->
@@ -432,7 +448,7 @@ if (isset($_REQUEST['id'])){
                                                 </label>
                                             </td><td>
                                                 <input type="text" name="continues_message" class="input-text trigger-limit-char"
-                                                       data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Wrap_msg; ?>" />
+                                                       data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Wrap_msg']; ?>" />
                                             </td>
                                         </tr></table>
                                     </div><!-- /.form-group -->
@@ -448,7 +464,7 @@ if (isset($_REQUEST['id'])){
                                             </label>
                                         </td><td>
                                             <input type="text" name="inside_message" class="input-text trigger-limit-char"
-                                                   data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $Inside_msg; ?>" />
+                                                   data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Inside_msg']; ?>" />
                                         </td>
                                     </tr></table>
                                 </div><!-- /.form-group -->
@@ -472,7 +488,7 @@ if (isset($_REQUEST['id'])){
                                         <?php if (isset($GLOBALS['wbc_settings']->fonts)):
                                             foreach ($GLOBALS['wbc_settings']->fonts as $font):?>
                                                 <?php   $Selected = "";
-                                                        if ($FontStyle == esc_attr($font)){ $Selected = "selected"; }
+                                                        if ($metaInfo['FontStyle'] == esc_attr($font)){ $Selected = "selected"; }
                                                 ?>
                                                 <option style="font-size:18px;font-family: '<?php echo esc_attr($font); ?>' !important;"
                                                         value="<?php echo esc_attr($font); ?>" <?php echo $Selected; ?> ><?php echo esc_attr($font); ?></option>
@@ -485,7 +501,7 @@ if (isset($_REQUEST['id'])){
 
                         <p class="form-row form-row-wide">
                             <label for="additional_notes"  class="form-group-heading CssTitleBlack">Additional Notes</label>
-                            <textarea class="input-text" name="additional_notes" id="additional_notes" cols="30" rows="5"><?php echo $AddNotes_msg; ?></textarea>
+                            <textarea class="input-text" name="additional_notes" id="additional_notes" cols="30" rows="5"><?php echo $metaInfo['AddNotes_msg']; ?></textarea>
                         </p>
 
 
@@ -668,7 +684,7 @@ if (isset($_REQUEST['id'])){
                                 <span id="qty_handler" class="qty-handler">0</span>
                             </p>
 
-                            <?php if($Edit): ?>
+                            <?php if($isEdit): ?>
                                 <button id="wbc_edit_to_cart" href="#" class="fusion-button button-flat button-round button-large button-default alignright">
                                     <span class="button-icon-divider-left"><i class="fa fa-shopping-cart"></i></span>
                                      <span class="fusion-button-text-left">Update to Cart</span>
@@ -781,12 +797,13 @@ if (isset($_REQUEST['id'])){
 
 <?php 
 
-if (isset($_REQUEST['id'])){
+if ($metaInfo != false)
+{
     echo "<script type='text/javascript'> 
-        (function($){
-            $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
-        })(jQuery);
-    </script>";
+            (function($){
+                $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
+            })(jQuery);
+        </script>";
 }
 
 get_footer();

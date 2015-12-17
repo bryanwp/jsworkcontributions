@@ -14,6 +14,8 @@ if (!class_exists('WBC_Cart')) {
 
             add_action('wp_ajax_nopriv_wbc_ajax_edit_to_cart', array($this, 'wbc_ajax_edit_to_cart'));
 
+            add_action('wp_ajax_nopriv_send_save_design', array($this, 'send_save_design'));
+
             //Store the custom field
             add_filter( 'woocommerce_add_cart_item_data', array($this, 'add_cart_item_custom_data_vase'), 10, 2 );
 
@@ -33,9 +35,6 @@ if (!class_exists('WBC_Cart')) {
             }
             return false;
         }
-
-
-
 
         function wbc_ajax_add_to_cart() {
 
@@ -58,7 +57,6 @@ if (!class_exists('WBC_Cart')) {
             }
 
         }
-
         
         function wbc_ajax_edit_to_cart() {
 
@@ -81,8 +79,6 @@ if (!class_exists('WBC_Cart')) {
             }
 
         }
-
-
 
         function add_cart_item_custom_data_vase( $cart_item_meta, $product_id ) {
             global $woocommerce;
@@ -107,6 +103,24 @@ if (!class_exists('WBC_Cart')) {
 
                 if (isset($value['wristband_meta']['total_price'])) {
                     $value['data']->price = $value['wristband_meta']['total_price'];
+                }
+            }
+        }
+
+        function send_save_design()
+        {
+            if ( $_POST && isset($_POST['meta']) )
+            {
+                $link = get_site_url().'/order-now/?id='.custom_encrypt_decrypt( 'encrypt', json_encode($_POST['meta']) ).'&Status=design';
+                $title = $_POST['meta']['title'].' - '.$_POST['meta']['size'];
+
+                add_filter( 'wp_mail_content_type', 'set_html_content_type' );
+                
+                $result = wp_mail( $_POST['meta']['email'], 'Save Design at WristbandCreation.Com', '<h1>'.$title.'</h1><a href="'.$link.'" target="_blank">View Design</a>' );
+                if ($result) {
+                    wp_send_json_success(array('message' => 'Successfully saved design to your email.'));
+                } else {
+                    wp_send_json_error(array( 'message' => 'There was an error while sending your design.'));
                 }
             }
         }
