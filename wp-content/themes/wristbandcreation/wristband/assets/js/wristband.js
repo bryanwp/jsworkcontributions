@@ -923,37 +923,43 @@ jQuery(function ($) {
         $('.clipart-list li').each( function () {
             var glyp = $(this).data('icon-code');
 
+
             if ($(this).data('icon') == FS){ 
                 $('#FsID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#FsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
                 $('#front_start').text(glyp);
                 $('#icon_start').text(  $('#front_start').text());
                 $('#icon_end').text(  $('#front_end').text());
-            } else if ($(this).data('icon') == FE){
+            } 
+            if ($(this).data('icon') == FE){
                 $('#FeID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#FeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
                 $('#front_end').text(glyp);
                 $('#icon_start').text(  $('#front_start').text());
                 $('#icon_end').text(  $('#front_end').text());
-            } else if ($(this).data('icon') == BS){
+            } 
+            if ($(this).data('icon') == BS){
                 $('#BsID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#BsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
                 $('#back_start').text(glyp);
                 $('#icon_start').text(  $('#back_start').text());
                 $('#icon_end').text(  $('#back_end').text());
-            } else if ($(this).data('icon') == BE){
+            } 
+            if ($(this).data('icon') == BE){
                 $('#BeID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#BeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));;
                 $('#back_end').text(glyp);
                 $('#icon_start').text(  $('#back_start').text());
                 $('#icon_end').text(  $('#back_end').text());
-            } else if ($(this).data('icon') == WS){
+            } 
+            if ($(this).data('icon') == WS){
                 $('#WsID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#WsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));;
                 $('#wrap_start').text(glyp);
                 $('#icon_start').text(  $('#wrap_start').text());
                 $('#icon_end').text(  $('#wrap_end').text());
-            } else if ($(this).data('icon') == WE){
+            } 
+            if ($(this).data('icon') == WE){
                 $('#WeID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#WeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));;
                 $('#wrap_end').text(glyp);
@@ -1009,8 +1015,8 @@ jQuery(function ($) {
         Builder.data.clipart['back_start'] = BS;
         Builder.data.clipart['back_end'] = BE;
 
-        Builder.data.clipart['wrap_end'] = '';
-        Builder.data.clipart['wrap_start'] = '';
+        Builder.data.clipart['wrap_end'] = WS;
+        Builder.data.clipart['wrap_start'] = WE;
 
         Builder.data.clipart['wristband_stat'] = WristStat;
     }

@@ -389,13 +389,13 @@ if (isset($_REQUEST['id']))
                                     <label for="message_type" class="form-group-heading CssTitleBlack marginTB-5" style="float:left">Message on Wristbands</label class="form-group-heading CssTitleBlack" >
 
                                     <div class="marginTB-5" style="float: right;">
-                                        <input type="radio" name="message_type" value="front_and_back" <?php echo isset($wristband_stat)?($wristband_stat=='front_and_back'?'checked':''):'checked'; ?> />
+                                        <input type="radio" name="message_type" value="front_and_back" <?php echo isset($metaInfo['wristband_stat'])?($metaInfo['wristband_stat']=='front_and_back'?'checked':''):'checked'; ?> />
                                         Front/Back
                                         <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                           title="Front and Back Message" data-placement="top">?</span>
 
                                         &nbsp;
-                                        <input type="radio" name="message_type" value="continues" <?php echo $wristband_stat=='continues'?'checked':''; ?> />
+                                        <input type="radio" name="message_type" value="continues" <?php echo $metaInfo['wristband_stat']=='continues'?'checked':''; ?> />
                                         Wrap Around
                                         <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                               title="Continuous Message" data-placement="top">?</span>
