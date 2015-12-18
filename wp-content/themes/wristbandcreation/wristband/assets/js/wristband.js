@@ -241,13 +241,11 @@ jQuery(function ($) {
                 $select.removeAttr('disabled');
                 $('option:not(:first-child)', $select).remove();
 
-
                 if (Settings[c[i] + "_price_list"][$size.data('group')] == undefined) continue;
 
                 var t = Settings.customization.dates[c[i]];
                 var g = Settings[c[i] + "_price_list"][$size.data('group')];
-
-
+                
                 for (var y in t) {
                     var val = t[y].days;
                     var price = toFloat(this.getDayPrice(g[y]));
@@ -365,7 +363,7 @@ jQuery(function ($) {
         },
 
         getDayPrice: function(list) {
-            return this.rangePrice(list, this.data.total_price);
+            return this.rangePrice(list, this.data.total_qty);
         },
 
         collectDataToPost: function() {
