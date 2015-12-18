@@ -245,7 +245,7 @@ jQuery(function ($) {
 
                 var t = Settings.customization.dates[c[i]];
                 var g = Settings[c[i] + "_price_list"][$size.data('group')];
-                
+
                 for (var y in t) {
                     var val = t[y].days;
                     var price = toFloat(this.getDayPrice(g[y]));
@@ -810,9 +810,9 @@ jQuery(function ($) {
         var MultiAdd = val[2];
 
         SetSelectCheckedText("style", val[0]);
-        SetSelectCheckedText("width", val[1]);
         LoadTOArray(MultiAdd);
         $("#style").change();
+        SetSelectCheckedText("width", val[1]);
         $("#width").change();
 
         LoadAdditionalOption(val[6],val[7],val[8],val[9]);
