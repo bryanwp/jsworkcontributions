@@ -813,6 +813,7 @@ jQuery(function ($) {
         SetSelectCheckedText("width", val[1]);
         LoadTOArray(MultiAdd);
         $("#style").change();
+        $("#width").change();
 
         LoadAdditionalOption(val[6],val[7],val[8],val[9]);
         LoadPicture(val[10],val[11],val[12],val[13],val[14],val[15],val[17],val[18]);
