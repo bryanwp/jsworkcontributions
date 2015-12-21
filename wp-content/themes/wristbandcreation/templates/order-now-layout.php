@@ -525,7 +525,7 @@ if (isset($_REQUEST['id']))
                                     <a href="#" class="fileinput-button">
                                         <span><i class="fa fa-upload"></i> Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
-                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                        <input class="fileupload" type="file" name="files[]"
                                                data-clipart-type="frontstart">
                                     </a>
                                 </div>
@@ -544,7 +544,7 @@ if (isset($_REQUEST['id']))
                                     <a href="#" class="fileinput-button">
                                         <span><i class="fa fa-upload"></i> Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
-                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                        <input class="fileupload" type="file" name="files[]"
                                                data-clipart-type="frontend">
                                     </a>
                                 </div>
@@ -564,7 +564,7 @@ if (isset($_REQUEST['id']))
                                     <a href="#" class="fileinput-button">
                                         <span><i class="fa fa-upload"></i> Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
-                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                        <input class="fileupload" type="file" name="files[]"
                                                data-clipart-type="backstart">
                                     </a>
                                 </div>
@@ -585,7 +585,7 @@ if (isset($_REQUEST['id']))
                                     <a href="#" class="fileinput-button">
                                         <span><i class="fa fa-upload"></i> Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
-                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                        <input class="fileupload" type="file" name="files[]"
                                                data-clipart-type="backend">
                                     </a>
                                 </div>
@@ -606,7 +606,7 @@ if (isset($_REQUEST['id']))
                                     <a href="#" class="fileinput-button">
                                         <span><i class="fa fa-upload"></i> Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
-                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                        <input class="fileupload" type="file" name="files[]"
                                                data-clipart-type="backend">
                                     </a>
                                 </div>
@@ -627,7 +627,7 @@ if (isset($_REQUEST['id']))
                                     <a href="#" class="fileinput-button">
                                         <span><i class="fa fa-upload"></i> Upload</span>
                                         <!-- The file input field used as target for the file upload widget -->
-                                        <input class="fileupload" type="file" name="files[]" accept="image/png"
+                                        <input class="fileupload" type="file" name="files[]"
                                                data-clipart-type="backend">
                                     </a>
                                 </div>

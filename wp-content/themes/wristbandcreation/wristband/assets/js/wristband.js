@@ -278,9 +278,24 @@ jQuery(function ($) {
                    },
                     dataType        : 'json',
                     maxNumberOfFiles: 1,
+                    beforeSend: function(xhr){
+                        if(this.files[0].size > 2000000)
+                        {
+                            alert("Maximum file size is 2MB.");
+                            return false;
+                        }
+                        var allowedFiles = [".png", ".jpeg", ".gif", ".cdr",".psd", ".ai", ".pdf", ".eps", ".bmp", ".tiff"];
+                        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(" + allowedFiles.join('|') + ")$");
+                        if (!regex.test(this.files[0].name.toLowerCase())) 
+                        {
+                            alert("Allowed file types are CDR, JPG, JPEG, PSD, AI, PDF, PNG, GIF, EPS, TIFF, BMP");
+                            return false;
+                        }                        
+                    },
                     done: function (e, data) {
                         var $self = $(this);
                         $.each(data.result.files, function (index, file) {
+                            console.log(file);
 
                             var button = $self.closest('.button-box').find('.toggle-modal-clipart');
                             // Delete previous file
@@ -294,7 +309,7 @@ jQuery(function ($) {
 
                             $self.closest('.button-box')
                                 .find('.image-upload')
-                                .attr('src', file.thumbnailUrl)
+                                .attr('src', file.url)
                                 .css({display: 'inline-block'});
 
                             $self.closest('.button-box')
@@ -710,7 +725,7 @@ jQuery(function ($) {
     // Check if file is image
     function isImg(file) {
         if (file == undefined) return false;
-        return file.match(/\.(jpeg|jpg|png|gif)$/) != null;
+        return file.match(/\.(jpeg|jpg|png|gif|cdr|psd|ai|pdf|eps|bmp|tiff)$/) != null;
     }
 
     // Loop not added color and make it as a default selected color the first color in the loop
