@@ -1165,7 +1165,7 @@ jQuery(function ($) {
     function AddNewColor($wc){
         // var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
         var $tc = $('#wristband-text-color .color-wrap.selected > div'),
-            bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" ' +
+            bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" data-toggle="modal" data-target="#wristband-text-color-modal" ' +
                                 'style="display:{{style_display}}" ><div data-color="{{bg_color}}" style="background-color:{{bg_color}}; ' +
                                 'background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}}); ' +
                                 'background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>',
@@ -1622,6 +1622,7 @@ jQuery(function ($) {
 
                     Builder.init();
                     $('#wristband-text-color ul').empty();
+                    $('#wristband-text-color-modal-body ul').empty();
                     $('#selectTextColorLabel').hide();
 
                     if ( slctd_product.text_color) {
@@ -1636,6 +1637,12 @@ jQuery(function ($) {
                                 color: slctd_product.text_color[i].color
                             });
                             $('#wristband-text-color ul').append(render);
+                            var tplModal = '<li><div class="color-wrap"><div data-name="{{name}}" data-color="{{color}}" style="background-color:{{color}};"></div></div></li>';
+                            var renderModal = Mustache.render(tplModal, {
+                                name: slctd_product.text_color[i].name,
+                                color: slctd_product.text_color[i].color
+                            });
+                            $('#wristband-text-color-modal-body ul').append(renderModal);
                         }
                         $('#selectTextColorLabel').show();
                    } else { /* $('#wristband-text-color').closest('.form-group').hide(); */ }
@@ -1654,7 +1661,7 @@ jQuery(function ($) {
                                             'style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});' +
                                             'background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});' + 
                                             'background: linear-gradient(90deg,{{bg_color}});"></div>&nbsp;<span class="SpanColorbox">' + lists[index].name + " - " + lists[index].type + '</span></div>{{qty}}</div>',
-                        bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" style="display:{{style_display}}" ' +
+                        bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" data-toggle="modal" data-target="#wristband-text-color-modal" style="display:{{style_display}}" ' +
                                             '><div data-color="{{bg_color}}" style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});' +
                                             'background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});' +
                                             'background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>';
@@ -1767,6 +1774,30 @@ jQuery(function ($) {
                  wbTextColor();
                 $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
                 Builder.observer();
+            })
+
+            // Text Color Modal Selection
+            .on('click', '#wristband-text-color-modal-body .color-wrap', function() {
+                $('#wristband-text-color-modal-body .color-wrap').removeClass('selected');
+                $(this).addClass('selected');
+
+                // update wristband preview text color
+                var $frontext   = document.getElementById("bandtextpath"),
+                    $insidetext = document.getElementById("bandtextpathinside");
+
+                $frontext.style.fill = $(this).find('div').attr('data-color');
+                $insidetext.style.fill = $(this).find('div').attr('data-color');
+                $frontext.style.opacity = "1"; 
+                $insidetext.style.opacity = "1"; 
+                // EOL - update wristband preview text color
+
+                var editIndex = $('#wristband-text-color-modal-body').attr('data-color_index');
+                var colorEdit = $('.color-text-added').eq( editIndex ).html();
+                $('.color-text-added').eq( editIndex ).html(colorEdit.replace(new RegExp($('#wristband-text-color-modal-body').attr('data-color'),"g"), $(this).find('div').attr('data-color')));
+                $('#wristband-text-color-modal').modal('hide');
+
+                Builder.data.colors[editIndex].text_color      = $(this).find('div').attr('data-color');
+                Builder.data.colors[editIndex].text_color_name = $(this).find('div').attr('data-name');
             })
 
             // Wristband Color Selection
@@ -2212,7 +2243,7 @@ jQuery(function ($) {
                     for (var index in lists) {
 
                         var bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap color-added"><div data-color="{{bg_color}}" style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div>&nbsp;' + lists[index].name + '</div>{{qty}}</div>', 
-                            bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" style="display:{{style_display}}" ><div data-color="{{bg_color}}" style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>';
+                            bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" data-toggle="modal" data-target="#wristband-text-color-modal" style="display:{{style_display}}" ><div data-color="{{bg_color}}" style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>';
 
                         var _wristband_color_box    = Mustache.render(bg_style_tpl, {hide: '', bg_color: lists[index].color, qty: ''}),
                             _wristband_text_color_box = '';
@@ -2275,13 +2306,19 @@ jQuery(function ($) {
             })
 
             .on('click', '.color-text-added', function(e){
-                var $frontext   = document.getElementById("fronttext"),
-                    $insidetext = document.getElementById("insidetext");
+                // update wristband preview text color
+                var $frontext   = document.getElementById("bandtextpath"),
+                    $insidetext = document.getElementById("bandtextpathinside");
 
                 $frontext.style.fill = $(this).find('div').data('color');
                 $insidetext.style.fill = $(this).find('div').data('color');
                 $frontext.style.opacity = "1"; 
                 $insidetext.style.opacity = "1"; 
+                // EOL - update wristband preview text color
+
+                $('#wristband-text-color-modal-body').attr('data-color', $(this).find('div').data('color'));
+                $('#wristband-text-color-modal-body').attr('data-color_index', $(this).index('.color-text-added'));
+                $('#wristband-text-color-modal-body .color-wrap').removeClass('selected');
             })
 
             .on('click','.fa-undo-old', function(e){

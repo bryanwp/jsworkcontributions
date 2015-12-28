@@ -176,20 +176,23 @@ img.image-upload.hide-if-icon {
 
 
 #wristband-color-items .tab-pane ul,
-#wristband-text-color ul{
+#wristband-text-color ul, 
+#wristband-text-color-modal ul{
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
 #wristband-color-items .tab-pane ul li,
-#wristband-text-color ul li{
+#wristband-text-color ul li, 
+#wristband-text-color-modal ul li{
     display: inline-block;
     margin: 0;
     padding: 0;
 }
 
-#wristband-text-color ul li {
+#wristband-text-color ul li, 
+#wristband-text-color-modal ul li {
     margin-right:4px;
 }
 
@@ -772,4 +775,8 @@ input[type="checkbox"],input[type="radio"] {
 .borderRed
 {
     border: 1px solid red !important;
+}
+#wristband-text-color-modal-body
+{
+    padding: 10px 0 10px 20px;
 }

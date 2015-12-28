@@ -758,6 +758,24 @@ if (isset($_REQUEST['id']))
     </div>
 </div>
 
+<div id="wristband-text-color-modal" class="fusion-modal modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content fusion-modal-content" style="background-color:#f6f6f6">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title" id="modal-heading-1" data-dismiss="modal" aria-hidden="true"
+                    data-fontsize="17" data-lineheight="36">
+                    Select Text Color</h3>
+            </div>
+            <div id="wristband-text-color-modal-body">
+                <ul>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script id="modal_message_template2" type="x-tmpl-mustache">
     <div id="modal_message2" class="fusion-modal modal fade {{status}}" tabindex="-1" role="dialog">
