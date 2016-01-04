@@ -116,7 +116,35 @@ if (!class_exists('WBC_Cart')) {
 
                 add_filter( 'wp_mail_content_type', 'set_html_content_type' );
                 
-                $result = wp_mail( $_POST['meta']['email'], 'Save Design at WristbandCreation.Com', '<h1>'.$title.'</h1><a href="'.$link.'" target="_blank">View Design</a>' );
+                $logo_url = Avada_Sanitize::get_url_with_correct_scheme( Avada()->settings->get( 'logo' ) );
+
+                $body = '<h1>'.$title.'</h1><a href="'.$link.'" target="_blank" style="background-color:rgb(109, 182, 220);color:#fff;">View Design</a>';
+                $body = '<table cellpadding="5" cellspacing="10" border="0">
+                            <tbody>
+                                <tr class="">
+                                    <td>
+                                        <a href="'.get_site_url().'"><img src="'.$logo_url.'" alt="Imprint.Com" class="CToWUd">
+                                    </td>
+                                    <td style="text-align: right;width: 400px;">
+                                        <h2 data-fontsize="20" data-lineheight="27" style="margin: 0;color: #e73906;"><span style="color: #0070ce;">Call Us:</span> (800) 403-8050</h2>
+                                        <p style="margin: 0;"><a href="mailto:sales@wristbandcreation.com" style="text-decoration: none;color: #000;">sales@wristbandcreation.com</a></p>
+                                        <p style="margin: 0;color: #747474;">Call us 6AM to 8PM (PST), 7 Days a Week</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center;">
+                                        <h1 style="color: rgb(109, 182, 220);">'.$title.'</h1>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center;">  
+                                      <a href="'.$link.'" target="_blank" style="text-decoration: none;background-color: rgb(109, 182, 220);color: white;padding: 10px;">View Design</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>';
+
+                $result = wp_mail( $_POST['meta']['email'], 'Save Design at WristbandCreation.Com', $body );
                 if ($result) {
                     wp_send_json_success(array('message' => 'Successfully send design to your email.'));
                 } else {
