@@ -146,7 +146,7 @@ if (!class_exists('WBC_Cart')) {
 
                 $result = wp_mail( $_POST['meta']['email'], 'Save Design at WristbandCreation.Com', $body );
                 if ($result) {
-                    wp_send_json_success(array('message' => 'Successfully send design to your email.'));
+                    wp_send_json_success(array('message' => 'Successfully send design to your email.', 'link' => $link));
                 } else {
                     wp_send_json_error(array( 'message' => 'There was an error while sending your design.'));
                 }

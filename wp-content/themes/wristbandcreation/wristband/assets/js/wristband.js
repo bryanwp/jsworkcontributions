@@ -2571,6 +2571,84 @@ jQuery(function ($) {
                             title = 'Error';
                             classD = 'CssTitleRed';
                         }
+                        else {                            
+                            var wc_colors = '';
+                            $(holdData.colors).each(function(indx, val){
+                                wc_colors += val.name+' - '+val.type+': '+val.color+', ';
+                                if(val.text_color_name != '')
+                                    wc_colors += 'Text Color: '+val.text_color_name+' - '+val.text_color+', ';
+                                $(val.sizes).each(function(sindx, sval){
+                                    if(sval.adult != 0)
+                                    {
+                                        wc_colors += 'Adult - '+sval.adult;
+                                        if(holdData.free_colors[indx].free.adult != 0)
+                                            wc_colors += ' + '+holdData.free_colors[indx].free.adult+', ';
+                                        else
+                                            wc_colors += ', ';
+                                    }
+                                    if(sval.medium != 0)
+                                    {
+                                        wc_colors += 'Medium - '+sval.medium;
+                                        if(holdData.free_colors[indx].free.medium != 0)
+                                            wc_colors += ' + '+holdData.free_colors[indx].free.medium+', ';
+                                        else
+                                            wc_colors += ', ';
+                                    }
+                                    if(sval.youth != 0)
+                                    {
+                                        wc_colors += 'Youth - '+sval.youth;
+                                        if(holdData.free_colors[indx].free.youth != 0)
+                                            wc_colors += ' + '+holdData.free_colors[indx].free.youth+', ';
+                                        else
+                                            wc_colors += ', ';
+                                    }
+                                });
+                            });
+
+                            var wc_additional_options = '';
+                            $(holdData.additional_options).each(function(indx, val){
+                                wc_additional_options += 'Additional Options: ';
+                                wc_additional_options += val+', ';
+                            });
+
+                            var wc_message_type = '';
+                            if(holdData.message_type == 'front_and_back')
+                                wc_message_type = ' Front/Back';
+                            else
+                                wc_message_type = 'Wrap Around';
+
+                            var wc_cust_shipping = '';
+                            if(holdData.customization_date_shipping != '-- Select Shipping Time --')
+                                wc_cust_shipping = holdData.customization_date_shipping;
+                            var wc_cust_production = '';
+                            if(holdData.customization_date_production != '-- Select Production Time --')
+                                wc_cust_production = holdData.customization_date_production;
+
+                            $("#inf_field_Email").val(holdData.email);
+                            $("#inf_custom_Design").val(response.data.link);
+                            $("#inf_custom_Style").val(holdData.title);
+                            $("#inf_custom_Size").val(holdData.size);
+                            $("#inf_custom_Colors0").text(wc_colors);
+                            $("#inf_custom_MessageType").val(wc_message_type);
+                            $("#inf_custom_FontStyle").val(holdData.font);
+                            $("#inf_custom_AdditionalNotes0").text(holdData.messages['Additional Notes']);
+                            $("#inf_custom_FrontMessage").val(holdData.messages['Front Message']);
+                            $("#inf_custom_BackMessage").val(holdData.messages['Back Message']);
+                            $("#inf_custom_ContinuousMessage").val(holdData.messages['Continuous Message']);
+                            $("#inf_custom_InsideMessage").val(holdData.messages['Inside Message']);
+                            $("#inf_custom_AdditionalOptions0").text(wc_additional_options);
+                            $("#inf_custom_FrontStart").val(holdData.clipart.front_start);
+                            $("#inf_custom_FrontEnd").val(holdData.clipart.front_end);
+                            $("#inf_custom_BackStart").val(holdData.clipart.back_start);
+                            $("#inf_custom_BackEnd").val(holdData.clipart.back_end);
+                            $("#inf_custom_WrapAroundStart").val(holdData.clipart.wrap_start);
+                            $("#inf_custom_WrapAroundEnd").val(holdData.clipart.wrap_end);
+                            $("#inf_custom_CustomizationLocation").val(holdData.customization_location);
+                            $("#inf_custom_ProductionTime").val(wc_cust_production);
+                            $("#inf_custom_ShippingTime").val(wc_cust_shipping);
+                            $("#inf_custom_GuaranteedDelivery").val(holdData.guaranteed_delivery);
+                            $("#infusion-form").submit();
+                        }
                         $('#saveDesignMessage').html('<span class="'+classD+'">'+response.data.message+'</span>');
                         // Builder.popupMsg(type, title, response.data.message);
                     });
@@ -2584,6 +2662,16 @@ jQuery(function ($) {
                 {
                     $('#SaveDesignEmail').addClass('borderRed');
                 }
+            })
+
+            .on('submit', '#infusion-form', function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: 'post',
+                    url: 'https://zt232.infusionsoft.com/app/form/process/50257f1da49a3883663775d73e9a6174',
+                    data: $(this).serialize()
+                });
             })
 
             .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {
