@@ -2624,13 +2624,17 @@ jQuery(function ($) {
                             if(holdData.customization_date_production != '-- Select Production Time --')
                                 wc_cust_production = holdData.customization_date_production;
 
+                            var wc_font = '';
+                            if(holdData.font != -1)
+                                wc_font = holdData.font;
+
                             $("#inf_field_Email").val(holdData.email);
                             $("#inf_custom_Design").val(response.data.link);
                             $("#inf_custom_Style").val(holdData.title);
                             $("#inf_custom_Size").val(holdData.size);
                             $("#inf_custom_Colors0").text(wc_colors);
                             $("#inf_custom_MessageType").val(wc_message_type);
-                            $("#inf_custom_FontStyle").val(holdData.font);
+                            $("#inf_custom_FontStyle").val(wc_font);
                             $("#inf_custom_AdditionalNotes0").text(holdData.messages['Additional Notes']);
                             $("#inf_custom_FrontMessage").val(holdData.messages['Front Message']);
                             $("#inf_custom_BackMessage").val(holdData.messages['Back Message']);
