@@ -123,7 +123,7 @@ if (!class_exists('WBC_Cart')) {
                             <tbody>
                                 <tr class="">
                                     <td>
-                                        <a href="'.get_site_url().'"><img src="'.$logo_url.'" alt="Imprint.Com" class="CToWUd">
+                                        <a href="'.get_site_url().'"><img src="'.get_site_url().'/wp-content/themes/wristbandcreation/logo.png" alt="WristbandCreation.Com" class="CToWUd">
                                     </td>
                                     <td style="text-align: right;width: 400px;">
                                         <h2 data-fontsize="20" data-lineheight="27" style="margin: 0;color: #e73906;"><span style="color: #0070ce;">Call Us:</span> (800) 403-8050</h2>
