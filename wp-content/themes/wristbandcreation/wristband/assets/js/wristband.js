@@ -2651,6 +2651,8 @@ jQuery(function ($) {
                             $("#inf_custom_ProductionTime").val(wc_cust_production);
                             $("#inf_custom_ShippingTime").val(wc_cust_shipping);
                             $("#inf_custom_GuaranteedDelivery").val(holdData.guaranteed_delivery);
+                            $("#inf_custom_TotalQuantity").val($('#qty_handler').text());
+                            $("#inf_custom_Price0").val($('#price_handler').text());
                             $("#infusion-form").submit();
                         }
                         $('#saveDesignMessage').html('<span class="'+classD+'">'+response.data.message+'</span>');

@@ -910,6 +910,14 @@ if (isset($_REQUEST['id']))
         <label for="inf_custom_GuaranteedDelivery">Guaranteed Delivery</label>
         <input class="infusion-field-input-container" id="inf_custom_GuaranteedDelivery" name="inf_custom_GuaranteedDelivery" type="text" />
     </div>
+    <div class="infusion-field">
+        <label for="inf_custom_TotalQuantity">Total Quantity</label>
+        <input class="infusion-field-input-container" id="inf_custom_TotalQuantity" name="inf_custom_TotalQuantity" type="text" />
+    </div>
+    <div class="infusion-field">
+        <label for="inf_custom_Price0">Price</label>
+        <input class="infusion-field-input-container" id="inf_custom_Price0" name="inf_custom_Price0" type="text" />
+    </div>
     <div class="infusion-submit">
         <input type="submit" value="Submit" />
     </div>
