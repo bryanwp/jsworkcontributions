@@ -822,8 +822,9 @@ if (isset($_REQUEST['id']))
         <input class="infusion-field-input-container" id="inf_field_Email" name="inf_field_Email" type="text" />
     </div>
     <div class="infusion-field">
-        <label for="inf_custom_Design">Design</label>
-        <input class="infusion-field-input-container" id="inf_custom_Design" name="inf_custom_Design" type="text" />
+        <label for="inf_custom_Design1">Design</label>
+        <textarea cols="24" id="inf_custom_Design1" name="inf_custom_Design1" rows="5">
+        </textarea>
     </div>
     <div class="infusion-field">
         <label for="inf_custom_Style">Style</label>

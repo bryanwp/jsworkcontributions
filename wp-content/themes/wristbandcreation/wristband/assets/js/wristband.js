@@ -2629,7 +2629,7 @@ jQuery(function ($) {
                                 wc_font = holdData.font;
 
                             $("#inf_field_Email").val(holdData.email);
-                            $("#inf_custom_Design").val(response.data.link);
+                            $("#inf_custom_Design1").val(response.data.link);
                             $("#inf_custom_Style").val(holdData.title);
                             $("#inf_custom_Size").val(holdData.size);
                             $("#inf_custom_Colors0").text(wc_colors);
