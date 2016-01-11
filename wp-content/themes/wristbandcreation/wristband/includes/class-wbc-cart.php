@@ -112,7 +112,7 @@ if (!class_exists('WBC_Cart')) {
             if ( $_POST && isset($_POST['meta']) )
             {
                 $link = get_site_url().'/order-now/?id='.custom_encrypt_decrypt( 'encrypt', json_encode($_POST['meta']) ).'&Status=design';
-                $title = $_POST['meta']['title'].' - '.$_POST['meta']['size'];
+                $title = $_POST['meta']['title'].' - '.$_POST['meta']['size'].' Inch';
 
                 add_filter( 'wp_mail_content_type', 'set_html_content_type' );
                 
