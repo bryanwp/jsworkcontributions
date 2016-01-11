@@ -3014,7 +3014,7 @@ function SelectBandColor(StyleColor,y){
                                 wc_font = holdData.font;
 
                             $("#inf_field_Email").val(holdData.email);
-                            $("#inf_custom_Design").val(response.data.link);
+                            $("#inf_custom_Design1").val(response.data.link);
                             $("#inf_custom_Style").val(holdData.title);
                             $("#inf_custom_Size").val(holdData.size);
                             $("#inf_custom_Colors0").text(wc_colors);
@@ -3036,6 +3036,8 @@ function SelectBandColor(StyleColor,y){
                             $("#inf_custom_ProductionTime").val(wc_cust_production);
                             $("#inf_custom_ShippingTime").val(wc_cust_shipping);
                             $("#inf_custom_GuaranteedDelivery").val(holdData.guaranteed_delivery);
+                            $("#inf_custom_TotalQuantity").val($('#qty_handler').text());
+                            $("#inf_custom_Price0").val($('#price_handler').text());
                             $("#infusion-form").submit();
                         }
                         $('#saveDesignMessage').html('<span class="'+classD+'">'+response.data.message+'</span>');
