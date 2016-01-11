@@ -219,109 +219,17 @@ jQuery(function ($) {
         },
 
         buildPreview: function() {
+            var message_type = $('input[name="message_type"]:checked').val(),
+                a = $('.preview-button.active').data('input'),
+                input = message_type == 'continues' ? 'continues_message' : a;
+            $("#front-text").text($('input[name="'+ input  +'"]').val().toUpperCase());
+            $('#insidetextpath').text($('input[name="inside_message"]').val().toUpperCase());
+            $('#front-text').attr('font-family', $('select[name="font"] option:selected').val());
+
             var StyleColor = $('input[name="color_style"]:checked').val();
             var y = $('#wristband-color-items .color-wrap.selected > div').data('color');
-            this.previewForText();
+
             if (y != undefined) { if($('#bandcolor').length) { SelectBandColor(StyleColor,y); } }
-        },
-
-        previewForText: function(){
-            var message_type = $('input[name="message_type"]:checked').val();
-            var inside_msg = $('input[name="inside_message"]').val();
-            //     a = $('.preview-button.active').data('input'),
-            //     input = message_type == 'continues' ? 'continues_message' : a;
-            // $("#front-text").text($('input[name="'+ input  +'"]').val().toUpperCase());
-            // $('#insidetextpath').text($('input[name="inside_message"]').val().toUpperCase());
-            // $('#front-text').attr('font-family', $('select[name="font"] option:selected').val());
-            //console.log(message_type);
-
-            if(message_type == 'continues'){
-                var cont_msg = $('input[name="continues_message"]').val();
-                // $("#front-text1").text(cont_msg.toUpperCase());
-                // $("#front-text2").text(cont_msg.toUpperCase());
-                // $("#front-text1").text($('#txtInputCont').val().substring(0, Math.ceil(cont_msg.length / 2)));
-                // $("#front-text2").text($('#txtInputCont').val().substring((Math.ceil($("#txtInputCont").val().length / 2) - 1), $("#txtInputCont").val().length));
-
-                if (cont_msg.length < $('input[name=textcount]').val().length + 1) {
-                    $("#front-textcont2").text('');
-                    disableWrapped();
-                }
-                $("#front-textcontainer").text(cont_msg);
-                if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '750') {
-
-                    enableWrapped();
-                    $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
-                    $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
-                } else {
-                    disableWrapped();
-                    //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
-                    if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
-                        $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
-                        $("#front-endcont1").empty();
-                        $('input[name=isWrapCont]').val('1');
-
-                        var span_textcont1 = $('input[name=textcount]').val().length;
-                        $("#front-textcont2").text(cont_msg.substring(span_textcont1 - 1, cont_msg.length));
-
-                    } else {
-                        $("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
-                        $("#front-endcont2").empty();
-                        $('input[name=isWrapCont]').val('0');
-
-                        $("#front-textcont1").text(cont_msg.substring(0, cont_msg.length));
-                        $('input[name=textcount]').val(cont_msg.substring(0, cont_msg.length));
-                    }
-
-                    if ($('input[name=wrapPaste]').val() === '1') {
-                        enableWrapped();
-                        $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
-                        $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
-                        $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
-                        $("#front-endcont1").empty();
-                    }
-
-                }
-            }else{
-                var front_msg = $('input[name="front_message"]').val(),
-                    back_msg = $('input[name="back_message"]').val();
-
-                $("#front-text1").text(front_msg);
-                $("#front-text2").text(back_msg);
-                $('#front-text1').attr('font-family', $('select[name="font"] option:selected').val());
-                $('#front-text2').attr('font-family', $('select[name="font"] option:selected').val());
-            }
-            
-            // console.log($('input[name=textinside]').val().length + 1);
-            if (inside_msg.length < $('input[name=textinside]').val().length + 1) {
-                    $("#front-textinside2").text('');
-                    disableWrapped2();
-            }
-            $("#front-textcontainer2").text(inside_msg);
-            if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '750') {
-
-                enableWrapped2();
-
-                $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
-                $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
-            } else {
-                disableWrapped2();
-                if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '480') {
-                    $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
-                    $("#front-endinside1").empty();
-                    $('input[name=isWrapInside]').val('1');
-
-                    var span_textinside1 = $('input[name=textinside]').val().length;
-                    $("#front-textinside2").text(inside_msg.substring(span_textinside1 - 1, inside_msg.length));
-                    } else {
-                    $("#front-endinside1").empty().append($("#front-endinside2-icon :selected").text());
-                    $("#front-endinside2").empty();
-                    $('input[name=isWrapInside]').val('0');
-
-                    $("#front-textinside1").text(inside_msg.substring(0, inside_msg.length));
-                    $('input[name=textinside]').val(inside_msg.substring(0, inside_msg.length));
-                    }
-                } 
-
         },
 
         renderProductionShippingOptions: function() {
@@ -387,7 +295,7 @@ jQuery(function ($) {
                     done: function (e, data) {
                         var $self = $(this);
                         $.each(data.result.files, function (index, file) {
-                            //console.log(file);
+                            console.log(file);
 
                             var button = $self.closest('.button-box').find('.toggle-modal-clipart');
                             // Delete previous file
@@ -403,7 +311,7 @@ jQuery(function ($) {
                                 .find('.image-upload')
                                 .attr('src', file.url)
                                 .css({display: 'inline-block'});
- 
+
                             $self.closest('.button-box')
                                 .find('.hide-if-upload')
                                 .css({display : 'none'});
@@ -793,52 +701,6 @@ jQuery(function ($) {
 
     };
 
-    function enableWrapped() {
-
-                $('#bandtextcont1')[0].setAttribute('text-anchor', 'middle');
-                $('#bandtextcont1')[0].setAttribute('textLength', '280');
-                $('#bandtextcont1')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
-                $('#bandtextpathcont1')[0].setAttribute('startOffset', '50%');
-
-                $('#bandtextcont2')[0].setAttribute('text-anchor', 'middle');
-                $('#bandtextcont2')[0].setAttribute('textLength', '280');
-                $('#bandtextcont2')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
-                $('#bandtextpathcont2')[0].setAttribute('startOffset', '50%');
-            }
-     function disableWrapped() {
-                $('#bandtextcont1')[0].setAttribute('text-anchor', '');
-                $('#bandtextcont1')[0].setAttribute('textLength', '');
-                $('#bandtextcont1')[0].setAttribute('lengthAdjust', '');
-                $('#bandtextpathcont1')[0].setAttribute('startOffset', '0%');
-
-                $('#bandtextcont2')[0].setAttribute('text-anchor', '');
-                $('#bandtextcont2')[0].setAttribute('textLength', '');
-                $('#bandtextcont2')[0].setAttribute('lengthAdjust', '');
-                $('#bandtextpathcont2')[0].setAttribute('startOffset', '0%');
-            }
-    function enableWrapped2() {
-                $('#bandtextinside1')[0].setAttribute('text-anchor', 'middle');
-                $('#bandtextinside1')[0].setAttribute('textLength', '280');
-                $('#bandtextinside1')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
-                $('#bandtextpathinside1')[0].setAttribute('startOffset', '50%');
-
-                $('#bandtextinside2')[0].setAttribute('text-anchor', 'middle');
-                $('#bandtextinside2')[0].setAttribute('textLength', '280');
-                $('#bandtextinside2')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
-                $('#bandtextpathinside2')[0].setAttribute('startOffset', '50%');
-            }
-    function disableWrapped2() {
-                $('#bandtextinside1')[0].setAttribute('text-anchor', '');
-                $('#bandtextinside1')[0].setAttribute('textLength', '');
-                $('#bandtextinside1')[0].setAttribute('lengthAdjust', '');
-                $('#bandtextpathinside1')[0].setAttribute('startOffset', '0%');
-
-                $('#bandtextinside2')[0].setAttribute('text-anchor', '');
-                $('#bandtextinside2')[0].setAttribute('textLength', '');
-                $('#bandtextinside2')[0].setAttribute('lengthAdjust', '');
-                $('#bandtextpathinside2')[0].setAttribute('startOffset', '0%');
-            }
-
     // Convert string to integer
     function toInt(n) {
         n = parseInt(n);
@@ -888,21 +750,8 @@ jQuery(function ($) {
             document.getElementById("bandtextpathinside").style.fill = SetColor;
             document.getElementById("bandtextpathinside").style.opacity = "1";
 
-            document.getElementById("bandtextpathinside1").style.fill = SetColor;
-            document.getElementById("bandtextpathinside1").style.opacity = "1";
-
-            document.getElementById("bandtextpathinside2").style.fill = SetColor;
-            document.getElementById("bandtextpathinside2").style.opacity = "1";
-
             document.getElementById("bandtextpath").style.fill = SetColor;
             document.getElementById("bandtextpath").style.opacity = "1";
-
-            document.getElementById("bandtextpath1").style.fill = SetColor;
-            document.getElementById("bandtextpath1").style.opacity = "1";
-
-            document.getElementById("bandtextpath2").style.fill = SetColor;
-            document.getElementById("bandtextpath2").style.opacity = "1";
-
         }
     }
 
@@ -931,51 +780,10 @@ jQuery(function ($) {
     function messageOptionDisplay(value) {
         if (value == "front_and_back"){ 
             $("#ForFrontBackID").css({display: 'block'}); 
-            $("#ForContiID").css({display: 'none'});
-            //changing the mask
-            $("#outsidesolid1").removeAttr("display");
-            $("#outsidesolid2").removeAttr("display");
-            $("#mask1_band1").removeAttr("display");
-            $("#mask2_band1").removeAttr("display");
-            $("#mask1_band2").removeAttr("display");
-            $("#mask2_band2").removeAttr("display");
-
-            $("#bandtext1").removeAttr("display");
-            $("#bandtext2").removeAttr("display");
-            $("#bandtextcont1").attr("display", "none");
-            $("#bandtextcont2").attr("display", "none");
-
-            $("#imagepathinside").attr("display", "none");
-            //hidebackshadow();
-            $("#segcolor1_cover_band1").removeAttr("display");
-            $("#segcolor2_cover_band1").removeAttr("display");
-            $("#segcolor3_band1").removeAttr("display");
-
-            $("#segcolor1_cover_band2").removeAttr("display");
-            $("#segcolor2_cover_band2").removeAttr("display");             
-        } else if (value == 'continues') { 
+            $("#ForContiID").css({display: 'none'}); 
+        } else { 
             $("#ForFrontBackID").css({display: 'none'}); 
             $("#ForContiID").css({display: 'block'});
-            //changing the mask
-            $("#outsidesolid1").removeAttr("display");
-            $("#outsidesolid2").removeAttr("display");
-            $("#mask1_band1").removeAttr("display");
-            $("#mask2_band1").removeAttr("display");
-            $("#mask1_band2").removeAttr("display");
-            $("#mask2_band2").removeAttr("display");
-
-            $("#bandtextcont1").removeAttr("display");
-            $("#bandtextcont2").removeAttr("display");
-            $("#bandtext1").attr("display", "none");
-            $("#bandtext2").attr("display", "none");
-            $("#imagepathinside").attr("display", "none");
-            //hidebackshadow();
-            $("#segcolor1_cover_band1").removeAttr("display");
-            $("#segcolor2_cover_band1").removeAttr("display");
-            $("#segcolor3_band1").removeAttr("display");
-
-            $("#segcolor1_cover_band2").removeAttr("display");
-            $("#segcolor2_cover_band2").removeAttr("display");
         }
 
         $('[class*="hide-if-message_type-"]').css({display: 'block'});
@@ -987,53 +795,25 @@ jQuery(function ($) {
     }
 
     function TempReloadSVG(){
-        // var ContainerID =  document.getElementById("preview_container")
-        // var Temp = ContainerID.innerHTML;
-        // ContainerID.innerHTML = Temp;
+        var ContainerID =  document.getElementById("preview_container")
+        var Temp = ContainerID.innerHTML;
+        ContainerID.innerHTML = Temp;
     }
 
     function ChangeStyle(val){
         switch (val) { 
                 case 'Imprinted': 
-                        var cssVal = "0 0 0";
                         $("#bandtext").css({textShadow: "0 0 0"});
-                        $("#bandtext1").css({textShadow: cssVal});
-                        $("#bandtext2").css({textShadow: cssVal});
-                        $("#bandtextcont1").css({textShadow: cssVal});
-                        $("#bandtextcont2").css({textShadow: cssVal});
-                        $("#bandtextinside1").css({textShadow: cssVal});
-                        $("#bandtextinside2").css({textShadow: cssVal});
                         break;
                 case 'Debossed': 
                         //$("#bandtext").css({textShadow: "0 1.5px 0 black"});
-                        var cssVal = "0px -1px 1px black";
                         $("#bandtext").css({textShadow: "0px -1px 1px black"});
-                        $("#bandtext1").css({textShadow: cssVal});
-                        $("#bandtext2").css({textShadow: cssVal});
-                        $("#bandtextcont1").css({textShadow: cssVal});
-                        $("#bandtextcont2").css({textShadow: cssVal});
-                        $("#bandtextinside1").css({textShadow: cssVal});
-                        $("#bandtextinside2").css({textShadow: cssVal});
                         break;
                 case 'Embossed': 
-                        var cssVal = "rgba(255, 255, 255, 0.1) -2px -2px 2px, rgba(0, 0, 0, 0.5) 2px 2px 2px";
                         $("#bandtext").css({textShadow: "rgba(255, 255, 255, 0.1) -2px -2px 2px, rgba(0, 0, 0, 0.5) 2px 2px 2px"});
-                        $("#bandtext1").css({textShadow: cssVal});
-                        $("#bandtext2").css({textShadow: cssVal});
-                        $("#bandtextcont1").css({textShadow: cssVal});
-                        $("#bandtextcont2").css({textShadow: cssVal});
-                        $("#bandtextinside1").css({textShadow: cssVal});
-                        $("#bandtextinside2").css({textShadow: cssVal});
                         break;      
                 default:
-                        var cssVal = "0 0 0";
                         $("#bandtext").css({textShadow: "0 0 0"});
-                        $("#bandtext1").css({textShadow: cssVal});
-                        $("#bandtext2").css({textShadow: cssVal});
-                        $("#bandtextcont1").css({textShadow: cssVal});
-                        $("#bandtextcont2").css({textShadow: cssVal});
-                        $("#bandtextinside1").css({textShadow: cssVal});
-                        $("#bandtextinside2").css({textShadow: cssVal});
         } 
     }
 
@@ -1338,111 +1118,22 @@ jQuery(function ($) {
         }
     }
 
-    // function SelectBandColor(StyleColor,y){
-    //     var insidesolid = document.getElementById("insidesolid");
-    //     var outsidesolid = document.getElementById("outsidesolid");
-    //     var bandcolor = document.getElementById("bandcolor");
-
-    //     var mask1       = document.getElementById("mask1");               
-    //     var mask1inside = document.getElementById("mask1inside");
-
-    //     var mask2       = document.getElementById("mask2");             
-    //     var mask2inside = document.getElementById("mask2inside");
-
-    //     mask1.style.opacity = 1;            
-    //     mask1inside.style.opacity = 1; 
-
-    //     mask2.style.opacity = 1;            
-    //     mask2inside.style.opacity = 1;
-
-    //     if (StyleColor == "Segmented"){
-
-    //     } else if (StyleColor == "Swirl"){
-    //         var SplitColor = y.split(",");
-
-    //         insidesolid.style.fill = SplitColor[0];
-    //         bandcolor.style.fill = SplitColor[0];
-
-    //         outsidesolid.style.fill = SplitColor[0];
-          
-    //         mask1.style.fill = SplitColor[1];            
-    //         mask1inside.style.fill = SplitColor[1];
-
-    //         mask2.style.fill = SplitColor[2];               
-    //         mask2inside.style.fill = SplitColor[2];
-    //     } else {
-    //         insidesolid.style.fill=y;
-    //         outsidesolid.style.fill=y;
-    //         bandcolor.style.fill=y;
-    //         mask1.style.fill = y;            
-    //         mask1inside.style.fill = y;
-    //         mask2.style.fill = y;               
-    //         mask2inside.style.fill = y;
-    //     }
-    // }
-
-function SelectBandColor(StyleColor,y){
+    function SelectBandColor(StyleColor,y){
         var insidesolid = document.getElementById("insidesolid");
         var outsidesolid = document.getElementById("outsidesolid");
         var bandcolor = document.getElementById("bandcolor");
 
-        //var mask1       = document.getElementById("mask1");               
-        //var mask1inside = document.getElementById("mask1inside");
+        var mask1       = document.getElementById("mask1");               
+        var mask1inside = document.getElementById("mask1inside");
 
-        //var mask2       = document.getElementById("mask2");             
-        //var mask2inside = document.getElementById("mask2inside");
+        var mask2       = document.getElementById("mask2");             
+        var mask2inside = document.getElementById("mask2inside");
 
-        var insidesolid1 = document.getElementById("insidesolid1");
-        var insidesolid2 = document.getElementById("insidesolid2");
-        var outsidesolid1 = document.getElementById("outsidesolid1");
-        var outsidesolid2 = document.getElementById("outsidesolid2");
-        var mask1_band1 = document.getElementById("mask1_band1");
-        var mask1inside_band1 = document.getElementById("mask1inside_band1");
-        var mask2inside_band1 = document.getElementById("mask2inside_band1");
-        var mask1_band2 = document.getElementById("mask1_band2");
-        var mask1inside_band2 = document.getElementById("mask1inside_band2");
-        var mask2_band2 = document.getElementById("mask2_band2");
-        var mask2inside_band2 = document.getElementById("mask2inside_band2");
+        mask1.style.opacity = 1;            
+        mask1inside.style.opacity = 1; 
 
-/// insidesolid1
-/// insidesolid2
-/// outsidesolid1
-/// outsidesolid2
-/// mask1_band1
-/// mask1inside_band1
-/// mask2inside_band1
-/// mask1_band2
-/// mask1inside_band2
-/// mask2_band2
-/// mask2inside_band2
-// segcolor1_band1
-// segcolor1_cover_band1
-// segcolor2_band1
-// segcolor2_cover_band1
-// segcolor3_band1
-// segcolor1_band2
-// segcolor1_cover_band2
-// segcolor2_band2
-// segcolor2_cover_band2
-// segcolor3_band2
-
-    
-        //mask1.style.opacity = 1;            
-        //mask1inside.style.opacity = 1; 
-
-        //mask2.style.opacity = 1;            
-        //mask2inside.style.opacity = 1;
-
-        mask1_band1.style.opacity = 1;
-        mask1inside_band1.style.opacity = 1;
-        mask2inside_band1.style.opacity = 1;
-
-        mask1_band2.style.opacity = 1;
-
-        mask1inside_band2.style.opacity = 1;
-        mask2_band2.style.opacity = 1;
-        mask2inside_band2.style.opacity = 1;
-
+        mask2.style.opacity = 1;            
+        mask2inside.style.opacity = 1;
 
         if (StyleColor == "Segmented"){
 
@@ -1460,27 +1151,16 @@ function SelectBandColor(StyleColor,y){
             mask2.style.fill = SplitColor[2];               
             mask2inside.style.fill = SplitColor[2];
         } else {
-            // insidesolid.style.fill=y;
-            // outsidesolid.style.fill=y;
-            // bandcolor.style.fill=y;
-            //mask1.style.fill = y;            
-            //mask1inside.style.fill = y;
-            //mask2.style.fill = y;               
-            //mask2inside.style.fill = y;
-            
-            insidesolid1.style.fill=y;
-            insidesolid2.style.fill=y;
-            outsidesolid1.style.fill=y;
-            outsidesolid2.style.fill=y;
-            mask1_band1.style.fill=y;
-            mask1inside_band1.style.fill=y;
-            mask2inside_band1.style.fill=y;
-            mask1_band2.style.fill=y;
-            mask1inside_band2.style.fill=y;
-            mask2_band2.style.fill=y;
-            mask2inside_band2.style.fill=y;
+            insidesolid.style.fill=y;
+            outsidesolid.style.fill=y;
+            bandcolor.style.fill=y;
+            mask1.style.fill = y;            
+            mask1inside.style.fill = y;
+            mask2.style.fill = y;               
+            mask2inside.style.fill = y;
         }
     }
+
 
     function AddNewColor($wc){
         // var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
@@ -1510,7 +1190,6 @@ function SelectBandColor(StyleColor,y){
 
         var textStyle = $("#style").find("option:selected").text();
         if (textStyle == "Blank" || textStyle == "Figured" || textStyle == "Embossed" || textStyle == "Debossed"){ _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'none', bg_color: '#ffffff', qty: ''});
-        
         } else {
             _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'inline-block', bg_color: $tc.data('color'), qty: ''}); 
             _txtColorName = $tc.data('name');
@@ -1863,69 +1542,6 @@ function SelectBandColor(StyleColor,y){
     function ConnectItems(){ Builder.data.colors = Builder.TempColors; }
 
 
-    function getImageToDisplay(width) {
-            //var textdesign = $('input[name=textdesign]').filter(':checked').val();
-            //var size = $("#ddlSize").val();
-             var newwidth = width.replace('/','_');
-            $("#img1_1").attr("display", "none");
-            $("#img1_1_2").attr("display", "none");
-            $("#img1_3_4").attr("display", "none");
-            $("#img1_1_4").attr("display", "none");
-            $("#img2_1").attr("display", "none");
-            $("#img2_1_2").attr("display", "none");
-            $("#img2_3_4").attr("display", "none");
-            $("#img2_1_4").attr("display", "none");
-            $("#arc1").attr("display", "none");
-
-            $("#no_arc_img1_1").attr("display", "none");
-            $("#no_arc_img1_1_2").attr("display", "none");
-            $("#no_arc_img1_3_4").attr("display", "none");
-            $("#no_arc_img1_1_4").attr("display", "none");
-            $("#no_arc_img2_1").attr("display", "none");
-            $("#no_arc_img2_1_2").attr("display", "none");
-            $("#no_arc_img2_3_4").attr("display", "none");
-            $("#no_arc_img2_1_4").attr("display", "none");
-            $("#arc2").attr("display", "none");
-            //console.log(width);
-            //console.log(newwidth);
-            // if (textdesign !== 'inside') {
-            //     $("#img1_" + wb[size]['ImgSource']).removeAttr("display");
-            //     $("#img2_" + wb[size]['ImgSource']).removeAttr("display");
-            // } else {
-            //     $("#no_arc_img1_" + wb[size]['ImgSource']).removeAttr("display");
-            //     $("#no_arc_img2_" + wb[size]['ImgSource']).removeAttr("display");
-
-            //     $('#InsideArc')[0].setAttribute('d', wb[size]['InsideArc']);
-            //     $("#arc1").removeAttr("display");
-            //     $("#arc2").removeAttr("display");
-            // }
-            $("#img1_" + newwidth).removeAttr("display");
-            $("#img2_" + newwidth).removeAttr("display");
-
-            //$('#InsideArc')[0].setAttribute('d', wb[size]['InsideArc']);
-            //$("#arc1").removeAttr("display");
-            //$("#arc2").removeAttr("display");
-        }
-
-
-// function changeFontSize() {
-//         if ($("#txtInput1").val().length < 6) {
-//             document.getElementById("bandtext1").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//         }
-//         if ($("#txtInput2").val().length < 6) {
-//             document.getElementById("bandtext2").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//         }
-//         if ($("#txtInputCont").val().length < 18) {
-//             document.getElementById("bandtextcontainer").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//             document.getElementById("bandtextcont1").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//             document.getElementById("bandtextcont2").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//         }
-//         if ($("#txtInputInside").val().length < 18) {
-//             document.getElementById("bandtextcontainer2").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//             document.getElementById("bandtextinside1").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//             document.getElementById("bandtextinside2").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//         }
-//     }
 
 
 
@@ -1966,8 +1582,8 @@ function SelectBandColor(StyleColor,y){
             .on('change', 'select[name="style"]', function(e) {
                 var textStyle = this.options[this.selectedIndex].text,
                     slctd_product = Settings.products[this.value];
-                
                 ChangeStyle(textStyle);
+
                 e.preventDefault();
                // Builder.reset();
 
@@ -1976,7 +1592,7 @@ function SelectBandColor(StyleColor,y){
                     slctd_style = $(this).val(),
                     color_lists = Builder.data.colors;
 
-                 //console.log(slctd_product);
+                // console.log(slctd_product);
                 if (slctd_product != undefined) {
                     if (document.getElementById("wbc_add_to_cart")){
                         $('#wbc_add_to_cart').removeAttr('disabled');
@@ -2003,6 +1619,7 @@ function SelectBandColor(StyleColor,y){
                      } 
 
                     $('select#width option:first-child').trigger('change');
+
                     Builder.init();
                     $('#wristband-text-color ul').empty();
                     $('#wristband-text-color-modal-body ul').empty();
@@ -2110,11 +1727,9 @@ function SelectBandColor(StyleColor,y){
             .on('change', 'select#width', function() {
                 var tempSelect = document.getElementById("style");
                 var tempVal = tempSelect.options[tempSelect.selectedIndex].text;
-                var width = $("#width").val();
+
                 $("#SelectStyleID").html(tempVal + "&nbsp;-" + $(this).val());
-                getImageToDisplay(width);
-                // changeFontSize();
-                //console.log(width);
+
                 Builder.reset();
                 Builder.additionalOptionsShow(this.value);
                 Builder.init();
@@ -3067,35 +2682,7 @@ function SelectBandColor(StyleColor,y){
                 Builder.calculateDeliveryDate();
             })
 
-            .on('focus','input[name="inside_message"]', function(e) {
 
-                $("#outsidesolid1").attr("display", "none");
-                $("#outsidesolid2").attr("display", "none");
-                $("#mask1_band1").attr("display", "none");
-                $("#mask2_band1").attr("display", "none");
-                $("#mask1_band2").attr("display", "none");
-                $("#mask2_band2").attr("display", "none");
-
-                $("#bandtext1").attr("display", "none");
-                $("#bandtext2").attr("display", "none");
-                $("#bandtextcont1").attr("display", "none");
-                $("#bandtextcont2").attr("display", "none");
-                $("#bandtextinside1").removeAttr("display");
-                $("#bandtextinside2").removeAttr("display");
-                    //hidebackshadow();                 
-                $("#segcolor1_cover_band1").attr("display", "none");
-                $("#segcolor2_cover_band1").attr("display", "none");
-                $("#segcolor3_band1").attr("display", "none");
-
-                $("#segcolor1_cover_band2").attr("display", "none");
-                $("#segcolor2_cover_band2").attr("display", "none"); 
-
-            })
-            
-            .on('focusout','input[name="inside_message"]', function(e) {
-                console.log($('input[name="message_type"]:checked').val());
-                messageOptionDisplay($('input[name="message_type"]:checked').val());
-            })  
 
             .on('click', '#front_view_button, #back_view_button', function(e) {
                 e.preventDefault();
@@ -3118,6 +2705,11 @@ function SelectBandColor(StyleColor,y){
               //  
                 return false;
             });
+
+
+
+
+
             
         // Alert message if attempt to leave/unload page
         $(window).on('beforeunload', function() {

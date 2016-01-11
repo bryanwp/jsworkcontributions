@@ -252,28 +252,6 @@ if (isset($_REQUEST['id']))
                             </div>
                         </div>
 
-
-                        <div id="quantity_group_field">
-                            <!-- <label class="form-group-heading CssTitleBlack" >Input Quantity <span>(Side View Guide)</span></label> -->
-                            <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
-                                <label class="form-group-heading CssTitleBlack" for="qty_adult">Adult</label>
-                                <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text">
-                            </p>
-                            <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
-                                <label class="form-group-heading CssTitleBlack" for="qty_medium">Medium</label>
-                                <input type="number" name="qty_medium" id="qty_medium"  min="0" class="input-text">
-                            </p>
-                            <p class="form-row form-row-last fusion-one-fourth one_third fusion-layout-column fusion-column-last fusion-spacing-yes">
-                                <label class="form-group-heading CssTitleBlack" for="qty_youth">Youth</label>
-                                <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text">
-                            </p>
-                            <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
-                                <br>
-                                <a class="TempAddCss" target="_blank" href="#" id="add_color_to_selections"><span class="fusion-button-text">Add</span></a>
-                             </p>                    
-                        <div class="clear"></div>
-                            
-                        </div><!-- /.quantity_group_field -->
                         
                     <?php if (isset($GLOBALS['wbc_settings']->additional_options)):?>
                         <div id="additional-option-section">
@@ -312,11 +290,11 @@ if (isset($_REQUEST['id']))
                             <!-- <div class="link-buttons alignleft"> -->
                             <div id="viewButtonGroup" class="col-md-2">
                                 <!-- <a class="fusion-button button-flat button-round button-small button-orange prdct-info" href="#"><span class="fusion-button-text">Product Info</span></a> -->
-                                <a class="fusion-button button-flat button-round button-small button-orange preview-button active if-message_type_is-continues" href="#" id="front_view_button" data-input="front_message" data-view="front"><span class="fusion-button-text">Front</span></a>
-                                <a class="fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues" id="back_view_button" data-input="back_message" data-view="back" href="#" ><span class="fusion-button-text">Back</span></a>
+                                <!-- <a class="fusion-button button-flat button-round button-small button-orange preview-button active if-message_type_is-continues" href="#" id="front_view_button" data-input="front_message" data-view="front"><span class="fusion-button-text">Front</span></a> -->
+                                <!-- <a class="fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues" id="back_view_button" data-input="back_message" data-view="back" href="#" ><span class="fusion-button-text">Back</span></a> -->
                             </div>
 
-                            <div class="col-md-10">
+                            <div class="col-md-12" style = "padding:0px">
                                 <span id="freeCounter" class="CssTitleBlue"></span>
                                 <div class="form-group table-responsive">
                                     <table id="selected_color_table" class="table table-bordered" border="0">
@@ -338,7 +316,7 @@ if (isset($_REQUEST['id']))
                             </div>
 
 
-                            <div class="imageframe-align-center image-preview">
+                            <!-- <div class="imageframe-align-center image-preview">
                                 <div id="preview_container" class="container--ph">
                                     <svg id="svgelement" viewBox="0 0 300 180" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                         <defs>
@@ -382,7 +360,162 @@ if (isset($_REQUEST['id']))
                                         <image height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/WRISTBAND2.png" />
                                     </svg> 
                                 </div>
-                            </div>
+                            </div> -->
+
+
+
+
+
+        <input type="hidden" name="wbsize" value="2">
+        <input type="hidden" name="fbfront" value="0">
+        <input type="hidden" name="fbback" value="0">
+        <input type="hidden" name="textcount" value="0">
+        <input type="hidden" name="textcount2" value="0">
+        <input type="hidden" name="textinside" value="0">
+        <input type="hidden" name="isWrapCont" value="0">
+        <input type="hidden" name="isWrapInside" value="0">
+        <input type="hidden" name="frontPaste" value="0">
+        <input type="hidden" name="backPaste" value="0">
+        <input type="hidden" name="wrapPaste" value="0">
+        <input type="hidden" name="insidePaste" value="0">
+
+
+        <div class="imageframe-align-center image-preview">
+            <svg id="svgelement" viewBox="0 0 300 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+            <path id="ContainerPath" fill-opacity="0" d="M0 0 q 80 -18 444 -2"/>
+            <path id="MyPath1" fill-opacity="0" d="M15 75 q 125 23 270 -2"/>
+            <path id="MyPath2" fill-opacity="0" d="M15 75 q 125 23 270 -2"/>
+            <path id="MyPathCont1" fill-opacity="0" d="M15 78 q 125 23 280 -4"/>
+            <path id="MyPathCont2" fill-opacity="0" d="M8 77 q 130 25 280 -2"/>
+            <path id="MyPathInside1" fill-opacity="0" d="M15 60 q 80 -18 270 -1.5"/>
+            <path id="MyPathInside2" fill-opacity="0" d="M15 60 q 80 -18 270 -1.5"/>
+            <path id="InsideArc" fill-opacity="0" d="M15 68 q 125 15 270 -2"/>
+
+            <filter id="blurSideShadow" x="-20" y="-20" width="200" height="200">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="20" />
+            </filter>
+            </defs>
+            <rect id="bandcolor" height="100%" width="100%" style="fill: gray" />
+            <?php echo $segcolor1_band1 . $segcolor2_band1; ?>
+            <?php echo $mask_inside_band1; ?>
+            <?php // $mask1_inside;  ?>            
+            <?php echo $mask2_inside_band1 . $mask1_inside_band1; ?>           
+            <text id="bandtextinside1" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+            <textPath id="bandtextpathinside1" xlink:href="#MyPathInside1" startOffset="0%">
+                <tspan id="front-startinside1" class="fa" dominant-baseline="middle">;</tspan>
+                <tspan id="front-textinside1" dominant-baseline="middle"></tspan>
+                <tspan id="front-endinside1" class="fa" dominant-baseline="middle"></tspan>
+            </textPath>
+            </text>
+            <?php echo $mask_outside_band1; ?>
+            <?php // echo $mask1;  ?>            
+            <?php echo $mask2_band1 . $mask1_band1; ?>
+            <?php echo $segcolor1_cover_band1 . $segcolor2_cover_band1; ?>            
+            <?php echo $segcolor3_band1; ?>            
+            <text id="bandtext1" text-anchor="middle" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+            <textPath id="bandtextpath1" xlink:href="#MyPath1" startOffset="50%">
+                <tspan id="front-start1" class="fa" dominant-baseline="middle"></tspan>
+                <tspan id="front-text1" dominant-baseline="middle"></tspan>
+                <tspan id="front-end1" class="fa" dominant-baseline="middle"></tspan>
+            </textPath>
+            </text>
+            <text id="bandtextcont1" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;"  display="none">
+            <textPath id="bandtextpathcont1" xlink:href="#MyPathCont1" startOffset="0%">
+                <tspan id="front-startcont1" class="fa" dominant-baseline="middle"></tspan>
+                <tspan id="front-textcont1" dominant-baseline="middle"></tspan>
+                <tspan id="front-endcont1" class="fa" dominant-baseline="middle"></tspan>
+            </textPath>
+            </text>
+
+            <rect x="0" y="15" width="30" height="120" filter="url(#blurSideShadow)" />
+            <rect x="275" y="15" width="30" height="120" filter="url(#blurSideShadow)" />
+            <image  id="img1_1" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/1.png" display="none"/>
+            <image  id="img1_1_2" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/1_2.png" display="none"/>
+            <image  id="img1_3_4" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/3_4.png" />
+            <image  id="img1_1_4" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/1_4.png" display="none"/>
+            <image  id="no_arc_img1_1" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/no_arc_1.png" display="none"/>
+            <image  id="no_arc_img1_1_2" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/no_arc_1_2.png" display="none"/>
+            <image  id="no_arc_img1_3_4" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/no_arc_3_4.png" />
+            <image  id="no_arc_img1_1_4" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/no_arc_1_4.png" display="none"/>
+
+            <use id="arc1" xlink:href="#InsideArc" stroke-dasharray="5, 5" stroke="black" display="none"/>
+            <!--<use xlink:href="#MyPathCont1" fill="none" stroke="blue"  />-->
+            <!--<use xlink:href="#MyPathInside1" fill="none" stroke="green"  />-->
+
+            </svg>
+            <svg id="svgelement" viewBox="0 0 300 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <rect id="bandcolor2" height="100%" width="100%" style="fill: gray" />
+            <?php echo $mask_inside_band2; ?>
+            <?php echo $mask2_inside_band2 . $mask1_inside_band2; ?>
+            <?php echo $segcolor1_band2 . $segcolor2_band2; ?>
+            <?php echo $segcolor3_band2; ?>
+            <text id="bandtextinside2" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+            <textPath id="bandtextpathinside2" xlink:href="#MyPathInside2" startOffset="0%">
+                <tspan id="front-startinside2" class="fa" dominant-baseline="middle"></tspan>
+                <tspan id="front-textinside2" dominant-baseline="middle"></tspan>
+                <tspan id="front-endinside2" class="fa" dominant-baseline="middle"></tspan>
+            </textPath>
+            </text>
+            <?php echo $mask_outside_band2; ?>
+            <?php echo $mask2_band2 . $mask1_band2; ?>
+            <?php echo $segcolor1_cover_band2 . $segcolor2_cover_band2; ?>               
+            <text id="bandtext2" text-anchor="middle" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+            <textPath id="bandtextpath2" xlink:href="#MyPath2" startOffset="50%">
+                <tspan id="front-start2" class="fa" dominant-baseline="middle"></tspan>
+                <tspan id="front-text2" dominant-baseline="middle"></tspan>
+                <tspan id="front-end2" class="fa" dominant-baseline="middle"></tspan>
+            </textPath>
+            </text>
+            <text id="bandtextcont2" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;" display="none">
+            <textPath id="bandtextpathcont2" xlink:href="#MyPathCont2" startOffset="0%">
+                <tspan id="front-startcont2" class="fa" dominant-baseline="middle"></tspan>
+                <tspan id="front-textcont2" dominant-baseline="middle"></tspan>
+                <!--<tspan id="front-endcont2" class="fa" dominant-baseline="middle">&#xf096;</tspan>-->
+                <tspan id="front-endcont2" class="fa" dominant-baseline="middle"></tspan>
+            </textPath>
+            </text>
+
+            <text id="bandtextcontainer" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+            <textPath id="bandtextpathcontainer" xlink:href="#ContainerPath" startOffset="0%">
+                <tspan id="front-startcontainer" class="fa" dominant-baseline="middle"></tspan>
+                <tspan id="front-textcontainer" dominant-baseline="middle"></tspan>
+                <tspan id="front-endcontainer" class="fa" dominant-baseline="middle"></tspan>
+            </textPath>
+            </text>            
+            <text id="bandtextcontainer2" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+            <textPath id="bandtextpathcontainer2" xlink:href="#ContainerPath" startOffset="0%">
+                <tspan id="front-startcontainer2" class="fa" dominant-baseline="middle"></tspan>
+                <tspan id="front-textcontainer2" dominant-baseline="middle"></tspan>
+                <tspan id="front-endcontainer2" class="fa" dominant-baseline="middle"></tspan>
+            </textPath>
+            </text>
+            <rect x="0" y="15" width="30" height="120" filter="url(#blurSideShadow)" />
+            <rect x="275" y="15" width="30" height="120" filter="url(#blurSideShadow)" />
+            <image  id="img2_1" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/1.png" display="none"/>
+            <image  id="img2_1_2" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/1_2.png" display="none"/>
+            <image  id="img2_3_4" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/3_4.png" />
+            <image  id="img2_1_4" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/1_4.png" display="none"/>
+            <image  id="no_arc_img2_1" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/no_arc_1.png" display="none"/>
+            <image  id="no_arc_img2_1_2" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/no_arc_1_2.png" display="none"/>
+            <image  id="no_arc_img2_3_4" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/no_arc_3_4.png" />
+            <image  id="no_arc_img2_1_4" height="100%" width="100%" xlink:href="/wp-content/themes/wristbandcreation/wristband/assets/images/new/no_arc_1_4.png" display="none"/>
+
+            <use id="arc2" xlink:href="#InsideArc" stroke-dasharray="5, 5" stroke="black" display="none"/>
+            <!--<use xlink:href="#MyPath2" fill="none" stroke="red"  />-->
+            <!--<use xlink:href="#MyPathCont2" fill="none" stroke="blue"  />-->
+            <!--<use xlink:href="#MyPathInside2" fill="none" stroke="green"  />-->
+
+            </svg>            
+        </div>
+
+
+
+
+                            
+
+
+
 
                             <div>
                                 <div class="form-row">
@@ -509,6 +642,27 @@ if (isset($_REQUEST['id']))
                 </div><!--/.fusion-one-third-->
                 <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-column-last fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
+                        <div id="quantity_group_field">
+                            <!-- <label class="form-group-heading CssTitleBlack" >Input Quantity <span>(Side View Guide)</span></label> -->
+                            <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
+                                <label class="form-group-heading CssTitleBlack" for="qty_adult">Adult</label>
+                                <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text">
+                            </p>
+                            <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
+                                <label class="form-group-heading CssTitleBlack" for="qty_medium">Medium</label>
+                                <input type="number" name="qty_medium" id="qty_medium"  min="0" class="input-text">
+                            </p>
+                            <p class="form-row form-row-last fusion-one-fourth one_third fusion-layout-column fusion-column-last fusion-spacing-yes">
+                                <label class="form-group-heading CssTitleBlack" for="qty_youth">Youth</label>
+                                <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text">
+                            </p>
+                            <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
+                                <br>
+                                <a class="TempAddCss" target="_blank" href="#" id="add_color_to_selections"><span class="fusion-button-text">Add</span></a>
+                             </p>                    
+                        <div class="clear"></div>
+                            
+                        </div><!-- /.quantity_group_field -->
                         <div id="add-clipart">
                             <label id="clipartTitle" class="form-group-heading CssTitleBlack col-md-6 col-xs-6" >Add Clipart</label>
                             <div class="button-box hide-if-message_type-continues col-md-12 col-xs-12 marginB-10">
