@@ -2031,7 +2031,7 @@ function SelectBandColor(StyleColor,y){
                    } else { /* $('#wristband-text-color').closest('.form-group').hide(); */ }
 
                     messageOptionDisplay($('input[name="message_type"]:checked').val()); // display the default message option which front, back & inside
-                    wbTextColor(); //display the text color in the wristband preview
+                    // wbTextColor(); //display the text color in the wristband preview
                     DeleteRows();
 
                     //get the color list and update the additional color table list
@@ -2096,7 +2096,7 @@ function SelectBandColor(StyleColor,y){
                     if(slctd_product.text_color) {
                         $('.colortext--wrap').show(); // show text color in the additional table list
                         $('.text_to_alter').show();   // show th color in the additional table list
-                         wbTextColor();
+                         // wbTextColor();
                     } else {
                         $('.colortext--wrap').hide(); // hide text color in the additional table list
                         $('.text_to_alter').hide();   // hide text color in the additional table list
@@ -2104,7 +2104,7 @@ function SelectBandColor(StyleColor,y){
                 }
                 var width = $("#width").val();
                 $("#SelectStyleID").html(textStyle + "&nbsp;-" + width);
-                wbTextColor();
+                // wbTextColor();
             })
             // Populate width dropdown
             .on('change', 'select#width', function() {
@@ -2156,7 +2156,7 @@ function SelectBandColor(StyleColor,y){
 
 
                 //display the text color in the wristband preview;
-                 wbTextColor();
+                 // wbTextColor();
                 $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
                 Builder.observer();
             })
@@ -2167,13 +2167,13 @@ function SelectBandColor(StyleColor,y){
                 $(this).addClass('selected');
 
                 // update wristband preview text color
-                var $frontext   = document.getElementById("bandtextpath"),
+                /*var $frontext   = document.getElementById("bandtextpath"),
                     $insidetext = document.getElementById("bandtextpathinside");
 
                 $frontext.style.fill = $(this).find('div').attr('data-color');
                 $insidetext.style.fill = $(this).find('div').attr('data-color');
                 $frontext.style.opacity = "1"; 
-                $insidetext.style.opacity = "1"; 
+                $insidetext.style.opacity = "1"; */
                 // EOL - update wristband preview text color
 
                 var editIndex = $('#wristband-text-color-modal-body').attr('data-color_index');
@@ -2692,13 +2692,13 @@ function SelectBandColor(StyleColor,y){
 
             .on('click', '.color-text-added', function(e){
                 // update wristband preview text color
-                var $frontext   = document.getElementById("bandtextpath"),
+                /*var $frontext   = document.getElementById("bandtextpath"),
                     $insidetext = document.getElementById("bandtextpathinside");
 
                 $frontext.style.fill = $(this).find('div').data('color');
                 $insidetext.style.fill = $(this).find('div').data('color');
                 $frontext.style.opacity = "1"; 
-                $insidetext.style.opacity = "1"; 
+                $insidetext.style.opacity = "1"; */
                 // EOL - update wristband preview text color
 
                 $('#wristband-text-color-modal-body').attr('data-color', $(this).find('div').data('color'));
