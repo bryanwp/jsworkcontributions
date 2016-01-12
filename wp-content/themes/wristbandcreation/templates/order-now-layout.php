@@ -251,6 +251,27 @@ if (isset($_REQUEST['id']))
                                 </ul>
                             </div>
                         </div>
+                        <div id="quantity_group_field">
+                            <!-- <label class="form-group-heading CssTitleBlack" >Input Quantity <span>(Side View Guide)</span></label> -->
+                            <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
+                                <label class="form-group-heading CssTitleBlack" for="qty_adult">Adult</label>
+                                <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text">
+                            </p>
+                            <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
+                                <label class="form-group-heading CssTitleBlack" for="qty_medium">Medium</label>
+                                <input type="number" name="qty_medium" id="qty_medium"  min="0" class="input-text">
+                            </p>
+                            <p class="form-row form-row-last fusion-one-fourth one_third fusion-layout-column fusion-column-last fusion-spacing-yes">
+                                <label class="form-group-heading CssTitleBlack" for="qty_youth">Youth</label>
+                                <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text">
+                            </p>
+                            <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
+                                <br>
+                                <a class="TempAddCss" target="_blank" href="#" id="add_color_to_selections"><span class="fusion-button-text">Add</span></a>
+                             </p>                    
+                        <div class="clear"></div>
+                            
+                        </div><!-- /.quantity_group_field -->
 
                         
                     <?php if (isset($GLOBALS['wbc_settings']->additional_options)):?>
@@ -295,7 +316,7 @@ if (isset($_REQUEST['id']))
                             </div>
 
                             <div class="col-md-12" style = "padding:0px">
-                                <span id="freeCounter" class="CssTitleBlue"></span>
+                                <!-- <span id="freeCounter" class="CssTitleBlue"></span>
                                 <div class="form-group table-responsive">
                                     <table id="selected_color_table" class="table table-bordered" border="0">
                                         <thead>
@@ -312,7 +333,7 @@ if (isset($_REQUEST['id']))
 
                                         </tbody>
                                     </table>
-                                </div>
+                                </div> -->
                             </div>
 
 
@@ -642,27 +663,26 @@ if (isset($_REQUEST['id']))
                 </div><!--/.fusion-one-third-->
                 <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-column-last fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
-                        <div id="quantity_group_field">
-                            <!-- <label class="form-group-heading CssTitleBlack" >Input Quantity <span>(Side View Guide)</span></label> -->
-                            <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
-                                <label class="form-group-heading CssTitleBlack" for="qty_adult">Adult</label>
-                                <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text">
-                            </p>
-                            <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
-                                <label class="form-group-heading CssTitleBlack" for="qty_medium">Medium</label>
-                                <input type="number" name="qty_medium" id="qty_medium"  min="0" class="input-text">
-                            </p>
-                            <p class="form-row form-row-last fusion-one-fourth one_third fusion-layout-column fusion-column-last fusion-spacing-yes">
-                                <label class="form-group-heading CssTitleBlack" for="qty_youth">Youth</label>
-                                <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text">
-                            </p>
-                            <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
-                                <br>
-                                <a class="TempAddCss" target="_blank" href="#" id="add_color_to_selections"><span class="fusion-button-text">Add</span></a>
-                             </p>                    
-                        <div class="clear"></div>
-                            
-                        </div><!-- /.quantity_group_field -->
+                            <div class="col-md-12" style = "padding:0px">
+                                <span id="freeCounter" class="CssTitleBlue"></span>
+                                <div class="form-group table-responsive">
+                                    <table id="selected_color_table" class="table table-bordered" border="0">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 150px;">Color</th>
+                                                <th class="TempCss1" style="text-align:left;">Adult</th>
+                                                <th class="TempCss1" style="text-align:left;">Medium</th>
+                                                <th class="TempCss1" style="text-align:left;">Youth</th>
+                                                <th class = "text_to_alter">Text</th>
+                                                <th colspan="2" style="text-align:right;"><a class="CssEditSave CssTitleBlue font-size-11" id="EditSaveID" style="cursor: pointer;">Edit Quantity</a><br><a style="cursor: pointer;" class="CssEditSave CssTitleRed font-size-11"  id="CancelID"></a></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         <div id="add-clipart">
                             <label id="clipartTitle" class="form-group-heading CssTitleBlack col-md-6 col-xs-6" >Add Clipart</label>
                             <div class="button-box hide-if-message_type-continues col-md-12 col-xs-12 marginB-10">
