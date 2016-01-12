@@ -241,7 +241,10 @@ jQuery(function ($) {
                 // $("#front-text2").text(cont_msg.toUpperCase());
                 // $("#front-text1").text($('#txtInputCont').val().substring(0, Math.ceil(cont_msg.length / 2)));
                 // $("#front-text2").text($('#txtInputCont').val().substring((Math.ceil($("#txtInputCont").val().length / 2) - 1), $("#txtInputCont").val().length));
-
+                $('#front-textcont1').attr('font-family', $('select[name="font"] option:selected').val());
+                $('#front-textcont2').attr('font-family', $('select[name="font"] option:selected').val());
+                $('#front-endcont1').attr('font-family', $('select[name="font"] option:selected').val());
+                $('#front-endcont2').attr('font-family', $('select[name="font"] option:selected').val());
                 if (cont_msg.length < $('input[name=textcount]').val().length + 1) {
                     $("#front-textcont2").text('');
                     disableWrapped();
@@ -929,6 +932,10 @@ jQuery(function ($) {
 
     //Display the default message option which front, back & inside
     function messageOptionDisplay(value) {
+        var width = $("#width").val();
+        var newwidth = width.replace('/','_');
+        getImageToDisplay(newwidth);
+
         if (value == "front_and_back"){ 
             $("#ForFrontBackID").css({display: 'block'}); 
             $("#ForContiID").css({display: 'none'});
@@ -1382,104 +1389,86 @@ jQuery(function ($) {
     // }
 
 function SelectBandColor(StyleColor,y){
-        var insidesolid = document.getElementById("insidesolid");
-        var outsidesolid = document.getElementById("outsidesolid");
-        var bandcolor = document.getElementById("bandcolor");
-
-        //var mask1       = document.getElementById("mask1");               
-        //var mask1inside = document.getElementById("mask1inside");
-
-        //var mask2       = document.getElementById("mask2");             
-        //var mask2inside = document.getElementById("mask2inside");
-
-        var insidesolid1 = document.getElementById("insidesolid1");
-        var insidesolid2 = document.getElementById("insidesolid2");
-        var outsidesolid1 = document.getElementById("outsidesolid1");
-        var outsidesolid2 = document.getElementById("outsidesolid2");
-        var mask1_band1 = document.getElementById("mask1_band1");
-        var mask1inside_band1 = document.getElementById("mask1inside_band1");
-        var mask2inside_band1 = document.getElementById("mask2inside_band1");
-        var mask1_band2 = document.getElementById("mask1_band2");
-        var mask1inside_band2 = document.getElementById("mask1inside_band2");
-        var mask2_band2 = document.getElementById("mask2_band2");
-        var mask2inside_band2 = document.getElementById("mask2inside_band2");
-
-/// insidesolid1
-/// insidesolid2
-/// outsidesolid1
-/// outsidesolid2
-/// mask1_band1
-/// mask1inside_band1
-/// mask2inside_band1
-/// mask1_band2
-/// mask1inside_band2
-/// mask2_band2
-/// mask2inside_band2
-// segcolor1_band1
-// segcolor1_cover_band1
-// segcolor2_band1
-// segcolor2_cover_band1
-// segcolor3_band1
-// segcolor1_band2
-// segcolor1_cover_band2
-// segcolor2_band2
-// segcolor2_cover_band2
-// segcolor3_band2
-
-    
-        //mask1.style.opacity = 1;            
-        //mask1inside.style.opacity = 1; 
-
-        //mask2.style.opacity = 1;            
-        //mask2inside.style.opacity = 1;
-
-        mask1_band1.style.opacity = 1;
-        mask1inside_band1.style.opacity = 1;
-        mask2inside_band1.style.opacity = 1;
-
-        mask1_band2.style.opacity = 1;
-
-        mask1inside_band2.style.opacity = 1;
-        mask2_band2.style.opacity = 1;
-        mask2inside_band2.style.opacity = 1;
-
 
         if (StyleColor == "Segmented"){
 
         } else if (StyleColor == "Swirl"){
-            var SplitColor = y.split(",");
 
-            insidesolid.style.fill = SplitColor[0];
-            bandcolor.style.fill = SplitColor[0];
-
-            outsidesolid.style.fill = SplitColor[0];
-          
-            mask1.style.fill = SplitColor[1];            
-            mask1inside.style.fill = SplitColor[1];
-
-            mask2.style.fill = SplitColor[2];               
-            mask2inside.style.fill = SplitColor[2];
         } else {
-            // insidesolid.style.fill=y;
-            // outsidesolid.style.fill=y;
-            // bandcolor.style.fill=y;
-            //mask1.style.fill = y;            
-            //mask1inside.style.fill = y;
-            //mask2.style.fill = y;               
-            //mask2inside.style.fill = y;
-            
-            insidesolid1.style.fill=y;
-            insidesolid2.style.fill=y;
-            outsidesolid1.style.fill=y;
-            outsidesolid2.style.fill=y;
-            mask1_band1.style.fill=y;
-            mask1inside_band1.style.fill=y;
-            mask2inside_band1.style.fill=y;
-            mask1_band2.style.fill=y;
-            mask1inside_band2.style.fill=y;
-            mask2_band2.style.fill=y;
-            mask2inside_band2.style.fill=y;
+                        
+                hideAllColor();
+                var insidesolid1 = document.getElementById("insidesolid1");
+                var insidesolid2 = document.getElementById("insidesolid2");
+                var outsidesolid1 = document.getElementById("outsidesolid1");
+                var outsidesolid2 = document.getElementById("outsidesolid2");
+                var bandcolor = document.getElementById("bandcolor");
+                var bandcolor2 = document.getElementById("bandcolor2");
+
+                insidesolid1.style.opacity = 1;
+                insidesolid2.style.opacity = 1;
+                outsidesolid1.style.opacity = 1;
+                outsidesolid2.style.opacity = 1;
+                bandcolor.style.opacity = 1;
+                bandcolor2.style.opacity = 1;
+
+                insidesolid1.style.fill = y;
+                insidesolid2.style.fill = y;
+                outsidesolid1.style.fill = y;
+                outsidesolid2.style.fill = y;
+                bandcolor.style.fill = y;
+                bandcolor2.style.fill = y;
+
+
         }
+    }
+function hideAllColor(){
+
+                var insidesolid1 = document.getElementById("insidesolid1");
+                var insidesolid2 = document.getElementById("insidesolid2");
+                var outsidesolid1 = document.getElementById("outsidesolid1");
+                var outsidesolid2 = document.getElementById("outsidesolid2");
+                var bandcolor = document.getElementById("bandcolor");
+                var bandcolor2 = document.getElementById("bandcolor2");
+                var mask1_band1 = document.getElementById("mask1_band1");
+                var mask1inside_band1 = document.getElementById("mask1inside_band1");
+                var mask2_band1 = document.getElementById("mask2_band1");
+                var mask2inside_band1 = document.getElementById("mask2inside_band1");
+
+                var segcolor1_band1 = document.getElementById("segcolor1_band1");
+                var segcolor2_band1 = document.getElementById("segcolor2_band1");
+                var segcolor3_band1 = document.getElementById("segcolor3_band1");
+                var segcolor1_band2 = document.getElementById("segcolor1_band2");
+                var segcolor2_band2 = document.getElementById("segcolor2_band2");
+                var segcolor3_band2 = document.getElementById("segcolor3_band2");
+                var segcolor1_cover_band1 = document.getElementById("segcolor1_cover_band1");
+                var segcolor2_cover_band1 = document.getElementById("segcolor2_cover_band1");
+                var segcolor1_cover_band2 = document.getElementById("segcolor1_cover_band2");
+                var segcolor2_cover_band2 = document.getElementById("segcolor2_cover_band2");
+
+
+                insidesolid1.style.opacity = 0;
+                insidesolid2.style.opacity = 0;
+                outsidesolid1.style.opacity = 0;
+                outsidesolid2.style.opacity = 0;
+                bandcolor.style.opacity = 0;
+                bandcolor2.style.opacity = 0;
+                mask1_band1.style.opacity = 0;
+                mask1inside_band1.style.opacity = 0;
+                mask2_band1.style.opacity = 0;
+                mask2inside_band1.style.opacity = 0;
+
+                segcolor1_band1.style.opacity = 0;
+                segcolor2_band1.style.opacity = 0;
+                segcolor3_band1.style.opacity = 0;
+                segcolor1_band2.style.opacity = 0;
+                segcolor2_band2.style.opacity = 0;
+                segcolor3_band2.style.opacity = 0;
+                segcolor1_cover_band1.style.opacity = 0;
+                segcolor2_cover_band1.style.opacity = 0;
+                segcolor1_cover_band2.style.opacity = 0;
+                segcolor2_cover_band2.style.opacity = 0;
+
+
     }
 
     function AddNewColor($wc){
@@ -1863,10 +1852,9 @@ function SelectBandColor(StyleColor,y){
     function ConnectItems(){ Builder.data.colors = Builder.TempColors; }
 
 
-    function getImageToDisplay(width) {
+    function getImageToDisplay(newwidth) {
             //var textdesign = $('input[name=textdesign]').filter(':checked').val();
             //var size = $("#ddlSize").val();
-             var newwidth = width.replace('/','_');
             $("#img1_1").attr("display", "none");
             $("#img1_1_2").attr("display", "none");
             $("#img1_3_4").attr("display", "none");
@@ -2111,10 +2099,23 @@ function SelectBandColor(StyleColor,y){
                 var tempSelect = document.getElementById("style");
                 var tempVal = tempSelect.options[tempSelect.selectedIndex].text;
                 var width = $("#width").val();
+                var newwidth = width.replace('/','_');
                 $("#SelectStyleID").html(tempVal + "&nbsp;-" + $(this).val());
-                getImageToDisplay(width);
+                getImageToDisplay(newwidth);
                 // changeFontSize();
-                //console.log(width);
+                $('#MyPath1')[0].setAttribute('d', size_[newwidth]['FBPath1']);
+                $('#MyPath2')[0].setAttribute('d', size_[newwidth]['FBPath2']);
+                $('#MyPathInside1')[0].setAttribute('d', size_[newwidth]['InPath1']);
+                $('#MyPathInside2')[0].setAttribute('d', size_[newwidth]['InPath2']);
+                $('#MyPathCont1')[0].setAttribute('d', size_[newwidth]['WrapPath1']);
+                $('#MyPathCont2')[0].setAttribute('d', size_[newwidth]['WrapPath2']);
+                //END - code for wristband image
+                //START - code for wristband solid color (svg)
+                $('#insidesolidpath1')[0].setAttribute('d', size_[newwidth]['InsideSolid']);
+                $('#insidesolidpath2')[0].setAttribute('d', size_[newwidth]['InsideSolid']);
+                $('#outsidesolidpath1')[0].setAttribute('d', size_[newwidth]['OutsideSolid']);
+                $('#outsidesolidpath2')[0].setAttribute('d', size_[newwidth]['OutsideSolid']);
+
                 Builder.reset();
                 Builder.additionalOptionsShow(this.value);
                 Builder.init();
@@ -3071,6 +3072,9 @@ function SelectBandColor(StyleColor,y){
 
             .on('focus','input[name="inside_message"]', function(e) {
 
+                var width = $("#width").val();
+                var newwidth = width.replace('/','_');
+
                 $("#outsidesolid1").attr("display", "none");
                 $("#outsidesolid2").attr("display", "none");
                 $("#mask1_band1").attr("display", "none");
@@ -3092,10 +3096,22 @@ function SelectBandColor(StyleColor,y){
                 $("#segcolor1_cover_band2").attr("display", "none");
                 $("#segcolor2_cover_band2").attr("display", "none"); 
 
+                //change image
+                console.log(newwidth);
+                $("#img1_" + newwidth).attr("display","none");
+                $("#img2_" + newwidth).attr("display","none");
+                $("#no_arc_img1_" + newwidth).removeAttr("display");
+                $("#no_arc_img2_" + newwidth).removeAttr("display");
+
+                $('#InsideArc')[0].setAttribute('d', size_[newwidth]['InsideArc']);
+                $("#arc1").removeAttr("display");
+                $("#arc2").removeAttr("display");
+
             })
             
             .on('focusout','input[name="inside_message"]', function(e) {
-                console.log($('input[name="message_type"]:checked').val());
+                $('#arc1').attr("display","none");
+                $('#arc2').attr("display","none");
                 messageOptionDisplay($('input[name="message_type"]:checked').val());
             })  
 

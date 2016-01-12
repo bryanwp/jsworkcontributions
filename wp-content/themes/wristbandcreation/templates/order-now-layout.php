@@ -403,7 +403,7 @@ if (isset($_REQUEST['id']))
             <?php echo $mask2_inside_band1 . $mask1_inside_band1; ?>           
             <text id="bandtextinside1" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
             <textPath id="bandtextpathinside1" xlink:href="#MyPathInside1" startOffset="0%">
-                <tspan id="front-startinside1" class="fa" dominant-baseline="middle">;</tspan>
+                <tspan id="front-startinside1" class="fa" dominant-baseline="middle"></tspan>
                 <tspan id="front-textinside1" dominant-baseline="middle"></tspan>
                 <tspan id="front-endinside1" class="fa" dominant-baseline="middle"></tspan>
             </textPath>
