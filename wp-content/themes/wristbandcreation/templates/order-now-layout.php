@@ -669,10 +669,10 @@ if (isset($_REQUEST['id']))
                                     <table id="selected_color_table" class="table table-bordered" border="0">
                                         <thead>
                                             <tr>
-                                                <th style="width: 150px;">Color</th>
-                                                <th class="TempCss1" style="text-align:left;">Adult</th>
-                                                <th class="TempCss1" style="text-align:left;">Medium</th>
-                                                <th class="TempCss1" style="text-align:left;">Youth</th>
+                                                <th >Color</th>
+                                                <th class="TempCss1" style="text-align:left;padding-right: 5px;">Adult</th>
+                                                <th class="TempCss1" style="text-align:left;padding-right: 5px;">Medium</th>
+                                                <th class="TempCss1" style="text-align:left;padding-right: 5px;">Youth</th>
                                                 <th class = "text_to_alter">Text</th>
                                                 <th colspan="2" style="text-align:right;"><a class="CssEditSave CssTitleBlue font-size-11" id="EditSaveID" style="cursor: pointer;"><i class="fa fa-pencil"></i></a><br><a style="cursor: pointer;" class="CssEditSave CssTitleRed font-size-11"  id="CancelID"></a></th>
                                             </tr>
