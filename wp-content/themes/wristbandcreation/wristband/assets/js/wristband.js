@@ -229,19 +229,9 @@ jQuery(function ($) {
         previewForText: function(){
             var message_type = $('input[name="message_type"]:checked').val();
             var inside_msg = $('input[name="inside_message"]').val();
-            //     a = $('.preview-button.active').data('input'),
-            //     input = message_type == 'continues' ? 'continues_message' : a;
-            // $("#front-text").text($('input[name="'+ input  +'"]').val().toUpperCase());
-            // $('#insidetextpath').text($('input[name="inside_message"]').val().toUpperCase());
-            // $('#front-text').attr('font-family', $('select[name="font"] option:selected').val());
-            //console.log(message_type);
 
             if(message_type == 'continues'){
                 var cont_msg = $('input[name="continues_message"]').val();
-                // $("#front-text1").text(cont_msg.toUpperCase());
-                // $("#front-text2").text(cont_msg.toUpperCase());
-                // $("#front-text1").text($('#txtInputCont').val().substring(0, Math.ceil(cont_msg.length / 2)));
-                // $("#front-text2").text($('#txtInputCont').val().substring((Math.ceil($("#txtInputCont").val().length / 2) - 1), $("#txtInputCont").val().length));
                 $('#front-textcont1').attr('font-family', $('select[name="font"] option:selected').val());
                 $('#front-textcont2').attr('font-family', $('select[name="font"] option:selected').val());
                 if (cont_msg.length < $('input[name=textcount]').val().length + 1) {
@@ -284,8 +274,15 @@ jQuery(function ($) {
 
                 }
             }else{
+
                 var front_msg = $('input[name="front_message"]').val(),
                     back_msg = $('input[name="back_message"]').val();
+
+                    if( front_msg.length < 6 ){
+
+
+
+                    }
 
                 $("#front-text1").text(front_msg);
                 $("#front-text2").text(back_msg);
@@ -2660,11 +2657,14 @@ function hideAllColor(){
             .on('click', '#CancelID', function(e) {
                 var Stat = $(this).html();
 
-                if (Stat == '<i class="fa fa-times"></i>'){
+                if (Stat == '<i class="fa fa-undo"></i>'){
+                    console.log('dragon0');
                     $('#freeCounter').html('');
                     $("#EditSaveID").html('<i class="fa fa-pencil"></i>');
                     $(this).html("");
                     Enab_Dis("Enabled");
+                }else{
+                    console.log('dragon01');
                 }
             })
 
