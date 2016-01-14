@@ -664,10 +664,10 @@ jQuery(function ($) {
                 if (el.length > Settings.messages.message_char_limit) {
                     this.data.total_price += additional_price * qty;
                     // Render alert message
-                    var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each for more than {{limit}} characters.',
+                    var tpl = Mustache.render('+{{{currency_symbol}}}{{price}} each for more than {{limit}} characters.',
                         {
                             currency_symbol: Settings.currency_symbol,
-                            price: additional_price,
+                            price: numberFormat(additional_price, 2),
                             limit: Settings.messages.message_char_limit
                         }
                     );
@@ -687,13 +687,13 @@ jQuery(function ($) {
                         var additional_price = this.rangePrice(price_list, qty);
                         this.data.total_price += additional_price * qty;
                         // Render alert message
-                        var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each',
+                        var tpl = Mustache.render('+{{{currency_symbol}}}{{price}} each',
                             {
                                 currency_symbol: Settings.currency_symbol,
-                                price: additional_price,
+                                price: numberFormat(additional_price,2),
                             }
                         );
-                        this.appendAlertMsg(tpl, 'input[name="'+ array_el[i] +'"]', 'each-message');
+                        this.appendAlertMsg(tpl, 'label[for="'+ array_el[i] +'"] span', 'each-message');
                     }
                 }
             }
@@ -709,15 +709,15 @@ jQuery(function ($) {
                     if(costType == 'Each Quantity') {
                         Builder.data.total_price += additional_price * qty;
                         // Render alert message
-                        var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each', {
+                        var tpl = Mustache.render('+{{{currency_symbol}}}{{price}} each', {
                                 currency_symbol: Settings.currency_symbol,
-                                price: additional_price,
+                                price: numberFormat(additional_price,2),
                             } );
                         Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'each-message');
                     } else {
                         Builder.data.total_price += additional_price;
                         // Render alert message
-                        var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} per order.', {
+                        var tpl = Mustache.render('+{{{currency_symbol}}}{{price}} per order.', {
                                 currency_symbol: Settings.currency_symbol,
                                 price: additional_price,
                             }
@@ -735,10 +735,10 @@ jQuery(function ($) {
 
             this.data.total_price += additional_price * qty;
             // Render alert message
-            var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each',
+            var tpl = Mustache.render('+{{{currency_symbol}}}{{price}} each',
                 {
                     currency_symbol: Settings.currency_symbol,
-                    price: additional_price,
+                    price: numberFormat(additional_price,2),
                 }
             );
 
@@ -778,10 +778,10 @@ jQuery(function ($) {
             this.data.total_price += additional_price * qty;
 
             // Render alert message
-            var tpl = Mustache.render('+{{{currency_symbol}}} {{price}} each',
+            var tpl = Mustache.render('+{{{currency_symbol}}}{{price}} each',
                 {
                     currency_symbol: Settings.currency_symbol,
-                    price: additional_price,
+                    price: numberFormat(additional_price,2),
                 }
             );
 
