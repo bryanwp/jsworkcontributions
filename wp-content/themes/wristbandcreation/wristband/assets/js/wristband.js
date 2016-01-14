@@ -2414,9 +2414,10 @@ function hideAllColor(){
 
             // Text Color Modal Selection
             .on('click', '#wristband-text-color-modal-body .color-wrap', function() {
+                console.log($(this))
                 $('#wristband-text-color-modal-body .color-wrap').removeClass('selected');
                 $(this).addClass('selected');
-
+                $('#wristband-text-color .color-wrap').removeClass('selected');
                 // update wristband preview text color
                 /*var $frontext   = document.getElementById("bandtextpath"),
                     $insidetext = document.getElementById("bandtextpathinside");
@@ -2426,12 +2427,12 @@ function hideAllColor(){
                 $frontext.style.opacity = "1"; 
                 $insidetext.style.opacity = "1"; */
                 // EOL - update wristband preview text color
-
+                var SetColor = $('#wristband-text-color-modal-body .color-wrap').find('div').data('color');
                 var editIndex = $('#wristband-text-color-modal-body').attr('data-color_index');
                 var colorEdit = $('.color-text-added').eq( editIndex ).html();
                 console.log(editIndex);
                 console.log('kramix');
-                console.log(colorEdit);
+                console.log(SetColor);
                 $('.color-text-added').eq( editIndex ).html(colorEdit.replace(new RegExp($('#wristband-text-color-modal-body').attr('data-color'),"g"), $(this).find('div').attr('data-color')));
                 $('#wristband-text-color-modal').modal('hide');
 
