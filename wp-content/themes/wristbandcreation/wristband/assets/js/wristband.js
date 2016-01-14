@@ -222,6 +222,7 @@ jQuery(function ($) {
             var StyleColor = $('input[name="color_style"]:checked').val();
             var y = $('#wristband-color-items .color-wrap.selected > div').data('color');
             this.previewForText();
+            //this.previewForFontFam();
             if (y != undefined) { if($('#bandcolor').length) { SelectBandColor(StyleColor,y); } }
         },
 
@@ -243,15 +244,13 @@ jQuery(function ($) {
                 // $("#front-text2").text($('#txtInputCont').val().substring((Math.ceil($("#txtInputCont").val().length / 2) - 1), $("#txtInputCont").val().length));
                 $('#front-textcont1').attr('font-family', $('select[name="font"] option:selected').val());
                 $('#front-textcont2').attr('font-family', $('select[name="font"] option:selected').val());
-                $('#front-endcont1').attr('font-family', $('select[name="font"] option:selected').val());
-                $('#front-endcont2').attr('font-family', $('select[name="font"] option:selected').val());
                 if (cont_msg.length < $('input[name=textcount]').val().length + 1) {
                     $("#front-textcont2").text('');
                     disableWrapped();
                 }
                 $("#front-textcontainer").text(cont_msg);
                 if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '750') {
-
+                    //console.log('');
                     enableWrapped();
                     $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
                     $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
@@ -259,18 +258,18 @@ jQuery(function ($) {
                     disableWrapped();
                     //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
                     if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
-                        $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
-                        $("#front-endcont1").empty();
+                        // $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
+                        // $("#front-endcont1").empty();
                         $('input[name=isWrapCont]').val('1');
-
+                        //console.log('hello');
                         var span_textcont1 = $('input[name=textcount]').val().length;
                         $("#front-textcont2").text(cont_msg.substring(span_textcont1 - 1, cont_msg.length));
 
                     } else {
-                        $("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
+                        //$("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
                         $("#front-endcont2").empty();
                         $('input[name=isWrapCont]').val('0');
-
+                        //console.log('from the other side');
                         $("#front-textcont1").text(cont_msg.substring(0, cont_msg.length));
                         $('input[name=textcount]').val(cont_msg.substring(0, cont_msg.length));
                     }
@@ -294,7 +293,9 @@ jQuery(function ($) {
                 $('#front-text2').attr('font-family', $('select[name="font"] option:selected').val());
             }
             
-            // console.log($('input[name=textinside]').val().length + 1);
+            // inside message
+            $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
+            $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
             if (inside_msg.length < $('input[name=textinside]').val().length + 1) {
                     $("#front-textinside2").text('');
                     disableWrapped2();
@@ -879,32 +880,44 @@ jQuery(function ($) {
 
     function wbTextColor() {
         var SetColor = $('#wristband-text-color div.selected').find('div').data('color');
+        //console.log(SetColor);
         if(SetColor == undefined) {
-            if (document.getElementById("bandtextpathinside")){
-                document.getElementById("bandtextpathinside").style.fill = '#999999';
-                document.getElementById("bandtextpathinside").style.opacity = "0.4";
-
-                document.getElementById("bandtextpath").style.fill = '#999999';
-                document.getElementById("bandtextpath").style.opacity = "0.4";
-            }
+                
+                //front
+                document.getElementById("bandtext1").style.fill = '#999999';
+                document.getElementById("bandtext1").style.opacity = "0.6";
+                //back
+                document.getElementById("bandtext2").style.fill = '#999999';
+                document.getElementById("bandtext2").style.opacity = "0.6";
+                //continuous
+                document.getElementById("bandtextcont1").style.fill = '#999999';
+                document.getElementById("bandtextcont1").style.opacity = "0.6";
+                document.getElementById("bandtextcont2").style.fill = '#999999';
+                document.getElementById("bandtextcont2").style.opacity = "0.6";
+                //inside
+                document.getElementById("bandtextinside1").style.fill = '#999999';
+                document.getElementById("bandtextinside1").style.opacity = "0.6";
+                document.getElementById("bandtextinside2").style.fill = '#999999';
+                document.getElementById("bandtextinside2").style.opacity = "0.6";
+       
         } else {
-            document.getElementById("bandtextpathinside").style.fill = SetColor;
-            document.getElementById("bandtextpathinside").style.opacity = "1";
-
-            document.getElementById("bandtextpathinside1").style.fill = SetColor;
-            document.getElementById("bandtextpathinside1").style.opacity = "1";
-
-            document.getElementById("bandtextpathinside2").style.fill = SetColor;
-            document.getElementById("bandtextpathinside2").style.opacity = "1";
-
-            document.getElementById("bandtextpath").style.fill = SetColor;
-            document.getElementById("bandtextpath").style.opacity = "1";
-
-            document.getElementById("bandtextpath1").style.fill = SetColor;
-            document.getElementById("bandtextpath1").style.opacity = "1";
-
-            document.getElementById("bandtextpath2").style.fill = SetColor;
-            document.getElementById("bandtextpath2").style.opacity = "1";
+            
+                //front
+                document.getElementById("bandtext1").style.fill = SetColor;
+                document.getElementById("bandtext1").style.opacity = "1";
+                //back
+                document.getElementById("bandtext2").style.fill = SetColor;
+                document.getElementById("bandtext2").style.opacity = "1";
+                //continuous
+                document.getElementById("bandtextcont1").style.fill = SetColor;
+                document.getElementById("bandtextcont1").style.opacity = "1";
+                document.getElementById("bandtextcont2").style.fill = SetColor;
+                document.getElementById("bandtextcont2").style.opacity = "1";
+                //inside
+                document.getElementById("bandtextinside1").style.fill = SetColor;
+                document.getElementById("bandtextinside1").style.opacity = "1";
+                document.getElementById("bandtextinside2").style.fill = SetColor;
+                document.getElementById("bandtextinside2").style.opacity = "1";
 
         }
     }
@@ -953,7 +966,7 @@ jQuery(function ($) {
             $("#bandtextcont2").attr("display", "none");
 
             $("#imagepathinside").attr("display", "none");
-            //hidebackshadow();
+            hidebackshadow();
             $("#segcolor1_cover_band1").removeAttr("display");
             $("#segcolor2_cover_band1").removeAttr("display");
             $("#segcolor3_band1").removeAttr("display");
@@ -976,7 +989,7 @@ jQuery(function ($) {
             $("#bandtext1").attr("display", "none");
             $("#bandtext2").attr("display", "none");
             $("#imagepathinside").attr("display", "none");
-            //hidebackshadow();
+            hidebackshadow();
             $("#segcolor1_cover_band1").removeAttr("display");
             $("#segcolor2_cover_band1").removeAttr("display");
             $("#segcolor3_band1").removeAttr("display");
@@ -1389,14 +1402,159 @@ jQuery(function ($) {
     // }
 
 function SelectBandColor(StyleColor,y){
-
+        //console.log(y);
         if (StyleColor == "Segmented"){
+                //console.log(y);
+                hideAllColor(); 
+                var segcolor1_band1 = document.getElementById("segcolor1_band1");
+                var segcolor2_band1 = document.getElementById("segcolor2_band1");
+                var segcolor3_band1 = document.getElementById("segcolor3_band1");
+                var segcolor1_band2 = document.getElementById("segcolor1_band2");
+                var segcolor2_band2 = document.getElementById("segcolor2_band2");
+                var segcolor3_band2 = document.getElementById("segcolor3_band2");
+                var segcolor1_cover_band1 = document.getElementById("segcolor1_cover_band1");
+                var segcolor2_cover_band1 = document.getElementById("segcolor2_cover_band1");
+                var segcolor1_cover_band2 = document.getElementById("segcolor1_cover_band2");
+                var segcolor2_cover_band2 = document.getElementById("segcolor2_cover_band2");
+                var colors = y.split(",");
+//              alert(colors[0] + '|' + colors[1] + '|' + colors[2]);
+                //console.log(y);
+                if (colors.length === 3) {
+                    segcolor3_band1.style.opacity = 1;
+                    segcolor3_band1.style.fill = colors[1];
+
+                    segcolor3_band2.style.opacity = 1;
+                    segcolor3_band2.style.fill = colors[1];
+
+                    colors[1] = colors[2];
+                } else {
+                    segcolor3_band1.style.opacity = 0;
+                    segcolor3_band2.style.opacity = 0;
+                }
+
+
+                segcolor1_band1.style.opacity = 1;
+                segcolor1_band1.style.fill = colors[0];
+                segcolor1_cover_band1.style.opacity = 1;
+                segcolor1_cover_band1.style.fill = colors[0];
+
+                segcolor2_band1.style.opacity = 1;
+                segcolor2_band1.style.fill = colors[1];
+                segcolor2_cover_band1.style.opacity = 1;
+                segcolor2_cover_band1.style.fill = colors[1];
+
+                segcolor1_band2.style.opacity = 1;
+                segcolor1_band2.style.fill = colors[1];
+                segcolor1_cover_band2.style.opacity = 1;
+                segcolor1_cover_band2.style.fill = colors[1];
+
+                segcolor2_band2.style.opacity = 1;
+                segcolor2_band2.style.fill = colors[0];
+                segcolor2_cover_band2.style.opacity = 1;
+                segcolor2_cover_band2.style.fill = colors[0];
+
 
         } else if (StyleColor == "Swirl"){
+            //console.log(y);
+            
+                //mask 1
+                var mask1_band1 = document.getElementById("mask1_band1");
+                var mask1inside_band1 = document.getElementById("mask1inside_band1");
+                var mask1_band2 = document.getElementById("mask1_band2");
+                var mask1inside_band2 = document.getElementById("mask1inside_band2");
+                //mask 2
+                var mask2_band1 = document.getElementById("mask2_band1");
+                var mask2inside_band1 = document.getElementById("mask2inside_band1");
+                var mask2_band2 = document.getElementById("mask2_band2");
+                var mask2inside_band2 = document.getElementById("mask2inside_band2");
+                //mask 3
+                var outsidesolid1 = document.getElementById("outsidesolid1");
+                var outsidesolid2 = document.getElementById("outsidesolid2");
+                var bandcolor = document.getElementById("bandcolor");
+                var bandcolor2 = document.getElementById("bandcolor2");
+                var insidesolid1 = document.getElementById("insidesolid1");
+                var insidesolid2 = document.getElementById("insidesolid2");
 
-        } else {
+                var colors = y.split(",");
+
+                if (colors.length === 3){
+                    hideAllColor();
+
+                    mask1_band1.style.opacity = 1;
+                    mask1inside_band1.style.opacity = 1;
+                    mask1_band1.style.fill = colors[0];
+                    mask1inside_band1.style.fill = colors[0];
+
+                    mask1_band2.style.opacity = 1;
+                    mask1inside_band2.style.opacity = 1;
+                    mask1_band2.style.fill = colors[0];
+                    mask1inside_band2.style.fill = colors[0];
+
+                    mask2_band1.style.opacity = 1;
+                    mask2inside_band1.style.opacity = 1;
+                    mask2_band1.style.fill = colors[1];
+                    mask2inside_band1.style.fill = colors[1];  
+
+                    mask2_band2.style.opacity = 1;
+                    mask2inside_band2.style.opacity = 1;
+                    mask2_band2.style.fill = colors[1];
+                    mask2inside_band2.style.fill = colors[1];      
+
+                    insidesolid1.style.opacity = 1;
+                    insidesolid2.style.opacity = 1;
+                    outsidesolid1.style.opacity = 1;
+                    outsidesolid2.style.opacity = 1;
+                    bandcolor.style.opacity = 1;
+                    bandcolor2.style.opacity = 1;
+                        
+                    insidesolid1.style.fill = colors[2];
+                    insidesolid2.style.fill = colors[2];
+                    outsidesolid1.style.fill = colors[2];
+                    outsidesolid2.style.fill = colors[2];
+                    bandcolor.style.fill = colors[2];
+                    bandcolor2.style.fill = colors[2];
+
+                }else{
+                    hideAllColor();
+                    mask1_band1.style.opacity = 1;
+                    mask1inside_band1.style.opacity = 1;
+                    mask1_band1.style.fill = colors[0];
+                    mask1inside_band1.style.fill = colors[0];
+
+                    mask1_band2.style.opacity = 1;
+                    mask1inside_band2.style.opacity = 1;
+                    mask1_band2.style.fill = colors[0];
+                    mask1inside_band2.style.fill = colors[0];
+
+                    mask2_band1.style.opacity = 1;
+                    mask2inside_band1.style.opacity = 1;
+                    mask2_band1.style.fill = colors[1];
+                    mask2inside_band1.style.fill = colors[1];  
+
+                    mask2_band2.style.opacity = 1;
+                    mask2inside_band2.style.opacity = 1;
+                    mask2_band2.style.fill = colors[1];
+                    mask2inside_band2.style.fill = colors[1];      
+
+                    insidesolid1.style.opacity = 1;
+                    insidesolid2.style.opacity = 1;
+                    outsidesolid1.style.opacity = 1;
+                    outsidesolid2.style.opacity = 1;
+                    bandcolor.style.opacity = 1;
+                    bandcolor2.style.opacity = 1;
+
+                    insidesolid1.style.fill = colors[1];
+                    insidesolid2.style.fill = colors[1];
+                    outsidesolid1.style.fill = colors[1];
+                    outsidesolid2.style.fill = colors[1];
+                    bandcolor.style.fill = colors[1];
+                    bandcolor2.style.fill = colors[1];
+
+                }
+        } else if(StyleColor == "Glow") {
                         
                 hideAllColor();
+                enableGlow();
                 var insidesolid1 = document.getElementById("insidesolid1");
                 var insidesolid2 = document.getElementById("insidesolid2");
                 var outsidesolid1 = document.getElementById("outsidesolid1");
@@ -1419,8 +1577,40 @@ function SelectBandColor(StyleColor,y){
                 bandcolor2.style.fill = y;
 
 
+        } else {
+
+                hideAllColor();
+                var insidesolid1 = document.getElementById("insidesolid1");
+                var insidesolid2 = document.getElementById("insidesolid2");
+                var outsidesolid1 = document.getElementById("outsidesolid1");
+                var outsidesolid2 = document.getElementById("outsidesolid2");
+                var bandcolor = document.getElementById("bandcolor");
+                var bandcolor2 = document.getElementById("bandcolor2");
+
+                insidesolid1.style.opacity = 1;
+                insidesolid2.style.opacity = 1;
+                outsidesolid1.style.opacity = 1;
+                outsidesolid2.style.opacity = 1;
+                bandcolor.style.opacity = 1;
+                bandcolor2.style.opacity = 1;
+
+                insidesolid1.style.fill = y;
+                insidesolid2.style.fill = y;
+                outsidesolid1.style.fill = y;
+                outsidesolid2.style.fill = y;
+                bandcolor.style.fill = y;
+                bandcolor2.style.fill = y;
+
         }
     }
+function enableGlow() {
+                var glow1 = document.getElementById("glow1");
+                var glow2 = document.getElementById("glow2");
+
+                    glow1.style.opacity = 1;
+                    glow2.style.opacity = 1;
+                
+            }
 function hideAllColor(){
 
                 var insidesolid1 = document.getElementById("insidesolid1");
@@ -1431,8 +1621,13 @@ function hideAllColor(){
                 var bandcolor2 = document.getElementById("bandcolor2");
                 var mask1_band1 = document.getElementById("mask1_band1");
                 var mask1inside_band1 = document.getElementById("mask1inside_band1");
+                var mask1_band2 = document.getElementById("mask1_band2");
+                var mask1inside_band2 = document.getElementById("mask1inside_band2");
                 var mask2_band1 = document.getElementById("mask2_band1");
                 var mask2inside_band1 = document.getElementById("mask2inside_band1");
+                var mask2_band2 = document.getElementById("mask2_band2");
+                var mask2inside_band2 = document.getElementById("mask2inside_band2");
+
 
                 var segcolor1_band1 = document.getElementById("segcolor1_band1");
                 var segcolor2_band1 = document.getElementById("segcolor2_band1");
@@ -1445,6 +1640,8 @@ function hideAllColor(){
                 var segcolor1_cover_band2 = document.getElementById("segcolor1_cover_band2");
                 var segcolor2_cover_band2 = document.getElementById("segcolor2_cover_band2");
 
+                var glow1 = document.getElementById("glow1");
+                var glow2 = document.getElementById("glow2");
 
                 insidesolid1.style.opacity = 0;
                 insidesolid2.style.opacity = 0;
@@ -1454,8 +1651,12 @@ function hideAllColor(){
                 bandcolor2.style.opacity = 0;
                 mask1_band1.style.opacity = 0;
                 mask1inside_band1.style.opacity = 0;
+                mask1_band2.style.opacity = 0;
+                mask1inside_band2.style.opacity = 0;
                 mask2_band1.style.opacity = 0;
                 mask2inside_band1.style.opacity = 0;
+                mask2_band2.style.opacity = 0;
+                mask2inside_band2.style.opacity = 0;
 
                 segcolor1_band1.style.opacity = 0;
                 segcolor2_band1.style.opacity = 0;
@@ -1468,6 +1669,8 @@ function hideAllColor(){
                 segcolor1_cover_band2.style.opacity = 0;
                 segcolor2_cover_band2.style.opacity = 0;
 
+                glow1.style.opacity = 0;
+                glow2.style.opacity = 0;
 
     }
 
@@ -1916,8 +2119,51 @@ function hideAllColor(){
 //     }
 
 
+    function showbackshadow() {
+               $("#rectBackShadow").removeAttr("display");
+        }
+    function hidebackshadow() {
+               $("#rectBackShadow").attr("display", "none");
+        }
 
+    function changeSegmentedSize(newwidth) {
+            $('#sc1b1_c')[0].setAttribute('d', size_[newwidth]['Segmented']['sc1b1_c']);
+            $('#sc2b1_c')[0].setAttribute('d', size_[newwidth]['Segmented']['sc2b1_c']);
+            $('#sc3b1')[0].setAttribute('d', size_[newwidth]['Segmented']['sc3b1']);
 
+            $('#sc1b2_c')[0].setAttribute('d', size_[newwidth]['Segmented']['sc1b2_c']);
+            $('#sc2b2_c')[0].setAttribute('d', size_[newwidth]['Segmented']['sc2b2_c']);
+            $('#sc3b2')[0].setAttribute('d', size_[newwidth]['Segmented']['sc3b2']);
+        }
+    function changeSwirlSize(newwidth) {
+        //band1
+        $('#m1b1_p1')[0].setAttribute('d', size_[newwidth]['OutMask1']['Path1']);
+        $('#m1b1_p2')[0].setAttribute('d', size_[newwidth]['OutMask1']['Path2']);
+        $('#m1b1_p3')[0].setAttribute('d', size_[newwidth]['OutMask1']['Path3']);
+        $('#m1b1i_p1')[0].setAttribute('d', size_[newwidth]['InMask1']['Path1']);
+        $('#m1b1i_p2')[0].setAttribute('d', size_[newwidth]['InMask1']['Path2']);
+        $('#m1b1i_p3')[0].setAttribute('d', size_[newwidth]['InMask1']['Path3']);
+        $('#m2b1_p1')[0].setAttribute('d', size_[newwidth]['OutMask2']['Path1']);
+        $('#m2b1_p2')[0].setAttribute('d', size_[newwidth]['OutMask2']['Path2']);
+        $('#m2b1_p3')[0].setAttribute('d', size_[newwidth]['OutMask2']['Path3']);
+        $('#m2b1i_p1')[0].setAttribute('d', size_[newwidth]['InMask2']['Path1']);
+        $('#m2b1i_p2')[0].setAttribute('d', size_[newwidth]['InMask2']['Path2']);
+        $('#m2b1i_p3')[0].setAttribute('d', size_[newwidth]['InMask2']['Path3']);
+        //band2
+        $('#m1b2_p1')[0].setAttribute('d', size_[newwidth]['OutMask1']['Path1']);
+        $('#m1b2_p2')[0].setAttribute('d', size_[newwidth]['OutMask1']['Path2']);
+        $('#m1b2_p3')[0].setAttribute('d', size_[newwidth]['OutMask1']['Path3']);
+        $('#m1b2i_p1')[0].setAttribute('d', size_[newwidth]['InMask1']['Path1']);
+        $('#m1b2i_p2')[0].setAttribute('d', size_[newwidth]['InMask1']['Path2']);
+        $('#m1b2i_p3')[0].setAttribute('d', size_[newwidth]['InMask1']['Path3']);
+        $('#m2b2_p1')[0].setAttribute('d', size_[newwidth]['OutMask2']['Path1']);
+        $('#m2b2_p2')[0].setAttribute('d', size_[newwidth]['OutMask2']['Path2']);
+        $('#m2b2_p3')[0].setAttribute('d', size_[newwidth]['OutMask2']['Path3']);
+        $('#m2b2i_p1')[0].setAttribute('d', size_[newwidth]['InMask2']['Path1']);
+        $('#m2b2i_p2')[0].setAttribute('d', size_[newwidth]['InMask2']['Path2']);
+        $('#m2b2i_p3')[0].setAttribute('d', size_[newwidth]['InMask2']['Path3']);
+
+    }
 
 
 
@@ -2019,7 +2265,7 @@ function hideAllColor(){
                    } else { /* $('#wristband-text-color').closest('.form-group').hide(); */ }
 
                     messageOptionDisplay($('input[name="message_type"]:checked').val()); // display the default message option which front, back & inside
-                    // wbTextColor(); //display the text color in the wristband preview
+                    wbTextColor(); //display the text color in the wristband preview
                     DeleteRows();
 
                     //get the color list and update the additional color table list
@@ -2116,6 +2362,11 @@ function hideAllColor(){
                 $('#outsidesolidpath1')[0].setAttribute('d', size_[newwidth]['OutsideSolid']);
                 $('#outsidesolidpath2')[0].setAttribute('d', size_[newwidth]['OutsideSolid']);
 
+                $('#glow1path')[0].setAttribute('d', size_[newwidth]['Glow']);
+                $('#glow2path')[0].setAttribute('d', size_[newwidth]['Glow']);
+
+                changeSegmentedSize(newwidth);
+                changeSwirlSize(newwidth);
                 Builder.reset();
                 Builder.additionalOptionsShow(this.value);
                 Builder.init();
@@ -2157,7 +2408,7 @@ function hideAllColor(){
 
 
                 //display the text color in the wristband preview;
-                 // wbTextColor();
+                wbTextColor();
                 $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
                 Builder.observer();
             })
@@ -2322,9 +2573,9 @@ function hideAllColor(){
 
             .on('click', '#EditSaveID', function(e) {
                 var Stat = $(this).html();
-                if (Stat == "Edit Quantity"){
-                    $(this).html("Save");
-                    $("#CancelID").html("Cancel");
+                if (Stat == '<i class="fa fa-pencil"></i>'){
+                    $(this).html('<i class="fa fa-floppy-o"></i>');
+                    $("#CancelID").html('<i class="fa fa-undo"></i>');
                     Enab_Dis("Disabled");
 
                     if(Builder.data.total_qty >= 100)
@@ -2398,7 +2649,7 @@ function hideAllColor(){
                             }
                         }
                         $('#freeCounter').html('');
-                        $(this).html("Edit Quantity");
+                        $(this).html('<i class="fa fa-pencil"></i>');
                         $("#CancelID").html("");
                         Enab_Dis("SaveEdit");
                     //*************************************
@@ -2409,9 +2660,9 @@ function hideAllColor(){
             .on('click', '#CancelID', function(e) {
                 var Stat = $(this).html();
 
-                if (Stat == "Cancel"){
+                if (Stat == '<i class="fa fa-times"></i>'){
                     $('#freeCounter').html('');
-                    $("#EditSaveID").html("Edit Quantity");
+                    $("#EditSaveID").html('<i class="fa fa-pencil"></i>');
                     $(this).html("");
                     Enab_Dis("Enabled");
                 }
@@ -2423,7 +2674,7 @@ function hideAllColor(){
                 var Stat = $(this).html();
                 var TempId = $(this).attr( "data-tempID" );
 
-                if (Stat == "Cancel"){
+                if (Stat == '<i class="fa fa-times"></i>'){
                     $('.option-tr').removeClass('is-disabled'); // allow all additional option to be editable
                     $("#EditID-" + TempId).html("Edit");
                     $(this).html("Delete");
@@ -2463,7 +2714,7 @@ function hideAllColor(){
                     Builder.removeColor(color_name,color_Textname);
 
                     if (Builder.data.colors.length == 0){
-                        $("#EditSaveID").html("Edit Quantity");
+                        $("#EditSaveID").html('<i class="fa fa-pencil"></i>');
                         $("#CancelID").html("");
                         Enab_Dis("SaveEdit");
                         $('#freeCounter').html('');
@@ -2488,7 +2739,7 @@ function hideAllColor(){
 
 
                 if (Stat == "Edit"){
-                    $("#DelID-" + TempId).html("Cancel");
+                    $("#DelID-" + TempId).html('<i class="fa fa-times"></i>');
                     $(this).html("Save");
 
                     $("#spanAdult-" + TempId).hide();
@@ -2756,6 +3007,51 @@ function hideAllColor(){
                 modal.find('.clipart-list').data('target', '#' + button.attr('id'));
                 modal.find('.clipart-list').data('position', button.attr('id'));
             })
+            // .on('click', '.clipart-list li', function() {
+
+            //     $('.clipart-list li').removeClass('active');
+            //     $(this).addClass('active');
+            //     var button = $($(this).closest('.clipart-list').data('target')),
+            //         icon = $(this).data('icon'),
+            //         glyp = $(this).data('icon-code'),
+            //         position = button.data('position'),
+            //         view = button.data('view'),
+            //         preview = $('.preview-button.active').data('view');
+
+
+            //         if(icon == undefined) { $('#'+position).text(''); }  
+            //         else { $('#'+position).text(glyp); }
+
+            //        if (position == "wrap_start" || position == "wrap_end"){
+            //             $('#icon_start').text(  $('#wrap_start').text() );
+            //             $('#icon_end').text(  $('#wrap_end').text() );
+            //        } else {
+            //             $('#icon_start').text(  $('#'+preview+'_start').text() );
+            //             $('#icon_end').text(  $('#'+preview+'_end').text() );
+            //        }
+
+            //     button.find('.icon-preview').removeClass(function (index, css) {
+            //         return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
+            //     });
+
+            //     button.find('.icon-preview').addClass(icon == undefined ? 'fa-ban' : icon);
+            //     Builder.data['clipart'][button.data('position')] =  icon == undefined ? '' : icon;
+            //     Builder.has_upload = false;
+            //     $('#wristband-clipart-modal').modal('hide');
+
+            //     if (button.data('file') != undefined) {
+            //         // Delete previous file
+            //         var result = Builder.deleteClipart(button.data('file'));
+            //         result.success(function () {
+
+            //             button.removeAttr('data-file');
+            //             button.find('.icon-preview').css({display: 'inline-block'});
+            //             button.find('.image-upload').css({display: 'none'});
+            //         });
+            //     }
+            //     Builder.observer();
+
+            // })
             .on('click', '.clipart-list li', function() {
 
                 $('.clipart-list li').removeClass('active');
@@ -2767,17 +3063,57 @@ function hideAllColor(){
                     view = button.data('view'),
                     preview = $('.preview-button.active').data('view');
 
+                    console.log(icon);
+                    console.log(position);
+                    console.log(glyp);
+                    console.log(view);
 
-                    if(icon == undefined) { $('#'+position).text(''); }  
-                    else { $('#'+position).text(glyp); }
+                    if(icon == undefined) {
 
-                   if (position == "wrap_start" || position == "wrap_end"){
-                        $('#icon_start').text(  $('#wrap_start').text() );
-                        $('#icon_end').text(  $('#wrap_end').text() );
-                   } else {
-                        $('#icon_start').text(  $('#'+preview+'_start').text() );
-                        $('#icon_end').text(  $('#'+preview+'_end').text() );
-                   }
+                    }else{  
+
+                        // if( position == 'front_start' ) {
+                        //     $('#front-start1').text(glyp);  
+                        // } else if ( position == 'front_end' ){
+                        //     $('#front-end1').text(glyp);
+                        // } else if ( position == 'back_start' ){
+                        //     $('#front-start2').text(glyp);
+                        // } else if ( position == 'back_end' ){
+                        //     $('#front-end2').text(glyp);
+                        // } else if ()
+                        switch (position) {
+                            case "front_start":
+                                $('#front-start1').text(glyp);
+                                break;
+                            case "front_end":
+                                $('#front-end1').text(glyp);
+                                break;
+                            case "back_start":
+                                $('#front-start2').text(glyp);
+                                break;
+                            case "back_end":
+                                $('#front-end2').text(glyp);
+                                break;
+                            case "wrap_start":
+                                $('#front-startcont1').text(glyp);
+                                break;
+                            case "wrap_end":
+                                $('#front-endcont1').text(glyp);
+                                break;
+                        }
+                    }
+
+                    // if(icon == undefined) { $('#'+position).text(''); }  
+                    // else { console.log($('#'+position).text(glyp));
+                    //     $('#'+position).text(glyp); }
+
+                   // if (position == "wrap_start" || position == "wrap_end"){
+                   //      $('#icon_start').text(  $('#wrap_start').text() );
+                   //      $('#icon_end').text(  $('#wrap_end').text() );
+                   // } else {
+                   //      $('#icon_start').text(  $('#'+preview+'_start').text() );
+                   //      $('#icon_end').text(  $('#'+preview+'_end').text() );
+                   // }
 
                 button.find('.icon-preview').removeClass(function (index, css) {
                     return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
@@ -3088,7 +3424,7 @@ function hideAllColor(){
                 $("#bandtextcont2").attr("display", "none");
                 $("#bandtextinside1").removeAttr("display");
                 $("#bandtextinside2").removeAttr("display");
-                    //hidebackshadow();                 
+                hidebackshadow();                 
                 $("#segcolor1_cover_band1").attr("display", "none");
                 $("#segcolor2_cover_band1").attr("display", "none");
                 $("#segcolor3_band1").attr("display", "none");
@@ -3097,7 +3433,7 @@ function hideAllColor(){
                 $("#segcolor2_cover_band2").attr("display", "none"); 
 
                 //change image
-                console.log(newwidth);
+                //console.log(newwidth);
                 $("#img1_" + newwidth).attr("display","none");
                 $("#img2_" + newwidth).attr("display","none");
                 $("#no_arc_img1_" + newwidth).removeAttr("display");

@@ -463,7 +463,7 @@ if (isset($_REQUEST['id']))
             <use id="arc1" xlink:href="#InsideArc" stroke-dasharray="5, 5" stroke="black" display="none"/>
             <!--<use xlink:href="#MyPathCont1" fill="none" stroke="blue"  />-->
             <!--<use xlink:href="#MyPathInside1" fill="none" stroke="green"  />-->
-
+            <?php echo $glow1; ?>
             </svg>
             <svg id="svgelement" viewBox="0 0 300 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <rect id="bandcolor2" height="100%" width="100%" style="fill: gray" />
@@ -526,7 +526,7 @@ if (isset($_REQUEST['id']))
             <!--<use xlink:href="#MyPath2" fill="none" stroke="red"  />-->
             <!--<use xlink:href="#MyPathCont2" fill="none" stroke="blue"  />-->
             <!--<use xlink:href="#MyPathInside2" fill="none" stroke="green"  />-->
-
+            <?php echo $glow2; ?>
             </svg>            
         </div>
 
@@ -663,7 +663,7 @@ if (isset($_REQUEST['id']))
                 </div><!--/.fusion-one-third-->
                 <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-column-last fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
-                            <div class="col-md-12" style = "padding:0px">
+                            <div class="" style = "padding:0px">
                                 <span id="freeCounter" class="CssTitleBlue"></span>
                                 <div class="form-group table-responsive">
                                     <table id="selected_color_table" class="table table-bordered" border="0">
@@ -674,7 +674,7 @@ if (isset($_REQUEST['id']))
                                                 <th class="TempCss1" style="text-align:left;">Medium</th>
                                                 <th class="TempCss1" style="text-align:left;">Youth</th>
                                                 <th class = "text_to_alter">Text</th>
-                                                <th colspan="2" style="text-align:right;"><a class="CssEditSave CssTitleBlue font-size-11" id="EditSaveID" style="cursor: pointer;">Edit Quantity</a><br><a style="cursor: pointer;" class="CssEditSave CssTitleRed font-size-11"  id="CancelID"></a></th>
+                                                <th colspan="2" style="text-align:right;"><a class="CssEditSave CssTitleBlue font-size-11" id="EditSaveID" style="cursor: pointer;"><i class="fa fa-pencil"></i></a><br><a style="cursor: pointer;" class="CssEditSave CssTitleRed font-size-11"  id="CancelID"></a></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -899,7 +899,7 @@ if (isset($_REQUEST['id']))
                 <button class="close" type="button" data-dismiss="modal" aria-hidden="true">×</button>
                 <h3 class="modal-title" id="modal-heading-1" data-dismiss="modal" aria-hidden="true"
                     data-fontsize="17" data-lineheight="36">
-                    Choose your Front Start Clipart</h3>
+                    </h3>
             </div>
             <div>
                 <?php if (count($GLOBALS['wbc_settings']->logo->list) != 0): ?>
