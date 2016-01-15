@@ -918,6 +918,48 @@ jQuery(function ($) {
 
         }
     }
+    function wbTextColormodal(SetColor) {
+        //console.log(SetColor);
+        if(SetColor == undefined) {
+                
+                //front
+                document.getElementById("bandtext1").style.fill = '#999999';
+                document.getElementById("bandtext1").style.opacity = "0.6";
+                //back
+                document.getElementById("bandtext2").style.fill = '#999999';
+                document.getElementById("bandtext2").style.opacity = "0.6";
+                //continuous
+                document.getElementById("bandtextcont1").style.fill = '#999999';
+                document.getElementById("bandtextcont1").style.opacity = "0.6";
+                document.getElementById("bandtextcont2").style.fill = '#999999';
+                document.getElementById("bandtextcont2").style.opacity = "0.6";
+                //inside
+                document.getElementById("bandtextinside1").style.fill = '#999999';
+                document.getElementById("bandtextinside1").style.opacity = "0.6";
+                document.getElementById("bandtextinside2").style.fill = '#999999';
+                document.getElementById("bandtextinside2").style.opacity = "0.6";
+       
+        } else {
+            
+                //front
+                document.getElementById("bandtext1").style.fill = SetColor;
+                document.getElementById("bandtext1").style.opacity = "1";
+                //back
+                document.getElementById("bandtext2").style.fill = SetColor;
+                document.getElementById("bandtext2").style.opacity = "1";
+                //continuous
+                document.getElementById("bandtextcont1").style.fill = SetColor;
+                document.getElementById("bandtextcont1").style.opacity = "1";
+                document.getElementById("bandtextcont2").style.fill = SetColor;
+                document.getElementById("bandtextcont2").style.opacity = "1";
+                //inside
+                document.getElementById("bandtextinside1").style.fill = SetColor;
+                document.getElementById("bandtextinside1").style.opacity = "1";
+                document.getElementById("bandtextinside2").style.fill = SetColor;
+                document.getElementById("bandtextinside2").style.opacity = "1";
+
+        }
+    }
 
 
    function wbTextColorFromTbl(SetColor) {
@@ -2414,10 +2456,10 @@ function hideAllColor(){
 
             // Text Color Modal Selection
             .on('click', '#wristband-text-color-modal-body .color-wrap', function() {
-                console.log($(this))
+
                 $('#wristband-text-color-modal-body .color-wrap').removeClass('selected');
                 $(this).addClass('selected');
-                $('#wristband-text-color .color-wrap').removeClass('selected');
+
                 // update wristband preview text color
                 /*var $frontext   = document.getElementById("bandtextpath"),
                     $insidetext = document.getElementById("bandtextpathinside");
@@ -2427,14 +2469,13 @@ function hideAllColor(){
                 $frontext.style.opacity = "1"; 
                 $insidetext.style.opacity = "1"; */
                 // EOL - update wristband preview text color
-                var SetColor = $('#wristband-text-color-modal-body .color-wrap').find('div').data('color');
                 var editIndex = $('#wristband-text-color-modal-body').attr('data-color_index');
                 var colorEdit = $('.color-text-added').eq( editIndex ).html();
-                console.log(editIndex);
-                console.log('kramix');
-                console.log(SetColor);
+                var SetColor = $(this).find('div').attr('data-color');
                 $('.color-text-added').eq( editIndex ).html(colorEdit.replace(new RegExp($('#wristband-text-color-modal-body').attr('data-color'),"g"), $(this).find('div').attr('data-color')));
                 $('#wristband-text-color-modal').modal('hide');
+
+                wbTextColormodal(SetColor);
 
                 Builder.data.colors[editIndex].text_color      = $(this).find('div').attr('data-color');
                 Builder.data.colors[editIndex].text_color_name = $(this).find('div').attr('data-name');
@@ -2959,6 +3000,8 @@ function hideAllColor(){
                 $('#wristband-text-color-modal-body').attr('data-color', $(this).find('div').data('color'));
                 $('#wristband-text-color-modal-body').attr('data-color_index', $(this).index('.color-text-added'));
                 $('#wristband-text-color-modal-body .color-wrap').removeClass('selected');
+
+                wbTextColormodal($(this).find('div').data('color'));
             })
 
             .on('click','.fa-undo-old', function(e){
@@ -3214,7 +3257,8 @@ function hideAllColor(){
                 $button_text.text('Processing...');
 
                 Builder.collectDataToPost();
-
+                console.log(Builder.data);
+                console.log(UpdateID);
                 $.ajax({
                     url: WBC.ajax_url,
                     type: 'POST',
@@ -3224,14 +3268,16 @@ function hideAllColor(){
                     var type = 'success',
                         title = 'Success';
 
-                    $icon.removeClass('fa-spinner');
+                    $icon.removeClass('fa-spinner');    
                     $icon.addClass('fa-shopping-cart');
                     $button_text.text('Add to Cart');
-
+                    console.log('entered here so far')
                     if (!response.success) {
                         type = 'error';
                         title = 'Error';
                     }
+                   console.log(response.data);
+                    console.log(type + ' ' + title );
                     Builder.has_upload = false;
                     Builder.popupMsg(type, title, response.data.message + ' <a href="'+ Settings.site_url +'/cart">view cart <i class="fa fa-long-arrow-right"></i></a>');
                     $("#mmk").html(response.data.message)
