@@ -348,7 +348,9 @@ jQuery(function ($) {
                         .val(val)
                         .text(t[y].name  + ' - ' + lbl)
                         .attr('data-price', price);
-                    $select.append($option);
+
+                    if(c[i] != 'shipping' && lbl == 'Free')
+                        $select.append($option);
                 }
                 $select.trigger('change');
            }
