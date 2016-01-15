@@ -349,7 +349,12 @@ jQuery(function ($) {
                         .text(t[y].name  + ' - ' + lbl)
                         .attr('data-price', price);
 
-                    if(c[i] != 'shipping' && lbl == 'Free')
+                    if(c[i] == 'shipping')
+                    {
+                        if(lbl != 'Free')
+                            $select.append($option);
+                    }
+                    else
                         $select.append($option);
                 }
                 $select.trigger('change');
