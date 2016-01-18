@@ -1938,10 +1938,7 @@ function hideAllColor(){
                         $("#spanAdult-" + TempId).html(numberFormat(toInt($("#inpAdult-" + TempId).val()), 0));
                         $("#spanMedium-" + TempId).html(numberFormat(toInt($("#inpMedium-" + TempId).val()), 0));
                         $("#spanYouth-" + TempId).html(numberFormat(toInt($("#inpYouth-" + TempId).val()), 0));
-                        console.log(toInt($("#inpAdultE-" + TempId).val())+' '+toInt($("#inpMediumE-" + TempId).val())+' '+toInt($("#inpYouthE-" + TempId).val()));
-                        console.log(toInt($("#spanAdult-" + TempId).val()));
-                        console.log(toInt($("#spanMedium-" + TempId).val()));
-                        console.log(toInt($("#spanYouth-" + TempId).val()));
+
                         if(toInt($("#inpAdultE-" + TempId).val()) > 0)
                         {   
                             $("#spanAdultup-" + TempId).html('&nbsp; +'+numberFormat(toInt($("#inpAdultE-" + TempId).val()), 0));
@@ -2149,25 +2146,10 @@ function hideAllColor(){
             $("#no_arc_img2_3_4").attr("display", "none");
             $("#no_arc_img2_1_4").attr("display", "none");
             $("#arc2").attr("display", "none");
-            //console.log(width);
-            //console.log(newwidth);
-            // if (textdesign !== 'inside') {
-            //     $("#img1_" + wb[size]['ImgSource']).removeAttr("display");
-            //     $("#img2_" + wb[size]['ImgSource']).removeAttr("display");
-            // } else {
-            //     $("#no_arc_img1_" + wb[size]['ImgSource']).removeAttr("display");
-            //     $("#no_arc_img2_" + wb[size]['ImgSource']).removeAttr("display");
-
-            //     $('#InsideArc')[0].setAttribute('d', wb[size]['InsideArc']);
-            //     $("#arc1").removeAttr("display");
-            //     $("#arc2").removeAttr("display");
-            // }
+            
             $("#img1_" + newwidth).removeAttr("display");
             $("#img2_" + newwidth).removeAttr("display");
 
-            //$('#InsideArc')[0].setAttribute('d', wb[size]['InsideArc']);
-            //$("#arc1").removeAttr("display");
-            //$("#arc2").removeAttr("display");
         }
 
 
@@ -3209,6 +3191,7 @@ function hideAllColor(){
                     }
 
                 }
+                Builder.observer();
             })
 
             // Trigger change when message type is choosen
@@ -3295,11 +3278,6 @@ function hideAllColor(){
                     position = button.data('position'),
                     view = button.data('view'),
                     preview = $('.preview-button.active').data('view');
-
-                    console.log(icon);
-                    console.log(position);
-                    console.log(glyp);
-                    console.log(view);
 
                     if(icon == undefined) {
 
@@ -3641,45 +3619,13 @@ function hideAllColor(){
             .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {
                 Builder.calculateDeliveryDate();
             })
-
-            .on('focus change keyup copy','input[name="inside_message"]', function(e) {
-
+            .on('change keyup copy','input[name="inside_message"]',function(e) {
                 var inside_msg = $('input[name="inside_message"]').val();
                 var width = $("#width").val();
                 var newwidth = width.replace('/','_');
 
                 $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
                 $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
-
-                $("#outsidesolid1").attr("display", "none");
-                $("#outsidesolid2").attr("display", "none");
-                $("#mask1_band1").attr("display", "none");
-                $("#mask2_band1").attr("display", "none");
-                $("#mask1_band2").attr("display", "none");
-                $("#mask2_band2").attr("display", "none");
-
-                $("#bandtext1").attr("display", "none");
-                $("#bandtext2").attr("display", "none");
-                $("#bandtextcont1").attr("display", "none");
-                $("#bandtextcont2").attr("display", "none");
-                $("#bandtextinside1").removeAttr("display");
-                $("#bandtextinside2").removeAttr("display");
-                hidebackshadow();                 
-                $("#segcolor1_cover_band1").attr("display", "none");
-                $("#segcolor2_cover_band1").attr("display", "none");
-                $("#segcolor3_band1").attr("display", "none");
-
-                $("#segcolor1_cover_band2").attr("display", "none");
-                $("#segcolor2_cover_band2").attr("display", "none"); 
-
-                $("#img1_" + newwidth).attr("display","none");
-                $("#img2_" + newwidth).attr("display","none");
-                $("#no_arc_img1_" + newwidth).removeAttr("display");
-                $("#no_arc_img2_" + newwidth).removeAttr("display");
-
-                $('#InsideArc')[0].setAttribute('d', size_[newwidth]['InsideArc']);
-                $("#arc1").removeAttr("display");
-                $("#arc2").removeAttr("display");
 
                 if (e.keyCode === 46 || e.keyCode === 8) {
                     if ($('input[name=backPaste]').val() === '1') {
@@ -3724,8 +3670,43 @@ function hideAllColor(){
                     $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
                     $("#front-endinside1").empty();
                 }
+                Builder.observer();
+            })
 
+            .on('focus','input[name="inside_message"]', function(e) {
+                var width = $("#width").val();
+                var newwidth = width.replace('/','_');
 
+                $("#outsidesolid1").attr("display", "none");
+                $("#outsidesolid2").attr("display", "none");
+                $("#mask1_band1").attr("display", "none");
+                $("#mask2_band1").attr("display", "none");
+                $("#mask1_band2").attr("display", "none");
+                $("#mask2_band2").attr("display", "none");
+
+                $("#bandtext1").attr("display", "none");
+                $("#bandtext2").attr("display", "none");
+                $("#bandtextcont1").attr("display", "none");
+                $("#bandtextcont2").attr("display", "none");
+                $("#bandtextinside1").removeAttr("display");
+                $("#bandtextinside2").removeAttr("display");
+                hidebackshadow();                 
+                $("#segcolor1_cover_band1").attr("display", "none");
+                $("#segcolor2_cover_band1").attr("display", "none");
+                $("#segcolor3_band1").attr("display", "none");
+
+                $("#segcolor1_cover_band2").attr("display", "none");
+                $("#segcolor2_cover_band2").attr("display", "none"); 
+
+                $("#img1_" + newwidth).attr("display","none");
+                $("#img2_" + newwidth).attr("display","none");
+                $("#no_arc_img1_" + newwidth).removeAttr("display");
+                $("#no_arc_img2_" + newwidth).removeAttr("display");
+
+                $('#InsideArc')[0].setAttribute('d', size_[newwidth]['InsideArc']);
+                $("#arc1").removeAttr("display");
+                $("#arc2").removeAttr("display");
+            
             })
             
             .on('focusout','input[name="inside_message"]', function(e) {
