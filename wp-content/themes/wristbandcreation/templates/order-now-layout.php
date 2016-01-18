@@ -208,11 +208,14 @@ if (isset($_REQUEST['id']))
                                                 <li  class="color-enabled" data-toggle="tooltip" data-placement="top"
                                                     title="<?php echo $color_list->name; ?>">
                                                     <?php 
+                                                   
+                                                   
                                                         $Selected = "color-wrap";
                                                         foreach($color_list as $key => $list):
-                                                             if (strpos($key, 'color_') === false || empty($list)) continue;
-                                                            if ($list == $WristColor){ $Selected = 'color-wrap selected'; }
+                                                             if (strpos($key, 'color_') === false || empty($customization_locationlist)) continue;
+                                                            if(isset($WristColor)){ if ($list == $WristColor){ $Selected = 'color-wrap selected'; } }
                                                         endforeach;
+                                                        
                                                     ?>
 
                                                     <div id="colorStyleBox" title= "<?php echo $style; ?>" class="<?php echo $Selected;  ?>">
@@ -816,7 +819,7 @@ if (isset($_REQUEST['id']))
                                     <label>
                                         <?php 
                                             $Stat = "";
-                                            if ($customization_location == esc_attr($cus_location->name)){ $Stat = "checked"; } 
+                                            if(isset($customization_location)){if ($customization_location == esc_attr($cus_location->name)){ $Stat = "checked"; } }
                                         ?>
                                         <input type="radio" name="customization_location" data-title="<?php echo esc_attr($cus_location->name); ?>"
                                                value="<?php echo sanitize_title_with_underscore($cus_location->name) ;?>"
