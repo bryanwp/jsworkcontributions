@@ -221,109 +221,102 @@ jQuery(function ($) {
         buildPreview: function() {
             var StyleColor = $('input[name="color_style"]:checked').val();
             var y = $('#wristband-color-items .color-wrap.selected > div').data('color');
-            this.previewForText();
+            //this.previewForText();
             //this.previewForFontFam();
             if (y != undefined) { if($('#bandcolor').length) { SelectBandColor(StyleColor,y); } }
         },
 
-        previewForText: function(){
-            var message_type = $('input[name="message_type"]:checked').val();
-            var inside_msg = $('input[name="inside_message"]').val();
+        // previewForText: function(){
+        //     var message_type = $('input[name="message_type"]:checked').val();
+        //     var inside_msg = $('input[name="inside_message"]').val();
 
-            if(message_type == 'continues'){
-                var cont_msg = $('input[name="continues_message"]').val();
-                $('#front-textcont1').attr('font-family', $('select[name="font"] option:selected').val());
-                $('#front-textcont2').attr('font-family', $('select[name="font"] option:selected').val());
-                if (cont_msg.length < $('input[name=textcount]').val().length + 1) {
-                    $("#front-textcont2").text('');
-                    disableWrapped();
-                }
-                $("#front-textcontainer").text(cont_msg);
-                if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '750') {
-                    //console.log('');
-                    enableWrapped();
-                    $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
-                    $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
-                } else {
-                    disableWrapped();
-                    //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
-                    if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
-                        // $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
-                        // $("#front-endcont1").empty();
-                        $('input[name=isWrapCont]').val('1');
-                        //console.log('hello');
-                        var span_textcont1 = $('input[name=textcount]').val().length;
-                        $("#front-textcont2").text(cont_msg.substring(span_textcont1 - 1, cont_msg.length));
+        //     if(message_type == 'continues'){
+        //         var cont_msg = $('input[name="continues_message"]').val();
+        //         $('#front-textcont1').attr('font-family', $('select[name="font"] option:selected').val());
+        //         $('#front-textcont2').attr('font-family', $('select[name="font"] option:selected').val());
+        //         if (cont_msg.length < $('input[name=textcount]').val().length + 1) {
+        //             $("#front-textcont2").text('');
+        //             disableWrapped();
+        //         }
+        //         $("#front-textcontainer").text(cont_msg);
+        //         if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '750') {
+        //             //console.log('');
+        //             enableWrapped();
+        //             $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
+        //             $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
+        //         } else {
+        //             disableWrapped();
+        //             //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
+        //             if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
+        //                 // $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
+        //                 // $("#front-endcont1").empty();
+        //                 $('input[name=isWrapCont]').val('1');
+        //                 var span_textcont1 = $('input[name=textcount]').val().length;
+        //                 $("#front-textcont2").text(cont_msg.substring(span_textcont1 - 1, cont_msg.length));
 
-                    } else {
-                        //$("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
-                        $("#front-endcont2").empty();
-                        $('input[name=isWrapCont]').val('0');
-                        //console.log('from the other side');
-                        $("#front-textcont1").text(cont_msg.substring(0, cont_msg.length));
-                        $('input[name=textcount]').val(cont_msg.substring(0, cont_msg.length));
-                    }
+        //             } else {
+        //                 //$("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
+        //                 $("#front-endcont2").empty();
+        //                 $('input[name=isWrapCont]').val('0');
+        //                 //console.log('from the other side');
+        //                 $("#front-textcont1").text(cont_msg.substring(0, cont_msg.length));
+        //                 $('input[name=textcount]').val(cont_msg.substring(0, cont_msg.length));
+        //             }
 
-                    if ($('input[name=wrapPaste]').val() === '1') {
-                        enableWrapped();
-                        $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
-                        $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
-                        $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
-                        $("#front-endcont1").empty();
-                    }
+        //             if ($('input[name=wrapPaste]').val() === '1') {
+        //                 enableWrapped();
+        //                 $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
+        //                 $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
+        //                 $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
+        //                 $("#front-endcont1").empty();
+        //             }
 
-                }
-            }else{
+        //         }
+        //     }else{
 
-                var front_msg = $('input[name="front_message"]').val(),
-                    back_msg = $('input[name="back_message"]').val();
+        //         var front_msg = $('input[name="front_message"]').val(),
+        //             back_msg = $('input[name="back_message"]').val();
 
-                    if( front_msg.length < 6 ){
-
-
-
-                    }
-
-                $("#front-text1").text(front_msg);
-                $("#front-text2").text(back_msg);
-                $('#front-text1').attr('font-family', $('select[name="font"] option:selected').val());
-                $('#front-text2').attr('font-family', $('select[name="font"] option:selected').val());
-            }
+        //         $("#front-text1").text(front_msg);
+        //         $("#front-text2").text(back_msg);
+        //         $('#front-text1').attr('font-family', $('select[name="font"] option:selected').val());
+        //         $('#front-text2').attr('font-family', $('select[name="font"] option:selected').val());
+        //     }
             
-            // inside message
-            $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
-            $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
-            if (inside_msg.length < $('input[name=textinside]').val().length + 1) {
-                    $("#front-textinside2").text('');
-                    disableWrapped2();
-            }
-            $("#front-textcontainer2").text(inside_msg);
-            if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '750') {
+        //     // inside message
+        //     $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
+        //     $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
+        //     if (inside_msg.length < $('input[name=textinside]').val().length + 1) {
+        //             $("#front-textinside2").text('');
+        //             disableWrapped2();
+        //     }
+        //     $("#front-textcontainer2").text(inside_msg);
+        //     if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '750') {
 
-                enableWrapped2();
+        //         enableWrapped2();
 
-                $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
-                $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
-            } else {
-                disableWrapped2();
-                if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '480') {
-                    $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
-                    $("#front-endinside1").empty();
-                    $('input[name=isWrapInside]').val('1');
+        //         $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
+        //         $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
+        //     } else {
+        //         disableWrapped2();
+        //         if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '480') {
+        //             $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
+        //             $("#front-endinside1").empty();
+        //             $('input[name=isWrapInside]').val('1');
 
-                    var span_textinside1 = $('input[name=textinside]').val().length;
-                    $("#front-textinside2").text(inside_msg.substring(span_textinside1 - 1, inside_msg.length));
-                    } else {
-                    $("#front-endinside1").empty().append($("#front-endinside2-icon :selected").text());
-                    $("#front-endinside2").empty();
-                    $('input[name=isWrapInside]').val('0');
+        //             var span_textinside1 = $('input[name=textinside]').val().length;
+        //             $("#front-textinside2").text(inside_msg.substring(span_textinside1 - 1, inside_msg.length));
+        //             } else {
+        //             $("#front-endinside1").empty().append($("#front-endinside2-icon :selected").text());
+        //             $("#front-endinside2").empty();
+        //             $('input[name=isWrapInside]').val('0');
 
-                    $("#front-textinside1").text(inside_msg.substring(0, inside_msg.length));
-                    $('input[name=textinside]').val(inside_msg.substring(0, inside_msg.length));
-                    }
-                } 
+        //             $("#front-textinside1").text(inside_msg.substring(0, inside_msg.length));
+        //             $('input[name=textinside]').val(inside_msg.substring(0, inside_msg.length));
+        //             }
+        //         } 
 
-        },
+        // },
 
         renderProductionShippingOptions: function() {
             if (this.data.total_qty <= 0)return;
@@ -348,7 +341,14 @@ jQuery(function ($) {
                         .val(val)
                         .text(t[y].name  + ' - ' + lbl)
                         .attr('data-price', price);
-                    $select.append($option);
+
+                    if(c[i] == 'shipping')
+                    {
+                        if(lbl != 'Free')
+                            $select.append($option);
+                    }
+                    else
+                        $select.append($option);
                 }
                 $select.trigger('change');
            }
@@ -963,21 +963,21 @@ jQuery(function ($) {
 
 
    function wbTextColorFromTbl(SetColor) {
-        if(SetColor == undefined) {
-            if (document.getElementById("bandtextpathinside")){
-                document.getElementById("bandtextpathinside").style.fill = '#999999';
-                document.getElementById("bandtextpathinside").style.opacity = "0.4";
+        // if(SetColor == undefined) {
+        //     if (document.getElementById("bandtextpathinside")){
+        //         document.getElementById("bandtextpathinside").style.fill = '#999999';
+        //         document.getElementById("bandtextpathinside").style.opacity = "0.4";
 
-                document.getElementById("bandtextpath").style.fill = '#999999';
-                document.getElementById("bandtextpath").style.opacity = "0.4";
-            }
-        } else {
-            document.getElementById("bandtextpathinside").style.fill = SetColor;
-            document.getElementById("bandtextpathinside").style.opacity = "1";
+        //         document.getElementById("bandtextpath").style.fill = '#999999';
+        //         document.getElementById("bandtextpath").style.opacity = "0.4";
+        //     }
+        // } else {
+        //     document.getElementById("bandtextpathinside").style.fill = SetColor;
+        //     document.getElementById("bandtextpathinside").style.opacity = "1";
 
-            document.getElementById("bandtextpath").style.fill = SetColor;
-            document.getElementById("bandtextpath").style.opacity = "1";
-        }
+        //     document.getElementById("bandtextpath").style.fill = SetColor;
+        //     document.getElementById("bandtextpath").style.opacity = "1";
+        // }
     }
 
 
@@ -1938,31 +1938,63 @@ function hideAllColor(){
                         $("#spanAdult-" + TempId).html(numberFormat(toInt($("#inpAdult-" + TempId).val()), 0));
                         $("#spanMedium-" + TempId).html(numberFormat(toInt($("#inpMedium-" + TempId).val()), 0));
                         $("#spanYouth-" + TempId).html(numberFormat(toInt($("#inpYouth-" + TempId).val()), 0));
-
+                        console.log(toInt($("#inpAdultE-" + TempId).val())+' '+toInt($("#inpMediumE-" + TempId).val())+' '+toInt($("#inpYouthE-" + TempId).val()));
+                        console.log(toInt($("#spanAdult-" + TempId).val()));
+                        console.log(toInt($("#spanMedium-" + TempId).val()));
+                        console.log(toInt($("#spanYouth-" + TempId).val()));
                         if(toInt($("#inpAdultE-" + TempId).val()) > 0)
-                        {
+                        {   
                             $("#spanAdultup-" + TempId).html('&nbsp; +'+numberFormat(toInt($("#inpAdultE-" + TempId).val()), 0));
                             $("#spanAdultup-" + TempId).attr("data-plus", toInt($("#inpAdultE-" + TempId).val()));
-                        }
+
+                        } else if(toInt($("#inpAdultE-" + TempId).val()) == 0){
+                            $("#spanAdultup-" + TempId).html('&nbsp; +'+numberFormat(toInt($("#inpAdultE-" + TempId).val()), 0));
+                            $("#spanAdultup-" + TempId).attr("data-plus", toInt($("#inpAdultE-" + TempId).val()));
+                            $("#spanAdultup-" + TempId).hide();
+                            }
 
                         if(toInt($("#inpMediumE-" + TempId).val()) > 0)
-                        {
+                        {   
                             $("#spanMediumup-" + TempId).html('&nbsp; +'+numberFormat(toInt($("#inpMediumE-" + TempId).val()), 0));
                             $("#spanMediumup-" + TempId).attr("data-plus", toInt($("#inpMediumE-" + TempId).val()));
-                        }
+                            // $("#spanMedium-" + TempId)
+
+                        } else if(toInt($("#inpMediumE-" + TempId).val()) == 0){
+                            $("#spanMediumup-" + TempId).html('&nbsp; +'+numberFormat(toInt($("#inpMediumE-" + TempId).val()), 0));
+                            $("#spanMediumup-" + TempId).attr("data-plus", toInt($("#inpMediumE-" + TempId).val()));
+                            $("#spanMediumup-" + TempId).hide();
+                            }
 
                         if(toInt($("#inpYouthE-" + TempId).val()) > 0)
                         {
                             $("#spanYouthup-" + TempId).html('&nbsp; +'+numberFormat(toInt($("#inpYouthE-" + TempId).val()), 0));
                             $("#spanYouthup-" + TempId).attr("data-plus", toInt($("#inpYouthE-" + TempId).val()));
+                            
+
+                        } else if(toInt($("#inpYouthE-" + TempId).val()) == 0){
+                            $("#spanYouthup-" + TempId).html('&nbsp; +'+numberFormat(toInt($("#inpYouthE-" + TempId).val()), 0));
+                            $("#spanYouthup-" + TempId).attr("data-plus", toInt($("#inpYouthE-" + TempId).val()));
+                            $("#spanYouthup-" + TempId).hide();
                         }
+
                     } else {
+
                         $("#inpAdult-" + TempId).val($("#spanAdult-" + TempId).html().replace(",",""));
                         $("#inpMedium-" + TempId).val($("#spanMedium-" + TempId).html().replace(",",""));
                         $("#inpYouth-" + TempId).val($("#spanYouth-" + TempId).html().replace(",",""));
+                        if(toInt($("#inpAdultE-" + TempId).val()) == 0){
+                            $("#spanAdultup-" + TempId).hide();
+                        }
+                        if(toInt($("#inpMediumE-" + TempId).val()) == 0){
+                            $("#spanMediumup-" + TempId).hide();
+                        }
+                        if(toInt($("#inpYouthE-" + TempId).val()) == 0){
+                            $("#spanYouthup-" + TempId).hide();
+                        }    
                     }
                     $("#DelID-" + TempId).closest('.delete-selection').removeClass('CssDisabledDel');
                 } else {
+
                     $("#spanAdult-" + TempId).hide();
                     $("#spanMedium-" + TempId).hide();
                     $("#spanYouth-" + TempId).hide();
@@ -2618,8 +2650,9 @@ function hideAllColor(){
             .on('click', '#EditSaveID', function(e) {
                 var Stat = $(this).html();
                 if (Stat == '<i class="fa fa-pencil"></i>'){
+
                     $(this).html('<i class="fa fa-floppy-o"></i>');
-                    $("#CancelID").html('<i class="fa fa-undo"></i>');
+                    $("#CancelID").html('<i class="fa fa-times"></i>');
                     Enab_Dis("Disabled");
 
                     if(Builder.data.total_qty >= 100)
@@ -2658,8 +2691,11 @@ function hideAllColor(){
                     }
                     //------------------------------------------------
                     if (Saving){
+                        console.log(total_qty);
                     //*************************************
-                        if(total_qty >= 100 && totalFree != 100) { Builder.popupMsg('error', 'Error', 'Current free wristband quantity is '+totalFree+'. Please make sure to make it 100 in all.');  return; }
+                        if(total_qty >= 100 && totalFree != 100) {
+                         Builder.popupMsg('error', 'Error', 'Current free wristband quantity is '+totalFree+'. Please make sure to make it 100 in all.');  return; 
+                        } 
 
                         for (var x=0;x<= Builder.CntID;x++){
                             if (document.getElementById("DelID-" + x)){
@@ -2672,6 +2708,9 @@ function hideAllColor(){
                                     aqE = $("#inpAdultE-" + x),
                                     mqE = $("#inpMediumE-" + x),
                                     yqE = $("#inpYouthE-" + x);
+
+                                    //console.log(aqE.val()+'+'+mqE.val()+'+'+yqE.val());
+
 
                                     Builder.updateColor(ColorName, TextColorName,Type, {
                                                                     name: "",
@@ -2704,7 +2743,7 @@ function hideAllColor(){
             .on('click', '#CancelID', function(e) {
                 var Stat = $(this).html();
 
-                if (Stat == '<i class="fa fa-undo"></i>'){
+                if (Stat == '<i class="fa fa-times"></i>'){
                     $('#freeCounter').html('');
                     $("#EditSaveID").html('<i class="fa fa-pencil"></i>');
                     $(this).html("");
@@ -2718,7 +2757,7 @@ function hideAllColor(){
                 var Stat = $(this).html();
                 var TempId = $(this).attr( "data-tempID" );
 
-                if (Stat == '<i class="fa fa-undo"></i>'){
+                if (Stat == '<i class="fa fa-times"></i>'){
                     $('.option-tr').removeClass('is-disabled'); // allow all additional option to be editable
                     $("#EditID-" + TempId).html("Edit");
                     $(this).html("Delete");
@@ -3022,6 +3061,154 @@ function hideAllColor(){
 
             .on('keyup', 'input[name="front_message"], input[name="continues_message"], input[name="back_message"], input[name="inside_message"]', function() {
                Builder.observer();
+            })
+
+            .on('change keyup copy','input[name="front_message"]',function(e){
+
+                var message_type = $('input[name="message_type"]:checked').val();
+                var front_msg = $('input[name="front_message"]').val();
+                var width = $("#width").val();
+                var newwidth = width.replace('/','_');
+
+                if (front_msg.length < 6) {
+                        document.getElementById("bandtext1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+                        $('#bandtext1')[0].setAttribute('lengthAdjust', '');
+                        $('#bandtext1')[0].setAttribute('textLength', '');
+                    }
+                    $("#front-text1").text(front_msg);
+                    if (front_msg.length > 30) {
+                        document.getElementById("bandtext1").style.fontSize = '16px';
+                        $('#bandtext1')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
+                        $('#bandtext1')[0].setAttribute('textLength', '270');
+                    } else {
+                        $('#bandtext1')[0].setAttribute('lengthAdjust', '');
+                        $('#bandtext1')[0].setAttribute('textLength', '');
+                        
+                        for (var d = 1; d < 100; d++) {
+                            if (($("#bandtext1")[0].getBoundingClientRect().width < size_[newwidth]['FBPathDelete']) && (parseInt($("#bandtext1").css('font-size')) < (size_[newwidth]['MaxFont']))) {
+                                document.getElementById("bandtext1").style.fontSize = (parseInt($("#bandtext1").css('font-size')) + 1) + 'px';
+                                $("#front-text1").text(front_msg);
+                            } else {
+                                break;
+                            }
+                        }
+                        if (e.keyCode !== 46 || e.keyCode !== 8) {
+                            for (var d = 1; d < 100; d++) {
+                                if (($("#bandtext1")[0].getBoundingClientRect().width > (size_[newwidth]['FBPathLimit'] - 40))
+                                        && (parseInt($("#bandtext1").css('font-size')) > 12)) {
+                                    document.getElementById("bandtext1").style.fontSize = (parseInt($("#bandtext1").css('font-size')) - 0.5) + 'px';
+                                    $("#front-text1").text(front_msg);
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                $('#front-text1').attr('font-family', $('select[name="font"] option:selected').val());
+                Builder.observer();
+
+            })
+
+            .on('change keyup copy', 'input[name="back_message"]', function(e){
+                var message_type = $('input[name="message_type"]:checked').val();
+                var back_msg = $('input[name="back_message"]').val();
+                var width = $("#width").val();
+                var newwidth = width.replace('/','_');
+
+                if (back_msg.length < 6) {
+                        document.getElementById("bandtext2").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+                        $('#bandtext2')[0].setAttribute('lengthAdjust', '');
+                        $('#bandtext2')[0].setAttribute('textLength', '');
+                    }
+                    $("#front-text2").text(back_msg);
+                    if (back_msg.length > 30) {
+                        document.getElementById("bandtext2").style.fontSize = '16px';
+                        $('#bandtext2')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
+                        $('#bandtext2')[0].setAttribute('textLength', '270');
+                    } else {
+                        $('#bandtext2')[0].setAttribute('lengthAdjust', '');
+                        $('#bandtext2')[0].setAttribute('textLength', '');
+
+                        for (var d = 1; d < 100; d++) {
+                            if (($("#bandtext2")[0].getBoundingClientRect().width < size_[newwidth]['FBPathDelete']) && (parseInt($("#bandtext2").css('font-size')) < (size_[newwidth]['MaxFont']))) {
+                                document.getElementById("bandtext2").style.fontSize = (parseInt($("#bandtext2").css('font-size')) + 1) + 'px';
+                                $("#front-text2").text($('#txtInput2').val());
+                            } else {
+                                break;
+                            }
+                        }
+                        if (e.keyCode !== 46 || e.keyCode !== 8) {
+                            for (var d = 1; d < 100; d++) {
+                                if (($("#bandtext2")[0].getBoundingClientRect().width > (size_[newwidth]['FBPathLimit'] - 40))
+                                        && (parseInt($("#bandtext2").css('font-size')) > 12)) {
+                                    document.getElementById("bandtext2").style.fontSize = (parseInt($("#bandtext2").css('font-size')) - 0.5) + 'px';
+                                    $("#front-text2").text($('#txtInput2').val());
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                $('#front-text2').attr('font-family', $('select[name="font"] option:selected').val());
+                Builder.observer();
+
+            })
+
+            .on('change keyup copy paste','input[name="continues_message"]',function(e) {
+                var message_type = $('input[name="message_type"]:checked').val();
+                var cont_msg = $('input[name="continues_message"]').val();
+                var width = $("#width").val();
+                var newwidth = width.replace('/','_');
+
+                $('#front-textcont1').attr('font-family', $('select[name="font"] option:selected').val());
+                $('#front-textcont2').attr('font-family', $('select[name="font"] option:selected').val());
+
+                if (e.keyCode === 46 || e.keyCode === 8) {
+                    if ($('input[name=wrapPaste]').val() === '1') {
+                        $('input[name=wrapPaste]').val(0);
+                        disableWrapped();
+                        $("#txtInputCont").val('');
+                    }
+                }
+                if (cont_msg.length < $('input[name=textcount]').val().length + 1) {
+                    $("#front-textcont2").text('');
+                    disableWrapped();
+                }
+                $("#front-textcontainer").text(cont_msg);
+                if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '750') {
+
+                    enableWrapped();
+                    $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
+                    $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
+                } else {
+                    disableWrapped();
+                    //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
+                    if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
+                        console.log($("#bandtextcontainer")[0].getBoundingClientRect().width);
+                        $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
+                        $("#front-endcont1").empty();
+                        $('input[name=isWrapCont]').val('1');
+
+                        var span_textcont1 = $('input[name=textcount]').val().length;
+                        $("#front-textcont2").text(cont_msg.substring(span_textcont1 - 1, cont_msg.length));
+
+                    } else {
+                        $("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
+                        $("#front-endcont2").empty();
+                        $('input[name=isWrapCont]').val('0');
+
+                        $("#front-textcont1").text(cont_msg.substring(0, cont_msg.length));
+                        $('input[name=textcount]').val(cont_msg.substring(0, cont_msg.length));
+                    }
+                    if ($('input[name=wrapPaste]').val() === '1') {
+                        enableWrapped();
+                        $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
+                        $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
+                        $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
+                        $("#front-endcont1").empty();
+                    }
+
+                }
             })
 
             // Trigger change when message type is choosen
@@ -3455,10 +3642,14 @@ function hideAllColor(){
                 Builder.calculateDeliveryDate();
             })
 
-            .on('focus','input[name="inside_message"]', function(e) {
+            .on('focus change keyup copy','input[name="inside_message"]', function(e) {
 
+                var inside_msg = $('input[name="inside_message"]').val();
                 var width = $("#width").val();
                 var newwidth = width.replace('/','_');
+
+                $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
+                $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
 
                 $("#outsidesolid1").attr("display", "none");
                 $("#outsidesolid2").attr("display", "none");
@@ -3481,8 +3672,6 @@ function hideAllColor(){
                 $("#segcolor1_cover_band2").attr("display", "none");
                 $("#segcolor2_cover_band2").attr("display", "none"); 
 
-                //change image
-                //console.log(newwidth);
                 $("#img1_" + newwidth).attr("display","none");
                 $("#img2_" + newwidth).attr("display","none");
                 $("#no_arc_img1_" + newwidth).removeAttr("display");
@@ -3491,6 +3680,51 @@ function hideAllColor(){
                 $('#InsideArc')[0].setAttribute('d', size_[newwidth]['InsideArc']);
                 $("#arc1").removeAttr("display");
                 $("#arc2").removeAttr("display");
+
+                if (e.keyCode === 46 || e.keyCode === 8) {
+                    if ($('input[name=backPaste]').val() === '1') {
+                        $('input[name=backPaste]').val(0);
+                        disableWrapped();
+                        $("#txtInputInside").val('');
+                    }
+                }
+                if (inside_msg.length < $('input[name=textinside]').val().length + 1) {
+                    $("#front-textinside2").text('');
+                    disableWrapped2();
+                }
+                $("#front-textcontainer2").text(inside_msg);
+                if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '750') {
+
+                    enableWrapped2();
+
+                    $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
+                    $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
+                } else {
+                    disableWrapped2();
+                    if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '480') {
+                        $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
+                        $("#front-endinside1").empty();
+                        $('input[name=isWrapInside]').val('1');
+
+                        var span_textinside1 = $('input[name=textinside]').val().length;
+                        $("#front-textinside2").text(inside_msg.substring(span_textinside1 - 1, inside_msg.length));
+                    } else {
+                        $("#front-endinside1").empty().append($("#front-endinside2-icon :selected").text());
+                        $("#front-endinside2").empty();
+                        $('input[name=isWrapInside]').val('0');
+
+                        $("#front-textinside1").text(inside_msg.substring(0, inside_msg.length));
+                        $('input[name=textinside]').val(inside_msg.substring(0, inside_msg.length));
+                    }
+                }
+                if ($('input[name=backPaste]').val() === '1') {
+                    enableWrapped2();
+                    $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
+                    $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
+                    $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
+                    $("#front-endinside1").empty();
+                }
+
 
             })
             
