@@ -1,0 +1,112 @@
+#promo-button-container{
+    margin-top: -35px;
+}
+#home-rev-slider{
+    margin-top: -35px;
+}
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*START - @media (max-width:800px)*/
+@media (max-width:800px) {
+    #home-fusion-content-boxes > .col-sm-4, #home-fusion-content-boxes2 > .col-sm-4 {
+        float: left !important;
+        width: 33.3333% !important;
+    }
+    #home-fusion-content-boxes .content-box-heading{
+        font-size: 16px !important;
+        line-height: 17px !important;
+    }
+    #home-fusion-content-boxes .content-container span, #home-fusion-content-boxes .content-container h2{
+        font-size: 14px !important;
+        line-height: 16px !important;
+    }
+    #home-fusion-content-boxes .content-container{
+        margin-top: -15px !important;
+    }    
+}
+/*END - @media (max-width:800px)*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*START - @media (max-width:650px)*/
+@media (max-width:650px) {
+    #home-fusion-content-boxes .content-box-heading{
+        font-size: 12px !important;
+        line-height: 13px !important;
+    }
+    #home-fusion-content-boxes .content-container span, #home-fusion-content-boxes .content-container h2{
+        font-size: 10px !important;
+        line-height: 12px !important;
+    }
+    #home-fusion-content-boxes .content-container{
+        margin-top: -15px !important;
+    }    
+    #home-fusion-content-boxes a .fusion-button-text{
+        font-size: 8px !important;
+        line-height: 9px !important;
+    }    
+    #home-fusion-content-boxes .button-large{
+        padding: 10px 15px;
+        line-height: 8px;
+    }
+    #home-fusion-content-boxes2 .content-box-heading{
+        font-size: 16px !important;
+        line-height: 17px !important;
+    }
+}
+/*END - @media (max-width:650px)*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*START - @media (max-width:375px)*/
+@media (max-width:375px) {
+
+
+    .fusion-secondary-header li {
+        font-size: 10px;
+    }
+    .fusion-secondary-header #bbp_user_edit_submit, #comment-submit, #reviews input#submit, #tribe-bar-form .tribe-bar-submit input[type="submit"], .bbp-submit-wrapper .button, .button-default, .button.default, .fusion-button, .fusion-button-default, .post-password-form input[type="submit"], .woocommerce .checkout #place_order, .woocommerce .login .button, .woocommerce .register .button, .woocommerce .single_add_to_cart_button, .woocommerce button.button, .wpcf7-form input[type="submit"], .wpcf7-submit{
+        font-size: 10px;
+    }
+
+
+}
+/*END- @media (max-width:375px)*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*START - @media (max-width:335px)*/
+@media (max-width:335px) {
+
+
+    .fusion-secondary-header li {
+        font-size: 8px;
+    }
+    .fusion-secondary-header #bbp_user_edit_submit, #comment-submit, #reviews input#submit, #tribe-bar-form .tribe-bar-submit input[type="submit"], .bbp-submit-wrapper .button, .button-default, .button.default, .fusion-button, .fusion-button-default, .post-password-form input[type="submit"], .woocommerce .checkout #place_order, .woocommerce .login .button, .woocommerce .register .button, .woocommerce .single_add_to_cart_button, .woocommerce button.button, .wpcf7-form input[type="submit"], .wpcf7-submit{
+        font-size: 8px;
+    }
+
+
+}
+/*END - @media (max-width:335px)*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*START - @media (max-width:375px)*/
+/* iPhone 6*/
+@media (max-width:375px) {
+    #promo-button1{
+        padding: 2px 0px;
+    }
+    #home-fusion-content-boxes2 .content-box-heading{
+        font-size: 14px !important;
+        line-height: 15px !important;
+    }
+}
+/*END - @media (max-width:375px)*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
+/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
+/*START - @media (max-width:370px)*/
+/* Avada's smallest screen width supported */
+@media (max-width:370px) {
+    #promo-button1{
+        padding: 2px 0px;
+    }
+}
+/*END - @media (max-width:370px)*/
+/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
