@@ -33,7 +33,7 @@
 					?>
 						<footer class="fusion-footer-widget-area fusion-widget-area<?php echo $footer_widget_area_center_class; ?>">
 							<div class="fusion-row">
-								<div class="fusion-columns fusion-columns-<?php echo Avada()->settings->get( 'footer_widgets_columns' ); ?> fusion-widget-area">
+								<div id="mod-footer1" class="fusion-columns fusion-columns-<?php echo Avada()->settings->get( 'footer_widgets_columns' ); ?> fusion-widget-area">
 
 									<?php
 									// Check the column width based on the amount of columns chosen in Theme Options
@@ -62,7 +62,7 @@
 									?>
 									<div class="fusion-clearfix"></div>
 								</div> <!-- fusion-columns -->
-								<div class="fusion-columns fusion-columns-4">
+								<div id="mod-footer2" class="fusion-columns fusion-columns-4">
 									<div class="fusion-column col-lg-3 col-md-3 col-sm-3">
 										<script type="text/javascript" language="javascript">var ANS_customer_id="743b0a5c-c1fc-4eb5-a258-61aeca3264e6";</script> <script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js" ></script>
 										<img src="https://wristbandcreation.com/wp-content/themes/kulayful/images/PositiveSSL_tl_trans.gif" width="72" height="72">
