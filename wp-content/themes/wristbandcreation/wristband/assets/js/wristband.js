@@ -162,7 +162,7 @@ jQuery(function ($) {
         // Append alert messages
         appendAlertMsg: function(_msg, el, uniq_class) {
             var tpl  = Mustache.render('<i class="alert-notify '+ uniq_class +'">{{{message}}}</i>', {message: _msg});
-            if (uniq_class != undefined)
+             if (uniq_class != undefined)
                 $(el).parent().find('.' + uniq_class).remove();
 
             $(tpl).insertAfter($(el));
@@ -225,98 +225,6 @@ jQuery(function ($) {
             //this.previewForFontFam();
             if (y != undefined) { if($('#bandcolor').length) { SelectBandColor(StyleColor,y); } }
         },
-
-        // previewForText: function(){
-        //     var message_type = $('input[name="message_type"]:checked').val();
-        //     var inside_msg = $('input[name="inside_message"]').val();
-
-        //     if(message_type == 'continues'){
-        //         var cont_msg = $('input[name="continues_message"]').val();
-        //         $('#front-textcont1').attr('font-family', $('select[name="font"] option:selected').val());
-        //         $('#front-textcont2').attr('font-family', $('select[name="font"] option:selected').val());
-        //         if (cont_msg.length < $('input[name=textcount]').val().length + 1) {
-        //             $("#front-textcont2").text('');
-        //             disableWrapped();
-        //         }
-        //         $("#front-textcontainer").text(cont_msg);
-        //         if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '750') {
-        //             //console.log('');
-        //             enableWrapped();
-        //             $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
-        //             $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
-        //         } else {
-        //             disableWrapped();
-        //             //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
-        //             if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
-        //                 // $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
-        //                 // $("#front-endcont1").empty();
-        //                 $('input[name=isWrapCont]').val('1');
-        //                 var span_textcont1 = $('input[name=textcount]').val().length;
-        //                 $("#front-textcont2").text(cont_msg.substring(span_textcont1 - 1, cont_msg.length));
-
-        //             } else {
-        //                 //$("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
-        //                 $("#front-endcont2").empty();
-        //                 $('input[name=isWrapCont]').val('0');
-        //                 //console.log('from the other side');
-        //                 $("#front-textcont1").text(cont_msg.substring(0, cont_msg.length));
-        //                 $('input[name=textcount]').val(cont_msg.substring(0, cont_msg.length));
-        //             }
-
-        //             if ($('input[name=wrapPaste]').val() === '1') {
-        //                 enableWrapped();
-        //                 $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
-        //                 $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
-        //                 $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
-        //                 $("#front-endcont1").empty();
-        //             }
-
-        //         }
-        //     }else{
-
-        //         var front_msg = $('input[name="front_message"]').val(),
-        //             back_msg = $('input[name="back_message"]').val();
-
-        //         $("#front-text1").text(front_msg);
-        //         $("#front-text2").text(back_msg);
-        //         $('#front-text1').attr('font-family', $('select[name="font"] option:selected').val());
-        //         $('#front-text2').attr('font-family', $('select[name="font"] option:selected').val());
-        //     }
-            
-        //     // inside message
-        //     $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
-        //     $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
-        //     if (inside_msg.length < $('input[name=textinside]').val().length + 1) {
-        //             $("#front-textinside2").text('');
-        //             disableWrapped2();
-        //     }
-        //     $("#front-textcontainer2").text(inside_msg);
-        //     if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '750') {
-
-        //         enableWrapped2();
-
-        //         $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
-        //         $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
-        //     } else {
-        //         disableWrapped2();
-        //         if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '480') {
-        //             $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
-        //             $("#front-endinside1").empty();
-        //             $('input[name=isWrapInside]').val('1');
-
-        //             var span_textinside1 = $('input[name=textinside]').val().length;
-        //             $("#front-textinside2").text(inside_msg.substring(span_textinside1 - 1, inside_msg.length));
-        //             } else {
-        //             $("#front-endinside1").empty().append($("#front-endinside2-icon :selected").text());
-        //             $("#front-endinside2").empty();
-        //             $('input[name=isWrapInside]').val('0');
-
-        //             $("#front-textinside1").text(inside_msg.substring(0, inside_msg.length));
-        //             $('input[name=textinside]').val(inside_msg.substring(0, inside_msg.length));
-        //             }
-        //         } 
-
-        // },
 
         renderProductionShippingOptions: function() {
             if (this.data.total_qty <= 0)return;
@@ -678,13 +586,16 @@ jQuery(function ($) {
         _backInsideMsg: function(qty) {
             if (qty <= 0) return;
             var array_el = ['back_message', 'inside_message'];
+            var messageType = $('input[name="message_type"]:checked').val();
             $('.alert-notify.each-message').remove();
+            $('.alert-notify.per-order').remove();
             for (var i = 0; i < array_el.length; i++) {
                 var len = $('input[name="' + array_el[i] + '"]').val().length;
                 if (len > 0) {
                     var price_list = Settings.messages[array_el[i] + '_price_list'];
                     if (price_list != undefined) {
                         var additional_price = this.rangePrice(price_list, qty);
+                        if(messageType == 'front_and_back' && array_el[i] == 'back_message' ){
                         this.data.total_price += additional_price * qty;
                         // Render alert message
                         var tpl = Mustache.render('+{{{currency_symbol}}}{{price}} each',
@@ -694,6 +605,18 @@ jQuery(function ($) {
                             }
                         );
                         this.appendAlertMsg(tpl, 'label[for="'+ array_el[i] +'"] span', 'each-message');
+                        }
+                        else if(array_el[i] == 'inside_message'){
+                        this.data.total_price += additional_price * qty;
+                        // Render alert message
+                        var tpl = Mustache.render('+{{{currency_symbol}}}{{price}} each',
+                            {
+                                currency_symbol: Settings.currency_symbol,
+                                price: numberFormat(additional_price,2),
+                            }
+                        );
+                        this.appendAlertMsg(tpl, 'label[for="'+ array_el[i] +'"] span', 'each-message');
+                        }
                     }
                 }
             }
@@ -704,7 +627,8 @@ jQuery(function ($) {
                     costType = Settings['additional_options'][$(this).data('key')].cost_type,
                     additional_price = Builder.rangePrice(price_list, qty);
                     //alert(costType + "====" + additional_price)
-                $(this).closest('.checkbox').closest('.checkbox').find('.each-message').remove();
+                // $(this).closest('.checkbox').closest('.checkbox').find('.each-message').remove();
+                
                 if (additional_price > 0) {
                     if(costType == 'Each Quantity') {
                         Builder.data.total_price += additional_price * qty;
@@ -714,7 +638,8 @@ jQuery(function ($) {
                                 price: numberFormat(additional_price,2),
                             } );
                         Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'each-message');
-                    } else {
+                        console.log(costType);
+                    } else if (costType == 'Per Order') {
                         Builder.data.total_price += additional_price;
                         // Render alert message
                         var tpl = Mustache.render('+{{{currency_symbol}}}{{price}} per order.', {
@@ -723,6 +648,7 @@ jQuery(function ($) {
                             }
                         );
                         Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'per-order');
+                        console.log(costType);
                     }
                 }   
             });
@@ -2277,10 +2203,10 @@ function hideAllColor(){
                     for( var index_size in hold_index_sort) {
                         for(var size in slctd_product.sizes) {
                             if(index_size == slctd_product.sizes[size].count ) {
-                                var $option = $('<option>').val(size).text(size);
+                                var $option = $('<option>').val(size).text(size + ' inch');
                                                        
                                     if (size == slctd_product.default_size) {
-                                        $option = $('<option>').val(size).attr('selected','selected').text(size).attr('data-group', Builder.getSizeGroup(size));
+                                        $option = $('<option>').val(size).attr('selected','selected').text(size + ' inch').attr('data-group', Builder.getSizeGroup(size));
                                     } else {
                                         $option.attr('data-group', Builder.getSizeGroup(size));   
                                     }                      
@@ -2529,7 +2455,7 @@ function hideAllColor(){
             })
             .on('keyup mouseup', '#qty_adult, #qty_medium, #qty_youth', function() {
                 $('.alert-notify.each-message').remove(); //remove old price message
-
+                
                 var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name');
 
                 var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
