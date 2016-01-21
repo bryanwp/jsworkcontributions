@@ -223,9 +223,17 @@ jQuery(function ($) {
             var y = $('#wristband-color-items .color-wrap.selected > div').data('color');
             //this.previewForText();
             //this.previewForFontFam();
+            this.textfont();
             if (y != undefined) { if($('#bandcolor').length) { SelectBandColor(StyleColor,y); } }
         },
-
+        textfont: function() {
+                $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
+                $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
+                $('#front-textcont1').attr('font-family', $('select[name="font"] option:selected').val());
+                $('#front-textcont2').attr('font-family', $('select[name="font"] option:selected').val());
+                $('#front-text1').attr('font-family', $('select[name="font"] option:selected').val());
+                $('#front-text2').attr('font-family', $('select[name="font"] option:selected').val());
+        },
         renderProductionShippingOptions: function() {
             if (this.data.total_qty <= 0)return;
             var $size =  $('#width option:selected'),
@@ -3012,7 +3020,7 @@ function hideAllColor(){
                             }
                         }
                     }
-                $('#front-text1').attr('font-family', $('select[name="font"] option:selected').val());
+                // $('#front-text1').attr('font-family', $('select[name="font"] option:selected').val());
                 Builder.observer();
 
             })
@@ -3057,7 +3065,7 @@ function hideAllColor(){
                             }
                         }
                     }
-                $('#front-text2').attr('font-family', $('select[name="font"] option:selected').val());
+                // $('#front-text2').attr('font-family', $('select[name="font"] option:selected').val());
                 Builder.observer();
 
             })
@@ -3068,8 +3076,8 @@ function hideAllColor(){
                 var width = $("#width").val();
                 var newwidth = width.replace('/','_');
 
-                $('#front-textcont1').attr('font-family', $('select[name="font"] option:selected').val());
-                $('#front-textcont2').attr('font-family', $('select[name="font"] option:selected').val());
+                // $('#front-textcont1').attr('font-family', $('select[name="font"] option:selected').val());
+                // $('#front-textcont2').attr('font-family', $('select[name="font"] option:selected').val());
 
                 if (e.keyCode === 46 || e.keyCode === 8) {
                     if ($('input[name=wrapPaste]').val() === '1') {
@@ -3550,8 +3558,8 @@ function hideAllColor(){
                 var width = $("#width").val();
                 var newwidth = width.replace('/','_');
 
-                $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
-                $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
+                // $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
+                // $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
 
                 if (e.keyCode === 46 || e.keyCode === 8) {
                     if ($('input[name=backPaste]').val() === '1') {
