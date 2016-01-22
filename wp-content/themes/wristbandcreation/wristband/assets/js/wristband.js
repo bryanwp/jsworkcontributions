@@ -945,7 +945,8 @@ jQuery(function ($) {
             $("#segcolor3_band1").removeAttr("display");
 
             $("#segcolor1_cover_band2").removeAttr("display");
-            $("#segcolor2_cover_band2").removeAttr("display");             
+            $("#segcolor2_cover_band2").removeAttr("display");
+           
         } else if (value == 'continues') { 
             $("#ForFrontBackID").css({display: 'none'}); 
             $("#ForContiID").css({display: 'block'});
@@ -2366,6 +2367,12 @@ function hideAllColor(){
                 if (this.checked) {
 
                     messageOptionDisplay(this.value); // display the default message option which front, back & inside
+                                    if($('input[name="continues_message"]').val().length > 40){
+                                            $('input[name="front_message"]').val($('input[name="continues_message"]').val().substring(0,40));
+                                        }else{
+                                            $('input[name="front_message"]').val($('input[name="continues_message"]').val());
+                                        }
+                                    $('input[name="front_message"]').trigger("change");  
                 }
             })
             // Message character limit
@@ -2979,13 +2986,19 @@ function hideAllColor(){
                Builder.observer();
             })
 
-            .on('change keyup copy','input[name="front_message"]',function(e){
+            .on('change keyup copy paste','input[name="front_message"]',function(e){
 
                 var message_type = $('input[name="message_type"]:checked').val();
                 var front_msg = $('input[name="front_message"]').val();
                 var width = $("#width").val();
                 var newwidth = width.replace('/','_');
+                var cont_msg = $('input[name="continues_message"]').val();
 
+                // $("#txtInputCont").val($("#txtInput1").val());
+                // $("#txtInputCont").trigger("change");   
+
+                $('input[name="continues_message"]').val($('input[name="front_message"]').val());
+                $('input[name="continues_message"]').trigger("change");
                 if (front_msg.length < 6) {
                         document.getElementById("bandtext1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
                         $('#bandtext1')[0].setAttribute('lengthAdjust', '');
@@ -3020,12 +3033,12 @@ function hideAllColor(){
                             }
                         }
                     }
-                // $('#front-text1').attr('font-family', $('select[name="font"] option:selected').val());
+
                 Builder.observer();
 
             })
 
-            .on('change keyup copy', 'input[name="back_message"]', function(e){
+            .on('change keyup copy paste', 'input[name="back_message"]', function(e){
                 var message_type = $('input[name="message_type"]:checked').val();
                 var back_msg = $('input[name="back_message"]').val();
                 var width = $("#width").val();
@@ -3065,7 +3078,6 @@ function hideAllColor(){
                             }
                         }
                     }
-                // $('#front-text2').attr('font-family', $('select[name="font"] option:selected').val());
                 Builder.observer();
 
             })
@@ -3075,15 +3087,14 @@ function hideAllColor(){
                 var cont_msg = $('input[name="continues_message"]').val();
                 var width = $("#width").val();
                 var newwidth = width.replace('/','_');
+                var value = $('input[name=isWrapCont]').val();
 
-                // $('#front-textcont1').attr('font-family', $('select[name="font"] option:selected').val());
-                // $('#front-textcont2').attr('font-family', $('select[name="font"] option:selected').val());
-
+                //console.log(value);
                 if (e.keyCode === 46 || e.keyCode === 8) {
                     if ($('input[name=wrapPaste]').val() === '1') {
                         $('input[name=wrapPaste]').val(0);
                         disableWrapped();
-                        $("#txtInputCont").val('');
+                        $('input[name="continues_message"]').val('');
                     }
                 }
                 if (cont_msg.length < $('input[name=textcount]').val().length + 1) {
@@ -3100,7 +3111,7 @@ function hideAllColor(){
                     disableWrapped();
                     //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
                     if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
-                        console.log($("#bandtextcontainer")[0].getBoundingClientRect().width);
+                        console.log('this is it');
                         $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
                         $("#front-endcont1").empty();
                         $('input[name=isWrapCont]').val('1');
@@ -3109,7 +3120,9 @@ function hideAllColor(){
                         $("#front-textcont2").text(cont_msg.substring(span_textcont1 - 1, cont_msg.length));
 
                     } else {
+                        console.log('this is it 1');
                         $("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
+
                         $("#front-endcont2").empty();
                         $('input[name=isWrapCont]').val('0');
 
@@ -3217,15 +3230,6 @@ function hideAllColor(){
 
                     }else{  
 
-                        // if( position == 'front_start' ) {
-                        //     $('#front-start1').text(glyp);  
-                        // } else if ( position == 'front_end' ){
-                        //     $('#front-end1').text(glyp);
-                        // } else if ( position == 'back_start' ){
-                        //     $('#front-start2').text(glyp);
-                        // } else if ( position == 'back_end' ){
-                        //     $('#front-end2').text(glyp);
-                        // } else if ()
                         switch (position) {
                             case "front_start":
                                 $('#front-start1').text(glyp);
@@ -3247,19 +3251,7 @@ function hideAllColor(){
                                 break;
                         }
                     }
-
-                    // if(icon == undefined) { $('#'+position).text(''); }  
-                    // else { console.log($('#'+position).text(glyp));
-                    //     $('#'+position).text(glyp); }
-
-                   // if (position == "wrap_start" || position == "wrap_end"){
-                   //      $('#icon_start').text(  $('#wrap_start').text() );
-                   //      $('#icon_end').text(  $('#wrap_end').text() );
-                   // } else {
-                   //      $('#icon_start').text(  $('#'+preview+'_start').text() );
-                   //      $('#icon_end').text(  $('#'+preview+'_end').text() );
-                   // }
-
+                   
                 button.find('.icon-preview').removeClass(function (index, css) {
                     return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
                 });
@@ -3356,8 +3348,6 @@ function hideAllColor(){
                 $button_text.text('Processing...');
 
                 Builder.collectDataToPost();
-                console.log(Builder.data);
-                console.log(UpdateID);
                 $.ajax({
                     url: WBC.ajax_url,
                     type: 'POST',
@@ -3525,8 +3515,8 @@ function hideAllColor(){
                             $("#inf_custom_Price0").val($('#price_handler').text());
                             $("#infusion-form").submit();
                         }
-                        $('#saveDesignMessage').html('<span class="'+classD+'">'+response.data.message+'</span>');
-                        // Builder.popupMsg(type, title, response.data.message);
+                        //$('#saveDesignMessage').html('<span class="'+classD+'">'+response.data.message+'</span>');
+                         Builder.popupMsg(type, title, response.data.message);
                     });
 
                     // if ($('#preview_container').length) {

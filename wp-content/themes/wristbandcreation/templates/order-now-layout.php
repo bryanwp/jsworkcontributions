@@ -484,14 +484,6 @@ if (isset($_REQUEST['id']))
                                 </svg>            
                             </div>
 
-
-
-
-                            
-
-
-
-
                             <div>
                                 <div class="form-row">
                                     <label for="message_type" class="form-group-heading CssTitleBlack marginTB-5" style="float:left">Message on Wristbands</label class="form-group-heading CssTitleBlack" >
