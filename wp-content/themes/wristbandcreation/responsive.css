@@ -3,200 +3,313 @@ border-style: solid;
 border-width: 5px;
 border-color: green;
 */
+.rr_rate_company_name{
+    width: 100% !important;
+}
+#RR_Reviews_Widget{
+    width: 100% !important;
+}
+#RR_Reviews_Widget_content{
+    background-size: 100% 110% !important;
+}
+@media (max-width:736px) {
+    #main{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    .button-xlarge{
+        padding: 10px 10px;
+    }
+    #home-fusion-content-boxes .fusion-button-wrapper{
+        display: none !important;
+    }    
+    #promo-button-container{
+        margin-top: -35px;
+    }
+    #home-rev-slider{
+        margin-top: -35px;
+    }
+    #home-fusion-content-boxes img:hover{
+        opacity: 0.7;
+        cursor:pointer;
+    }
+    #home-fusion-content-boxes img{
+        transition: all 0.5s linear;
+        -webkit-transition: all 0.5s linear;
+        -moz-transition: all 0.5s linear;
+        -ms-transition: all 0.5s linear;
+        -o-transition: all 0.5s linear;
+    }
+    #home-bracelets-desc{
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    #RR_Reviews_Widget_frame, .shopperapproved_widget{
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    }
+    .fusion-columns {
+        text-align: left;
+        float: left;
+        margin: 0px 0px;
+        display: inline;
+    }    
+    #mod-footer1 {        
+        width: 50%;
+        padding-left: 5px !important;
+        padding-right: 5px !important;        
+    }
+    #mod-footer2 {     
+        width: 50%;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+    #mod-footer1 .col-sm-3, #mod-footer2 .col-sm-3, .fusion-footer-widget-area{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+    #mod-footer1 .fusion-footer-widget-column {
+        margin-bottom: -20px !important;
+    }
+    #home-fusion-content-boxes .content-container{
+        margin-top: -20px;
+    }
+    #home-fusion-content-boxes2 .content-container{
+        margin-top: -30px;
+    }
+    .fusion-logo img {
+        width: 300px;
+        height: 60px;
+    }
+    .fusion-header .fusion-row{
+        margin-top: -10px;
+        margin-bottom: -25px;        
+    }    
+        
+}
+/*iPhone 6 Plus in landscape*/
+@media only screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : landscape) { 
+    #home-fusion-content-boxes > .col-sm-4 {
+        width: 50% !important;
+        float: left !important;
+        display: inline !important;
+    }
+    #home-fusion-content-boxes > .fusion-clearfix{
+        display: none;
+    }    
 
-#promo-button-container{
-    margin-top: -35px;
-}
-#home-rev-slider{
-    margin-top: -35px;
-}
-@media (max-width:800px){
-    .fusion-columns {
-        text-align: left;
-        float: left;
-        margin: 2px 10px;
-        display: inline;
-    }    
-    #mod-footer1 {        
-        width: 40%;
-    }
-    #mod-footer2 {     
-        width: 50%;
-    }    
-    #text-10 .mod-footer-4{
-        width: 500px !important;
-    }    
-}
-@media (max-width:697px){
-    .fusion-columns {
-        text-align: left;
-        float: left;
-        margin: 2px 10px;
-        display: inline;
-    }    
-    #mod-footer1 {        
-        width: 40%;
-    }
-    #mod-footer2 {     
-        width: 50%;
-    }        
-}
-@media (max-width:591px){
-    .fusion-columns {
-        text-align: left;
-        float: left;
-        margin: 2px 10px;
-        display: inline;
-    }    
-    #mod-footer1 {
-        width: 30%;
-    }        
-    #mod-footer2 {
-        width: 40%;
-    }        
-}
-@media (max-width:639px){
-    .fusion-columns {
-        text-align: left;
-        float: left;
-        margin: 2px 10px;
-        display: inline;
-    }    
-    #mod-footer1 {
-        width: 40%;
-    }        
-}
-@media (max-width:560px){
-    .fusion-columns {
-        text-align: left;
-        float: left;
-        margin: 2px 10px;
-        display: inline;
-    }    
-    #mod-footer1 {
-        width: 50%;
-    }        
-}
-@media (max-width:459px){
-    .fusion-columns {
-        text-align: left;
-        float: left;
-        margin: 2px 10px;
-        display: inline;
-    }    
-    #mod-footer1 {
-        width: 40%;
-    }
-    #text-10 .mod-footer-4{
-        width: 500px !important;
-    }
-}
-/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-/*START - @media (max-width:800px)*/
-@media (max-width:800px) {
-    #home-fusion-content-boxes > .col-sm-4, #home-fusion-content-boxes2 > .col-sm-4 {
+    #home-fusion-content-boxes2 .col-sm-4 {
         float: left !important;
         width: 33.3333% !important;
     }
-    #home-fusion-content-boxes .content-box-heading{
-        font-size: 16px !important;
-        line-height: 17px !important;
+    #home-fusion-content-boxes, #home-fusion-content-boxes2 {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
     }
-    #home-fusion-content-boxes .content-container span, #home-fusion-content-boxes .content-container h2{
-        font-size: 14px !important;
+    #home-fusion-content-boxes .content-box-heading, #home-fusion-content-boxes .content-container > h2{
+        font-size: 20px !important;
+        line-height: 21px !important;
+    }     
+    #home-fusion-content-boxes .content-container h2{
+        font-size: 16px !important;
         line-height: 16px !important;
     }
+}
+/*iPhone 6 Plus in portrait*/
+@media only screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : portrait) { 
+    #home-fusion-content-boxes > .col-sm-4 {
+        width: 50% !important;
+        float: left !important;
+        display: inline !important;
+    }
+    #home-fusion-content-boxes > .fusion-clearfix{
+        display: none;
+    }    
+
+    #home-fusion-content-boxes2 .col-sm-4 {
+        float: left !important;
+        width: 33.3333% !important;
+    }
+    #home-fusion-content-boxes, #home-fusion-content-boxes2 {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    #home-fusion-content-boxes .content-box-heading, #home-fusion-content-boxes .content-container > h2{
+        font-size: 20px !important;
+        line-height: 21px !important;        
+    }
     #home-fusion-content-boxes .content-container{
-        margin-top: -15px !important;
+        margin-top: -25px !important;
+    }
+    #home-bracelets-desc .heading > h2{
+        font-size: 20px !important;
+        line-height: 21px !important;
+    }    
+}
+/*iPhone 6 in landscape*/
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : landscape) { 
+    #home-fusion-content-boxes > .col-sm-4 {
+        width: 50% !important;
+        float: left !important;
+        display: inline !important;
+    }
+    #home-fusion-content-boxes > .fusion-clearfix{
+        display: none;
+    }    
+
+    #home-fusion-content-boxes2 .col-sm-4 {
+        float: left !important;
+        width: 33.3333% !important;
+    }
+    #home-fusion-content-boxes, #home-fusion-content-boxes2 {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
     }
 }
-/*END - @media (max-width:800px)*/
-/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-/*START - @media (max-width:650px)*/
-@media (max-width:650px) {
-    #home-fusion-content-boxes .content-box-heading{
-        font-size: 12px !important;
-        line-height: 13px !important;
+/*iPhone 6 in portrait*/
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : portrait) { 
+    #home-fusion-content-boxes > .col-sm-4 {
+        width: 50% !important;
+        float: left !important;
+        display: inline !important;
     }
-    #home-fusion-content-boxes .content-container span, #home-fusion-content-boxes .content-container h2{
+    #home-fusion-content-boxes > .fusion-clearfix{
+        display: none;
+    }    
+
+    #home-fusion-content-boxes2 .col-sm-4 {
+        float: left !important;
+        width: 33.3333% !important;
+    }
+    #home-fusion-content-boxes, #home-fusion-content-boxes2 {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    #home-bracelets-desc .heading > h2{
+        font-size: 18px !important;
+        line-height: 19px !important;
+    }    
+}
+
+
+/*iPhone 5 & 5S in landscape*/
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : landscape) {
+    #home-fusion-content-boxes > .col-sm-4 {
+        width: 50% !important;
+        float: left !important;
+        display: inline !important;
+    }
+    #home-fusion-content-boxes > .fusion-clearfix{
+        display: none;
+    }    
+
+    #home-fusion-content-boxes2 .col-sm-4 {
+        float: left !important;
+        width: 33.3333% !important;
+    }
+    #home-fusion-content-boxes, #home-fusion-content-boxes2 {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    #home-bracelets-desc .heading > h2{
+        font-size: 25px !important;
+        line-height: 27px !important;
+    }
+}
+/*iPhone 5 & 5S in portrait*/
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait) { 
+    #home-fusion-content-boxes > .col-sm-4 {
+        width: 50% !important;
+        float: left !important;
+        display: inline !important;
+    }
+    #home-fusion-content-boxes > .fusion-clearfix{
+        display: none;
+    }    
+
+    #home-fusion-content-boxes2 .col-sm-4 {
+        float: left !important;
+        width: 33.3333% !important;
+    }
+    #home-fusion-content-boxes, #home-fusion-content-boxes2 {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    /*Resize text menu*/
+    #menu-top-menu{
         font-size: 10px !important;
-        line-height: 12px !important;
+    }
+    .fusion-secondary-menu > ul > li > a{
+        padding: 0px 8px !important;
+    }
+    #home-fusion-content-boxes .content-box-heading, #home-fusion-content-boxes .content-container > h2{
+        font-size: 20px !important;
+        line-height: 21px !important;        
     }
     #home-fusion-content-boxes .content-container{
-        margin-top: -15px !important;
-    }    
-    #home-fusion-content-boxes a .fusion-button-text{
-        font-size: 8px !important;
-        line-height: 9px !important;
-    }    
-    #home-fusion-content-boxes .button-large{
-        padding: 10px 15px;
-        line-height: 8px;
+        margin-top: -25px !important;
     }
-    #home-fusion-content-boxes2 .content-box-heading{
+    #home-fusion-content-boxes2 .content-container > h2{
         font-size: 16px !important;
-        line-height: 17px !important;
+        line-height: 20px !important;   
     }
+    #home-bracelets-desc .heading > h2{
+        font-size: 18px !important;
+        line-height: 19px !important;
+    }    
 }
-/*END - @media (max-width:650px)*/
-/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-/*START - @media (max-width:375px)*/
-@media (max-width:375px) {
-
-
-    .fusion-secondary-header li {
-        font-size: 10px;
+/*iPhone 2G-4S in landscape*/
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : landscape) {
+    #home-fusion-content-boxes > .col-sm-4 {
+        width: 50% !important;
+        float: left !important;
+        display: inline !important;
     }
-    .fusion-secondary-header #bbp_user_edit_submit, #comment-submit, #reviews input#submit, #tribe-bar-form .tribe-bar-submit input[type="submit"], .bbp-submit-wrapper .button, .button-default, .button.default, .fusion-button, .fusion-button-default, .post-password-form input[type="submit"], .woocommerce .checkout #place_order, .woocommerce .login .button, .woocommerce .register .button, .woocommerce .single_add_to_cart_button, .woocommerce button.button, .wpcf7-form input[type="submit"], .wpcf7-submit{
-        font-size: 10px;
+    #home-fusion-content-boxes > .fusion-clearfix{
+        display: none;
+    }    
+
+    #home-fusion-content-boxes2 .col-sm-4 {
+        float: left !important;
+        width: 33.3333% !important;
     }
-
-
+    #home-fusion-content-boxes, #home-fusion-content-boxes2 {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    #home-bracelets-desc .heading > h2{
+        font-size: 22px !important;
+        line-height: 23px !important;
+    }    
 }
-/*END- @media (max-width:375px)*/
-/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-/*START - @media (max-width:335px)*/
-@media (max-width:335px) {
-
-
-    .fusion-secondary-header li {
-        font-size: 8px;
+/*iPhone 2G-4S in portrait*/
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : portrait) { 
+    #home-fusion-content-boxes > .col-sm-4 {
+        width: 50% !important;
+        float: left !important;
+        display: inline !important;
     }
-    .fusion-secondary-header #bbp_user_edit_submit, #comment-submit, #reviews input#submit, #tribe-bar-form .tribe-bar-submit input[type="submit"], .bbp-submit-wrapper .button, .button-default, .button.default, .fusion-button, .fusion-button-default, .post-password-form input[type="submit"], .woocommerce .checkout #place_order, .woocommerce .login .button, .woocommerce .register .button, .woocommerce .single_add_to_cart_button, .woocommerce button.button, .wpcf7-form input[type="submit"], .wpcf7-submit{
-        font-size: 8px;
+    #home-fusion-content-boxes > .fusion-clearfix{
+        display: none;
+    }    
+
+    #home-fusion-content-boxes2 .col-sm-4 {
+        float: left !important;
+        width: 33.3333% !important;
     }
-
-
+    #home-fusion-content-boxes, #home-fusion-content-boxes2 {
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+    #home-fusion-content-boxes .content-box-heading, #home-fusion-content-boxes .content-container > h2{
+        font-size: 16px !important;
+        line-height: 17px !important;        
+    }
+    #home-fusion-content-boxes .content-container{
+        margin-top: -25px !important;
+    }
+    #home-bracelets-desc .heading > h2{
+        font-size: 18px !important;
+        line-height: 19px !important;
+    }    
 }
-/*END - @media (max-width:335px)*/
-/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-/*START - @media (max-width:375px)*/
-/* iPhone 6*/
-@media (max-width:375px) {
-    #promo-button1{
-        padding: 2px 0px;
-    }
-    #home-fusion-content-boxes2 .content-box-heading{
-        font-size: 14px !important;
-        line-height: 15px !important;
-    }
-}
-/*END - @media (max-width:375px)*/
-/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
-/*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
-/*START - @media (max-width:370px)*/
-/* Avada's smallest screen width supported */
-@media (max-width:370px) {
-    #promo-button1{
-        padding: 2px 0px;
-    }
-    #home-fusion-content-boxes2 i{
-        font-size: 60px !important;
-    }
-}
-/*END - @media (max-width:370px)*/
-/*<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
