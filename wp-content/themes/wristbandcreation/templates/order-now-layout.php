@@ -215,7 +215,7 @@ if (isset($_REQUEST['id']))
                                              if (strpos($key, 'color_') === false || empty($customization_locationlist)) continue;
                                          if(isset($WristColor)){ if ($list == $WristColor){ $Selected = 'color-wrap selected'; } }
                                          endforeach;
-                                         
+
                                          ?>
 
                                          <div id="colorStyleBox" title= "<?php echo $style; ?>" class="<?php echo $Selected;  ?>">
@@ -516,7 +516,7 @@ if (isset($_REQUEST['id']))
                                                 </label>
                                             </td><td>
                                             <input type="text" name="front_message" class="input-text trigger-limit-char"
-                                            data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Front_msg']; ?>">
+                                            data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Front_msg']; ?>" maxlength="40">
                                         </td>
                                     </tr></table>
                                 </div>
@@ -531,7 +531,7 @@ if (isset($_REQUEST['id']))
                                         </label>
                                     </td><td>
                                     <input type="text" name="back_message"  class="input-text trigger-limit-char"
-                                    data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Back_msg']; ?>"  />
+                                    data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Back_msg']; ?>" maxlength="40" />
                                 </td>
                             </tr></table>
                         </div><!-- /.form-group -->
@@ -548,7 +548,7 @@ if (isset($_REQUEST['id']))
                                 </label>
                             </td><td>
                             <input type="text" name="continues_message" class="input-text trigger-limit-char"
-                            data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Wrap_msg']; ?>" />
+                            data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Wrap_msg']; ?>" maxlength="40"/>
                         </td>
                     </tr></table>
                 </div><!-- /.form-group -->
@@ -564,7 +564,7 @@ if (isset($_REQUEST['id']))
                     </label>
                 </td><td>
                 <input type="text" name="inside_message" class="input-text trigger-limit-char"
-                data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Inside_msg']; ?>" />
+                data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Inside_msg']; ?>"maxlength="40" />
             </td>
         </tr></table>
     </div><!-- /.form-group -->

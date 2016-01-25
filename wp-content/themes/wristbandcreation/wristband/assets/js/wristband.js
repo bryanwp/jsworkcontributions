@@ -2154,9 +2154,6 @@ function hideAllColor(){
 
     }
 
-
-
-
     $(document).ready(function() {
 
         $(document.body)
@@ -3088,7 +3085,8 @@ function hideAllColor(){
                 var width = $("#width").val();
                 var newwidth = width.replace('/','_');
                 var value = $('input[name=isWrapCont]').val();
-
+               
+                
                 //console.log(value);
                 if (e.keyCode === 46 || e.keyCode === 8) {
                     if ($('input[name=wrapPaste]').val() === '1') {
@@ -3111,8 +3109,8 @@ function hideAllColor(){
                     disableWrapped();
                     //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
                     if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
-                        console.log('this is it');
-                        $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
+                        console.log('this is it 2');
+                        $("#front-endcont2").append($("#front-endcont1").text());
                         $("#front-endcont1").empty();
                         $('input[name=isWrapCont]').val('1');
 
@@ -3121,9 +3119,9 @@ function hideAllColor(){
 
                     } else {
                         console.log('this is it 1');
-                        $("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
+                        //$("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
 
-                        $("#front-endcont2").empty();
+                        //$("#front-endcont2").empty();
                         $('input[name=isWrapCont]').val('0');
 
                         $("#front-textcont1").text(cont_msg.substring(0, cont_msg.length));
@@ -3131,9 +3129,10 @@ function hideAllColor(){
                     }
                     if ($('input[name=wrapPaste]').val() === '1') {
                         enableWrapped();
+                        console.log('goes here');
                         $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
                         $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
-                        $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
+                        $("#front-endcont2").append($("#front-endcont1").text());
                         $("#front-endcont1").empty();
                     }
 
@@ -3153,7 +3152,7 @@ function hideAllColor(){
                     if (Builder.data.clipart.view_position == "front"){
                         $('#icon_start').text( $('#front_start').text() );
                         $('#icon_end').text( $('#front_end').text() );
-                    } else {
+                    } else if(Builder.data.clipart.view_position == "back"){
                         $('#icon_start').text( $('#back_start').text() );
                         $('#icon_end').text( $('#back_end').text() );
                     }
@@ -3164,7 +3163,9 @@ function hideAllColor(){
 
             .on('show.bs.modal', '#wristband-clipart-modal', function(e){
                 var button = $(e.relatedTarget),
-                    modal = $(this);
+                    modal = $(this);   
+                    console.log(button);
+                    console.log(modal);
 
                 modal.find('.modal-title').text('Choose your '+ button.data('title') +' Clipart ');
                 modal.find('.clipart-list').data('target', '#' + button.attr('id'));
@@ -3227,7 +3228,26 @@ function hideAllColor(){
                     preview = $('.preview-button.active').data('view');
 
                     if(icon == undefined) {
-
+                          switch (position) {
+                            case "front_start":
+                                $('#front-start1').text('');
+                                break;
+                            case "front_end":
+                                $('#front-end1').text('');
+                                break;
+                            case "back_start":
+                                $('#front-start2').text('');
+                                break;
+                            case "back_end":
+                                $('#front-end2').text('');
+                                break;
+                            case "wrap_start":
+                                $('#front-startcont1').text('');
+                                break;
+                            case "wrap_end":
+                                $('#front-endcont1').text('');
+                                break;
+                        }
                     }else{  
 
                         switch (position) {
@@ -3257,6 +3277,7 @@ function hideAllColor(){
                 });
 
                 button.find('.icon-preview').addClass(icon == undefined ? 'fa-ban' : icon);
+                //console.log('this is here a joke');
                 Builder.data['clipart'][button.data('position')] =  icon == undefined ? '' : icon;
                 Builder.has_upload = false;
                 $('#wristband-clipart-modal').modal('hide');
