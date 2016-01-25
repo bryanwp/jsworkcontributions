@@ -184,8 +184,8 @@ if (isset($_REQUEST['id']))
                                         <?php $flag = true; foreach ($GLOBALS['wbc_settings']->color_style as $style => $data ): ?>
                                         <li class="<?php echo $flag ? 'active' : ''; ?>">
                                             <a class="tab-link" id="<?php echo sanitize_title($style); ?>" href="#tab-<?php echo sanitize_title($style); ?>"
-                                             data-toggle="tab">
-                                             <div class="radio">
+                                               data-toggle="tab">
+                                               <div class="radio">
                                                 <label>
                                                     <center><input type="radio" name="color_style" value="<?php echo esc_attr($style); ?>"
                                                         <?php echo $flag ? 'checked' : ''; ?>/>
@@ -212,13 +212,13 @@ if (isset($_REQUEST['id']))
                                             
                                             $Selected = "color-wrap";
                                             foreach($color_list as $key => $list):
-                                               if (strpos($key, 'color_') === false || empty($customization_locationlist)) continue;
-                                           if(isset($WristColor)){ if ($list == $WristColor){ $Selected = 'color-wrap selected'; } }
-                                           endforeach;
-                                           
-                                           ?>
+                                             if (strpos($key, 'color_') === false || empty($customization_locationlist)) continue;
+                                         if(isset($WristColor)){ if ($list == $WristColor){ $Selected = 'color-wrap selected'; } }
+                                         endforeach;
+                                         
+                                         ?>
 
-                                           <div id="colorStyleBox" title= "<?php echo $style; ?>" class="<?php echo $Selected;  ?>">
+                                         <div id="colorStyleBox" title= "<?php echo $style; ?>" class="<?php echo $Selected;  ?>">
                                             <?php
                                             $colorx = array();
                                             foreach($color_list as $key => $list):
@@ -851,18 +851,18 @@ if (isset($_REQUEST['id']))
             <?php if (count($GLOBALS['wbc_settings']->logo->list) != 0): ?>
             <ul class="clipart-list">
 
-             <li class="fusion-li-item active">
-                 <label for="">
-                     <div class="icon-preview">
-                         <i class="fusion-li-icon fa fa-times color-red"></i>
-                     </div>
-                 </label>
-             </li>
-             <?php foreach ($GLOBALS['wbc_settings']->logo->list as $name => $icon): 
-             ?>
-             <li class="fusion-li-item" data-icon-code="<?php echo esc_attr($icon->glyp_code); ?>" data-icon="<?php echo esc_attr($icon->glyphicon); ?>" data-icon-name="<?php echo esc_attr($icon->name); ?>">
-                 <label for="">
-                     <div class="icon-preview">
+               <li class="fusion-li-item active">
+                   <label for="">
+                       <div class="icon-preview">
+                           <i class="fusion-li-icon fa fa-times color-red"></i>
+                       </div>
+                   </label>
+               </li>
+               <?php foreach ($GLOBALS['wbc_settings']->logo->list as $name => $icon): 
+               ?>
+               <li class="fusion-li-item" data-icon-code="<?php echo esc_attr($icon->glyp_code); ?>" data-icon="<?php echo esc_attr($icon->glyphicon); ?>" data-icon-name="<?php echo esc_attr($icon->name); ?>">
+                   <label for="">
+                       <div class="icon-preview">
                         <i class="fusion-li-icon fa <?php echo esc_attr($icon->glyphicon); ?>"></i>
                     </div>
                            <!--<div class="clearpart-info text-center">
