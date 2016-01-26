@@ -417,6 +417,9 @@ if (isset($_REQUEST['id']))
                                     <use id="arc1" xlink:href="#InsideArc" stroke-dasharray="5, 5" stroke="black" display="none"/>
                                     <!--<use xlink:href="#MyPathCont1" fill="none" stroke="blue"  />-->
                                     <!--<use xlink:href="#MyPathInside1" fill="none" stroke="green"  />-->
+                                    <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">FRONT</text>
+                                    <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">FRONT</text>
+                                    <rect width="100%" height="100%" style="stroke:white;stroke-width:2;fill-opacity:0;">
                                     <?php echo $glow1; ?>
                                 </svg>
                                 <svg id="svgelement" viewBox="0 0 300 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -480,6 +483,9 @@ if (isset($_REQUEST['id']))
                                     <!--<use xlink:href="#MyPath2" fill="none" stroke="red"  />-->
                                     <!--<use xlink:href="#MyPathCont2" fill="none" stroke="blue"  />-->
                                     <!--<use xlink:href="#MyPathInside2" fill="none" stroke="green"  />-->
+                                    <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">BACK</text>
+                                    <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">BACK</text>
+                                    <rect width="100%" height="100%" style="stroke:white;stroke-width:2;fill-opacity:0;">
                                     <?php echo $glow2; ?>
                                 </svg>            
                             </div>
