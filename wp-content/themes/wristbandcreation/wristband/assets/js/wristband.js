@@ -646,7 +646,7 @@ jQuery(function ($) {
                                 price: numberFormat(additional_price,2),
                             } );
                         Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'each-message');
-                        console.log(costType);
+                        //console.log(costType);
                     } else if (costType == 'Per Order') {
                         Builder.data.total_price += additional_price;
                         // Render alert message
@@ -656,7 +656,7 @@ jQuery(function ($) {
                             }
                         );
                         Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'per-order');
-                        console.log(costType);
+                        //console.log(costType);
                     }
                 }   
             });
@@ -1150,47 +1150,46 @@ jQuery(function ($) {
     function LoadPicture(FS,FE,BS,BE,VP,WristStat,WS,WE){
         $('.clipart-list li').each( function () {
             var glyp = $(this).data('icon-code');
-
-
+                    //console.log(glyp);
             if ($(this).data('icon') == FS){ 
                 $('#FsID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#FsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
-                $('#front_start').text(glyp);
+                $('#front-start1').text(glyp);
                 $('#icon_start').text(  $('#front_start').text());
                 $('#icon_end').text(  $('#front_end').text());
             } 
             if ($(this).data('icon') == FE){
                 $('#FeID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#FeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
-                $('#front_end').text(glyp);
+                $('#front-end1').text(glyp);
                 $('#icon_start').text(  $('#front_start').text());
                 $('#icon_end').text(  $('#front_end').text());
             } 
             if ($(this).data('icon') == BS){
                 $('#BsID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#BsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
-                $('#back_start').text(glyp);
+                $('#front-start2').text(glyp);
                 $('#icon_start').text(  $('#back_start').text());
                 $('#icon_end').text(  $('#back_end').text());
             } 
             if ($(this).data('icon') == BE){
                 $('#BeID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#BeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));;
-                $('#back_end').text(glyp);
+                $('#front-end2').text(glyp);
                 $('#icon_start').text(  $('#back_start').text());
                 $('#icon_end').text(  $('#back_end').text());
             } 
             if ($(this).data('icon') == WS){
                 $('#WsID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#WsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));;
-                $('#wrap_start').text(glyp);
+                $('#front-startcont1').text(glyp);
                 $('#icon_start').text(  $('#wrap_start').text());
                 $('#icon_end').text(  $('#wrap_end').text());
             } 
             if ($(this).data('icon') == WE){
                 $('#WeID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#WeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));;
-                $('#wrap_end').text(glyp);
+                $('#front-endcont1').text(glyp);
                 $('#icon_start').text(  $('#wrap_start').text());
                 $('#icon_end').text(  $('#wrap_end').text());
             }
@@ -2361,16 +2360,27 @@ function hideAllColor(){
             })
             // Hide/Show message type fields
             .on('change', 'input[name="message_type"]', function() {
+                var message_type = $('input[name="message_type"]:checked').val();
                 if (this.checked) {
 
+                    if(message_type == 'continues'){
+                            if($('input[name="continues_message"]').val().length > 40){
+                                $('input[name="front_message"]').val($('input[name="continues_message"]').val().substring(0,40));
+                                 $('input[name="front_message"]').trigger("change");
+                            }else{
+                                console.log('ari xa');
+                                $('input[name="front_message"]').val($('input[name="continues_message"]').val());
+                                 $('input[name="front_message"]').trigger("change");
+                            }
+                    
+                    } else {
+                                $('input[name="continues_message"]').val($('input[name="front_message"]').val());
+                                $('input[name="continues_message"]').trigger("change");
+
+                    }
+
                     messageOptionDisplay(this.value); // display the default message option which front, back & inside
-                                    if($('input[name="continues_message"]').val().length > 40){
-                                            $('input[name="front_message"]').val($('input[name="continues_message"]').val().substring(0,40));
-                                        }else{
-                                            $('input[name="front_message"]').val($('input[name="continues_message"]').val());
-                                        }
-                                    $('input[name="front_message"]').trigger("change");  
-                }
+                                                    }
             })
             // Message character limit
             .on('keyup', '.trigger-limit-char', function(e) {
@@ -2994,8 +3004,8 @@ function hideAllColor(){
                 // $("#txtInputCont").val($("#txtInput1").val());
                 // $("#txtInputCont").trigger("change");   
 
-                $('input[name="continues_message"]').val($('input[name="front_message"]').val());
-                $('input[name="continues_message"]').trigger("change");
+                // $('input[name="continues_message"]').val($('input[name="front_message"]').val());
+                // $('input[name="continues_message"]').trigger("change");
                 if (front_msg.length < 6) {
                         document.getElementById("bandtext1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
                         $('#bandtext1')[0].setAttribute('lengthAdjust', '');
@@ -3142,8 +3152,7 @@ function hideAllColor(){
 
             // Trigger change when message type is choosen
             .on('change', 'input[name="message_type"], .customization-date-select', function() {
-                Builder.observer();
-                TempReloadSVG();
+
 
                 if (this.value == "continues"){
                         $('#icon_start').text( $('#wrap_start').text() );
@@ -3157,7 +3166,8 @@ function hideAllColor(){
                         $('#icon_end').text( $('#back_end').text() );
                     }
                 }
-                
+                Builder.observer();
+                TempReloadSVG();
                // Builder.observer();
             })
 
@@ -3564,13 +3574,14 @@ function hideAllColor(){
             .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {
                 Builder.calculateDeliveryDate();
             })
-            .on('change keyup copy','input[name="inside_message"]',function(e) {
+            .on('change keyup copy paste','input[name="inside_message"]',function(e) {
                 var inside_msg = $('input[name="inside_message"]').val();
                 var width = $("#width").val();
                 var newwidth = width.replace('/','_');
 
                 // $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
                 // $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
+
 
                 if (e.keyCode === 46 || e.keyCode === 8) {
                     if ($('input[name=backPaste]').val() === '1') {
@@ -3600,8 +3611,7 @@ function hideAllColor(){
                         var span_textinside1 = $('input[name=textinside]').val().length;
                         $("#front-textinside2").text(inside_msg.substring(span_textinside1 - 1, inside_msg.length));
                     } else {
-                        $("#front-endinside1").empty().append($("#front-endinside2-icon :selected").text());
-                        $("#front-endinside2").empty();
+                       
                         $('input[name=isWrapInside]').val('0');
 
                         $("#front-textinside1").text(inside_msg.substring(0, inside_msg.length));
@@ -3612,11 +3622,14 @@ function hideAllColor(){
                     enableWrapped2();
                     $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
                     $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
-                    $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
-                    $("#front-endinside1").empty();
+                   
                 }
                 Builder.observer();
             })
+
+             .on('paste','input[name="inside_message"]',function(e) {
+                $('input[name=backPaste]').val(1);
+             })
 
             .on('focus','input[name="inside_message"]', function(e) {
                 var width = $("#width").val();
