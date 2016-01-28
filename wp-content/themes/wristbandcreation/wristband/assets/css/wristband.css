@@ -780,3 +780,8 @@ input[type="checkbox"],input[type="radio"] {
 {
     padding: 10px 0 10px 20px;
 }
+/* justin css */
+.wbdiv {
+            width:528px;
+            margin: 0 auto;      
+}
