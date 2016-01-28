@@ -2993,95 +2993,95 @@ function hideAllColor(){
                Builder.observer();
             })
             // front message changes
-            // .on('change keyup copy paste','input[name="front_message"]',function(e){
+            .on('change keyup copy paste','input[name="front_message"]',function(e){
 
-            //     var message_type = $('input[name="message_type"]:checked').val();
-            //     var front_msg = $('input[name="front_message"]').val();
-            //     var width = $("#width").val();
-            //     var newwidth = width.replace('/','_');
-            //     var cont_msg = $('input[name="continues_message"]').val();
-
-            //     // $("#txtInputCont").val($("#txtInput1").val());
-            //     // $("#txtInputCont").trigger("change");   
-
-            //     // $('input[name="continues_message"]').val($('input[name="front_message"]').val());
-            //     // $('input[name="continues_message"]').trigger("change");
-            //     if (front_msg.length < 6) {
-            //             document.getElementById("bandtext1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
-            //             $('#bandtext1')[0].setAttribute('lengthAdjust', '');
-            //             $('#bandtext1')[0].setAttribute('textLength', '');
-            //         }
-            //         $("#front-text1").text(front_msg);
-            //         if (front_msg.length > 30) {
-            //             document.getElementById("bandtext1").style.fontSize = '16px';
-            //             $('#bandtext1')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
-            //             $('#bandtext1')[0].setAttribute('textLength', '270');
-            //         } else {
-            //             $('#bandtext1')[0].setAttribute('lengthAdjust', '');
-            //             $('#bandtext1')[0].setAttribute('textLength', '');
-                        
-            //             for (var d = 1; d < 100; d++) {
-            //                 if (($("#bandtext1")[0].getBoundingClientRect().width < size_[newwidth]['FBPathDelete']) && (parseInt($("#bandtext1").css('font-size')) < (size_[newwidth]['MaxFont']))) {
-            //                     document.getElementById("bandtext1").style.fontSize = (parseInt($("#bandtext1").css('font-size')) + 1) + 'px';
-            //                     $("#front-text1").text(front_msg);
-            //                 } else {
-            //                     break;
-            //                 }
-            //             }
-            //             if (e.keyCode !== 46 || e.keyCode !== 8) {
-            //                 for (var d = 1; d < 100; d++) {
-            //                     if (($("#bandtext1")[0].getBoundingClientRect().width > (size_[newwidth]['FBPathLimit'] - 40))
-            //                             && (parseInt($("#bandtext1").css('font-size')) > 12)) {
-            //                         document.getElementById("bandtext1").style.fontSize = (parseInt($("#bandtext1").css('font-size')) - 0.5) + 'px';
-            //                         $("#front-text1").text(front_msg);
-            //                     } else {
-            //                         break;
-            //                     }
-            //                 }
-            //             }
-            //         }
-
-            //     Builder.observer();
-
-            // })
-
-            .on('custom','input[name="front_message"]', function (e) {
-                var txtlen = $('input[name="front_message"]').val().length;    
                 var message_type = $('input[name="message_type"]:checked').val();
                 var front_msg = $('input[name="front_message"]').val();
                 var width = $("#width").val();
                 var newwidth = width.replace('/','_');
+                var cont_msg = $('input[name="continues_message"]').val();
 
-                if (txtlen < 6) {
-                    document.getElementById("bandtext1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
-                    $('#bandtext1')[0].setAttribute('lengthAdjust', '');
-                    $('#bandtext1')[0].setAttribute('textLength', '');
-                    $('input[name=lengthAdjustFlagBand1]').val(0);
-                }
-                $("#front-text1").text(front_msg);
-                if (($("#bandtext1")[0].getBoundingClientRect().width > (size_[newwidth][$('.wbdiv').width()]['FBPathLimit'])) && (parseInt($("#bandtext1").css('font-size')) > 9)) {
-                    $('#bandtext1')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
-                    $('#bandtext1')[0].setAttribute('textLength', '270');
-                    $('input[name=lengthAdjustFlagBand1]').val(1);
-                }
-                if ($('input[name=lengthAdjustFlagBand1]').val() === '1') {
-                    document.getElementById("bandtext1").style.fontSize = (wb[$("#ddlSize").val()]['MaxFont'] - (0.5 * $("#txtInput1").val().length)) + 'px';
-                    $("#front-text").text($('#txtInput1').val());
-                }
+                // $("#txtInputCont").val($("#txtInput1").val());
+                // $("#txtInputCont").trigger("change");   
+
+                // $('input[name="continues_message"]').val($('input[name="front_message"]').val());
+                // $('input[name="continues_message"]').trigger("change");
+                if (front_msg.length < 6) {
+                        document.getElementById("bandtext1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+                        $('#bandtext1')[0].setAttribute('lengthAdjust', '');
+                        $('#bandtext1')[0].setAttribute('textLength', '');
+                    }
+                    $("#front-text1").text(front_msg);
+                    if (front_msg.length > 30) {
+                        document.getElementById("bandtext1").style.fontSize = '16px';
+                        $('#bandtext1')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
+                        $('#bandtext1')[0].setAttribute('textLength', '270');
+                    } else {
+                        $('#bandtext1')[0].setAttribute('lengthAdjust', '');
+                        $('#bandtext1')[0].setAttribute('textLength', '');
+                        
+                        for (var d = 1; d < 100; d++) {
+                            if (($("#bandtext1")[0].getBoundingClientRect().width < size_[newwidth]['FBPathDelete']) && (parseInt($("#bandtext1").css('font-size')) < (size_[newwidth]['MaxFont']))) {
+                                document.getElementById("bandtext1").style.fontSize = (parseInt($("#bandtext1").css('font-size')) + 1) + 'px';
+                                $("#front-text1").text(front_msg);
+                            } else {
+                                break;
+                            }
+                        }
+                        if (e.keyCode !== 46 || e.keyCode !== 8) {
+                            for (var d = 1; d < 100; d++) {
+                                if (($("#bandtext1")[0].getBoundingClientRect().width > (size_[newwidth]['FBPathLimit'] - 40))
+                                        && (parseInt($("#bandtext1").css('font-size')) > 12)) {
+                                    document.getElementById("bandtext1").style.fontSize = (parseInt($("#bandtext1").css('font-size')) - 0.5) + 'px';
+                                    $("#front-text1").text(front_msg);
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                Builder.observer();
+
             })
 
-            .on ('paste keyup','input[name="front_message"]' function (e) {
-                        var tmpString = $("#txtInput1").val();
-                        $("#txtInput1").val('');
-                        for (var x = 0; x < tmpString.length; x++)
-                        {
-                            $("#txtInput1").val($("#txtInput1").val() + tmpString.charAt(x));
-                            $("#txtInput1").trigger("custom");
-                        }
-                        if (tmpString.length === 0) {
-                            $("#txtInput1").trigger("custom");
-                        }
-            });
+            // .on('custom','input[name="front_message"]', function (e) {
+            //     var txtlen = $('input[name="front_message"]').val().length;    
+            //     var message_type = $('input[name="message_type"]:checked').val();
+            //     var front_msg = $('input[name="front_message"]').val();
+            //     var width = $("#width").val();
+            //     var newwidth = width.replace('/','_');
+
+            //     if (txtlen < 6) {
+            //         document.getElementById("bandtext1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+            //         $('#bandtext1')[0].setAttribute('lengthAdjust', '');
+            //         $('#bandtext1')[0].setAttribute('textLength', '');
+            //         $('input[name=lengthAdjustFlagBand1]').val(0);
+            //     }
+            //     $("#front-text1").text(front_msg);
+            //     if (($("#bandtext1")[0].getBoundingClientRect().width > (size_[newwidth][$('.wbdiv').width()]['FBPathLimit'])) && (parseInt($("#bandtext1").css('font-size')) > 9)) {
+            //         $('#bandtext1')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
+            //         $('#bandtext1')[0].setAttribute('textLength', '270');
+            //         $('input[name=lengthAdjustFlagBand1]').val(1);
+            //     }
+            //     if ($('input[name=lengthAdjustFlagBand1]').val() === '1') {
+            //         document.getElementById("bandtext1").style.fontSize = (wb[$("#ddlSize").val()]['MaxFont'] - (0.5 * $("#txtInput1").val().length)) + 'px';
+            //         $("#front-text").text($('#txtInput1').val());
+            //     }
+            // })
+
+            // .on ('paste keyup','input[name="front_message"]' function (e) {
+            //             var tmpString = $("#txtInput1").val();
+            //             $("#txtInput1").val('');
+            //             for (var x = 0; x < tmpString.length; x++)
+            //             {
+            //                 $("#txtInput1").val($("#txtInput1").val() + tmpString.charAt(x));
+            //                 $("#txtInput1").trigger("custom");
+            //             }
+            //             if (tmpString.length === 0) {
+            //                 $("#txtInput1").trigger("custom");
+            //             }
+            // });
     
             // back message changes            
             .on('change keyup copy paste', 'input[name="back_message"]', function(e){
