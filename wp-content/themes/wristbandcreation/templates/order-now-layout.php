@@ -353,7 +353,8 @@ if (isset($_REQUEST['id']))
                             <input type="hidden" name="backPaste" value="0">
                             <input type="hidden" name="wrapPaste" value="0">
                             <input type="hidden" name="insidePaste" value="0">
-
+                            <input type="hidden" name="lengthAdjustFlagBand1" value="0">
+                            <input type="hidden" name="lengthAdjustFlagBand2" value="0">
 
                             <div class="imageframe-align-center image-preview">
                                 <svg id="svgelement" viewBox="0 0 300 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -422,7 +423,7 @@ if (isset($_REQUEST['id']))
                                     <rect width="100%" height="100%" style="stroke:white;stroke-width:2;fill-opacity:0;">
                                     <?php echo $glow1; ?>
                                 </svg>
-                                <svg id="svgelement" viewBox="0 0 300 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <svg id="svgelement2" viewBox="0 0 300 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <rect id="bandcolor2" height="100%" width="100%" style="fill: gray" />
                                     <?php echo $mask_inside_band2; ?>
                                     <?php echo $mask2_inside_band2 . $mask1_inside_band2; ?>
