@@ -2992,7 +2992,7 @@ function hideAllColor(){
             .on('keyup', 'input[name="front_message"], input[name="continues_message"], input[name="back_message"], input[name="inside_message"]', function() {
                Builder.observer();
             })
-
+            // front message changes
             .on('change keyup copy paste','input[name="front_message"]',function(e){
 
                 var message_type = $('input[name="message_type"]:checked').val();
@@ -3045,6 +3045,45 @@ function hideAllColor(){
 
             })
 
+            // .on('custom','input[name="front_message"]', function (e) {
+            //     var txtlen = $('input[name="front_message"]').val().length;    
+            //     var message_type = $('input[name="message_type"]:checked').val();
+            //     var front_msg = $('input[name="front_message"]').val();
+            //     var width = $("#width").val();
+            //     var newwidth = width.replace('/','_');
+
+            //     if (txtlen < 6) {
+            //         document.getElementById("bandtext1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+            //         $('#bandtext1')[0].setAttribute('lengthAdjust', '');
+            //         $('#bandtext1')[0].setAttribute('textLength', '');
+            //         $('input[name=lengthAdjustFlagBand1]').val(0);
+            //     }
+            //     $("#front-text1").text(front_msg);
+            //     if (($("#bandtext1")[0].getBoundingClientRect().width > (size_[newwidth][$('.wbdiv').width()]['FBPathLimit'])) && (parseInt($("#bandtext1").css('font-size')) > 9)) {
+            //         $('#bandtext1')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
+            //         $('#bandtext1')[0].setAttribute('textLength', '270');
+            //         $('input[name=lengthAdjustFlagBand1]').val(1);
+            //     }
+            //     if ($('input[name=lengthAdjustFlagBand1]').val() === '1') {
+            //         document.getElementById("bandtext1").style.fontSize = (wb[$("#ddlSize").val()]['MaxFont'] - (0.5 * $("#txtInput1").val().length)) + 'px';
+            //         $("#front-text").text($('#txtInput1').val());
+            //     }
+            // })
+
+            // .on ('paste keyup','input[name="front_message"]' function (e) {
+            //             var tmpString = $("#txtInput1").val();
+            //             $("#txtInput1").val('');
+            //             for (var x = 0; x < tmpString.length; x++)
+            //             {
+            //                 $("#txtInput1").val($("#txtInput1").val() + tmpString.charAt(x));
+            //                 $("#txtInput1").trigger("custom");
+            //             }
+            //             if (tmpString.length === 0) {
+            //                 $("#txtInput1").trigger("custom");
+            //             }
+            // });
+    
+            // back message changes            
             .on('change keyup copy paste', 'input[name="back_message"]', function(e){
                 var message_type = $('input[name="message_type"]:checked').val();
                 var back_msg = $('input[name="back_message"]').val();
@@ -3088,7 +3127,7 @@ function hideAllColor(){
                 Builder.observer();
 
             })
-
+            //continuous message changes
             .on('change keyup copy paste','input[name="continues_message"]',function(e) {
                 var message_type = $('input[name="message_type"]:checked').val();
                 var cont_msg = $('input[name="continues_message"]').val();
@@ -3148,6 +3187,105 @@ function hideAllColor(){
 
                 }
                 Builder.observer();
+            })
+            // inside message changes
+             .on('change keyup copy paste','input[name="inside_message"]',function(e) {
+                var inside_msg = $('input[name="inside_message"]').val();
+                var width = $("#width").val();
+                var newwidth = width.replace('/','_');
+
+                // $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
+                // $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
+
+
+                if (e.keyCode === 46 || e.keyCode === 8) {
+                    if ($('input[name=backPaste]').val() === '1') {
+                        $('input[name=backPaste]').val(0);
+                        disableWrapped();
+                        $("#txtInputInside").val('');
+                    }
+                }
+                if (inside_msg.length < $('input[name=textinside]').val().length + 1) {
+                    $("#front-textinside2").text('');
+                    disableWrapped2();
+                }
+                $("#front-textcontainer2").text(inside_msg);
+                if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '750') {
+
+                    enableWrapped2();
+
+                    $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
+                    $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
+                } else {
+                    disableWrapped2();
+                    if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '480') {
+                        $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
+                        $("#front-endinside1").empty();
+                        $('input[name=isWrapInside]').val('1');
+
+                        var span_textinside1 = $('input[name=textinside]').val().length;
+                        $("#front-textinside2").text(inside_msg.substring(span_textinside1 - 1, inside_msg.length));
+                    } else {
+                       
+                        $('input[name=isWrapInside]').val('0');
+
+                        $("#front-textinside1").text(inside_msg.substring(0, inside_msg.length));
+                        $('input[name=textinside]').val(inside_msg.substring(0, inside_msg.length));
+                    }
+                }
+                if ($('input[name=backPaste]').val() === '1') {
+                    enableWrapped2();
+                    $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
+                    $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
+                   
+                }
+                Builder.observer();
+            })
+
+             .on('paste','input[name="inside_message"]',function(e) {
+                $('input[name=backPaste]').val(1);
+             })
+
+            .on('focus','input[name="inside_message"]', function(e) {
+                var width = $("#width").val();
+                var newwidth = width.replace('/','_');
+
+                $("#outsidesolid1").attr("display", "none");
+                $("#outsidesolid2").attr("display", "none");
+                $("#mask1_band1").attr("display", "none");
+                $("#mask2_band1").attr("display", "none");
+                $("#mask1_band2").attr("display", "none");
+                $("#mask2_band2").attr("display", "none");
+
+                $("#bandtext1").attr("display", "none");
+                $("#bandtext2").attr("display", "none");
+                $("#bandtextcont1").attr("display", "none");
+                $("#bandtextcont2").attr("display", "none");
+                $("#bandtextinside1").removeAttr("display");
+                $("#bandtextinside2").removeAttr("display");
+                hidebackshadow();                 
+                $("#segcolor1_cover_band1").attr("display", "none");
+                $("#segcolor2_cover_band1").attr("display", "none");
+                $("#segcolor3_band1").attr("display", "none");
+
+                $("#segcolor1_cover_band2").attr("display", "none");
+                $("#segcolor2_cover_band2").attr("display", "none"); 
+
+                $("#img1_" + newwidth).attr("display","none");
+                $("#img2_" + newwidth).attr("display","none");
+                $("#no_arc_img1_" + newwidth).removeAttr("display");
+                $("#no_arc_img2_" + newwidth).removeAttr("display");
+
+                $('#InsideArc')[0].setAttribute('d', size_[newwidth]['InsideArc']);
+                $("#arc1").removeAttr("display");
+                $("#arc2").removeAttr("display");
+            
+            })
+            
+            .on('focusout','input[name="inside_message"]', function(e) {
+                $('#arc1').attr("display","none");
+                $('#arc2').attr("display","none");
+                messageOptionDisplay($('input[name="message_type"]:checked').val());
             })
 
             // Trigger change when message type is choosen
@@ -3574,104 +3712,7 @@ function hideAllColor(){
             .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {
                 Builder.calculateDeliveryDate();
             })
-            .on('change keyup copy paste','input[name="inside_message"]',function(e) {
-                var inside_msg = $('input[name="inside_message"]').val();
-                var width = $("#width").val();
-                var newwidth = width.replace('/','_');
-
-                // $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
-                // $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
-
-
-                if (e.keyCode === 46 || e.keyCode === 8) {
-                    if ($('input[name=backPaste]').val() === '1') {
-                        $('input[name=backPaste]').val(0);
-                        disableWrapped();
-                        $("#txtInputInside").val('');
-                    }
-                }
-                if (inside_msg.length < $('input[name=textinside]').val().length + 1) {
-                    $("#front-textinside2").text('');
-                    disableWrapped2();
-                }
-                $("#front-textcontainer2").text(inside_msg);
-                if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '750') {
-
-                    enableWrapped2();
-
-                    $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
-                    $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
-                } else {
-                    disableWrapped2();
-                    if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '480') {
-                        $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
-                        $("#front-endinside1").empty();
-                        $('input[name=isWrapInside]').val('1');
-
-                        var span_textinside1 = $('input[name=textinside]').val().length;
-                        $("#front-textinside2").text(inside_msg.substring(span_textinside1 - 1, inside_msg.length));
-                    } else {
-                       
-                        $('input[name=isWrapInside]').val('0');
-
-                        $("#front-textinside1").text(inside_msg.substring(0, inside_msg.length));
-                        $('input[name=textinside]').val(inside_msg.substring(0, inside_msg.length));
-                    }
-                }
-                if ($('input[name=backPaste]').val() === '1') {
-                    enableWrapped2();
-                    $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
-                    $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
-                   
-                }
-                Builder.observer();
-            })
-
-             .on('paste','input[name="inside_message"]',function(e) {
-                $('input[name=backPaste]').val(1);
-             })
-
-            .on('focus','input[name="inside_message"]', function(e) {
-                var width = $("#width").val();
-                var newwidth = width.replace('/','_');
-
-                $("#outsidesolid1").attr("display", "none");
-                $("#outsidesolid2").attr("display", "none");
-                $("#mask1_band1").attr("display", "none");
-                $("#mask2_band1").attr("display", "none");
-                $("#mask1_band2").attr("display", "none");
-                $("#mask2_band2").attr("display", "none");
-
-                $("#bandtext1").attr("display", "none");
-                $("#bandtext2").attr("display", "none");
-                $("#bandtextcont1").attr("display", "none");
-                $("#bandtextcont2").attr("display", "none");
-                $("#bandtextinside1").removeAttr("display");
-                $("#bandtextinside2").removeAttr("display");
-                hidebackshadow();                 
-                $("#segcolor1_cover_band1").attr("display", "none");
-                $("#segcolor2_cover_band1").attr("display", "none");
-                $("#segcolor3_band1").attr("display", "none");
-
-                $("#segcolor1_cover_band2").attr("display", "none");
-                $("#segcolor2_cover_band2").attr("display", "none"); 
-
-                $("#img1_" + newwidth).attr("display","none");
-                $("#img2_" + newwidth).attr("display","none");
-                $("#no_arc_img1_" + newwidth).removeAttr("display");
-                $("#no_arc_img2_" + newwidth).removeAttr("display");
-
-                $('#InsideArc')[0].setAttribute('d', size_[newwidth]['InsideArc']);
-                $("#arc1").removeAttr("display");
-                $("#arc2").removeAttr("display");
-            
-            })
-            
-            .on('focusout','input[name="inside_message"]', function(e) {
-                $('#arc1').attr("display","none");
-                $('#arc2').attr("display","none");
-                messageOptionDisplay($('input[name="message_type"]:checked').val());
-            })  
+             
 
             .on('click', '#front_view_button, #back_view_button', function(e) {
                 e.preventDefault();

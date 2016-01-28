@@ -355,7 +355,7 @@ if (isset($_REQUEST['id']))
                             <input type="hidden" name="insidePaste" value="0">
                             <input type="hidden" name="lengthAdjustFlagBand1" value="0">
                             <input type="hidden" name="lengthAdjustFlagBand2" value="0">
-
+                            <div class="wbdiv">
                             <div class="imageframe-align-center image-preview">
                                 <svg id="svgelement" viewBox="0 0 300 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <defs>
@@ -490,7 +490,7 @@ if (isset($_REQUEST['id']))
                                     <?php echo $glow2; ?>
                                 </svg>            
                             </div>
-
+                        </div>
                             <div>
                                 <div class="form-row">
                                     <label for="message_type" class="form-group-heading CssTitleBlack marginTB-5" style="float:left">Message on Wristbands</label class="form-group-heading CssTitleBlack" >
