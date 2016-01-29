@@ -2358,7 +2358,30 @@ function hideAllColor(){
                 Builder.init();
                 Builder.renderProductionShippingOptions();
             })
-            
+            // Hide/Show message type fields
+            .on('change', 'input[name="message_type"]', function() {
+                var message_type = $('input[name="message_type"]:checked').val();
+                if (this.checked) {
+
+                    if(message_type == 'continues'){
+                            if($('input[name="continues_message"]').val().length > 40){
+                                $('input[name="front_message"]').val($('input[name="continues_message"]').val().substring(0,40));
+                                 $('input[name="front_message"]').trigger("change");
+                            }else{
+                                console.log('ari xa');
+                                $('input[name="front_message"]').val($('input[name="continues_message"]').val());
+                                 $('input[name="front_message"]').trigger("change");
+                            }
+                    
+                    } else {
+                                $('input[name="continues_message"]').val($('input[name="front_message"]').val());
+                                $('input[name="continues_message"]').trigger("change");
+
+                    }
+
+                    messageOptionDisplay(this.value); // display the default message option which front, back & inside
+                                                    }
+            })
             // Message character limit
             .on('keyup', '.trigger-limit-char', function(e) {
                 var limit       = $(this).data('limit'),
@@ -2965,50 +2988,63 @@ function hideAllColor(){
                 $('#edit-button-text').attr('id','add_color_to_selections').html('<i class="fa fa-plus"></i> <span class="fusion-button-text">Add an additional color</span>');
                 return false;
             }) 
-            // Hide/Show message type fields
-            .on('change', 'input[name="message_type"]', function() {
-                var message_type = $('input[name="message_type"]:checked').val();
-                if (this.checked) {
 
-                    if(message_type == 'continues'){
-                            // if($('input[name="continues_message"]').val().length > 40){
-                            //     $('input[name="front_message"]').val($('input[name="continues_message"]').val().substring(0,40));
-                            //      $('input[name="front_message"]').trigger("change");
-                            // }else{
-                            //     console.log('ari xa');
-                            //     $('input[name="front_message"]').val($('input[name="continues_message"]').val());
-                            //      $('input[name="front_message"]').trigger("change");
-                            // }
-                            if ($('input[name="continues_message"]').val().length > 40) {
-                                $('input[name="continues_message"]').val($('input[name="front_message"]').val() + $('input[name="continues_message"]').val().substring(40, 80));
-                            } else {
-                                $('input[name="continues_message"]').val($('input[name="front_message"]').val());
-                            }
-                            $('input[name="continues_message"]').trigger("custom");
-                    
-                    } else {
-                               
-                            if ($('input[name="continues_message"]').val().length > 40) {
-                                 $('input[name="front_message"]').val($('input[name="continues_message"]').val().substring(0, 40));
-                            } else {
-                                $('input[name="front_message"]').val($('input[name="continues_message"]').val());
-                            }
-                                $('input[name="front_message"]').trigger("custom");                                                       
-
-
-                                // $('input[name="continues_message"]').val($('input[name="front_message"]').val());
-                                // $('input[name="continues_message"]').trigger("change");
-
-                    }
-
-                    messageOptionDisplay(this.value); // display the default message option which front, back & inside
-                                                    }
-            })
             .on('keyup', 'input[name="front_message"], input[name="continues_message"], input[name="back_message"], input[name="inside_message"]', function() {
                Builder.observer();
             })
             // front message changes
-            
+            // .on('change keyup copy paste','input[name="front_message"]',function(e){
+
+            //     var message_type = $('input[name="message_type"]:checked').val();
+            //     var front_msg = $('input[name="front_message"]').val();
+            //     var width = $("#width").val();
+            //     var newwidth = width.replace('/','_');
+            //     var cont_msg = $('input[name="continues_message"]').val();
+
+            //     // $("#txtInputCont").val($("#txtInput1").val());
+            //     // $("#txtInputCont").trigger("change");   
+
+            //     // $('input[name="continues_message"]').val($('input[name="front_message"]').val());
+            //     // $('input[name="continues_message"]').trigger("change");
+            //     if (front_msg.length < 6) {
+            //             document.getElementById("bandtext1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+            //             $('#bandtext1')[0].setAttribute('lengthAdjust', '');
+            //             $('#bandtext1')[0].setAttribute('textLength', '');
+            //         }
+            //         $("#front-text1").text(front_msg);
+            //         if (front_msg.length > 30) {
+            //             document.getElementById("bandtext1").style.fontSize = '16px';
+            //             $('#bandtext1')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
+            //             $('#bandtext1')[0].setAttribute('textLength', '270');
+            //         } else {
+            //             $('#bandtext1')[0].setAttribute('lengthAdjust', '');
+            //             $('#bandtext1')[0].setAttribute('textLength', '');
+                        
+            //             for (var d = 1; d < 100; d++) {
+            //                 if (($("#bandtext1")[0].getBoundingClientRect().width < size_[newwidth]['FBPathDelete']) && (parseInt($("#bandtext1").css('font-size')) < (size_[newwidth]['MaxFont']))) {
+            //                     document.getElementById("bandtext1").style.fontSize = (parseInt($("#bandtext1").css('font-size')) + 1) + 'px';
+            //                     $("#front-text1").text(front_msg);
+            //                 } else {
+            //                     break;
+            //                 }
+            //             }
+            //             if (e.keyCode !== 46 || e.keyCode !== 8) {
+            //                 for (var d = 1; d < 100; d++) {
+            //                     if (($("#bandtext1")[0].getBoundingClientRect().width > (size_[newwidth]['FBPathLimit'] - 40))
+            //                             && (parseInt($("#bandtext1").css('font-size')) > 12)) {
+            //                         document.getElementById("bandtext1").style.fontSize = (parseInt($("#bandtext1").css('font-size')) - 0.5) + 'px';
+            //                         $("#front-text1").text(front_msg);
+            //                     } else {
+            //                         break;
+            //                     }
+            //                 }
+            //             }
+            //         }
+
+            //     Builder.observer();
+
+            // })
+
             .on('custom','input[name="front_message"]', function (e) {
                 var txtlen = $('input[name="front_message"]').val().length;    
                 var message_type = $('input[name="message_type"]:checked').val();
@@ -3033,6 +3069,7 @@ function hideAllColor(){
                     $("#front-text").text(front_msg);
                 }
 
+            Builder.observer();
             })
 
             .on ('paste keyup','input[name="front_message"]', function (e) {
@@ -3043,16 +3080,57 @@ function hideAllColor(){
                             $('input[name="front_message"]').val($('input[name="front_message"]').val() + tmpString.charAt(x));
                             $('input[name="front_message"]').trigger("custom");
                         }
-                            console.log(tmpString.length);
                         if (tmpString.length === 0) {
-
-                            console.log('here');
                             $('input[name="front_message"]').trigger("custom");
                         }
+                Builder.observer();
             })
     
             // back message changes            
-            
+            // .on('change keyup copy paste', 'input[name="back_message"]', function(e){
+            //     var message_type = $('input[name="message_type"]:checked').val();
+            //     var back_msg = $('input[name="back_message"]').val();
+            //     var width = $("#width").val();
+            //     var newwidth = width.replace('/','_');
+
+            //     if (back_msg.length < 6) {
+            //             document.getElementById("bandtext2").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+            //             $('#bandtext2')[0].setAttribute('lengthAdjust', '');
+            //             $('#bandtext2')[0].setAttribute('textLength', '');
+            //         }
+            //         $("#front-text2").text(back_msg);
+            //         if (back_msg.length > 30) {
+            //             document.getElementById("bandtext2").style.fontSize = '16px';
+            //             $('#bandtext2')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
+            //             $('#bandtext2')[0].setAttribute('textLength', '270');
+            //         } else {
+            //             $('#bandtext2')[0].setAttribute('lengthAdjust', '');
+            //             $('#bandtext2')[0].setAttribute('textLength', '');
+
+            //             for (var d = 1; d < 100; d++) {
+            //                 if (($("#bandtext2")[0].getBoundingClientRect().width < size_[newwidth]['FBPathDelete']) && (parseInt($("#bandtext2").css('font-size')) < (size_[newwidth]['MaxFont']))) {
+            //                     document.getElementById("bandtext2").style.fontSize = (parseInt($("#bandtext2").css('font-size')) + 1) + 'px';
+            //                     $("#front-text2").text($('#txtInput2').val());
+            //                 } else {
+            //                     break;
+            //                 }
+            //             }
+            //             if (e.keyCode !== 46 || e.keyCode !== 8) {
+            //                 for (var d = 1; d < 100; d++) {
+            //                     if (($("#bandtext2")[0].getBoundingClientRect().width > (size_[newwidth]['FBPathLimit'] - 40))
+            //                             && (parseInt($("#bandtext2").css('font-size')) > 12)) {
+            //                         document.getElementById("bandtext2").style.fontSize = (parseInt($("#bandtext2").css('font-size')) - 0.5) + 'px';
+            //                         $("#front-text2").text($('#txtInput2').val());
+            //                     } else {
+            //                         break;
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //     Builder.observer();
+
+            // })
+            //#txtInput2 = input[name="back_message"]
             .on('custom','input[name="back_message"]',function(e){
                 var message_type = $('input[name="message_type"]:checked').val();
                 var back_msg = $('input[name="back_message"]').val();
@@ -3092,39 +3170,16 @@ function hideAllColor(){
             })
 
             //continuous message changes
-            .on('paste keyup','input[name="continues_message"]',function(){
+            .on('change keyup copy paste','input[name="continues_message"]',function(e) {
+                var message_type = $('input[name="message_type"]:checked').val();
                 var cont_msg = $('input[name="continues_message"]').val();
                 var width = $("#width").val();
                 var newwidth = width.replace('/','_');
                 var value = $('input[name=isWrapCont]').val();
-
-                        $('input[name="continues_message"]').val('');
-                        for (var x = 0; x < cont_msg.length; x++)
-                        {
-                            $('input[name="continues_message"]').val(cont_msg + cont_msg.charAt(x));
-                            $('input[name="continues_message"]').trigger("custom");
-                        }
-                        if (cont_msg.length === 0) {
-                            $('input[name="continues_message"]').trigger("custom");
-                        }
-            })
-            .on('cut','input[name="continues_message"]',function(){
-                $('input[name="continues_message"]').val('');
-                $('input[name=wrapPaste]').val(0);
-                disableWrapped();
-                $("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
-                $("#front-endcont2").empty();
-                $('input[name="continues_message"]').trigger("custom");
-
-            })
-
-            .on('custom','input[name="continues_message"]',function(e){
-                var cont_msg = $('input[name="continues_message"]').val();
-                var width = $("#width").val();
-                var newwidth = width.replace('/','_');
-                var value = $('input[name=isWrapCont]').val();
-                console.log('hello');
-                 if (e.keyCode === 46 || e.keyCode === 8) {
+               
+                
+                //console.log(value);
+                if (e.keyCode === 46 || e.keyCode === 8) {
                     if ($('input[name=wrapPaste]').val() === '1') {
                         $('input[name=wrapPaste]').val(0);
                         disableWrapped();
@@ -3133,120 +3188,105 @@ function hideAllColor(){
                 }
                 if (cont_msg.length < $('input[name=textcount]').val().length + 1) {
                     $("#front-textcont2").text('');
-                    console.log('hello1');
                     disableWrapped();
                 }
                 $("#front-textcontainer").text(cont_msg);
                 if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '750') {
-                    console.log('hello2');
+
                     enableWrapped();
                     $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
                     $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
                 } else {
                     disableWrapped();
-                    console.log('hello3');
-                    if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '415') {
-                        console.log('hello4');
+                    //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
+                    if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
+                        console.log('this is it 2');
+                        $("#front-endcont2").append($("#front-endcont1").text());
                         $("#front-endcont1").empty();
-                        $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
                         $('input[name=isWrapCont]').val('1');
 
                         var span_textcont1 = $('input[name=textcount]').val().length;
-                        console.log(span_textcont1);
-                        $("#front-textcont1").text(cont_msg.substring(0, span_textcont1 + 1));
-                        $("#front-textcont2").text(cont_msg.substring(span_textcont1, cont_msg.length));
+                        $("#front-textcont2").text(cont_msg.substring(span_textcont1 - 1, cont_msg.length));
 
                     } else {
-                        console.log('hello5');
-                        $("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
-                        $("#front-endcont2").empty();
+                        console.log('this is it 1');
+                        //$("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
+
+                        //$("#front-endcont2").empty();
                         $('input[name=isWrapCont]').val('0');
 
                         $("#front-textcont1").text(cont_msg.substring(0, cont_msg.length));
                         $('input[name=textcount]').val(cont_msg.substring(0, cont_msg.length));
                     }
                     if ($('input[name=wrapPaste]').val() === '1') {
-                        console.log('hello6');
                         enableWrapped();
+                        console.log('goes here');
                         $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
                         $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
-                        $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
+                        $("#front-endcont2").append($("#front-endcont1").text());
                         $("#front-endcont1").empty();
                     }
 
                 }
-
+                Builder.observer();
             })
-            
             // inside message changes
-            
-
-            .on('paste keyup','input[name="inside_message"]',function(e) {
-                    var insideString = $('input[name="inside_message"]').val();
-                        $('input[name="inside_message"]').val('');
-                        for (var x = 0; x < insideString.length; x++)
-                        {
-                            $('input[name="inside_message"]').val($('input[name="inside_message"]').val() + insideString.charAt(x));
-                            $('input[name="inside_message"]').trigger("custom");
-                        }
-                        if (insideString.length === 0) {
-                            $('input[name="inside_message"]').trigger("custom");
-                        }
-             })
-
-            .on('cut','input[name="inside_message"]',function(){
-                $('input[name="inside_message"]').val('');
-                $('input[name=backPaste]').val(0);
-                disableWrapped2();
-                $("#front-endinside1").empty().append($("#front-endinside2-icon :selected").text());
-                $("#front-endinside2").empty();
-            })
-
-            .on('custom','input[name="inside_message"]',function(e) {
+             .on('change keyup copy paste','input[name="inside_message"]',function(e) {
                 var inside_msg = $('input[name="inside_message"]').val();
                 var width = $("#width").val();
                 var newwidth = width.replace('/','_');
 
+                // $('#front-textinside1').attr('font-family', $('select[name="font"] option:selected').val());
+                // $('#front-textinside2').attr('font-family', $('select[name="font"] option:selected').val());
+
+
                 if (e.keyCode === 46 || e.keyCode === 8) {
                     if ($('input[name=backPaste]').val() === '1') {
                         $('input[name=backPaste]').val(0);
-                        disableWrapped2();
+                        disableWrapped();
                         $("#txtInputInside").val('');
                     }
                 }
+                if (inside_msg.length < $('input[name=textinside]').val().length + 1) {
+                    $("#front-textinside2").text('');
+                    disableWrapped2();
+                }
                 $("#front-textcontainer2").text(inside_msg);
-
                 if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '750') {
 
                     enableWrapped2();
+
                     $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
                     $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
                 } else {
                     disableWrapped2();
-                    if ($("#bandtextcontainer2")[0].getBoundingClientRect().width < '410') {
-                        $("#front-endinside1").empty().append($("#front-endinside2-icon :selected").text());
-                        $("#front-endinside2").empty();
-                        $("#front-textinside1").text(inside_msg);
-                        $('input[name=textinside]').val(inside_msg.substring(0, inside_msg.length));
-                        $("#front-textinside2").text('');
-
-                    } else {
+                    if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '480') {
                         $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
                         $("#front-endinside1").empty();
+                        $('input[name=isWrapInside]').val('1');
+
                         var span_textinside1 = $('input[name=textinside]').val().length;
-                        $("#front-textinside1").text(inside_msg.substring(0, span_textinside1 + 1));
-                        $("#front-textinside2").text(inside_msg.substring(span_textinside1, inside_msg.length));
+                        $("#front-textinside2").text(inside_msg.substring(span_textinside1 - 1, inside_msg.length));
+                    } else {
+                       
+                        $('input[name=isWrapInside]').val('0');
+
+                        $("#front-textinside1").text(inside_msg.substring(0, inside_msg.length));
+                        $('input[name=textinside]').val(inside_msg.substring(0, inside_msg.length));
                     }
                 }
                 if ($('input[name=backPaste]').val() === '1') {
                     enableWrapped2();
                     $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
                     $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
-                    $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
-                    $("#front-endinside1").empty();
+                   
                 }
-
+                Builder.observer();
             })
+
+             .on('paste','input[name="inside_message"]',function(e) {
+                $('input[name=backPaste]').val(1);
+             })
 
             .on('focus','input[name="inside_message"]', function(e) {
                 var width = $("#width").val();
