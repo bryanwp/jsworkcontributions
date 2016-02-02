@@ -355,6 +355,7 @@ if (isset($_REQUEST['id']))
                             <input type="hidden" name="insidePaste" value="0">
                             <input type="hidden" name="lengthAdjustFlagBand1" value="0">
                             <input type="hidden" name="lengthAdjustFlagBand2" value="0">
+                            <div id="ifrontcontend" style="display:none"></div>
                             <div class="wbdiv">
                             <div class="imageframe-align-center image-preview">
                                 <svg id="svgelement" viewBox="0 0 300 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -396,13 +397,15 @@ if (isset($_REQUEST['id']))
                                             <tspan id="front-end1" class="fa" dominant-baseline="middle"></tspan>
                                         </textPath>
                                     </text>
-                                    <text id="bandtextcont1" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;"  display="none">
-                                        <textPath id="bandtextpathcont1" xlink:href="#MyPathCont1" startOffset="0%">
-                                            <tspan id="front-startcont1" class="fa" dominant-baseline="middle"></tspan>
-                                            <tspan id="front-textcont1" dominant-baseline="middle"></tspan>
-                                            <tspan id="front-endcont1" class="fa" dominant-baseline="middle"></tspan>
-                                        </textPath>
-                                    </text>
+                                     <text id="bandtextcont1" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;"  display="none">
+                                    <textPath id="bandtextpathcont1" xlink:href="#MyPathCont1" startOffset="0%">
+                                        <tspan id="front-startcont1" class="fa" dominant-baseline="middle"></tspan>
+                                         <!-- <tspan id="front-startcont1" class="fa" dominant-baseline="middle">&#xf096;</tspan> -->
+                                        <tspan id="front-textcont1" dominant-baseline="middle"></tspan>
+                                        <tspan id="front-endcont1" class="fa" dominant-baseline="middle"></tspan>
+                                        <!-- <tspan id="front-endcont1" class="fa" dominant-baseline="middle">&#xf096;</tspan> -->
+                                    </textPath>
+                                    </text> 
 
                                     <rect x="0" y="15" width="30" height="120" filter="url(#blurSideShadow)" />
                                     <rect x="275" y="15" width="30" height="120" filter="url(#blurSideShadow)" />
@@ -522,7 +525,7 @@ if (isset($_REQUEST['id']))
                                                     </span>
                                                 </label>
                                             </td><td>
-                                            <input type="text" name="front_message" class="input-text trigger-limit-char"
+                                            <input id="front_message" type="text" name="front_message" class="input-text trigger-limit-char"
                                             data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Front_msg']; ?>" maxlength="40">
                                         </td>
                                     </tr></table>
@@ -537,7 +540,7 @@ if (isset($_REQUEST['id']))
                                             </span>
                                         </label>
                                     </td><td>
-                                    <input type="text" name="back_message"  class="input-text trigger-limit-char"
+                                    <input type="text" id="back_message" name="back_message"  class="input-text trigger-limit-char"
                                     data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Back_msg']; ?>" maxlength="40" />
                                 </td>
                             </tr></table>
@@ -554,7 +557,7 @@ if (isset($_REQUEST['id']))
                                     </span>
                                 </label>
                             </td><td>
-                            <input type="text" name="continues_message" class="input-text trigger-limit-char"
+                            <input type="text" id="continues_message" name="continues_message" class="input-text trigger-limit-char"
                             data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Wrap_msg']; ?>" maxlength="40"/>
                         </td>
                     </tr></table>
@@ -570,7 +573,7 @@ if (isset($_REQUEST['id']))
                         </span>
                     </label>
                 </td><td>
-                <input type="text" name="inside_message" class="input-text trigger-limit-char"
+                <input type="text" id="inside_message" name="inside_message" class="input-text trigger-limit-char"
                 data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Inside_msg']; ?>"maxlength="40" />
             </td>
         </tr></table>
