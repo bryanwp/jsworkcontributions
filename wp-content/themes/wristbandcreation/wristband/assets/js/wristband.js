@@ -3295,40 +3295,40 @@ function hideAllColor(){
                 messageOptionDisplay($('input[name="message_type"]:checked').val());
             })
 
-            // .on('focus','input[name="inside_message"]', function(e) {
-            //     var width = $("#width").val();
-            //     var newwidth = width.replace('/','_');
-            //     $("#outsidesolid1").attr("display", "none");
-            //     $("#outsidesolid2").attr("display", "none");
-            //     $("#mask1_band1").attr("display", "none");
-            //     $("#mask2_band1").attr("display", "none");
-            //     $("#mask1_band2").attr("display", "none");
-            //     $("#mask2_band2").attr("display", "none");
+            .on('focus','input[name="inside_message"]', function(e) {
+                var width = $("#width").val();
+                var newwidth = width.replace('/','_');
+                $("#outsidesolid1").attr("display", "none");
+                $("#outsidesolid2").attr("display", "none");
+                $("#mask1_band1").attr("display", "none");
+                $("#mask2_band1").attr("display", "none");
+                $("#mask1_band2").attr("display", "none");
+                $("#mask2_band2").attr("display", "none");
 
-            //     $("#bandtext1").attr("display", "none");
-            //     $("#bandtext2").attr("display", "none");
-            //     $("#bandtextcont1").attr("display", "none");
-            //     $("#bandtextcont2").attr("display", "none");
-            //     $("#bandtextinside1").removeAttr("display");
-            //     $("#bandtextinside2").removeAttr("display");
-            //     hidebackshadow();                 
-            //     $("#segcolor1_cover_band1").attr("display", "none");
-            //     $("#segcolor2_cover_band1").attr("display", "none");
-            //     $("#segcolor3_band1").attr("display", "none");
+                $("#bandtext1").attr("display", "none");
+                $("#bandtext2").attr("display", "none");
+                $("#bandtextcont1").attr("display", "none");
+                $("#bandtextcont2").attr("display", "none");
+                $("#bandtextinside1").removeAttr("display");
+                $("#bandtextinside2").removeAttr("display");
+                hidebackshadow();                 
+                $("#segcolor1_cover_band1").attr("display", "none");
+                $("#segcolor2_cover_band1").attr("display", "none");
+                $("#segcolor3_band1").attr("display", "none");
 
-            //     $("#segcolor1_cover_band2").attr("display", "none");
-            //     $("#segcolor2_cover_band2").attr("display", "none"); 
+                $("#segcolor1_cover_band2").attr("display", "none");
+                $("#segcolor2_cover_band2").attr("display", "none"); 
 
-            //     $("#img1_" + newwidth).attr("display","none");
-            //     $("#img2_" + newwidth).attr("display","none");
-            //     $("#no_arc_img1_" + newwidth).removeAttr("display");
-            //     $("#no_arc_img2_" + newwidth).removeAttr("display");
+                $("#img1_" + newwidth).attr("display","none");
+                $("#img2_" + newwidth).attr("display","none");
+                $("#no_arc_img1_" + newwidth).removeAttr("display");
+                $("#no_arc_img2_" + newwidth).removeAttr("display");
 
-            //     $('#InsideArc')[0].setAttribute('d', size_[newwidth]['InsideArc']);
-            //     $("#arc1").removeAttr("display");
-            //     $("#arc2").removeAttr("display");
+                $('#InsideArc')[0].setAttribute('d', size_[newwidth]['InsideArc']);
+                $("#arc1").removeAttr("display");
+                $("#arc2").removeAttr("display");
             
-            // })
+            })
             
 
             // Trigger change when message type is choosen
@@ -3436,6 +3436,7 @@ function hideAllColor(){
                             case "wrap_end":
                                 $('#front-endcont1').text('');
                                 $('#ifrontcontend').empty();
+                                $('input[name="continues_message"]').trigger("paste");
                                 break;
                         }
                     }else{  
@@ -3460,6 +3461,7 @@ function hideAllColor(){
                                 $('#front-endcont1').text(glyp);
                                 $('#ifrontcontend').html(glyp);
                                 $('#ifrontcontend').val(glyp);
+                                $('input[name="continues_message"]').trigger("paste");
                                 break;
                         }
                     }
