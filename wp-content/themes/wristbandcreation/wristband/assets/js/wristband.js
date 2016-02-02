@@ -1332,141 +1332,14 @@ jQuery(function ($) {
             }
         }
     }
-
-    // function SelectBandColor(StyleColor,y){
-    //     var insidesolid = document.getElementById("insidesolid");
-    //     var outsidesolid = document.getElementById("outsidesolid");
-    //     var bandcolor = document.getElementById("bandcolor");
-
-    //     var mask1       = document.getElementById("mask1");               
-    //     var mask1inside = document.getElementById("mask1inside");
-
-    //     var mask2       = document.getElementById("mask2");             
-    //     var mask2inside = document.getElementById("mask2inside");
-
-    //     mask1.style.opacity = 1;            
-    //     mask1inside.style.opacity = 1; 
-
-    //     mask2.style.opacity = 1;            
-    //     mask2inside.style.opacity = 1;
-
-    //     if (StyleColor == "Segmented"){
-
-    //     } else if (StyleColor == "Swirl"){
-    //         var SplitColor = y.split(",");
-
-    //         insidesolid.style.fill = SplitColor[0];
-    //         bandcolor.style.fill = SplitColor[0];
-
-    //         outsidesolid.style.fill = SplitColor[0];
-          
-    //         mask1.style.fill = SplitColor[1];            
-    //         mask1inside.style.fill = SplitColor[1];
-
-    //         mask2.style.fill = SplitColor[2];               
-    //         mask2inside.style.fill = SplitColor[2];
-    //     } else {
-    //         insidesolid.style.fill=y;
-    //         outsidesolid.style.fill=y;
-    //         bandcolor.style.fill=y;
-    //         mask1.style.fill = y;            
-    //         mask1inside.style.fill = y;
-    //         mask2.style.fill = y;               
-    //         mask2inside.style.fill = y;
-    //     }
-    // }
-
-//////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//////
-
         new function ($) {
                 $.fn.getCursorPosition = function () {
                     var pos = 0;
                     var el = $(this).get(0);
                     // IE Support
                     if (document.selection) {
-                        el.focus();
+                        // console.log(el);
+                         el.focus();
                         var Sel = document.selection.createRange();
                         var SelLength = document.selection.createRange().text.length;
                         Sel.moveStart('character', -el.value.length);
@@ -1480,7 +1353,8 @@ jQuery(function ($) {
             }(jQuery);
         function setSelectionRange(input, selectionStart, selectionEnd) {
              if (input.setSelectionRange) {
-                input.focus();
+                // console.log(input);
+                // input.focus();
                 input.setSelectionRange(selectionStart, selectionEnd);
             } else if (input.createTextRange) {
                 var range = input.createTextRange();
@@ -2446,7 +2320,7 @@ function hideAllColor(){
                 var width = $("#width").val();
                 $("#SelectStyleID").html(textStyle + "&nbsp;-" + width);
                 // wbTextColor();
-                $('#front_message').focus();
+                // $('#front_message').focus();
             })
             // Populate width dropdown
             .on('change', 'select#width', function() {
@@ -3421,40 +3295,40 @@ function hideAllColor(){
                 messageOptionDisplay($('input[name="message_type"]:checked').val());
             })
 
-            .on('focus','input[name="inside_message"]', function(e) {
-                var width = $("#width").val();
-                var newwidth = width.replace('/','_');
-                $("#outsidesolid1").attr("display", "none");
-                $("#outsidesolid2").attr("display", "none");
-                $("#mask1_band1").attr("display", "none");
-                $("#mask2_band1").attr("display", "none");
-                $("#mask1_band2").attr("display", "none");
-                $("#mask2_band2").attr("display", "none");
+            // .on('focus','input[name="inside_message"]', function(e) {
+            //     var width = $("#width").val();
+            //     var newwidth = width.replace('/','_');
+            //     $("#outsidesolid1").attr("display", "none");
+            //     $("#outsidesolid2").attr("display", "none");
+            //     $("#mask1_band1").attr("display", "none");
+            //     $("#mask2_band1").attr("display", "none");
+            //     $("#mask1_band2").attr("display", "none");
+            //     $("#mask2_band2").attr("display", "none");
 
-                $("#bandtext1").attr("display", "none");
-                $("#bandtext2").attr("display", "none");
-                $("#bandtextcont1").attr("display", "none");
-                $("#bandtextcont2").attr("display", "none");
-                $("#bandtextinside1").removeAttr("display");
-                $("#bandtextinside2").removeAttr("display");
-                hidebackshadow();                 
-                $("#segcolor1_cover_band1").attr("display", "none");
-                $("#segcolor2_cover_band1").attr("display", "none");
-                $("#segcolor3_band1").attr("display", "none");
+            //     $("#bandtext1").attr("display", "none");
+            //     $("#bandtext2").attr("display", "none");
+            //     $("#bandtextcont1").attr("display", "none");
+            //     $("#bandtextcont2").attr("display", "none");
+            //     $("#bandtextinside1").removeAttr("display");
+            //     $("#bandtextinside2").removeAttr("display");
+            //     hidebackshadow();                 
+            //     $("#segcolor1_cover_band1").attr("display", "none");
+            //     $("#segcolor2_cover_band1").attr("display", "none");
+            //     $("#segcolor3_band1").attr("display", "none");
 
-                $("#segcolor1_cover_band2").attr("display", "none");
-                $("#segcolor2_cover_band2").attr("display", "none"); 
+            //     $("#segcolor1_cover_band2").attr("display", "none");
+            //     $("#segcolor2_cover_band2").attr("display", "none"); 
 
-                $("#img1_" + newwidth).attr("display","none");
-                $("#img2_" + newwidth).attr("display","none");
-                $("#no_arc_img1_" + newwidth).removeAttr("display");
-                $("#no_arc_img2_" + newwidth).removeAttr("display");
+            //     $("#img1_" + newwidth).attr("display","none");
+            //     $("#img2_" + newwidth).attr("display","none");
+            //     $("#no_arc_img1_" + newwidth).removeAttr("display");
+            //     $("#no_arc_img2_" + newwidth).removeAttr("display");
 
-                $('#InsideArc')[0].setAttribute('d', size_[newwidth]['InsideArc']);
-                $("#arc1").removeAttr("display");
-                $("#arc2").removeAttr("display");
+            //     $('#InsideArc')[0].setAttribute('d', size_[newwidth]['InsideArc']);
+            //     $("#arc1").removeAttr("display");
+            //     $("#arc2").removeAttr("display");
             
-            })
+            // })
             
 
             // Trigger change when message type is choosen
@@ -3905,7 +3779,7 @@ function hideAllColor(){
               //  
                 return false;
             });
-            //$('input').blur();
+            // $('#front_message').focus();
         // Alert message if attempt to leave/unload page
         $(window).on('beforeunload', function() {
             if (Builder.has_upload)
@@ -3932,8 +3806,7 @@ function hideAllColor(){
 
 
         $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup'); // trigger  the Input Quanity field when the page is reloaded to calculate the total.
-
-
+        // $('#front_message').focus();
 
 
     });
