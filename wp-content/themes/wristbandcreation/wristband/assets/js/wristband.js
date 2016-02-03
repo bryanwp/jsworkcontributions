@@ -3444,7 +3444,7 @@ function hideAllColor(){
 
                 $icon.removeClass('fa-shopping-cart');
                 $icon.addClass('fa-spinner');
-                $button_text.text('Processing...');
+                $button_text.text('Update to Cart');
 
                 Builder.collectDataToPost();
                 $.ajax({

@@ -544,7 +544,7 @@ endforeach; ?>
                                                         </label>
                                                     </td><td>
                                                         <input type="text" id="front_message" name="front_message" class="input-text trigger-limit-char"
-                                                               data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Front_msg']; ?>" maxlength="40">
+                                                               data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Front_msg']; ?>" >
                                                     </td>
                                                 </tr></table>
                                         </div>
@@ -559,7 +559,7 @@ endforeach; ?>
                                                         </label>
                                                     </td><td>
                                                         <input type="text" id="back_message" name="back_message"  class="input-text trigger-limit-char"
-                                                               data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Back_msg']; ?>" maxlength="40" />
+                                                               data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Back_msg']; ?>" />
                                                     </td>
                                                 </tr></table>
                                         </div><!-- /.form-group -->
@@ -576,7 +576,7 @@ endforeach; ?>
                                                         </label>
                                                     </td><td>
                                                         <input type="text" id="continues_message" name="continues_message" class="input-text trigger-limit-char"
-                                                               data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Wrap_msg']; ?>" maxlength="40"/>
+                                                               data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Wrap_msg']; ?>" />
                                                     </td>
                                                 </tr></table>
                                         </div><!-- /.form-group -->
@@ -592,7 +592,7 @@ endforeach; ?>
                                                     </label>
                                                 </td><td>
                                                     <input type="text" id="inside_message" name="inside_message" class="input-text trigger-limit-char"
-                                                           data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Inside_msg']; ?>"maxlength="40" />
+                                                           data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Inside_msg']; ?>" />
                                                 </td>
                                             </tr></table>
                                     </div><!-- /.form-group -->
