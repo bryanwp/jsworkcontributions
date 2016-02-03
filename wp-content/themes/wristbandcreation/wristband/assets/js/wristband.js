@@ -568,7 +568,7 @@ jQuery(function ($) {
             if (qty <= 0) return;
             var price_list = Settings.messages.more_than_22_characters_price_list,
                 additional_price = this.rangePrice(price_list, qty),
-                array_el = ['front_message', 'back_message', 'inside_message', 'continues_message'];
+                array_el = ['front_message', 'back_message', 'inside_message', 'continues_message']; 
             $('.alert-notify.more-than-char').remove();
             for (var i = 0; i < array_el.length; i++) {
                 if (($('input[name="message_type"]:checked').val() == 'continues' &&
@@ -578,6 +578,7 @@ jQuery(function ($) {
                     continue;
                 }
                 var el  = $('input[name="'+ array_el[i] +'"]').val();
+                    //console.log(el)
                 if (el.length > Settings.messages.message_char_limit) {
                     this.data.total_price += additional_price * qty;
                     // Render alert message
@@ -923,7 +924,7 @@ jQuery(function ($) {
         var width = $("#width").val();
         var newwidth = width.replace('/','_');
         getImageToDisplay(newwidth);
-
+       // console.log(value);
         if (value == "front_and_back"){ 
             $("#ForFrontBackID").css({display: 'block'}); 
             $("#ForContiID").css({display: 'none'});
@@ -1039,7 +1040,6 @@ jQuery(function ($) {
         var val = document.getElementById('EditModeID').name;
         val = val.split("|");
         var MultiAdd = val[2];
-
         SetSelectCheckedText("style", val[0]);
         LoadTOArray(MultiAdd);
         $("#style").change();
@@ -2082,24 +2082,27 @@ function hideAllColor(){
         }
 
 
-// function changeFontSize() {
-//         if ($("#txtInput1").val().length < 6) {
-//             document.getElementById("bandtext1").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//         }
-//         if ($("#txtInput2").val().length < 6) {
-//             document.getElementById("bandtext2").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//         }
-//         if ($("#txtInputCont").val().length < 18) {
-//             document.getElementById("bandtextcontainer").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//             document.getElementById("bandtextcont1").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//             document.getElementById("bandtextcont2").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//         }
-//         if ($("#txtInputInside").val().length < 18) {
-//             document.getElementById("bandtextcontainer2").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//             document.getElementById("bandtextinside1").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//             document.getElementById("bandtextinside2").style.fontSize = wb[$("#ddlSize").val()]['MaxFont'] + 'px';
-//         }
-//     }
+    function changeFontSize(newwidth) {
+
+        document.getElementById("bandtext1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+        document.getElementById("bandtext2").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+
+        document.getElementById("bandtextcontainer").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+        document.getElementById("bandtextcont1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+        document.getElementById("bandtextcont2").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+
+        document.getElementById("bandtextcontainer2").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+        document.getElementById("bandtextinside1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+        document.getElementById("bandtextinside2").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
+
+        var message_type = $('input[name="message_type"]:checked').val();
+        if (message_type === 'front_and_back') {
+            $("#front_message").trigger("paste");
+            $("#back_message").trigger("paste");
+        } else if (message_type === 'continues') {
+            $("#continues_message").trigger("paste");
+        }
+    }
 
 
     function showbackshadow() {
@@ -2330,7 +2333,7 @@ function hideAllColor(){
                 var newwidth = width.replace('/','_');
                 $("#SelectStyleID").html(tempVal + "&nbsp;-" + $(this).val());
                 getImageToDisplay(newwidth);
-                // changeFontSize();
+                changeFontSize(newwidth);
                 $('#MyPath1')[0].setAttribute('d', size_[newwidth]['FBPath1']);
                 $('#MyPath2')[0].setAttribute('d', size_[newwidth]['FBPath2']);
                 $('#MyPathInside1')[0].setAttribute('d', size_[newwidth]['InPath1']);
@@ -2483,7 +2486,7 @@ function hideAllColor(){
                         },
                         temp: true, // This is for temporary color during keyup
                     });
-*/
+                        */
                     Builder.renderProductionShippingOptions();
 
                 } 
@@ -2709,117 +2712,7 @@ function hideAllColor(){
                     return false;
                 }
             })
-
-    /*
-            .on('click', '.edit-selection', function(e) {
-                e.preventDefault();
-                var Stat = this.innerHTML;
-                var TempId = $(this).attr( "data-tempID" );
-
-
-                var color_name = $(this).attr('data-name'),
-                    i = Builder.getColorIndex(color_name),
-                    color   = Builder.data.colors[i];
-
-
-
-
-                if (Stat == "Edit"){
-                    $("#DelID-" + TempId).html('<i class="fa fa-times"></i>');
-                    $(this).html("Save");
-
-                    $("#spanAdult-" + TempId).hide();
-                    $("#spanMedium-" + TempId).hide();
-                    $("#spanYouth-" + TempId).hide();
-
-                    $("#spanAdultup-" + TempId).hide();
-                    $("#spanMediumup-" + TempId).hide();
-                    $("#spanYouthup-" + TempId).hide();
-
-                    $("#inpAdult-" + TempId).show();
-                    $("#inpMedium-" + TempId).show();
-                    $("#inpYouth-" + TempId).show();
-
-                    $("#inpAdult-" + TempId).val($("#spanAdult-" + TempId).html().replace(",",""));
-                    $("#inpMedium-" + TempId).val($("#spanMedium-" + TempId).html().replace(",",""));
-                    $("#inpYouth-" + TempId).val($("#spanYouth-" + TempId).html().replace(",",""));
-
-                    $('.option-tr').addClass('is-disabled'); // disable all additioanl option to be editable first
-                    $(this).closest('tr').removeClass('is-disabled'); // enable to specific additional option to be editable
-
-                    $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').removeClass('added');
-                    $('#wristband-color-tab  div[data-name^="'+ color_name  +'"]').closest('.color-wrap').addClass('selected');
-
-                    $('.color-wrap').removeClass('selected');
-                    $('#wristband-color-items .color-wrap > div[data-name^="'+ color_name +'"]').closest('.color-wrap').addClass('selected');
-                    $('#wristband-text-color .color-wrap > div[data-name^="'+ color.text_color_name +'"]').closest('.color-wrap').addClass('selected');
-                } else {
-                    var tbl_color = $(this).attr('data-name');
-                    var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
-                        $tc = $('#wristband-text-color .color-wrap.selected > div'),
-                        bg_style_tpl = '<div class="{{hide}}"><div class="color-wrap color-added"><div data-color="{{bg_color}}" style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div>&nbsp;<span class="SpanColorbox">' + $wc.data('name') + '</span></div>{{qty}}</div>',
-                        bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" style="display:{{style_display}}" ><div data-color="{{bg_color}}" style="background-color:{{bg_color}};background: -webkit-linear-gradient(90deg,{{bg_color}});background: -o-linear-gradient(90deg,{{bg_color}});background: -moz-linear-gradient(90deg,{{bg_color}});background: linear-gradient(90deg,{{bg_color}});"></div></div>{{qty}}</div>';
-                
-                    var _wristband_color_box    = Mustache.render(bg_style_tpl, {hide: '', bg_color: $wc.data('color'), qty: ''}),
-                        _wristband_text_color_box = '';
-
-                    if ($wc.length == 0 || (toInt($("#inpAdult-" + TempId).val()) <= 0 && toInt($("#inpMedium-" + TempId).val()) <= 0 && toInt($("#inpYouth-" + TempId).val()) <= 0)) {
-                        Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.');
-                        return;
-                    }
-
-                    if ( $tc.data('color') != null ) { _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'inline-block', bg_color: $tc.data('color'), qty: ''});
-                    } else  { _wristband_text_color_box = Mustache.render(bg_style_tpl_text, {hide: '',style_display: 'none', bg_color: $tc.data('color'), qty: ''}); }
-
-                    $("#colorBox-" + TempId).html(_wristband_color_box);
-                    $("#colorTextBox-" + TempId).html(_wristband_text_color_box);
-
-                    $("#spanAdult-" + TempId).html(numberFormat(toInt($("#inpAdult-" + TempId).val()), 0));
-                    $("#spanMedium-" + TempId).html(numberFormat(toInt($("#inpMedium-" + TempId).val()), 0));
-                    $("#spanYouth-" + TempId).html(numberFormat(toInt($("#inpYouth-" + TempId).val()), 0));
-
-
-
-                    $("#spanAdult-" + TempId).show();
-                    $("#spanMedium-" + TempId).show();
-                    $("#spanYouth-" + TempId).show();
-
-                    $("#spanAdultup-" + TempId).show();
-                    $("#spanMediumup-" + TempId).show();
-                    $("#spanYouthup-" + TempId).show();
-
-                    $("#inpAdult-" + TempId).hide();
-                    $("#inpMedium-" + TempId).hide();
-                    $("#inpYouth-" + TempId).hide();
-
-                    $("#DelID-" + TempId).html("Delete");
-                    $(this).html("Edit");
-                    
-                    $('.option-tr').removeClass('is-disabled');
-
-                    $(this).attr('data-name',$wc.data('name'));
-                    $('DelID-' + TempId).attr('data-name',$wc.data('name'));
-
-                    //if (tbl_color){ tbl_color = $wc.data('name'); }
-                    Builder.updateColor(tbl_color, {
-                                                    name: $wc.data('name'),
-                                                    color: $wc.data('color'),
-                                                    type: $('input[name="color_style"]:checked').val(),
-                                                    text_color: ($tc.data('color') == null)? '#FFFFFF' : $tc.data('color'),
-                                                    text_color_name: ($tc.data('name') == null)? 'White' : $tc.data('name'),
-                                                    sizes: {
-                                                        adult: toInt($("#inpAdult-" + TempId).val()),
-                                                        medium:toInt($("#inpMedium-" + TempId).val()),
-                                                        youth: toInt($("#inpYouth-" + TempId).val()),
-                                                   }
-                                                });
-                    if (tbl_color != $wc.data('name')){ $('#wristband-color-tab  div[data-name^="'+ tbl_color  +'"]').closest('.color-wrap').removeClass('added'); }
-                    $wc.closest('.color-wrap').addClass('added');
-                    wctColorEnable();
-                    DistributeAddup();//Addup
-                }
-            })
-    */        
+               
             .on('click','.edit-button-text',function(e){
                 e.preventDefault();
                 var $row = $(this).closest('tr');
@@ -2964,40 +2857,44 @@ function hideAllColor(){
             // Hide/Show message type fields
             .on('change', 'input[name="message_type"]', function() {
                 var message_type = $('input[name="message_type"]:checked').val();
+                    console.log(this.checked);
                 if (this.checked) {
 
                     if(message_type == 'continues'){
-                            // if($('input[name="continues_message"]').val().length > 40){
-                            //     $('input[name="front_message"]').val($('input[name="continues_message"]').val().substring(0,40));
-                            //      $('input[name="front_message"]').trigger("change");
-                            // }else{
-                            //     console.log('ari xa');
-                            //     $('input[name="front_message"]').val($('input[name="continues_message"]').val());
-                            //      $('input[name="front_message"]').trigger("change");
-                            // }
+                        console.log('here oh')
                             if ($('input[name="continues_message"]').val().length > 40) {
                                 $('input[name="continues_message"]').val($('input[name="front_message"]').val() + $('input[name="continues_message"]').val().substring(40, 80));
                             } else {
-                                $('input[name="continues_message"]').val($('input[name="front_message"]').val());
+                                if ($("#front_message").val().length > 0) {
+                                        $("#continues_message").val($("#front_message").val());
+                                    }
                             }
                             $('input[name="continues_message"]').trigger("paste");
-                    
+
+                            messageOptionDisplay(this.value); 
                     } else {
-                               
-                            if ($('input[name="continues_message"]').val().length > 40) {
-                                 $('input[name="front_message"]').val($('input[name="continues_message"]').val().substring(0, 40));
+                            //    console.log('here!');
+                            // if ($('input[name="continues_message"]').val().length > 40) {
+                            //      $('input[name="front_message"]').val($('input[name="continues_message"]').val().substring(0, 40));
+                            // } else {
+                            //     $('input[name="front_message"]').val($('input[name="continues_message"]').val());
+                            // }
+                            //     $('input[name="front_message"]').trigger("paste");                                                       
+
+                            if ($("#continues_message").val().length > 0) {
+                            if ($("#continues_message").val().length > 40) {
+                                $("#front_message").val($('#continues_message').val().substring(0, 40));
                             } else {
-                                $('input[name="front_message"]').val($('input[name="continues_message"]').val());
+                                $("#front_message").val($("#continues_message").val());
                             }
-                                $('input[name="front_message"]').trigger("paste");                                                       
+                            $("#front_message").trigger("paste");
+                            }
 
-
-                                // $('input[name="continues_message"]').val($('input[name="front_message"]').val());
-                                // $('input[name="continues_message"]').trigger("change");
+                                messageOptionDisplay(this.value);
 
                     }
 
-                    messageOptionDisplay(this.value); // display the default message option which front, back & inside
+                    // display the default message option which front, back & inside
                 }
             })
             .on('keyup', 'input[name="front_message"], input[name="continues_message"], input[name="back_message"], input[name="inside_message"]', function() {
@@ -3032,19 +2929,6 @@ function hideAllColor(){
             })
 
             .on ('paste keyup','input[name="front_message"]', function (e) {
-                        // var tmpString = $('input[name="front_message"]').val();
-                        // $('input[name="front_message"]').val('');
-                        // for (var x = 0; x < tmpString.length; x++)
-                        // {
-                        //     $('input[name="front_message"]').val($('input[name="front_message"]').val() + tmpString.charAt(x));
-                        //     $('input[name="front_message"]').trigger("custom");
-                        // }
-                        //     console.log(tmpString.length);
-                        // if (tmpString.length === 0) {
-
-                        //     console.log('here');
-                        //     $('input[name="front_message"]').trigger("custom");
-                        // }
                         var timer, timeout = 300;
                          if (typeof timer !== undefined) {
                             clearTimeout(timer);
@@ -3170,13 +3054,13 @@ function hideAllColor(){
                     disableWrapped();
                 }
                 $("#front-textcontainer").text(cont_msg);
-                if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '750') {
+                if ($("#bandtextcontainer")[0].getBoundingClientRect().width > (size_[newwidth][$('.wbdiv').width()]['ContMax'])) {
                     enableWrapped();
                     $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
                     $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
                 } else {
                     disableWrapped();
-                    if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '415') {
+                    if ($("#bandtextcontainer")[0].getBoundingClientRect().width > (size_[newwidth][$('.wbdiv').width()]['ContMin'])) {
                         $("#front-endcont1").empty();
                         $("#front-endcont2").empty().append($("#ifrontcontend").html());
                         $('input[name=isWrapCont]').val('1');
@@ -3257,14 +3141,14 @@ function hideAllColor(){
                 }
                 $("#front-textcontainer2").text(inside_msg);
 
-                if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > '750') {
+                if ($("#bandtextcontainer2")[0].getBoundingClientRect().width > (size_[newwidth][$('.wbdiv').width()]['InsideMax'])) {
 
                     enableWrapped2();
                     $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
                     $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
                 } else {
                     disableWrapped2();
-                    if ($("#bandtextcontainer2")[0].getBoundingClientRect().width < '410') {
+                    if ($("#bandtextcontainer2")[0].getBoundingClientRect().width < (size_[newwidth][$('.wbdiv').width()]['InsideMin'])) {
                         $("#front-endinside1").empty().append($("#front-endinside2-icon :selected").text());
                         $("#front-endinside2").empty();
                         $("#front-textinside1").text(inside_msg);
@@ -3415,7 +3299,7 @@ function hideAllColor(){
                     position = button.data('position'),
                     view = button.data('view'),
                     preview = $('.preview-button.active').data('view');
-
+                    
                     if(icon == undefined) {
                           switch (position) {
                             case "front_start":
@@ -3760,27 +3644,27 @@ function hideAllColor(){
             })
              
 
-            .on('click', '#front_view_button, #back_view_button', function(e) {
-                e.preventDefault();
-                TempReloadSVG();
-                var view = $(this).data('view');
-                Builder.data.clipart.view_position = view;
-                $('#icon_start').text(  $('#'+view+'_start').text() );
-                $('#icon_end').text(  $('#'+view+'_end').text() );
-                $('.preview-button').removeClass('active');
-                $(this).addClass('active');
-                Builder.observer();
+            // .on('click', '#front_view_button, #back_view_button', function(e) {
+            //     e.preventDefault();
+            //     TempReloadSVG();
+            //     var view = $(this).data('view');
+            //     Builder.data.clipart.view_position = view;
+            //     $('#icon_start').text(  $('#'+view+'_start').text() );
+            //     $('#icon_end').text(  $('#'+view+'_end').text() );
+            //     $('.preview-button').removeClass('active');
+            //     $(this).addClass('active');
+            //     Builder.observer();
 
-                var normalClass = "fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues active";
-                var SelectedClass = "fusion-button button-flat button-round button-small button-orange preview-button if-message_type_is-continues active";
-                document.getElementById("front_view_button").className = normalClass;
-                document.getElementById("back_view_button").className = normalClass;
-                document.getElementById(this.id).className = SelectedClass;
+            //     var normalClass = "fusion-button button-flat button-round button-small button-default preview-button if-message_type_is-continues active";
+            //     var SelectedClass = "fusion-button button-flat button-round button-small button-orange preview-button if-message_type_is-continues active";
+            //     document.getElementById("front_view_button").className = normalClass;
+            //     document.getElementById("back_view_button").className = normalClass;
+            //     document.getElementById(this.id).className = SelectedClass;
 
-                Builder.data["clipart"]["view_position"] = view;
-              //  
-                return false;
-            });
+            //     Builder.data["clipart"]["view_position"] = view;
+            //   //  
+            //     return false;
+            // });
             // $('#front_message').focus();
         // Alert message if attempt to leave/unload page
         $(window).on('beforeunload', function() {

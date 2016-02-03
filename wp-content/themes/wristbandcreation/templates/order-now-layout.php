@@ -370,6 +370,7 @@ endforeach; ?>
                             <input type="hidden" name="insidePaste" value="0">
                             <input type="hidden" name="lengthAdjustFlagBand1" value="0">
                             <input type="hidden" name="lengthAdjustFlagBand2" value="0">
+                            <div id="ifrontcontend"></div>
                             <div class="wbdiv">
                                 <!--<div class="imageframe-align-center image-preview">-->
                                 <div class="containersvg1">
@@ -542,7 +543,7 @@ endforeach; ?>
                                                             </span>
                                                         </label>
                                                     </td><td>
-                                                        <input type="text" name="front_message" class="input-text trigger-limit-char"
+                                                        <input type="text" id="front_message" name="front_message" class="input-text trigger-limit-char"
                                                                data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Front_msg']; ?>" maxlength="40">
                                                     </td>
                                                 </tr></table>
@@ -557,7 +558,7 @@ endforeach; ?>
                                                             </span>
                                                         </label>
                                                     </td><td>
-                                                        <input type="text" name="back_message"  class="input-text trigger-limit-char"
+                                                        <input type="text" id="back_message" name="back_message"  class="input-text trigger-limit-char"
                                                                data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Back_msg']; ?>" maxlength="40" />
                                                     </td>
                                                 </tr></table>
@@ -574,7 +575,7 @@ endforeach; ?>
                                                             </span>
                                                         </label>
                                                     </td><td>
-                                                        <input type="text" name="continues_message" class="input-text trigger-limit-char"
+                                                        <input type="text" id="continues_message" name="continues_message" class="input-text trigger-limit-char"
                                                                data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Wrap_msg']; ?>" maxlength="40"/>
                                                     </td>
                                                 </tr></table>
@@ -590,7 +591,7 @@ endforeach; ?>
                                                         </span>
                                                     </label>
                                                 </td><td>
-                                                    <input type="text" name="inside_message" class="input-text trigger-limit-char"
+                                                    <input type="text" id="inside_message" name="inside_message" class="input-text trigger-limit-char"
                                                            data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Inside_msg']; ?>"maxlength="40" />
                                                 </td>
                                             </tr></table>
