@@ -1192,6 +1192,7 @@ jQuery(function ($) {
                 $('#WeID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#WeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));;
                 $('#front-endcont1').text(glyp);
+                $('#ifrontcontend').html(glyp);
                 $('#icon_start').text(  $('#wrap_start').text());
                 $('#icon_end').text(  $('#wrap_end').text());
             }
@@ -3299,7 +3300,6 @@ function hideAllColor(){
                     position = button.data('position'),
                     view = button.data('view'),
                     preview = $('.preview-button.active').data('view');
-                    
                     if(icon == undefined) {
                           switch (position) {
                             case "front_start":
