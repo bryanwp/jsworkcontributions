@@ -1,3 +1,107 @@
+/*==================================*/
+/*Responsive code for Order Now Page*/
+/*==================================*/
+.wbdiv {
+    width:528px;
+    height:100%;
+    margin: 0 auto;
+}
+.containersvg1{
+    width:100%;
+    height: 50%;
+    margin: 0 auto;
+}
+.containersvg2{
+    width:100%;
+    height: 50%;
+    margin: 0 auto;
+}
+#price-scroll{
+    width:100%;
+    overflow:auto;
+    white-space:nowrap;
+}
+@media (max-width:736px) {
+    #wristband-builder-content{
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+    }
+    #style_field, #width_field{
+        width: 50% !important;
+        float: left !important;
+        display: inline !important;
+        border-style: solid;
+        border-width: 10px;
+        border-color: white;
+    }
+    #wbcolor > li{
+        width: 25%;
+        float: left;
+    }
+    #quantity_group_field > p{
+        width: 30%;
+        float: left;
+    }
+    #quantity_group_field_button{
+        width: 10% !important;
+    }
+    #additional-option-section > div{
+        width: 25%;
+        float: left;
+    }
+    #add-clipart .button-box{
+        width: 50% !important;
+        float: left !important;
+        border-style: solid;
+        border-width: 10px;
+        border-color: white;
+    }
+    #customization-section > p{
+        width: 50% !important;
+        float: left !important;
+        border-style: solid;
+        border-width: 10px;
+        border-color: white;
+    }
+    #wristband-color-items{
+        margin-left: 20% !important;
+        margin-right: 20% !important;
+    }
+}
+/*iPhone 5 & 5S in portrait*/
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait) {
+    #wbcolor > li{
+        font-size: 10px;
+    }
+}
+@media (max-width:525px) {
+    .wbdiv{
+        width:320px !important;
+    }
+    .TdTitleCss{
+        width:30% !important;
+    }
+    #add-clipart .button-box > div{
+        display: inline !important;
+        float: left !important;
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+    #add-clipart .button-box .alignright > a{
+        padding-left: 5px !important;
+        padding-top: 5px !important;
+    }
+    #add-clipart .button-box > span{
+        width: 100% !important;
+    }
+}
+
+/*===============END================*/
+/*Responsive code for Order Now Page*/
+/*===============END================*/
+
+
+
 /*
 border-style: solid;
 border-width: 5px;
@@ -22,7 +126,7 @@ border-color: green;
     }
     #home-fusion-content-boxes .fusion-button-wrapper{
         display: none !important;
-    }    
+    }
     #promo-button-container{
         margin-top: -35px;
     }
@@ -45,21 +149,21 @@ border-color: green;
         margin-right: 5px;
     }
     #RR_Reviews_Widget_frame, .shopperapproved_widget{
-    margin-left: 10px !important;
-    margin-right: 10px !important;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
     }
     .fusion-columns {
         text-align: left;
         float: left;
         margin: 0px 0px;
         display: inline;
-    }    
-    #mod-footer1 {        
+    }
+    #mod-footer1 {
         width: 50%;
         padding-left: 5px !important;
-        padding-right: 5px !important;        
+        padding-right: 5px !important;
     }
-    #mod-footer2 {     
+    #mod-footer2 {
         width: 50%;
         padding-left: 5px !important;
         padding-right: 5px !important;
@@ -83,12 +187,12 @@ border-color: green;
     }
     .fusion-header .fusion-row{
         margin-top: -10px;
-        margin-bottom: -25px;        
-    }    
-        
+        margin-bottom: -25px;
+    }
+
 }
 /*iPhone 6 Plus in landscape*/
-@media only screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : landscape) { 
+@media only screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : landscape) {
     #home-fusion-content-boxes > .col-sm-4 {
         width: 50% !important;
         float: left !important;
@@ -96,7 +200,7 @@ border-color: green;
     }
     #home-fusion-content-boxes > .fusion-clearfix{
         display: none;
-    }    
+    }
 
     #home-fusion-content-boxes2 .col-sm-4 {
         float: left !important;
@@ -109,14 +213,14 @@ border-color: green;
     #home-fusion-content-boxes .content-box-heading, #home-fusion-content-boxes .content-container > h2{
         font-size: 20px !important;
         line-height: 21px !important;
-    }     
+    }
     #home-fusion-content-boxes .content-container h2{
         font-size: 16px !important;
         line-height: 16px !important;
     }
 }
 /*iPhone 6 Plus in portrait*/
-@media only screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : portrait) { 
+@media only screen and (min-device-width : 414px) and (max-device-width : 736px) and (orientation : portrait) {
     #home-fusion-content-boxes > .col-sm-4 {
         width: 50% !important;
         float: left !important;
@@ -124,7 +228,7 @@ border-color: green;
     }
     #home-fusion-content-boxes > .fusion-clearfix{
         display: none;
-    }    
+    }
 
     #home-fusion-content-boxes2 .col-sm-4 {
         float: left !important;
@@ -136,7 +240,7 @@ border-color: green;
     }
     #home-fusion-content-boxes .content-box-heading, #home-fusion-content-boxes .content-container > h2{
         font-size: 20px !important;
-        line-height: 21px !important;        
+        line-height: 21px !important;
     }
     #home-fusion-content-boxes .content-container{
         margin-top: -25px !important;
@@ -144,10 +248,10 @@ border-color: green;
     #home-bracelets-desc .heading > h2{
         font-size: 20px !important;
         line-height: 21px !important;
-    }    
+    }
 }
 /*iPhone 6 in landscape*/
-@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : landscape) { 
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : landscape) {
     #home-fusion-content-boxes > .col-sm-4 {
         width: 50% !important;
         float: left !important;
@@ -155,7 +259,7 @@ border-color: green;
     }
     #home-fusion-content-boxes > .fusion-clearfix{
         display: none;
-    }    
+    }
 
     #home-fusion-content-boxes2 .col-sm-4 {
         float: left !important;
@@ -167,7 +271,7 @@ border-color: green;
     }
 }
 /*iPhone 6 in portrait*/
-@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : portrait) { 
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) and (orientation : portrait) {
     #home-fusion-content-boxes > .col-sm-4 {
         width: 50% !important;
         float: left !important;
@@ -175,7 +279,7 @@ border-color: green;
     }
     #home-fusion-content-boxes > .fusion-clearfix{
         display: none;
-    }    
+    }
 
     #home-fusion-content-boxes2 .col-sm-4 {
         float: left !important;
@@ -188,7 +292,7 @@ border-color: green;
     #home-bracelets-desc .heading > h2{
         font-size: 18px !important;
         line-height: 19px !important;
-    }    
+    }
 }
 
 
@@ -201,7 +305,7 @@ border-color: green;
     }
     #home-fusion-content-boxes > .fusion-clearfix{
         display: none;
-    }    
+    }
 
     #home-fusion-content-boxes2 .col-sm-4 {
         float: left !important;
@@ -217,7 +321,7 @@ border-color: green;
     }
 }
 /*iPhone 5 & 5S in portrait*/
-@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait) { 
+@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait) {
     #home-fusion-content-boxes > .col-sm-4 {
         width: 50% !important;
         float: left !important;
@@ -225,7 +329,7 @@ border-color: green;
     }
     #home-fusion-content-boxes > .fusion-clearfix{
         display: none;
-    }    
+    }
 
     #home-fusion-content-boxes2 .col-sm-4 {
         float: left !important;
@@ -244,19 +348,19 @@ border-color: green;
     }
     #home-fusion-content-boxes .content-box-heading, #home-fusion-content-boxes .content-container > h2{
         font-size: 20px !important;
-        line-height: 21px !important;        
+        line-height: 21px !important;
     }
     #home-fusion-content-boxes .content-container{
         margin-top: -25px !important;
     }
     #home-fusion-content-boxes2 .content-container > h2{
         font-size: 16px !important;
-        line-height: 20px !important;   
+        line-height: 20px !important;
     }
     #home-bracelets-desc .heading > h2{
         font-size: 18px !important;
         line-height: 19px !important;
-    }    
+    }
 }
 /*iPhone 2G-4S in landscape*/
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : landscape) {
@@ -267,7 +371,7 @@ border-color: green;
     }
     #home-fusion-content-boxes > .fusion-clearfix{
         display: none;
-    }    
+    }
 
     #home-fusion-content-boxes2 .col-sm-4 {
         float: left !important;
@@ -280,10 +384,10 @@ border-color: green;
     #home-bracelets-desc .heading > h2{
         font-size: 22px !important;
         line-height: 23px !important;
-    }    
+    }
 }
 /*iPhone 2G-4S in portrait*/
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : portrait) { 
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) and (orientation : portrait) {
     #home-fusion-content-boxes > .col-sm-4 {
         width: 50% !important;
         float: left !important;
@@ -291,7 +395,7 @@ border-color: green;
     }
     #home-fusion-content-boxes > .fusion-clearfix{
         display: none;
-    }    
+    }
 
     #home-fusion-content-boxes2 .col-sm-4 {
         float: left !important;
@@ -303,7 +407,7 @@ border-color: green;
     }
     #home-fusion-content-boxes .content-box-heading, #home-fusion-content-boxes .content-container > h2{
         font-size: 16px !important;
-        line-height: 17px !important;        
+        line-height: 17px !important;
     }
     #home-fusion-content-boxes .content-container{
         margin-top: -25px !important;
@@ -311,5 +415,5 @@ border-color: green;
     #home-bracelets-desc .heading > h2{
         font-size: 18px !important;
         line-height: 19px !important;
-    }    
+    }
 }
