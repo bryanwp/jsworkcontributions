@@ -3401,7 +3401,7 @@ function hideAllColor(){
 
                 $icon.removeClass('fa-shopping-cart');
                 $icon.addClass('fa-spinner');
-                $button_text.text('Processing...');
+                $button_text.text('Add to Cart');
 
                 Builder.collectDataToPost();
 
