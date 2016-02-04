@@ -213,11 +213,19 @@ jQuery(function ($) {
 
                 $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 FREE' : ''));
                 $('#price_handler').text(numberFormat(total_price));
-                if( total_qty < 100){ $('#id_convert_to_keychains').hide(); } 
-                else { $('#id_convert_to_keychains').show(); }
+                if( total_qty < 100){ $('#id_convert_to_keychains').hide(); this.resizeOptionSection();} 
+                else { $('#id_convert_to_keychains').show(); this.resizeOptionSection();}
             this.buildPreview();
         },
-
+        resizeOptionSection: function () {
+            if ($(window).width() < '801') {
+                if ($("#id_convert_to_keychains").is(':hidden')) {
+                    $("#additional-option-section > div").css("width", "25%");
+                } else {
+                    $("#additional-option-section > div").css("width", "20%");
+                }
+            }
+        },
         buildPreview: function() {
             var StyleColor = $('input[name="color_style"]:checked').val();
             var y = $('#wristband-color-items .color-wrap.selected > div').data('color');
@@ -1069,8 +1077,8 @@ jQuery(function ($) {
 
         $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 FREE' : ''));
         $('#price_handler').text(numberFormat(total_price));
-        if( total_qty < 100){ $('#id_convert_to_keychains').hide(); } 
-        else { $('#id_convert_to_keychains').show(); }
+        if( total_qty < 100){ $('#id_convert_to_keychains').hide(); this.resizeOptionSection();} 
+        else { $('#id_convert_to_keychains').show(); this.resizeOptionSection();}
 
         Builder._clipart(total_qty);
         Builder.calculateDeliveryDate();
@@ -3696,4 +3704,15 @@ function hideAllColor(){
 
 
     });
+    $(window).resize(function () {
+        if ($(window).width() > '800') {
+            $("#additional-option-section > div").css("width", "48%");
+        } else {
+            if ($("#id_convert_to_keychains").is(':hidden')) {
+                $("#additional-option-section > div").css("width", "25%");
+            } else {
+                $("#additional-option-section > div").css("width", "20%");
+            }
+        }
+    });    
 });
