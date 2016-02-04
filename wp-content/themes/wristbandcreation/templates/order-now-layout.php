@@ -370,7 +370,7 @@ endforeach; ?>
                             <input type="hidden" name="insidePaste" value="0">
                             <input type="hidden" name="lengthAdjustFlagBand1" value="0">
                             <input type="hidden" name="lengthAdjustFlagBand2" value="0">
-                            <div id="ifrontcontend">&#xf059;</div>
+                            <div id="ifrontcontend" style="display:none">&#xf059;</div>
                             <div class="wbdiv">
                                 <!--<div class="imageframe-align-center image-preview">-->
                                 <div class="containersvg1">

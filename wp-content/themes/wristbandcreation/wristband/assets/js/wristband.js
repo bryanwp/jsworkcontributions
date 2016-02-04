@@ -2500,6 +2500,18 @@ function hideAllColor(){
 
                 } 
             })
+            
+            // .on('focusout', '#qty_adult, #qty_medium, #qty_youth', function(){
+            //     var adult = $('#qty_adult').val();
+            //     var medium = $('#qty_medium').val();
+            //     var youth = $('#qty_youth').val();
+
+            //     if((adult || medium || youth) != (0 || null || ''))
+            //     {
+            //         $('#add_color_to_selections').trigger('click');
+            //     }
+
+            // })
             .on('click', '#add_color_to_selections', function(e) {
                 e.preventDefault();
                 AddNewColor($('#wristband-color-items .color-wrap.selected').find('div'));
