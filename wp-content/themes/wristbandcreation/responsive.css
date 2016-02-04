@@ -21,7 +21,8 @@
     overflow:auto;
     white-space:nowrap;
 }
-@media (max-width:736px) {
+/*@media (max-width:736px) {*/
+@media (max-width:800px) {
     #wristband-builder-content{
         margin-left: 10px !important;
         margin-right: 10px !important;
@@ -41,13 +42,14 @@
     #quantity_group_field > p{
         width: 30%;
         float: left;
+        margin-right: 0%;
     }
     #quantity_group_field_button{
         width: 10% !important;
     }
     #additional-option-section > div{
         width: 25%;
-        float: left;
+        /*float: left;*/
     }
     #add-clipart .button-box{
         width: 50% !important;
@@ -68,10 +70,30 @@
         margin-right: 20% !important;
     }
 }
-/*iPhone 5 & 5S in portrait*/
-@media only screen and (min-device-width : 320px) and (max-device-width : 568px) and (orientation : portrait) {
-    #wbcolor > li{
-        font-size: 10px;
+@media (max-width:1046px) {
+    #add-clipart .button-box > div{
+        display: inline !important;
+        float: left !important;
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+    #add-clipart .button-box .alignright > a{
+        padding-left: 5px !important;
+        padding-top: 5px !important;
+    }
+    #add-clipart .button-box > span{
+        width: 100% !important;
+    }
+}
+@media (max-width:1114px) {
+    #add-clipart .button-box > div{
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+}
+@media (max-width:1110px) {
+    .wbdiv {
+        width:390px !important;
     }
 }
 @media (max-width:525px) {
@@ -95,7 +117,14 @@
         width: 100% !important;
     }
 }
-
+@media (max-width:320px) {
+    #wbcolor > li{
+        font-size: 10px;
+    }
+    #additional-option-section .fusion-column-wrapper > span{
+        font-size: 10px !important;
+    }
+}
 /*===============END================*/
 /*Responsive code for Order Now Page*/
 /*===============END================*/
