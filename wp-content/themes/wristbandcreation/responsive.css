@@ -49,7 +49,9 @@
     }
     #additional-option-section > div{
         width: 25%;
-        /*float: left;*/
+    }
+    #additional-option-section .each-message{
+        position: static !important;
     }
     #add-clipart .button-box{
         width: 50% !important;
@@ -116,11 +118,12 @@
     #add-clipart .button-box > span{
         width: 100% !important;
     }
-}
-@media (max-width:320px) {
     #wbcolor > li{
         font-size: 10px;
-    }
+    }    
+}
+@media (max-width:320px) {
+
     #additional-option-section .fusion-column-wrapper > span{
         font-size: 10px !important;
     }
