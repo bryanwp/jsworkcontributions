@@ -285,7 +285,10 @@ jQuery(function ($) {
 
             // Trigger keyup on ready
             $('.trigger-limit-char').trigger('keyup');
-
+            
+            // Trigger window resize
+            $(window).trigger('resize');
+            
             $('.fileupload').each(function() {
                 var $self = $(this);
                 $self.fileupload({
@@ -3730,5 +3733,13 @@ function hideAllColor(){
                 $("#additional-option-section > div").css("width", "20%");
             }
         }
-    });    
+        /*Footer for mobile*/
+        if ($(window).width() > '736') {
+            $("#mod-footer0").hide();
+            $("#mod-footer1").show();
+        } else {            
+            $("#mod-footer1").hide();
+            $("#mod-footer0").show();
+        }        
+    });     
 });
