@@ -285,10 +285,10 @@ jQuery(function ($) {
 
             // Trigger keyup on ready
             $('.trigger-limit-char').trigger('keyup');
-            
-            // Trigger window resize
+
+             // Trigger window resize
             $(window).trigger('resize');
-            
+
             $('.fileupload').each(function() {
                 var $self = $(this);
                 $self.fileupload({
@@ -2521,6 +2521,7 @@ function hideAllColor(){
             // })
             .on('click', '#add_color_to_selections', function(e) {
                 e.preventDefault();
+                console.log($('#wristband-color-items .color-wrap.selected').find('div'));
                 AddNewColor($('#wristband-color-items .color-wrap.selected').find('div'));
             })
 
@@ -3272,51 +3273,7 @@ function hideAllColor(){
                 modal.find('.clipart-list').data('target', '#' + button.attr('id'));
                 modal.find('.clipart-list').data('position', button.attr('id'));
             })
-            // .on('click', '.clipart-list li', function() {
-
-            //     $('.clipart-list li').removeClass('active');
-            //     $(this).addClass('active');
-            //     var button = $($(this).closest('.clipart-list').data('target')),
-            //         icon = $(this).data('icon'),
-            //         glyp = $(this).data('icon-code'),
-            //         position = button.data('position'),
-            //         view = button.data('view'),
-            //         preview = $('.preview-button.active').data('view');
-
-
-            //         if(icon == undefined) { $('#'+position).text(''); }  
-            //         else { $('#'+position).text(glyp); }
-
-            //        if (position == "wrap_start" || position == "wrap_end"){
-            //             $('#icon_start').text(  $('#wrap_start').text() );
-            //             $('#icon_end').text(  $('#wrap_end').text() );
-            //        } else {
-            //             $('#icon_start').text(  $('#'+preview+'_start').text() );
-            //             $('#icon_end').text(  $('#'+preview+'_end').text() );
-            //        }
-
-            //     button.find('.icon-preview').removeClass(function (index, css) {
-            //         return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
-            //     });
-
-            //     button.find('.icon-preview').addClass(icon == undefined ? 'fa-ban' : icon);
-            //     Builder.data['clipart'][button.data('position')] =  icon == undefined ? '' : icon;
-            //     Builder.has_upload = false;
-            //     $('#wristband-clipart-modal').modal('hide');
-
-            //     if (button.data('file') != undefined) {
-            //         // Delete previous file
-            //         var result = Builder.deleteClipart(button.data('file'));
-            //         result.success(function () {
-
-            //             button.removeAttr('data-file');
-            //             button.find('.icon-preview').css({display: 'inline-block'});
-            //             button.find('.image-upload').css({display: 'none'});
-            //         });
-            //     }
-            //     Builder.observer();
-
-            // })
+           
             .on('click', '.clipart-list li', function() {
 
                 $('.clipart-list li').removeClass('active');
@@ -3667,6 +3624,9 @@ function hideAllColor(){
             })
 
             .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {
+                
+                //if('select#customization_date_production'||'select#customization_date_shipping')
+                             //   this.collectQuantity();
                 Builder.calculateDeliveryDate();
             })
              
@@ -3740,6 +3700,6 @@ function hideAllColor(){
         } else {            
             $("#mod-footer1").hide();
             $("#mod-footer0").show();
-        }        
-    });     
+        } 
+    });    
 });

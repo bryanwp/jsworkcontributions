@@ -211,7 +211,7 @@ endforeach; ?>
 
                                         <div class="tab-pane fade <?php echo $flag ? 'active in' : ''; ?>" id="tab-<?php echo sanitize_title($style); ?>">
                                             <ul>
-    <?php foreach ($data->color_list as $i => $color_list): ?>
+                                        <?php foreach ($data->color_list as $i => $color_list): ?>
                                                     <li  class="color-enabled" data-toggle="tooltip" data-placement="top"
                                                          title="<?php echo $color_list->name; ?>">
                                                              <?php
@@ -235,7 +235,7 @@ endforeach; ?>
                                                                     continue;
                                                                 $colorx[] = $list
                                                                 ?>
-        <?php endforeach; ?>
+                                                          <?php endforeach; ?>
 
 
                                                             <div data-name="<?php echo $color_list->name; ?>" data-color="<?php echo implode(',', $colorx); ?>" style="background-color: <?php echo implode(',', $colorx); ?>;
@@ -248,13 +248,13 @@ endforeach; ?>
 
                                                         </div>
                                                     </li>
-        <?php $flag = false;
-    endforeach; ?>
-                                            </ul>
-                                        </div>
+                                              <?php $flag = false;
+                                          endforeach; ?>
+                                       </ul>
+                                      </div>
 
-    <?php $x++;
-endforeach; ?>
+                                          <?php $x++;
+                                      endforeach; ?>
 
                                 </div>
                             </div>
@@ -294,7 +294,10 @@ endforeach; ?>
                             <div id="additional-option-section">
                                 <label class="form-group-heading CssTitleBlack"  data-fontsize="19" data-lineheight="20">Additional Options</label>
                                  <?php $i = 1;
-                                  foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option): ?>
+                                  foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option):
+                                    //removes digital proof
+                                    if ($index != 'digital_proof'):
+                                   ?>
                                     <div id="<?php echo 'id_' . $index; ?>" class="additional-option-item fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
                                         <div class="fusion-column-wrapper">
                                             <div class="addon">
@@ -318,6 +321,7 @@ endforeach; ?>
                                         </div><!-- /.fusion-column-wrapper -->
                                     </div><!-- /.fusion-one-third -->
                                   <?php $i++;
+                                  endif;  
                               endforeach; ?>
                             </div><!-- /.fusion-row -->
                         <?php endif; ?>
@@ -789,12 +793,42 @@ endforeach; ?>
                             </div>
 
                         </div><!-- /#add-clipart -->
-<?php if (isset($GLOBALS['wbc_settings']->customization)): ?>
+                        <!-- add digital proof -->
+                         <?php if (isset($GLOBALS['wbc_settings']->additional_options)): ?>
+                             <?php $i = 1;
+                                  foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option):
+                                    //removes digital proof
+                                    if ($index == 'digital_proof'):
+                                   ?>
+                                    <div id="<?php echo 'id_' . $index; ?>" class="additional-option-item fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
+                                        <div class="fusion-column-wrapper">
+                                            <div class="addon">
+                                                <span class="addon-price-handler">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" />
+                                                    </div>
+                                                </span>
+                                            </div>
+                                            <div class="fusion-sep-clear"></div>
+                                            <span class="aligncenter">
+                                            <?php echo $option->name; ?>
+                                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                                      title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
+                                            </span>
+
+                                        </div><!-- /.fusion-column-wrapper -->
+                                    </div><!-- /.fusion-one-third -->
+                                  <?php $i++;
+                                  endif;  
+                              endforeach; ?>
+                        <?php endif; ?>
+                        <!-- end add digital proof -->
+                        <?php if (isset($GLOBALS['wbc_settings']->customization)): ?>
                             <div id="customization-section">
                                 <label class="form-group-heading CssTitleBlack">Production and Shipping</label>
                                 <div class="fusion-clearfix"></div>
-    <?php $flag = false;
-    foreach ($GLOBALS['wbc_settings']->customization->location as $cus_location): ?>
+                        <?php $flag = false;
+                        foreach ($GLOBALS['wbc_settings']->customization->location as $cus_location): ?>
                                     <p class="form-row form-row-wide">
                                         <label>
                                     <?php
@@ -816,10 +850,10 @@ endforeach; ?>
                                         </label>
 
                                     </p>
-        <?php $flag = true;
-    endforeach; ?>
+                              <?php $flag = true;
+                          endforeach; ?>
 
-    <?php foreach ($GLOBALS['wbc_settings']->customization->dates as $type => $date): ?>
+                          <?php foreach ($GLOBALS['wbc_settings']->customization->dates as $type => $date): ?>
                                     <p class="form-row form-row-wide">
                                         <label for="customization_date_<?php echo $type; ?>" class="form-group-heading CssTitleBlack"><?php echo ucwords($type); ?> Time</label>
                                         <select id="customization_date_<?php echo $type; ?>"
@@ -828,9 +862,9 @@ endforeach; ?>
                                             <option value="-1">-- Select <?php echo ucwords($type) ?> Time --</option>
                                         </select>
                                     </p>
-    <?php endforeach; ?>
+                          <?php endforeach; ?>
                             </div>
-<?php endif; ?>
+                        <?php endif; ?>
 
                         <p class="form-row form-row-wide">
                             Guaranteed to be delivered on or before: <strong id="delivery_date"></strong>
@@ -846,7 +880,7 @@ endforeach; ?>
                             <span id="qty_handler" class="qty-handler">0</span>
                         </p>
 
-<?php if ($isEdit): ?>
+                            <?php if ($isEdit): ?>
                             <button id="wbc_edit_to_cart" href="#" class="fusion-button button-flat button-round button-large button-default alignright">
                                 <span class="button-icon-divider-left"><i class="fa fa-shopping-cart"></i></span>
                                 <span class="fusion-button-text-left">Update to Cart</span>
@@ -855,7 +889,7 @@ endforeach; ?>
                                 <a id= "save_button" class="fusion-button button-flat button-round button-small button-default" href="#"><span class="fusion-button-text">Save Design</span></a>
                                 <a class="fusion-button button-flat button-round button-small button-default button-red" href="/cart"><span class="fusion-button-text">Cancel</span></a>
                             </div>
-<?php else: ?>
+                              <?php else: ?>
                             <button id="wbc_add_to_cart" href="#" class="fusion-button button-flat button-round button-large button-default alignright">
                                 <span class="button-icon-divider-left"><i class="fa fa-shopping-cart"></i></span>
                                 <span class="fusion-button-text-left">Add to Cart</span>
@@ -863,7 +897,7 @@ endforeach; ?>
                             <div class="link-buttons aligncenter">
                                 <a id= "save_button" class="fusion-button button-flat button-round button-small button-default SaveBtnAddup" href="#"><span class="fusion-button-text">Save Design</span></a>
                             </div>
-<?php endif; ?>
+                            <?php endif; ?>
 
 
 
