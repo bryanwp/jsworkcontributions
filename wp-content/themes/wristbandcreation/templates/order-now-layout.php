@@ -290,11 +290,11 @@ endforeach; ?>
                         </div><!-- /.quantity_group_field -->
 
 
-<?php if (isset($GLOBALS['wbc_settings']->additional_options)): ?>
+                        <?php if (isset($GLOBALS['wbc_settings']->additional_options)): ?>
                             <div id="additional-option-section">
                                 <label class="form-group-heading CssTitleBlack"  data-fontsize="19" data-lineheight="20">Additional Options</label>
-    <?php $i = 1;
-    foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option): ?>
+                                 <?php $i = 1;
+                                  foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option): ?>
                                     <div id="<?php echo 'id_' . $index; ?>" class="additional-option-item fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
                                         <div class="fusion-column-wrapper">
                                             <div class="addon">
@@ -310,17 +310,17 @@ endforeach; ?>
 
                                             <div class="fusion-sep-clear"></div>
                                             <span class="aligncenter">
-                                <?php echo $option->name; ?>
+                                            <?php echo $option->name; ?>
                                                 <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                                       title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
                                             </span>
 
                                         </div><!-- /.fusion-column-wrapper -->
                                     </div><!-- /.fusion-one-third -->
-        <?php $i++;
-    endforeach; ?>
+                                  <?php $i++;
+                              endforeach; ?>
                             </div><!-- /.fusion-row -->
-<?php endif; ?>
+                        <?php endif; ?>
                     </div>
                 </div><!--/.fusion-one-third-->
                 <div class="fusion-one-half one_half fusion-layout-column fusion-spacing-yes">
@@ -390,7 +390,7 @@ endforeach; ?>
                                     </filter>
                                     </defs>
                                     <rect id="bandcolor" height="100%" width="100%" style="fill: gray" />
-<?php echo $segcolor1_band1 . $segcolor2_band1; ?>
+                                    <?php echo $segcolor1_band1 . $segcolor2_band1; ?>
                                     <?php echo $mask_inside_band1; ?>
                                     <?php // $mask1_inside;  ?>            
                                     <?php echo $mask2_inside_band1 . $mask1_inside_band1; ?>           
@@ -401,11 +401,11 @@ endforeach; ?>
                                         <tspan id="front-endinside1" class="fa" dominant-baseline="middle"></tspan>
                                     </textPath>
                                     </text>
-<?php echo $mask_outside_band1; ?>
-<?php // echo $mask1;   ?>            
-<?php echo $mask2_band1 . $mask1_band1; ?>
-<?php echo $segcolor1_cover_band1 . $segcolor2_cover_band1; ?>            
-<?php echo $segcolor3_band1; ?>            
+                                  <?php echo $mask_outside_band1; ?>
+                                  <?php // echo $mask1;   ?>            
+                                  <?php echo $mask2_band1 . $mask1_band1; ?>
+                                  <?php echo $segcolor1_cover_band1 . $segcolor2_cover_band1; ?>            
+                                  <?php echo $segcolor3_band1; ?>            
                                     <text id="bandtext1" text-anchor="middle" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
                                     <textPath id="bandtextpath1" xlink:href="#MyPath1" startOffset="50%">
                                         <tspan id="front-start1" class="fa" dominant-baseline="middle">&#xf059;</tspan>
@@ -435,16 +435,17 @@ endforeach; ?>
                                     <use id="arc1" xlink:href="#InsideArc" stroke-dasharray="5, 5" stroke="black" display="none"/>
                                     <!--<use xlink:href="#MyPathCont1" fill="none" stroke="blue"  />-->
                                     <!--<use xlink:href="#MyPathInside1" fill="none" stroke="green"  />-->
-                                    <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">FRONT</text>
-                                    <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">FRONT</text>
+                                     <?php echo $glow1; ?>
+                                    <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">FRONT VIEW</text>
+                                    <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">FRONT VIEW</text>
                                     <rect width="100%" height="100%" style="stroke:white;stroke-width:2;fill-opacity:0;">
-<?php echo $glow1; ?>
+
                                     </svg>
                                 </div>
                                 <div class="containersvg2">
                                     <svg id="svgelement2" viewBox="0 0 300 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <rect id="bandcolor2" height="100%" width="100%" style="fill: gray" />
-<?php echo $mask_inside_band2; ?>
+                                    <?php echo $mask_inside_band2; ?>
                                     <?php echo $mask2_inside_band2 . $mask1_inside_band2; ?>
                                     <?php echo $segcolor1_band2 . $segcolor2_band2; ?>
                                     <?php echo $segcolor3_band2; ?>
@@ -455,9 +456,9 @@ endforeach; ?>
                                         <tspan id="front-endinside2" class="fa" dominant-baseline="middle"></tspan>
                                     </textPath>
                                     </text>
-<?php echo $mask_outside_band2; ?>
-<?php echo $mask2_band2 . $mask1_band2; ?>
-<?php echo $segcolor1_cover_band2 . $segcolor2_cover_band2; ?>               
+                                    <?php echo $mask_outside_band2; ?>
+                                    <?php echo $mask2_band2 . $mask1_band2; ?>
+                                    <?php echo $segcolor1_cover_band2 . $segcolor2_cover_band2; ?>               
                                     <text id="bandtext2" text-anchor="middle" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
                                     <textPath id="bandtextpath2" xlink:href="#MyPath2" startOffset="50%">
                                         <tspan id="front-start2" class="fa" dominant-baseline="middle">&#xf059;</tspan>
@@ -503,10 +504,10 @@ endforeach; ?>
                                     <!--<use xlink:href="#MyPath2" fill="none" stroke="red"  />-->
                                     <!--<use xlink:href="#MyPathCont2" fill="none" stroke="blue"  />-->
                                     <!--<use xlink:href="#MyPathInside2" fill="none" stroke="green"  />-->
-                                    <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">BACK</text>
-                                    <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">BACK</text>
+                                    <?php echo $glow2; ?>
+                                    <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">BACK VIEW</text>
+                                    <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">BACK VIEW</text>
                                     <rect width="100%" height="100%" style="stroke:white;stroke-width:2;fill-opacity:0;">
-<?php echo $glow2; ?>
                                     </svg>       
                                 </div>
                                 <!--</div>-->
@@ -530,9 +531,9 @@ endforeach; ?>
                                     </div>
                                 </div>
 
-<?php if (isset($GLOBALS['wbc_settings']->tool_tip_text)):
-    $tooltip = $GLOBALS['wbc_settings']->tool_tip_text;
-    ?>
+                                  <?php if (isset($GLOBALS['wbc_settings']->tool_tip_text)):
+                                      $tooltip = $GLOBALS['wbc_settings']->tool_tip_text;
+                                      ?>
                                     <div id="ForFrontBackID">
                                         <div class="form-row form-row-wide hide-if-message_type-continues">
                                             <table class="marginTB-5" style="width: 100%;" border="0" cellspacing="0"><tr>
@@ -596,7 +597,7 @@ endforeach; ?>
                                                 </td>
                                             </tr></table>
                                     </div><!-- /.form-group -->
-<?php endif; ?>
+                            <?php endif; ?>
                             </div>
                             <!-- 
                             <div id="hiddenDiv" style="display:none" >
@@ -613,20 +614,20 @@ endforeach; ?>
                                     <select name="font" id="font" class="input-select enable-if-style-selected">
                                         <option value="-1">-- Select --</option>
 
-<?php if (isset($GLOBALS['wbc_settings']->fonts)):
-    foreach ($GLOBALS['wbc_settings']->fonts as $font):
-        ?>
-        <?php
-        $Selected = "";
-        if ($metaInfo['FontStyle'] == esc_attr($font)) {
-            $Selected = "selected";
-        }
-        ?>
-                                                <option style="font-size:18px;font-family: '<?php echo esc_attr($font); ?>' !important;"
-                                                        value="<?php echo esc_attr($font); ?>" <?php echo $Selected; ?> ><?php echo esc_attr($font); ?></option>
-    <?php endforeach;
-endif;
-?>
+                                    <?php if (isset($GLOBALS['wbc_settings']->fonts)):
+                                        foreach ($GLOBALS['wbc_settings']->fonts as $font):
+                                            ?>
+                                            <?php
+                                            $Selected = "";
+                                            if ($metaInfo['FontStyle'] == esc_attr($font)) {
+                                                $Selected = "selected";
+                                            }
+                                            ?>
+                                            <option style="font-size:18px;font-family: '<?php echo esc_attr($font); ?>' !important;"
+                                              value="<?php echo esc_attr($font); ?>" <?php echo $Selected; ?> ><?php echo esc_attr($font); ?></option>
+                                        <?php endforeach;
+                                    endif;
+                                    ?>
                                     </select>
                                 </td>
                             </tr>
@@ -672,9 +673,9 @@ endif;
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-ban icon-preview hide-if-upload" id="FsID"></i>
+                                            <i class="fa icon-preview hide-if-upload" id="FsID"></i>
                                             <img class="image-upload hide-if-icon" width="16" height="16"/>
-                                            select</span>
+                                            Select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
                                         <span><i class="fa fa-upload"></i> Upload</span>
@@ -691,9 +692,9 @@ endif;
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-ban icon-preview hide-if-upload" id="FeID"></i>
+                                            <i class="fa icon-preview hide-if-upload" id="FeID"></i>
                                             <img class="image-upload hide-if-icon" width="16" height="16"/>
-                                            select</span>
+                                            Select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
                                         <span><i class="fa fa-upload"></i> Upload</span>
@@ -711,9 +712,9 @@ endif;
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-ban icon-preview hide-if-upload" id="BsID"></i>
+                                            <i class="fa icon-preview hide-if-upload" id="BsID"></i>
                                             <img class="image-upload hide-if-icon" width="16" height="16"/>
-                                            select</span>
+                                            Select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
                                         <span><i class="fa fa-upload"></i> Upload</span>
@@ -732,9 +733,9 @@ endif;
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-ban icon-preview hide-if-upload" id="BeID"></i>
+                                            <i class="fa icon-preview hide-if-upload" id="BeID"></i>
                                             <img class="image-upload hide-if-icon" width="16" height="16"/>
-                                            select</span>
+                                            Select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
                                         <span><i class="fa fa-upload"></i> Upload</span>
@@ -753,9 +754,9 @@ endif;
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-ban icon-preview hide-if-upload" id="WsID"></i>
+                                            <i class="fa icon-preview hide-if-upload" id="WsID"></i>
                                             <img class="image-upload hide-if-icon" width="16" height="16"/>
-                                            select</span>
+                                            Select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
                                         <span><i class="fa fa-upload"></i> Upload</span>
@@ -774,9 +775,9 @@ endif;
                                        data-target="#wristband-clipart-modal"
                                        class="toggle-modal-clipart">
                                         <span class="fusion-button-text-right">
-                                            <i class="fa fa-ban icon-preview hide-if-upload" id="WeID"></i>
+                                            <i class="fa icon-preview hide-if-upload" id="WeID"></i>
                                             <img class="image-upload hide-if-icon" width="16" height="16"/>
-                                            select</span>
+                                            Select</span>
                                     </a>
                                     <a href="#" class="fileinput-button">
                                         <span><i class="fa fa-upload"></i> Upload</span>

@@ -1379,7 +1379,9 @@ jQuery(function ($) {
 
 
 function SelectBandColor(StyleColor,y){
-        //console.log(y);
+        
+        console.log(StyleColor);
+
         if (StyleColor == "Segmented"){
                 //console.log(y);
                 hideAllColor(); 
@@ -1528,8 +1530,9 @@ function SelectBandColor(StyleColor,y){
                     bandcolor2.style.fill = colors[1];
 
                 }
-        } else if(StyleColor == "Glow") {
-                        
+        } else if(StyleColor == 'Glow') {
+                
+                console.log('went here!');
                 hideAllColor();
                 enableGlow();
                 var insidesolid1 = document.getElementById("insidesolid1");
@@ -1581,6 +1584,7 @@ function SelectBandColor(StyleColor,y){
         }
     }
 function enableGlow() {
+                console.log('why')
                 var glow1 = document.getElementById("glow1");
                 var glow2 = document.getElementById("glow2");
 
@@ -3374,7 +3378,7 @@ function hideAllColor(){
                     return (css.match (/(^|\s)fa-\S+/g) || []).join(' ');
                 });
 
-                button.find('.icon-preview').addClass(icon == undefined ? 'fa-ban' : icon);
+                button.find('.icon-preview').addClass(icon == undefined ? '' : icon);
                 //console.log('this is here a joke');
                 Builder.data['clipart'][button.data('position')] =  icon == undefined ? '' : icon;
                 Builder.has_upload = false;
