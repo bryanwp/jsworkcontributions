@@ -271,15 +271,15 @@ endforeach; ?>
                             <!-- <label class="form-group-heading CssTitleBlack" >Input Quantity <span>(Side View Guide)</span></label> -->
                             <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
                                 <label class="form-group-heading CssTitleBlack" for="qty_adult">Adult</label>
-                                <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text">
+                                <input type="number" name="qty_adult" id="qty_adult" min="0" class="input-text" style="padding: 0; text-align: center;">
                             </p>
                             <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
                                 <label class="form-group-heading CssTitleBlack" for="qty_medium">Medium</label>
-                                <input type="number" name="qty_medium" id="qty_medium"  min="0" class="input-text">
+                                <input type="number" name="qty_medium" id="qty_medium"  min="0" class="input-text" style="padding: 0; text-align: center;">
                             </p>
                             <p class="form-row form-row-last fusion-one-fourth one_third fusion-layout-column fusion-column-last fusion-spacing-yes">
                                 <label class="form-group-heading CssTitleBlack" for="qty_youth">Youth</label>
-                                <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text">
+                                <input type="number" name="qty_youth" id="qty_youth"  min="0" class="input-text" style="padding: 0; text-align: center;">
                             </p>
                             <p id="quantity_group_field_button" class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
                                 <br>
@@ -440,8 +440,10 @@ endforeach; ?>
                                     <!--<use xlink:href="#MyPathCont1" fill="none" stroke="blue"  />-->
                                     <!--<use xlink:href="#MyPathInside1" fill="none" stroke="green"  />-->
                                      <?php echo $glow1; ?>
-                                    <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">FRONT VIEW</text>
-                                    <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">FRONT VIEW</text>
+                                    <!-- <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">FRONT VIEW</text>
+                                    <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">FRONT VIEW</text> -->
+                                    <text text-anchor="middle" x="150" y="16" style="fill: white; stroke: White; stroke-width: 3">FRONT VIEW</text>
+                                    <text text-anchor="middle" x="150" y="16" style="fill: black; stroke: Black; stroke-width: 1">FRONT VIEW</text>
                                     <rect width="100%" height="100%" style="stroke:white;stroke-width:2;fill-opacity:0;">
 
                                     </svg>
@@ -509,8 +511,10 @@ endforeach; ?>
                                     <!--<use xlink:href="#MyPathCont2" fill="none" stroke="blue"  />-->
                                     <!--<use xlink:href="#MyPathInside2" fill="none" stroke="green"  />-->
                                     <?php echo $glow2; ?>
-                                    <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">BACK VIEW</text>
-                                    <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">BACK VIEW</text>
+                                    <!-- <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">BACK VIEW</text>
+                                    <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">BACK VIEW</text> -->
+                                    <text text-anchor="middle" x="150" y="16" style="fill: white; stroke: White; stroke-width: 3">BACK VIEW</text>
+                                    <text text-anchor="middle" x="150" y="16" style="fill: black; stroke: Black; stroke-width: 1">BACK VIEW</text>
                                     <rect width="100%" height="100%" style="stroke:white;stroke-width:2;fill-opacity:0;">
                                     </svg>       
                                 </div>
@@ -806,15 +810,20 @@ endforeach; ?>
                                                 <span class="addon-price-handler">
                                                     <div class="checkbox">
                                                         <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" />
-                                                    </div>
-                                                </span>
-                                            </div>
-                                            <div class="fusion-sep-clear"></div>
-                                            <span class="aligncenter">
+                                                        <span class="aligncenterdigital">
                                             <?php echo $option->name; ?>
                                                 <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
                                                       title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
                                             </span>
+                                                    </div>
+                                                </span>
+                                            </div>
+                                            <div class="fusion-sep-clear"></div>
+                                            <!-- <span class="aligncenter">
+                                            <?php echo $option->name; ?>
+                                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                                      title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
+                                            </span> -->
 
                                         </div><!-- /.fusion-column-wrapper -->
                                     </div><!-- /.fusion-one-third -->
@@ -858,8 +867,9 @@ endforeach; ?>
                                         <label for="customization_date_<?php echo $type; ?>" class="form-group-heading CssTitleBlack"><?php echo ucwords($type); ?> Time</label>
                                         <select id="customization_date_<?php echo $type; ?>"
                                                 name="customization_date_<?php echo $type; ?>"
-                                                class="input-select customization-date-select"  required>
+                                                class="input-select customization-date-select" required>
                                             <option value="-1">-- Select <?php echo ucwords($type) ?> Time --</option>
+                                            <!-- <option value="" selected disabled>-- Select <?php echo ucwords($type) ?> Time --</option> -->
                                         </select>
                                     </p>
                           <?php endforeach; ?>

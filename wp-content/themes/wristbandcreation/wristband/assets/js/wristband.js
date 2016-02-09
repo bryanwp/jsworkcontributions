@@ -2,6 +2,7 @@ jQuery(function ($) {
     'use strict';
 
     var Settings = WBC.settings,
+        timeoutID,
         Builder = {
         has_upload  : false,                   // Check if there are any files uploaded
         CntID : 0,
@@ -249,7 +250,7 @@ jQuery(function ($) {
                 c = ['production', 'shipping'];
             for (var i in c) {
                 var $select = $('select[name="customization_date_'+ c[i] +'"]');
-                $select.removeAttr('disabled');
+                $select.removeAttr('disabledpo');
                 $('option:not(:first-child)', $select).remove();
 
                 if (Settings[c[i] + "_price_list"][$size.data('group')] == undefined) continue;
@@ -285,6 +286,7 @@ jQuery(function ($) {
 
             // Trigger keyup on ready
             $('.trigger-limit-char').trigger('keyup');
+           // $('select#customization_date_production').trigger('click');
 
              // Trigger window resize
             $(window).trigger('resize');
@@ -2167,6 +2169,14 @@ function hideAllColor(){
 
     }
 
+        function triggerKey() {
+            timeoutID = setTimeout(function () {
+                if($('#wristband-color-items .color-wrap.selected').find('div').data('name') != undefined){
+                    $('#add_color_to_selections').trigger('click');
+                }
+            }, 1);
+        }
+
     $(document).ready(function() {
        //$('input').blur();
         $(document.body)
@@ -2508,17 +2518,37 @@ function hideAllColor(){
                 } 
             })
             
-            // .on('focusout', '#qty_adult, #qty_medium, #qty_youth', function(){
+            // .on('blur', '#quantity_group_field', function(){
             //     var adult = $('#qty_adult').val();
             //     var medium = $('#qty_medium').val();
             //     var youth = $('#qty_youth').val();
-
-            //     if((adult || medium || youth) != (0 || null || ''))
-            //     {
-            //         $('#add_color_to_selections').trigger('click');
-            //     }
+            //     console.log(adult);
+            //     console.log(medium);
+            //     console.log(youth);
+            //     // if((adult || medium || youth) != (0 || null || ''))
+            //     // {
+            //     //     // $('#add_color_to_selections').trigger('click');
+            //     //     console.log($('#wristband-color-items .color-wrap.selected').find('div'));
+            //     //     console.log($('#wristband-color-items .color-wrap.selected').find('div').data('name'));
+            //     //     if($('#wristband-color-items .color-wrap.selected').find('div').data('name') != undefined){
+            //     //         $('#add_color_to_selections').trigger('click');
+            //     //     }
+            //     // }
 
             // })
+            .on('focus', '#quantity_group_field', function(){
+
+                if (timeoutID) {
+                        clearTimeout(timeoutID);
+                        timeoutID = null;
+                    }
+
+            })
+
+            .on('blur', '#quantity_group_field', function(){
+                triggerKey();
+            })
+
             .on('click', '#add_color_to_selections', function(e) {
                 e.preventDefault();
                 console.log($('#wristband-color-items .color-wrap.selected').find('div'));
@@ -3629,9 +3659,11 @@ function hideAllColor(){
                 // console.log(total_qty);
                 // Builder.calculateDeliveryDate();
                 // return false;
+                var type = 'error',
+                    title = 'Error';
                 console.log($(this).find('option').length)
                      if($(this).find('option').length == 1) 
-                         alert('sdfsdfsf');     
+                         Builder.popupMsg(type, title, 'Input quantity first');
                          else
                         {
 
