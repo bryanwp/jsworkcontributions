@@ -858,7 +858,7 @@ endforeach; ?>
                                         <label for="customization_date_<?php echo $type; ?>" class="form-group-heading CssTitleBlack"><?php echo ucwords($type); ?> Time</label>
                                         <select id="customization_date_<?php echo $type; ?>"
                                                 name="customization_date_<?php echo $type; ?>"
-                                                class="input-select customization-date-select" disabled required>
+                                                class="input-select customization-date-select"  required>
                                             <option value="-1">-- Select <?php echo ucwords($type) ?> Time --</option>
                                         </select>
                                     </p>

@@ -330,8 +330,8 @@ jQuery(function ($) {
 
                             $self.closest('.button-box')
                                 .find('.image-upload')
-                                .attr('src', file.url)
-                                .css({display: 'inline-block'});
+                                .attr('src', file.url);
+                                //.css({display: 'inline-block'});
  
                             $self.closest('.button-box')
                                 .find('.hide-if-upload')
@@ -3443,13 +3443,10 @@ function hideAllColor(){
                     $icon.removeClass('fa-spinner');    
                     $icon.addClass('fa-shopping-cart');
                     $button_text.text('Add to Cart');
-                    console.log('entered here so far')
                     if (!response.success) {
                         type = 'error';
                         title = 'Error';
                     }
-                   console.log(response.data);
-                    console.log(type + ' ' + title );
                     Builder.has_upload = false;
                     Builder.popupMsg(type, title, response.data.message + ' <a href="'+ Settings.site_url +'/cart">view cart <i class="fa fa-long-arrow-right"></i></a>');
                     $("#mmk").html(response.data.message)
@@ -3623,11 +3620,23 @@ function hideAllColor(){
                 });
             })
 
-            .on('change', 'select#customization_date_production, select#customization_date_shipping', function() {
+            .on('click', 'select#customization_date_production, select#customization_date_shipping', function () {
                 
                 //if('select#customization_date_production'||'select#customization_date_shipping')
-                             //   this.collectQuantity();
-                Builder.calculateDeliveryDate();
+                // var total_qty   = Builder.data.total_qty
+
+                // console.log('hello');
+                // console.log(total_qty);
+                // Builder.calculateDeliveryDate();
+                // return false;
+                console.log($(this).find('option').length)
+                     if($(this).find('option').length == 1) 
+                         alert('sdfsdfsf');     
+                         else
+                        {
+
+                        }
+
             })
              
 
