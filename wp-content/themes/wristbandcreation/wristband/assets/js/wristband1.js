@@ -758,13 +758,13 @@ jQuery(function ($) {
             }
      function disableWrapped() {
                 $('#bandtextcont1')[0].setAttribute('text-anchor', '');
-                $('#bandtextcont1')[0].setAttribute('textLength', '');
-                $('#bandtextcont1')[0].setAttribute('lengthAdjust', '');
+                $('#bandtextcont1').removeAttr("textLength");
+                $('#bandtextcont1')[0].setAttribute('lengthAdjust', 'spacing');
                 $('#bandtextpathcont1')[0].setAttribute('startOffset', '0%');
 
                 $('#bandtextcont2')[0].setAttribute('text-anchor', '');
-                $('#bandtextcont2')[0].setAttribute('textLength', '');
-                $('#bandtextcont2')[0].setAttribute('lengthAdjust', '');
+                $('#bandtextcont2').removeAttr("textLength");
+                $('#bandtextcont2')[0].setAttribute('lengthAdjust', 'spacing');
                 $('#bandtextpathcont2')[0].setAttribute('startOffset', '0%');
             }
     function enableWrapped2() {
@@ -780,13 +780,13 @@ jQuery(function ($) {
             }
     function disableWrapped2() {
                 $('#bandtextinside1')[0].setAttribute('text-anchor', '');
-                $('#bandtextinside1')[0].setAttribute('textLength', '');
-                $('#bandtextinside1')[0].setAttribute('lengthAdjust', '');
+                $('#bandtextinside1').removeAttr("textLength");
+                $('#bandtextinside1')[0].setAttribute('lengthAdjust', 'spacing');
                 $('#bandtextpathinside1')[0].setAttribute('startOffset', '0%');
 
                 $('#bandtextinside2')[0].setAttribute('text-anchor', '');
-                $('#bandtextinside2')[0].setAttribute('textLength', '');
-                $('#bandtextinside2')[0].setAttribute('lengthAdjust', '');
+                $('#bandtextinside2').removeAttr("textLength");
+                $('#bandtextinside2')[0].setAttribute('lengthAdjust', 'spacing');
                 $('#bandtextpathinside2')[0].setAttribute('startOffset', '0%');
             }
 
@@ -2382,6 +2382,12 @@ function hideAllColor(){
                 Builder.additionalOptionsShow(this.value);
                 Builder.init();
                 Builder.renderProductionShippingOptions();
+                
+                
+                $("#front_message").trigger("paste");
+                $("#back_message").trigger("paste");
+                $("#continues_message").trigger("paste");
+                $("#inside_message").trigger("paste");
             })
             
             // Message character limit
@@ -2970,8 +2976,8 @@ function hideAllColor(){
 
                 if (txtlen < 6) {
                     document.getElementById("bandtext1").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
-                    $('#bandtext1')[0].setAttribute('lengthAdjust', '');
-                    $('#bandtext1')[0].setAttribute('textLength', '');
+                    $('#bandtext1')[0].setAttribute('lengthAdjust', 'spacing');
+                    $('#bandtext1').removeAttr("textLength");
                     $('input[name=lengthAdjustFlagBand1]').val(0);
                 }
                 $("#front-text1").text(front_msg);
@@ -3021,8 +3027,8 @@ function hideAllColor(){
                 var txtlen = $('input[name="back_message"]').val().length;
                 if (txtlen < 6) {
                     document.getElementById("bandtext2").style.fontSize = size_[newwidth]['MaxFont'] + 'px';
-                    $('#bandtext2')[0].setAttribute('lengthAdjust', '');
-                    $('#bandtext2')[0].setAttribute('textLength', '');
+                    $('#bandtext2')[0].setAttribute('lengthAdjust', 'spacing');
+                    $('#bandtext2').removeAttr("textLength");
                     $('input[name=lengthAdjustFlagBand2]').val(0);
                 }
                 $("#front-text2").text(back_msg);
