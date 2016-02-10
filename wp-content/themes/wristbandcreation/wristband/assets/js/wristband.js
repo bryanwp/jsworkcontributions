@@ -1084,8 +1084,10 @@ jQuery(function ($) {
 
         $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 FREE' : ''));
         $('#price_handler').text(numberFormat(total_price));
-        if( total_qty < 100){ $('#id_convert_to_keychains').hide(); this.resizeOptionSection();} 
-        else { $('#id_convert_to_keychains').show(); this.resizeOptionSection();}
+        if( total_qty < 100){ 
+            console.log(total_qty);
+            $('#id_convert_to_keychains').hide(); Builder.resizeOptionSection();} 
+        else { $('#id_convert_to_keychains').show(); Builder.resizeOptionSection();}
 
         Builder._clipart(total_qty);
         Builder.calculateDeliveryDate();
@@ -2550,7 +2552,7 @@ function hideAllColor(){
                         clearTimeout(timeoutID);
                         timeoutID = null;
                     }
-
+                //Builder.observer();
             })
 
             .on('blur', '#quantity_group_field', function(){
@@ -2559,7 +2561,7 @@ function hideAllColor(){
 
             .on('click', '#add_color_to_selections', function(e) {
                 e.preventDefault();
-                console.log($('#wristband-color-items .color-wrap.selected').find('div'));
+                //console.log($('#wristband-color-items .color-wrap.selected').find('div'));
                 AddNewColor($('#wristband-color-items .color-wrap.selected').find('div'));
             })
 
