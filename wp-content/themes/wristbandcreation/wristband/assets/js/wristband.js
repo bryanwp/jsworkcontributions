@@ -234,6 +234,8 @@ jQuery(function ($) {
             //this.previewForFontFam();
             this.textfont();
             if (y != undefined) { if($('#bandcolor').length) { SelectBandColor(StyleColor,y); } }
+             // Trigger window resize
+            $(window).trigger('resize');                        
         },
 
         textfont: function() {
