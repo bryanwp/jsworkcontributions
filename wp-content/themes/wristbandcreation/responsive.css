@@ -47,9 +47,9 @@
     #quantity_group_field_button{
         width: 10% !important;
     }
-    #additional-option-section > div{
+/*    #additional-option-section > div{
         width: 25%;
-    }
+    }*/
     #additional-option-section .each-message{
         position: static !important;
     }

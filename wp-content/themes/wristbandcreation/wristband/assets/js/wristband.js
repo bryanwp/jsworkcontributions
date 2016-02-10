@@ -3737,9 +3737,11 @@ function hideAllColor(){
             $("#additional-option-section > div").css("width", "48%");
         } else {
             if ($("#id_convert_to_keychains").is(':hidden')) {
-                $("#additional-option-section > div").css("width", "25%");
+//                $("#additional-option-section > div").css("width", "25%");
+                $("#additional-option-section > div").css("width", "33%");
             } else {
-                $("#additional-option-section > div").css("width", "20%");
+//                $("#additional-option-section > div").css("width", "20%");
+                $("#additional-option-section > div").css("width", "25%");
             }
         }
         /*Footer for mobile*/
