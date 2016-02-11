@@ -398,7 +398,7 @@ endforeach; ?>
                                     <?php echo $mask_inside_band1; ?>
                                     <?php // $mask1_inside;  ?>            
                                     <?php echo $mask2_inside_band1 . $mask1_inside_band1; ?>           
-                                    <text id="bandtextinside1" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+                                    <text id="bandtextinside1" fill="#9d1d20" style="font-family: Arial; font-size: 30px; fill: #999999; opacity: 0.6;">
                                     <textPath id="bandtextpathinside1" xlink:href="#MyPathInside1" startOffset="0%">
                                         <tspan id="front-startinside1" class="fa" dominant-baseline="middle"></tspan>
                                         <tspan id="front-textinside1" dominant-baseline="middle"></tspan>
@@ -410,14 +410,14 @@ endforeach; ?>
                                   <?php echo $mask2_band1 . $mask1_band1; ?>
                                   <?php echo $segcolor1_cover_band1 . $segcolor2_cover_band1; ?>            
                                   <?php echo $segcolor3_band1; ?>            
-                                    <text id="bandtext1" text-anchor="middle" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+                                    <text id="bandtext1" text-anchor="middle" fill="#9d1d20" style="font-family: Arial; font-size: 30px; fill: #999999; opacity: 0.6;">
                                     <textPath id="bandtextpath1" xlink:href="#MyPath1" startOffset="50%">
                                         <tspan id="front-start1" class="fa" dominant-baseline="middle">&#xf059;</tspan>
                                         <tspan id="front-text1" dominant-baseline="middle"></tspan>
                                         <tspan id="front-end1" class="fa" dominant-baseline="middle">&#xf059;</tspan>
                                     </textPath>
                                     </text>
-                                    <text id="bandtextcont1" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;"  display="none">
+                                    <text id="bandtextcont1" fill="#9d1d20" style="font-family: Arial; font-size: 30px; fill: #999999; opacity: 0.6;"  display="none">
                                     <textPath id="bandtextpathcont1" xlink:href="#MyPathCont1" startOffset="0%">
                                         <tspan id="front-startcont1" class="fa" dominant-baseline="middle">&#xf059;</tspan>
                                         <tspan id="front-textcont1" dominant-baseline="middle"></tspan>
@@ -455,7 +455,7 @@ endforeach; ?>
                                     <?php echo $mask2_inside_band2 . $mask1_inside_band2; ?>
                                     <?php echo $segcolor1_band2 . $segcolor2_band2; ?>
                                     <?php echo $segcolor3_band2; ?>
-                                    <text id="bandtextinside2" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+                                    <text id="bandtextinside2" fill="#9d1d20" style="font-family: Arial; font-size: 30px; fill: #999999; opacity: 0.6;">
                                     <textPath id="bandtextpathinside2" xlink:href="#MyPathInside2" startOffset="0%">
                                         <tspan id="front-startinside2" class="fa" dominant-baseline="middle"></tspan>
                                         <tspan id="front-textinside2" dominant-baseline="middle"></tspan>
@@ -465,14 +465,14 @@ endforeach; ?>
                                     <?php echo $mask_outside_band2; ?>
                                     <?php echo $mask2_band2 . $mask1_band2; ?>
                                     <?php echo $segcolor1_cover_band2 . $segcolor2_cover_band2; ?>               
-                                    <text id="bandtext2" text-anchor="middle" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+                                    <text id="bandtext2" text-anchor="middle" fill="#9d1d20" style="font-family: Arial; font-size: 30px; fill: #999999; opacity: 0.6;">
                                     <textPath id="bandtextpath2" xlink:href="#MyPath2" startOffset="50%">
                                         <tspan id="front-start2" class="fa" dominant-baseline="middle">&#xf059;</tspan>
                                         <tspan id="front-text2" dominant-baseline="middle"></tspan>
                                         <tspan id="front-end2" class="fa" dominant-baseline="middle">&#xf059;</tspan>
                                     </textPath>
                                     </text>
-                                    <text id="bandtextcont2" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;" display="none">
+                                    <text id="bandtextcont2" fill="#9d1d20" style="font-family: Arial; font-size: 30px; fill: #999999; opacity: 0.6;" display="none">
                                     <textPath id="bandtextpathcont2" xlink:href="#MyPathCont2" startOffset="0%">
                                         <tspan id="front-startcont2" class="fa" dominant-baseline="middle"></tspan>
                                         <tspan id="front-textcont2" dominant-baseline="middle"></tspan>
@@ -481,14 +481,14 @@ endforeach; ?>
                                     </textPath>
                                     </text>
 
-                                    <text id="bandtextcontainer" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+                                    <text id="bandtextcontainer" fill="#9d1d20" style="font-family: Arial; font-size: 30px; fill: #999999; opacity: 0.6;">
                                     <textPath id="bandtextpathcontainer" xlink:href="#ContainerPath" startOffset="0%">
                                         <tspan id="front-startcontainer" class="fa" dominant-baseline="middle"></tspan>
                                         <tspan id="front-textcontainer" dominant-baseline="middle"></tspan>
                                         <tspan id="front-endcontainer" class="fa" dominant-baseline="middle"></tspan>
                                     </textPath>
                                     </text>            
-                                    <text id="bandtextcontainer2" fill="#9d1d20" style="font-family: Arial; font-weight: 600; font-size: 30px; fill: #999999; opacity: 0.6;">
+                                    <text id="bandtextcontainer2" fill="#9d1d20" style="font-family: Arial; font-size: 30px; fill: #999999; opacity: 0.6;">
                                     <textPath id="bandtextpathcontainer2" xlink:href="#ContainerPath" startOffset="0%">
                                         <tspan id="front-startcontainer2" class="fa" dominant-baseline="middle"></tspan>
                                         <tspan id="front-textcontainer2" dominant-baseline="middle"></tspan>
