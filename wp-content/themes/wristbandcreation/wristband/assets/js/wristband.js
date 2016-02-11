@@ -3126,10 +3126,17 @@ function hideAllColor(){
                 if ($("#bandtextcontainer")[0].getBoundingClientRect().width > (size_[newwidth][$('.wbdiv').width()]['ContMax'])) {
                     enableWrapped();
                     $("#front-textcont1").text(cont_msg.substring(0, Math.ceil(cont_msg.length / 2)));
-                    $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 1), cont_msg.length));
+                    $("#front-textcont2").text(cont_msg.substring((Math.ceil(cont_msg.length / 2) - 0), cont_msg.length));
                 } else {
                     disableWrapped();
+                    
                     if ($("#bandtextcontainer")[0].getBoundingClientRect().width > (size_[newwidth][$('.wbdiv').width()]['ContMin'])) {
+                        //additional to fit front msg
+                        $('#bandtextcont1')[0].setAttribute('text-anchor', 'middle');
+                        $('#bandtextcont1')[0].setAttribute('textLength', '280');
+                        $('#bandtextcont1')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
+                        $('#bandtextpathcont1')[0].setAttribute('startOffset', '50%');
+                    
                         $("#front-endcont1").empty();
                         $("#front-endcont2").empty().append($("#ifrontcontend").html());
                         $('input[name=isWrapCont]').val('1');
@@ -3214,10 +3221,10 @@ function hideAllColor(){
 
                     enableWrapped2();
                     $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
-                    $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
+                    $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 0), inside_msg.length));
                 } else {
                     disableWrapped2();
-                    if ($("#bandtextcontainer2")[0].getBoundingClientRect().width < (size_[newwidth][$('.wbdiv').width()]['InsideMin'])) {
+                    if ($("#bandtextcontainer2")[0].getBoundingClientRect().width < (size_[newwidth][$('.wbdiv').width()]['InsideMin'])) {                    
                         $("#front-endinside1").empty().append($("#front-endinside2-icon :selected").text());
                         $("#front-endinside2").empty();
                         $("#front-textinside1").text(inside_msg);
@@ -3225,6 +3232,12 @@ function hideAllColor(){
                         $("#front-textinside2").text('');
 
                     } else {
+                        //additional to fit front msg
+                        $('#bandtextinside1')[0].setAttribute('text-anchor', 'middle');
+                        $('#bandtextinside1')[0].setAttribute('textLength', '280');
+                        $('#bandtextinside1')[0].setAttribute('lengthAdjust', 'spacingAndGlyphs');
+                        $('#bandtextpathinside1')[0].setAttribute('startOffset', '50%');    
+                        
                         $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
                         $("#front-endinside1").empty();
                         var span_textinside1 = $('input[name=textinside]').val().length;
@@ -3232,13 +3245,13 @@ function hideAllColor(){
                         $("#front-textinside2").text(inside_msg.substring((span_textinside1 + 1), inside_msg.length));
                     }
                 }
-                if ($('input[name=backPaste]').val() === '1') {
-                    enableWrapped2();
-                    $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
-                    $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
-                    $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
-                    $("#front-endinside1").empty();
-                }
+//                if ($('input[name=backPaste]').val() === '1') {
+//                    enableWrapped2();
+//                    $("#front-textinside1").text(inside_msg.substring(0, Math.ceil(inside_msg.length / 2)));
+//                    $("#front-textinside2").text(inside_msg.substring((Math.ceil(inside_msg.length / 2) - 1), inside_msg.length));
+//                    $("#front-endinside2").empty().append($("#front-endinside2-icon :selected").text());
+//                    $("#front-endinside1").empty();
+//                }
                 setCaretToPos(document.getElementById('inside_message'), cpos);
             })
 
