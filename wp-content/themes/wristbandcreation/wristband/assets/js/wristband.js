@@ -3136,7 +3136,7 @@ function hideAllColor(){
 
                         var span_textcont1 = $('input[name=textcount]').val().length;
                         $("#front-textcont1").text(cont_msg.substring(0, span_textcont1 + 1));
-                        $("#front-textcont2").text(cont_msg.substring(span_textcont1, cont_msg.length));
+                        $("#front-textcont2").text(cont_msg.substring((span_textcont1 + 1), cont_msg.length));
 
                     } else {
                         // console.log($("#front-endcont1"));
@@ -3229,7 +3229,7 @@ function hideAllColor(){
                         $("#front-endinside1").empty();
                         var span_textinside1 = $('input[name=textinside]').val().length;
                         $("#front-textinside1").text(inside_msg.substring(0, span_textinside1 + 1));
-                        $("#front-textinside2").text(inside_msg.substring(span_textinside1, inside_msg.length));
+                        $("#front-textinside2").text(inside_msg.substring((span_textinside1 + 1), inside_msg.length));
                     }
                 }
                 if ($('input[name=backPaste]').val() === '1') {
