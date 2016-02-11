@@ -1130,7 +1130,7 @@ endforeach; ?>
     </div>
 </form>
 <script type="text/javascript" src="https://zt232.infusionsoft.com/app/webTracking/getTrackingCode?trackingId=836b445a9eef92908d02a37a83de32bd"></script>
-<script src="https://use.typekit.net/opk0etx.js"></script>
+<script src="https://use.typekit.net/afo5vgd.js"></script>
 <script>try{Typekit.load({ async: true });}catch(e){}</script>
 <?php
 if ($metaInfo != false) {
