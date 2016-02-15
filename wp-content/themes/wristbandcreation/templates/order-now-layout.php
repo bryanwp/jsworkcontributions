@@ -288,43 +288,29 @@ endforeach; ?>
                             <div class="clear"></div>
 
                         </div><!-- /.quantity_group_field -->
+                        <!-- Color Quantity table -->
+                        <div class="" style = "padding:0px">
+                            <span id="freeCounter" class="CssTitleBlue"></span>
+                            <div class="form-group table-responsive">
+                                <table id="selected_color_table" class="table table-bordered" border="0">
+                                    <thead>
+                                        <tr>
+                                            <th >Color</th>
+                                            <th class="TempCss1" style="text-align:left;padding-right: 5px;">Adult</th>
+                                            <th class="TempCss1" style="text-align:left;padding-right: 5px;">Medium</th>
+                                            <th class="TempCss1" style="text-align:left;padding-right: 5px;">Youth</th>
+                                            <th class = "text_to_alter">Text</th>
+                                            <th colspan="2" style="text-align:right;"><a class="CssEditSave CssTitleBlue font-size-11" id="EditSaveID" style="cursor: pointer;"><i class="fa fa-pencil"></i></a><br><a style="cursor: pointer;" class="CssEditSave CssTitleRed font-size-11"  id="CancelID"></a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-
-                        <?php if (isset($GLOBALS['wbc_settings']->additional_options)): ?>
-                            <div id="additional-option-section">
-                                <label class="form-group-heading CssTitleBlack"  data-fontsize="19" data-lineheight="20">Additional Options</label>
-                                 <?php $i = 1;
-                                  foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option):
-                                    //removes digital proof
-                                    if ($index != 'digital_proof'):
-                                   ?>
-                                    <div id="<?php echo 'id_' . $index; ?>" class="additional-option-item fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
-                                        <div class="fusion-column-wrapper">
-                                            <div class="addon">
-                                                <span class="addon-price-handler">
-                                                    <div class="checkbox">
-                                                        <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" />
-                                                    </div>
-                                                </span>
-                                            </div>
-                                            <div class="imageframe-align-center">
-                                                <img height="80" src="<?php echo $option->image->url; ?>" alt="<?php echo $option->name; ?>" class="img-responsive">
-                                            </div>
-
-                                            <div class="fusion-sep-clear"></div>
-                                            <span class="aligncenter">
-                                            <?php echo $option->name; ?>
-                                                <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
-                                                      title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
-                                            </span>
-
-                                        </div><!-- /.fusion-column-wrapper -->
-                                    </div><!-- /.fusion-one-third -->
-                                  <?php $i++;
-                                  endif;  
-                              endforeach; ?>
-                            </div><!-- /.fusion-row -->
-                        <?php endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /. Color Quantity table -->
+                            <!-- /.fusion-row -->
                     </div>
                 </div><!--/.fusion-one-third-->
                 <div class="fusion-one-half one_half fusion-layout-column fusion-spacing-yes">
@@ -651,26 +637,7 @@ endforeach; ?>
                 </div><!--/.fusion-one-third-->
                 <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-column-last fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
-                        <div class="" style = "padding:0px">
-                            <span id="freeCounter" class="CssTitleBlue"></span>
-                            <div class="form-group table-responsive">
-                                <table id="selected_color_table" class="table table-bordered" border="0">
-                                    <thead>
-                                        <tr>
-                                            <th >Color</th>
-                                            <th class="TempCss1" style="text-align:left;padding-right: 5px;">Adult</th>
-                                            <th class="TempCss1" style="text-align:left;padding-right: 5px;">Medium</th>
-                                            <th class="TempCss1" style="text-align:left;padding-right: 5px;">Youth</th>
-                                            <th class = "text_to_alter">Text</th>
-                                            <th colspan="2" style="text-align:right;"><a class="CssEditSave CssTitleBlue font-size-11" id="EditSaveID" style="cursor: pointer;"><i class="fa fa-pencil"></i></a><br><a style="cursor: pointer;" class="CssEditSave CssTitleRed font-size-11"  id="CancelID"></a></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                      <!-- Clipart -->
                         <div id="add-clipart">
                             <label id="clipartTitle" class="form-group-heading CssTitleBlack col-md-6 col-xs-6" >Add Clipart</label>
                             <div class="fusion-clearfix"></div>
@@ -797,12 +764,14 @@ endforeach; ?>
                             </div>
 
                         </div><!-- /#add-clipart -->
-                        <!-- add digital proof -->
-                         <?php if (isset($GLOBALS['wbc_settings']->additional_options)): ?>
-                             <?php $i = 1;
+                        <!-- Additional options -->
+                        <?php if (isset($GLOBALS['wbc_settings']->additional_options)): ?>
+                            <div id="additional-option-section">
+                                <label class="form-group-heading CssTitleBlack"  data-fontsize="19" data-lineheight="20">Additional Options</label>
+                                 <?php $i = 1;
                                   foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option):
                                     //removes digital proof
-                                    if ($index == 'digital_proof'):
+                                    if ($index != 'digital_proof'):
                                    ?>
                                     <div id="<?php echo 'id_' . $index; ?>" class="additional-option-item fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
                                         <div class="fusion-column-wrapper">
@@ -810,27 +779,30 @@ endforeach; ?>
                                                 <span class="addon-price-handler">
                                                     <div class="checkbox">
                                                         <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" />
-                                                        <span class="aligncenterdigital">
+                                                    </div>
+                                                </span>
+                                            </div>
+                                            <div class="imageframe-align-center">
+                                                <img height="80" src="<?php echo $option->image->url; ?>" alt="<?php echo $option->name; ?>" class="img-responsive">
+                                            </div>
+
+                                            <div class="fusion-sep-clear"></div>
+                                            <span class="aligncenter">
                                             <?php echo $option->name; ?>
                                                 <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
                                                       title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
                                             </span>
-                                                    </div>
-                                                </span>
-                                            </div>
-                                            <div class="fusion-sep-clear"></div>
-                                            <!-- <span class="aligncenter">
-                                            <?php echo $option->name; ?>
-                                                <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
-                                                      title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
-                                            </span> -->
 
                                         </div><!-- /.fusion-column-wrapper -->
                                     </div><!-- /.fusion-one-third -->
                                   <?php $i++;
                                   endif;  
                               endforeach; ?>
-                        <?php endif; ?>
+                            </div>
+                            <?php endif; ?>
+                        <!-- /. additional options -->
+                        <!-- add digital proof -->
+
                         <!-- end add digital proof -->
                         <?php if (isset($GLOBALS['wbc_settings']->customization)): ?>
                             <div id="customization-section">
@@ -893,7 +865,7 @@ endforeach; ?>
                             <?php if ($isEdit): ?>
                             <button id="wbc_edit_to_cart" href="#" class="fusion-button button-flat button-round button-large button-default alignright">
                                 <span class="button-icon-divider-left"><i class="fa fa-shopping-cart"></i></span>
-                                <span class="fusion-button-text-left">Update to Cart</span>
+                                <span class="fusion-button-text-left">Update Cart</span>
                             </button>
                             <div class="link-buttons alignright">
                                 <a id= "save_button" class="fusion-button button-flat button-round button-small button-default" href="#"><span class="fusion-button-text">Save Design</span></a>

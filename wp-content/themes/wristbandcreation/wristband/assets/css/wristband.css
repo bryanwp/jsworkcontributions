@@ -810,3 +810,6 @@ div#id_digital_proof {
 
 }
 
+p.fusion-row.price.price-with-decimal {
+    text-align: center;
+}

@@ -214,8 +214,9 @@ jQuery(function ($) {
 
                 $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 FREE' : ''));
                 $('#price_handler').text(numberFormat(total_price));
-                if( total_qty < 100){ $('#id_convert_to_keychains').hide(); this.resizeOptionSection();} 
-                else { $('#id_convert_to_keychains').show(); this.resizeOptionSection();}
+                console.log(total_price);
+                // if( total_qty < 100){ $('#id_convert_to_keychains').hide(); this.resizeOptionSection();} 
+                // else { $('#id_convert_to_keychains').show(); this.resizeOptionSection();}
             this.buildPreview();
         },
         resizeOptionSection: function () {
@@ -1084,10 +1085,10 @@ jQuery(function ($) {
 
         $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 FREE' : ''));
         $('#price_handler').text(numberFormat(total_price));
-        if( total_qty < 100){ 
-            console.log(total_qty);
-            $('#id_convert_to_keychains').hide(); Builder.resizeOptionSection();} 
-        else { $('#id_convert_to_keychains').show(); Builder.resizeOptionSection();}
+        // if( total_qty < 100){ 
+        //     console.log(total_qty);
+        //     $('#id_convert_to_keychains').hide(); Builder.resizeOptionSection();} 
+        // else { $('#id_convert_to_keychains').show(); Builder.resizeOptionSection();}
 
         Builder._clipart(total_qty);
         Builder.calculateDeliveryDate();
@@ -1728,7 +1729,7 @@ function hideAllColor(){
                 + '<td style="text-align: left"><left><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"><span id="spanYouthupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpYouthE-' + TempID + '" value="{{{num_yqE}}}"></left></td>'
                 + '<td style="text-align: left" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
                 //+ '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed font-size-11" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}">Delete</a></td>'
-                + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed font-size-11" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}"><i class="fa fa-trash-o"></i></a></td>'
+                + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed font-size-11" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}"><i class="fa fa-times"></i></a></td>'
                 + '</tr>',
                 {
                     name                        : $wc.data('name'),
@@ -2313,7 +2314,7 @@ function hideAllColor(){
                             + '<td style="text-align: left"><left><span style="font-weight: bold;" id="spanYouth-' + TempID +'">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup" data-plus="{{{num_yqE}}}">{{{num_yqE_view}}}</span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"><span id="spanYouthupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpYouthE-' + TempID + '" value="{{{num_yqE}}}"></left></td>'
                             + '<td style="text-align: left" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
                             //+ '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed font-size-11" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}">Delete</a></td>'
-                            + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed font-size-11" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}"><i class="fa fa-trash-o"></i></a></td>'
+                            + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed font-size-11" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}"><i class="fa fa-times"></i></a></td>'
                             + '</tr>',
                             {
                                 name                        : lists[index].name,
@@ -2487,46 +2488,46 @@ function hideAllColor(){
                     }
                     Builder.observer();
             })
-            .on('keyup mouseup', '#qty_adult, #qty_medium, #qty_youth', function() {
-                $('.alert-notify.each-message').remove(); //remove old price message
+            // .on('keyup mouseup', '#qty_adult, #qty_medium, #qty_youth', function() {
+            //     $('.alert-notify.each-message').remove(); //remove old price message
                 
-                var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name');
+            //     var tbl_color = $('.edit-selection').find('.fa-undo').closest('a').data('name');
 
-                var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
-                    $tc = $('#wristband-text-color .color-wrap.selected > div'),
-                    $aq    = $('#qty_adult'),
-                    $mq    = $('#qty_medium'),
-                    $yq    = $('#qty_youth');
+            //     var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
+            //         $tc = $('#wristband-text-color .color-wrap.selected > div'),
+            //         $aq    = $('#qty_adult'),
+            //         $mq    = $('#qty_medium'),
+            //         $yq    = $('#qty_youth');
                   
-                if($aq.val() <= 0 && $mq.val() <= 0 && $yq.val() <= 0) {
-                      $('#price_handler').text('0.00');
-                      $('#qty_handler').text('0');
-                }
+            //     if($aq.val() <= 0 && $mq.val() <= 0 && $yq.val() <= 0) {
+            //           $('#price_handler').text('0.00');
+            //           $('#qty_handler').text('0');
+            //     }
 
-                // ($('#wristband-text-color ul li').length && $tc.length == 0) ||
-                if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)){ return; }
+            //     // ($('#wristband-text-color ul li').length && $tc.length == 0) ||
+            //     if ($wc.length == 0 || (toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)){ return; }
 
-                if(tbl_color == undefined) {
-                    /*
-                   //do this process if it's not updating the additional table list     
-                   Builder.addColor($wc.data('name'), {
-                        name: $wc.data('name'),
-                        color: $wc.data('color'),
-                        type: $('input[name="color_style"]:checked').val(),
-                        text_color_name: $tc.data('name'),
-                        text_color: $tc.data('color'),
-                        sizes: {
-                            adult: toInt($aq.val()),
-                            medium: toInt($mq.val()),
-                            youth: toInt($yq.val()),
-                        },
-                        temp: true, // This is for temporary color during keyup
-                    });
-                        */
-                    Builder.renderProductionShippingOptions();
+            //     if(tbl_color == undefined) {
+            //         /*
+            //        //do this process if it's not updating the additional table list     
+            //        Builder.addColor($wc.data('name'), {
+            //             name: $wc.data('name'),
+            //             color: $wc.data('color'),
+            //             type: $('input[name="color_style"]:checked').val(),
+            //             text_color_name: $tc.data('name'),
+            //             text_color: $tc.data('color'),
+            //             sizes: {
+            //                 adult: toInt($aq.val()),
+            //                 medium: toInt($mq.val()),
+            //                 youth: toInt($yq.val()),
+            //             },
+            //             temp: true, // This is for temporary color during keyup
+            //         });
+            //             */
+            //         Builder.renderProductionShippingOptions();
 
-                } 
-            })
+            //     } 
+            // })
             
             // .on('blur', '#quantity_group_field', function(){
             //     var adult = $('#qty_adult').val();
@@ -2546,13 +2547,15 @@ function hideAllColor(){
             //     // }
 
             // })
-            .on('focus', '#quantity_group_field', function(){
-
+            .on('focus', '#quantity_group_field', function(e){
+                e.preventDefault();
+                console.log('here');
                 if (timeoutID) {
+                        console.log(timeoutID);
                         clearTimeout(timeoutID);
                         timeoutID = null;
                     }
-                //Builder.observer();
+                Builder.observer();
             })
 
             .on('blur', '#quantity_group_field', function(){
@@ -3481,7 +3484,7 @@ function hideAllColor(){
 
                 $icon.removeClass('fa-shopping-cart');
                 $icon.addClass('fa-spinner');
-                $button_text.text('Update to Cart');
+                $button_text.text('Update Cart');
 
                 Builder.collectDataToPost();
                 $.ajax({
@@ -3684,12 +3687,11 @@ function hideAllColor(){
                 // return false;
                 var type = 'error',
                     title = 'Error';
-                console.log($(this).find('option').length)
-                     if($(this).find('option').length == 1) 
+                      if($(this).find('option').length == 1) 
                          Builder.popupMsg(type, title, 'Input quantity first');
                          else
                         {
-
+                            Builder.calculateDeliveryDate();
                         }
 
             })
