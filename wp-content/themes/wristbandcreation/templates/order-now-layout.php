@@ -155,7 +155,7 @@ if (isset($_REQUEST['id'])) {
                     <div class="fusion-column-wrapper">
                         <p class="form-row form-row-wide" id="style_field">
                             <label for="style" class="form-group-heading CssTitleBlack">Select Style
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top" title="Select Style">?</span>
+                                <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top" title="Select Style">?</span>
                             </label>
                             <select name="style" id="style" class="input-select">
 <?php
@@ -172,7 +172,7 @@ if (isset($GLOBALS['wbc_settings']->products)):
                         </p>
                         <p class="form-row form-row-wide" id="width_field">
                             <label for="width" class="form-group-heading CssTitleBlack">Select Width
-                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
                                       title="Select Width">?</span>
                             </label>
                             <select name="width" id="width" class="input-select enable-if-style-selected" disabled> inch</select>
@@ -314,7 +314,7 @@ endforeach; ?>
                                             <div class="fusion-sep-clear"></div>
                                             <span class="aligncenter">
                                             <?php echo $option->name; ?>
-                                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                                <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
                                                       title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
                                             </span>
 
@@ -527,13 +527,13 @@ endforeach; ?>
                                     <div class="marginTB-5" style="float: right;">
                                         <input type="radio" name="message_type" value="front_and_back" <?php echo isset($metaInfo['wristband_stat']) ? ($metaInfo['wristband_stat'] == 'front_and_back' ? 'checked' : '') : 'checked'; ?> />
                                         Front/Back
-                                        <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                        <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
                                               title="Front and Back Message" data-placement="top">?</span>
 
                                         &nbsp;
                                         <input type="radio" name="message_type" value="continues" <?php echo $metaInfo['wristband_stat'] == 'continues' ? 'checked' : ''; ?> />
                                         Wrap Around
-                                        <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                        <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
                                               title="Continuous Message" data-placement="top">?</span>
 
                                     </div>
@@ -547,7 +547,7 @@ endforeach; ?>
                                             <table class="marginTB-5" style="width: 100%;" border="0" cellspacing="0"><tr>
                                                     <td class="TdTitleCss">
                                                         <label for="front_message"  class="form-group-heading CssTitleBlack">Front Message
-                                                            <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                                            <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
                                                                   title="<?php echo $tooltip->front; ?>" data-placement="top">?
                                                             </span>
                                                         </label>
@@ -562,7 +562,7 @@ endforeach; ?>
                                             <table class="marginTB-5" style="width: 100%;" border="0" cellspacing="0"><tr>
                                                     <td class="TdTitleCss">
                                                         <label for="back_message"  class="form-group-heading CssTitleBlack">Back Message
-                                                            <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                                            <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
                                                                   title="<?php echo $tooltip->back; ?>" data-placement="top">?
                                                             </span>
                                                         </label>
@@ -579,7 +579,7 @@ endforeach; ?>
                                             <table class="marginTB-5" style="width: 100%;" border="0" cellspacing="0"><tr>
                                                     <td class="TdTitleCss">
                                                         <label for="continues_message"  class="form-group-heading CssTitleBlack">Continuous Message
-                                                            <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                                            <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
                                                                   title="<?php echo $tooltip->wrap_around; ?>" data-placement="top">?
                                                             </span>
                                                         </label>
@@ -595,7 +595,7 @@ endforeach; ?>
                                         <table class="marginTB-5" style="width: 100%;" border="0" cellspacing="0"><tr>
                                                 <td class="TdTitleCss">
                                                     <label for="inside_message"  class="form-group-heading CssTitleBlack">Inside Message
-                                                        <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                                        <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
                                                               title="<?php echo $tooltip->inside; ?>" data-placement="top">?
                                                         </span>
                                                     </label>
@@ -812,7 +812,7 @@ endforeach; ?>
                                                         <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" />
                                                         <span class="aligncenterdigital">
                                             <?php echo $option->name; ?>
-                                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                                <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
                                                       title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
                                             </span>
                                                     </div>
@@ -821,7 +821,7 @@ endforeach; ?>
                                             <div class="fusion-sep-clear"></div>
                                             <!-- <span class="aligncenter">
                                             <?php echo $option->name; ?>
-                                                <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                                <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
                                                       title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
                                             </span> -->
 
@@ -854,7 +854,7 @@ endforeach; ?>
                                 <?php echo!$flag ? 'checked' : ''; ?> <?php echo $Stat; ?> title="<?php echo esc_attr($cus_location->tool_tip_text); ?>"/>
                                 <?php echo esc_attr($cus_location->name); ?>
 
-                                               <!--  <span class="fusion-popover" data-toggle="tooltip" data-placement="top"
+                                               <!--  <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
                                                title="<?php echo esc_attr($cus_location->tool_tip_text); ?>">?</span> -->
                                         </label>
 

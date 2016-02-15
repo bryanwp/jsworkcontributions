@@ -61,10 +61,13 @@ if (!class_exists('WBC_Front_Scripts')) {
             wp_register_style('google_font_style', 'https://fonts.googleapis.com/css?family=Asset|Press+Start+2P|Diplomata|Diplomata+SC|Ultra|Syncopate|Corben|Shojumaru|Gravitas+One|Holtwood+One+SC|Delius+Unicase|Sonsie+One|Nosifer|Krona+One|Plaster|Chango|Geostar+Fill|Goblin+One|Revalia|Ewert|Geostar|Arbutus', array(), WBC_VERSION);
             wp_register_style('jquery-file-upload_style', WBC_ASSETS_URL . '/css/vendor/jquery-fileupload/jquery.fileupload.css', array(), WBC_VERSION);
             wp_register_style('wristband_style', WBC_ASSETS_URL . '/css/wristband.css', array(), WBC_VERSION);
+            wp_register_style('list_of_fonts', WBC_ASSETS_URL . '/css/font.css', array(), WBC_VERSION);
 
             wp_enqueue_style('google_font_style');
             wp_enqueue_style('jquery-file-upload_style');
             wp_enqueue_style('wristband_style');
+            wp_enqueue_style('list_of_fonts');
+
 
         }
 

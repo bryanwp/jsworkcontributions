@@ -797,3 +797,16 @@ input[type="checkbox"],input[type="radio"] {
 div#id_digital_proof {
     margin-top: 10px;
 }
+
+.tooltip-img{
+
+    background: url('../images/tooltip-picture.png') no-repeat;
+    width: 20px!important;
+    height: 20px!important;
+    background-size: cover;
+    background-position: center center;
+    text-indent: -9999px;
+    background-color: transparent !important;
+
+}
+
