@@ -813,3 +813,7 @@ div#id_digital_proof {
 p.fusion-row.price.price-with-decimal {
     text-align: center;
 }
+
+.fusion-tabs .nav-tabs li .tab-link {
+    color: #000000;
+}

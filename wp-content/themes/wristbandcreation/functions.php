@@ -483,7 +483,7 @@ function display_order_summary($_product, $meta)
               </span>
 
             <div class="fusion-li-item-content">
-              <span><?php echo $color['name']; ?></span> – <?php echo $color['type']; ?>: <em><?php echo $color['color']; ?>
+              <span><?php echo $color['name']; ?></span> – <?php echo $color['type']; ?> <em><?php //echo $color['color']; ?>
                 </em>
             </div>
 
@@ -570,7 +570,7 @@ function display_order_summary($_product, $meta)
               <?php else: ?>
                 <i class="fa <?php echo $clipart; ?>"></i>
               <?php endif; ?>
-              (<em><?php echo $clipart; ?></em>)
+              <!-- (<em><?php //echo $clipart; ?></em>) -->
             </div>
           </li>
         <?php endforeach; ?>

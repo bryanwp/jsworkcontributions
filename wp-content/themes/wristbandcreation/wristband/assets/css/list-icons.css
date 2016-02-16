@@ -1,0 +1,603 @@
+@font-face {
+    font-family: 'icomoon';
+    src:    url('../iconlist/icomoon.eot?lxkwpy');
+    src:    url('../iconlist/icomoon.eot?lxkwpy#iefix') format('embedded-opentype'),
+        url('../iconlist/icomoon.ttf?lxkwpy') format('truetype'),
+        url('../iconlist/icomoon.woff?lxkwpy') format('woff'),
+        url('../iconlist/icomoon.svg?lxkwpy#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="aykun-"], [class*=" aykun-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'icomoon' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.aykun-Airplane:before {
+    content: "\e900";
+}
+.aykun-Alien:before {
+    content: "\e901";
+}
+.aykun-Anchor:before {
+    content: "\e902";
+}
+.aykun-Android:before {
+    content: "\e903";
+}
+.aykun-Angel:before {
+    content: "\e904";
+}
+.aykun-Apple:before {
+    content: "\e905";
+}
+.aykun-Apple_2:before {
+    content: "\e906";
+}
+.aykun-Attention:before {
+    content: "\e907";
+}
+.aykun-Audio:before {
+    content: "\e908";
+}
+.aykun-Baby:before {
+    content: "\e909";
+}
+.aykun-Balloons:before {
+    content: "\e90a";
+}
+.aykun-Basketball:before {
+    content: "\e90b";
+}
+.aykun-Batman:before {
+    content: "\e90c";
+}
+.aykun-Batman_2:before {
+    content: "\e90d";
+}
+.aykun-Bear:before {
+    content: "\e90e";
+}
+.aykun-Bear_2:before {
+    content: "\e90f";
+}
+.aykun-Bear_3:before {
+    content: "\e910";
+}
+.aykun-Beer:before {
+    content: "\e911";
+}
+.aykun-Bible:before {
+    content: "\e912";
+}
+.aykun-Bike:before {
+    content: "\e913";
+}
+.aykun-Bowling:before {
+    content: "\e914";
+}
+.aykun-Breast:before {
+    content: "\e915";
+}
+.aykun-Buoy:before {
+    content: "\e916";
+}
+.aykun-Butterfly:before {
+    content: "\e917";
+}
+.aykun-Cake:before {
+    content: "\e918";
+}
+.aykun-Cake_2:before {
+    content: "\e919";
+}
+.aykun-Call:before {
+    content: "\e91a";
+}
+.aykun-Call_2:before {
+    content: "\e91b";
+}
+.aykun-Call_3:before {
+    content: "\e91c";
+}
+.aykun-Canada:before {
+    content: "\e91d";
+}
+.aykun-Cancer:before {
+    content: "\e91e";
+}
+.aykun-CandyCane:before {
+    content: "\e91f";
+}
+.aykun-Car:before {
+    content: "\e920";
+}
+.aykun-Car_2:before {
+    content: "\e921";
+}
+.aykun-Cart:before {
+    content: "\e922";
+}
+.aykun-Cat:before {
+    content: "\e923";
+}
+.aykun-Checklist:before {
+    content: "\e924";
+}
+.aykun-Cheers:before {
+    content: "\e925";
+}
+.aykun-Chicken:before {
+    content: "\e926";
+}
+.aykun-Church:before {
+    content: "\e927";
+}
+.aykun-Clouds:before {
+    content: "\e928";
+}
+.aykun-Clubs:before {
+    content: "\e929";
+}
+.aykun-Cocktail:before {
+    content: "\e92a";
+}
+.aykun-Cone:before {
+    content: "\e92b";
+}
+.aykun-Cross:before {
+    content: "\e92c";
+}
+.aykun-Cross_2:before {
+    content: "\e92d";
+}
+.aykun-Crown:before {
+    content: "\e92e";
+}
+.aykun-Cupid:before {
+    content: "\e92f";
+}
+.aykun-Delete:before {
+    content: "\e930";
+}
+.aykun-Delivery:before {
+    content: "\e931";
+}
+.aykun-Diamond:before {
+    content: "\e932";
+}
+.aykun-Dice:before {
+    content: "\e933";
+}
+.aykun-Dinosaur:before {
+    content: "\e934";
+}
+.aykun-Dog:before {
+    content: "\e935";
+}
+.aykun-Dog_2:before {
+    content: "\e936";
+}
+.aykun-Dog_3:before {
+    content: "\e937";
+}
+.aykun-Dollar:before {
+    content: "\e938";
+}
+.aykun-Dollar_2:before {
+    content: "\e939";
+}
+.aykun-Dolphin:before {
+    content: "\e93a";
+}
+.aykun-Domain:before {
+    content: "\e93b";
+}
+.aykun-Dove:before {
+    content: "\e93c";
+}
+.aykun-eagle_3:before {
+    content: "\e93d";
+}
+.aykun-Eagle:before {
+    content: "\e93e";
+}
+.aykun-Eagle_2:before {
+    content: "\e93f";
+}
+.aykun-Earth:before {
+    content: "\e940";
+}
+.aykun-Email:before {
+    content: "\e941";
+}
+.aykun-Eye:before {
+    content: "\e942";
+}
+.aykun-Eyeglass:before {
+    content: "\e943";
+}
+.aykun-Facebook:before {
+    content: "\e944";
+}
+.aykun-Fighterjetsilhouette:before {
+    content: "\e945";
+}
+.aykun-Fish:before {
+    content: "\e946";
+}
+.aykun-Flag:before {
+    content: "\e947";
+}
+.aykun-Flag_2:before {
+    content: "\e948";
+}
+.aykun-Flower:before {
+    content: "\e949";
+}
+.aykun-Flower_2:before {
+    content: "\e94a";
+}
+.aykun-Flower_3:before {
+    content: "\e94b";
+}
+.aykun-Flower_4:before {
+    content: "\e94c";
+}
+.aykun-Football_2:before {
+    content: "\e94d";
+}
+.aykun-Footballball:before {
+    content: "\e94e";
+}
+.aykun-Footprints:before {
+    content: "\e94f";
+}
+.aykun-Footstepssilhouettevariant:before {
+    content: "\e950";
+}
+.aykun-Frog:before {
+    content: "\e951";
+}
+.aykun-Gas:before {
+    content: "\e952";
+}
+.aykun-Gay:before {
+    content: "\e953";
+}
+.aykun-Ghost:before {
+    content: "\e954";
+}
+.aykun-Gift:before {
+    content: "\e955";
+}
+.aykun-Gingerbread:before {
+    content: "\e956";
+}
+.aykun-Girl:before {
+    content: "\e957";
+}
+.aykun-Girl_2:before {
+    content: "\e958";
+}
+.aykun-Glass:before {
+    content: "\e959";
+}
+.aykun-Golf:before {
+    content: "\e95a";
+}
+.aykun-Golf_2:before {
+    content: "\e95b";
+}
+.aykun-Graduation:before {
+    content: "\e95c";
+}
+.aykun-Guitar:before {
+    content: "\e95d";
+}
+.aykun-happy:before {
+    content: "\e95e";
+}
+.aykun-Happy_2:before {
+    content: "\e95f";
+}
+.aykun-Headset:before {
+    content: "\e960";
+}
+.aykun-Heart:before {
+    content: "\e961";
+}
+.aykun-Heart_2:before {
+    content: "\e962";
+}
+.aykun-Hockey:before {
+    content: "\e963";
+}
+.aykun-Horse:before {
+    content: "\e964";
+}
+.aykun-Horse_2:before {
+    content: "\e965";
+}
+.aykun-Hospital:before {
+    content: "\e966";
+}
+.aykun-HoT:before {
+    content: "\e967";
+}
+.aykun-House:before {
+    content: "\e968";
+}
+.aykun-Icecream:before {
+    content: "\e969";
+}
+.aykun-Instagram:before {
+    content: "\e96a";
+}
+.aykun-iPhone:before {
+    content: "\e96b";
+}
+.aykun-Islam:before {
+    content: "\e96c";
+}
+.aykun-Jesus:before {
+    content: "\e96d";
+}
+.aykun-Jet_2:before {
+    content: "\e96e";
+}
+.aykun-jewel:before {
+    content: "\e96f";
+}
+.aykun-Karate:before {
+    content: "\e970";
+}
+.aykun-Kitty:before {
+    content: "\e971";
+}
+.aykun-Leaf:before {
+    content: "\e972";
+}
+.aykun-Lightning:before {
+    content: "\e973";
+}
+.aykun-Like:before {
+    content: "\e974";
+}
+.aykun-Linkedin:before {
+    content: "\e975";
+}
+.aykun-Lock:before {
+    content: "\e976";
+}
+.aykun-Lollipop:before {
+    content: "\e977";
+}
+.aykun-Man:before {
+    content: "\e978";
+}
+.aykun-Map:before {
+    content: "\e979";
+}
+.aykun-Medal:before {
+    content: "\e97a";
+}
+.aykun-Medal_2:before {
+    content: "\e97b";
+}
+.aykun-Motorcycle:before {
+    content: "\e97c";
+}
+.aykun-Music:before {
+    content: "\e97d";
+}
+.aykun-Mustache:before {
+    content: "\e97e";
+}
+.aykun-Nosmoking:before {
+    content: "\e97f";
+}
+.aykun-Note:before {
+    content: "\e980";
+}
+.aykun-Note_2:before {
+    content: "\e981";
+}
+.aykun-Owl:before {
+    content: "\e982";
+}
+.aykun-Panda:before {
+    content: "\e983";
+}
+.aykun-Paw:before {
+    content: "\e984";
+}
+.aykun-Paw_2:before {
+    content: "\e985";
+}
+.aykun-Paw_3:before {
+    content: "\e986";
+}
+.aykun-Pencil:before {
+    content: "\e987";
+}
+.aykun-Pin:before {
+    content: "\e988";
+}
+.aykun-Pineapple:before {
+    content: "\e989";
+}
+.aykun-playbutton:before {
+    content: "\e98a";
+}
+.aykun-Plus:before {
+    content: "\e98b";
+}
+.aykun-Policeman:before {
+    content: "\e98c";
+}
+.aykun-Pranava:before {
+    content: "\e98d";
+}
+.aykun-Pumpkin:before {
+    content: "\e98e";
+}
+.aykun-Puzzle:before {
+    content: "\e98f";
+}
+.aykun-Rabbit:before {
+    content: "\e990";
+}
+.aykun-Radioactivity:before {
+    content: "\e991";
+}
+.aykun-Recycle:before {
+    content: "\e992";
+}
+.aykun-Ribbon:before {
+    content: "\e993";
+}
+.aykun-Ribbon_2:before {
+    content: "\e994";
+}
+.aykun-Ribbon_3:before {
+    content: "\e995";
+}
+.aykun-Ring:before {
+    content: "\e996";
+}
+.aykun-RIP:before {
+    content: "\e997";
+}
+.aykun-Rx:before {
+    content: "\e998";
+}
+.aykun-SantaClaus:before {
+    content: "\e999";
+}
+.aykun-Skull:before {
+    content: "\e99a";
+}
+.aykun-Skype:before {
+    content: "\e99b";
+}
+.aykun-Smile:before {
+    content: "\e99c";
+}
+.aykun-Snacks:before {
+    content: "\e99d";
+}
+.aykun-Snakes:before {
+    content: "\e99e";
+}
+.aykun-Snowflake:before {
+    content: "\e99f";
+}
+.aykun-Snowman:before {
+    content: "\e9a0";
+}
+.aykun-Soccer:before {
+    content: "\e9a1";
+}
+.aykun-Spade:before {
+    content: "\e9a2";
+}
+.aykun-Star:before {
+    content: "\e9a3";
+}
+.aykun-Star_2:before {
+    content: "\e9a4";
+}
+.aykun-Star_3:before {
+    content: "\e9a5";
+}
+.aykun-Star_4:before {
+    content: "\e9a6";
+}
+.aykun-Star_5:before {
+    content: "\e9a7";
+}
+.aykun-Star_6:before {
+    content: "\e9a8";
+}
+.aykun-Stop:before {
+    content: "\e9a9";
+}
+.aykun-Suitcase:before {
+    content: "\e9aa";
+}
+.aykun-Sun:before {
+    content: "\e9ab";
+}
+.aykun-Sun_2:before {
+    content: "\e9ac";
+}
+.aykun-Swimming:before {
+    content: "\e9ad";
+}
+.aykun-Tennis:before {
+    content: "\e9ae";
+}
+.aykun-Tree:before {
+    content: "\e9af";
+}
+.aykun-Trophy:before {
+    content: "\e9b0";
+}
+.aykun-Truck:before {
+    content: "\e9b1";
+}
+.aykun-Tumbler .path1:before {
+    content: "\e9b2";
+    color: rgb(0, 0, 0);
+}
+.aykun-Tumbler .path2:before {
+    content: "\e9b3";
+    margin-left: -1em;
+    color: rgb(255, 255, 255);
+}
+.aykun-Turtle:before {
+    content: "\e9b4";
+}
+.aykun-Twitter:before {
+    content: "\e9b5";
+}
+.aykun-Umbrella:before {
+    content: "\e9b6";
+}
+.aykun-USA:before {
+    content: "\e9b7";
+}
+.aykun-US_Flag:before {
+    content: "\e9b8";
+}
+.aykun-Volleyball:before {
+    content: "\e9b9";
+}
+.aykun-Wheelchair_Chair:before {
+    content: "\e9ba";
+}
+.aykun-Woman:before {
+    content: "\e9bb";
+}
+.aykun-Yin_Yang:before {
+    content: "\e9bc";
+}
+.aykun-Youtube:before {
+    content: "\e9bd";
+}
+.aykun-Zombie:before {
+    content: "\e9be";
+}
+

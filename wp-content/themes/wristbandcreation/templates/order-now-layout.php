@@ -872,10 +872,14 @@ endforeach; ?>
                                 <a class="fusion-button button-flat button-round button-small button-default button-red" href="/cart"><span class="fusion-button-text">Cancel</span></a>
                             </div>
                               <?php else: ?>
+                            <!-- <button id="wbc_add_to_cart" href="#" class="fusion-button button-flat button-round button-large button-default alignright">
+                                <span class="button-icon-divider-left"><i class="fa fa-shopping-cart"></i></span>
+                                <span class="fusion-button-text-left">Add to Cart</span>
+                            </button> -->
                             <button id="wbc_add_to_cart" href="#" class="fusion-button button-flat button-round button-large button-default alignright">
                                 <span class="button-icon-divider-left"><i class="fa fa-shopping-cart"></i></span>
                                 <span class="fusion-button-text-left">Add to Cart</span>
-                            </button>
+                            </button> 
                             <div class="link-buttons aligncenter">
                                 <a id= "save_button" class="fusion-button button-flat button-round button-small button-default SaveBtnAddup" href="#"><span class="fusion-button-text">Save Design</span></a>
                             </div>

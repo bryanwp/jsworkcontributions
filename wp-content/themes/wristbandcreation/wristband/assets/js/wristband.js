@@ -3623,7 +3623,9 @@ jQuery(function ($) {
 
                         switch (position) {
                             case "front_start":
+                                //console.log(button);
                                 $('#front-start1').text(glyp);
+                                // $('#front-start1').attr('class', 'fa '+icon);
                                 break;
                             case "front_end":
                                 $('#front-end1').text(glyp);
@@ -3698,8 +3700,8 @@ jQuery(function ($) {
                             $icon = $self.find('.fa'),
                             $button_text = $self.find('.fusion-button-text-left');
 
-                    $icon.removeClass('fa-shopping-cart');
-                    $icon.addClass('fa-spinner');
+                    // $icon.removeClass('fa-shopping-cart');
+                    // $icon.addClass('fa-spinner');
                     $button_text.text('Add to Cart');
 
                     Builder.collectDataToPost();
@@ -3713,7 +3715,7 @@ jQuery(function ($) {
                         var type = 'success',
                                 title = 'Success';
 
-                        $icon.removeClass('fa-spinner');
+                        //$icon.removeClass('fa-spinner');
                         $icon.addClass('fa-shopping-cart');
                         $button_text.text('Add to Cart');
 
@@ -3722,8 +3724,11 @@ jQuery(function ($) {
                             title = 'Error';
                         }
                         Builder.has_upload = false;
-                        Builder.popupMsg(type, title, response.data.message + ' <a href="' + Settings.site_url + '/cart">view cart <i class="fa fa-long-arrow-right"></i></a>');
-
+                        //Builder.popupMsg(type, title, response.data.message + ' <a href="' + Settings.site_url + '/cart">view cart <i class="fa fa-long-arrow-right"></i></a>');
+                        if (response.success)
+                            {
+                                window.location = "/cart";
+                            }
                     });
                     ConnectItems();
                     return false;
@@ -3743,8 +3748,8 @@ jQuery(function ($) {
                             UpdateID = $("#EditModeID").val(),
                             $button_text = $self.find('.fusion-button-text-left');
 
-                    $icon.removeClass('fa-shopping-cart');
-                    $icon.addClass('fa-spinner');
+                    //$icon.removeClass('fa-shopping-cart');
+                    //$icon.addClass('fa-spinner');
                     $button_text.text('Update Cart');
 
                     Builder.collectDataToPost();
@@ -3757,7 +3762,7 @@ jQuery(function ($) {
                         var type = 'success',
                                 title = 'Success';
 
-                        $icon.removeClass('fa-spinner');
+                        //$icon.removeClass('fa-spinner');
                         $icon.addClass('fa-shopping-cart');
                         $button_text.text('Add to Cart');
                         if (!response.success) {
@@ -3765,7 +3770,7 @@ jQuery(function ($) {
                             title = 'Error';
                         }
                         Builder.has_upload = false;
-                        Builder.popupMsg(type, title, response.data.message + ' <a href="' + Settings.site_url + '/cart">view cart <i class="fa fa-long-arrow-right"></i></a>');
+                        //Builder.popupMsg(type, title, response.data.message + ' <a href="' + Settings.site_url + '/cart">view cart <i class="fa fa-long-arrow-right"></i></a>');
                         $("#mmk").html(response.data.message)
 
                         if (response.success)
