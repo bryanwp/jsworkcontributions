@@ -817,3 +817,7 @@ p.fusion-row.price.price-with-decimal {
 .fusion-tabs .nav-tabs li .tab-link {
     color: #000000;
 }
+
+.note-message {
+    font-size: 13px;
+}

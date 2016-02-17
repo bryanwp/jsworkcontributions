@@ -508,6 +508,7 @@ endforeach; ?>
                             </div>
                             <div>
                                 <div class="form-row">
+                                    <div class="note-message"><i>NOTE: The preview above may not accurately represent the wristband layout. We will email you a digital proof after placing your order for your approval prior to production.</i></div>
                                     <label for="message_type" class="form-group-heading CssTitleBlack marginTB-5" style="float:left">Message on Wristbands</label class="form-group-heading CssTitleBlack" >
 
                                     <div class="marginTB-5" style="float: right;">
@@ -539,7 +540,7 @@ endforeach; ?>
                                                         </label>
                                                     </td><td>
                                                         <input type="text" id="front_message" name="front_message" class="input-text trigger-limit-char"
-                                                             maxlength="40" data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Front_msg']; ?>" >
+                                                             data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Front_msg']; ?>" >
                                                     </td>
                                                 </tr></table>
                                         </div>
@@ -554,7 +555,7 @@ endforeach; ?>
                                                         </label>
                                                     </td><td>
                                                         <input type="text" id="back_message" name="back_message"  class="input-text trigger-limit-char"
-                                                            maxlength="40" data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Back_msg']; ?>" />
+                                                           data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Back_msg']; ?>" />
                                                     </td>
                                                 </tr></table>
                                         </div><!-- /.form-group -->
@@ -571,7 +572,7 @@ endforeach; ?>
                                                         </label>
                                                     </td><td>
                                                         <input type="text" id="continues_message" name="continues_message" class="input-text trigger-limit-char"
-                                                              maxlength="80" data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Wrap_msg']; ?>" />
+                                                            data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Wrap_msg']; ?>" />
                                                     </td>
                                                 </tr></table>
                                         </div><!-- /.form-group -->
@@ -587,7 +588,7 @@ endforeach; ?>
                                                     </label>
                                                 </td><td>
                                                     <input type="text" id="inside_message" name="inside_message" class="input-text trigger-limit-char"
-                                                        maxlength="80" data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Inside_msg']; ?>" />
+                                                        data-limit="<?php echo WBC_MESSAGE_CHAR_LIMIT; ?>" value="<?php echo $metaInfo['Inside_msg']; ?>" />
                                                 </td>
                                             </tr></table>
                                     </div><!-- /.form-group -->
@@ -637,6 +638,9 @@ endforeach; ?>
                 </div><!--/.fusion-one-third-->
                 <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-column-last fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
+                      <!-- note -->
+                      <div class="note-message"><i>Get 100 free wristbands for all orders with 100 wristbands and above.</i></div>
+                      <!-- /.note -->
                       <!-- Clipart -->
                         <div id="add-clipart">
                             <label id="clipartTitle" class="form-group-heading CssTitleBlack col-md-6 col-xs-6" >Add Clipart</label>

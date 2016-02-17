@@ -214,7 +214,7 @@ jQuery(function ($) {
 
                     $('#qty_handler').text(numberFormat(total_qty, 0) + (total_qty > Settings.max_qty ? ' + 100 FREE' : ''));
                     $('#price_handler').text(numberFormat(total_price));
-                    console.log(total_price);
+                    //console.log(total_price);
                     // if( total_qty < 100){ $('#id_convert_to_keychains').hide(); this.resizeOptionSection();} 
                     // else { $('#id_convert_to_keychains').show(); this.resizeOptionSection();}
                     this.buildPreview();
@@ -250,13 +250,17 @@ jQuery(function ($) {
                     $('#front-text1').attr('font-family', $('select[name="font"] option:selected').val());
                     $('#front-text2').attr('font-family', $('select[name="font"] option:selected').val());
                 },
+
                 renderProductionShippingOptions: function () {
                     if (this.data.total_qty <= 0)
                         return;
                     var $size = $('#width option:selected'),
+
                             c = ['production', 'shipping'];
                     for (var i in c) {
-                        var $select = $('select[name="customization_date_' + c[i] + '"]');
+                        var $select = $('select[name="customization_date_' + c[i] + '"]'),
+                            presentvalue = $('select[name="customization_date_' + c[i] + '"]').val();
+                            console.log(presentvalue);
                         $select.removeAttr('disabledpo');
                         $('option:not(:first-child)', $select).remove();
 
@@ -265,7 +269,7 @@ jQuery(function ($) {
 
                         var t = Settings.customization.dates[c[i]];
                         var g = Settings[c[i] + "_price_list"][$size.data('group')];
-
+                        console.log(t);
                         for (var y in t) {
                             var val = t[y].days;
                             var price = toFloat(this.getDayPrice(g[y]));
@@ -274,18 +278,74 @@ jQuery(function ($) {
                             var $option = $('<option />')
                                     .val(val)
                                     .text(t[y].name + ' - ' + lbl)
+                                    .attr('data-price', price),
+                                $optionselect = $('<option selected/>')
+                                    .val(val)
+                                    .text(t[y].name + ' - ' + lbl)
                                     .attr('data-price', price);
 
                             if (c[i] == 'shipping')
                             {
-                                if (lbl != 'Free')
-                                    $select.append($option);
+                                if (lbl != 'Free'){
+                                    
+                                    if(val == presentvalue){
+
+                                        $select.append($optionselect);
+                                    }
+                                    else{
+                                        $select.append($option);
+                                    }
+                                }
                             } else
-                                $select.append($option);
+                            {
+                                    if(val == presentvalue){
+                                        $select.append($optionselect);
+                                    }
+                                    else{
+                                        $select.append($option);
+                                    }
+                            }
                         }
                         $select.trigger('change');
                     }
                 },
+                // renderProductionShippingOptions: function () {
+                //     if (this.data.total_qty <= 0)
+                //         return;
+                //     var $size = $('#width option:selected'),
+                //             c = ['production', 'shipping'];
+                //     for (var i in c) {
+                //         var $select = $('select[name="customization_date_' + c[i] + '"]');
+                //         $select.removeAttr('disabledpo');
+                //         $('option:not(:first-child)', $select).remove();
+
+                //         if (Settings[c[i] + "_price_list"][$size.data('group')] == undefined)
+                //             continue;
+
+                //         var t = Settings.customization.dates[c[i]];
+                //         var g = Settings[c[i] + "_price_list"][$size.data('group')];
+                //         console.log(t);
+                //         for (var y in t) {
+                //             var val = t[y].days;
+                //             var price = toFloat(this.getDayPrice(g[y]));
+                //             var lbl = price > 0 ? Settings.currency_symbol + numberFormat(price) : 'Free';
+
+                //             var $option = $('<option />')
+                //                     .val(val)
+                //                     .text(t[y].name + ' - ' + lbl)
+                //                     .attr('data-price', price);
+
+                //             if (c[i] == 'shipping')
+                //             {
+                //                 if (lbl != 'Free')
+                //                     $select.append($option);
+                //             } else
+                //                 $select.append($option);
+                //         }
+                //         $select.trigger('change');
+                //     }
+                // },
+
                 // Bind element to jquery library/packages on load
                 onLoad: function () {
                     $('select[name="style"], input[name="message_type"]').trigger('change');
@@ -1419,8 +1479,6 @@ jQuery(function ($) {
 
     function SelectBandColor(StyleColor, y) {
 
-        console.log(StyleColor);
-
         if (StyleColor == "Segmented") {
             //console.log(y);
             hideAllColor();
@@ -2272,9 +2330,9 @@ jQuery(function ($) {
 
                     //console.log(slctd_product);
                     if (slctd_product != undefined) {
-                        if (document.getElementById("wbc_add_to_cart")) {
-                            $('#wbc_add_to_cart').removeAttr('disabled');
-                        }
+                        // if (document.getElementById("wbc_add_to_cart")) {
+                        //     $('#wbc_add_to_cart').removeAttr('disabled');
+                        // }
                         $('select#width').empty().removeAttr('disabled');
 
                         for (var size in slctd_product.sizes) {
@@ -2600,9 +2658,9 @@ jQuery(function ($) {
                 // })
                 .on('focus', '#quantity_group_field', function (e) {
                     e.preventDefault();
-                    console.log('here');
+                    //console.log('here');
                     if (timeoutID) {
-                        console.log(timeoutID);
+                        //console.log(timeoutID);
                         clearTimeout(timeoutID);
                         timeoutID = null;
                     }
@@ -2982,12 +3040,12 @@ jQuery(function ($) {
                 // Hide/Show message type fields
                 .on('change', 'input[name="message_type"]', function () {
                     var message_type = $('input[name="message_type"]:checked').val();
-                    console.log(this.checked);
+                    //console.log(this.checked);
                     if (this.checked) {
 
                         if (message_type == 'continues') {
                             console.log('here oh')
-                            if ($('input[name="continues_message"]').val().length > 40) {
+                            if ($('input[name="front_message"]').val().length > 40) {
                                 $('input[name="continues_message"]').val($('input[name="front_message"]').val() + $('input[name="continues_message"]').val().substring(40, 80));
                             } else {
                                 if ($("#front_message").val().length > 0) {
@@ -3008,7 +3066,7 @@ jQuery(function ($) {
 
                             if ($("#continues_message").val().length > 0) {
                                 if ($("#continues_message").val().length > 40) {
-                                    $("#front_message").val($('#continues_message').val().substring(0, 40));
+                                    $("#front_message").val($('#continues_message').val());
                                 } else {
                                     $("#front_message").val($("#continues_message").val());
                                 }
@@ -3026,7 +3084,6 @@ jQuery(function ($) {
                     Builder.observer();
                 })
                 // front message changes
-
                 .on('custom', 'input[name="front_message"]', function (e, cpos) {
 
                     var txtlen = $('input[name="front_message"]').val().length;
@@ -3034,6 +3091,7 @@ jQuery(function ($) {
                     var front_msg = $('input[name="front_message"]').val();
                     var width = $("#width").val();
                     var newwidth = width.replace('/', '_');
+                    //console.log(txtlen);
 
                     if ($.browser.chrome) {
                         //code for chrome - START
@@ -3089,9 +3147,15 @@ jQuery(function ($) {
                     if (typeof timer !== undefined) {
                         clearTimeout(timer);
                     }
-                    $("#status").html("Typing ...").css("color", "#009900");
+                    if($('input[name="front_message"]').val().length > 40){
+                        Builder.appendAlertMsg('the limit of characters',$('input[name="front_message"]'),'front-each-message');
+                        $("#wbc_add_to_cart").attr('disabled','disabled');
+                    }else{
+                        $('.alert-notify.front-each-message').remove();
+                    }
+                    //$("#status").html("Typing ...").css("color", "#009900");
                     timer = setTimeout(function () {
-                        $("#status").html("Stopped").css("color", "#990000");
+                        //$("#status").html("Stopped").css("color", "#990000");
                         setTimeout(function () {
                             var cpos = $('input[name="front_message"]').getCursorPosition();
                             var tmpString = $('input[name="front_message"]').val();
@@ -3117,7 +3181,6 @@ jQuery(function ($) {
                     var width = $("#width").val();
                     var newwidth = width.replace('/', '_');
                     var txtlen = $('input[name="back_message"]').val().length;
-
                     if ($.browser.chrome) {
                         //code for chrome - START
                         $("#front-text2").text(back_msg);
@@ -3171,9 +3234,13 @@ jQuery(function ($) {
                     if (typeof timer !== undefined) {
                         clearTimeout(timer);
                     }
-                    $("#status").html("Typing ...").css("color", "#009900");
+                    if($('input[name="back_message"]').val().length > 40){
+                        Builder.appendAlertMsg('the limit of characters',$('input[name="back_message"]'),'back-each-message');
+                        $("#wbc_add_to_cart").attr('disabled','disabled');
+                    }else{
+                        $('.alert-notify.back-each-message').remove();
+                    }
                     timer = setTimeout(function () {
-                        $("#status").html("Stopped").css("color", "#990000");
                         setTimeout(function () {
                             var cpos = $('input[name="back_message"]').getCursorPosition();
                             var tmpString = $('input[name="back_message"]').val();
@@ -3196,7 +3263,14 @@ jQuery(function ($) {
                     if (typeof timer !== undefined) {
                         clearTimeout(timer);
                     }
-                    $("#status").html("Typing ...").css("color", "#009900");
+
+                    if($('input[name="continues_message"]').val().length > 80){
+                        Builder.appendAlertMsg('the limit of characters',$('input[name="continues_message"]'),'continues-each-message');
+                        $("#wbc_add_to_cart").attr('disabled','disabled');
+                    }else{
+                        $('.alert-notify.continues-each-message').remove();
+                    }
+
                     timer = setTimeout(function () {
                         $("#status").html("Stopped").css("color", "#990000");
                         setTimeout(function () {
@@ -3223,6 +3297,7 @@ jQuery(function ($) {
                         }
                     }
                 })
+
                 .on('cut', 'input[name="continues_message"]', function () {
                     $('input[name="continues_message"]').val('');
                     $('input[name=wrapPaste]').val(0);
@@ -3374,7 +3449,12 @@ jQuery(function ($) {
                     if (typeof timer !== undefined) {
                         clearTimeout(timer);
                     }
-                    $("#status").html("Typing ...").css("color", "#009900");
+                    if($('input[name="inside_message"]').val().length > 80){
+                        Builder.appendAlertMsg('the limit of characters',$('input[name="inside_message"]'),'inside-each-message');
+                        $("#wbc_add_to_cart").attr('disabled','disabled');
+                    }else{
+                        $('.alert-notify.inside-each-message').remove();
+                    }
                     timer = setTimeout(function () {
                         $("#status").html("Stopped").css("color", "#990000");
 
