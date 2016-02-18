@@ -8,6 +8,9 @@ function theme_enqueue_styles() {
     wp_enqueue_style( 'parent-stylesheet', get_template_directory_uri() . '/style.css' );
     wp_enqueue_style( 'custom-css', get_stylesheet_directory_uri() . '/responsive.css' );
 
+    wp_register_style('list_of_icons', get_stylesheet_directory_uri() . '/wristband/assets/css/list-icons.css', array());
+    wp_enqueue_style('list_of_icons');
+
 }
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function admin_enqueue_styles() {
@@ -563,13 +566,23 @@ function display_order_summary($_product, $meta)
 
             <div class="fusion-li-item-content">
               <span><?php echo ucfirst(str_replace('_', ' ', $k)); ?></span> -
-              <?php if (preg_match('/(\.jpg|\.png|\.bmp)$/', $clipart)): ?>
+              <?php if (preg_match('/(\.jpg|\.png|\.bmp)$/', $clipart)){ ?>
                 <img
                   src="<?php echo wp_upload_dir()['baseurl'] . '/clipart/' . $clipart; ?>"
                   alt="" width="16px" height="16px">
-              <?php else: ?>
-                <i class="fa <?php echo $clipart; ?>"></i>
-              <?php endif; ?>
+              <?php } else {
+                    $hasFa = strpos($clipart,'fa-');
+                    if($hasFa === false){
+                      echo "11111111111111111111";
+                      ?>
+
+                      <i class="<?php echo $clipart; ?>"></i>
+                      <?php
+                    }else{
+                      echo "2222222222222222222";
+                  ?> 
+                    <i class="fa <?php echo $clipart; ?>"></i>
+              <?php }} ?>
               <!-- (<em><?php //echo $clipart; ?></em>) -->
             </div>
           </li>
@@ -648,6 +661,17 @@ function getMetaToAutoSet($TempID, $Status)
     $meta = json_decode(custom_encrypt_decrypt('decrypt', $TempID), true);
 
     $Wrist_Style = (isset($meta['title']) ? $meta['title'] : '');
+    $Wrist_Size = (isset($meta['size']) ? $meta['size'] : '');
+  } elseif($Status == 'copy')
+  {
+    $cart_item_key = $TempID;
+    $cart_item = WC()->cart->get_cart()[$TempID];
+
+    $meta = isset($cart_item['wristband_meta']) ? $cart_item['wristband_meta'] : array();
+    $_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+    $product_id   = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
+
+    $Wrist_Style = $_product->get_title();
     $Wrist_Size = (isset($meta['size']) ? $meta['size'] : '');
   }
 

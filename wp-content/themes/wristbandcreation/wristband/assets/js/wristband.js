@@ -260,7 +260,7 @@ jQuery(function ($) {
                     for (var i in c) {
                         var $select = $('select[name="customization_date_' + c[i] + '"]'),
                             presentvalue = $('select[name="customization_date_' + c[i] + '"]').val();
-                            console.log(presentvalue);
+                            //console.log(presentvalue);
                         $select.removeAttr('disabledpo');
                         $('option:not(:first-child)', $select).remove();
 
@@ -269,9 +269,9 @@ jQuery(function ($) {
 
                         var t = Settings.customization.dates[c[i]];
                         var g = Settings[c[i] + "_price_list"][$size.data('group')];
-                        console.log(t);
+                        //console.log(t);
                         for (var y in t) {
-                            var val = t[y].days;
+                            var val = t[y].days;    
                             var price = toFloat(this.getDayPrice(g[y]));
                             var lbl = price > 0 ? Settings.currency_symbol + numberFormat(price) : 'Free';
 
@@ -1257,8 +1257,17 @@ jQuery(function ($) {
     function LoadPicture(FS, FE, BS, BE, VP, WristStat, WS, WE) {
         $('.clipart-list li').each(function () {
             var glyp = $(this).data('icon-code');
-            //console.log(glyp);
-            if ($(this).data('icon') == FS) {
+
+
+             if ($(this).data('icon') == FS) {
+                console.log($(this).data('icon'));
+                var icon = $(this).data('icon');
+                if(icon.indexOf('fa-') > -1){
+                    $('#front-start1').attr('class', 'fa '+icon);
+                } else {
+                    $('#front-start1').attr('class', icon);
+                }
+
                 $('#FsID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#FsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
                 $('#front-start1').text(glyp);
@@ -1266,6 +1275,12 @@ jQuery(function ($) {
                 $('#icon_end').text($('#front_end').text());
             }
             if ($(this).data('icon') == FE) {
+                var icon = $(this).data('icon');
+                if(icon.indexOf('fa-') > -1){
+                    $('#front-end1').attr('class', 'fa ' + icon);
+                }else {
+                    $('#front-start1').attr('class', icon);
+                }
                 $('#FeID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#FeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
                 $('#front-end1').text(glyp);
@@ -1273,6 +1288,11 @@ jQuery(function ($) {
                 $('#icon_end').text($('#front_end').text());
             }
             if ($(this).data('icon') == BS) {
+                if(icon.indexOf('fa-') > -1){
+                    $('front-start2').attr('class','fa ' + icon);
+                }else {
+                    $('front-start2').attr('class', icon);
+                }
                 $('#BsID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#BsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
                 $('#front-start2').text(glyp);
@@ -1280,25 +1300,39 @@ jQuery(function ($) {
                 $('#icon_end').text($('#back_end').text());
             }
             if ($(this).data('icon') == BE) {
+                if(icon.indexOf('fa-') > -1){
+                    $('#front-end2').attr('class','fa ' + icon);
+                }else {
+                    $('#front-end2').attr('class', icon);
+                }
                 $('#BeID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#BeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
-                ;
                 $('#front-end2').text(glyp);
                 $('#icon_start').text($('#back_start').text());
                 $('#icon_end').text($('#back_end').text());
             }
             if ($(this).data('icon') == WS) {
+                if(icon.indexOf('fa-') > -1){
+                    $('#front-startcont1').attr('class','fa ' + icon);
+                }else {
+                    $('#front-startcont1').attr('class', icon);
+                }
                 $('#WsID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#WsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
-                ;
                 $('#front-startcont1').text(glyp);
                 $('#icon_start').text($('#wrap_start').text());
                 $('#icon_end').text($('#wrap_end').text());
             }
             if ($(this).data('icon') == WE) {
+                if(icon.indexOf('fa-') > -1){
+                    $('#front-endcont1').attr('class','fa ' + icon);
+                    $('#front-endcont2').attr('class','fa ' + icon);
+                }else {
+                    $('#front-endcont1').attr('class', icon);
+                    $('#front-endcont2').attr('class', icon);
+                }
                 $('#WeID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#WeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
-                ;
                 $('#front-endcont1').text(glyp);
                 $('#ifrontcontend').html(glyp);
                 $('#icon_start').text($('#wrap_start').text());
@@ -3675,7 +3709,9 @@ jQuery(function ($) {
                             glyp = $(this).data('icon-code'),
                             position = button.data('position'),
                             view = button.data('view'),
+                            fa = 'fa-',
                             preview = $('.preview-button.active').data('view');
+                            //console.log(icon);
                     if (icon == undefined) {
                         switch (position) {
                             case "front_start":
@@ -3700,38 +3736,85 @@ jQuery(function ($) {
                                 break;
                         }
                     } else {
-
-                        switch (position) {
+                        if(icon.indexOf(fa) > -1 ) {
+                            //console.log('has fa');
+                            switch (position) {
                             case "front_start":
                                 //console.log(button);
                                 $('#front-start1').text(glyp);
-                                // $('#front-start1').attr('class', 'fa '+icon);
+                                $('#front-start1').attr('class', 'fa '+icon);
                                 break;
                             case "front_end":
                                 $('#front-end1').text(glyp);
+                                $('#front-end1').attr('class', 'fa '+icon);
                                 break;
                             case "back_start":
                                 $('#front-start2').text(glyp);
+                                $('#front-start2').attr('class', 'fa '+icon);
                                 break;
                             case "back_end":
                                 $('#front-end2').text(glyp);
+                                $('#front-end2').attr('class', 'fa '+icon);
                                 break;
                             case "wrap_start":
                                 $('#front-startcont1').text(glyp);
+                                $('#front-startcont1').attr('class', 'fa '+icon);
                                 break;
                             case "wrap_end":
                                 $('#front-endcont1').text(glyp);
+                                $('#front-endcont1').attr('class', 'fa '+icon);
+                                $('#front-endcont2').attr('class', 'fa '+icon);
                                 $('#ifrontcontend').html(glyp);
                                 $('#ifrontcontend').val(glyp);
                                 $('input[name="continues_message"]').trigger("paste");
                                 break;
                         }
+                        }else{
+                            //console.log('empty');
+                            switch (position) {
+                            case "front_start":
+                                //console.log(button);
+                                $('#front-start1').text(glyp);
+                                $('#front-start1').attr('class', icon);
+                                break;
+                            case "front_end":
+                                $('#front-end1').text(glyp);
+                                $('#front-end1').attr('class', icon);
+                                break;
+                            case "back_start":
+                                $('#front-start2').text(glyp);
+                                $('#front-start2').attr('class', icon);
+                                break;
+                            case "back_end":
+                                $('#front-end2').text(glyp);
+                                $('#front-end2').attr('class', icon);
+                                break;
+                            case "wrap_start":
+                                $('#front-startcont1').text(glyp);
+                                $('#front-startcont1').attr('class', icon);
+                                break;
+                            case "wrap_end":
+                                $('#front-endcont1').text(glyp);
+                                $('#front-endcont1').attr('class', icon);
+                                $('#front-endcont2').attr('class', icon);
+                                $('#ifrontcontend').html(glyp);
+                                $('#ifrontcontend').val(glyp);
+                                $('input[name="continues_message"]').trigger("paste");
+                                break;
+                        }
+                        }
+
+                        
                     }
 
-                    button.find('.icon-preview').removeClass(function (index, css) {
-                        return (css.match(/(^|\s)fa-\S+/g) || []).join(' ');
+                    // button.find('.icon-preview').removeClass(function (index, css) {
+                    //     console.log(css);
+                    //     return (css.match(/(^|\s)fa-\S+/g) || []).join(' ');
+                    // });
+                       
+                    button.find('.icon-preview').removeClass(function (index, css){
+                            return (css.match(/(^|\s)fa-\S+/g) || css.match(/(^|\s)aykun-\S+/g) || []).join(' ');
                     });
-
                     button.find('.icon-preview').addClass(icon == undefined ? '' : icon);
                     //console.log('this is here a joke');
                     Builder.data['clipart'][button.data('position')] = icon == undefined ? '' : icon;

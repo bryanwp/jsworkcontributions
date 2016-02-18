@@ -46,9 +46,10 @@ do_action( 'woocommerce_before_cart' ); ?>
 							<?php 
 								$CurrentLink = get_site_url(); 
 								$EditLink = $CurrentLink."/order-now/?id=".$cart_item_key."&Status=edit";
+								$CopyLink = $CurrentLink."/order-now/?id=".$cart_item_key."&Status=copy";
 							?>
 							<a class="EditCart" href="<?php echo $EditLink; ?>"  data-product_id="%s" data-product_sku="%s">Edit</a>
-
+							<a class="EditCart" href="<?php echo $CopyLink; ?>"  data-product_id="%s" data-product_sku="%s">Copy</a>
 							<?php
 							echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
 								'<a href="%s" class="remove RemoveCart" title="%s" data-product_id="%s" data-product_sku="%s">Remove</a>',
@@ -129,7 +130,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 <div class="cart-collaterals">
 
-	<?php do_action( 'woocommerce_cart_collaterals' ); ?>
+	<?php //do_action( 'woocommerce_cart_collaterals' ); ?>
 
 	<div class="cart-totals-buttons">
 		<?php woocommerce_cart_totals(); ?>
