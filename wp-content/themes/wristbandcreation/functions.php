@@ -472,7 +472,8 @@ function display_order_summary($_product, $meta)
 {
   ?>
   <!-- SOL : View Product Summary Details -->
-    <label class="t-heading CssTitleBlack CssTitleBold"><?php echo $_product->get_title() . ' - ' . (isset($meta['size']) ? $meta['size'] : '') . ' Inch'; ?></label>
+    <!-- <label class="t-heading CssTitleBlack CssTitleBold"><?php echo $_product->get_title() . ' - ' . (isset($meta['size']) ? $meta['size'] : '') . ' Inch'; ?></label> -->
+    <label class="t-heading"><?php echo $_product->get_title() . ' - ' . (isset($meta['size']) ? $meta['size'] : '') . ' Inch'; ?></label>
     <?php if (isset($meta['colors'])): ?>
       <ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
         <?php 
@@ -573,13 +574,13 @@ function display_order_summary($_product, $meta)
               <?php } else {
                     $hasFa = strpos($clipart,'fa-');
                     if($hasFa === false){
-                      echo "11111111111111111111";
+                      //echo "11111111111111111111";
                       ?>
 
                       <i class="<?php echo $clipart; ?>"></i>
                       <?php
                     }else{
-                      echo "2222222222222222222";
+                      //echo "2222222222222222222";
                   ?> 
                     <i class="fa <?php echo $clipart; ?>"></i>
               <?php }} ?>
@@ -589,6 +590,12 @@ function display_order_summary($_product, $meta)
         <?php endforeach; ?>
       </ul>
     <?php endif; ?>
+    <!-- EOL : View Product Summary Details -->
+  <?php
+}
+
+function display_order_production_summary($_product, $meta){ ?>
+  <div class="production-details">
     <label class="CssTitleBlack CssTitleBold">Production and Shipping</label>
     <ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
       <?php if (isset($meta['customization_location'])): ?>
@@ -636,10 +643,9 @@ function display_order_summary($_product, $meta)
         </li>
       <?php endif; ?>
     </ul>
-  <!-- EOL : View Product Summary Details -->
-  <?php
+ </div>
+<?php
 }
-
 
 function getMetaToAutoSet($TempID, $Status)
 {

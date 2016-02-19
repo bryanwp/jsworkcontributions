@@ -252,10 +252,17 @@ jQuery(function ($) {
                 },
 
                 renderProductionShippingOptions: function () {
-                    if (this.data.total_qty <= 0)
-                        return;
+                    console.log(this.data.total_qty);
+                    if (this.data.total_qty <= 0){
+                        c = ['production', 'shipping'];
+                        for (var i in c) {
+                            console.log('here');
+                             var $select = $('select[name="customization_date_' + c[i] + '"]');
+                             $('option:not(:first-child)', $select).remove();
+                        }
+                        return;                        
+                    }
                     var $size = $('#width option:selected'),
-
                             c = ['production', 'shipping'];
                     for (var i in c) {
                         var $select = $('select[name="customization_date_' + c[i] + '"]'),
@@ -530,7 +537,8 @@ jQuery(function ($) {
                         flag = false;
                     }
                     if (!flag)
-                        this.popupMsg('error', 'Error', msg);
+                             //Builder.appendAlertMsg('yeah wrong',$('#wbc_add_to_cart'),'edit-to-cart-error');
+                        this.appendAlertMsg(msg, $('#wbc_add_to_cart'),'to-cart-error');
                     return flag;
                 },
                 calculateDeliveryDate: function () {
@@ -1858,7 +1866,7 @@ jQuery(function ($) {
                     + '<td style="text-align: left" id="colorBox-' + TempID + '"><div class="DivColorBox">{{{wristband_color_box}}}</div></td>'
                     + '<td style="text-align: left"><left><span style="font-weight: bold;" id="spanAdult-' + TempID + '">{{{adult_qt}}}</span><span id="spanAdultup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpAdult-' + TempID + '" value="{{{num_aq}}}"><span id="spanAdultupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpAdultE-' + TempID + '" value="{{{num_aqE}}}"></left></td>'
                     + '<td style="text-align: left"><left><span style="font-weight: bold;" id="spanMedium-' + TempID + '">{{{medium_qty}}}</span><span id="spanMediumup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpMedium-' + TempID + '" value="{{{num_mq}}}"><span id="spanMediumupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpMediumE-' + TempID + '" value="{{{num_mqE}}}"></left></td>'
-                    + '<td style="text-align: left"><left><span style="font-weight: bold;" id="spanYouth-' + TempID + '">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView" id="inpYouth-' + TempID + '" value="{{{num_yq}}}"><span id="spanYouthupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpYouthE-' + TempID + '" value="{{{num_yqE}}}"></left></td>'
+                    + '<td style="text-align: left"><left><span style="font-weight: bold;" id="spanYouth-' + TempID + '">{{{youth_qty}}}</span><span id="spanYouthup-' + TempID + '" class="CssAddup"></span><input type="number" min="0" class="input-text fusion-one-third InpCss keyupTxtView " id="inpYouth-' + TempID + '" value="{{{num_yq}}}"><span id="spanYouthupE-' + TempID + '" class="CssAddup keyupSpanEdit" style="display:none">+</span><input type="number" min="0" class="input-text fusion-one-third InpCss CssAddup keyupTxtEdit" id="inpYouthE-' + TempID + '" value="{{{num_yqE}}}"></left></td>'
                     + '<td style="text-align: left" id="colorTextBox-' + TempID + '"><center>{{{wristband_text_color_box}}}</center></td>'
                     //+ '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID +'"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID +'">Edit</a><a id="DelID-' + TempID +'" href="#" class="delete-selection CssTitleRed font-size-11" data-tempID="' + TempID +'" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}">Delete</a></td>'
                     + '<td colspan="1" style="text-align: right;"><a style="display:none;" href="#" id="EditID-' + TempID + '"  data-name="{{name}}" class="edit-selection" data-tempID="' + TempID + '">Edit</a><a id="DelID-' + TempID + '" href="#" class="delete-selection CssTitleRed font-size-11" data-tempID="' + TempID + '" data-name="{{name}}" data-textname="{{textColorName}}" data-type="{{Wrist_Type}}"><i class="fa fa-times"></i></a></td>'
@@ -2096,21 +2104,21 @@ jQuery(function ($) {
 
                     if (Builder.data.total_qty >= 100)
                     {
-                        $("#spanAdultupE-" + TempId).css("display", "block");
+                        $("#spanAdultupE-" + TempId).css("display", "inline-block");
                         $("#inpAdultE-" + TempId).val($("#spanAdultup-" + TempId).attr('data-plus'));
                         $("#inpAdultE-" + TempId).show();
                     }
 
                     if (Builder.data.total_qty >= 100)
                     {
-                        $("#spanMediumupE-" + TempId).css("display", "block");
+                        $("#spanMediumupE-" + TempId).css("display", "inline-block");
                         $("#inpMediumE-" + TempId).val($("#spanMediumup-" + TempId).attr('data-plus'));
                         $("#inpMediumE-" + TempId).show();
                     }
 
                     if (Builder.data.total_qty >= 100)
                     {
-                        $("#spanYouthupE-" + TempId).css("display", "block");
+                        $("#spanYouthupE-" + TempId).css("display", "inline-block");
                         $("#inpYouthE-" + TempId).val($("#spanYouthup-" + TempId).attr('data-plus'));
                         $("#inpYouthE-" + TempId).show();
                     }
@@ -2880,21 +2888,55 @@ jQuery(function ($) {
                     var Stat = $(this).html();
                     var TempId = $(this).attr("data-tempID");
 
-                    if (Stat == '<i class="fa fa-times"></i>') {
-                        $('.option-tr').removeClass('is-disabled'); // allow all additional option to be editable
-                        $("#EditID-" + TempId).html("Edit");
-                        $(this).html("Delete");
+                    // if (Stat == '<i class="fa fa-times"></i>') {
+                    //     $('.option-tr').removeClass('is-disabled'); // allow all additional option to be editable
+                    //     $("#EditID-" + TempId).html("Edit");
+                    //     //$(this).html("Delete");
 
-                        $("#spanAdult-" + TempId).show();
-                        $("#spanMedium-" + TempId).show();
-                        $("#spanYouth-" + TempId).show();
+                    //     $("#spanAdult-" + TempId).show();
+                    //     $("#spanMedium-" + TempId).show();
+                    //     $("#spanYouth-" + TempId).show();
 
-                        $("#inpAdult-" + TempId).hide();
-                        $("#inpMedium-" + TempId).hide();
-                        $("#inpYouth-" + TempId).hide();
+                    //     $("#inpAdult-" + TempId).hide();
+                    //     $("#inpMedium-" + TempId).hide();
+                    //     $("#inpYouth-" + TempId).hide();
 
-                    } else {
-                        e.preventDefault();
+                    // } else {
+                    //     e.preventDefault();
+                    //     var $row = $(this).closest('tr'),
+                    //             color_name = $(this).attr('data-name'),
+                    //             color_Textname = $(this).attr('data-textname');
+
+                    //     //return;
+                    //     $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup');
+
+                    //     // Remove "added" class in wristband colors
+                    //     $('#wristband-color-tab  div[data-name^="' + $row.data('name') + '"]').closest('.color-wrap').removeClass('added');
+                    //     // Remove all "selected" class in wristband colors
+                    //     $('#wristband-color-tab  .color-wrap').removeClass('selected');
+
+                    //     $('#wristband-color-tab  div[data-name^="' + $row.data('name') + '"]').closest('li').removeClass('color-disabled');
+                    //     $('#wristband-color-tab  div[data-name^="' + $row.data('name') + '"]').closest('li').addClass('color-enabled');
+
+                    //     //loop not added color and make it as a default selected color the first color in the loop
+                    //     wctColorEnable();
+
+                    //     //Remove it on the additional color table list
+                    //     $row.remove();
+                    //     DistributeAddup();//Addup
+                    //     // Remove color from selections
+                    //     Builder.removeColor(color_name, color_Textname);
+
+                    //     if (Builder.data.colors.length == 0) {
+                    //         $("#EditSaveID").html('<i class="fa fa-pencil"></i>');
+                    //         $("#CancelID").html("");
+                    //         Enab_Dis("SaveEdit");
+                    //         $('#freeCounter').html('');
+                    //     }
+
+                    //     return false;
+                    // }
+                      e.preventDefault();
                         var $row = $(this).closest('tr'),
                                 color_name = $(this).attr('data-name'),
                                 color_Textname = $(this).attr('data-textname');
@@ -2925,9 +2967,8 @@ jQuery(function ($) {
                             Enab_Dis("SaveEdit");
                             $('#freeCounter').html('');
                         }
-
+                        Builder.renderProductionShippingOptions();
                         return false;
-                    }
                 })
 
                 .on('click', '.edit-button-text', function (e) {
@@ -3860,11 +3901,11 @@ jQuery(function ($) {
                     }
 
                     var $self = $(this),
-                            $icon = $self.find('.fa'),
-                            $button_text = $self.find('.fusion-button-text-left');
+                        $icon = $self.find('.fa'),
+                        $button_text = $self.find('.fusion-button-text-left');
 
-                    // $icon.removeClass('fa-shopping-cart');
-                    // $icon.addClass('fa-spinner');
+                    $icon.removeClass('fa-shopping-cart');
+                    $icon.addClass('fa-spinner');
                     $button_text.text('Add to Cart');
 
                     Builder.collectDataToPost();
@@ -3878,7 +3919,7 @@ jQuery(function ($) {
                         var type = 'success',
                                 title = 'Success';
 
-                        //$icon.removeClass('fa-spinner');
+                        $icon.removeClass('fa-spinner');
                         $icon.addClass('fa-shopping-cart');
                         $button_text.text('Add to Cart');
 
@@ -3887,6 +3928,7 @@ jQuery(function ($) {
                             title = 'Error';
                         }
                         Builder.has_upload = false;
+
                         //Builder.popupMsg(type, title, response.data.message + ' <a href="' + Settings.site_url + '/cart">view cart <i class="fa fa-long-arrow-right"></i></a>');
                         if (response.success)
                             {
@@ -3911,8 +3953,8 @@ jQuery(function ($) {
                             UpdateID = $("#EditModeID").val(),
                             $button_text = $self.find('.fusion-button-text-left');
 
-                    //$icon.removeClass('fa-shopping-cart');
-                    //$icon.addClass('fa-spinner');
+                    $icon.removeClass('fa-shopping-cart');
+                    $icon.addClass('fa-spinner');
                     $button_text.text('Update Cart');
 
                     Builder.collectDataToPost();
@@ -3925,7 +3967,7 @@ jQuery(function ($) {
                         var type = 'success',
                                 title = 'Success';
 
-                        //$icon.removeClass('fa-spinner');
+                        $icon.removeClass('fa-spinner');
                         $icon.addClass('fa-shopping-cart');
                         $button_text.text('Add to Cart');
                         if (!response.success) {
@@ -3933,6 +3975,9 @@ jQuery(function ($) {
                             title = 'Error';
                         }
                         Builder.has_upload = false;
+                        if(type == 'error'){
+                             Builder.appendAlertMsg('yeah wrong',$('#wbc_edit_to_cart'),'edit-to-cart-error');
+                        }
                         //Builder.popupMsg(type, title, response.data.message + ' <a href="' + Settings.site_url + '/cart">view cart <i class="fa fa-long-arrow-right"></i></a>');
                         $("#mmk").html(response.data.message)
 
@@ -4104,7 +4149,7 @@ jQuery(function ($) {
                     });
                 })
 
-                .on('click', 'select#customization_date_production, select#customization_date_shipping', function () {
+                .on('click', 'select#customization_date__production, select#customization_date_shipping', function () {
 
                     //if('select#customization_date_production'||'select#customization_date_shipping')
                     // var total_qty   = Builder.data.total_qty
@@ -4117,6 +4162,7 @@ jQuery(function ($) {
                             title = 'Error';
                     if ($(this).find('option').length == 1)
                         Builder.popupMsg(type, title, 'Input quantity first');
+
                     else
                     {
                         Builder.calculateDeliveryDate();

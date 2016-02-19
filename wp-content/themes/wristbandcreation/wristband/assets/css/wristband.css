@@ -821,3 +821,12 @@ p.fusion-row.price.price-with-decimal {
 .note-message {
     font-size: 13px;
 }
+
+i.alert-notify.to-cart-error {
+    display: inline-block;
+    position: relative;
+    left: 70px;
+    margin-top: 10px;
+    text-align: right;
+
+    

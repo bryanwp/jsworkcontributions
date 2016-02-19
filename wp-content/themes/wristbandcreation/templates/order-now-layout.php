@@ -434,8 +434,8 @@ endforeach; ?>
                                      <?php echo $glow1; ?>
                                     <!-- <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">FRONT VIEW</text>
                                     <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">FRONT VIEW</text> -->
-                                    <text text-anchor="middle" x="150" y="16" style="fill: white; stroke: White; stroke-width: 3">FRONT VIEW</text>
-                                    <text text-anchor="middle" x="150" y="16" style="fill: black; stroke: Black; stroke-width: 1">FRONT VIEW</text>
+                                    <text text-anchor="middle" x="150" y="12" style="fill: white; stroke: White; stroke-width: 3">FRONT VIEW</text>
+                                    <text text-anchor="middle" x="150" y="12" style="fill: black; stroke: Black; stroke-width: 1">FRONT VIEW</text>
                                     <rect width="100%" height="100%" style="stroke:white;stroke-width:2;fill-opacity:0;">
 
                                     </svg>
@@ -505,8 +505,8 @@ endforeach; ?>
                                     <?php echo $glow2; ?>
                                     <!-- <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">BACK VIEW</text>
                                     <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">BACK VIEW</text> -->
-                                    <text text-anchor="middle" x="150" y="16" style="fill: white; stroke: White; stroke-width: 3">BACK VIEW</text>
-                                    <text text-anchor="middle" x="150" y="16" style="fill: black; stroke: Black; stroke-width: 1">BACK VIEW</text>
+                                    <text text-anchor="middle" x="150" y="12" style="fill: white; stroke: White; stroke-width: 3">BACK VIEW</text>
+                                    <text text-anchor="middle" x="150" y="12" style="fill: black; stroke: Black; stroke-width: 1">BACK VIEW</text>
                                     <rect width="100%" height="100%" style="stroke:white;stroke-width:2;fill-opacity:0;">
                                     </svg>       
                                 </div>

@@ -18,14 +18,16 @@ do_action( 'woocommerce_before_cart' ); ?>
 <form action="<?php echo esc_url( WC()->cart->get_cart_url() ); ?>" method="post">
 
 <?php do_action( 'woocommerce_before_cart_table' ); ?>
-	<table class="shop_table cart" cellspacing="0">
+	<table class="shop_table cart" cellspacing="0" cellpadding="0">
 	<thead>
 	<tr>
-		<th class="product-remove">&nbsp;</th>
-		<th class="product-details"><?php _e( 'Wristband Details', 'woocommerce' ); ?></th>
-		<th class="product-summary"><?php _e( 'Summary', 'woocommerce' ); ?></th>
+		<!-- <th class="product-remove">&nbsp;</th>
+		<th class="product-details"><?php //_e( 'Wristband Details', 'woocommerce' ); ?></th>
+		<th class="product-summary"><?php //_e( 'Summary', 'woocommerce' ); ?></th> -->
+		<th class="product-details"><?php _e( 'Item', 'woocommerce' ); ?></th>
 		<th class="product-quantity"><?php _e( 'Quantity', 'woocommerce' ); ?></th>
 		<th class="product-subtotal"><?php _e( 'Sub Total', 'woocommerce' ); ?></th>
+		<th class="product-remove"><?php _e( 'Remove', 'woocommerce' ); ?></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -41,36 +43,37 @@ do_action( 'woocommerce_before_cart' ); ?>
 			?>
 			<tr class="<?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
 				
-				<td class="product-remove">
+				<!-- <td class="product-remove"> -->
 
 							<?php 
-								$CurrentLink = get_site_url(); 
-								$EditLink = $CurrentLink."/order-now/?id=".$cart_item_key."&Status=edit";
-								$CopyLink = $CurrentLink."/order-now/?id=".$cart_item_key."&Status=copy";
+								// $CurrentLink = get_site_url(); 
+								// $EditLink = $CurrentLink."/order-now/?id=".$cart_item_key."&Status=edit";
+								// $CopyLink = $CurrentLink."/order-now/?id=".$cart_item_key."&Status=copy";
 							?>
-							<a class="EditCart" href="<?php echo $EditLink; ?>"  data-product_id="%s" data-product_sku="%s">Edit</a>
-							<a class="EditCart" href="<?php echo $CopyLink; ?>"  data-product_id="%s" data-product_sku="%s">Copy</a>
+							<!-- <a class="EditCart" href="<?php// echo $EditLink; ?>"  data-product_id="%s" data-product_sku="%s">Edit</a> -->
+							<!-- <a class="EditCart" href="<?php// echo $CopyLink; ?>"  data-product_id="%s" data-product_sku="%s">Copy</a> -->
 							<?php
-							echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
-								'<a href="%s" class="remove RemoveCart" title="%s" data-product_id="%s" data-product_sku="%s">Remove</a>',
-								esc_url(WC()->cart->get_remove_url($cart_item_key)),
-								__('Remove this item', 'woocommerce'),
-								esc_attr($product_id),
-								esc_attr($_product->get_sku())
-							), $cart_item_key);
+							// 	echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
+							// 	'<a href="%s" class="remove RemoveCart" title="%s" data-product_id="%s" data-product_sku="%s">Remove</a>',
+							// 	esc_url(WC()->cart->get_remove_url($cart_item_key)),
+							// 	__('Remove this item', 'woocommerce'),
+							// 	esc_attr($product_id),
+							// 	esc_attr($_product->get_sku())
+							// ), $cart_item_key);
 							?>
 
 
 
 
-				</td>
+				<!-- </td> -->
 
 				<td class="product-details">
 					<?php
 					if (!$_product->is_visible()) {
 						echo apply_filters('woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key) . '&nbsp;';
 					} else {
-						echo apply_filters('woocommerce_cart_item_name', sprintf('<a href="%s">%s </a>', esc_url($_product->get_permalink($cart_item)), $_product->get_title()), $cart_item, $cart_item_key);
+						echo apply_filters('woocommerce_cart_item_name', sprintf('<a href="%s" class="CssTitleBold CssTitleBlack">%s </a>', esc_url($_product->get_permalink($cart_item)), $_product->get_title()), $cart_item, $cart_item_key);
+						//echo apply_filters('woocommerce_cart_item_name', sprintf('<a href="%s">%s </a>', esc_url($_product->get_permalink($cart_item)), $_product->get_title()), $cart_item, $cart_item_key);
 					}
 
 					// Meta data
@@ -80,12 +83,22 @@ do_action( 'woocommerce_before_cart' ); ?>
 					if ($_product->backorders_require_notification() && $_product->is_on_backorder($cart_item['quantity'])) {
 						echo '<p class="backorder_notification">' . esc_html__('Available on backorder', 'woocommerce') . '</p>';
 					}
+					?><br/>
+					<?php
+					 display_order_summary($_product, $meta); 
+ 
+					$CurrentLink = get_site_url(); 
+					$EditLink = $CurrentLink."/order-now/?id=".$cart_item_key."&Status=edit";
+					$CopyLink = $CurrentLink."/order-now/?id=".$cart_item_key."&Status=copy";
 					?>
+					<a class="EditCart" href="<?php echo $EditLink; ?>"  data-product_id="%s" data-product_sku="%s">Edit Design&nbsp;<i class="fa fa-pencil-square-o"></i></a><span class="glyphicon glyphicon-edit">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+					<a class="EditCart CopyCart" href="<?php echo $CopyLink; ?>"  data-product_id="%s" data-product_sku="%s">Copy Design&nbsp;<i class="fa fa-share-square-o"></i></a>
+				
 				</td>
 
-				<td class="product-summary">
-					<?php display_order_summary($_product, $meta); ?>
-				</td>
+				<!-- <td class="product-summary">
+					<?php //display_order_summary($_product, $meta); ?>
+				</td> -->
 
 				<td class="product-quantity">
 					<?php
@@ -113,6 +126,24 @@ do_action( 'woocommerce_before_cart' ); ?>
 					echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key );
 					?>
 				</td>
+				<td class="product-remove">
+
+					<?php
+					echo apply_filters('woocommerce_cart_item_remove_link', sprintf(
+						'<a href="%s" class="remove RemoveCart" title="%s" data-product_id="%s" data-product_sku="%s"><i class="fa fa-trash fa-2x"></i></a>',
+						esc_url(WC()->cart->get_remove_url($cart_item_key)),
+						__('Remove this item', 'woocommerce'),
+						esc_attr($product_id),
+						esc_attr($_product->get_sku())
+					), $cart_item_key);
+					?>
+				</td>
+			</tr>
+			<tr class="spacer">
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
+				<td>&nbsp;</td>
 			</tr>
 			<?php
 		}

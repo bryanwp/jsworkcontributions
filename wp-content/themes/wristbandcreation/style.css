@@ -216,6 +216,74 @@ dl.footer dd {
 {
     float: left;
     font-size: 13px !important;
-    color: rgb(190, 11, 11) !important;
+    color: #428bca !important;
     margin-right: 20px !important;
+}
+
+.RemoveCart:hover {
+	color:#FFAD55!important;
+}
+
+
+.CopyCart {
+	float: initial!important;
+}
+
+.EditCart:hover {
+	color:#FF8606!important;
+}
+
+.woocommerce-content-box.full-width {
+	padding:0!important;
+	border:0!important;
+}
+
+.woocommerce-content-box.full-width h2 {
+	margin-bottom: 0;
+}
+
+.production-details {
+	text-align: left!important;
+	padding-top:30px;
+}
+
+.production-details ul li {
+	margin-bottom:0!important;
+}
+
+.fusion-checklist {
+	margin-top:0!important;
+}
+
+.shop_table thead tr {
+	border:0!important;
+}
+
+.shop_table tr.cart_item {
+	border:2px solid #e0dede;
+}
+
+.shop_table tr.cart_item td {
+	vertical-align: text-top;
+	padding:10px 25px!important;
+}
+
+.shop_table .spacer {
+	height: auto;
+	border:0;
+}
+
+.shop_table .spacer td {
+	padding: 0;
+}
+
+ul.fusion-checklist {
+	margin-bottom: 12px;
+}
+
+.fusion-checklist .fusion-li-item {
+	margin-bottom: 0!important;
+}
+.padd-0 {
+	padding: 0;
 }
