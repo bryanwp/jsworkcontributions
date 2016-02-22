@@ -2,6 +2,7 @@ jQuery(function ($) {
     'use strict';
 
     var Settings = WBC.settings,
+            clckcount,
             timeoutID,
             Builder = {
                 has_upload: false, // Check if there are any files uploaded
@@ -252,11 +253,12 @@ jQuery(function ($) {
                 },
 
                 renderProductionShippingOptions: function () {
-                    console.log(this.data.total_qty);
+                    //console.log(this.data.total_qty);
+                    $('.alert-notify.notify-customization-message').remove();
                     if (this.data.total_qty <= 0){
                         c = ['production', 'shipping'];
                         for (var i in c) {
-                            console.log('here');
+                            //console.log('here');
                              var $select = $('select[name="customization_date_' + c[i] + '"]');
                              $('option:not(:first-child)', $select).remove();
                         }
@@ -1814,11 +1816,17 @@ jQuery(function ($) {
                 _youth_qtyE = 0;
 
         if ((toInt($aq.val()) <= 0 && toInt($mq.val()) <= 0 && toInt($yq.val()) <= 0)) {
-            Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.');
+            //console.log('1');
+            //Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.');
+            Builder.appendAlertMsg('Please select wristband color/text color/quantity.',$('#quantity-notice'),'quantity-notice-message');
             return;
+        } else{
+            $('.alert-notify.quantity-notice-message').remove();
         }
+        // console.log(($wc.data('name')));
         if (typeof ($wc.data('name')) == 'undefined') {
-            Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.');
+            console.log('2');
+            //Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.');
             return;
         }
 
@@ -2701,6 +2709,7 @@ jQuery(function ($) {
                 .on('focus', '#quantity_group_field', function (e) {
                     e.preventDefault();
                     //console.log('here');
+                    clckcount = 0;
                     if (timeoutID) {
                         //console.log(timeoutID);
                         clearTimeout(timeoutID);
@@ -2710,15 +2719,19 @@ jQuery(function ($) {
                 })
 
                 .on('blur', '#quantity_group_field', function () {
+                    console.log(clckcount);
                     triggerKey();
                 })
 
                 .on('click', '#add_color_to_selections', function (e) {
                     e.preventDefault();
                     //console.log($('#wristband-color-items .color-wrap.selected').find('div'));
-                    AddNewColor($('#wristband-color-items .color-wrap.selected').find('div'));
+                    if(clckcount == 0){
+                        clckcount = 1;
+                        AddNewColor($('#wristband-color-items .color-wrap.selected').find('div'));    
+                    }
+                    
                 })
-
                 .on('keyup', '.keyupTxtView', function (e) {
                     var total = 0;
                     $('.keyupTxtView').each(function (index, elem) {
@@ -2818,13 +2831,16 @@ jQuery(function ($) {
                         }
                         //------------------------------------------------
                         if (Saving) {
-                            console.log(total_qty);
+                            //console.log(total_qty);
                             //*************************************
-                            if (total_qty >= 100 && totalFree != 100) {
-                                Builder.popupMsg('error', 'Error', 'Current free wristband quantity is ' + totalFree + '. Please make sure to make it 100 in all.');
-                                return;
-                            }
 
+                            if (total_qty >= 100 && totalFree != 100) {
+                                Builder.appendAlertMsg('<br/>Current free wristband quantity is ' + totalFree + '. Please make sure to make it 100 in all.',$('#freeCounter'),'free-total-message');
+                                //Builder.popupMsg('error', 'Error', 'Current free wristband quantity is ' + totalFree + '. Please make sure to make it 100 in all.');
+                                return;
+                            }else{
+                                    $('.alert-notify.free-total-message').remove();
+                            }
                             for (var x = 0; x <= Builder.CntID; x++) {
                                 if (document.getElementById("DelID-" + x)) {
                                     var ColorName = $("#DelID-" + x).attr('data-name'),
@@ -2865,7 +2881,7 @@ jQuery(function ($) {
                             Enab_Dis("SaveEdit");
                             //*************************************
                         } else {
-                            Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.');
+                            //Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.');
                             return;
                         }
                     }
@@ -4001,7 +4017,8 @@ jQuery(function ($) {
                         Builder.popupMsg('', 'Save Your Design', message_design + '<br><br><input type="text" placeholder="Email Address" id="SaveDesignEmail" style="width: 180px;"><a id="SendDesign" href="#" class="fusion-button button-default button-small">Send</a><div id="saveDesignMessage"></div>');
                     } else
                     {
-                        Builder.popupMsg('error', 'Save Your Design', 'Please add color(s) to your wristband design.');
+                        //Builder.popupMsg('error', 'Save Your Design', 'Please add color(s) to your wristband design.');
+                        Builder.appendAlertMsg('yeah wrong',$('#save_button'),'SendDesign-to-cart-error');
                     }
                 })
 
@@ -4149,7 +4166,7 @@ jQuery(function ($) {
                     });
                 })
 
-                .on('click', 'select#customization_date__production, select#customization_date_shipping', function () {
+                .on('click', 'select#customization_date_production, select#customization_date_shipping', function () {
 
                     //if('select#customization_date_production'||'select#customization_date_shipping')
                     // var total_qty   = Builder.data.total_qty
@@ -4160,11 +4177,12 @@ jQuery(function ($) {
                     // return false;
                     var type = 'error',
                             title = 'Error';
-                    if ($(this).find('option').length == 1)
-                        Builder.popupMsg(type, title, 'Input quantity first');
 
-                    else
-                    {
+                    if ($(this).find('option').length == 1){
+                        //Builder.popupMsg(type, title, 'Input quantity first');
+                        Builder.appendAlertMsg('input quantity first!',$('#notify-customization'),'notify-customization-message');
+                    }else
+                    {   
                         Builder.calculateDeliveryDate();
                     }
 

@@ -829,4 +829,10 @@ i.alert-notify.to-cart-error {
     margin-top: 10px;
     text-align: right;
 
-    
+}
+i.alert-notify.SendDesign-to-cart-error {
+    display: block;
+    position: relative;
+    left: 91px;
+    top: 30px;
+}

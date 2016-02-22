@@ -294,6 +294,7 @@ endforeach; ?>
                             <div class="clear"></div>
 
                         </div><!-- /.quantity_group_field -->
+                        <div id="quantity-notice"></div>
                         <!-- Color Quantity table -->
                         <div class="" style = "padding:0px">
                             <span id="freeCounter" class="CssTitleBlue"></span>
@@ -812,7 +813,6 @@ endforeach; ?>
                             <?php endif; ?>
                         <!-- /. additional options -->
                         <!-- add digital proof -->
-
                         <!-- end add digital proof -->
                         <?php if (isset($GLOBALS['wbc_settings']->customization)): ?>
                             <div id="customization-section">
@@ -843,7 +843,7 @@ endforeach; ?>
                                     </p>
                               <?php $flag = true;
                           endforeach; ?>
-
+                          <div id="notify-customization"></div>
                           <?php foreach ($GLOBALS['wbc_settings']->customization->dates as $type => $date): ?>
                                     <p class="form-row form-row-wide">
                                         <label for="customization_date_<?php echo $type; ?>" class="form-group-heading CssTitleBlack"><?php echo ucwords($type); ?> Time</label>
@@ -903,15 +903,7 @@ endforeach; ?>
                                 <a id= "save_button" class="fusion-button button-flat button-round button-small button-default SaveBtnAddup" href="#"><span class="fusion-button-text">Save Design</span></a>
                             </div>
                             <?php } ?>
-
-
-
-
                     </div>
-
-
-
-
                 </div><!--/.fusion-one-third -->
             </div>
         </form>
