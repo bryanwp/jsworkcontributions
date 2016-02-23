@@ -3239,7 +3239,7 @@ jQuery(function ($) {
                         clearTimeout(timer);
                     }
                     if($('input[name="front_message"]').val().length > 40){
-                        Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('input[name="front_message"]'),'front-each-message');
+                        Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('#fwarning-msg'),'front-each-message');
                         $("#wbc_add_to_cart").attr('disabled','disabled');
                     }else{
                         $('.alert-notify.front-each-message').remove();
@@ -3327,7 +3327,7 @@ jQuery(function ($) {
                         clearTimeout(timer);
                     }
                     if($('input[name="back_message"]').val().length > 40){
-                        Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('input[name="back_message"]'),'back-each-message');
+                        Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('#bwarning-msg'),'back-each-message');
                         $("#wbc_add_to_cart").attr('disabled','disabled');
                     }else{
                         $('.alert-notify.back-each-message').remove();
@@ -3358,7 +3358,7 @@ jQuery(function ($) {
                     }
 
                     if($('input[name="continues_message"]').val().length > 80){
-                        Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('input[name="continues_message"]'),'continues-each-message');
+                        Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('#cwarning-msg'),'continues-each-message');
                         $("#wbc_add_to_cart").attr('disabled','disabled');
                     }else{
                         $('.alert-notify.continues-each-message').remove();
@@ -3544,7 +3544,7 @@ jQuery(function ($) {
                         clearTimeout(timer);
                     }
                     if($('input[name="inside_message"]').val().length > 80){
-                        Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('input[name="inside_message"]'),'inside-each-message');
+                        Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('#iwarning-msg'),'inside-each-message');
                         $("#wbc_add_to_cart").attr('disabled','disabled');
                     }else{
                         $('.alert-notify.inside-each-message').remove();
