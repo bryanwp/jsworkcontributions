@@ -3239,10 +3239,11 @@ jQuery(function ($) {
                         clearTimeout(timer);
                     }
                     if($('input[name="front_message"]').val().length > 40){
-                        Builder.appendAlertMsg('the limit of characters',$('input[name="front_message"]'),'front-each-message');
+                        Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('input[name="front_message"]'),'front-each-message');
                         $("#wbc_add_to_cart").attr('disabled','disabled');
                     }else{
                         $('.alert-notify.front-each-message').remove();
+                        $("#wbc_add_to_cart").removeAttr('disabled');
                     }
                     //$("#status").html("Typing ...").css("color", "#009900");
                     timer = setTimeout(function () {
@@ -3326,10 +3327,11 @@ jQuery(function ($) {
                         clearTimeout(timer);
                     }
                     if($('input[name="back_message"]').val().length > 40){
-                        Builder.appendAlertMsg('the limit of characters',$('input[name="back_message"]'),'back-each-message');
+                        Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('input[name="back_message"]'),'back-each-message');
                         $("#wbc_add_to_cart").attr('disabled','disabled');
                     }else{
                         $('.alert-notify.back-each-message').remove();
+                        $("#wbc_add_to_cart").removeAttr('disabled');
                     }
                     timer = setTimeout(function () {
                         setTimeout(function () {
@@ -3356,10 +3358,11 @@ jQuery(function ($) {
                     }
 
                     if($('input[name="continues_message"]').val().length > 80){
-                        Builder.appendAlertMsg('the limit of characters',$('input[name="continues_message"]'),'continues-each-message');
+                        Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('input[name="continues_message"]'),'continues-each-message');
                         $("#wbc_add_to_cart").attr('disabled','disabled');
                     }else{
                         $('.alert-notify.continues-each-message').remove();
+                        $("#wbc_add_to_cart").removeAttr('disabled');
                     }
 
                     timer = setTimeout(function () {
@@ -3541,10 +3544,11 @@ jQuery(function ($) {
                         clearTimeout(timer);
                     }
                     if($('input[name="inside_message"]').val().length > 80){
-                        Builder.appendAlertMsg('the limit of characters',$('input[name="inside_message"]'),'inside-each-message');
+                        Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('input[name="inside_message"]'),'inside-each-message');
                         $("#wbc_add_to_cart").attr('disabled','disabled');
                     }else{
                         $('.alert-notify.inside-each-message').remove();
+                        $("#wbc_add_to_cart").removeAttr('disabled');;
                     }
                     timer = setTimeout(function () {
                         $("#status").html("Stopped").css("color", "#990000");

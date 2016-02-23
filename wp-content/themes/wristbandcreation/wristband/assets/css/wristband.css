@@ -825,9 +825,12 @@ p.fusion-row.price.price-with-decimal {
 i.alert-notify.to-cart-error {
     display: inline-block;
     position: relative;
-    left: 70px;
+    left: 65px;
     margin-top: 10px;
     text-align: right;
+    background-color: #E22B2B;
+    color: white;
+    padding: 10px;
 
 }
 i.alert-notify.SendDesign-to-cart-error {

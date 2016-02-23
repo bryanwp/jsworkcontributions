@@ -23,7 +23,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-
+/*add &#x for html entity then put ; on last*/
 .aykun-Airplane:before {
     content: "\e900";
 }
