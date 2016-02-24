@@ -103,7 +103,13 @@ do_action( 'woocommerce_before_cart' ); ?>
 				<td class="product-quantity">
 					<?php
 					if (isset($meta['total_qty'])) {
-						echo wbc_nf($meta['total_qty'], 0);
+						if ($meta['total_qty'] >= 100) {
+							echo wbc_nf($meta['total_qty'], 0).' + 100';
+						}else{
+							echo wbc_nf($meta['total_qty'], 0);
+						}
+
+
 					} else {
 						if ($_product->is_sold_individually()) {
 							$product_quantity = sprintf('1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key);

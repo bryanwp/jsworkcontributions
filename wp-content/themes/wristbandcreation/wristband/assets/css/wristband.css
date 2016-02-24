@@ -366,7 +366,7 @@ ul.clipart-list li .clearpart-info.text-center {
 
 ul.clipart-list li i {
     font-size: 4em;
-    color: #626262;
+    /*color: #626262;*/
 }
 
 ul.clipart-list li i:hover {
@@ -612,7 +612,7 @@ div.coupon {
 
 #add-clipart .button-box {
     padding: 10px 0;
-    border-bottom: dashed 1px #ECECEC;
+    /*border-bottom: dashed 1px #ECECEC;*/
 }
 
 
@@ -819,7 +819,8 @@ p.fusion-row.price.price-with-decimal {
 }
 
 .note-message {
-    font-size: 13px;
+    font-size: 10px;
+    color: gray;
 }
 
 i.alert-notify.to-cart-error {
@@ -838,4 +839,13 @@ i.alert-notify.SendDesign-to-cart-error {
     position: relative;
     left: 91px;
     top: 30px;
+}
+i.alert-notify.notify-customization-message {
+    position: absolute;
+    bottom: 32.5em;
+}
+
+.hasRed {
+    border-color: #E22B2B;
+    border-width: 2px;
 }

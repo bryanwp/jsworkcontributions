@@ -208,7 +208,7 @@ jQuery(function ($) {
                     this.collectQuantity();
                     this.collectPrices();
                     var total_qty = this.data.total_qty,
-                            total_price = this.data.total_price;
+                        total_price = this.data.total_price;
 
                     this.data.total_qty = total_qty;
                     this.data.total_price = total_price;
@@ -526,6 +526,8 @@ jQuery(function ($) {
                 validateForm: function () {
                     var flag = true,
                             msg = '';
+                    $('select[name="customization_date_production"]').removeClass('hasRed');
+                    $('select[name="customization_date_shipping"]').removeClass('hasRed');
                     if (this.data.colors.length == 0) {
                         msg += 'Please select a color/quantity.<br />';
                         flag = false;
@@ -533,10 +535,12 @@ jQuery(function ($) {
                     if ($('select[name="customization_date_production"]').val() == -1) {
                         msg += 'Production time is required.<br />';
                         flag = false;
+                        $('select[name="customization_date_production"]').addClass('hasRed');
                     }
                     if ($('select[name="customization_date_shipping"]').val() == -1) {
                         msg += 'Shipping Time is required.<br />';
                         flag = false;
+                        $('select[name="customization_date_shipping"]').addClass('hasRed');
                     }
                     if (!flag)
                              //Builder.appendAlertMsg('yeah wrong',$('#wbc_add_to_cart'),'edit-to-cart-error');
@@ -1270,7 +1274,7 @@ jQuery(function ($) {
 
 
              if ($(this).data('icon') == FS) {
-                console.log($(this).data('icon'));
+                //console.log($(this).data('icon'));
                 var icon = $(this).data('icon');
                 if(icon.indexOf('fa-') > -1){
                     $('#front-start1').attr('class', 'fa '+icon);
@@ -1289,7 +1293,7 @@ jQuery(function ($) {
                 if(icon.indexOf('fa-') > -1){
                     $('#front-end1').attr('class', 'fa ' + icon);
                 }else {
-                    $('#front-start1').attr('class', icon);
+                    $('#front-end1').attr('class', icon);
                 }
                 $('#FeID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#FeID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
@@ -1298,10 +1302,12 @@ jQuery(function ($) {
                 $('#icon_end').text($('#front_end').text());
             }
             if ($(this).data('icon') == BS) {
+                var icon = $(this).data('icon');
+                //console.log(icon);
                 if(icon.indexOf('fa-') > -1){
-                    $('front-start2').attr('class','fa ' + icon);
-                }else {
-                    $('front-start2').attr('class', icon);
+                    $('#front-start2').attr('class', 'fa '+icon);
+                } else {
+                    $('#front-start2').attr('class', icon);
                 }
                 $('#BsID').removeClass('fa fa-ban icon-preview hide-if-upload');
                 $('#BsID').addClass('fa icon-preview hide-if-upload ' + $(this).data('icon'));
@@ -1310,6 +1316,7 @@ jQuery(function ($) {
                 $('#icon_end').text($('#back_end').text());
             }
             if ($(this).data('icon') == BE) {
+                var icon = $(this).data('icon');
                 if(icon.indexOf('fa-') > -1){
                     $('#front-end2').attr('class','fa ' + icon);
                 }else {
@@ -1322,6 +1329,7 @@ jQuery(function ($) {
                 $('#icon_end').text($('#back_end').text());
             }
             if ($(this).data('icon') == WS) {
+                var icon = $(this).data('icon');
                 if(icon.indexOf('fa-') > -1){
                     $('#front-startcont1').attr('class','fa ' + icon);
                 }else {
@@ -1334,6 +1342,7 @@ jQuery(function ($) {
                 $('#icon_end').text($('#wrap_end').text());
             }
             if ($(this).data('icon') == WE) {
+                var icon = $(this).data('icon');
                 if(icon.indexOf('fa-') > -1){
                     $('#front-endcont1').attr('class','fa ' + icon);
                     $('#front-endcont2').attr('class','fa ' + icon);
@@ -1547,31 +1556,53 @@ jQuery(function ($) {
                 segcolor3_band2.style.fill = colors[1];
 
                 colors[1] = colors[2];
+            
+                segcolor1_band1.style.opacity = 1;
+                segcolor1_band1.style.fill = colors[0];
+                segcolor1_cover_band1.style.opacity = 1;
+                segcolor1_cover_band1.style.fill = colors[0];
+
+                segcolor2_band1.style.opacity = 1;
+                segcolor2_band1.style.fill = colors[1];
+                segcolor2_cover_band1.style.opacity = 1;
+                segcolor2_cover_band1.style.fill = colors[1];
+
+                segcolor1_band2.style.opacity = 1;
+                segcolor1_band2.style.fill = colors[1];
+                segcolor1_cover_band2.style.opacity = 1;
+                segcolor1_cover_band2.style.fill = colors[1];
+
+                segcolor2_band2.style.opacity = 1;
+                segcolor2_band2.style.fill = colors[0];
+                segcolor2_cover_band2.style.opacity = 1;
+                segcolor2_cover_band2.style.fill = colors[0];
+
             } else {
+
                 segcolor3_band1.style.opacity = 0;
                 segcolor3_band2.style.opacity = 0;
+
+                segcolor1_band1.style.opacity = 1;
+                segcolor1_band1.style.fill = colors[0];
+                segcolor2_band1.style.opacity = 1;
+                segcolor2_band1.style.fill = colors[0];
+
+                segcolor1_cover_band1.style.opacity = 1;
+                segcolor1_cover_band1.style.fill = colors[1];
+                segcolor2_cover_band1.style.opacity = 1;
+                segcolor2_cover_band1.style.fill = colors[1];
+
+                segcolor1_band2.style.opacity = 1;
+                segcolor1_band2.style.fill = colors[1];
+                segcolor2_band2.style.opacity = 1;
+                segcolor2_band2.style.fill = colors[1];
+
+                segcolor1_cover_band2.style.opacity = 1;
+                segcolor1_cover_band2.style.fill = colors[0];
+                segcolor2_cover_band2.style.opacity = 1;
+                segcolor2_cover_band2.style.fill = colors[0];
+
             }
-
-
-            segcolor1_band1.style.opacity = 1;
-            segcolor1_band1.style.fill = colors[0];
-            segcolor1_cover_band1.style.opacity = 1;
-            segcolor1_cover_band1.style.fill = colors[0];
-
-            segcolor2_band1.style.opacity = 1;
-            segcolor2_band1.style.fill = colors[1];
-            segcolor2_cover_band1.style.opacity = 1;
-            segcolor2_cover_band1.style.fill = colors[1];
-
-            segcolor1_band2.style.opacity = 1;
-            segcolor1_band2.style.fill = colors[1];
-            segcolor1_cover_band2.style.opacity = 1;
-            segcolor1_cover_band2.style.fill = colors[1];
-
-            segcolor2_band2.style.opacity = 1;
-            segcolor2_band2.style.fill = colors[0];
-            segcolor2_cover_band2.style.opacity = 1;
-            segcolor2_cover_band2.style.fill = colors[0];
 
 
         } else if (StyleColor == "Swirl") {
@@ -1725,12 +1756,17 @@ jQuery(function ($) {
         }
     }
     function enableGlow() {
-        console.log('why')
+
         var glow1 = document.getElementById("glow1");
         var glow2 = document.getElementById("glow2");
 
         glow1.style.opacity = 1;
         glow2.style.opacity = 1;
+
+        $("#frontw").show();
+        $("#backw").show();
+        $("#frontb").hide();
+        $("#backb").hide();
 
     }
     function hideAllColor() {
@@ -1793,6 +1829,11 @@ jQuery(function ($) {
 
         glow1.style.opacity = 0;
         glow2.style.opacity = 0;
+
+        $("#frontb").show();
+        $("#backb").show();
+        $("#frontw").hide();
+        $("#backw").hide();
 
     }
 
@@ -2719,7 +2760,7 @@ jQuery(function ($) {
                 })
 
                 .on('blur', '#quantity_group_field', function () {
-                    console.log(clckcount);
+                    // console.log(clckcount);
                     triggerKey();
                 })
 
@@ -4146,8 +4187,8 @@ jQuery(function ($) {
                                 $("#inf_custom_Price0").val($('#price_handler').text());
                                 $("#infusion-form").submit();
                             }
-                            //$('#saveDesignMessage').html('<span class="'+classD+'">'+response.data.message+'</span>');
-                            Builder.popupMsg(type, title, response.data.message);
+                            $('#saveDesignMessage').html('<span class="'+classD+'">'+response.data.message+'</span>');
+                            //Builder.popupMsg(type, title, response.data.message);
                         });
 
                         // if ($('#preview_container').length) {
@@ -4189,6 +4230,13 @@ jQuery(function ($) {
                     {   
                         Builder.calculateDeliveryDate();
                     }
+                    if($('select#customization_date_production').val() != -1){
+                        console.log('hello')
+                        $('select#customization_date_production').removeClass('hasRed');
+                    }
+                    if($('select#customization_date_shipping').val() != -1){
+                        $('select#customization_date_shipping').removeClass('hasRed');
+                    }
 
                 })
 
@@ -4215,6 +4263,7 @@ jQuery(function ($) {
         //     return false;
         // });
         // $('#front_message').focus();
+
         // Alert message if attempt to leave/unload page
         $(window).on('beforeunload', function () {
             if (Builder.has_upload)
@@ -4242,8 +4291,17 @@ jQuery(function ($) {
 
         $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup'); // trigger  the Input Quanity field when the page is reloaded to calculate the total.
         // $('#front_message').focus();
-
-
+    });
+    $(window).bind('beforeunload', function(){
+        Builder.collectQuantity();
+        var Tquantity = Builder.data.total_qty;
+        var editmode = document.getElementById("EditModeID"); 
+        console.log(Tquantity);
+        console.log(editmode);
+        if(Tquantity != 0 && editmode == null){
+          return 'Are you sure you want to leave? Your design will be lost upon exiting';  
+        }
+      
     });
     $(window).resize(function () {
         if ($(window).width() > '800') {

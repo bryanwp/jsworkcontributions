@@ -273,6 +273,7 @@ endforeach; ?>
                                 </ul>
                             </div>
                         </div>
+                        <div id="notify-customization"></div>
                         <div id="quantity_group_field">
                             <!-- <label class="form-group-heading CssTitleBlack" >Input Quantity <span>(Side View Guide)</span></label> -->
                             <p class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
@@ -294,29 +295,43 @@ endforeach; ?>
                             <div class="clear"></div>
 
                         </div><!-- /.quantity_group_field -->
-                        <div id="quantity-notice"></div>
-                        <!-- Color Quantity table -->
-                        <div class="" style = "padding:0px">
-                            <span id="freeCounter" class="CssTitleBlue"></span>
-                            <div class="form-group table-responsive">
-                                <table id="selected_color_table" class="table table-bordered" border="0">
-                                    <thead>
-                                        <tr>
-                                            <th >Color</th>
-                                            <th class="TempCss1" style="text-align:left;padding-right: 5px;">Adult</th>
-                                            <th class="TempCss1" style="text-align:left;padding-right: 5px;">Medium</th>
-                                            <th class="TempCss1" style="text-align:left;padding-right: 5px;">Youth</th>
-                                            <th class = "text_to_alter">Text</th>
-                                            <th colspan="2" style="text-align:right;"><a class="CssEditSave CssTitleBlue font-size-11" id="EditSaveID" style="cursor: pointer;"><i class="fa fa-pencil"></i></a><br><a style="cursor: pointer;" class="CssEditSave CssTitleRed font-size-11"  id="CancelID"></a></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                        <!-- Additional options -->
+                        <?php if (isset($GLOBALS['wbc_settings']->additional_options)): ?>
+                            <div id="additional-option-section">
+                                <label class="form-group-heading CssTitleBlack"  data-fontsize="19" data-lineheight="20">Additional Options</label>
+                                 <?php $i = 1;
+                                  foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option):
+                                    //removes digital proof
+                                    if ($index != 'digital_proof'):
+                                   ?>
+                                    <div id="<?php echo 'id_' . $index; ?>" class="additional-option-item fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
+                                        <div class="fusion-column-wrapper">
+                                            <div class="addon">
+                                                <span class="addon-price-handler">
+                                                    <div class="checkbox">
+                                                        <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" />
+                                                    </div>
+                                                </span>
+                                            </div>
+                                            <div class="imageframe-align-center">
+                                                <img height="80" src="<?php echo $option->image->url; ?>" alt="<?php echo $option->name; ?>" class="img-responsive">
+                                            </div>
 
-                                    </tbody>
-                                </table>
+                                            <div class="fusion-sep-clear"></div>
+                                            <span class="aligncenter">
+                                            <?php echo $option->name; ?>
+                                                <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
+                                                      title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
+                                            </span>
+
+                                        </div><!-- /.fusion-column-wrapper -->
+                                    </div><!-- /.fusion-one-third -->
+                                  <?php $i++;
+                                  endif;  
+                              endforeach; ?>
                             </div>
-                        </div>
-                        <!-- /. Color Quantity table -->
+                            <?php endif; ?>
+                        <!-- /. additional options -->
                             <!-- /.fusion-row -->
                     </div>
                 </div><!--/.fusion-one-third-->
@@ -435,8 +450,8 @@ endforeach; ?>
                                      <?php echo $glow1; ?>
                                     <!-- <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">FRONT VIEW</text>
                                     <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">FRONT VIEW</text> -->
-                                    <text text-anchor="middle" x="150" y="12" style="fill: white; stroke: White; stroke-width: 3">FRONT VIEW</text>
-                                    <text text-anchor="middle" x="150" y="12" style="fill: black; stroke: Black; stroke-width: 1">FRONT VIEW</text>
+                                    <text id="frontw" text-anchor="middle" x="150" y="12" style="fill: white; stroke: White; stroke-width: 0.5">FRONT VIEW</text>
+                                    <text id="frontb" text-anchor="middle" x="150" y="12" style="fill: black; stroke: Black; stroke-width: 0.5">FRONT VIEW</text>
                                     <rect width="100%" height="100%" style="stroke:white;stroke-width:2;fill-opacity:0;">
 
                                     </svg>
@@ -506,8 +521,8 @@ endforeach; ?>
                                     <?php echo $glow2; ?>
                                     <!-- <text x="3" y="16" style="fill: white; stroke: White; stroke-width: 3">BACK VIEW</text>
                                     <text x="3" y="16" style="fill: black; stroke: Black; stroke-width: 1">BACK VIEW</text> -->
-                                    <text text-anchor="middle" x="150" y="12" style="fill: white; stroke: White; stroke-width: 3">BACK VIEW</text>
-                                    <text text-anchor="middle" x="150" y="12" style="fill: black; stroke: Black; stroke-width: 1">BACK VIEW</text>
+                                    <text id="backw" text-anchor="middle" x="150" y="12" style="fill: white; stroke: White; stroke-width: 0.5">BACK VIEW</text>
+                                    <text id="backb" text-anchor="middle" x="150" y="12" style="fill: black; stroke: Black; stroke-width: 0.5">BACK VIEW</text>
                                     <rect width="100%" height="100%" style="stroke:white;stroke-width:2;fill-opacity:0;">
                                     </svg>       
                                 </div>
@@ -515,7 +530,7 @@ endforeach; ?>
                             </div>
                             <div>
                                 <div class="form-row">
-                                    <div class="note-message"><i>NOTE: The preview above may not accurately represent the wristband layout. We will email you a digital proof after placing your order for your approval prior to production.</i></div>
+                                    <div class="note-message">Note: We will email you a more accurate layout of your digital proof for your approval after you place your order.</div>
                                     <label for="message_type" class="form-group-heading CssTitleBlack marginTB-5" style="float:left">Message on Wristbands</label class="form-group-heading CssTitleBlack" >
 
                                     <div class="marginTB-5" style="float: right;">
@@ -650,8 +665,31 @@ endforeach; ?>
                 <div class="fusion-one-fourth one_fourth fusion-layout-column fusion-column-last fusion-spacing-yes">
                     <div class="fusion-column-wrapper">
                       <!-- note -->
-                      <div class="note-message"><i>Get 100 free wristbands for all orders with 100 wristbands and above.</i></div>
+                      <div class="note-message">Get 100 free wristbands for all orders with 100 wristbands and above.</div>
                       <!-- /.note -->
+                      <div id="quantity-notice"></div>
+                        <!-- Color Quantity table -->
+                        <div class="" style = "padding:0px">
+                            <span id="freeCounter" class="CssTitleBlue"></span>
+                            <div class="form-group table-responsive">
+                                <table id="selected_color_table" class="table table-bordered" border="0">
+                                    <thead>
+                                        <tr>
+                                            <th >Color</th>
+                                            <th class="TempCss1" style="text-align:left;padding-right: 5px;">Adult</th>
+                                            <th class="TempCss1" style="text-align:left;padding-right: 5px;">Medium</th>
+                                            <th class="TempCss1" style="text-align:left;padding-right: 5px;">Youth</th>
+                                            <th class = "text_to_alter">Text</th>
+                                            <th colspan="2" style="text-align:right;"><a class="CssEditSave CssTitleBlue font-size-11" id="EditSaveID" style="cursor: pointer;"><i class="fa fa-pencil"></i></a><br><a style="cursor: pointer;" class="CssEditSave CssTitleRed font-size-11"  id="CancelID"></a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /. Color Quantity table -->
                       <!-- Clipart -->
                         <div id="add-clipart">
                             <label id="clipartTitle" class="form-group-heading CssTitleBlack col-md-6 col-xs-6" >Add Clipart</label>
@@ -779,43 +817,7 @@ endforeach; ?>
                             </div>
 
                         </div><!-- /#add-clipart -->
-                        <!-- Additional options -->
-                        <?php if (isset($GLOBALS['wbc_settings']->additional_options)): ?>
-                            <div id="additional-option-section">
-                                <label class="form-group-heading CssTitleBlack"  data-fontsize="19" data-lineheight="20">Additional Options</label>
-                                 <?php $i = 1;
-                                  foreach ($GLOBALS['wbc_settings']->additional_options as $index => $option):
-                                    //removes digital proof
-                                    if ($index != 'digital_proof'):
-                                   ?>
-                                    <div id="<?php echo 'id_' . $index; ?>" class="additional-option-item fusion-one-half one_half fusion-layout-column fusion-spacing-yes <?php echo $i % 2 == 0 ? 'fusion-column-last' : '' ?>">
-                                        <div class="fusion-column-wrapper">
-                                            <div class="addon">
-                                                <span class="addon-price-handler">
-                                                    <div class="checkbox">
-                                                        <input type="checkbox" name="additional_option[]" data-key="<?php echo $index; ?>" value="<?php echo $option->name; ?>" />
-                                                    </div>
-                                                </span>
-                                            </div>
-                                            <div class="imageframe-align-center">
-                                                <img height="80" src="<?php echo $option->image->url; ?>" alt="<?php echo $option->name; ?>" class="img-responsive">
-                                            </div>
-
-                                            <div class="fusion-sep-clear"></div>
-                                            <span class="aligncenter">
-                                            <?php echo $option->name; ?>
-                                                <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
-                                                      title="<?php echo esc_attr($option->tool_tip_text); ?>">?</span>
-                                            </span>
-
-                                        </div><!-- /.fusion-column-wrapper -->
-                                    </div><!-- /.fusion-one-third -->
-                                  <?php $i++;
-                                  endif;  
-                              endforeach; ?>
-                            </div>
-                            <?php endif; ?>
-                        <!-- /. additional options -->
+                        
                         <!-- add digital proof -->
                         <!-- end add digital proof -->
                         <?php if (isset($GLOBALS['wbc_settings']->customization)): ?>
@@ -840,14 +842,13 @@ endforeach; ?>
                                 <?php echo!$flag ? 'checked' : ''; ?> <?php echo $Stat; ?> title="<?php echo esc_attr($cus_location->tool_tip_text); ?>"/>
                                 <?php echo esc_attr($cus_location->name); ?>
 
-                                               <!--  <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
-                                               title="<?php echo esc_attr($cus_location->tool_tip_text); ?>">?</span> -->
+                                              <span class="fusion-popover tooltip-img" data-toggle="tooltip" data-placement="top"
+                                                title="<?php echo esc_attr($cus_location->tool_tip_text); ?>">?</span>
                                         </label>
 
                                     </p>
                               <?php $flag = true;
                           endforeach; ?>
-                          <div id="notify-customization"></div>
                           <?php foreach ($GLOBALS['wbc_settings']->customization->dates as $type => $date): ?>
                                     <p class="form-row form-row-wide">
                                         <label for="customization_date_<?php echo $type; ?>" class="form-group-heading CssTitleBlack"><?php echo ucwords($type); ?> Time</label>
@@ -942,9 +943,9 @@ endforeach; ?>
                                     <div class="icon-preview">
                                         <i class="fusion-li-icon fa <?php echo esc_attr($icon->glyphicon); ?>"></i>
                                     </div>
-                                    <!--<div class="clearpart-info text-center">
-        <?php echo esc_attr($name); ?>
-                                     </div>-->
+                                    <div class="clearpart-info text-center">
+                                        <?php echo esc_attr($icon->name); ?>
+                                     </div>
                                 </label>
                             </li>
     <?php endforeach; ?>
@@ -990,10 +991,10 @@ endforeach; ?>
     </div>
     </div><!-- /.fusion-modal -->
 </script>
-
+<!-- data-backdrop="false" -->
 <!-- /.fusion-modal -->
 <script id="modal_message_template" type="x-tmpl-mustache">
-    <div id="modal_message" class="fusion-modal modal fade {{status}}" tabindex="-1" role="dialog">
+    <div id="modal_message" class="fusion-modal modal fade {{status}}"  tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm">
     <div class="modal-content fusion-modal-content" style="background-color:#f6f6f6">
     <div class="modal-header">
