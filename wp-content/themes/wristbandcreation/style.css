@@ -287,3 +287,8 @@ ul.fusion-checklist {
 .padd-0 {
 	padding: 0;
 }
+
+.fusion-checklist-2{
+	padding: 0;
+	list-style: none;
+}

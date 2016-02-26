@@ -25,8 +25,23 @@ jQuery(function ($) {
                         wrap_start: '', // Wrap Start Clipart
                         wrap_end: '', // Wrap End Clipart
 
+                        front_start_name: '', // Front Start Clipart
+                        front_end_name: '', // Front End Clipart
+                        back_start_name: '', // Back Start Clipart
+                        back_end_name: '', // Back End Clipart
+                        wrap_start_name: '', // Wrap Start Clipart
+                        wrap_end_name: '', // Wrap End Clipart
+
                         view_position: 'front',
                         wristband_stat: 'front_and_back',
+                    },
+                    clipartname: {
+                        front_start_name: '', // Front Start Clipart
+                        front_end_name: '', // Front End Clipart
+                        back_start_name: '', // Back Start Clipart
+                        back_end_name: '', // Back End Clipart
+                        wrap_start_name: '', // Wrap Start Clipart
+                        wrap_end_name: '', // Wrap End Clipart
                     },
                 },
                 init: function () {
@@ -3810,10 +3825,10 @@ jQuery(function ($) {
                             icon = $(this).data('icon'),
                             glyp = $(this).data('icon-code'),
                             position = button.data('position'),
+                            name = $(this).data('icon-name'),
                             view = button.data('view'),
                             fa = 'fa-',
                             preview = $('.preview-button.active').data('view');
-                            //console.log(icon);
                     if (icon == undefined) {
                         switch (position) {
                             case "front_start":
@@ -3920,6 +3935,7 @@ jQuery(function ($) {
                     button.find('.icon-preview').addClass(icon == undefined ? '' : icon);
                     //console.log('this is here a joke');
                     Builder.data['clipart'][button.data('position')] = icon == undefined ? '' : icon;
+                    Builder.data['clipartname'][button.data('position')+'_name'] = name == undefined ? ' ' : name;
                     Builder.has_upload = false;
                     $('#wristband-clipart-modal').modal('hide');
 
@@ -4296,9 +4312,7 @@ jQuery(function ($) {
         Builder.collectQuantity();
         var Tquantity = Builder.data.total_qty;
         var editmode = document.getElementById("EditModeID"); 
-        console.log(Tquantity);
-        console.log(editmode);
-        if(Tquantity != 0 && editmode == null){
+           if(Tquantity != 0 && editmode == null){
           return 'Are you sure you want to leave? Your design will be lost upon exiting';  
         }
       

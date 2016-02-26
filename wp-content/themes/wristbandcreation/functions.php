@@ -473,38 +473,45 @@ function display_order_summary($_product, $meta)
   ?>
   <!-- SOL : View Product Summary Details -->
     <!-- <label class="t-heading CssTitleBlack CssTitleBold"><?php echo $_product->get_title() . ' - ' . (isset($meta['size']) ? $meta['size'] : '') . ' Inch'; ?></label> -->
-    <label class="t-heading"><?php echo $_product->get_title() . ' - ' . (isset($meta['size']) ? $meta['size'] : '') . ' Inch'; ?></label>
+    <label class="t-heading"><?php echo 'Wristband Width: ' . (isset($meta['size']) ? $meta['size'] : '') . ' Inch'; ?></label>
     <?php if (isset($meta['colors'])): ?>
       <ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
+      <label class="CssTitleBlack CssTitleBold">Quantity and Colors:</label>
         <?php 
           $free_colors = $meta['free_colors'];
           foreach ($meta['colors'] as $pk => $color): if (!isset($color['name']) || empty($color['name'])) continue; 
         ?>
-
+<!-- Quantity and Colors:
+500 Lime Green & White Segmented (+84 free) | Adult Size
+100 Blue, Red & Pink Segmented (+16 free) | Medium Size
+ -->
           <li class="fusion-li-item">
-              <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+              <!-- <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
                 <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
-              </span>
+              </span> -->
 
             <div class="fusion-li-item-content">
-              <span><?php echo $color['name']; ?></span> – <?php echo $color['type']; ?> <em><?php //echo $color['color']; ?>
+              <!-- <span><?php //var_dump($color); echo $color['name']; ?></span> – <?php //echo $color['type']; ?> <em><?php// echo $color['color']; ?> -->
                 </em>
             </div>
 
             <?php if (isset($color['sizes']) && count($color['sizes']) != 0): ?>
-              <ul class="fusion-checklist fusion-checklist-1"
+              <ul class="fusion-checklist-2 fusion-checklist-1"
                 style="font-size:12px;line-height:22.1px;">
                 <?php if (isset($color['text_color_name'])): ?>
-                  <li class="fusion-li-item">
-                    <div class="fusion-li-item-content">
-                      <span>Text Color: <?php echo $color['text_color_name'] . ' – <em>' . $color['text_color'] . '</em>'; ?></span>
-                    </div>
-                  </li>
-                <?php endif; ?>
+                  <!-- <li class="fusion-li-item"> -->
+                    <!-- <div class="fusion-li-item-content"> -->
+                      <!-- <span>Text Color: <?php// echo $color['text_color_name'] . ' – <em>' . $color['text_color'] . '</em>'; ?></span> -->
+                    <!-- </div> -->
+                  <!-- </li> -->
+                <?php
+                 endif; ?>
                 <?php foreach ($color['sizes'] as $k => $qty): if ($qty <= 0) continue; ?>
                   <li class="fusion-li-item">
                     <div class="fusion-li-item-content">
-                      <span><?php echo ucfirst($k) . ' – <em>' . $qty . ($free_colors[$pk]['free'][$k] ? (' + ' . $free_colors[$pk]['free'][$k]) : '') . '</em>'; ?></span>
+                      <span><?php //echo ucfirst($k) . ' – <em>' . $qty . ($free_colors[$pk]['free'][$k] ? (' + ' . $free_colors[$pk]['free'][$k]) : '') . '</em>'; ?>
+                      <?php echo $qty.' '.$color['name'].' '.$color['type'].' ('.($free_colors[$pk]['free'][$k] ? ('+' . $free_colors[$pk]['free'][$k]) : '').') | '.ucfirst($k).' Size';?>
+                      </span>
                     </div>
                   </li>
                 <?php endforeach; ?>
@@ -515,59 +522,41 @@ function display_order_summary($_product, $meta)
       </ul>
     <?php endif; ?>
     <?php if( (!empty($meta['font']) && $meta['font'] != '-1') || !empty($meta['messages']['Front Message']) || !empty($meta['messages']['Back Message']) || !empty($meta['messages']['Inside Message']) || !empty($meta['messages']['Continuous Message']) || !empty($meta['messages']['Additional Notes']) ): ?>
-      <label class="CssTitleBlack CssTitleBold">Text on Wristbands</label>
+      <label class="CssTitleBlack CssTitleBold">Text on Wristbands: </label>
       <ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
         <?php if (!isset($meta['font']) || $meta['font'] != '-1'): ?>
           <li class="fusion-li-item">
-            <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+            <!-- <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
               <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
-            </span>
+            </span> -->
             <div class="fusion-li-item-content">
-              <span>Font Style</span> – <?php echo $meta['font']; ?>
+              <span>Font Style</span>: <?php echo $meta['font']; ?>
             </div>
           </li>
         <?php endif; ?>
         <?php if (isset($meta['messages'])): foreach ($meta['messages'] as $label => $val): if (empty($val)) continue; ?>
           <li class="fusion-li-item">
-            <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+            <!-- <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
               <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
-            </span>
-
+            </span> -->
             <div class="fusion-li-item-content">
-              <span><?php echo $label; ?></span> – <?php echo $val; ?>
+              <span><?php echo $label; ?></span>: <?php echo $val; ?>
             </div>
           </li>
         <?php endforeach; endif; ?>
       </ul>
     <?php endif; ?>
-    <?php if (isset($meta['additional_options']) && count($meta['additional_options']) > 0): ?>
-      <label class="CssTitleBlack CssTitleBold">Additional Options</label>
-      <ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
-        <?php foreach ($meta['additional_options'] as $k => $option): ?>
-          <li class="fusion-li-item">
-            <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
-              <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
-            </span>
-
-            <div class="fusion-li-item-content">
-              <span><?php echo $option; ?></span>
-            </div>
-          </li>
-        <?php endforeach; ?>
-      </ul>
-    <?php endif; ?>
     <?php if (!empty($meta['clipart']['back_end']) || !empty($meta['clipart']['back_end']) || !empty($meta['clipart']['back_start']) || !empty($meta['clipart']['front_end']) || !empty($meta['clipart']['front_start']) || !empty($meta['clipart']['wrap_end']) || !empty($meta['clipart']['wrap_start']) ): ?>
-      <label class="CssTitleBlack CssTitleBold">Clipart</label>
+      <label class="CssTitleBlack CssTitleBold">Clipart: </label>
       <ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
         <?php foreach ($meta['clipart'] as $k => $clipart): if (empty($clipart) || $k == 'view_position' || $k == 'wristband_stat') continue;?>
           <li class="fusion-li-item">
-            <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+            <!-- <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
               <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
-            </span>
-
+            </span> -->
             <div class="fusion-li-item-content">
-              <span><?php echo ucfirst(str_replace('_', ' ', $k)); ?></span> -
-              <?php if (preg_match('/(\.jpg|\.png|\.bmp)$/', $clipart)){ ?>
+              <span><?php $position = ucfirst(str_replace('_', ' ', $k));
+               echo $position; ?></span>:<?php if (preg_match('/(\.jpg|\.png|\.bmp)$/', $clipart)){ ?>
                 <img
                   src="<?php echo wp_upload_dir()['baseurl'] . '/clipart/' . $clipart; ?>"
                   alt="" width="16px" height="16px">
@@ -578,31 +567,95 @@ function display_order_summary($_product, $meta)
                       ?>
 
                       <i class="<?php echo $clipart; ?>"></i>
+                      <em><?php echo $meta['clipartname'][$k.'_name']; ?></em>
                       <?php
                     }else{
                       //echo "2222222222222222222";
                   ?> 
                     <i class="fa <?php echo $clipart; ?>"></i>
+                    <em><?php echo $meta['clipartname'][$k.'_name']; ?></em>
               <?php }} ?>
-              <!-- (<em><?php //echo $clipart; ?></em>) -->
+              <!-- (<em><?php echo $clipart; ?></em>) -->
             </div>
           </li>
         <?php endforeach; ?>
       </ul>
     <?php endif; ?>
+    <?php if (isset($meta['additional_options']) && count($meta['additional_options']) > 0): ?>
+      <label class="CssTitleBlack CssTitleBold">Additional Options: </label>
+      <ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
+        <?php foreach ($meta['additional_options'] as $k => $option): ?>
+          <li class="fusion-li-item">
+           <!--  <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+              <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
+            </span> -->
+            <div class="fusion-li-item-content">
+              <span><?php echo $option; ?></span>
+            </div>
+          </li>
+        <?php endforeach; ?>
+      </ul>
+    <?php endif; ?>
+    <label class="CssTitleBlack CssTitleBold">Production and Shipping: </label>
+    <ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
+      <?php if (isset($meta['customization_location'])): ?>
+        <li class="fusion-li-item">
+          <!-- <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+              <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
+            </span> -->
+
+          <div class="fusion-li-item-content">
+            <span><?php echo $meta['customization_location']; ?></span>
+          </div>
+        </li>
+      <?php endif; ?>
+      <?php if (isset($meta['customization_date_production'])): ?>
+        <li class="fusion-li-item">
+<!--           <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+              <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
+            </span> -->
+
+          <div class="fusion-li-item-content">
+            <span>Production Time</span>: <?php echo $meta['customization_date_production']; ?>
+          </div>
+        </li>
+      <?php endif; ?>
+      <?php if (isset($meta['customization_date_shipping'])): ?>
+        <li class="fusion-li-item">
+          <!-- <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+              <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
+            </span> -->
+
+          <div class="fusion-li-item-content">
+            <span>Shipping Time</span>: <?php echo $meta['customization_date_shipping']; ?>
+          </div>
+        </li>
+      <?php endif; ?>
+      <?php if (isset($meta['guaranteed_delivery'])): ?>
+        <li class="fusion-li-item">
+          <!-- <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+              <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
+            </span> -->
+
+          <div class="fusion-li-item-content">
+            <span>Guaranteed to arrive on </span><?php echo $meta['guaranteed_delivery']; ?>
+          </div>
+        </li>
+      <?php endif; ?>
+    </ul>
     <!-- EOL : View Product Summary Details -->
   <?php
 }
-
+/*
 function display_order_production_summary($_product, $meta){ ?>
   <div class="production-details">
     <label class="CssTitleBlack CssTitleBold">Production and Shipping</label>
     <ul class="fusion-checklist fusion-checklist-1" style="font-size:12px;line-height:22.1px;">
       <?php if (isset($meta['customization_location'])): ?>
         <li class="fusion-li-item">
-          <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+          <!-- <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
               <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
-            </span>
+            </span> -->
 
           <div class="fusion-li-item-content">
             <span><?php echo $meta['customization_location']; ?></span>
@@ -622,9 +675,9 @@ function display_order_production_summary($_product, $meta){ ?>
       <?php endif; ?>
       <?php if (isset($meta['customization_date_shipping'])): ?>
         <li class="fusion-li-item">
-          <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+          <!-- <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
               <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
-            </span>
+            </span> -->
 
           <div class="fusion-li-item-content">
             <span>Shipping Time</span> - <?php echo $meta['customization_date_shipping']; ?>
@@ -633,9 +686,9 @@ function display_order_production_summary($_product, $meta){ ?>
       <?php endif; ?>
       <?php if (isset($meta['guaranteed_delivery'])): ?>
         <li class="fusion-li-item">
-          <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
+          <!-- <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
               <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
-            </span>
+            </span> -->
 
           <div class="fusion-li-item-content">
             <span>Guaranteed delivery</span> - <?php echo $meta['guaranteed_delivery']; ?>
@@ -646,7 +699,7 @@ function display_order_production_summary($_product, $meta){ ?>
  </div>
 <?php
 }
-
+*/
 function getMetaToAutoSet($TempID, $Status)
 {
   $Infos = false;
