@@ -174,11 +174,21 @@ jQuery(function ($) {
                 },
                 // Append alert messages
                 appendAlertMsg: function (_msg, el, uniq_class) {
-                    var tpl = Mustache.render('<i class="alert-notify ' + uniq_class + '">{{{message}}}</i>', {message: _msg});
+                    var tpl = Mustache.render('<span class="alert-notify alert-color ' + uniq_class + '">{{{message}}}</span>', {message: _msg});
                     if (uniq_class != undefined)
                         $(el).parent().find('.' + uniq_class).remove();
 
-                    $(tpl).insertAfter($(el));
+                     $(tpl).insertAfter($(el));
+
+                },
+                // Append alert messages
+                addappendAlertMsg: function (_msg, el, uniq_class) {
+                    var tpl = Mustache.render('<span class="alert-notify alert-color ' + uniq_class + '">{{{message}}}</span>', {message: _msg});
+                    if (uniq_class != undefined)
+                        $(el).parent().find('.' + uniq_class).remove();
+
+                    // $(tpl).insertAfter($(el));
+                    $(el).append($(tpl));
                 },
                 // Get the price from quantity range
                 rangePrice: function (range, qty) {
@@ -540,34 +550,40 @@ jQuery(function ($) {
                 },
                 validateForm: function () {
                     var flag = true,
-                            msg = '';
+                            msg = ' required field!';
                     $('select[name="customization_date_production"]').removeClass('hasRed');
                     $('select[name="customization_date_shipping"]').removeClass('hasRed');
                     if (this.data.colors.length == 0) {
-                        msg += 'Please select a color/quantity.<br />';
+                        //msg += 'Please select a color/quantity.<br />';
                         flag = false;
+                        this.appendAlertMsg('input quantity first!',$('#notify-customization'),'notify-customization-message');
                     }
                     if ($('select[name="customization_date_production"]').val() == -1) {
-                        msg += 'Production time is required.<br />';
+                        //msg = 'required.';
                         flag = false;
                         $('select[name="customization_date_production"]').addClass('hasRed');
+                        this.addappendAlertMsg(msg,$('label[for="customization_date_production"]'),'cart-error');
                     }
                     if ($('select[name="customization_date_shipping"]').val() == -1) {
-                        msg += 'Shipping Time is required.<br />';
+                        //msg = 'required.';
                         flag = false;
                         $('select[name="customization_date_shipping"]').addClass('hasRed');
+                        this.addappendAlertMsg(msg, $('label[for="customization_date_shipping"]'),'cart-error');
                     }
-                    if (!flag)
-                             //Builder.appendAlertMsg('yeah wrong',$('#wbc_add_to_cart'),'edit-to-cart-error');
-                        this.appendAlertMsg(msg, $('#wbc_add_to_cart'),'to-cart-error');
+                    // if (!flag)
+                    //          //Builder.appendAlertMsg('yeah wrong',$('#wbc_add_to_cart'),'edit-to-cart-error');
+                    //     this.addappendAlertMsg(msg, $('#wbc_add_to_cart'),'to-cart-error');
                     return flag;
                 },
                 calculateDeliveryDate: function () {
                     var $production_time = $('select#customization_date_production'),
                             $shipping_time = $('select#customization_date_shipping'),
                             the_date = new Date();
-                    if ($production_time.val() == -1 || $shipping_time.val() == -1)
+
+                    if ($production_time.val() == -1 || $shipping_time.val() == -1){
+                        $('#delivery_date').text('');
                         return;
+                    }
                     var total_days = toInt($production_time.val()) + toInt($shipping_time.val());
 
                     // Start escape saturday and sunday and holiday
@@ -582,7 +598,6 @@ jQuery(function ($) {
                             break;
                         }
                     }
-
                     var month_name = [
                         "January", "February", "March",
                         "April", "May", "June", "July",
@@ -592,7 +607,7 @@ jQuery(function ($) {
                     var week_name = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
                     // End escape
                     var delivery_date = week_name[the_date.getDay()] + ' ' + month_name[the_date.getMonth()] + ' ' + the_date.getDate() + ', ' + the_date.getUTCFullYear();
-                    $('#delivery_date').text(delivery_date)
+                    $('#delivery_date').text(delivery_date);
                     this.data['guaranteed_delivery'] = delivery_date;
 
                 },
@@ -764,7 +779,7 @@ jQuery(function ($) {
                                     currency_symbol: Settings.currency_symbol,
                                     price: numberFormat(additional_price, 2),
                                 });
-                                Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'each-message');
+                                Builder.addappendAlertMsg(tpl, $(this).closest('.checkbox'), 'each-message');
                                 //console.log(costType);
                             } else if (costType == 'Per Order') {
                                 Builder.data.total_price += additional_price;
@@ -774,7 +789,7 @@ jQuery(function ($) {
                                     price: additional_price,
                                 }
                                 );
-                                Builder.appendAlertMsg(tpl, $(this).closest('.checkbox'), 'per-order');
+                                Builder.addappendAlertMsg(tpl, $(this).closest('.checkbox'), 'per-order');
                                 //console.log(costType);
                             }
                         }
@@ -2788,6 +2803,16 @@ jQuery(function ($) {
                     }
                     
                 })
+
+                 .on('keypress', '#quantity_group_field', function (event){
+                    var keycode = (event.keyCode ? event.keyCode : event.which);
+                    if(keycode == '13'){
+                        triggerKey(); 
+                        //event.stopPropagation(); 
+                    }
+                })
+
+
                 .on('keyup', '.keyupTxtView', function (e) {
                     var total = 0;
                     $('.keyupTxtView').each(function (index, elem) {
@@ -4203,6 +4228,7 @@ jQuery(function ($) {
                                 $("#inf_custom_Price0").val($('#price_handler').text());
                                 $("#infusion-form").submit();
                             }
+                            console.log(response.data);
                             $('#saveDesignMessage').html('<span class="'+classD+'">'+response.data.message+'</span>');
                             //Builder.popupMsg(type, title, response.data.message);
                         });
@@ -4338,4 +4364,12 @@ jQuery(function ($) {
             $("#mod-footer0").show();
         }
     });
+    // $(document).keypress(function(event){
+    //             var keycode = (event.keyCode ? event.keyCode : event.which);
+    //             if(keycode == '13'){
+    //                 alert('hello');
+    //                 $('#add_color_to_selections').trigger('click');
+    //                 // triggerKey();
+    //             }
+    //         });
 });

@@ -167,6 +167,14 @@ jQuery(function ($) {
 
             $(tpl).insertAfter($(el));
         },
+        // Append alert messages
+        addappendAlertMsg: function(_msg, el, uniq_class) {
+            var tpl  = Mustache.render('<i class="alert-notify '+ uniq_class +'">{{{message}}}</i>', {message: _msg});
+             if (uniq_class != undefined)
+                $(el).parent().find('.' + uniq_class).remove();
+
+            $(tpl).insertAfter($(el));
+        },
         // Get the price from quantity range
         rangePrice: function(range, qty) {
             if (range == undefined) return;

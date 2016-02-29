@@ -303,8 +303,9 @@ a.delete-selection {
 
 i.alert-notify {
     color: rgb(190, 11, 11);
+    /*color: red;*/
     font-size: 11px;
-    font-weight: bold;
+    /*font-weight: bold;*/
     display: inline;
 }
 
@@ -829,7 +830,8 @@ i.alert-notify.to-cart-error {
     left: 65px;
     margin-top: 10px;
     text-align: right;
-    background-color: #E22B2B;
+    /*background-color: #E22B2B;*/
+    background-color: red;
     color: white;
     padding: 10px;
 
@@ -848,4 +850,18 @@ i.alert-notify.notify-customization-message {
 .hasRed {
     border-color: #E22B2B;
     border-width: 2px;
+}
+
+.alert-color {
+   color: #E22B2B;
+}
+
+.changetolink {
+    background:none!important;
+     border:none; 
+     padding:0!important;
+     cursor: pointer;
+     float: left; 
+     margin-left: 10px; 
+     margin-top: 5px;
 }

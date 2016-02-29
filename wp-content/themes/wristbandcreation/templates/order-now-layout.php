@@ -18,7 +18,7 @@ if (isset($_REQUEST['id'])) {
       {
             $isStatus = $_REQUEST['Status'];
       }
-    echo $isStatus;
+    //echo $isStatus;
     $metaInfo = getMetaToAutoSet($_REQUEST['id'], $_REQUEST['Status']);
     if ($metaInfo != false) {
         echo '<input id="EditModeID" name="' . $metaInfo['all'] . '" value="' . $_REQUEST['id'] . '" type="hidden">';
@@ -290,7 +290,10 @@ endforeach; ?>
                             </p>
                             <p id="quantity_group_field_button" class="form-row quantity-row fusion-one-fourth one_third fusion-layout-column fusion-spacing-yes">
                                 <br>
-                                <a class="TempAddCss" target="_blank" href="#" id="add_color_to_selections"><span class="fusion-button-text">Add</span></a>
+                                <!-- <a class="TempAddCss" target="_blank" href="#" id="add_color_to_selections"><span class="fusion-button-text">Add</span></a> -->
+                                <button id="add_color_to_selections" href="#" class="changetolink">
+                                <span class="fusion-button-text-left">Add</span>
+                            </button> 
                             </p>                    
                             <div class="clear"></div>
 
@@ -382,7 +385,7 @@ endforeach; ?>
                             <input type="hidden" name="insidePaste" value="0">
                             <input type="hidden" name="lengthAdjustFlagBand1" value="0">
                             <input type="hidden" name="lengthAdjustFlagBand2" value="0">
-                            <div id="ifrontcontend" style="display:none">&#xf059;</div>
+                            <div id="ifrontcontend" style="display:none"></div>
                             <div class="wbdiv">
                                 <!--<div class="imageframe-align-center image-preview">-->
                                 <div class="containersvg1">
@@ -420,16 +423,16 @@ endforeach; ?>
                                   <?php echo $segcolor3_band1; ?>            
                                     <text id="bandtext1" text-anchor="middle" fill="#9d1d20" style="font-family: Arial; font-size: 30px; fill: #999999; opacity: 0.6;">
                                     <textPath id="bandtextpath1" xlink:href="#MyPath1" startOffset="50%">
-                                        <tspan id="front-start1" class="fa" dominant-baseline="middle">&#xf059;</tspan>
+                                        <tspan id="front-start1" class="fa" dominant-baseline="middle"></tspan>
                                         <tspan id="front-text1" dominant-baseline="middle"></tspan>
-                                        <tspan id="front-end1" class="fa" dominant-baseline="middle">&#xf059;</tspan>
+                                        <tspan id="front-end1" class="fa" dominant-baseline="middle"></tspan>
                                     </textPath>
                                     </text>
                                     <text id="bandtextcont1" fill="#9d1d20" style="font-family: Arial; font-size: 30px; fill: #999999; opacity: 0.6;"  display="none">
                                     <textPath id="bandtextpathcont1" xlink:href="#MyPathCont1" startOffset="0%">
-                                        <tspan id="front-startcont1" class="fa" dominant-baseline="middle">&#xf059;</tspan>
+                                        <tspan id="front-startcont1" class="fa" dominant-baseline="middle"></tspan>
                                         <tspan id="front-textcont1" dominant-baseline="middle"></tspan>
-                                        <tspan id="front-endcont1" class="fa" dominant-baseline="middle">&#xf059;</tspan>
+                                        <tspan id="front-endcont1" class="fa" dominant-baseline="middle"></tspan>
                                     </textPath>
                                     </text>
 
@@ -475,9 +478,9 @@ endforeach; ?>
                                     <?php echo $segcolor1_cover_band2 . $segcolor2_cover_band2; ?>               
                                     <text id="bandtext2" text-anchor="middle" fill="#9d1d20" style="font-family: Arial; font-size: 30px; fill: #999999; opacity: 0.6;">
                                     <textPath id="bandtextpath2" xlink:href="#MyPath2" startOffset="50%">
-                                        <tspan id="front-start2" class="fa" dominant-baseline="middle">&#xf059;</tspan>
+                                        <tspan id="front-start2" class="fa" dominant-baseline="middle"></tspan>
                                         <tspan id="front-text2" dominant-baseline="middle"></tspan>
-                                        <tspan id="front-end2" class="fa" dominant-baseline="middle">&#xf059;</tspan>
+                                        <tspan id="front-end2" class="fa" dominant-baseline="middle"></tspan>
                                     </textPath>
                                     </text>
                                     <text id="bandtextcont2" fill="#9d1d20" style="font-family: Arial; font-size: 30px; fill: #999999; opacity: 0.6;" display="none">
@@ -485,7 +488,7 @@ endforeach; ?>
                                         <tspan id="front-startcont2" class="fa" dominant-baseline="middle"></tspan>
                                         <tspan id="front-textcont2" dominant-baseline="middle"></tspan>
                                         <!--<tspan id="front-endcont2" class="fa" dominant-baseline="middle">&#xf096;</tspan>-->
-                                        <tspan id="front-endcont2" class="fa" dominant-baseline="middle">&#xf059;</tspan>
+                                        <tspan id="front-endcont2" class="fa" dominant-baseline="middle"></tspan>
                                     </textPath>
                                     </text>
 
@@ -864,7 +867,7 @@ endforeach; ?>
                         <?php endif; ?>
 
                         <p class="form-row form-row-wide">
-                            Guaranteed to be delivered on or before: <strong id="delivery_date"></strong>
+                            Guaranteed to be delivered on or before <strong id="delivery_date"></strong>
                         </p>
                     </div><!--/.fusion-column-wrapper -->
 
