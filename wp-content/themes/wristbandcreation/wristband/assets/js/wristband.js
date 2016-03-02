@@ -4,6 +4,8 @@ jQuery(function ($) {
     var Settings = WBC.settings,
             clckcount,
             timeoutID,
+            notrigger,
+            StatusifSave = false,
             Builder = {
                 has_upload: false, // Check if there are any files uploaded
                 CntID: 0,
@@ -24,13 +26,6 @@ jQuery(function ($) {
                         back_end: '', // Back End Clipart
                         wrap_start: '', // Wrap Start Clipart
                         wrap_end: '', // Wrap End Clipart
-
-                        front_start_name: '', // Front Start Clipart
-                        front_end_name: '', // Front End Clipart
-                        back_start_name: '', // Back Start Clipart
-                        back_end_name: '', // Back End Clipart
-                        wrap_start_name: '', // Wrap Start Clipart
-                        wrap_end_name: '', // Wrap End Clipart
 
                         view_position: 'front',
                         wristband_stat: 'front_and_back',
@@ -387,7 +382,7 @@ jQuery(function ($) {
                     // Trigger keyup on ready
                     $('.trigger-limit-char').trigger('keyup');
                     // $('select#customization_date_production').trigger('click');
-
+                    notrigger = 0;
                     // Trigger window resize
                     $(window).trigger('resize');
 
@@ -553,6 +548,8 @@ jQuery(function ($) {
                             msg = ' required field!';
                     $('select[name="customization_date_production"]').removeClass('hasRed');
                     $('select[name="customization_date_shipping"]').removeClass('hasRed');
+                    $('select[name="customization_date_production"]').removeClass('cart-error');
+                    $('select[name="customization_date_shipping"]').removeClass('cart-error');
                     if (this.data.colors.length == 0) {
                         //msg += 'Please select a color/quantity.<br />';
                         flag = false;
@@ -3348,7 +3345,6 @@ jQuery(function ($) {
                 // back message changes            
 
                 .on('custom', 'input[name="back_message"]', function (e, cpos) {
-
                     var message_type = $('input[name="message_type"]:checked').val();
                     var back_msg = $('input[name="back_message"]').val();
                     var width = $("#width").val();
@@ -4002,6 +3998,8 @@ jQuery(function ($) {
                         return;
                     }
 
+                    notrigger = 1;
+
                     var $self = $(this),
                         $icon = $self.find('.fa'),
                         $button_text = $self.find('.fusion-button-text-left');
@@ -4050,6 +4048,8 @@ jQuery(function ($) {
                         return;
                     }
 
+                    notrigger = 1;
+
                     var $self = $(this),
                             $icon = $self.find('.fa'),
                             UpdateID = $("#EditModeID").val(),
@@ -4060,6 +4060,7 @@ jQuery(function ($) {
                     $button_text.text('Update Cart');
 
                     Builder.collectDataToPost();
+                    console.log(Builder.data);
                     $.ajax({
                         url: WBC.ajax_url,
                         type: 'POST',
@@ -4071,17 +4072,17 @@ jQuery(function ($) {
 
                         $icon.removeClass('fa-spinner');
                         $icon.addClass('fa-shopping-cart');
-                        $button_text.text('Add to Cart');
+                        // $button_text.text('Add to Cart');
                         if (!response.success) {
                             type = 'error';
                             title = 'Error';
                         }
                         Builder.has_upload = false;
                         if(type == 'error'){
-                             Builder.appendAlertMsg('yeah wrong',$('#wbc_edit_to_cart'),'edit-to-cart-error');
+                             Builder.appendAlertMsg('unable to update',$('#wbc_edit_to_cart'),'edit-to-cart-error');
                         }
                         //Builder.popupMsg(type, title, response.data.message + ' <a href="' + Settings.site_url + '/cart">view cart <i class="fa fa-long-arrow-right"></i></a>');
-                        $("#mmk").html(response.data.message)
+                        //$("#mmk").html(response.data.message)
 
                         if (response.success)
                             setTimeout(function () {
@@ -4104,7 +4105,7 @@ jQuery(function ($) {
                     } else
                     {
                         //Builder.popupMsg('error', 'Save Your Design', 'Please add color(s) to your wristband design.');
-                        Builder.appendAlertMsg('yeah wrong',$('#save_button'),'SendDesign-to-cart-error');
+                       //Builder.appendAlertMsg('yeah wrong',$('#save_button'),'SendDesign-to-cart-error');
                     }
                 })
 
@@ -4228,8 +4229,8 @@ jQuery(function ($) {
                                 $("#inf_custom_Price0").val($('#price_handler').text());
                                 $("#infusion-form").submit();
                             }
-                            console.log(response.data);
                             $('#saveDesignMessage').html('<span class="'+classD+'">'+response.data.message+'</span>');
+                            StatusifSave = true;
                             //Builder.popupMsg(type, title, response.data.message);
                         });
 
@@ -4273,7 +4274,6 @@ jQuery(function ($) {
                         Builder.calculateDeliveryDate();
                     }
                     if($('select#customization_date_production').val() != -1){
-                        console.log('hello')
                         $('select#customization_date_production').removeClass('hasRed');
                     }
                     if($('select#customization_date_shipping').val() != -1){
@@ -4338,8 +4338,11 @@ jQuery(function ($) {
         Builder.collectQuantity();
         var Tquantity = Builder.data.total_qty;
         var editmode = document.getElementById("EditModeID"); 
-           if(Tquantity != 0 && editmode == null){
-          return 'Are you sure you want to leave? Your design will be lost upon exiting';  
+        console.log(Tquantity+' '+editmode+' '+notrigger+' '+StatusifSave);
+           if((Tquantity == 0 && editmode == null) || (Tquantity != 0 && notrigger == 1) || (StatusifSave == true)){
+
+        }else{
+            return 'Are you sure you want to leave? Your design will be lost upon exiting';
         }
       
     });

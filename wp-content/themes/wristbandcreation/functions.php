@@ -507,7 +507,7 @@ function display_order_summary($_product, $meta)
                 <?php
                  endif; ?>
                 <?php foreach ($color['sizes'] as $k => $qty): if ($qty <= 0) continue; ?>
-                  <li class="fusion-li-item">
+                  <li class="fusion-li-item nobullet">
                     <div class="fusion-li-item-content">
                       <span><?php //echo ucfirst($k) . ' – <em>' . $qty . ($free_colors[$pk]['free'][$k] ? (' + ' . $free_colors[$pk]['free'][$k]) : '') . '</em>'; ?>
                       <?php echo $qty.' '.$color['name'].' '.$color['type'].' ('.($free_colors[$pk]['free'][$k] ? ('+' . $free_colors[$pk]['free'][$k]) : '').') | '.ucfirst($k).' Size';?>
@@ -946,3 +946,31 @@ function custom_encrypt_decrypt($action, $string)
 function set_html_content_type() {
     return 'text/html';
 }
+
+
+// removing action
+// remove_action( 'woocommerce_cart_collaterals','woocommerce_cross_sell_display' );
+// remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cross_sell_display' );﻿
+
+remove_action( 'woocommerce_cart_collaterals', 'woocommerce_cross_sell_display');
+
+// rename the "Have a Coupon?" message on the checkout page
+function woocommerce_rename_coupon_message_on_checkout() {
+  return 'Have a Promo Code?' . ' <a href="#" class="showcoupon">' . __( 'Click here to enter your code', 'woocommerce' ) . '</a>';
+}
+add_filter( 'woocommerce_checkout_coupon_message', 'woocommerce_rename_coupon_message_on_checkout' );
+// rename the coupon field on the checkout page
+function woocommerce_rename_coupon_field_on_checkout( $translated_text, $text, $text_domain ) {
+  // bail if not modifying frontend woocommerce text
+  if ( is_admin() || 'woocommerce' !== $text_domain ) {
+    return $translated_text;
+  }
+  if ( 'Coupon code' === $text ) {
+    $translated_text = 'Promo Code';
+  
+  } elseif ( 'Apply Coupon' === $text ) {
+    $translated_text = 'Apply Promo Code';
+  }
+  return $translated_text;
+}
+add_filter( 'gettext', 'woocommerce_rename_coupon_field_on_checkout', 10, 3 );

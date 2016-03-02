@@ -52,6 +52,33 @@
     i.alert-notify.to-cart-error {
         left: 58px!important;
 }
+
+@media (min-width: 1025px) {
+    #mod-footer0 {
+        display: none!important;
+    }
+}
+
+@media (max-width: 1024px) {
+    #mod-footer0 {
+        display: block!important;
+    }
+    #mod-footer1 {
+        display: none!important;
+    }
+    #mod-footer2 {
+        display: block;
+        margin-top: 2em;
+    }
+    .fusion-column-content {
+        width: 100%;
+    }
+    .paypal-img-holder {
+        max-width: 200px;
+        margin:auto;
+    }
+}
+
 @media (max-width:800px) {
     #wristband-builder-content{
         margin-left: 10px !important;
@@ -110,21 +137,47 @@
         left: auto !important;
         bottom: 100px;
     }
-        #mod-footer1, #mod-footer2{
+        /* #mod-footer1, #mod-footer2{
         width: 50%;
         padding-left: 5px !important;
         padding-right: 5px !important;
         float: left;
         display: inline;
-    } 
+    } */
 }
+
+/*@media (max-width: 768px) {
+    .fusion-one-fourth {
+        width: 50%;
+    }
+    .fusion-columns .fusion-column {
+        width: 50%!important;
+        float: left!important;
+    }
+}*/
+@media (max-width: 768px) {
+    .fusion-one-fourth {
+        width: 50%;
+    }
+    .fusion-columns .fusion-column {
+        width: 50%!important;
+        float: left!important;
+    }
+    .fusion-column {
+        margin-bottom: 10px!important;
+    }
+    .fusion-height-100 {
+        height: 70px;
+    }
+}
+
 @media (max-width:736px) {
-    #mod-footer2{
+       /* #mod-footer2{
         width: 100%;
         padding-top: 20px !important;
         padding-left: 5px !important;
         padding-right: 5px !important;
-    } 
+    } */
 }
 @media (max-width:525px) {
     .wbdiv{
@@ -151,6 +204,30 @@
     }  
 
 }
+
+@media (max-width: 414px) {
+    .fusion-height-100 {
+        height: 90px;
+    }
+}
+@media (max-width: 384px) {
+    .fusion-columns .fusion-column {
+        width: 100%!important;
+        margin: auto!important;
+        text-align: center;
+    }
+    ul.center-content li {
+        float: none!important;
+        margin-bottom: 1em;
+        text-align: center;
+        display: inline;
+    }
+    ul.center-content li:last-child {
+        vertical-align: middle;
+    }
+}
+
+
 @media (max-width:320px) {
 
     #additional-option-section .fusion-column-wrapper > span{

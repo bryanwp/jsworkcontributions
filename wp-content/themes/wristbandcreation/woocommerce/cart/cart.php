@@ -165,17 +165,51 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 <?php do_action( 'woocommerce_after_cart_table' ); ?>
 
-<div class="cart-collaterals">
+<!-- <div class="cart-collaterals">
 
-	<?php //do_action( 'woocommerce_cart_collaterals' ); ?>
+	<?php // do_action( 'woocommerce_cart_collaterals' ); ?>
 
-	<div class="cart-totals-buttons">
-		<?php woocommerce_cart_totals(); ?>
-		<input type="submit" class="fusion-button button-default button-medium button default medium" name="update_cart" value="<?php _e( 'Update Cart', 'woocommerce' ); ?>" />
-		<input type="submit" class="checkout-button fusion-button button-default button-medium button default medium alt wc-forward" name="proceed" value="<?php _e( 'Proceed to Checkout', 'woocommerce' ); ?> &rarr;" />
+	<div class="cart-totals-buttons"> -->
+		<?php // woocommerce_cart_totals(); ?>
+		<!-- <input type="submit" class="fusion-button button-default button-medium button default medium" name="update_cart" value="<?php _e( 'Update Cart', 'woocommerce' ); ?>" /> -->
+		<!-- <input type="submit" class="checkout-button fusion-button button-default button-medium button default medium alt wc-forward" name="proceed" value="<?php _e( 'Proceed to Checkout', 'woocommerce' ); ?> &rarr;" /> -->
 
-		<?php do_action( 'woocommerce_cart_actions' ); ?>
-	</div>
+		<?php // do_action( 'woocommerce_cart_actions' ); ?>
+	<!-- </div>
+</div>
+ -->
+
+<div class="row">
+<div class="col-sm-8"><div style="margin:10px 0px">
+<?php do_action( 'woocommerce_cart_collaterals' ); ?>
+</div></div>
+<div class="col-sm-4">
+<!-- <table id="summary" class="table">
+<tbody><tr>
+<td>Order Subtotal</td>
+<td>$<span id="subtotal">23.38</span></td>
+</tr>
+<tr>
+<td>Production &amp; Shipping</td>
+<td>$<span id="productionShipping">0.00</span></td>
+</tr>
+<tr>
+<td>Order Total:</td>
+<td>$<span id="total">23.38</span></td>
+</tr>
+</tbody></table> -->
+<?php woocommerce_cart_totals(); ?>
+<!-- <div class="text-center"><img src="http://imprint.com/templates/mobile/images/spinner-bar.gif" alt="Retrieving shipping rate...please wait" id="total_loading" class="loading"></div> -->
+</div>
+</div>
+<div class="row">
+<div class="col-sm-4" style="margin-bottom:10px">
+<a href="/order-now/" class="custom-button-2" title="go back">Go Back</a>
+</div>
+<div class="col-sm-4 col-sm-offset-4" style="margin-bottom:10px">
+<!-- <a id="checkoutLink" class="btn btn-lg btn-block btn-danger" href="http://imprint.com/shop/ssl/go-through-checkout-process" title="Proceed to Checkout">PROCEED TO CHECKOUT</a> -->
+<input type="submit" class="checkout-button fusion-button button-default button-medium button default medium alt wc-forward custom-button" name="proceed" value="<?php _e( 'Proceed to Checkout', 'woocommerce' ); ?>" />
+</div>
 </div>
 
 <?php do_action( 'woocommerce_after_cart' );

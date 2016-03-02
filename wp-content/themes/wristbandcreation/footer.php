@@ -32,118 +32,122 @@
 
 					?>
 						<footer class="fusion-footer-widget-area fusion-widget-area<?php echo $footer_widget_area_center_class; ?>">
-                                                    <div class="fusion-row">
-                                                        <div id="mod-footer0">                                                                  
-                                                        <div class="fusion-column-wrapper"><div class="accordian fusion-accordian">
+                    <div class="fusion-row">
+                      <div id="mod-footer0">  
 
-                                                        <div class="panel-group" id="accordion-footer">
-                                                            <div class="fusion-panel panel-default">
-                                                                <div class="panel-heading">
-                                                                    <h4 data-lineheight="30" data-fontsize="14" class="panel-title toggle">
-                                                                        <a class="" data-toggle="collapse" data-parent="#accordion-footer" data-target="#customerhelp" href="#customerhelp">
-                                                                            <div class="fusion-toggle-icon-wrapper">
-                                                                                <i class="fa-fusion-box"></i>
-                                                                            </div>
-                                                                            <div class="fusion-toggle-heading">CUSTOMER HELP</div>
-                                                                        </a>
-                                                                    </h4>
-                                                                </div>
-                                                                <div id="customerhelp" class="panel-collapse collapse" style="height: 0px;">
-                                                                    <div class="panel-body toggle-content">
-                                                                        <div class="textwidget">
-                                                                            <?php //dynamic_sidebar( 'avada-footer-widget-' . 1 );?>
-                                                                            <div class="mod-footer-1">
-                                                                            <dl>
-                                                                            <dt><a href="#">Order Status</a></dt>
-                                                                            <dt><a href="faqs">FAQs</a></dt>
-                                                                            <dt><a href="terms-and-conditions">Terms and Conditions</a></dt>
-                                                                            <dt><a href="contact-us">Contact Us</a></dt>
-                                                                            </dl>
-                                                                            </div>
-                                                                        </div>                
-                                                                    </div>    
-                                                                </div> 
-                                                            </div>
-                                                            <div class="fusion-panel panel-default">
-                                                                <div class="panel-heading">
-                                                                    <h4 data-lineheight="30" data-fontsize="14" class="panel-title toggle">
-                                                                        <a class="" data-toggle="collapse" data-parent="#accordion-footer" data-target="#companyinfo" href="#companyinfo">
-                                                                            <div class="fusion-toggle-icon-wrapper">
-                                                                                <i class="fa-fusion-box"></i>
-                                                                            </div>
-                                                                            <div class="fusion-toggle-heading">COMPANY INFO</div>
-                                                                        </a>
-                                                                    </h4>
-                                                                </div>
-                                                                <div id="companyinfo" class="panel-collapse collapse" style="height: 0px;">
-                                                                    <div class="panel-body toggle-content">
-                                                                        <div class="textwidget">
-                                                                        <div  class="mod-footer-2">
-                                                                        <dl>
-                                                                        <dt><a href="about-us">About Us</a></dt>
-                                                                        <dt><a href="privacy-policy">Privacy Policy</a></dt>
-                                                                        <dt><a href="blog">Blog</a></dt>
-                                                                        <dt><a href="sitemap">Sitemap</a></dt>
-                                                                        </dl>
-                                                                        </div>
-                                                                        </div>                
-                                                                    </div>    
-                                                                </div> 
-                                                            </div>
-                                                            <div class="fusion-panel panel-default">
-                                                                <div class="panel-heading">
-                                                                    <h4 data-lineheight="30" data-fontsize="14" class="panel-title toggle">
-                                                                        <a class="" data-toggle="collapse" data-parent="#accordion-footer" data-target="#sociallinks" href="#sociallinks">
-                                                                            <div class="fusion-toggle-icon-wrapper">
-                                                                                <i class="fa-fusion-box"></i>
-                                                                            </div>
-                                                                            <div class="fusion-toggle-heading">SOCIAL LINKS</div>
-                                                                        </a>
-                                                                    </h4>
-                                                                </div>
-                                                                <div id="sociallinks" class="panel-collapse collapse" style="height: 0px;">
-                                                                    <div class="panel-body toggle-content">
-                                                                        <div class="textwidget">
-                                                        <div class="mod-footer-3">
-                                                        <div class="fusion-social-links social-icons"><div class="fusion-social-networks"><div class="fusion-social-networks-wrapper"><a aria-describedby="tooltip358735" data-original-title="Facebook" class="fusion-social-network-icon fusion-tooltip fusion-facebook fusion-icon-facebook" target="_blank" href="#" style="color:#bebdbd;" data-placement="top" data-title="" data-toggle="tooltip" title=""></a><a aria-describedby="tooltip615409" data-original-title="Twitter" class="fusion-social-network-icon fusion-tooltip fusion-twitter fusion-icon-twitter" target="_blank" href="#" style="color:#bebdbd;" data-placement="top" data-title="" data-toggle="tooltip" title=""></a><a aria-describedby="tooltip101397" data-original-title="Google+" class="fusion-social-network-icon fusion-tooltip fusion-googleplus fusion-icon-googleplus" target="_blank" href="#" style="color:#bebdbd;" data-placement="top" data-title="" data-toggle="tooltip" title=""></a><a aria-describedby="tooltip150128" data-original-title="Linkedin" class="fusion-social-network-icon fusion-tooltip fusion-linkedin fusion-icon-linkedin" target="_blank" href="#" style="color:#bebdbd;" data-placement="top" data-title="" data-toggle="tooltip" title=""></a><a aria-describedby="tooltip7450" data-original-title="Skype" class="fusion-social-network-icon fusion-tooltip fusion-skype fusion-icon-skype" target="_blank" href="#" style="color:#bebdbd;" data-placement="top" data-title="" data-toggle="tooltip" title=""></a></div></div></div>
-                                                        </div>
-                                                                        </div>                
-                                                                    </div>    
-                                                                </div> 
-                                                            </div>
-                                                            <div class="fusion-panel panel-default">
-                                                                <div class="panel-heading">
-                                                                    <h4 data-lineheight="30" data-fontsize="14" class="panel-title toggle">
-                                                                        <a class="" data-toggle="collapse" data-parent="#accordion-footer" data-target="#callus" href="#callus">
-                                                                            <div class="fusion-toggle-icon-wrapper">
-                                                                                <i class="fa-fusion-box"></i>
-                                                                            </div>
-                                                                            <div class="fusion-toggle-heading">CALL US</div>
-                                                                        </a>
-                                                                    </h4>
-                                                                </div>
-                                                                <div id="callus" class="panel-collapse collapse" style="height: 0px;">
-                                                                    <div class="panel-body toggle-content">
-                                                                        <div class="textwidget">
-                                                                            <div  class="mod-footer-4">
-                                                                            <dl>
-                                                                            <dt>Sales</dt>
-                                                                            <dd>Toll Free: 800 400 400</dd>
-                                                                            <dt>Customer Service</dt>
-                                                                            <dd>Toll Free: (626) 771 2182</dd>
-                                                                            <dt>Operation Hours</dt>
-                                                                            <dd>Mon - Fri (24 Hours)</dd>
-                                                                            <dd>Sat - Sun (8am - 5pm)</dd>
-                                                                            </dl>
-                                                                            </div>
-                                                                        </div>                
-                                                                    </div>    
-                                                                </div> 
-                                                            </div>    
-                                                        </div>
-                                                        </div></div>
-                                                        </div>
-                                                        </div> 
+
+                      <div class="fusion-column-wrapper div--mobile-hide"><div class="accordian fusion-accordian">
+                      <div class="panel-group" id="accordion-footer">
+                          <div class="fusion-panel panel-default">
+                              <div class="panel-heading">
+                                  <h4 data-lineheight="30" data-fontsize="14" class="panel-title toggle">
+                                      <a class="" data-toggle="collapse" data-parent="#accordion-footer" data-target="#customerhelp" href="#customerhelp">
+                                          <div class="fusion-toggle-icon-wrapper">
+                                              <i class="fa-fusion-box"></i>
+                                          </div>
+                                          <div class="fusion-toggle-heading">CUSTOMER HELP</div>
+                                      </a>
+                                  </h4>
+                              </div>
+                              <div id="customerhelp" class="panel-collapse collapse" style="height: 0px;">
+                                  <div class="panel-body toggle-content">
+                                      <div class="textwidget">
+                                          <?php //dynamic_sidebar( 'avada-footer-widget-' . 1 );?>
+                                          <div class="mod-footer-1">
+                                          <dl>
+                                          <dt><a href="#">Order Status</a></dt>
+                                          <dt><a href="faqs">FAQs</a></dt>
+                                          <dt><a href="terms-and-conditions">Terms and Conditions</a></dt>
+                                          <dt><a href="contact-us">Contact Us</a></dt>
+                                          </dl>
+                                          </div>
+                                      </div>                
+                                  </div>    
+                              </div> 
+                          </div>
+                          <div class="fusion-panel panel-default">
+                              <div class="panel-heading">
+                                  <h4 data-lineheight="30" data-fontsize="14" class="panel-title toggle">
+                                      <a class="" data-toggle="collapse" data-parent="#accordion-footer" data-target="#companyinfo" href="#companyinfo">
+                                          <div class="fusion-toggle-icon-wrapper">
+                                              <i class="fa-fusion-box"></i>
+                                          </div>
+                                          <div class="fusion-toggle-heading">COMPANY INFO</div>
+                                      </a>
+                                  </h4>
+                              </div>
+                              <div id="companyinfo" class="panel-collapse collapse" style="height: 0px;">
+                                  <div class="panel-body toggle-content">
+                                      <div class="textwidget">
+                                      <div  class="mod-footer-2">
+                                      <dl>
+                                      <dt><a href="about-us">About Us</a></dt>
+                                      <dt><a href="privacy-policy">Privacy Policy</a></dt>
+                                      <dt><a href="blog">Blog</a></dt>
+                                      <dt><a href="sitemap">Sitemap</a></dt>
+                                      </dl>
+                                      </div>
+                                      </div>                
+                                  </div>    
+                              </div> 
+                          </div>
+                          <div class="fusion-panel panel-default">
+                              <div class="panel-heading">
+                                  <h4 data-lineheight="30" data-fontsize="14" class="panel-title toggle">
+                                      <a class="" data-toggle="collapse" data-parent="#accordion-footer" data-target="#sociallinks" href="#sociallinks">
+                                          <div class="fusion-toggle-icon-wrapper">
+                                              <i class="fa-fusion-box"></i>
+                                          </div>
+                                          <div class="fusion-toggle-heading">SOCIAL LINKS</div>
+                                      </a>
+                                  </h4>
+                              </div>
+                              <div id="sociallinks" class="panel-collapse collapse" style="height: 0px;">
+                                  <div class="panel-body toggle-content">
+                                      <div class="textwidget">
+                      <div class="mod-footer-3">
+                      <div class="fusion-social-links social-icons"><div class="fusion-social-networks"><div class="fusion-social-networks-wrapper"><a aria-describedby="tooltip358735" data-original-title="Facebook" class="fusion-social-network-icon fusion-tooltip fusion-facebook fusion-icon-facebook" target="_blank" href="#" style="color:#bebdbd;" data-placement="top" data-title="" data-toggle="tooltip" title=""></a><a aria-describedby="tooltip615409" data-original-title="Twitter" class="fusion-social-network-icon fusion-tooltip fusion-twitter fusion-icon-twitter" target="_blank" href="#" style="color:#bebdbd;" data-placement="top" data-title="" data-toggle="tooltip" title=""></a><a aria-describedby="tooltip101397" data-original-title="Google+" class="fusion-social-network-icon fusion-tooltip fusion-googleplus fusion-icon-googleplus" target="_blank" href="#" style="color:#bebdbd;" data-placement="top" data-title="" data-toggle="tooltip" title=""></a><a aria-describedby="tooltip150128" data-original-title="Linkedin" class="fusion-social-network-icon fusion-tooltip fusion-linkedin fusion-icon-linkedin" target="_blank" href="#" style="color:#bebdbd;" data-placement="top" data-title="" data-toggle="tooltip" title=""></a><a aria-describedby="tooltip7450" data-original-title="Skype" class="fusion-social-network-icon fusion-tooltip fusion-skype fusion-icon-skype" target="_blank" href="#" style="color:#bebdbd;" data-placement="top" data-title="" data-toggle="tooltip" title=""></a></div></div></div>
+                      </div>
+                                      </div>                
+                                  </div>    
+                              </div> 
+                          </div>
+                          <div class="fusion-panel panel-default">
+                              <div class="panel-heading">
+                                  <h4 data-lineheight="30" data-fontsize="14" class="panel-title toggle">
+                                      <a class="" data-toggle="collapse" data-parent="#accordion-footer" data-target="#callus" href="#callus">
+                                          <div class="fusion-toggle-icon-wrapper">
+                                              <i class="fa-fusion-box"></i>
+                                          </div>
+                                          <div class="fusion-toggle-heading">CALL US</div>
+                                      </a>
+                                  </h4>
+                              </div>
+                              <div id="callus" class="panel-collapse collapse" style="height: 0px;">
+                                  <div class="panel-body toggle-content">
+                                      <div class="textwidget">
+                                          <div  class="mod-footer-4">
+                                          <dl>
+                                          <dt>Sales</dt>
+                                          <dd>Toll Free: 800 400 400</dd>
+                                          <dt>Customer Service</dt>
+                                          <dd>Toll Free: (626) 771 2182</dd>
+                                          <dt>Operation Hours</dt>
+                                          <dd>Mon - Fri (24 Hours)</dd>
+                                          <dd>Sat - Sun (8am - 5pm)</dd>
+                                          </dl>
+                                          </div>
+                                      </div>                
+                                  </div>    
+                              </div> 
+                          </div>    
+                      </div>
+                      </div></div>
+
+
+
+                      </div>
+                      </div>  
 							<div class="fusion-row">
 								<div id="mod-footer1" class="fusion-columns fusion-columns-<?php echo Avada()->settings->get( 'footer_widgets_columns' ); ?> fusion-widget-area">
 
@@ -174,27 +178,48 @@
 									?>
 									<div class="fusion-clearfix"></div>
 								</div> <!-- fusion-columns -->
-								<div id="mod-footer2" class="fusion-columns fusion-columns-4">
-									<div class="fusion-column col-lg-3 col-md-3 col-sm-3">
-										<script type="text/javascript" language="javascript">var ANS_customer_id="743b0a5c-c1fc-4eb5-a258-61aeca3264e6";</script> <script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js" ></script>
-										<img src="https://wristbandcreation.com/wp-content/themes/kulayful/images/PositiveSSL_tl_trans.gif" width="72" height="72">
-									</div>
-									<div class="fusion-column col-lg-3 col-md-3 col-sm-3">
-										<a href="http://www.shopperapproved.com/reviews/wristbandcreation.com/" onclick="var nonwin=navigator.appName!='Microsoft Internet Explorer'?'yes':'no'; var certheight=screen.availHeight-90; window.open(this.href,'shopperapproved','location='+nonwin+',scrollbars=yes,width=620,height='+certheight+',menubar=no,toolbar=no'); return false;"><img src="https://c683207.ssl.cf2.rackcdn.com/13400-r.gif" style="border: 0" alt="" oncontextmenu="var d = new Date(); alert('Copying Prohibited by Law - This image and all included logos are copyrighted by Shopper Approved \251 '+d.getFullYear()+'.'); return false;" /></a>
-										<a href="https://www.resellerratings.com" onclick="window.open('https://seals.resellerratings.com/landing.php?seller=100333','name','height=760,width=780,scrollbars=1'); 
-										return false;">
-										<img style='border:none;' src='//seals.resellerratings.com/seal.php?seller=100333' 
-										oncontextmenu="alert('Copying Prohibited by Law - ResellerRatings seal is a Trademark of All Enthusiast, Inc.'); return false;" /></a>										
-									</div>
-									<div class="fusion-column col-lg-3 col-md-3 col-sm-3">
-										<ul>
-											<li style="float:left;margin-right:10px;"><fb:like href="http://www.facebook.com/WristbandCreation" send="false" layout="button_count" width="50" show_faces="true" stream="true"  font="arial"></fb:like></li>
-	                						<li style="float:left;"><div class="g-plusone" data-size="medium" data-annotation="inline" data-width="120"></div></li>
-										</ul>
-									</div>
-									<div class="fusion-column col-lg-3 col-md-3 col-sm-3">
-										<img border="0" src="/wp-content/uploads/instapay.png" style="height: 60px;width: auto;">
-									</div>
+							<div id="mod-footer2">
+
+                                <div class="fusion-row">
+
+                                  <div class="fusion-columns fusion-column-half fusion-columns-4 fusion-widget-area">
+                                    <div class= "fusion-column col-lg-3 col-md-3 col-sm-3 fusion-height-100">
+                                      <div class="fusion-column-content">
+                                        <script type="text/javascript" language="javascript">var ANS_customer_id="743b0a5c-c1fc-4eb5-a258-61aeca3264e6";</script> <script type="text/javascript" language="javascript" src="//verify.authorize.net/anetseal/seal.js" ></script>
+                                        <img src="https://wristbandcreation.com/wp-content/themes/kulayful/images/PositiveSSL_tl_trans.gif" width="72" height="72">
+                                      </div>
+                                      
+                                      <div style="clear:both;"></div>
+                                    </div>
+
+                                     <div class= "fusion-column fusion-column-half col-lg-3 col-md-3 col-sm-3 fusion-height-100">
+                                      <div class="fusion-column-content">
+                                        <a href="http://www.shopperapproved.com/reviews/wristbandcreation.com/" onclick="var nonwin=navigator.appName!='Microsoft Internet Explorer'?'yes':'no'; var certheight=screen.availHeight-90; window.open(this.href,'shopperapproved','location='+nonwin+',scrollbars=yes,width=620,height='+certheight+',menubar=no,toolbar=no'); return false;" class="mb-10-img"><img src="https://c683207.ssl.cf2.rackcdn.com/13400-r.gif" style="border: 0" alt="" oncontextmenu="var d = new Date(); alert('Copying Prohibited by Law - This image and all included logos are copyrighted by Shopper Approved \251 '+d.getFullYear()+'.'); return false;" /></a>
+                                        <a href="https://www.resellerratings.com" onclick="window.open('https://seals.resellerratings.com/landing.php?seller=100333','name','height=760,width=780,scrollbars=1'); 
+                                        return false;">
+                                        <img style='border:none;' src='//seals.resellerratings.com/seal.php?seller=100333' 
+                                        oncontextmenu="alert('Copying Prohibited by Law - ResellerRatings seal is a Trademark of All Enthusiast, Inc.'); return false;" /></a> 
+                                      </div>
+                                    </div>
+
+                                    <div class="fusion-column fusion-column-half col-lg-3 col-md-3 col-sm-3 fusion-height-100">
+                                      <div class="fusion-column-content">
+                                        <ul class="center-content">
+                                        <li style="float:left;margin-right:10px;"><fb:like href="http://www.facebook.com/WristbandCreation" send="false" layout="button_count" width="50" show_faces="true" stream="true"  font="arial"></fb:like></li>
+                                        <li style="float:left;"><div class="g-plusone" data-size="medium" data-annotation="inline" data-width="120"></div></li>
+                                      </ul>
+                                      </div>
+                                    </div>
+
+                                    <div class="fusion-column fusion-column-half col-lg-3 col-md-3 col-sm-3 fusion-height-100">
+                                      <div class="fusion-column-content">
+                                        <img border="0" src="/wp-content/uploads/instapay.png" style="height: 60px;width: auto;">
+                                      </div>
+                                    </div>
+
+                                  </div>
+
+                                </div>
 								</div>
 							</div> <!-- fusion-row -->
 						</footer> <!-- fusion-footer-widget-area -->
