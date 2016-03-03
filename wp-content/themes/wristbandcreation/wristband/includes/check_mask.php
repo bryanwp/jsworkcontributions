@@ -82,7 +82,10 @@ $segcolor1_cover_band1 = '<g id="segcolor1_cover_band1" transform="translate(0.0
 $segcolor2_band1 = '<g id="segcolor2_band1" transform="translate(0.000000,113.000000) scale(0.100000,-0.100000)" fill="blue" stroke-opacity="0.1" opacity="0">
 <path id="sc2b1" d="M1500 565 l0 -565 750 0 750 0 0 565 0 565 -750 0 -750 0 0 -565z"/>
 </g>';
-$segcolor2_cover_band1 = '<g id="segcolor2_cover_band1" transform="translate(0.000000,113.000000) scale(0.100000,-0.100000)" fill="blue" stroke-opacity="0.1" opacity="0">
+// $segcolor2_cover_band1 = '<g id="segcolor2_cover_band1" transform="translate(0.000000,113.000000) scale(0.100000,-0.100000)" fill="blue" stroke-opacity="0.1" opacity="0">
+// <path id="sc2b1_c" d="M2810 744 c-14 -8 -31 -12 -37 -9 -7 2 -13 0 -13 -6 0 -6 -7 -9 -15 -6 -8 4 -17 2 -20 -4 -4 -5 -10 -7 -15 -4 -5 3 -12 1 -15 -5 -4 -6 -15 -8 -26 -5 -11 4 -19 2 -19 -4 0 -6 -12 -11 -27 -11 -68 0 -78 -1 -88 -10 -6 -5 -20 -9 -30 -9 -23 1 -85 -6 -135 -15 -40 -7 -80 -10 -320 -31 -96 -9 -218 -18 -270 -21 -52 -2 -137 -7 -187 -11 l-93 -6 0 -258 0 -259 98 0 c126 0 520 26 689 45 251 28 487 81 549 122 41 27 48 70 40 286 -6 181 -14 239 -34 236 -4 -1 -18 -7 -32 -15z"/>
+// </g>';
+$segcolor2_cover_band1 = '<g id="segcolor2_cover_band1" transform="translate(-0.910000,113.000000) scale(0.100000,-0.0990000)" fill="blue" stroke-opacity="0.1" opacity="0">
 <path id="sc2b1_c" d="M2810 744 c-14 -8 -31 -12 -37 -9 -7 2 -13 0 -13 -6 0 -6 -7 -9 -15 -6 -8 4 -17 2 -20 -4 -4 -5 -10 -7 -15 -4 -5 3 -12 1 -15 -5 -4 -6 -15 -8 -26 -5 -11 4 -19 2 -19 -4 0 -6 -12 -11 -27 -11 -68 0 -78 -1 -88 -10 -6 -5 -20 -9 -30 -9 -23 1 -85 -6 -135 -15 -40 -7 -80 -10 -320 -31 -96 -9 -218 -18 -270 -21 -52 -2 -137 -7 -187 -11 l-93 -6 0 -258 0 -259 98 0 c126 0 520 26 689 45 251 28 487 81 549 122 41 27 48 70 40 286 -6 181 -14 239 -34 236 -4 -1 -18 -7 -32 -15z"/>
 </g>';
 $segcolor3_band1 = '<g id="segcolor3_band1" transform="translate(0.000000,113.000000) scale(0.100000,-0.100000)" fill="green" stroke-opacity="0.1" opacity="0">
@@ -98,7 +101,10 @@ $segcolor1_cover_band2 = '<g id="segcolor1_cover_band2" transform="translate(0.0
 $segcolor2_band2 = '<g id="segcolor2_band2" transform="translate(0.000000,113.000000) scale(0.100000,-0.100000)" fill="blue" stroke-opacity="0.1" opacity="0">
 <path id="sc2b2" d="M1500 565 l0 -565 750 0 750 0 0 565 0 565 -750 0 -750 0 0 -565z"/>
 </g>';
-$segcolor2_cover_band2 = '<g id="segcolor2_cover_band2" transform="translate(0.000000,113.000000) scale(0.100000,-0.100000)" fill="blue" stroke-opacity="0.1" opacity="0">
+// $segcolor2_cover_band2 = '<g id="segcolor2_cover_band2" transform="translate(0.000000,113.000000) scale(0.100000,-0.100000)" fill="blue" stroke-opacity="0.1" opacity="0">
+// <path id="sc2b2_c" d="M2810 744 c-14 -8 -31 -12 -37 -9 -7 2 -13 0 -13 -6 0 -6 -7 -9 -15 -6 -8 4 -17 2 -20 -4 -4 -5 -10 -7 -15 -4 -5 3 -12 1 -15 -5 -4 -6 -15 -8 -26 -5 -11 4 -19 2 -19 -4 0 -6 -12 -11 -27 -11 -68 0 -78 -1 -88 -10 -6 -5 -20 -9 -30 -9 -23 1 -85 -6 -135 -15 -40 -7 -80 -10 -320 -31 -96 -9 -218 -18 -270 -21 -52 -2 -137 -7 -187 -11 l-93 -6 0 -258 0 -259 98 0 c126 0 520 26 689 45 251 28 487 81 549 122 41 27 48 70 40 286 -6 181 -14 239 -34 236 -4 -1 -18 -7 -32 -15z"/>
+// </g>';
+$segcolor2_cover_band2 = '<g id="segcolor2_cover_band2" transform="translate(-0.910000,113.000000) scale(0.100000,-0.0990000)" fill="blue" stroke-opacity="0.1" opacity="0">
 <path id="sc2b2_c" d="M2810 744 c-14 -8 -31 -12 -37 -9 -7 2 -13 0 -13 -6 0 -6 -7 -9 -15 -6 -8 4 -17 2 -20 -4 -4 -5 -10 -7 -15 -4 -5 3 -12 1 -15 -5 -4 -6 -15 -8 -26 -5 -11 4 -19 2 -19 -4 0 -6 -12 -11 -27 -11 -68 0 -78 -1 -88 -10 -6 -5 -20 -9 -30 -9 -23 1 -85 -6 -135 -15 -40 -7 -80 -10 -320 -31 -96 -9 -218 -18 -270 -21 -52 -2 -137 -7 -187 -11 l-93 -6 0 -258 0 -259 98 0 c126 0 520 26 689 45 251 28 487 81 549 122 41 27 48 70 40 286 -6 181 -14 239 -34 236 -4 -1 -18 -7 -32 -15z"/>
 </g>';
 $segcolor3_band2 = '<g id="segcolor3_band2" transform="translate(0.000000,113.000000) scale(0.100000,-0.100000)" fill="green" stroke-opacity="0.1" opacity="0">

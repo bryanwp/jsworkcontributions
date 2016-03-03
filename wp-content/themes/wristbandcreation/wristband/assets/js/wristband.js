@@ -270,6 +270,13 @@ jQuery(function ($) {
                     $('#front-textcont2').attr('font-family', $('select[name="font"] option:selected').val());
                     $('#front-text1').attr('font-family', $('select[name="font"] option:selected').val());
                     $('#front-text2').attr('font-family', $('select[name="font"] option:selected').val());
+
+                    $('#front-textinside1').attr('font-family', $('#selectFont').val());
+                    $('#front-textinside2').attr('font-family', $('#selectFont').val());
+                    $('#front-textcont1').attr('font-family', $('#selectFont').val());
+                    $('#front-textcont2').attr('font-family', $('#selectFont').val());
+                    $('#front-text1').attr('font-family', $('#selectFont').val());
+                    $('#front-text2').attr('font-family', $('#selectFont').val());
                 },
 
                 renderProductionShippingOptions: function () {
@@ -519,7 +526,8 @@ jQuery(function ($) {
                     $.extend(this.data, {
                         product: $('select#style').val(),
                         size: $('select#width').val(),
-                        font: $('select#font').val(),
+                        // font: $('select#font').val(),
+                        font: $('#selectFont').val(),
                         message_type: $('input[name="message_type"]:checked').val(),
                         messages: messages,
                         additional_options: addtional_options,
@@ -1177,6 +1185,7 @@ jQuery(function ($) {
         var val = document.getElementById('EditModeID').name;
         val = val.split("|");
         var MultiAdd = val[2];
+        console.log(val);
         SetSelectCheckedText("style", val[0]);
         LoadTOArray(MultiAdd);
         $("#style").change();
@@ -3983,6 +3992,25 @@ jQuery(function ($) {
                     $('#fontID').addClass('in');
                 })
 
+                // $('ul.art-vmenu li').click(function(e) 
+                //     { 
+                //      alert($(this).find("span.t").text());
+                //     });
+                
+                .on('click', 'ul.font-class li', function (e) {
+                    e.preventDefault();
+                    // Builder.observer();
+                    var fontStyle = $(this).find('.fontvalue').val();
+                    $('#selectFont').attr( "style", "font-family:" + fontStyle );
+                    $('#selectFont').attr( "value", fontStyle );
+                    $('#selectFont').trigger('change');
+                })
+
+                .on('change', 'input[name = "selectFont"]', function () {
+                    console.log('change');
+                    Builder.observer();
+                })
+
                 .on('click', '.additional-option-item', function (e) {
                     if ($(e.target).is('input:checkbox'))
                         return;
@@ -4339,7 +4367,7 @@ jQuery(function ($) {
         $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup'); // trigger  the Input Quanity field when the page is reloaded to calculate the total.
         // $('#front_message').focus();
     });
-
+    
     window.onclick = function(event) {
       if (!event.target.matches('#selectFont')) {
 
@@ -4358,7 +4386,7 @@ jQuery(function ($) {
         Builder.collectQuantity();
         var Tquantity = Builder.data.total_qty;
         var editmode = document.getElementById("EditModeID"); 
-        console.log(Tquantity+' '+editmode+' '+notrigger+' '+StatusifSave);
+        //console.log(Tquantity+' '+editmode+' '+notrigger+' '+StatusifSave);
            if((Tquantity == 0 && editmode == null) || (Tquantity != 0 && notrigger == 1) || (StatusifSave == true)){
 
         }else{
