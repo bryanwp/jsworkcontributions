@@ -914,13 +914,8 @@ i.alert-notify.notify-customization-message {
     height: 40px;
     position: relative;
     text-decoration: none;
-    background-color: #EEEEEE;
     color: #333333;
     padding: 2px 6px 2px 6px;
-    border-top: 1px solid #CCCCCC;
-    border-right: 1px solid #333333;
-    border-bottom: 1px solid #333333;
-    border-left: 1px solid #CCCCCC;
 }
 
 .font-class {
@@ -970,4 +965,19 @@ i.alert-notify.notify-customization-message {
     width: 100%;
     max-height: 300px;
     overflow-y: scroll;
+}
+
+ul.font-class li {
+border-bottom:  1px solid #CCCCCC;
+padding: 5px;
+}
+
+.font-dropdown::-webkit-scrollbar {
+      -webkit-appearance: none !important; 
+     width: 7px !important; 
+}
+.font-dropdown::-webkit-scrollbar-thumb {
+    border-radius: 4px !important;
+    background-color: rgba(0,0,0,.5) !important;
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5) !important;
 }
