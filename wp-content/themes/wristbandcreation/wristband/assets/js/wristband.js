@@ -3978,6 +3978,11 @@ jQuery(function ($) {
                     Builder.observer();
                 })
 
+                .on('click', '#selectFont', function (e) {
+                    e.preventDefault();
+                    $('#fontID').addClass('in');
+                })
+
                 .on('click', '.additional-option-item', function (e) {
                     if ($(e.target).is('input:checkbox'))
                         return;
@@ -4334,6 +4339,21 @@ jQuery(function ($) {
         $('#qty_adult, #qty_medium, #qty_youth').trigger('keyup'); // trigger  the Input Quanity field when the page is reloaded to calculate the total.
         // $('#front_message').focus();
     });
+
+    window.onclick = function(event) {
+      if (!event.target.matches('#selectFont')) {
+
+        var dropdowns = document.getElementsByClassName("fadeFont");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('in')) {
+            openDropdown.classList.remove('in');
+          }
+        }
+      }
+    }
+
     $(window).bind('beforeunload', function(){
         Builder.collectQuantity();
         var Tquantity = Builder.data.total_qty;

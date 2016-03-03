@@ -657,7 +657,40 @@ endforeach; ?>
                             </tr>
                         </table>     
 
-                        <p class="form-row form-row-wide">
+<!--                         <ul id="menu">
+                          <li><a href="#">Home</a></li>
+                          <li><a href="#">About</a></li>
+                          <li><a href="#">Services</a></li>
+                          <li><a href="#">Portfolio</a></li>
+                          <li><a href="#">Contact</a></li>
+                      </ul> -->
+
+
+
+
+            <div class="dropdown">
+
+              <a class="fontButton"><span id="selectFont" class="fusion-button-text">--Select--</span></a>
+              <div id="fontID" class="dropdown-menu font-dropdown fadeFont">
+                <ul>
+                   <?php if (isset($GLOBALS['wbc_settings']->fonts)):
+                        foreach ($GLOBALS['wbc_settings']->fonts as $font):
+                          $Selected = "";
+                          if ($metaInfo['FontStyle'] == esc_attr($font)) {
+                            $Selected = "selected";
+                          }?>
+                  <!-- <li><button class="btn btn-default btn-block btn-font" data-font="Alba.ttf"><img src="https://wristbandcreation.com/wp-content/themes/kulayful/font-images/Alba.png"></button></li> -->
+                        <li>
+                          <label class="" style="font-size:18px;font-family: '<?php echo esc_attr($font); ?>' !important;"><?php echo esc_attr($font); ?></label>
+                          <input type="hidden" value="<?php echo esc_attr($font); ?>">
+                        </li>
+                        <?php endforeach;
+                                    endif;
+                                    ?>
+                </ul>
+              </div>
+            </div>
+                  <p class="form-row form-row-wide">
                             <label for="additional_notes"  class="form-group-heading CssTitleBlack">Additional Notes</label>
                             <textarea class="input-text" name="additional_notes" id="additional_notes" cols="30" rows="5"><?php echo $metaInfo['AddNotes_msg']; ?></textarea>
                         </p>
