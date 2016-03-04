@@ -908,23 +908,57 @@ i.alert-notify.notify-customization-message {
     border-radius: 6px;
     border: 1px solid transparent;*/
 }
-
-.fontlistyle {
+.inner-content {
+    position: relative;
+    /*max-height: 50px;*/
+    overflow: hidden;
+    text-align: center;
+}
+.fontliststyle {
     cursor: pointer;
-    height: 40px;
+    /*height: 40px;
     position: relative;
     text-decoration: none;
     color: #333333;
-    padding: 2px 6px 2px 6px;
+    padding: 2px 6px 2px 6px;*/
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
 }
-
+.font-label {
+    cursor: pointer;
+}
 .font-class {
     list-style: none;
     padding-left: 0px;
     margin-top: 0px;
     margin-bottom: 0px;
-}
+    width: 100%;
 
+   /* -webkit-column-count: 3; 
+    -moz-column-count: 3;
+    column-count: 3;*/
+}
+ul.font-class li {
+    border:  1px solid #CCCCCC;
+    padding: 5px;
+    width: 31.3%;
+    height: 70px;
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
+    color: #333333;
+    float: left;
+    margin: 3px;
+
+    /*round corners*/
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px; /* future proofing */
+    -khtml-border-radius: 10px; /* for old Konqueror browsers */
+}
 
 .fontlistyle:hover {
     background-color: #f1f1f1
@@ -965,11 +999,6 @@ i.alert-notify.notify-customization-message {
     width: 100%;
     max-height: 300px;
     overflow-y: scroll;
-}
-
-ul.font-class li {
-border-bottom:  1px solid #CCCCCC;
-padding: 5px;
 }
 
 .font-dropdown::-webkit-scrollbar {
