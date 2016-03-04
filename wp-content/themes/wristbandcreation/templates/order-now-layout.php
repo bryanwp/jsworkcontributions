@@ -660,11 +660,13 @@ endforeach; ?>
                                     <?php }else{ ?>
                                     <input value="Select Font" id="selectFont" type="text" name="selectFont" class="caretfont input-select" style="font-family: Arial" >
                                     <?php } ?>
+
                                     <span class="dd-pointer dd-pointer-down"></span></input>
                                     <div id="fontID" class="dropdown-menu font-dropdown fadeFont">
                                       <ul class="font-class">
                                          <?php if (isset($GLOBALS['wbc_settings']->fonts)):
-                                              foreach ($GLOBALS['wbc_settings']->fonts as $font):
+                                                sort($GLOBALS['wbc_settings']->fonts);
+                                                  foreach ($GLOBALS['wbc_settings']->fonts as $font):
                                           ?>
                                         <!-- <li><button class="btn btn-default btn-block btn-font" data-font="Alba.ttf"><img src="https://wristbandcreation.com/wp-content/themes/kulayful/font-images/Alba.png"></button></li> -->
                                               <li>
@@ -899,7 +901,8 @@ endforeach; ?>
                         <?php endif; ?>
 
                         <p class="form-row form-row-wide">
-                            Guaranteed to be delivered on or before <strong id="delivery_date"></strong>
+                            <span id="guaranteed_note"></span>
+                             <span id="delivery_date"></span>
                         </p>
                     </div><!--/.fusion-column-wrapper -->
 

@@ -553,7 +553,7 @@ jQuery(function ($) {
                 },
                 validateForm: function () {
                     var flag = true,
-                            msg = ' required field!';
+                            msg = ' Required field';
                     $('select[name="customization_date_production"]').removeClass('hasRed');
                     $('select[name="customization_date_shipping"]').removeClass('hasRed');
                     $('select[name="customization_date_production"]').removeClass('cart-error');
@@ -586,6 +586,7 @@ jQuery(function ($) {
                             the_date = new Date();
 
                     if ($production_time.val() == -1 || $shipping_time.val() == -1){
+                        $('#guaranteed_note').text('');
                         $('#delivery_date').text('');
                         return;
                     }
@@ -611,7 +612,8 @@ jQuery(function ($) {
                     ];
                     var week_name = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
                     // End escape
-                    var delivery_date = week_name[the_date.getDay()] + ' ' + month_name[the_date.getMonth()] + ' ' + the_date.getDate() + ', ' + the_date.getUTCFullYear();
+                    var delivery_date = week_name[the_date.getDay()] + ', ' + month_name[the_date.getMonth()] + ' ' + the_date.getDate() + ' ' + the_date.getUTCFullYear();
+                    $('#guaranteed_note').text('Guaranteed to be delivered on or before ');
                     $('#delivery_date').text(delivery_date);
                     this.data['guaranteed_delivery'] = delivery_date;
 
