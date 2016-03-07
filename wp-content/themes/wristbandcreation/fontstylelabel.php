@@ -21,7 +21,7 @@ function change_font_to_label($fontname) {
   } else if ($fontname == 'zubilo-web-black'){
     $fontname = 'Zubilo Web Black';
   } else if ($fontname == 'stencil-std'){
-    $fontname = 'Stencil-std';
+    $fontname = 'Stencil Std';
   } else if ($fontname == 'hobo-std'){
     $fontname = 'Hobo Std';
   } else if ($fontname == 'sneakers-script-narrow'){
@@ -143,13 +143,13 @@ function change_font_to_label($fontname) {
   } else if ($fontname == 'HirukoBlackAlternate'){
     $fontname = 'Hiruko Black';
   } else if ($fontname == 'Atama__GRegular'){
-    $fontname = 'Geomarice';
+    $fontname = 'Atama Geomarice';
   } else if ($fontname == 'Kilogram'){
     $fontname = 'Kilogram';
   } else if ($fontname == 'LEADvilleASTROnautInlineRg'){
     $fontname = 'Lead Ville Inline';
   } else if ($fontname == 'KeeponTruckinRegular'){
-    $fontname = 'KeeponTruckin';
+    $fontname = 'Keep on Truckin';
   } else if ($fontname == 'KlinicSlabBook'){
     $fontname = 'Klinic Slab';
   } else if ($fontname == 'Komoda'){
@@ -209,7 +209,7 @@ function change_font_to_label($fontname) {
   } else if ($fontname == 'VTCSuperMarketSaleDisplayRg'){
     $fontname = 'Supermarket Sale';
   } else if ($fontname == 'thebubblelettersRegular'){
-    $fontname = 'Bubble Letters';
+    $fontname = 'The Bubble';
   } else if ($fontname == 'TrackType'){
     $fontname = 'Track Type';
   } else if ($fontname == 'TrueLove'){

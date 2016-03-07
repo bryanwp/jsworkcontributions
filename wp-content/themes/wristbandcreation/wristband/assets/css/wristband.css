@@ -971,6 +971,7 @@ ul.font-class li {
     color: #333333;
     float: left;
     margin: 3px;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.1);
 
     /*round corners*/
     -moz-border-radius: 10px;
