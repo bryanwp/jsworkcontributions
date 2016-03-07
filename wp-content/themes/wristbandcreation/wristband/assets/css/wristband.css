@@ -993,6 +993,7 @@ ul.font-class li:hover .font-label{
 .caretfont {
   position: relative;
   cursor: pointer;
+  font-size: 20px;
 }
 
 .dd-pointer-down {
