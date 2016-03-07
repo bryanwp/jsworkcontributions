@@ -510,7 +510,7 @@ function display_order_summary($_product, $meta)
                   <li class="fusion-li-item nobullet">
                     <div class="fusion-li-item-content">
                       <span><?php //echo ucfirst($k) . ' – <em>' . $qty . ($free_colors[$pk]['free'][$k] ? (' + ' . $free_colors[$pk]['free'][$k]) : '') . '</em>'; ?>
-                      <?php echo $qty.' '.$color['name'].' '.$color['type'].' ('.($free_colors[$pk]['free'][$k] ? ('+' . $free_colors[$pk]['free'][$k]) : '').') | '.ucfirst($k).' Size';?>
+                      <?php echo $qty.' '.$color['name'].' '.$color['type'].' '.($free_colors[$pk]['free'][$k] ? ('(+' . $free_colors[$pk]['free'][$k]).')' : '').' | '.ucfirst($k).' Size';?>
                       </span>
                     </div>
                   </li>

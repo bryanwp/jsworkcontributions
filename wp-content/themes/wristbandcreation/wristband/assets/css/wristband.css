@@ -913,6 +913,7 @@ i.alert-notify.notify-customization-message {
     /*max-height: 50px;*/
     overflow: hidden;
     text-align: center;
+    height: 100%;
 }
 .fontliststyle {
     cursor: pointer;
@@ -925,9 +926,27 @@ i.alert-notify.notify-customization-message {
     top: 0;
     left: 50%;
     transform: translate(-50%);
+    font-size: 30px;
+    margin-top: 20px;
 }
 .font-label {
     cursor: pointer;
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    background-color: #F5F2EF;
+    padding: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    line-height: 10px;
+    /*font-weight: bold;*/
+    min-height: 40px;
+}
+.font-label:hover {
+    background-color: #9C3;
+    color: #fff;
 }
 .font-class {
     list-style: none;
@@ -942,9 +961,9 @@ i.alert-notify.notify-customization-message {
 }
 ul.font-class li {
     border:  1px solid #CCCCCC;
-    padding: 5px;
+  /*  padding: 5px;*/
     width: 31.3%;
-    height: 70px;
+    height: 100px;
     display: inline-block;
     cursor: pointer;
     position: relative;
@@ -991,7 +1010,7 @@ ul.font-class li {
     min-width: 160px;
     padding: 5px 0;
     margin: 2px 0 0;
-    font-size: 14px;
+    font-size: 12px;
     text-align: left;
     list-style: none;
     background-color: #fff;
@@ -1009,4 +1028,8 @@ ul.font-class li {
     border-radius: 4px !important;
     background-color: rgba(0,0,0,.5) !important;
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5) !important;
+}
+
+.fusion-button.button-red {
+    border: 1px solid transparent;
 }
