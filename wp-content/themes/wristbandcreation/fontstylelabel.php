@@ -95,7 +95,7 @@ function change_font_to_label($fontname) {
   } else if ($fontname == 'Bohema'){
     $fontname = 'Bohema';
   } else if ($fontname == 'Calendas_Plus'){
-    $fontname = 'Calendas Plus0';    
+    $fontname = 'Calendas Plus';    
   } else if ($fontname == 'CenturyGothic'){
     $fontname = 'Century Gothic';
   } else if ($fontname == 'BlockHeadBold'){

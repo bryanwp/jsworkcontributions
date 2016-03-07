@@ -672,7 +672,7 @@ endforeach; ?>
                                         <!-- <li><button class="btn btn-default btn-block btn-font" data-font="Alba.ttf"><img src="https://wristbandcreation.com/wp-content/themes/kulayful/font-images/Alba.png"></button></li> -->
                                               <li>
                                                 <div class="inner-content">
-                                                  <label class="fontliststyle" style="font-size:18px;font-family: '<?php echo esc_attr($font); ?>' !important;"><?php //echo esc_attr($font); ?>Ag</label><br>
+                                                  <label class="fontliststyle" style="font-size:16px;font-family: '<?php echo esc_attr($font); ?>' !important;"><?php //echo esc_attr($font); ?>Ag</label><br>
                                                   <label class="font-label"><?php echo ($newlabel)? $newlabel:esc_attr($font); ?></label>
                                                   <input class="fontvalue" type="hidden" value="<?php echo esc_attr($font); ?>">
                                                 </div>
