@@ -105,7 +105,7 @@ function change_font_to_label($fontname) {
   } else if ($fontname == 'CodePro'){
     $fontname = 'Code Pro';
   } else if ($fontname == 'Construthinvism'){
-    $fontname = 'Construthinvism';
+    $fontname = 'Construth';
   } else if ($fontname == 'EastLiftRegular'){
     $fontname = 'East Lift';
   } else if ($fontname == 'CopprplGothBdBTBold'){
