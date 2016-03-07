@@ -658,7 +658,7 @@ endforeach; ?>
                                     <?php if (isset($metaInfo['FontStyle'])) { ?>
                                     <input value="<?php echo $metaInfo['FontStyle']; ?>" id="selectFont" READONLY type="text" name="selectFont" class="caretfont input-select" style="font-family: <?php echo $metaInfo['FontStyle']; ?>" >
                                     <?php }else{ ?>
-                                    <input value="Select Font" id="selectFont" type="text" name="selectFont" class="caretfont input-select" style="font-family: Arial" >
+                                    <input value="Select Font" id="selectFont" type="text" name="selectFont" READONLY class="caretfont input-select" style="font-family: Arial" >
                                     <?php } ?>
 
                                     <span class="dd-pointer dd-pointer-down"></span></input>
@@ -667,12 +667,13 @@ endforeach; ?>
                                          <?php if (isset($GLOBALS['wbc_settings']->fonts)):
                                                 sort($GLOBALS['wbc_settings']->fonts);
                                                   foreach ($GLOBALS['wbc_settings']->fonts as $font):
+                                                  $newlabel = change_font_to_label(esc_attr($font));
                                           ?>
                                         <!-- <li><button class="btn btn-default btn-block btn-font" data-font="Alba.ttf"><img src="https://wristbandcreation.com/wp-content/themes/kulayful/font-images/Alba.png"></button></li> -->
                                               <li>
                                                 <div class="inner-content">
                                                   <label class="fontliststyle" style="font-size:14px;font-family: '<?php echo esc_attr($font); ?>' !important;"><?php //echo esc_attr($font); ?>Ag</label><br>
-                                                  <label class="font-label"><?php echo esc_attr($font); ?></label>
+                                                  <label class="font-label"><?php echo ($newlabel)? $newlabel:esc_attr($font); ?></label>
                                                   <input class="fontvalue" type="hidden" value="<?php echo esc_attr($font); ?>">
                                                 </div>
 

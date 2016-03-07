@@ -974,3 +974,6 @@ function woocommerce_rename_coupon_field_on_checkout( $translated_text, $text, $
   return $translated_text;
 }
 add_filter( 'gettext', 'woocommerce_rename_coupon_field_on_checkout', 10, 3 );
+
+include_once ( get_stylesheet_directory() . '/fontstylelabel.php' );
+
