@@ -926,8 +926,8 @@ i.alert-notify.notify-customization-message {
     top: 0;
     left: 50%;
     transform: translate(-50%);
-    font-size: 30px;
-    margin-top: 20px;
+    font-size: 40px;
+    margin-top: 13px;
 }
 .font-label {
     cursor: pointer;
@@ -944,10 +944,10 @@ i.alert-notify.notify-customization-message {
     /*font-weight: bold;*/
     min-height: 40px;
 }
-.font-label:hover {
+/*.font-label:hover {
     background-color: #9C3;
     color: #fff;
-}
+}*/
 .font-class {
     list-style: none;
     padding-left: 0px;
@@ -962,7 +962,8 @@ i.alert-notify.notify-customization-message {
 ul.font-class li {
     border:  1px solid #CCCCCC;
   /*  padding: 5px;*/
-    width: 31.3%;
+  /*  width: 31.3%;*/
+    width: 32.3%;
     height: 100px;
     display: inline-block;
     cursor: pointer;
@@ -970,7 +971,7 @@ ul.font-class li {
     text-decoration: none;
     color: #333333;
     float: left;
-    margin: 3px;
+    margin: 1px;
     box-shadow: 1px 2px 3px rgba(0,0,0,0.1);
 
     /*round corners*/
@@ -978,6 +979,11 @@ ul.font-class li {
     -webkit-border-radius: 10px;
     border-radius: 10px; /* future proofing */
     -khtml-border-radius: 10px; /* for old Konqueror browsers */
+}
+
+ul.font-class li:hover .font-label{
+  background-color: #9C3;
+    color: #fff;
 }
 
 .fontlistyle:hover {
