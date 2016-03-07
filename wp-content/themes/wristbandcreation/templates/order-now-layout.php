@@ -665,7 +665,7 @@ endforeach; ?>
                                     <div id="fontID" class="dropdown-menu font-dropdown fadeFont">
                                       <ul class="font-class">
                                          <?php if (isset($GLOBALS['wbc_settings']->fonts)):
-                                                sort($GLOBALS['wbc_settings']->fonts);
+                                                usort($GLOBALS['wbc_settings']->fonts, 'strnatcasecmp');
                                                   foreach ($GLOBALS['wbc_settings']->fonts as $font):
                                                   $newlabel = change_font_to_label(esc_attr($font));
                                           ?>
