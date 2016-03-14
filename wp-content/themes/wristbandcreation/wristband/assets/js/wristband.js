@@ -4001,7 +4001,7 @@ jQuery(function ($) {
                 
                 .on('click', 'ul.font-class li', function (e) {
                     e.preventDefault();
-                    // Builder.observer();
+                    Builder.observer();
                     var fontStyle = $(this).find('.fontvalue').val();
                     $('#selectFont').attr( "style", "font-family:" + fontStyle );
                     $('#selectFont').attr( "value", fontStyle );

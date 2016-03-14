@@ -923,7 +923,7 @@ i.alert-notify.notify-customization-message {
     color: #333333;
     padding: 2px 6px 2px 6px;*/
     position: absolute;
-    top: 0;
+    top: 10px;
     left: 50%;
     transform: translate(-50%);
     font-size: 40px;
@@ -993,7 +993,7 @@ ul.font-class li:hover .font-label{
 .caretfont {
   position: relative;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 20px!important;
 }
 
 .dd-pointer-down {

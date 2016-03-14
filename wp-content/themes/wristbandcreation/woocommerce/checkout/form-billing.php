@@ -20,7 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php else : ?>
 
-		<h3><?php _e( 'Billing Details', 'woocommerce' ); ?></h3>
+		<!-- <h3><?php //_e( 'Billing Details', 'woocommerce' ); ?></h3> -->
+		<div class="billinghead"><?php _e( 'Billing Details', 'woocommerce' ); ?></div>
 
 	<?php endif; ?>
 

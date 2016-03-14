@@ -14,9 +14,9 @@
 <table class="shop_table woocommerce-checkout-review-order-table woocomerce-checkout-table">
 	<thead>
 	<tr>
-		<th class="product-details"><?php _e( 'Wristband Details', 'woocommerce' ); ?></th>
-		<th class="product-summary">Product Summary</th>
-		<th class="product-total"><?php _e( 'Total', 'woocommerce' ); ?></th>
+		<th class="product-details"><?php _e( 'Order Summary', 'woocommerce' ); ?></th>
+		<!-- <th class="product-summary">Product Summary</th> -->
+		<!-- <th class="product-total"><?php _e( 'Total', 'woocommerce' ); ?></th> -->
 	</tr>
 	</thead>
 	<tbody>
@@ -43,6 +43,9 @@
 											printf( '<a href="%s">%s</a>', $_product->get_permalink(), $thumbnail );
 									?>
 								</span>
+
+					</td>
+					<td class="product-name">
 						<div class="product-info">
 							<?php // Avada edit ?>
 							<?php echo apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key ); ?>
@@ -123,3 +126,5 @@
 
 	</tfoot>
 </table>
+
+

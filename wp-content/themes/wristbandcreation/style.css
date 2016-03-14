@@ -506,3 +506,322 @@ ul.fusion-checklist-2 {
     font-size: 14px!important;
     text-align: center;
 }
+
+.col-1.changestyle {
+    padding: 0px!important;
+    border: 0px!important;
+    margin: 0px!important;
+}
+
+/*checkout*/
+
+
+.billinghead {
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+    float: left;
+    font-size: 36px;
+    line-height: 40px;
+    width: 100%;
+}
+
+form.checkout #billing_last_name_field, form.checkout #shipping_last_name_field {
+    float: left!important;
+    width: 100%!important;
+}
+
+form.checkout #billing_first_name_field, form.checkout #shipping_first_name_field {
+    width: 100%!important;
+}
+
+.changestyle .input-text {
+	width: 50%!important;
+	float: right!important;
+	border: 1px solid #b3b3b3!important;
+    padding: 4px 8px 3px!important;
+    height: 40px !important;
+}
+
+.changestyle p.form-row {
+	float: right!important;
+    width: 100%;
+    /*margin-bottom: 6px!important;*/
+}
+
+.changestyle .select2-choice {
+    /*width: 50%!important;*/
+    /*float: right!important;*/
+    border: 1px solid #b3b3b3!important;
+    padding: 4px 8px 3px!important;
+    height: 40px !important;
+    margin-right: 1%!important;
+}
+
+.changestyle .select2-container {
+	width: 50%!important;
+	float: right!important;
+}
+
+/*.custom-checkout-order-summary {
+	background: #ebebeb;
+    padding-bottom: 1px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+.block-checkout-summary {
+	width: 340px;
+    margin: 0px auto !important;
+    float: none;
+    background: #ebebeb;
+}
+
+.order-heading-summary .CssHeader {
+	padding: 0px;
+    line-height: 45px;
+    font-size: 20px;
+}
+
+.order-body-summary {
+	margin-bottom: 13px;
+}
+
+.order-body-summary ul.products-list {
+    background: white;
+    margin-bottom: 13px;
+    list-style: none;
+}
+
+.order-body-summary .summaryproduct {
+	clear: both;
+    width: 317px;
+    line-height: 14px;
+    padding: 18px 0 5px;
+    float: none !important;
+}
+
+.p-image {
+    float: left;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    margin-top: 2px;
+    padding-right: 8px;
+}
+
+.p-name {
+    float: right;
+    font-size: 14px;
+    width: 245px;
+    font-weight: 700;
+    color: #000;
+    line-height: 14px;
+}
+
+.p-attributes {
+    float: right;
+    font-size: 14px;
+    width: 245px;
+    color: #333;
+    padding: 7px 0;
+    font-weight: normal;
+    clear: right;
+}
+
+.p-price {
+    float: right;
+    clear: right;
+    margin-top: -20px;
+    text-align: right;*/
+    /* font-size: 14px; */
+    /*font-weight: 700;
+}
+.ml-4 {
+	margin-left: 4%;
+}
+.mr-0 {
+	margin-right: 0!important;
+}
+*/
+.col-1-custom {
+	float: left;
+    width: 48%;
+}
+
+.col-2-custom {
+	float: right;
+	width: 48%;
+}
+
+.col-2-custom form.login {
+	border: 10px solid #ebebeb!important;
+    background: #fff!important;
+    padding: 16px;
+    max-width: 350px;
+    width: 100%;
+    margin: auto!important;
+    margin-bottom: 10px!important
+}
+
+.col-2-custom h3 {
+	padding: 0px;
+    line-height: 45px!important;
+    font-size: 20px!important;
+    font-weight: bold!important;
+    margin: 0px;
+}
+
+.col-2-custom label.inline {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+}
+
+.col-2-custom input {
+	height: 40px!important;
+}
+
+.col-2-custom form.login .lost_password {
+    float: left;
+    margin-top: 0px;
+    color: #226EBB;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+.col-2-custom form.login input.button {
+    color: #FFFFFF!important;
+    background-color: black;
+    font-weight: normal;
+    width: 100%;
+    background-image:none!important;
+    margin: auto;
+}
+.col-2-custom form.login input.button:hover {
+    color: #FFFFFF!important;
+    background: #3E3E3E
+}
+
+.col-2-custom form.login .form-row {
+	margin: 0px;
+	float: none;
+}
+
+.col-2-custom .woocommerce-info {
+	border: 0px;
+	max-width: 300px!important;
+	margin: auto;
+}
+
+/*.col-2-custom #order_review {
+    border: 10px solid #ebebeb!important;
+     max-width: 500px;
+    width: 100%;
+    margin: auto!important;
+}
+.product-info {
+    margin-left: 0!important;
+    margin-top: 0!important;
+    margin: auto;
+    float: left;
+}
+.shop_table tr.cart_item td {
+        vertical-align: middle;
+    padding: 10px 25px!important;
+}*/
+
+.product-info {
+    margin-left: 0!important;
+}
+.col-2-custom thead tr .product-summary, .woocomerce-checkout-table tbody .cart_item .product-summary {
+     width: 145%!important;
+}
+td.product-summary {
+    margin-left: -7px;
+}
+td.product-total {
+    float: right;
+}
+
+.col-2-custom tr.cart_item {
+    border: none;
+}
+
+.col-2-custom .shop_table {
+    padding-bottom: 1px;
+    position: relative;
+    width: 100%!important;
+    max-width: 350px!important;
+    margin: auto!important;
+    /* background: #ebebeb; */
+    border: 10px solid #ebebeb!important;
+    background: #fff!important;
+    border-collapse: separate;  
+}
+
+.col-2-custom th.product-details {
+    padding: 0px;
+    font-size: 24px;
+    width: 135%!important;
+    background: #ebebeb;
+    padding-bottom: 10px;
+}
+
+.col-2-custom td.product-name {
+    float: right;
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+}
+
+.col-2-custom td.product-total {
+    float: right;
+    clear: right;
+    margin-top: -20px;
+    text-align: right;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+.col-2-custom tfoot th {
+    /*padding: 5px 15px;*/
+    padding-left: 20px;
+    padding-bottom: 20px;
+    padding-right: 0px!important;
+    text-align: left!important;
+    width: 75%!important;
+}
+
+.col-2-custom tfoot td {
+    text-align: left!important;
+
+}
+
+.col-1-custom div#payment {
+    width: 210%;
+    float: left;
+}
+
+.col-1-custom span.select2-arrow {
+    height: 38px!important;
+    line-height: 38px!important;
+
+}
+
+
+/*
+.col-2-custom .woocommerce-checkout-review-order {
+
+    max-width: 300px;
+    width: 100%;
+    margin: auto!important;
+
+}*/
+
+/*    padding: 0px;
+    line-height: 45px;
+    font-size: 20px*/

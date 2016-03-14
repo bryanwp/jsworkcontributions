@@ -977,3 +977,15 @@ add_filter( 'gettext', 'woocommerce_rename_coupon_field_on_checkout', 10, 3 );
 
 include_once ( get_stylesheet_directory() . '/fontstylelabel.php' );
 
+
+function hide_coupon_field_on_checkout( $enabled ) {
+  if ( is_checkout() ) {
+    $enabled = false;
+  }
+  return $enabled;
+}
+add_filter( 'woocommerce_coupons_enabled', 'hide_coupon_field_on_checkout' );
+
+remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+
+add_action( 'woocommerce_after_order_notes', 'woocommerce_checkout_payment', 20 );

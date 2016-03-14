@@ -204,7 +204,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 </div>
 <div class="row">
 <div class="col-sm-4" style="margin-bottom:10px">
-<a href="/order-now/" class="custom-button-2" title="go back">Go Back</a>
+<a href="/order-now/" class="custom-button-2" title="go back">GO BACK</a>
 </div>
 <div class="col-sm-4 col-sm-offset-4" style="margin-bottom:10px">
 <!-- <a id="checkoutLink" class="btn btn-lg btn-block btn-danger" href="http://imprint.com/shop/ssl/go-through-checkout-process" title="Proceed to Checkout">PROCEED TO CHECKOUT</a> -->
