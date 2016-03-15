@@ -1047,13 +1047,13 @@ function my_check_login(){
 
   if ( ! is_wp_error( $user ) ) {
     // echo home_url();
-    echo "<pre>";
-    var_dump($user->roles);
-    echo $user->roles[0];
-    echo "</pre>";
-    die();
-    //wp_redirect( home_url() );
-    //exit;    
+    // echo "<pre>";
+    // var_dump($user->roles);
+    // echo $user->roles[0];
+    // echo "</pre>";
+    // die();
+    wp_redirect( home_url() );
+    exit;    
   } else {      
     if ( $user->errors ) {
       // $errors['invalid_user'] = __('<strong>ERROR</strong>: Invalid user or password.');  
