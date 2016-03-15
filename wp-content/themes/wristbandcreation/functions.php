@@ -9,9 +9,13 @@ function theme_enqueue_styles() {
     wp_enqueue_style( 'custom-css', get_stylesheet_directory_uri() . '/responsive.css' );
 
     //for the phase two tasks
-    wp_enqueue_style( 'shedz-css', get_stylesheet_directory_uri() . '/wristband/assets/css/sheldz.css' );
-    wp_enqueue_style( 'kram-css', get_stylesheet_directory_uri() . '/wristband/assets/css/kram.css' );
-
+    if ( is_page('login') or is_page('register') ) {
+      wp_enqueue_style( 'shedz-css', get_stylesheet_directory_uri() . '/wristband/assets/css/sheldz.css' );
+      wp_enqueue_style( 'kram-css', get_stylesheet_directory_uri() . '/wristband/assets/css/kram.css' );
+      
+      wp_enqueue_script('sheldz-js', get_stylesheet_directory_uri() . '/wristband/assets/js/sheldz.js', array( 'jquery' ), false, true);
+    }
+   
     wp_register_style('list_of_icons', get_stylesheet_directory_uri() . '/wristband/assets/css/list-icons.css', array());
     wp_enqueue_style('list_of_icons');
 
@@ -28,6 +32,9 @@ function avada_lang_setup() {
 	load_child_theme_textdomain( 'Avada', $lang );
 }
 add_action( 'after_setup_theme', 'avada_lang_setup' );
+
+// Add My Custom Functions File - Sh
+include_once( get_stylesheet_directory() . '/templates/sheldz_function.php' );
 
 
 /* To work with TypeKit

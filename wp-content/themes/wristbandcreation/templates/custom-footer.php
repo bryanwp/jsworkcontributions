@@ -124,7 +124,7 @@
 
 		?>
 
-		<a class="fusion-one-page-text-link fusion-page-load-link"></a>
+		<!-- <a class="fusion-one-page-text-link fusion-page-load-link"></a> -->
 
 		<!-- W3TC-include-js-head -->
 
