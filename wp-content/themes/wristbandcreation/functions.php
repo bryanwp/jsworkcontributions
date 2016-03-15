@@ -1016,7 +1016,7 @@ function my_check_login(){
   $creds['user_login']    = stripslashes( trim( $_POST['username'] ) );
   $creds['user_password'] = stripslashes( trim( $_POST['password'] ) );
   $creds['remember']      = isset( $_POST['remember'] ) ? sanitize_text_field( $_POST['remember'] ) : '';
-  $redirect_to            = esc_url_raw( $_POST['redirect_to'] );
+  //$redirect_to            = esc_url_raw( $_POST['redirect_to'] );
   $secure_cookie          = null;
   // if($redirect_to == '')
   //  $redirect_to= get_site_url(); 

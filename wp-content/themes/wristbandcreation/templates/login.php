@@ -46,7 +46,7 @@ ob_start(); ?>
             </div>
             <div class="col-xs-6 pull-left">
               <!-- <a href="#" id="register-form-link"><div class="register">REGISTER</div></a> -->
-              <a href="#" id="register-form-link">REGISTER</a>
+              <a href="/register" id="register-form-link">REGISTER</a>
             </div>
           <!-- </div> -->
         </div>
