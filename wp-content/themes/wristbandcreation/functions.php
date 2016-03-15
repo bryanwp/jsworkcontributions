@@ -8,6 +8,10 @@ function theme_enqueue_styles() {
     wp_enqueue_style( 'parent-stylesheet', get_template_directory_uri() . '/style.css' );
     wp_enqueue_style( 'custom-css', get_stylesheet_directory_uri() . '/responsive.css' );
 
+    //for the phase two tasks
+    wp_enqueue_style( 'shedz-css', get_stylesheet_directory_uri() . '/wristband/assets/css/sheldz.css' );
+    wp_enqueue_style( 'kram-css', get_stylesheet_directory_uri() . '/wristband/assets/css/kram.css' );
+
     wp_register_style('list_of_icons', get_stylesheet_directory_uri() . '/wristband/assets/css/list-icons.css', array());
     wp_enqueue_style('list_of_icons');
 
