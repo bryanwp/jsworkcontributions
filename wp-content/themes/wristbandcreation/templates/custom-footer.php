@@ -1,5 +1,10 @@
-					<?php do_action( 'avada_after_main_content' ); ?>				
+					
+
+				
+					<?php do_action( 'avada_after_main_content' ); ?>		
+					</div>		<!-- ub-container -->
 				</div>  <!-- fusion-row -->
+
 			</div>  <!-- #main -->
 			<?php
 			do_action( 'avada_after_main_container' );
