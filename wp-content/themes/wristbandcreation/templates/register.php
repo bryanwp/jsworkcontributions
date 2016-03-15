@@ -2,7 +2,7 @@
 
 //Template Name: Register
 
-get_header();
+include ('custom-header.php');
 
 
-get_footer();
+include ('custom-footer.php');
