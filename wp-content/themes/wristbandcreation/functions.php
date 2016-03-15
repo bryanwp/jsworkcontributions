@@ -9,13 +9,13 @@ function theme_enqueue_styles() {
     wp_enqueue_style( 'custom-css', get_stylesheet_directory_uri() . '/responsive.css' );
 
     //for the phase two tasks
-    if ( is_page('login') or is_page('register') ) {
-      wp_enqueue_style( 'shedz-css', get_stylesheet_directory_uri() . '/wristband/assets/css/sheldz.css' );
-      wp_enqueue_style( 'kram-css', get_stylesheet_directory_uri() . '/wristband/assets/css/kram.css' );
-      
-      wp_enqueue_script('sheldz-js', get_stylesheet_directory_uri() . '/wristband/assets/js/sheldz.js', array( 'jquery' ), false, true);
-    }
-   
+   if ( is_page('login') or is_page('register') ) {
+        wp_enqueue_style( 'shedz-css', get_stylesheet_directory_uri() . '/wristband/assets/css/sheldz.css' );
+        wp_enqueue_style( 'kram-css', get_stylesheet_directory_uri() . '/wristband/assets/css/kram.css' );
+        
+        wp_enqueue_script('sheldz-js', get_stylesheet_directory_uri() . '/wristband/assets/js/sheldz.js', array( 'jquery' ), false, true);
+      }
+
     wp_register_style('list_of_icons', get_stylesheet_directory_uri() . '/wristband/assets/css/list-icons.css', array());
     wp_enqueue_style('list_of_icons');
 
@@ -1000,3 +1000,86 @@ add_filter( 'woocommerce_coupons_enabled', 'hide_coupon_field_on_checkout' );
 remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
 
 add_action( 'woocommerce_after_order_notes', 'woocommerce_checkout_payment', 20 );
+
+
+
+
+
+add_action('init', 'my_check_login');
+
+function my_check_login(){
+        // check input and
+        // do my login stuff here 
+
+  if(isset($_POST['login-submit'])) {
+  $creds                  = array();
+  $creds['user_login']    = stripslashes( trim( $_POST['username'] ) );
+  $creds['user_password'] = stripslashes( trim( $_POST['password'] ) );
+  $creds['remember']      = isset( $_POST['remember'] ) ? sanitize_text_field( $_POST['remember'] ) : '';
+  $redirect_to            = esc_url_raw( $_POST['redirect_to'] );
+  $secure_cookie          = null;
+  // if($redirect_to == '')
+  //  $redirect_to= get_site_url(); 
+    
+  //  if ( ! force_ssl_admin() ) {
+  //      $user = is_email( $creds['user_login'] ) ? get_user_by( 'email', $creds['user_login'] ) : get_user_by( 'login', sanitize_user( $creds['user_login'] ) );
+
+  //    if ( $user && get_user_option( 'use_ssl', $user->ID ) ) {
+  //      $secure_cookie = true;
+  //      force_ssl_admin( true );
+  //    }
+  //  }
+
+  // if ( force_ssl_admin() ) {
+  //  $secure_cookie = true;
+  // }
+
+  // if ( is_null( $secure_cookie ) && force_ssl_admin() ) {
+  //  $secure_cookie = false;
+  // }
+
+  // $user = wp_signon( $creds, $secure_cookie );
+  $user = wp_signon( $creds, false );
+
+  // if ( $secure_cookie && strstr( $redirect_to, 'wp-admin' ) ) {
+  //  $redirect_to = str_replace( 'http:', 'https:', $redirect_to );
+  // }
+
+  if ( ! is_wp_error( $user ) ) {
+    // echo home_url();
+    echo "<pre>";
+    var_dump($user->roles);
+    echo $user->roles[0];
+    echo "</pre>";
+    die();
+    //wp_redirect( home_url() );
+    //exit;    
+  } else {      
+    if ( $user->errors ) {
+      // $errors['invalid_user'] = __('<strong>ERROR</strong>: Invalid user or password.');  
+      //echo "hello from the other side";
+    } else {
+      // $errors['invalid_user_credentials'] = __( 'Please enter your username and password to login.', 'kvcodes' );
+      //echo "hello from the other side";
+    }
+  }
+  // $creds = array();
+  // $creds['user_login'] = 'example';
+  // $creds['user_password'] = 'plaintextpw';
+  // $creds['remember'] = true;
+
+  // $creds                  = array();
+  // $creds['user_login']    = stripslashes( trim( $_POST['username'] ) );
+  // $creds['user_password'] = stripslashes( trim( $_POST['password'] ) );
+  // $redirect_to            = esc_url_raw( $_POST['redirect_to'] );
+  // $secure_cookie          = null;
+  // $user = wp_signon( $creds, false );
+  // if ( is_wp_error($user) )
+  //  echo $user->get_error_message();  
+
+  }
+}
+
+function Display_error() {
+
+}
