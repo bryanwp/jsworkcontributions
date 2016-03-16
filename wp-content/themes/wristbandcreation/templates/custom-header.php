@@ -152,17 +152,23 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 				</a>
 			</div>
 			<div class="welcome">
-				<p>
-				Welcome
-				<span>Guest</span>
+			<?php
+				if ( is_page( 'login' ) ) {
+					echo '<p>LOGIN</p>';
+				} elseif ( is_page( 'register' ) ) {
+					echo '<p>REGISTER</p>';
+				} else {
+					$current_user = wp_get_current_user();
+					$redirect = home_url('login');
+					echo '<p>WELCOME ' . $current_user->user_firstname . ' | <a href=' . wp_logout_url( $redirect ) . '>Log out</a></p>' ;
+				}
 				
-				</p>
-
+			?>
 			</div>
 		</div>
 
 		
 		<div id="main" class="clearfix <?php echo $main_class; ?>" style="<?php echo $main_css; ?>">
 			<div class="fusion-row" style="<?php echo $row_css; ?>">
-		<div class="gap"></div>
+		<div class="gap-top"></div>
 		<div class="sub-container">

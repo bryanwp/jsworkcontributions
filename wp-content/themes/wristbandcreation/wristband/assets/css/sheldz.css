@@ -4,6 +4,9 @@
 p[align=center] {
     display: none;
 }
+#main {
+    padding: 0px!important;
+}
 .log-in-logo {
     float: left;
 }
@@ -12,6 +15,7 @@ p[align=center] {
     float: right;
     font-size: 14px;
     margin: 26px 0px;
+    text-transform: UPPERCASE;
 }
 .min-height{
     background: #D3FBFF!important;
@@ -20,6 +24,9 @@ p[align=center] {
 .min-height img {
     width: 200px;
     margin: 10px 0px;
+}
+.gap-top {
+    height: 20px;
 }
 .gap {
     height: 90px;
@@ -67,4 +74,66 @@ p[align=center] {
     padding: 10px 10px;
     font-size: 14px;
     color: #985252;
+}
+.dash-nav{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    background: #585454;
+    height: 778px;
+    padding-top: 28px;
+    position: relative;
+}
+ul.dash-nav li {
+    border-bottom: 1px solid #676767;
+    padding: 15px 0px;
+    text-align: center;
+    color: #D6D6D6;
+    font-size: 14px;
+    cursor: pointer;
+}
+.sub-container {
+    margin-left: -30px;
+  /*  margin-right: -30px;*/
+    margin-top: -22px;
+}
+ul.dash-nav:before {
+    content: '';
+    height: 1px;
+    width: 100%;
+    background: #676767;
+    position: absolute;
+    top: 1;
+}
+ul.dash-nav li:hover {
+    background: #D3FBFF;
+    color: #585454;
+}
+.welcome a:hover {
+    color: #0065B3;
+}
+.welcome a {
+    color: #585454!important;
+}
+.dash-title-holder {
+    height: 50px;
+}
+.dash-title-holder h2 {
+    float: left;
+}
+.dash-title-holder ul {
+    float: right;
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+.dash-title-holder ul li {
+    display: inline;
+    padding: 10px 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+.dash-title-holder ul li:hover {
+    background: #D3FBFF;
+    color: #1E419A;
 }
