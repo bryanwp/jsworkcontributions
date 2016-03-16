@@ -20,6 +20,7 @@ ob_start(); ?>
           <div class="row">
             <div class="col-lg-12">
               <form id="login-form" action="#" method="post" role="form" style="display: block;">
+              	<?php Display_error('nothing'); ?>
                 <h2>LOGIN</h2>
                   <div class="form-group">
                     <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
@@ -42,7 +43,7 @@ ob_start(); ?>
           <!-- <div class="row"> -->
             <div class="col-xs-6 pull-left">
               <!-- <a href="#" class="active" id="login-form-link"><div class="login">LOGIN</div></a> -->
-               <a href="#" class="active" id="login-form-link">Forgot Password?</a>
+               <a href="/forgot-password" class="active" id="login-form-link">Forgot Password?</a>
             </div>
             <div class="col-xs-6 pull-left">
               <!-- <a href="#" id="register-form-link"><div class="register">REGISTER</div></a> -->
