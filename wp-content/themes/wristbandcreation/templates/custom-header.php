@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php global $woocommerce; ?>
+<?php global $woocommerce; ?> 
 <html class="<?php echo ( ! Avada()->settings->get( 'smooth_scrolling' ) ) ? 'no-overflow-y' : ''; ?>" <?php language_attributes(); ?>>
 <head>
 	<?php if ( isset( $_SERVER['HTTP_USER_AGENT'] ) && ( false !== strpos( $_SERVER['HTTP_USER_AGENT'], 'MSIE' ) ) ) : ?>
@@ -145,16 +145,24 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 		<div id="home" style="position:relative;top:1px;"></div>
 		
 		<div class="min-height fusion-secondary-header">
+			<div class="log-in-logo">
+				<a class="fusion-logo-link" href="<?php echo home_url(); ?>">
+					<?php $logo_url = Avada_Sanitize::get_url_with_correct_scheme( Avada()->settings->get( 'logo' ) ); ?>
+					<img src="<?php echo $logo_url; ?>" width="<?php echo $logo_size['width']; ?>" height="<?php echo $logo_size['height']; ?>" alt="<?php bloginfo( 'name' ); ?>" class="fusion-logo-1x fusion-standard-logo" />
+				</a>
+			</div>
+			<div class="welcome">
+				<p>
+				Welcome
+				<span>Guest</span>
+				
+				</p>
+
+			</div>
 		</div>
 
 		
 		<div id="main" class="clearfix <?php echo $main_class; ?>" style="<?php echo $main_css; ?>">
 			<div class="fusion-row" style="<?php echo $row_css; ?>">
-
-		<div class="log-in-logo">
-			<a class="fusion-logo-link" href="<?php echo home_url(); ?>">
-				<?php $logo_url = Avada_Sanitize::get_url_with_correct_scheme( Avada()->settings->get( 'logo' ) ); ?>
-				<img src="<?php echo $logo_url; ?>" width="<?php echo $logo_size['width']; ?>" height="<?php echo $logo_size['height']; ?>" alt="<?php bloginfo( 'name' ); ?>" class="fusion-logo-1x fusion-standard-logo" />
-			</a>
-		</div>
+		<div class="gap"></div>
 		<div class="sub-container">

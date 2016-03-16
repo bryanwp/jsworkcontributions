@@ -4,19 +4,26 @@
 p[align=center] {
     display: none;
 }
-.log-in-logo{
-	margin: 0px auto;
-    width: 25%;
-    margin-top: 10%;
-    margin-bottom: 10px;
+.log-in-logo {
+    float: left;
 }
-
+.welcome p {
+    color: #565555;
+    float: right;
+    font-size: 14px;
+    margin: 26px 0px;
+}
 .min-height{
-	min-height: 5px!important;
+    background: #D3FBFF!important;
+    min-height: 70px;
 }
-
-
-
+.min-height img {
+    width: 200px;
+    margin: 10px 0px;
+}
+.gap {
+    height: 90px;
+}
 #wrapper {
     height:100%;
 }
