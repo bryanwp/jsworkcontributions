@@ -98,31 +98,32 @@ jQuery(document).ready(function ($) {
    		
    });
 
-            $('#email').change(function(){
+   $('#email').change(function(){
+      
+      var email = $('#email').val();
+          // data  = {
+          //   email: 'email', 
+          //   action: 'check-email'
+          //      };
 
-               var email = $('#email').val(),
-                  data = '&email='+email+'&action=check-email';
-               console.log(email);
-               $.ajax({
-                           type: 'POST',
-                           url: sheldz_ajax.ajaxUrl,
-                          data: data,
-                          dataType: 'json',
-                          success: function(data) {
-                           console.log(response);
-                              // if(response.data) {
-                              //     alert('Email exists!');
-                              // }
-                              // else {
-                              //     alert('Email doesnt!');
-                              // }
-                          },
-                          error: function(data){
-                              //error
-                              alert('heloo');
-                          }
-                        });
-
-            })
+      //console.log( email );
+      $.get(sheldz_ajax.ajaxUrl + '?action=check-email&email=' + email, function(response) {
+         if (response.data[0]) {
+            // $('.username-msg').fadeIn();
+            // $('#for-username').addClass('has-error has-feedback');
+            console.log('Email exists!');
+         } else {
+            // $('.username-msg').fadeOut();
+            // $('#for-username').removeClass('has-error has-feedback');
+            console.log('Email is valid');
+         }
+               // if(response.data) {
+               //     alert('Email exists!');
+               // }
+               // else {
+               //     alert('Email doesnt!');
+               // }
+      });
+   });
 
 });

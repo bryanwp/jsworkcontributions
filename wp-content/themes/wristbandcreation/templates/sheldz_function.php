@@ -117,39 +117,41 @@ function check_if_login(){
 // 	}
 // }
 
-
-// function check_username_ifexisted($user = false) {
-//   global $wpdb;
- 
-//   $t = $_REQUEST['user'];
-//   $isExists[0] = true;
-//   $sql = "SELECT * FROM $wpdb->users WHERE user_login = '$t'";
-//   $results = $wpdb->get_row($sql);
-
-//     if($results) {
-//       $isExists[0] = true;
-//     } else {
-//       $isExists[0] = false;
-//     }
-
-//   exit(wp_send_json_success($isExists));
-// }
-//ajax function -  checking if the username is already in used
-
 add_action('wp_ajax_check-email', 'check_email');
 add_action('wp_ajax_nopriv_check-email', 'check_email');
-function check_email(){
-	$email = $_POST['email'];
-	//initializing redirect url
-	//echo "dragoooonnnn------------------------------------------------------------------------------------------------------------------------------";
-		if ( email_exists($email) ) {
-		    $response->result = true;
-	}
-	else {
-	    $response->result = false;
-	}
-		$kram= 'bsag unsa';
-	// echo json
-	 exit(wp_send_json_success($kram));
+function check_email($email = false) {
+  global $wpdb;
+ 
+  $t = $_REQUEST['email'];
+  $isExists[0] = true;
+  $sql = "SELECT * FROM $wpdb->users WHERE user_login = '$t'";
+  $results = $wpdb->get_row($sql);
 
+    if($results) {
+      $isExists[0] = true;
+    } else {
+      $isExists[0] = false;
+    }
+
+  exit(wp_send_json_success($isExists));
 }
+//ajax function -  checking if the username is already in used
+
+// add_action('wp_ajax_check-email', 'check_email');
+// add_action('wp_ajax_nopriv_check-email', 'check_email');
+// function check_email(){
+// 	$email = $_POST;
+// 	//initializing redirect url
+// 	//echo "dragoooonnnn------------------------------------------------------------------------------------------------------------------------------";
+// 	if ( email_exists( $email['email'] ) ) {
+// 		    $response->result = true;
+// 	}
+// 	else {
+// 	    $response->result = false;
+// 	}
+// 	$kram= 'bsag unsa';
+// 	// echo json
+// 	 exit( wp_send_json_success( $kram ) );
+
+// }
+
