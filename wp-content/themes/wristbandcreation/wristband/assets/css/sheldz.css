@@ -116,10 +116,12 @@ ul.dash-nav li:hover {
     color: #585454!important;
 }
 .dash-title-holder {
-    height: 50px;
+    height: 25px;
 }
 .dash-title-holder h2 {
     float: left;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
 }
 .dash-title-holder ul {
     float: right;
@@ -166,4 +168,37 @@ p.approval {
     padding: 5px 10px;
     background: #E1F5FD;
     margin: 5px 0px;
+}
+.shadow-wrap {
+    box-shadow: 0px 0px 5px #888888;
+}
+.profile-left {
+    padding: 0px;
+    border-top: 2px solid #585454;
+}
+.row-fix {
+    margin: 0px;
+}
+.profile-left p {
+    font-size: 13px;
+    font-weight: bold;
+    color: #585454;
+    margin-left: 10px;
+}
+.layer1 {
+    margin-bottom: 10px;
+}
+.layer1 p {
+    margin: 0px;
+    padding: 10px;
+    font-size: 14px;
+    color: #585454;
+    cursor: pointer;
+}
+.layer1 div {
+    padding: 0px 10px;
+    padding-bottom: 10px;
+}
+.layer1 hr {
+    margin-top: 0px;
 }

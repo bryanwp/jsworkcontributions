@@ -16,12 +16,16 @@ include ('custom-header.php'); ?>
 <div class="row">
 	<div class="col-md-2">
 		<ul class="dash-nav">
-			<li>
-				My Orders
-			</li>
-			<li>
-				My Profile
-			</li>
+			<a href="<?php echo home_url('customer-dashboard'); ?>">
+				<li>
+					My Orders
+				</li>
+			</a>
+			<a href="<?php echo home_url('customer-dashboard/?action=profile'); ?>">
+				<li>
+					My Profile
+				</li>
+			</a>
 			<li>
 				Notification
 			</li>
@@ -35,6 +39,8 @@ include ('custom-header.php'); ?>
 
 	if ( $action === 'view') {
 		include ('customer-dashboard-single.php');
+	} elseif ( $action === 'profile' ) {
+		include ('customer-dashboard-profile.php');
 	}
 	?>
 	<div class="col-md-10" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>

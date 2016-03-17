@@ -34,10 +34,12 @@ $items = $order->get_items();
 			<li>Reorder And Edit</li>
 		</ul>
 	</div>
+	<hr class="divider-full" />
 	<div class="dash-filter">
-		<p class="approval">Your Design is beign updated by the ADMIN and it needs your approval. Click <a href="#">HERE</a> to see the revision.</p>
+		<p class="approval">Your design is beign updated by the ADMIN and it needs your approval. Click <a href="#">HERE</a> to see the revision.</p>
 		<!-- <span>Filter:</span> -->
 	</div>
+	<div style="height: 10px"></div>
 	<?php foreach ( $items as $item ) {
 	    $wristband_meta = maybe_unserialize( $item['wristband_meta']);
 	    $color = $wristband_meta['colors'];
@@ -104,49 +106,5 @@ $items = $order->get_items();
 		</div>
 
 	<?php } ?>
-
-
-	<div class="table-1">
-		<?php
-		
-?>
-		<table width="100%">
-			<thead>
-				<tr>
-					<th><?php _e( 'Product', 'woocommerce' ); ?></th>
-					<th><?php _e( 'Total', 'woocommerce' ); ?></th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php
-		      foreach( $order->get_items() as $item_id => $item ) {
-		        wc_get_template( 'order/order-details-item.php', array(
-		          'order'   => $order,
-		          'item_id' => $item_id,
-		          'item'    => $item,
-		          'product' => apply_filters( 'woocommerce_order_item_product', $order->get_product_from_item( $item ), $item )
-		        ) );
-		      }
-		    ?>
-				<?php do_action( 'woocommerce_order_items_table', $order ); ?>
-			</tbody>
-			<tfoot>
-				<?php
-		      foreach ( $order->get_order_item_totals() as $key => $total ) {
-		        ?>
-						<tr>
-							<th scope="row"><?php echo $total['label']; ?></th>
-							<td><?php echo $total['value']; ?></td>
-						</tr>
-						<?php
-		      }
-		    ?>
-			</tfoot>
-		</table>
-
-		<?php do_action( 'woocommerce_order_details_after_order_table', $order ); ?>
-
-		<?php wc_get_template( 'order/order-details-customer.php', array( 'order' =>  $order ) ); ?>
-	</div>
 </div>
 
