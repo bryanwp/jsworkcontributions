@@ -80,7 +80,7 @@ if ( $customer_orders ) : ?>
 
         ?><tr>
 					<td data-title="<?php esc_attr_e( 'Order Number', 'woocommerce' ); ?>">
-						<a href="<?php echo esc_url( $order->get_view_order_url() ); ?>">
+						<a href="<?php echo esc_url( home_url('customer-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
 							<?php echo _x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number(); ?>
 						</a>
 					</td>
