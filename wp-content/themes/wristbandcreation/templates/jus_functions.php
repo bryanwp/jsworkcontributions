@@ -58,9 +58,13 @@ function my_check_login(){
     if ( $user->errors ) {
       // $errors['invalid_user'] = __('<strong>ERROR</strong>: Invalid user or password.');  
       //echo "hello from the other side";
+    	$redirect = home_url() . '/login/?error=Invaliduser';
+    	exit(wp_redirect($redirect));
     } else {
       // $errors['invalid_user_credentials'] = __( 'Please enter your username and password to login.', 'kvcodes' );
       //echo "hello from the other side";
+    	$redirect = home_url() . '/login/?error=InvaliduserCredentials';
+    	exit(wp_redirect($redirect));
     }
   }
   // $creds = array();
@@ -80,9 +84,13 @@ function my_check_login(){
   }
 }
 
-function Display_error() {
-
-}
+// function display_login_error($message) {
+// 	echo $message;
+// 	if ($message == 'hello') {
+// 		return 'from the other side';
+// 	}else
+// 		return 'dragoon';
+// }
 
 
 add_action('init', 'my_forgot_pass');
@@ -103,6 +111,10 @@ function my_forgot_pass(){
 						forpass_errors()->add('match_password', __('Password doesn&apos;t match'));
 					} elseif ( $_REQUEST['error'] === 'invalid-password' ) {
 						forpass_errors()->add('invalid_password', __('Invalid Password'));
+					} elseif( $_REQUEST['error'] === 'Invaliduser' ) { 	
+						forpass_errors()->add('Invalid_user', __('Invalid user or password'));
+					} elseif ( $_REQUEST['error'] === 'InvaliduserCredentials' ) {
+						forpass_errors()->add('Invalid_userCredentials', __('Please enter your username and password to login'));
 					} else {
 						forpass_errors()->add('empty_password', __('string'));
 					}

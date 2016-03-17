@@ -9,11 +9,14 @@ function theme_enqueue_styles() {
     wp_enqueue_style( 'custom-css', get_stylesheet_directory_uri() . '/responsive.css' );
 
     //for the phase two tasks
-   if ( is_page('login') or is_page('register') or is_page('supplier-dashboard') or is_page('customer-dashboard') or is_page('forgot-pass') ) {
+   if ( is_page('login') or is_page('register') or is_page('supplier-dashboard') or is_page('customer-dashboard') or is_page('forgot-password') ) {
         wp_enqueue_style( 'shedz-css', get_stylesheet_directory_uri() . '/wristband/assets/css/sheldz.css' );
         wp_enqueue_style( 'kram-css', get_stylesheet_directory_uri() . '/wristband/assets/css/kram.css' );
         
         wp_enqueue_script('sheldz-js', get_stylesheet_directory_uri() . '/wristband/assets/js/sheldz.js', array( 'jquery' ), false, true);
+        wp_localize_script('sheldz-js', 'sheldz_ajax', array(
+        'ajaxUrl' => admin_url('admin-ajax.php')
+        ));
       }
 
     wp_register_style('list_of_icons', get_stylesheet_directory_uri() . '/wristband/assets/css/list-icons.css', array());

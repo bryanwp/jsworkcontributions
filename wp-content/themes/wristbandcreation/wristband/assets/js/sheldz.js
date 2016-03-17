@@ -1,4 +1,5 @@
 jQuery(document).ready(function ($) {
+
    $('.submit').click(function(){
    		
    		var fname 		 	  = $('#fname').val(),
@@ -61,12 +62,17 @@ jQuery(document).ready(function ($) {
    				return false;	
    					
    			} else {
-   				
+
+               // $.ajax({
+               //    type:'GET',
+               //    url:''
+               // });
+
    				if ( ! noPassError ) {
    					$('.err-container').fadeIn();
 		   	   		$('.err-msg').empty();
 	   				$('.err-msg').append( 'Please enter the same password in the two password fields.' );
-	   				return false;
+	   				return false;b
    				} else if ( ! noPassErrorChar ) {
    					$('.err-container').fadeIn();
 		   	   		$('.err-msg').empty();
@@ -91,4 +97,32 @@ jQuery(document).ready(function ($) {
 
    		
    });
+
+            $('#email').change(function(){
+
+               var email = $('#email').val(),
+                  data = '&email='+email+'&action=check-email';
+               console.log(email);
+               $.ajax({
+                           type: 'POST',
+                           url: sheldz_ajax.ajaxUrl,
+                          data: data,
+                          dataType: 'json',
+                          success: function(data) {
+                           console.log(response);
+                              // if(response.data) {
+                              //     alert('Email exists!');
+                              // }
+                              // else {
+                              //     alert('Email doesnt!');
+                              // }
+                          },
+                          error: function(data){
+                              //error
+                              alert('heloo');
+                          }
+                        });
+
+            })
+
 });
