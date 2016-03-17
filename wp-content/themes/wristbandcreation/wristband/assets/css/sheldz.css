@@ -137,3 +137,33 @@ ul.dash-nav li:hover {
     background: #D3FBFF;
     color: #1E419A;
 }
+.item-holder {
+    border: 3px #ccc solid;
+    margin: 0px 0px 5px 0px!important;
+    padding: 5px;
+}
+ul.item-info-row {
+    list-style-type: none;
+    padding: 0px;
+}
+li.item-info-col {
+    display: inline;
+    float: left;
+    width: 33%;
+}
+li.item-info-col ul {
+   /* list-style-type: none;*/
+    padding: 0px;
+}
+table.table-info td {
+    width: 33%;
+}
+table.table-info {
+    width: 100%;
+}
+p.approval {
+    border-left: 3px solid #00B131;
+    padding: 5px 10px;
+    background: #E1F5FD;
+    margin: 5px 0px;
+}
