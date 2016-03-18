@@ -1006,3 +1006,11 @@ remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_paymen
 
 add_action( 'woocommerce_after_order_notes', 'woocommerce_checkout_payment', 20 );
 
+remove_action('woocommerce_before_checkout_form','woocommerce_checkout_login_form',1);
+
+add_filter( 'woocommerce_checkout_fields' , 'alter_woocommerce_checkout_fields' );
+
+function alter_woocommerce_checkout_fields( $fields ) {
+     unset($fields['order']['order_comments']);
+     return $fields;
+}

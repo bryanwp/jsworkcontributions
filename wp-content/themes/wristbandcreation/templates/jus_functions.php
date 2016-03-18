@@ -236,7 +236,7 @@ function forpass_errors(){
 // displays error messages from form submissions
 function show_error_messages() {
 	if($codes = forpass_errors()->get_error_codes()) {
-		echo '<div class="this_errors">';
+		echo '<div class="this_errors errorstyle">';
 		    // Loop error codes and display errors
 		   foreach($codes as $code){
 		        $message = forpass_errors()->get_error_message($code);

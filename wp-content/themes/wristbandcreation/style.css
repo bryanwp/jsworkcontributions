@@ -754,7 +754,7 @@ td.product-total {
     padding-bottom: 1px;
     position: relative;
     width: 100%!important;
-    max-width: 350px!important;
+    /*max-width: 350px!important;*/
     margin: auto!important;
     /* background: #ebebeb; */
     border: 10px solid #ebebeb!important;
@@ -786,6 +786,13 @@ td.product-total {
     font-weight: 700;
 }
 
+.col-2-custom .woocommerce-checkout-review-order{
+    overflow-x: hidden;
+    width: 80%;
+    margin: auto;
+    max-height: 44em;
+    border: 5px solid #EBEBEB;
+}
 
 .col-2-custom tfoot th {
     /*padding: 5px 15px;*/
@@ -825,3 +832,13 @@ td.product-total {
 /*    padding: 0px;
     line-height: 45px;
     font-size: 20px*/
+
+
+.changestyle .woocommerce-shipping-fields .checkout h3 {
+
+    margin-top: 0;
+    /*border-bottom: 1px solid;*/
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+
+} 

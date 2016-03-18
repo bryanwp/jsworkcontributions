@@ -208,3 +208,14 @@ label {
   color: #fff;
   background-color: #2D3B55;
 }
+
+
+.errorstyle {
+    margin-bottom: 15px;
+    background-color: #ffe9e9;
+    border: 1px solid #E7A9A9;
+    color: #D04544;
+    padding: 8px;
+    position: relative;
+    text-align: center;
+}

@@ -10,6 +10,7 @@ include ('custom-header.php');
 	foreach($errors as $err )
 	echo $err; 
 }
+
 ob_start(); ?>
 <div style="height: 50px"></div>
 <div class="container">
@@ -20,8 +21,8 @@ ob_start(); ?>
           <div class="row">
             <div class="col-lg-12">
               <form id="login-form" method="post" role="form" style="display: block;">
-              	<?php show_error_messages(); ?>
                 <h2>LOGIN</h2>
+                                <?php show_error_messages(); ?>
                   <div class="form-group">
                     <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
                   </div>

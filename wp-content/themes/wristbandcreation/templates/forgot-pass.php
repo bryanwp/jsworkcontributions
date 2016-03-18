@@ -12,9 +12,12 @@ include ('custom-header.php');
 			<div class="wrapper">
 
 				<!--html code-->
-					<?php
+
+			<?php
 					// show any error messages after form submission
-							show_error_messages(); ?>
+							show_error_messages(); ?></p>
+		
+
 					<!-- Email Form -->
 					<form method="post" <?php echo ( !isset( $_REQUEST['action'] ) ) ? 'style="display:block"' : 'style="display:none"';?>>
 						<!-- <p>Please enter your username or email address. You will receive a link to create a new password via email.</p> -->
