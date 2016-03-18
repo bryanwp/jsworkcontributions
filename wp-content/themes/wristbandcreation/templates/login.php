@@ -10,8 +10,8 @@ include ('custom-header.php');
 	foreach($errors as $err )
 	echo $err; 
 }
-
 ob_start(); ?>
+<div style="height: 50px"></div>
 <div class="container">
    <div class="row">
     <div class="col-md-6 col-md-offset-3">

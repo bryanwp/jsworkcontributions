@@ -99,24 +99,6 @@ function check_if_login(){
 	}
 }
 
-// add_action('init', 'check_email');
-// function check_email(){
-// 	//initializing redirect url
-// 	if(isset($_POST['user_email']))
-// 	{
-// 		if ( email_exists($email) ) {
-// 	    $response->result = true;
-// 	}
-// 	else {
-// 	    $response->result = false;
-// 	}
-
-// 	// echo json
-// 	echo json_encode($response);
-	
-// 	}
-// }
-
 add_action('wp_ajax_check-email', 'check_email');
 add_action('wp_ajax_nopriv_check-email', 'check_email');
 function check_email($email = false) {
@@ -135,23 +117,43 @@ function check_email($email = false) {
 
   exit(wp_send_json_success($isExists));
 }
-//ajax function -  checking if the username is already in used
 
-// add_action('wp_ajax_check-email', 'check_email');
-// add_action('wp_ajax_nopriv_check-email', 'check_email');
-// function check_email(){
-// 	$email = $_POST;
-// 	//initializing redirect url
-// 	//echo "dragoooonnnn------------------------------------------------------------------------------------------------------------------------------";
-// 	if ( email_exists( $email['email'] ) ) {
-// 		    $response->result = true;
-// 	}
-// 	else {
-// 	    $response->result = false;
-// 	}
-// 	$kram= 'bsag unsa';
-// 	// echo json
-// 	 exit( wp_send_json_success( $kram ) );
+add_action('init', 'update_profile');
+function update_profile(){
+	$post = $_POST;
 
-// }
+	if ( isset( $post['form-action'] ) && $post['form-action'] === 'profile' ) {
+		//$fname = ''; $lname = ''; $email = '';
+		//init variables
+		$userdata = array (
+			'ID' 			=> get_current_user_id(),
+			'user_login' 	=> $post['email'],
+			'user_email' 	=> $post['email'],
+			'first_name' 	=> $post['first_name'],
+			'last_name'  	=> $post['last_name'],
+			'display_name' 	=> $post['first_name'] . ' ' . $post['last_name'],
+		);	
+
+		wp_update_user( $userdata );
+	}
+}
+
+add_action('wp_ajax_change-user-password', 'change_user_password');
+add_action('wp_ajax_nopriv_change-user-password', 'change_user_password');
+function change_user_password(){
+	$post = $_POST;
+
+	$wp_hasher = new PasswordHash(16, FALSE);
+	$hash = wp_hash_password( $post['cpass'] );
+
+	if ( $hash != $post['hash'] ) {
+		$result = 'wpw';
+		exit( wp_send_json_success( $hash ) );
+	} else {
+		if ( wp_set_password( $post['pass'], get_current_user_id() ) ) {
+			$result = 'asdaf';
+			exit( wp_send_json_success( $result ) );
+		}
+	}
+}
 

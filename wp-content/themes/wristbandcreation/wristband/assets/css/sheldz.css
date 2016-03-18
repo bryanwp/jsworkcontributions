@@ -96,6 +96,7 @@ ul.dash-nav li {
     margin-left: -30px;
   /*  margin-right: -30px;*/
     margin-top: -22px;
+    min-height: 86.7vh;
 }
 ul.dash-nav:before {
     content: '';
@@ -201,4 +202,43 @@ p.approval {
 }
 .layer1 hr {
     margin-top: 0px;
+}
+p.form-button {
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    cursor: default;
+}
+p.form-button .save-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #DDF3FB;
+    color: #585454;
+    cursor: pointer;
+}
+p.form-button .save-button:hover {
+    background: #00ADEF;
+    color: #fff;
+}
+p.isEmail {
+    font-family: 'PT Sans Narrow';
+    font-size: 14px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 400;
+    line-height: 10px;
+}
+span.email-checker {
+    margin-left: 10px;
+    font-size: 10px;
+    font-style: italic;
+}
+p.error {
+    padding: 5px 10px;
+    background: #FFD9D9;
+    margin: 0px 10px;
+    color: #FF9393;
+    border-left: 3px solid #FF9393;
+    display: none;
 }

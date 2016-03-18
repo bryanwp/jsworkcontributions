@@ -9,16 +9,24 @@
 
 	<div class="row row-fix">
 		<div class="col-md-3 profile-left shadow-wrap">
-			<p>Profile Detail</p>
+			<p>Profile Details</p>
 			<div>
 				<img src="http://0.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=32&d=mm&r=g" class="img-thumbnail" alt="Cinque Terre" width="100%">
 			</div>
 			<?php 
-				$user = wp_get_current_user();
+				// $user = wp_get_current_user();
+				$user = get_user_by( "id", get_current_user_id() );
 			?>
 			<p><?php echo $user->display_name; ?></p>
+			<hr class="divider-full" />
+			<p class="isEmail"><?php echo $user->user_email; ?></p>
 		</div>
 		<div class="col-md-9 profile-right">
+<!-- 			<div class="my-profile-info shadow-wrap">
+				<p>
+					
+				</p>
+			</div> -->
 			<div class="layer1 shadow-wrap">
 				<a href="#Update" data-toggle="collapse"><p>Update Profile Information</p></a>
 				<div id="Update" class="collapse">
@@ -26,16 +34,23 @@
 					<form action="#" method="post" role="form">
 					    <p class="form-row form-row-first">
 							<label for="account_first_name">First name</label>
-							<input type="text" class="input-text" name="account_first_name" id="account_first_name">
+							<input type="text" class="input-text profile" name="first_name" id="account_first_name" value="<?php echo $user->user_firstname; ?>">
 						</p>
 						<p class="form-row form-row-last">
 							<label for="account_last_name">Last name</label>
-							<input type="text" class="input-text" name="account_last_name" id="account_last_name">
+							<input type="text" class="input-text profile" name="last_name" id="account_last_name" value="<?php echo $user->user_lastname; ?>">
 						</p>
 						<p class="form-row form-row-wide">
-							<label for="account_email">Email address</label>
-							<input type="email" class="input-text" name="account_email" id="account_email">
+							<label for="email">Email address<span class="email-checker"></span></label>
+							<input type="email" class="input-text profile" name="email" id="email" value="<?php echo $user->user_email; ?>">
+							<input type="hidden" name="current-email" value="<?php echo $user->user_email; ?>">
 						</p>
+						<div class="clear"></div>
+						<p class="form-button">
+							<input type="submit" id="profile" class="save-button" name="profile" value="Update Profile">
+							<input type="hidden" name="form-action" value="profile">
+						</p>
+						<p></p>
 	             	</form>
 			  	</div>
 			</div>
@@ -44,19 +59,27 @@
 				<a href="#Change" data-toggle="collapse"><p>Change Password</p></a>
 				<div id="Change" class="collapse">
 					<hr class="divider-full" />
+					<p class="error"></p>
 					<form action="#" method="post" role="form">
 					    <p class="form-row form-row-first">
 							<label for="current">Current Password</label>
-							<input type="password" class="input-text" name="current" id="Current">
+							<input type="password" class="input-text pass" name="current" id="current">
+							<input type="hidden" id='hash' name="current-password" value="<?php echo $user->user_pass; ?>">
 						</p>
 						<p class="form-row form-row-first">
-							<label for="pass">New Password</label>
-							<input type="password" class="input-text" name="pass" id="pass">
+							<label for="npass">New Password</label>
+							<input type="password" class="input-text pass" name="pass" id="npass">
 						</p>
 						<p class="form-row form-row-first">
 							<label for="cpass">Re-Type New Password</label>
-							<input type="password" class="input-text" name="cpass" id="cpass">
+							<input type="password" class="input-text pass" name="cpass" id="cpass">
 						</p>
+						<div class="clear"></div>
+						<p class="form-button">
+							<input type="button" id="pass" class="save-button" name="password" value="Update Profile">
+							<input type="hidden" name="form-action" value="password">
+						</p>
+						<p></p>
 
 	             	</form>
 			  	</div>
@@ -94,7 +117,7 @@
 			<p>
 				<input type="submit" class="fusion-button button-default button-small button small default alignright" name="save_address" value="Save Address">
 				<input type="hidden" id="_wpnonce" name="_wpnonce" value="fcc48dabbc"><input type="hidden" name="_wp_http_referer" value="/my-account/edit-address/billing/">				<input type="hidden" name="action" value="edit_address">
-				</p><div class="clearboth"></div>
+			</p><div class="clearboth"></div>
 			<p></p>
 
 		</form>

@@ -40,7 +40,7 @@
 	$viewport = apply_filters( 'avada_viewport_meta', $viewport );
 	echo $viewport;
 	?>
-
+	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans+Narrow" />
 	<?php if ( Avada()->settings->get( 'favicon' ) ) : ?>
 		<link rel="shortcut icon" href="<?php echo Avada()->settings->get( 'favicon' ); ?>" type="image/x-icon" />
 	<?php endif; ?>
@@ -120,6 +120,7 @@
 	<?php echo Avada()->settings->get( 'google_analytics' ); ?>
 
 	<?php echo Avada()->settings->get( 'space_head' ); ?>
+
 </head>
 <?php
 $wrapper_class = '';

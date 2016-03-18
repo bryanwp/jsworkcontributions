@@ -63,11 +63,6 @@ jQuery(document).ready(function ($) {
    					
    			} else {
 
-               // $.ajax({
-               //    type:'GET',
-               //    url:''
-               // });
-
    				if ( ! noPassError ) {
    					$('.err-container').fadeIn();
 		   	   		$('.err-msg').empty();
@@ -87,30 +82,138 @@ jQuery(document).ready(function ($) {
    					return true;
    					console.log('no errors at all');
    				}
-   			}
-   		
+   			}		
+   });
 
-   		function isEmail( $email ) {
-		  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-		  return regex.test( $email );
-		}
 
-   		
+   function isEmail( $email ) {
+     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+     return regex.test( $email );
+   }
+
+   function checkIfEmpty( $arr ) {
+   
+      $.each( $arr, function( index, value ) {
+         // console.log( value );
+         if ( value == '' ) {
+            return false;
+         }
+      });
+
+      return true;
+   }
+
+   $('#email').keyup(function(){
+
+      if ( ! isEmail( $(this).val() ) ) {
+
+         $('.email-checker').empty().append('Invalid Format').css('color', '#F90000');
+         $('#profile').prop( 'disabled', true );
+
+      } else {
+
+         $('.email-checker').empty().append('Checking your email...').css('color', '#585454');
+
+      }
+
+      if ( $(this).val() === '' ) {
+         $('.email-checker').empty();
+      }
    });
 
    $('#email').change(function(){
-      var email = $('#email').val();
-      //console.log( email );
-      $.get(sheldz_ajax.ajaxUrl + '?action=check-email&email=' + email, function(response) {
-            if (response.data[0]) {
-            $('.err-container').fadeIn();
-            $('.err-msg').empty();
-            $('.err-msg').append( 'Email already exists!' );
-         } else {
-            $('.err-container').fadeOut();
-            console.log('Email is valid');
+
+      var email         = $('#email').val(),
+          currentemail  = $('input[name=current-email]').val();
+      if ( currentemail ) {
+
+         if ( email != currentemail && isEmail( email ) ) {
+
+            $.get(sheldz_ajax.ajaxUrl + '?action=check-email&email=' + email, function(response) {
+               if (response.data[0]) {
+
+                  console.log( 'Email is invalid' ); 
+                  $('.email-checker').empty().append('Email is in used already').css('color', '#F90000');
+                  $('#profile').prop( 'disabled', true );
+
+               } else {
+
+                  //console.log('Email is valid');
+                  $('.email-checker').empty().append('Valid Email').css('color', '#3E9025');
+                 
+                  var arr = $('.profile').map(function () { return this.value;}).get();
+
+                  if ( checkIfEmpty( arr ) ) {
+                     $('#profile').prop( 'disabled', false );
+                  } else {
+                     $('#profile').prop( 'disabled', true );
+                  }
+                  
+
+               }
+
+            });
+
          }
-      });
+
+      } else {
+
+         var email = $('#email').val();
+         // console.log( 'undefined ang current' );
+         $.get(sheldz_ajax.ajaxUrl + '?action=check-email&email=' + email, function(response) {
+            if (response.data[0]) {
+
+               $('.err-container').fadeIn();
+               $('.err-msg').empty();
+               $('.err-msg').append( 'Email already exists!' );
+
+            } else {
+
+               $('.err-container').fadeOut();
+               console.log('Email is valid');
+
+            }
+
+         });
+
+      }
+
+   });
+
+   $('#pass').click(function(){
+
+      if ( $('#current').val() == '' ) {
+         $('.error').empty().append('All fields are required.').fadeIn();
+         return false;
+      }
+
+      if ( $('#cpass').val().length < 5  ) {
+         $('.error').empty().append('Password must contain 5 characters or more.').fadeIn();
+         return false;
+      } 
+
+      if ( $('#npass').val() != $('#cpass').val() ) {
+         $('.error').empty().append('Please enter the same password in the two password fields.').fadeIn();
+         return false;
+      } 
+
+   var current_password = $('#current').val(),
+   
+       hash = $('#hash').val(),
+       password = $('#cpass').val();
+      console.log(hash);
+   $.get(sheldz_ajax.ajaxUrl + '?action=change-user-password&cpass=' + current_password + '&hash='+hash+'&pass=' + password, function(response) {
+            
+               console.log(response.data);
+            // if (response.data.result) {
+            //    console.log('success');
+            // } else {
+            //    console.log( response.data.result );
+            //    //$('.error').empty().append('You entered a wrong password.').fadeIn();
+            // }
+
+         });
+    
    });
 
 });
