@@ -209,7 +209,6 @@ label {
   background-color: #2D3B55;
 }
 
-
 .errorstyle {
     margin-bottom: 15px;
     background-color: #ffe9e9;
@@ -218,4 +217,15 @@ label {
     padding: 8px;
     position: relative;
     text-align: center;
+}
+
+.priceinputstyle {
+    width: 25%!important;
+    margin: 5px;
+    float: left;
+}
+
+.pricestyle {
+  float:left;
+  width: 20%;
 }
