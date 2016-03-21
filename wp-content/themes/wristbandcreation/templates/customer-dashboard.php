@@ -45,7 +45,12 @@ include ('custom-header.php'); ?>
 		include ('customer-dashboard-profile.php');
 	} elseif ( $action === 'notification' ) {
 		include ('customer-dashboard-notification.php');
+	} elseif ( $action === 'report' ) {
+		include ('customer-dashboard-notif-form.php');
+	} elseif ( $action === 'view-report' ) {
+		include ( 'customer-dashboard-single-report.php' );
 	}
+	
 	?>
 	<div class="col-md-10" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
 		<div class="gap-top"></div>

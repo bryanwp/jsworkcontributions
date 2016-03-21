@@ -261,3 +261,47 @@ span.time-ago {
     font-weight: normal;
     font-style: italic;
 }
+.form-group label {
+    font-size: 13px;
+    font-weight: bold;
+}
+textarea#addpost {
+    border: 1px solid;
+}
+.text-area iframe {
+    border: 1px solid #CECECE;
+    border-right: 2px solid #CECECE;
+}
+input#form-title {
+    height: auto!important;
+    font-size: 18px!important;
+    padding: 5px!important;
+    color: #585454;
+}
+.comment-list ul {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+.report-box {
+    border-bottom: 1px dotted;
+}
+.comment-list li {
+    margin-bottom: 5px;
+    background: #F1FBFC;
+    padding: 10px;
+}
+.comment-list li {
+    margin-bottom: 5px;
+    background: #F1FBFC;
+    padding: 10px;
+}
+.comment-list {
+    border-bottom: 2px solid #E6E6E6;
+    padding-bottom: 5px;
+}
+.comment-list li {
+    margin-bottom: 5px;
+    background: #F1FBFC;
+    padding: 10px;
+}

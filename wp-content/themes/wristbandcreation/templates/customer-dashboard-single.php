@@ -32,6 +32,7 @@ $items = $order->get_items();
 			<a href="<?php echo $pay_link; ?>"><li>Pay</li></a>
 			<li>Order Again</li>
 			<li>Reorder And Edit</li>
+			<a href="<?php echo home_url('customer-dashboard/?action=report&ID='. $order_id  ); ?>"><li>Send Report</li></a>
 		</ul>
 	</div>
 	<hr class="divider-full" />

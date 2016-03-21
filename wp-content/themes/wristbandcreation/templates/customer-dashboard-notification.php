@@ -15,6 +15,7 @@
 				<a href="#">
 					<div class="single-notif shadow-wrap">
 						<h3>Title of the Report <span class="time-ago">1 hour ago</span></h3>
+						<span>Last Reply by Admin -</span>
 						<span>Lorem ipsum dolor sit amet, his no alii vidit. Ei eirmod viderer equidem pro, eum fugit verear ex. Est ea dico aliquam scribentur. Pertinax necessitatibus ne ius, ea meliore nonumes per. Nec brute mollis id.</span>
 					</div>
 				</a>

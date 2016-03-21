@@ -205,3 +205,28 @@ function update_user_shipping_address() {
 
 }
 
+add_action( 'init', 'save_single_report' );
+function save_single_report() {
+	$user_id = get_current_user_id();
+	$post = $_POST;
+
+	if ( isset( $post['form-action'] ) && $post['form-action'] === 'send-report' ) {
+
+		add_post_meta( $post['order-id'], '_report_title', $post['report_title'] );
+		add_post_meta( $post['order-id'], '_report_content', $post['report_content'] );
+
+		$time = current_time('mysql');
+		add_post_meta( $post['order-id'], '_report_time_added', $time );
+
+		add_post_meta( $post['order-id'], '_report_content', $post['report_content'] );
+
+		$order_link = home_url('customer-dashboard/?action=view&ID='. $post['order-id'] );
+		add_post_meta( $post['order-id'], '_report_order_link', $order_link);
+
+		$redirect = home_url( 'customer-dashboard/?action=view-report&post-id='. $post['order-id'] );
+		exit( wp_redirect( $redirect ) );	
+
+	}
+
+}
+

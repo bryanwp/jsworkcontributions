@@ -47,8 +47,8 @@
 						</p>
 						<div class="clear"></div>
 						<p class="form-button">
-							<input type="submit" id="profile" class="save-button" name="profile" value="Update Profile">
 							<input type="hidden" name="form-action" value="profile">
+							<input type="submit" id="profile" class="save-button" name="profile" value="Update Profile">
 						</p>
 						<p></p>
 	             	</form>
