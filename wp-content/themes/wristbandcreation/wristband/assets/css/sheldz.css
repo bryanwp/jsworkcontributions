@@ -242,3 +242,22 @@ p.error {
     border-left: 3px solid #FF9393;
     display: none;
 }
+.select {
+    -webkit-appearance: menulist-button!important;
+}
+.notif-container ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+.notif-container h3 {
+    margin: 0px;
+}
+.single-notif {
+    padding: 10px 15px;
+}
+span.time-ago {
+    font-size: 10px;
+    font-weight: normal;
+    font-style: italic;
+}

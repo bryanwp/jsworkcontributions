@@ -26,9 +26,11 @@ include ('custom-header.php'); ?>
 					My Profile
 				</li>
 			</a>
-			<li>
-				Notification
-			</li>
+			<a href="<?php echo home_url('customer-dashboard/?action=notification'); ?>">
+				<li>
+					Notification
+				</li>
+			</a>
 		</ul>
 	</div>
 	<?php
@@ -41,6 +43,8 @@ include ('custom-header.php'); ?>
 		include ('customer-dashboard-single.php');
 	} elseif ( $action === 'profile' ) {
 		include ('customer-dashboard-profile.php');
+	} elseif ( $action === 'notification' ) {
+		include ('customer-dashboard-notification.php');
 	}
 	?>
 	<div class="col-md-10" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>

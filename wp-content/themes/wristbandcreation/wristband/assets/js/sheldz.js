@@ -198,11 +198,9 @@ jQuery(document).ready(function ($) {
       } 
 
    var current_password = $('#current').val(),
-   
-       hash = $('#hash').val(),
-       password = $('#cpass').val();
-      console.log(hash);
-   $.get(sheldz_ajax.ajaxUrl + '?action=change-user-password&cpass=' + current_password + '&hash='+hash+'&pass=' + password, function(response) {
+      password = $('#cpass').val();
+
+   $.get(sheldz_ajax.ajaxUrl + '?action=change-user-password&pass='+password, function(response) {
             
                console.log(response.data);
             // if (response.data.result) {
@@ -214,6 +212,15 @@ jQuery(document).ready(function ($) {
 
          });
     
+   });
+
+   $('.bill-add').click(function(){
+      var country = $('input[name=billing_country]').val();
+      $('#billing_country option[value='+country+']').attr('selected','selected');
+   });
+   $('.shipping').click(function(){
+      var country = $('input[name=shipping_country]').val();
+      $('#shipping_country option[value='+country+']').attr('selected','selected');
    });
 
 });

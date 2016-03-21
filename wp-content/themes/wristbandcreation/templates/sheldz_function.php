@@ -141,19 +141,67 @@ function update_profile(){
 add_action('wp_ajax_change-user-password', 'change_user_password');
 add_action('wp_ajax_nopriv_change-user-password', 'change_user_password');
 function change_user_password(){
+	$post = $_REQUEST;
+	$new_pass = $post['pass'];
+
+	$userdata = array(
+		'ID' 		=> get_current_user_id(), 
+		'user_pass' => $new_pass 
+	);
+	
+	$user = wp_update_user( $userdata );
+
+	if ( $user ) {
+		$result = 'success';
+		exit( wp_send_json_success( $result ) );
+	} else {
+		$result = 'wala ma change';
+		exit( wp_send_json_success( $result ) );
+	}
+	
+}
+
+add_action( 'init', 'update_user_billing_address' );
+function update_user_billing_address() {
+	$user_id = get_current_user_id();
 	$post = $_POST;
 
-	$wp_hasher = new PasswordHash(16, FALSE);
-	$hash = wp_hash_password( $post['cpass'] );
+	if ( isset( $post['form-action'] ) && $post['form-action'] === 'billing-address' ) {
 
-	if ( $hash != $post['hash'] ) {
-		$result = 'wpw';
-		exit( wp_send_json_success( $hash ) );
-	} else {
-		if ( wp_set_password( $post['pass'], get_current_user_id() ) ) {
-			$result = 'asdaf';
-			exit( wp_send_json_success( $result ) );
-		}
+		update_user_meta( $user_id, 'billing_first_name', $post['billing_first_name'] );
+		update_user_meta( $user_id, 'billing_last_name', $post['billing_last_name'] );
+		update_user_meta( $user_id, 'billing_company', $post['billing_company'] );
+		update_user_meta( $user_id, 'billing_email', $post['billing_email'] );
+		update_user_meta( $user_id, 'billing_phone', $post['billing_phone'] );
+		update_user_meta( $user_id, 'billing_country', $post['billing_country'] );
+		update_user_meta( $user_id, 'billing_address_1', $post['billing_address_1'] );
+		update_user_meta( $user_id, 'billing_address_2', $post['billing_address_2'] );
+		update_user_meta( $user_id, 'billing_city', $post['billing_city'] );
+		update_user_meta( $user_id, 'billing_state', $post['billing_state'] );
+		update_user_meta( $user_id, 'billing_postcode', $post['billing_postcode'] );
+
 	}
+
+}
+
+add_action( 'init', 'update_user_shipping_address' );
+function update_user_shipping_address() {
+	$user_id = get_current_user_id();
+	$post = $_POST;
+
+	if ( isset( $post['form-action'] ) && $post['form-action'] === 'shipping-address' ) {
+
+		update_user_meta( $user_id, 'shipping_first_name', $post['shipping_first_name'] );
+		update_user_meta( $user_id, 'shipping_last_name', $post['shipping_last_name'] );
+		update_user_meta( $user_id, 'shipping_company', $post['shipping_company'] );
+		update_user_meta( $user_id, 'shipping_country', $post['shipping_country'] );
+		update_user_meta( $user_id, 'shipping_address_1', $post['shipping_address_1'] );
+		update_user_meta( $user_id, 'shipping_address_2', $post['shipping_address_2'] );
+		update_user_meta( $user_id, 'shipping_city', $post['shipping_city'] );
+		update_user_meta( $user_id, 'shipping_state', $post['shipping_state'] );
+		update_user_meta( $user_id, 'shipping_postcode', $post['shipping_postcode'] );
+
+	}
+
 }
 
