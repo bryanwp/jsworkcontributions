@@ -4,6 +4,7 @@
 p[align=center] {
     display: none;
 }
+
 #main {
     padding: 0px!important;
 }
@@ -323,7 +324,7 @@ input#form-title {
     background: #fff;
     min-height: 40px;
 }
-.comment-editor input[type=submit] {
+.comment-editor input[name=submit] {
     border: none;
     background: none;
     width: 7%;
@@ -357,6 +358,7 @@ input#form-title {
 }
 .white {
     background: #ffffff;
+    min-height: 86.7vh;
 }
 .reply-container {
     background: #F1FBFC;
