@@ -223,9 +223,27 @@ label {
     width: 25%!important;
     margin: 5px;
     float: left;
+    border: 1px solid #d2d2d2;
+    font-size: 13px;
+    color: #747474;
+    padding: 8px 15px;
+    margin-right: 1%;
+    /*width: 100%;*/
+    box-sizing: border-box;
+}
+
+.priceinputstyle1 {
+    margin: 5px;
+    float: left;
+    padding: 20px 15px!important;
+    width: 78%!important;
 }
 
 .pricestyle {
   float:left;
   width: 20%;
+}
+
+.imagestyle {
+  max-height: 400px
 }

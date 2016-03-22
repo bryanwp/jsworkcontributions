@@ -245,3 +245,61 @@ function show_error_messages() {
 		echo '</div>';
 	}
 }
+
+add_action( 'init', 'change_status' );
+function change_status() {
+	$user_id = get_current_user_id();
+	$post = $_POST;
+	$key = '_new_status';
+
+	if ( isset( $post['status-submit'] ) ) {
+
+		if ( ! add_post_meta( $post['order_id'], $key, $post['newstatus'], true ) ) { 
+			   update_post_meta ( $post['order_id'], $key, $post['newstatus'] );
+			}
+		// echo $themeta;
+		// die();
+		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
+		exit( wp_redirect( $redirect ) );	
+
+	}
+
+}
+
+add_action( 'init', 'add_shipment_price' );
+
+function add_shipment_price() {
+
+	$user_id = get_current_user_id();
+	$post = $_POST;
+
+	if ( isset($post['trackingnum']) ) {$trackingnum = $post['trackingnum'];}
+	if ( isset($post['mold']) ) {$mold = $post['mold'];}
+	if ( isset($post['printing']) ) {$printing = $post['printing'];}
+	if ( isset($post['laser']) ){$laser	= $post['laser'];}
+	if ( isset($post['colorfill']) ){$colorfill = $post['colorfill'];}
+	if ( isset($post['embossedp']) ){$embossedp = $post['embossedp'];}
+	if ( isset($post['imprintingp']) ){$imprintingp = $post['imprintingp'];}
+	if ( isset($post['swirlp']) ){$swirlp = $post['swirlp'];}
+	if ( isset($post['segmentedp']) ){$segmentedp = $post['segmentedp'];}
+	if ( isset($post['glowp']) ){$glowp = $post['glowp'];}
+	if ( isset($post['duallayerp']) ){$duallayerp 	= $post['duallayerp'];}
+	if ( isset($post['insideembossed']) ){$insideembossed = $post['insideembossed'];}
+	if ( isset($post['individualpkg']) ){$individualpkg = $post['individualpkg'];}
+	if ( isset($post['keychains']) ){$keychains = $post['keychains'];}
+	if ( isset($post['shipdhl']) ){$shipdhl	= $post['shipdhl'];}
+	if ( isset($post['wtotalprice']) ){$wtotalprice = $post['wtotalprice'];}
+
+	
+	if ( isset($post['delivery-submit']) ) {
+
+		echo $mold;
+		echo $printing;
+		echo $laser;
+
+		die();
+
+	}
+
+
+}
