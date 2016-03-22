@@ -215,7 +215,8 @@ function save_single_report() {
 		add_post_meta( $post['order-id'], '_report_title', $post['report_title'] );
 		add_post_meta( $post['order-id'], '_report_content', $post['report_content'] );
 
-		$time = current_time('mysql');
+		//$time = current_time('mysql');
+		$time = date('Y-m-d') . 'T' . date('H:i:s') . 'Z';
 		add_post_meta( $post['order-id'], '_report_time_added', $time );
 
 		add_post_meta( $post['order-id'], '_report_content', $post['report_content'] );
@@ -230,30 +231,63 @@ function save_single_report() {
 
 }
 
-add_action('init', 'add_reply');
-function add_reply() {
+add_action('wp_ajax_add-reply', 'add_reply');
+add_action('wp_ajax_nopriv_add-reply', 'add_reply');
+function add_reply( $post = false ){
+	
+	$time = date('Y-m-d') . 'T' . date('H:i:s') . 'Z';
 	$user_id = get_current_user_id();
-	$post = $_POST;
+	$user = wp_get_current_user();
+	$post = $_REQUEST;
 
-	// if ( isset( $post['form-action'] ) && $post['form-action'] === 'send-report' ) {
-	// 	$time = current_time('mysql');
+	$data = array(
+	    'comment_post_ID' 		=> $post['post-id'],
+	    'comment_author' 		=> $user->display_name,
+	    'comment_author_email'  => $user->user_email,
+	    'comment_content' 		=> $post['reply'],
+	    'user_id' 				=> $user_id,
+	    'comment_date' 			=> $time,
+	    'comment_approved' 		=> 1,
+	);
 
-	// 	$data = array(
-	// 	    'comment_post_ID' => 1,
-	// 	    'comment_author' => 'admin',
-	// 	    'comment_author_email' => 'admin@admin.com',
-	// 	    'comment_author_url' => 'http://',
-	// 	    'comment_content' => 'content here',
-	// 	    'comment_type' => '',
-	// 	    'comment_parent' => 0,
-	// 	    'user_id' => 1,
-	// 	    'comment_author_IP' => '127.0.0.1',
-	// 	    'comment_agent' => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.10) Gecko/2009042316 Firefox/3.0.10 (.NET CLR 3.5.30729)',
-	// 	    'comment_date' => $time,
-	// 	    'comment_approved' => 1,
-	// 	);
+	$insert_comment = wp_insert_comment( $data );
 
-	// 	wp_insert_comment($data);
-	// }
+	if ( $insert_comment ) {
+		exit( wp_send_json_success( $insert_comment ) );
+	}
 }
 
+function get_comments_list( $order_id ){
+
+	$args = array(
+		'comment_post_ID' => $order_id,
+	);
+
+	$comments =  fetch_comments( $args ); 
+
+	// echo "<pre>";
+	// print_r($comments);
+	// die;
+		
+	foreach ( $comments as $comment ) { 
+		$user = get_user_by( 'email', $comment->comment_author_email );
+		$datetime = str_replace(" ", "T", $comment->comment_date) . 'Z';
+		?>
+			<li>
+				<div class="single-comment">
+					<img src="http://0.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=32&d=mm&r=g" class="img-thumbnail" alt="Cinque Terre">
+					<p><?php echo $user->display_name; ?> <span class="time-ago"><time class="timeago" datetime="<?php echo $datetime; ?>">...</time></span></p>
+					<span><?php echo $comment->comment_content; ?></span>
+				</div>
+			</li>
+		<?php
+	 } 	
+}
+
+function fetch_comments( $args ){
+	global $wpdb;
+
+	$sql = "SELECT * FROM $wpdb->comments where comment_post_ID = '{$args['comment_post_ID']}'";
+	$results = $wpdb->get_results( $sql );
+	return $results;
+}

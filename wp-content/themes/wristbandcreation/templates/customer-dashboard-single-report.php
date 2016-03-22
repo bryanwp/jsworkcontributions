@@ -5,7 +5,7 @@
 		$order_id = $_GET['post-id'];
 	}
 ?>
-<div class="col-md-10">
+<div class="col-md-10 white">
 	<div class="gap-top"></div>
 	<div class="dash-title-holder">
 		<h2>Report for Order# <?php echo $order_id; ?></h2>
@@ -16,31 +16,31 @@
 	</div>
 	<div style="height: 10px"></div>
 	<div class="report-box">
-		<h3><?php echo get_post_meta( $order_id, '_report_title', true ); ?> <span class="time-ago">1 hour ago</span></h3>
+
+		<h3><?php echo get_post_meta( $order_id, '_report_title', true ); ?> <span class="time-ago"><time class="timeago" datetime="<?php echo get_post_meta( $order_id, '_report_time_added', true ); ?>" >asd</time></span></h3>
 		<p class="report-content">
 			<?php echo get_post_meta( $order_id, '_report_content', true ); ?>
 		</p>
 	</div>
-	<h3>Replies</h3>
-	<div class="comment-list">
-		<ul>
-			<li>
-				<div class="single-comment">
-					Lorem ipsum dolor sit amet, nam an platonem euripidis, ad mei autem fuisset. Nemore facete ornatus eu mei, an mutat gloriatur quaerendum cum, ne quis voluptaria pri. Id etiam nonumes accommodare per, ne ubique percipit phaedrum vim. Mea tempor numquam in. Eum graecis sadipscing in, ius enim semper iudicabit an. Alia porro mei ei.
-				</div>
-			</li>
-			<li>
-				<div class="single-comment">
-					Lorem ipsum dolor sit amet, nam an platonem euripidis, ad mei autem fuisset. Nemore facete ornatus eu mei, an mutat gloriatur quaerendum cum, ne quis voluptaria pri. Id etiam nonumes accommodare per, ne ubique percipit phaedrum vim. Mea tempor numquam in. Eum graecis sadipscing in, ius enim semper iudicabit an. Alia porro mei ei.
-				</div>
-			</li>
-		</ul>
+	<div class="reply-container">
+		<h3>Replies</h3>
+		<div class="comment-list">
+			<ul id="reply-list">
+				<?php get_comments_list( $order_id ); ?>
+			</ul>
+		</div>
+		<div class="comment-editor" contenteditable>
+			<form method="post">
+				<?php 
+					 $current_user = wp_get_current_user();
+				?>
+				<textarea class="reply" name="reply" style="margin: 0px; width: 90%; height: 40px;" placeholder="Add Reply..."></textarea>
+				<input id="post_id" type="hidden" name="post-id" value="<?php echo $order_id; ?>">
+				<input id="name" type="hidden" name="name" value="<?php echo $current_user->display_name  ?>">
+				<input class="reply-btn" type="button" name="submit" value="Reply" >
+			</form>
+		</div>
 	</div>
-	<div class="comment-editor">
-		<form method="post">
-			<textarea name="reply"></textarea>
-			<input type="submit" name="reply" value="Reply" >
-		</form>
-	</div>
+	<div class="gap-top"></div>
 </div>
 

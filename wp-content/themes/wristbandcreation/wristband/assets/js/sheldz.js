@@ -1,4 +1,12 @@
 jQuery(document).ready(function ($) {
+   $("time.timeago").timeago();
+
+   (function loop() {
+   setTimeout(function () {
+       $("time.timeago").timeago();
+       loop()
+     }, 10000);
+   }());
 
    $('.submit').click(function(){
    		
@@ -203,12 +211,7 @@ jQuery(document).ready(function ($) {
    $.get(sheldz_ajax.ajaxUrl + '?action=change-user-password&pass='+password, function(response) {
             
                console.log(response.data);
-            // if (response.data.result) {
-            //    console.log('success');
-            // } else {
-            //    console.log( response.data.result );
-            //    //$('.error').empty().append('You entered a wrong password.').fadeIn();
-            // }
+   
 
          });
     
@@ -221,6 +224,84 @@ jQuery(document).ready(function ($) {
    $('.shipping').click(function(){
       var country = $('input[name=shipping_country]').val();
       $('#shipping_country option[value='+country+']').attr('selected','selected');
+   });
+
+
+   adjustTextarea('.reply');
+   function adjustTextarea(id){
+      var txt = $(id),
+      hiddenDiv = $(document.createElement('div')),
+      content = null;
+
+      txt.addClass('noscroll');
+      hiddenDiv.addClass('hiddendiv');
+
+      $('body').append(hiddenDiv);
+       width = txt.width();
+       content = txt.val();
+       content = content.replace(/\n/g, '');
+       hiddenDiv.html(content);
+       txt.css('height', hiddenDiv.height());
+
+
+
+      txt.bind('keyup', function() {
+
+          content = txt.val();
+          content = content.replace(/\n/g, '');
+          hiddenDiv.html(content);
+
+          
+          if ( content == '' ) {
+            txt.css('height', '40px');
+            $('.reply-btn').css('height', '40px');
+          } else {
+            txt.css('height', hiddenDiv.height());
+            $('.reply-btn').css('height', hiddenDiv.height());
+          }
+      });
+   }
+
+   $('.reply').keyup(function(){
+      var width = $('.reply').innerWidth();
+      $('.hiddendiv').width( width );
+   });
+
+   $('.reply-btn').click(function(){
+      var d = new Date();
+
+      var month = d.getMonth()+1;
+      var day = d.getDate();
+
+      var datetime = d.getFullYear() + '-' +
+          (month<10 ? '0' : '') + month + '-' +
+          (day<10 ? '0' : '') + day;
+
+      datetime += 'T'+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds() +'Z';
+      var   post_id = $('#post_id').val();
+      var   content = $('.reply').val();
+      var   display_name = $('#name').val();
+
+      var output ='';
+      if ( content != '' ) {
+         output += '<li>';
+         output +=   '<div class="single-comment">';
+         output +=      '<img src="http://0.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=32&d=mm&r=g" class="img-thumbnail" alt="Cinque Terre">';
+         output +=      '<p>'+display_name+' <span class="time-ago"><time class="timeago" datetime="'+datetime+'">Just now</time></span></p>';
+         output +=      '<span>'+content+'</span>';
+         output +=   '</div>';
+         output += '</li>';
+         
+         $('#reply-list').append( output );
+         $('.reply').val('');
+         $('.reply').css('height', '40px');
+
+          $.get(sheldz_ajax.ajaxUrl + '?action=add-reply&post-id='+post_id+'&reply='+content, function(response) { 
+            console.log(response.data);
+            console.log('reply save');
+            $("time.timeago").timeago();
+         });
+      }
    });
 
 });

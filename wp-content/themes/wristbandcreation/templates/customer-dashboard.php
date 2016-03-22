@@ -52,7 +52,7 @@ include ('custom-header.php'); ?>
 	}
 	
 	?>
-	<div class="col-md-10" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
+	<div class="col-md-10 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
 		<div class="gap-top"></div>
 		<div>
 			<h2>My Orders</h2>
