@@ -47,7 +47,7 @@ include ('custom-header.php'); ?>
 		include ('customer-dashboard-notification.php');
 	}
 	?>
-	<div class="col-md-10" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
+	<div class="col-md-10 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
 		<div class="gap-top"></div>
 		<div>
 			<h2>My Orders</h2>
@@ -98,7 +98,26 @@ if ( $customer_orders ) : ?>
 						<time datetime="<?php echo date( 'Y-m-d', strtotime( $order->order_date ) ); ?>" title="<?php echo esc_attr( strtotime( $order->order_date ) ); ?>"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?></time>
 					</td>
 					<td data-title="<?php esc_attr_e( 'Status', 'woocommerce' ); ?>" style="text-align:left; white-space:nowrap;">
-						<?php echo wc_get_order_status_name( $order->get_status() ); ?>
+						<?php // echo wc_get_order_status_name( $order->get_status() );
+							$key = '_new_status';
+							$poststatusmeta = get_post_meta($customer_order->ID, $key, TRUE);
+							if ($poststatusmeta == 'pending_production') {
+								echo 'Pending Production';
+							} elseif ($poststatusmeta == 'pending_artwork_approval') {
+								echo 'Pending Artwork Approval';
+							} elseif ($poststatusmeta == 'in_production') {
+								echo 'In Production';
+							} elseif ($poststatusmeta == 'in_reproduction') {
+								echo 'In Reproduction';
+							} elseif ($poststatusmeta == 'produced_pending_shipment') {
+								echo 'Produced Pending Shipment';
+							} elseif ($poststatusmeta == 'shipped') {
+								echo 'Shipped';
+							} else {
+								echo 'No Status Yet';
+							}
+
+						 ?>
 					</td>
 					<td data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>">
 						<?php echo sprintf( _n( '%s for %s item', '%s for %s items', $item_count, 'woocommerce' ), $order->get_formatted_order_total(), $item_count ); ?>

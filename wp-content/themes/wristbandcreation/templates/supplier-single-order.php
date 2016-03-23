@@ -25,7 +25,7 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
   
 
 ?>
-<div class="col-md-10">
+<div class="col-md-10 white">
 	<div class="gap-top"></div>
 	<div class="dash-title-holder">
 		<h2>Order #<?php echo $order_id; ?></h2>
