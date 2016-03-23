@@ -162,7 +162,7 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 						</ul>
 					</div>
 				<?php
-				} elseif ( is_page( 'register' ) ) {
+				} elseif ( is_page( 'register' ) ) { 
 					?>
 						<div class="nav-wrap">
 							<ul class="dash-custom-nav">

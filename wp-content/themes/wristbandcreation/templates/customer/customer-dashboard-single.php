@@ -1,7 +1,7 @@
 <?php
 $order_id = '';
 if ( isset( $_GET['ID'] ) ) {
-			$order_id = $_GET['ID'];
+			$order_id = $_GET['ID']; 
 }
 
 $key = get_post_meta( $order_id, '_order_key', true );

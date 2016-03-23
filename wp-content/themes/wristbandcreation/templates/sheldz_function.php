@@ -301,7 +301,7 @@ function get_comments_list( $order_id ){
 	foreach ( $comments as $comment ) { 
 		$user = get_user_by( 'email', $comment->comment_author_email );
 		$datetime = str_replace(" ", "T", $comment->comment_date) . 'Z';
-		?>
+		?> 
 			<li>
 				<div class="single-comment">
 					<img src="http://0.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=32&d=mm&r=g" class="img-thumbnail" alt="Cinque Terre">

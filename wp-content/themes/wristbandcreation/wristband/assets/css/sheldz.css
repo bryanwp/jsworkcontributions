@@ -96,7 +96,7 @@ ul.dash-nav li {
     text-align: center;
     color: #D6D6D6;
     font-size: 14px;
-    cursor: pointer;
+    cursor: pointer; 
 }
 .sub-container {
     /*margin-left: -30px;*/

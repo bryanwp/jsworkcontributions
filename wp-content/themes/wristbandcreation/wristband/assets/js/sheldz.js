@@ -198,7 +198,7 @@ jQuery(document).ready(function ($) {
       if ( $('#cpass').val().length < 5  ) {
          $('.error').empty().append('Password must contain 5 characters or more.').fadeIn();
          return false;
-      } 
+      }  
 
       if ( $('#npass').val() != $('#cpass').val() ) {
          $('.error').empty().append('Please enter the same password in the two password fields.').fadeIn();

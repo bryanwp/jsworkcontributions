@@ -28,7 +28,7 @@ include ('custom-header.php'); ?>
 			</a>
 			<a href="<?php echo home_url('customer-dashboard/?action=notification'); ?>">
 				<li>
-					Notification
+					Notification 
 				</li>
 			</a>
 		</ul> 
