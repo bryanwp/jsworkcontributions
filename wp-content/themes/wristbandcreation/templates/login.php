@@ -12,7 +12,7 @@ include ('custom-header.php');
 }
 
 ob_start(); ?>
-<div style="height: 50px"></div>
+<div style="height: 50px; background: #ffffff"></div>
 <div class="container white">
    <div class="row">
     <div class="col-md-6 col-md-offset-3">

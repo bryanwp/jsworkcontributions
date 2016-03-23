@@ -226,9 +226,10 @@ jQuery(document).ready(function ($) {
       $('#shipping_country option[value='+country+']').attr('selected','selected');
    });
 
+   $('.reply').keyup(function(){
 
-   adjustTextarea('.reply');
-   function adjustTextarea(id){
+      adjustTextarea(this);
+      function adjustTextarea(id){
       var txt = $(id),
       hiddenDiv = $(document.createElement('div')),
       content = null;
@@ -261,8 +262,6 @@ jQuery(document).ready(function ($) {
           }
       });
    }
-
-   $('.reply').keyup(function(){
       var width = $('.reply').innerWidth();
       $('.hiddendiv').width( width );
    });
