@@ -14,7 +14,7 @@ check_if_login();
 include ('custom-header.php'); ?>
 
 <div class="row">
-	<div class="col-md-2">
+<!-- 	<div class="col-md-2">
 		<ul class="dash-nav">
 			<a href="<?php echo home_url('customer-dashboard'); ?>">
 				<li>
@@ -31,8 +31,8 @@ include ('custom-header.php'); ?>
 					Notification
 				</li>
 			</a>
-		</ul>
-	</div>
+		</ul> 
+	</div>-->
 	<?php
 	$action = '';
 	if ( isset( $_GET['action'] ) ) {
@@ -52,15 +52,15 @@ include ('custom-header.php'); ?>
 	}
 	
 	?>
-	<div class="col-md-10 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
-		<div class="gap-top"></div>
-		<div>
+	<div class="col-md-12 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
+		<div class="gap-top">
+			<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
+		</div>
+		<div style="margin-top: 20px;">
 			<h2>My Orders</h2>
 		</div>
-		<div class="dash-filter">
-			<span>Filter:</span>
-		</div>
-		<div class="table-1">
+
+		<div class="table-1 no-overflow">
 		<?php
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
   'meta_key'    => '_customer_user',
@@ -73,71 +73,108 @@ $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_q
 // print_r($customer_orders);
 // die;
 
-if ( $customer_orders ) : ?>
+if ( $customer_orders ) : 
+	 foreach ( $customer_orders as $customer_order ) {
+	 	$orders = wc_get_order( $customer_order );
+        $orders->populate( $customer_order );
+        $order_id = $orders->get_order_number();
 
-	<table  width="100%">
+       	$order = new WC_Order( $order_id );
+		$items = $order->get_items();
+?>
+	<div class="order-container">
+		<a href="<?php echo esc_url( home_url('customer-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>"><h2><?php echo get_order_number_format( $order_id ); ?></h2></a>
+		<?php foreach ( $items as $item ) {
+		    $wristband_meta = maybe_unserialize( $item['wristband_meta']);
+		    $color = $wristband_meta['colors'];
+		?>
+		<div class="details-container">
+			<h3><?php echo $item['name']; ?> Wristband</h3>
+			<div class="row">
+					<div class="col-md-6">
+						<table class="tbl-info" width="100%">
+							<tr>
+								<td>Width:</td>
+								<td><?php echo $wristband_meta['size']; ?></td>
+							</tr>
+							<?php
+								$color = $wristband_meta['colors'];
+								foreach ($color as $colors) {
+									$count = 1;
+									$sizes = $colors['sizes'];
+									foreach ( $sizes as $size ) {
+										if ( $size >= 1 && $count === 1 ) {
+											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Adult Size</td></tr>'; 
+										} elseif ( $size >= 1 && $count === 2  ) {
+											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Medium Size</td></tr>'; 
+										} elseif ( $size >= 1 && $count === 3  ) {
+											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Youth Size</td></tr>'; 
+										} 
+										$count++;
+									}
+								}
+							?>
+							<?php
+								$options = $wristband_meta['messages'];
+								foreach ( $options as $key => $msg ) {
+									if ( empty( $msg ) ) {
+										$msg = 'None';
+									}
+									echo '<tr><td>' . $key . ':</td><td>' . $msg . '</td></tr>'; 
+								}
 
-		<thead>
-			<tr>
-				<th class="order-number"><span class="nobr"><?php _e( 'Order', 'woocommerce' ); ?></span></th>
-				<th class="order-date"><span class="nobr"><?php _e( 'Date', 'woocommerce' ); ?></span></th>
-				<th class="order-status"><span class="nobr"><?php _e( 'Status', 'woocommerce' ); ?></span></th>
-				<th class="order-total"><span class="nobr"><?php _e( 'Total', 'woocommerce' ); ?></span></th>
-				<th class="order-actions"> View </th>
-			</tr>
-		</thead>
+							?>
+						</table>
+					</div>
 
-		<tbody><?php
-      foreach ( $customer_orders as $customer_order ) {
-        $order = wc_get_order( $customer_order );
-        $order->populate( $customer_order );
-        $item_count = $order->get_item_count();
+					<div class="col-md-6">
+						<table class="tbl-info" width="100%">
+							<?php
+								$options = $wristband_meta['additional_options'];
+								if ( $options ) {
+									foreach ( $options as $option ) {
+									echo '<tr><td>Addtional Options</td><td>' . $option . '</td></tr>'; 
+									}
+								} else {
+									echo '<tr><td>Addtional Options</td><td>None</td></tr>'; 
+								}
+							?>
+						</table>
+						<table class="tbl-info" width="100%">
+							<tr>
+								<td>
+									Date: 
+								</td>
+								<td>
+									 <?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Payment Method: 
+								</td>
+								<td>
+									<?php echo get_post_meta( $order_id, '_payment_method_title', true ); ?>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Grand total: 
+								</td>
+								<td>
+									<?php echo $order->get_formatted_order_total(); ?>
+								</td>
 
-        ?><tr>
-					<td data-title="<?php esc_attr_e( 'Order Number', 'woocommerce' ); ?>">
-						<a href="<?php echo esc_url( home_url('customer-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
-							<?php echo _x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number(); ?>
-						</a>
-					</td>
-					<td data-title="<?php esc_attr_e( 'Date', 'woocommerce' ); ?>">
-						<time datetime="<?php echo date( 'Y-m-d', strtotime( $order->order_date ) ); ?>" title="<?php echo esc_attr( strtotime( $order->order_date ) ); ?>"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?></time>
-					</td>
-					<td data-title="<?php esc_attr_e( 'Status', 'woocommerce' ); ?>" style="text-align:left; white-space:nowrap;">
-						<?php echo wc_get_order_status_name( $order->get_status() ); ?>
-					</td>
-					<td data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>">
-						<?php echo sprintf( _n( '%s for %s item', '%s for %s items', $item_count, 'woocommerce' ), $order->get_formatted_order_total(), $item_count ); ?>
-					</td>
-					<td>
-						<?php
-              $actions = array();
+							</tr>
+						</table>
+					</div>
+				
+			</div>
+		</div>
+		<?php } ?>
+	</div>
+<?php } ?>
 
-              $actions['view'] = array(
-                'url'  => home_url('customer-dashboard/?action=view&ID=' . $customer_order->ID ),
-                'name' => __( 'View', 'woocommerce' )
-              );
-
-               if ( $order->needs_payment() ) {
-                $actions['pay'] = array(
-                  'url'  => $order->get_checkout_payment_url(),
-                  'name' => __( 'Pay', 'woocommerce' )
-                );
-              }
-
-              $actions = apply_filters( 'woocommerce_my_account_my_orders_actions', $actions, $order );
-
-              if ( $actions ) {
-                foreach ( $actions as $key => $action ) {
-                  echo '<a href="' . esc_url( $action['url'] ) . '" class="button ' . sanitize_html_class( $key ) . '">' . esc_html( $action['name'] ) . '</a>';
-                }
-              }
-            ?>
-					</td>
-				</tr><?php
-      }
-    ?></tbody>
-
-	</table>
 
 <?php endif; ?>
 		</div>

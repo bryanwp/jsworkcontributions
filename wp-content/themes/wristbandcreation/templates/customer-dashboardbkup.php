@@ -1,5 +1,5 @@
 <?php
- //Template Name: Admin Dashboard
+ //Template Name: Customer Dashboard
 check_if_login();
 
 // foreach ( $results as $result => $post_id ) {
@@ -14,30 +14,25 @@ check_if_login();
 include ('custom-header.php'); ?>
 
 <div class="row">
-	<div class="col-md-2">
+<!-- 	<div class="col-md-2">
 		<ul class="dash-nav">
-			<a href="<?php echo home_url('admin-dashboard'); ?>">
+			<a href="<?php echo home_url('customer-dashboard'); ?>">
 				<li>
 					My Orders
 				</li>
 			</a>
-			<a href="<?php echo home_url('admin-dashboard/?action=profile'); ?>">
+			<a href="<?php echo home_url('customer-dashboard/?action=profile'); ?>">
 				<li>
 					My Profile
 				</li>
 			</a>
-			<a href="<?php echo home_url('admin-dashboard/?action=notification'); ?>">
+			<a href="<?php echo home_url('customer-dashboard/?action=notification'); ?>">
 				<li>
 					Notification
 				</li>
 			</a>
-			<a href="#">
-				<li>
-					Order Logs
-				</li>
-			</a>
-		</ul>
-	</div>
+		</ul> 
+	</div>-->
 	<?php
 	$action = '';
 	if ( isset( $_GET['action'] ) ) {
@@ -45,19 +40,19 @@ include ('custom-header.php'); ?>
 	}
 
 	if ( $action === 'view') {
-		include ('admin/admin-dashboard-single.php');
+		include ('customer/customer-dashboard-single.php');
 	} elseif ( $action === 'profile' ) {
-		include ('admin/admin-dashboard-profile.php');
+		include ('customer/customer-dashboard-profile.php');
 	} elseif ( $action === 'notification' ) {
-		include ('admin/admin-dashboard-notification.php');
+		include ('customer/customer-dashboard-notification.php');
 	} elseif ( $action === 'report' ) {
-		include ('admin/admin-dashboard-notif-form.php');
+		include ('customer/customer-dashboard-notif-form.php');
 	} elseif ( $action === 'view-report' ) {
-		include ( 'admin/admin-dashboard-single-report.php' );
+		include ( 'customer/customer-dashboard-single-report.php' );
 	}
 	
 	?>
-	<div class="col-md-10 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
+	<div class="col-md-12 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
 		<div class="gap-top"></div>
 		<div>
 			<h2>My Orders</h2>
@@ -69,6 +64,7 @@ include ('custom-header.php'); ?>
 		<?php
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
   'meta_key'    => '_customer_user',
+  'meta_value'  => get_current_user_id(),
   'post_type'   => wc_get_order_types( 'view-orders' ),
   'post_status' => array_keys( wc_get_order_statuses() )
 ) ) );
@@ -99,7 +95,7 @@ if ( $customer_orders ) : ?>
 
         ?><tr>
 					<td data-title="<?php esc_attr_e( 'Order Number', 'woocommerce' ); ?>">
-						<a href="<?php echo esc_url( home_url('admin-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
+						<a href="<?php echo esc_url( home_url('customer-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
 							<?php echo _x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number(); ?>
 						</a>
 					</td>
@@ -117,10 +113,16 @@ if ( $customer_orders ) : ?>
               $actions = array();
 
               $actions['view'] = array(
-                'url'  => home_url('admin-dashboard/?action=view&ID=' . $customer_order->ID ),
+                'url'  => home_url('customer-dashboard/?action=view&ID=' . $customer_order->ID ),
                 'name' => __( 'View', 'woocommerce' )
               );
 
+               if ( $order->needs_payment() ) {
+                $actions['pay'] = array(
+                  'url'  => $order->get_checkout_payment_url(),
+                  'name' => __( 'Pay', 'woocommerce' )
+                );
+              }
 
               $actions = apply_filters( 'woocommerce_my_account_my_orders_actions', $actions, $order );
 

@@ -5,7 +5,7 @@
 		$order_id = $_GET['ID'];
 	}
 ?>
-<div class="col-md-12 white">
+<div class="col-md-10 white">
 	<div class="gap-top"></div>
 	<div class="dash-title-holder">
 		<h2>Send Report for Order# <?php echo $order_id; ?></h2>

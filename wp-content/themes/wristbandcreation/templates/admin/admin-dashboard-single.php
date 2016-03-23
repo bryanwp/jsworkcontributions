@@ -24,22 +24,17 @@ $items = $order->get_items();
 
 
 ?>
-<div class="col-md-12 white">
-	<div class="gap-top">
-		<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
-	</div>
+<div class="col-md-10 white">
+	<div class="gap-top"></div>
 	<div class="dash-title-holder">
 		<h2>Order #<?php echo $order_id; ?></h2>
 		<ul>
-			<a href="<?php echo $pay_link; ?>"><li>Pay</li></a>
-			<li>Order Again</li>
-			<li>Reorder And Edit</li>
 			<?php 
 				$checkReport = get_post_meta( $order_id, '_report_title', true );
 				if ( $checkReport ) { ?>
-				<a href="<?php echo home_url('customer-dashboard/?action=view-report&post-id='. $order_id  ); ?>"><li>View Report</li></a>
+				<a href="<?php echo home_url('admin-dashboard/?action=view-report&post-id='. $order_id  ); ?>"><li>View Report</li></a>
 			<?php } else { ?>
-				<a href="<?php echo home_url('customer-dashboard/?action=report&ID='. $order_id  ); ?>"><li>Send Report</li></a>
+				<a href="<?php echo home_url('admin-dashboard/?action=report&ID='. $order_id  ); ?>"><li>Send Report</li></a>
 			<?php } ?>
 		</ul>
 	</div>

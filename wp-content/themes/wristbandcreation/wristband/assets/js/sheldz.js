@@ -303,4 +303,9 @@ jQuery(document).ready(function ($) {
       }
    });
 
+   $('.nav-a').click(function(){
+      $('.nav-a').removeClass('dash-active');
+      $(this).addClass('dash-active');
+   })
+
 });

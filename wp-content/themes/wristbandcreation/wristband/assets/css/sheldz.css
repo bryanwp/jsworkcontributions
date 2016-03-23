@@ -11,12 +11,12 @@ p[align=center] {
 .log-in-logo {
     float: left;
 }
-.welcome p {
-    color: #565555;
+span.welcome {
     float: right;
+    margin-right: 30px;
     font-size: 14px;
-    margin: 26px 0px;
-    text-transform: UPPERCASE;
+    color: #777676;
+    padding: 4px 0px;
 }
 .min-height{
     background: #D3FBFF!important;
@@ -27,10 +27,15 @@ p[align=center] {
     margin: 10px 0px;
 }
 .gap-top {
-    height: 20px;
+    height: 30px;
+    background: #B3EAFF;
+    margin-left: -30px;
+    margin-right: -30px;
+    margin-bottom: 5px;
+    margin-top: -3px;
 }
 .gap {
-    height: 90px;
+    height: 22px;
 }
 #wrapper {
     height:100%;
@@ -94,7 +99,7 @@ ul.dash-nav li {
     cursor: pointer;
 }
 .sub-container {
-    margin-left: -30px;
+    /*margin-left: -30px;*/
   /*  margin-right: -30px;*/
     margin-top: -22px;
     min-height: 86.7vh;
@@ -112,14 +117,9 @@ ul.dash-nav li:hover {
     background: #D3FBFF;
     color: #585454;
 }
-.welcome a:hover {
-    color: #0065B3;
-}
-.welcome a {
-    color: #585454!important;
-}
 .dash-title-holder {
     height: 25px;
+    margin-top: 20px;
 }
 .dash-title-holder h2 {
     float: left;
@@ -372,4 +372,54 @@ input#form-title {
 .single-comment {
     min-height: 60px;
     border-bottom: 1px solid #E2E2E2;
+}
+.nav-wrap {
+    float: right;
+    margin-top: 10px;
+    margin-right: -30px;
+    padding-right: 30px;
+    padding-left: 30px;
+    height: 50px;
+    font-family: 'Century Gothic';
+    font-weight: bold;
+}
+ul.dash-custom-nav {
+    list-style-type: none;
+    padding: 0px;
+    margin-top: 15px;
+    font-size: 14px;
+}
+ul.dash-custom-nav li {
+    display: inline;
+}
+ul.dash-custom-nav li a {
+    padding: 27px 15px;
+    color: #757575;
+}
+.dash-active {
+    color: #17469C!important;
+    background: #B3EAFF;
+}
+ul.dash-custom-nav li a:hover {
+    color: #1D4199;
+}
+.order-container h2 {
+    margin: 0px;
+    background: #06406D;
+    color: #fff;
+    padding: 10px 15px;
+}
+.details-container {
+    /*border: 1px solid #6D6C6C;*/
+    padding: 10px;
+}
+.no-overflow {
+    overflow: hidden;
+}
+table.tbl-info {
+    margin-bottom: 10px;
+}
+.order-container {
+    border: 1px solid #5D5D5D;
+    margin-bottom: 10px;
 }

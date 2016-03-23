@@ -3,7 +3,6 @@
 //Template Name: Register
 
 include ('custom-header.php'); ?>
-
 <div class="container white">
    <div class="row reg-form">
     <div class="col-md-12">

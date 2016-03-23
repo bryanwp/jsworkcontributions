@@ -1,3 +1,4 @@
+
 <?php
 	$order_id = '';
 
@@ -5,7 +6,7 @@
 		$order_id = $_GET['post-id'];
 	}
 ?>
-<div class="col-md-12 white">
+<div class="col-md-10 white">
 	<div class="gap-top"></div>
 	<div class="dash-title-holder">
 		<h2>Report for Order# <?php echo $order_id; ?></h2>

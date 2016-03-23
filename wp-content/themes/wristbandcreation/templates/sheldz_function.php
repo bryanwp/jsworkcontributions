@@ -260,8 +260,30 @@ function add_reply( $post = false ){
 	$insert_comment = wp_insert_comment( $data );
 
 	if ( $insert_comment ) {
-		exit( wp_send_json_success( $insert_comment ) );
+		/* Admin - User Notification
+		*	1 = Seen or the Created by the user
+		* 	0 = Not seen by the other user
+		* 	1-0 = Created by admin, notified to the user
+		*	0-1 = Created by user, notified to the admin
+		*	1-1 = both seen by the user and admin
+		*/
+		if ( current_user_can( 'manage_options' ) ) {
+			add_comment_meta( $insert_comment, 'notification_admin_user', '1-0' );
+			exit( wp_send_json_success( $insert_comment ) );
+		} else {
+			add_comment_meta( $insert_comment, 'notification_admin_user', '0-1' );
+			exit( wp_send_json_success( $insert_comment ) );
+		}
 	}
+}
+
+add_action('wp_ajax_get-notification', 'get_notification');
+add_action('wp_ajax_nopriv_get-notification', 'get_notification');
+function get_notification( $user_id ){
+	global $wpdb;
+
+	$sql = "SELECT * FROM $wpdb->comments where comment_post_ID = '{$args['comment_post_ID']}'";
+	$results = $wpdb->get_results( $sql );
 }
 
 function get_comments_list( $order_id ){
@@ -297,4 +319,24 @@ function fetch_comments( $args ){
 	$sql = "SELECT * FROM $wpdb->comments where comment_post_ID = '{$args['comment_post_ID']}'";
 	$results = $wpdb->get_results( $sql );
 	return $results;
+}
+
+function get_order_number_format( $order_id ){
+	$length = strlen( $order_id );
+	$format = '';
+	if ( $length == 3 ) {
+		 $format = 'WC-000' . $order_id;
+	} elseif ( $length == 4 ) {
+		$format = 'WC-00' . $order_id;
+	} elseif ( $length == 5 ) {
+		$format = 'WC-0' . $order_id;
+	} elseif ( $length == 6 ) {
+		$format = 'WC-' . $order_id;
+	} elseif ( $length == 2 ) {
+		$format = 'WC-0000' . $order_id;
+	} elseif ( $length == 1 ) {
+		$format = 'WC-00000' . $order_id;
+	}
+
+	return $format;
 }
