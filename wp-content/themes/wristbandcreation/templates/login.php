@@ -13,7 +13,7 @@ include ('custom-header.php');
 
 ob_start(); ?>
 <div style="height: 50px"></div>
-<div class="container">
+<div class="container white">
    <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <div class="panel panel-login">

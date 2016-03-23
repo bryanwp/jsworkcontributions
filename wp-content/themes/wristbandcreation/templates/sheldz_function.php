@@ -87,14 +87,21 @@ function register_new_user_phase_two(){
 
 }
 
-add_action('init', 'check_if_login');
+add_action( 'init', 'check_if_login' );
 function check_if_login(){
 	//initializing redirect url
-	$redirect = home_url('login');
+	$redirect = home_url( 'login' );
 
 	if ( ! is_user_logged_in () ) {
-		if ( is_page('customer-dashboard') ) {
-			exit(wp_redirect( $redirect ) );
+		if ( is_page( 'customer-dashboard' ) ) {
+			exit( wp_redirect( $redirect ) );
+		}
+	}
+
+	if ( is_page( 'admin-dashboard' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			$redirect = home_url( 'customer-dashboard' );
+			exit( wp_redirect( $redirect ) );
 		}
 	}
 }

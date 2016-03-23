@@ -9,7 +9,7 @@ function theme_enqueue_styles() {
     wp_enqueue_style( 'custom-css', get_stylesheet_directory_uri() . '/responsive.css' );
 
     //for the phase two tasks
-   if ( is_page('login') or is_page('register') or is_page('supplier-dashboard') or is_page('customer-dashboard') or is_page('forgot-password') ) {
+   if ( is_page('login') or is_page('register') or is_page('supplier-dashboard') or is_page('customer-dashboard') or is_page('forgot-password') or is_page('admin-dashboard') ) {
         wp_enqueue_style( 'shedz-css', get_stylesheet_directory_uri() . '/wristband/assets/css/sheldz.css' );
         wp_enqueue_style( 'kram-css', get_stylesheet_directory_uri() . '/wristband/assets/css/kram.css' );
         

@@ -357,7 +357,7 @@ input#form-title {
     color: #0064B2;
 }
 .white {
-    background: #ffffff;
+    background: #ffffff!important;
     min-height: 86.7vh;
 }
 .reply-container {

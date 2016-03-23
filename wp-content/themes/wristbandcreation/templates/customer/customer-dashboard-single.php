@@ -32,7 +32,13 @@ $items = $order->get_items();
 			<a href="<?php echo $pay_link; ?>"><li>Pay</li></a>
 			<li>Order Again</li>
 			<li>Reorder And Edit</li>
-			<a href="<?php echo home_url('customer-dashboard/?action=report&ID='. $order_id  ); ?>"><li>Send Report</li></a>
+			<?php 
+				$checkReport = get_post_meta( $order_id, '_report_title', true );
+				if ( $checkReport ) { ?>
+				<a href="<?php echo home_url('customer-dashboard/?action=view-report&post-id='. $order_id  ); ?>"><li>View Report</li></a>
+			<?php } else { ?>
+				<a href="<?php echo home_url('customer-dashboard/?action=report&ID='. $order_id  ); ?>"><li>Send Report</li></a>
+			<?php } ?>
 		</ul>
 	</div>
 	<hr class="divider-full" />
@@ -96,8 +102,12 @@ $items = $order->get_items();
 						<ul>
 							<?php
 								$options = $wristband_meta['additional_options'];
-								foreach ( $options as $option ) {
+								if ( $options ) {
+									foreach ( $options as $option ) {
 									echo '<li>' . $option . ' Adult Size</li>'; 
+									}
+								} else {
+									echo '<li>No addtional options</li>'; 
 								}
 							?>
 						</ul>

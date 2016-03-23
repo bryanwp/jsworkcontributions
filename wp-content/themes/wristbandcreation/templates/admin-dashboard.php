@@ -1,5 +1,5 @@
 <?php
- //Template Name: Customer Dashboard
+ //Template Name: Admin Dashboard
 check_if_login();
 
 // foreach ( $results as $result => $post_id ) {
@@ -64,7 +64,6 @@ include ('custom-header.php'); ?>
 		<?php
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
   'meta_key'    => '_customer_user',
-  'meta_value'  => get_current_user_id(),
   'post_type'   => wc_get_order_types( 'view-orders' ),
   'post_status' => array_keys( wc_get_order_statuses() )
 ) ) );
