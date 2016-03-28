@@ -183,7 +183,21 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 							$orders  = "";
 						}
 					}
-					if ( ! $role ) { ?>
+
+					if ( current_user_can( 'manage_options' ) ) { ?>
+
+						<div class="nav-wrap">
+							<ul class="dash-custom-nav">
+								<li><a class="nav-a <?php echo $orders; ?>" href="<?php echo home_url('admin-dashboard'); ?>">All Orders</a></li>
+								<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('admin-dashboard/?action=profile'); ?>">Profile</a></li>
+								<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('admin-dashboard/?action=Orderlogs'); ?>">Order Logs</a></li>
+								<li><a class="nav-a" href="<?php echo wp_logout_url( $redirect ); ?>">Log out</a></li>
+							</ul>
+						</div>
+
+					<?php } else {
+
+						if ( ! $role ) { ?>
 
 						<div class="nav-wrap">
 							<ul class="dash-custom-nav">
@@ -192,7 +206,8 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 								<li><a class="nav-a" href="<?php echo wp_logout_url( $redirect ); ?>">Log out</a></li>
 							</ul>
 						</div>
-					<?php } 
+						<?php } 
+					}
 					// echo '<p>WELCOME ' . $current_user->user_firstname . ' | <a href=' . wp_logout_url( $redirect ) . '>Log out</a></p>' ;
 				}
 				

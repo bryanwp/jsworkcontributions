@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
    $("time.timeago").timeago();
-
+ 
    (function loop() {
    setTimeout(function () {
        $("time.timeago").timeago();
@@ -285,7 +285,6 @@ jQuery(document).ready(function ($) {
       if ( content != '' ) {
          output += '<li>';
          output +=   '<div class="single-comment">';
-         output +=      '<img src="http://0.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=32&d=mm&r=g" class="img-thumbnail" alt="Cinque Terre">';
          output +=      '<p>'+display_name+' <span class="time-ago"><time class="timeago" datetime="'+datetime+'">Just now</time></span></p>';
          output +=      '<span>'+content+'</span>';
          output +=   '</div>';
@@ -306,6 +305,28 @@ jQuery(document).ready(function ($) {
    $('.nav-a').click(function(){
       $('.nav-a').removeClass('dash-active');
       $(this).addClass('dash-active');
-   })
+   });
+
+
+   notif();
+   function notif() {
+      
+      var badge = $('.badge').map(function () { 
+         var ids = this.id;
+         return ids;
+      }).get();
+
+      $.each( badge, function( index, value ) {
+         console.log( value );
+         var post_id = value;
+         $.get(sheldz_ajax.ajaxUrl + '?action=check-notif&post-id='+post_id, function(response) { 
+            
+            console.log(response.data);
+
+         });
+
+      });
+   }
+
 
 });

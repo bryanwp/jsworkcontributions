@@ -219,20 +219,20 @@ function save_single_report() {
 
 	if ( isset( $post['form-action'] ) && $post['form-action'] === 'send-report' ) {
 
-		add_post_meta( $post['order-id'], '_report_title', $post['report_title'] );
+		// add_post_meta( $post['order-id'], '_report_title', $post['report_title'] );
 		add_post_meta( $post['order-id'], '_report_content', $post['report_content'] );
 
 		//$time = current_time('mysql');
 		$time = date('Y-m-d') . 'T' . date('H:i:s') . 'Z';
 		add_post_meta( $post['order-id'], '_report_time_added', $time );
 
-		add_post_meta( $post['order-id'], '_report_content', $post['report_content'] );
+		// add_post_meta( $post['order-id'], '_report_content', $post['report_content'] );
 
 		$order_link = home_url('customer-dashboard/?action=view&ID='. $post['order-id'] );
 		add_post_meta( $post['order-id'], '_report_order_link', $order_link);
 
-		$redirect = home_url( 'customer-dashboard/?action=view-report&post-id='. $post['order-id'] );
-		exit( wp_redirect( $redirect ) );	
+		// $redirect = home_url( 'customer-dashboard/?action=view-report&post-id='. $post['order-id'] );
+		// exit( wp_redirect( $redirect ) );	
 
 	}
 
@@ -304,7 +304,7 @@ function get_comments_list( $order_id ){
 		?> 
 			<li>
 				<div class="single-comment">
-					<img src="http://0.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=32&d=mm&r=g" class="img-thumbnail" alt="Cinque Terre">
+					<!-- <img src="http://0.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=32&d=mm&r=g" class="img-thumbnail" alt="Cinque Terre"> -->
 					<p><?php echo $user->display_name; ?> <span class="time-ago"><time class="timeago" datetime="<?php echo $datetime; ?>">...</time></span></p>
 					<span><?php echo $comment->comment_content; ?></span>
 				</div>
@@ -316,7 +316,21 @@ function get_comments_list( $order_id ){
 function fetch_comments( $args ){
 	global $wpdb;
 
-	$sql = "SELECT * FROM $wpdb->comments where comment_post_ID = '{$args['comment_post_ID']}'";
+	$sql = "SELECT 
+		a.comment_ID,
+		a.comment_post_ID,
+		a.comment_content,
+		a.comment_author_email,
+		a.user_id,
+		a.comment_date,
+		b.meta_key,
+		b.meta_value
+
+		FROM $wpdb->comments as a
+		INNER JOIN $wpdb->commentmeta as b
+		ON a.comment_ID = b.comment_id
+		where a.comment_post_ID = '{$args['comment_post_ID']}' AND b.meta_key = 'notification_admin_user'";
+	
 	$results = $wpdb->get_results( $sql );
 	return $results;
 }
@@ -340,3 +354,28 @@ function get_order_number_format( $order_id ){
 
 	return $format;
 }
+
+// add_action('wp_ajax_check-notif', 'check_notif');
+// add_action('wp_ajax_nopriv_check-notif', 'check_notif');
+// function check_notif( $post = false ) {
+// 	global $wpdb;
+// 	$post = $_POST;
+
+// 	$sql = "SELECT a.comment_ID, b.meta_value
+// 			FROM $wpdb->comments as a
+// 			INNER JOIN $wpdb->commentmeta as b
+// 			ON a.comment_ID = b.comment_id
+// 			where a.comment_post_ID = '$post['post-id']' AND b.meta_key = 'notification_admin_user'";
+	
+// 	//$status = get_comment_meta( $post['post-id'], 'notification_admin_user', true );
+
+// 	if ( current_user_can( 'manage_options' ) ) {
+// 		if ( $status == '0-1' ) {
+// 			$isFresh = true;
+// 			exit( wp_send_json_success( $isFresh ) );
+// 		} else {
+// 			$isFresh = false;
+// 			exit( wp_send_json_success( $isFresh ) );
+// 		}
+// 	}
+// }

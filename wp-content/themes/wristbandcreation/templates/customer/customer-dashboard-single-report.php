@@ -1,23 +1,21 @@
 <?php
 	$order_id = '';
 
-	if ( isset( $_GET['post-id'] ) ) {
-		$order_id = $_GET['post-id'];
+	if ( isset( $_GET['ID'] ) ) {
+		$order_id = $_GET['ID'];
 	}
 ?>
-<div class="col-md-12 white">
-	<div class="gap-top"></div>
+
 	<div class="dash-title-holder">
-		<h2>Report for Order# <?php echo $order_id; ?></h2>
+		<h2>Question <span class="time-ago"><time class="timeago" datetime="<?php echo get_post_meta( $order_id, '_report_time_added', true ); ?>" >asd</time></span></h2>
 	</div>
 	<hr class="divider-full" />
 	<div class="dash-filter">
 		<!-- <span>Filter:</span> -->
 	</div>
-	<div style="height: 10px"></div>
+	
 	<div class="report-box">
 
-		<h3><?php echo get_post_meta( $order_id, '_report_title', true ); ?> <span class="time-ago"><time class="timeago" datetime="<?php echo get_post_meta( $order_id, '_report_time_added', true ); ?>" >asd</time></span></h3>
 		<p class="report-content">
 			<?php echo get_post_meta( $order_id, '_report_content', true ); ?>
 		</p>
@@ -41,6 +39,6 @@
 			</form>
 		</div>
 	</div>
-	<div class="gap-top"></div>
-</div>
+
+
 

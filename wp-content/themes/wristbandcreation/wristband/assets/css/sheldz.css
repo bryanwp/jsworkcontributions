@@ -423,3 +423,54 @@ table.tbl-info {
     border: 1px solid #5D5D5D;
     margin-bottom: 10px;
 }
+.table-1 table th {
+    padding: 5px 10px;
+    background: #021550;
+    border: 1px solid #363942;
+    color: #FFF;
+}
+.table-1 td {
+    vertical-align: top;
+}
+a.orders {
+    font-size: 12px;
+    font-weight: bold;
+}
+td.dates p {
+    margin: 0px;
+    font-size: 12px;
+    font-weight: bolder;
+}
+td.dates span {
+    font-size: 11px;
+    font-style: italic;
+}
+table.total {
+    border: none;
+    width: 100%;
+    background: none;
+    box-shadow: none;
+}
+table.total td {
+    border: none;
+    background: none;
+    padding: 0px;
+    margin: 0px;
+}
+tr.grand-total {
+    font-weight: bold;
+    font-size: 11px;
+}
+table.orders tr:hover {
+    background: #C4ECFB;
+}
+table.total tr {
+    background: none!important;
+}
+.badge {
+    background: #F00;
+    padding: 5px 8px;
+    color: #fff;
+    border-radius: 50%;
+    display: none;
+}
