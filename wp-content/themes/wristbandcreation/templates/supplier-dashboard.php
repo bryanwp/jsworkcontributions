@@ -14,25 +14,25 @@ check_if_login();
 include ('custom-header.php'); ?>
 
 <div class="row">
-	<div class="col-md-2">
+	<!-- <div class="col-md-2">
 		<ul class="dash-nav">
-			<a href="<?php echo home_url('customer-dashboard'); ?>">
+			<a href="<?php// echo home_url('customer-dashboard'); ?>">
 				<li>
 					My Orders
 				</li>
 			</a>
-			<a href="<?php echo home_url('customer-dashboard/?action=profile'); ?>">
+			<a href="<?php// echo home_url('customer-dashboard/?action=profile'); ?>">
 				<li>
 					My Profile
 				</li>
 			</a>
-			<a href="<?php echo home_url('customer-dashboard/?action=notification'); ?>">
+			<a href="<?php// echo home_url('customer-dashboard/?action=notification'); ?>">
 				<li>
 					Notification
 				</li>
 			</a>
 		</ul>
-	</div>
+	</div> -->
 	<?php
 	$action = '';
 	if ( isset( $_GET['action'] ) ) {
@@ -47,7 +47,7 @@ include ('custom-header.php'); ?>
 		include ('customer-dashboard-notification.php');
 	}
 	?>
-	<div class="col-md-10 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
+	<div class="col-md-12 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
 		<div class="gap-top"></div>
 		<div>
 			<h2>My Orders</h2>

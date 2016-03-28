@@ -1,170 +1,24 @@
 jQuery(document).ready(function ($) {
 
-   $('#moldquantity , #moldprice').change(function(){
+   var   row = 0;
+ $('#wtotalprice').change(function(){
+      var sumtotal = 0;
+      var totalprice = 0;
+      for (var i = 1; i < row + 1; i++) {
+         totalprice = parseInt($('#div_'+i+' input.thetotal').val());
+         sumtotal += totalprice;
+         totalprice = 0;
+      };
+      $('#wtotalprice').text(sumtotal);
+      $('#wtotalprice1').val(sumtotal);
 
-      var quantity = parseInt(($('#moldquantity').val() == '') ? 0 : $('#moldquantity').val()),
-            price = parseInt(($('#moldprice').val() == '') ? 0 : $('#moldprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#mold').val(total);
-            $('#wtotalprice').trigger('change');
    })
 
-   $('#printingquantity , #printingprice').change(function(){
+ $('#status-submit').click(function(){
 
-      var quantity = parseInt(($('#printingquantity').val() == '') ? 0 : $('#printingquantity').val()),
-            price = parseInt(($('#printingprice').val() == '') ? 0 : $('#printingprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#printing').val(total);
-            $('#wtotalprice').trigger('change');
-   })
+      console.log('here');
 
-   $('#laserquantity , #laserprice').change(function(){
-
-      var quantity = parseInt(($('#laserquantity').val() == '') ? 0 : $('#laserquantity').val()),
-            price = parseInt(($('#laserprice').val() == '') ? 0 : $('#laserprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#laser').val(total);
-            $('#wtotalprice').trigger('change');
-   })
-
-   $('#colorfillquantity , #colorfillprice').change(function(){
-
-      var quantity = parseInt(($('#colorfillquantity').val() == '') ? 0 : $('#colorfillquantity').val()),
-            price = parseInt(($('#colorfillprice').val() == '') ? 0 : $('#colorfillprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#colorfill').val(total);
-            $('#wtotalprice').trigger('change');
-   })
-
-   $('#embossedquantity , #embossedprice').change(function(){
-
-      var quantity = parseInt(($('#embossedquantity').val() == '') ? 0 : $('#embossedquantity').val()),
-            price = parseInt(($('#embossedprice').val() == '') ? 0 : $('#embossedprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#embossedp').val(total);
-            $('#wtotalprice').trigger('change');
-   })
-
-   $('#imprintingquantity , #imprintingprice').change(function(){
-
-      var quantity = parseInt(($('#imprintingquantity').val() == '') ? 0 : $('#imprintingquantity').val()),
-            price = parseInt(($('#imprintingprice').val() == '') ? 0 : $('#imprintingprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#imprintingp').val(total);
-            $('#wtotalprice').trigger('change');
-   })
-
-   $('#swirlquantity , #swirlprice').change(function(){
-
-      var quantity = parseInt(($('#swirlquantity').val() == '') ? 0 : $('#swirlquantity').val()),
-            price = parseInt(($('#swirlprice').val() == '') ? 0 : $('#swirlprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#swirlp').val(total);
-            $('#wtotalprice').trigger('change');
-   })
-
-   $('#segmentedquantity , #segmentedprice').change(function(){
-
-      var quantity = parseInt(($('#segmentedquantity').val() == '') ? 0 : $('#segmentedquantity').val()),
-            price = parseInt(($('#segmentedprice').val() == '') ? 0 : $('#segmentedprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#segmentedp').val(total);
-            $('#wtotalprice').trigger('change');
-   })
-
-   $('#glowquantity , #glowprice').change(function(){
-
-      var quantity = parseInt(($('#glowquantity').val() == '') ? 0 : $('#glowquantity').val()),
-            price = parseInt(($('#glowprice').val() == '') ? 0 : $('#glowprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#glowp').val(total);
-            $('#wtotalprice').trigger('change');
-   })
-
-   $('#duallayerquantity , #duallayerprice').change(function(){
-
-      var quantity = parseInt(($('#duallayerquantity').val() == '') ? 0 : $('#duallayerquantity').val()),
-            price = parseInt(($('#duallayerprice').val() == '') ? 0 : $('#duallayerprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#duallayerp').val(total);
-            $('#wtotalprice').trigger('change');
-   })
-
-   $('#insideembossedquantity , #insideembossedprice').change(function(){
-
-      var quantity = parseInt(($('#insideembossedquantity').val() == '') ? 0 : $('#insideembossedquantity').val()),
-            price = parseInt(($('#insideembossedprice').val() == '') ? 0 : $('#insideembossedprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#insideembossed').val(total);
-            $('#wtotalprice').trigger('change');
-   })
-
-   $('#individualpkgquantity , #individualpkgprice').change(function(){
-
-      var quantity = parseInt(($('#individualpkgquantity').val() == '') ? 0 : $('#individualpkgquantity').val()),
-            price = parseInt(($('#individualpkgprice').val() == '') ? 0 : $('#individualpkgprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#individualpkg').val(total);
-            $('#wtotalprice').trigger('change');
-   })
-
-   $('#keychainsquantity , #keychainsprice').change(function(){
-
-      var quantity = parseInt(($('#keychainsquantity').val() == '') ? 0 : $('#keychainsquantity').val()),
-            price = parseInt(($('#keychainsprice').val() == '') ? 0 : $('#keychainsprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);7
-            $('#keychains').val(total);
-            $('#wtotalprice').trigger('change');
-   })
-
-   $('#shipdhlquantity , #shipdhlprice').change(function(){
-
-      var quantity = parseInt(($('#shipdhlquantity').val() == '') ? 0 : $('#shipdhlquantity').val()),
-            price = parseInt(($('#shipdhlprice').val() == '') ? 0 : $('#shipdhlprice').val()),
-            total = quantity * price;
-            //console.log(quantity +' '+ price);
-            $('#shipdhl').val(total);
-            $('#wtotalprice').trigger('change');
-   })
-
-
-// $('#shipdhl , #keychains , #individualpkg , #insideembossed , #duallayerp , #glowp , #segmentedp , #swirlp , #imprintingp , #embossedp , #colorfill , #laser , #printing, #mold').change(function(){
-         $('#wtotalprice').change(function(){
-
-      var ship = $('#shipdhl').val() == '' ? 0 : $('#shipdhl').val(),
-            keychains      = $('#keychains').val() == '' ? 0 : $('#keychains').val(),
-            individualpkg  = $('#individualpkg').val() == '' ? 0 : $('#individualpkg').val(),
-            insideembossed = $('#insideembossed').val() == '' ? 0 : $('#insideembossed').val(),
-            duallayerp     = $('#duallayerp').val() == '' ? 0 : $('#duallayerp').val(),
-            glowp          = $('#glowp').val() == '' ? 0 : $('#glowp').val(),
-            segmentedp     = $('#segmentedp').val() == '' ? 0 : $('#segmentedp').val(),
-            swirlp         = $('#swirlp').val() == '' ? 0 : $('#swirlp').val(),
-            imprintingp    = $('#imprintingp').val() == '' ? 0 : $('#imprintingp').val(),
-            embossedp      = $('#embossedp').val() == '' ? 0 : $('#embossedp').val(),
-            colorfill      = $('#colorfill').val() == '' ? 0 : $('#colorfill').val(),
-            laser          = $('#laser').val() == '' ? 0 : $('#laser').val(),
-            printing       = $('#printing').val() == '' ? 0 : $('#printing').val(),
-            mold           = $('#mold').val() == '' ? 0 : $('#mold').val(),
-            total          = parseInt(ship) + parseInt(keychains) + parseInt(individualpkg) + parseInt(insideembossed) + parseInt(duallayerp) + parseInt(glowp) + parseInt(segmentedp) + parseInt(swirlp) + parseInt(imprintingp) + parseInt(embossedp) + parseInt(colorfill) + parseInt(laser) + parseInt(printing) + parseInt(mold);
-
-            // console.log(total);
-
-            $('#wtotalprice').text(total);
-            $('#wtotalprice1').val(total);
-   })
+ })
 
   function readURL(input) {
         if (input.files && input.files[0]) {
@@ -180,6 +34,58 @@ jQuery(document).ready(function ($) {
     
     $("#fileToUpload").change(function(){
         readURL(this);
-    });
+    })
+
+   $('#addfield').click(function(){
+         var value = $('#selectedfield option:selected').val();
+            arrlabel = ["Mold - Set Up","Printing - Set Up","Laser Engraving","Color Fill","Embossed-Color","Imprinting Fee","Swirl","Segmented","Glow","Dual Layer","Inside Embossed","Individual Packaging","Keychains","Shipping (DHL)"]
+            arrquantity = ["moldquantity_", "printingquantity_", "laserquantity_","colorfillquantity_","embossedquantity_","imprintingquantity_","swirlquantity_","segmentedquantity_","glowquantity_","duallayerquantity_","insideembossedquantity_","individualpkgquantity_","keychainsquantity_","shipdhlquantity_"];
+            arrprice = ["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
+            arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg","keychains","shipdhl_"];
+            
+            row++;
+            for(x = 0; x < 14; x++)
+            {
+                if (value == x) {            
+                  var i = $('#appendedid #divappend_'+value+'').size() + 1;
+                  $('<div class="form-group clearfix"  id="div_'+row+'">'+
+                        '<label class="pricestyle"> '+arrlabel[value]+' </label>'+
+                        '<input type="number" name="'+arrquantity[value]+i+'" id="'+arrquantity[value]+i+'" class="form-control priceinputstyle inputqty" placeholder="Quantity" value="">'+
+                        '<input type="number" name="'+arrprice[value]+i+'" id="'+arrprice[value]+i+'" class="form-control priceinputstyle inputprice" placeholder="Unit Price" value="">'+
+                        '<input type="number" name="'+arrtotal[value]+i+'" id="'+arrtotal[value]+i+'" value="" class="form-control priceinputstyle thetotal" placeholder="Total" readonly>'+
+                     '<a href="#" id="removestyle">Remove</a></div>').appendTo($('#appendedid'));
+               }
+            }
+         return false;
+   })
+
+   $(document)
+
+         .on('click','#removestyle',function() { 
+               $(this).parent('div').remove();
+               return false;
+              })
+         .on('change','.inputqty',function(){
+            var qtyval  = $(this).val(),
+               priceval = $(this).next().val() == '' ? 0 : $(this).next().val(),
+               valtotal = $(this).next().next();
+               total    = qtyval * priceval;
+
+               valtotal.val(total);
+               $('#wtotalprice').trigger('change');
+
+         })
+
+         .on('change','.inputprice',function(){
+            var priceval  = $(this).val(),
+               qtyval = $(this).prev().val() == '' ? 0 : $(this).prev().val(),
+               valtotal = $(this).next();
+               total    = qtyval * priceval;
+
+               valtotal.val(total);
+               $('#wtotalprice').trigger('change');
+
+         })
+
 
 });
