@@ -247,3 +247,11 @@ label {
 .imagestyle {
   max-height: 400px
 }
+
+form#changing-status input, select, textarea{
+    color: #000!important;
+}
+
+form#changing-status .priceinputstyle {
+  color: #000;
+}

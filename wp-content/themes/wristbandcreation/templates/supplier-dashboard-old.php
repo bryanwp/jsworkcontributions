@@ -1,5 +1,5 @@
 <?php
- //Template Name: Customer-Dashboard
+ //Template Name: Supplier Dashboard
 check_if_login();
 
 // foreach ( $results as $result => $post_id ) {
@@ -14,19 +14,25 @@ check_if_login();
 include ('custom-header.php'); ?>
 
 <div class="row">
-  <div class="col-md-2">
+  <!-- <div class="col-md-2">
     <ul class="dash-nav">
-      <li>
-        My Orders
-      </li>
-      <li>
-        My Profile
-      </li>
-      <li>
-        Notification
-      </li>
+      <a href="<?php// echo home_url('customer-dashboard'); ?>">
+        <li>
+          My Orders
+        </li>
+      </a>
+      <a href="<?php// echo home_url('customer-dashboard/?action=profile'); ?>">
+        <li>
+          My Profile
+        </li>
+      </a>
+      <a href="<?php// echo home_url('customer-dashboard/?action=notification'); ?>">
+        <li>
+          Notification
+        </li>
+      </a>
     </ul>
-  </div>
+  </div> -->
   <?php
   $action = '';
   if ( isset( $_GET['action'] ) ) {
@@ -34,10 +40,14 @@ include ('custom-header.php'); ?>
   }
 
   if ( $action === 'view') {
-    include ('customer-dashboard-single.php');
+    include ('supplier-single-order.php');
+  } elseif ( $action === 'profile' ) {
+    include ('customer-dashboard-profile.php');
+  } elseif ( $action === 'notification' ) {
+    include ('customer-dashboard-notification.php');
   }
   ?>
-  <div class="col-md-10" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
+  <div class="col-md-12 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
     <div class="gap-top"></div>
     <div>
       <h2>My Orders</h2>
@@ -80,7 +90,7 @@ if ( $customer_orders ) : ?>
 
         ?><tr>
           <td data-title="<?php esc_attr_e( 'Order Number', 'woocommerce' ); ?>">
-            <a href="<?php echo esc_url( $order->get_view_order_url() ); ?>">
+            <a href="<?php echo esc_url( home_url('supplier-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
               <?php echo _x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number(); ?>
             </a>
           </td>
@@ -88,7 +98,26 @@ if ( $customer_orders ) : ?>
             <time datetime="<?php echo date( 'Y-m-d', strtotime( $order->order_date ) ); ?>" title="<?php echo esc_attr( strtotime( $order->order_date ) ); ?>"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?></time>
           </td>
           <td data-title="<?php esc_attr_e( 'Status', 'woocommerce' ); ?>" style="text-align:left; white-space:nowrap;">
-            <?php echo wc_get_order_status_name( $order->get_status() ); ?>
+            <?php // echo wc_get_order_status_name( $order->get_status() );
+              $key = '_new_status';
+              $poststatusmeta = get_post_meta($customer_order->ID, $key, TRUE);
+              if ($poststatusmeta == 'pending_production') {
+                echo 'Pending Production';
+              } elseif ($poststatusmeta == 'pending_artwork_approval') {
+                echo 'Pending Artwork Approval';
+              } elseif ($poststatusmeta == 'in_production') {
+                echo 'In Production';
+              } elseif ($poststatusmeta == 'in_reproduction') {
+                echo 'In Reproduction';
+              } elseif ($poststatusmeta == 'produced_pending_shipment') {
+                echo 'Produced Pending Shipment';
+              } elseif ($poststatusmeta == 'shipped') {
+                echo 'Shipped';
+              } else {
+                echo 'No Status Yet';
+              }
+
+             ?>
           </td>
           <td data-title="<?php esc_attr_e( 'Total', 'woocommerce' ); ?>">
             <?php echo sprintf( _n( '%s for %s item', '%s for %s items', $item_count, 'woocommerce' ), $order->get_formatted_order_total(), $item_count ); ?>
@@ -98,16 +127,16 @@ if ( $customer_orders ) : ?>
               $actions = array();
 
               $actions['view'] = array(
-                'url'  => home_url('customer-dashboard/?action=view&ID=' . $customer_order->ID ),
+                'url'  => home_url('supplier-dashboard/?action=view&ID=' . $customer_order->ID ),
                 'name' => __( 'View', 'woocommerce' )
               );
 
-               if ( $order->needs_payment() ) {
-                $actions['pay'] = array(
-                  'url'  => $order->get_checkout_payment_url(),
-                  'name' => __( 'Pay', 'woocommerce' )
-                );
-              }
+              //  if ( $order->needs_payment() ) {
+              //   $actions['pay'] = array(
+              //     'url'  => $order->get_checkout_payment_url(),
+              //     'name' => __( 'Pay', 'woocommerce' )
+              //   );
+              // }
 
               $actions = apply_filters( 'woocommerce_my_account_my_orders_actions', $actions, $order );
 

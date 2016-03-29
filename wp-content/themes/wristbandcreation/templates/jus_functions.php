@@ -251,19 +251,62 @@ function change_status() {
 	$user_id = get_current_user_id();
 	$post = $_POST;
 	$key = '_new_status';
+	$row = isset($post['maxrowval']);
+	$arrquantity = ["moldquantity_", "printingquantity_", "laserquantity_","colorfillquantity_","embossedquantity_","imprintingquantity_","swirlquantity_","segmentedquantity_","glowquantity_","duallayerquantity_","insideembossedquantity_","individualpkgquantity_","keychainsquantity_","shipdhlquantity_"];
+	$arrprice = ["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
+    $arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg","keychains","shipdhl_"];
 
 	if ( isset( $post['status-submit'] ) ) {
 
 		if ($post['newstatus'] == 'shipped') {
 			# code...
-		} else {
 			
+			echo $post['wtotalprice'];
+			$totalkey = 'wtotalprice';
+			for ($x=0; $x < sizeof($arrquantity); $x++) { 
+				# code...
+				for ($i=1; $i < $row + 2 ; $i++) { 
+					if(isset($post[$arrquantity[$x].$i])){
+						$newkey = $arrquantity[$x].$i;
+						echo $newkey.'='.$post[$arrquantity[$x].$i]."</br>";
+						add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrquantity[$x].$i]);
+					}
+				}
+			}
+
+			for ($x=0; $x < sizeof($arrprice); $x++) { 
+				# code...
+				for ($i=1; $i < $row + 2 ; $i++) { 
+					if(isset($post[$arrprice[$x].$i])){
+						$newkey = $arrprice[$x].$i;
+						echo $newkey.'='.$post[$arrprice[$x].$i]."</br>";
+						add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrprice[$x].$i]);
+					}
+				}
+			}
+
+			for ($x=0; $x < sizeof($arrtotal); $x++) { 
+				# code...
+				for ($i=1; $i < $row + 2 ; $i++) { 
+					if(isset($post[$arrtotal[$x].$i])){
+						$newkey = $arrtotal[$x].$i;
+						echo $newkey.'='.$post[$arrtotal[$x].$i]."</br>";
+						add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrtotal[$x].$i]);
+					}
+				}
+			}
+
+			add_post_meta($post['order_id'],'supplier_'.$totalkey, $post['wtotalprice']);
+			if ( ! add_post_meta( $post['order_id'], $key, $post['newstatus'], true ) ) { 
+				   update_post_meta ( $post['order_id'], $key, $post['newstatus'] );
+				}
+
+		} else {
+
 			if ( ! add_post_meta( $post['order_id'], $key, $post['newstatus'], true ) ) { 
 				   update_post_meta ( $post['order_id'], $key, $post['newstatus'] );
 				}
 		}
-		// echo $themeta;
-		// die();
 		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
 		exit( wp_redirect( $redirect ) );	
 

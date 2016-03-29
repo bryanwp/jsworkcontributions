@@ -17,9 +17,9 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
 		<h2>Order #<?php echo $order_id; ?></h2>
 	</div>
 	<hr class="divider-full" />
-	<div class="dash-filter">
+	<!-- <div class="dash-filter">
 		<p class="approval">Your design is beign updated by the ADMIN and it needs your approval. Click <a href="#">HERE</a> to see the revision.</p>
-	</div>
+	</div> -->
 	<div style="height: 10px"></div>
 	<?php foreach ( $items as $item ) {
    $wristband_meta = maybe_unserialize( $item['wristband_meta']);
