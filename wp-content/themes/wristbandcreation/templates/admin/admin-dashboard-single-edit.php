@@ -12,24 +12,13 @@ $pay_link = home_url('checkout/order-pay/' . $order_id . '?pay_for_order=true&ke
 $order = new WC_Order( $order_id );
 $items = $order->get_items();
 
-// foreach ( $items as $item ) {
-//     $wristband_meta = maybe_unserialize( $item['wristband_meta']);
-//     $color = $wristband_meta['colors'];
-
-//     echo "<pre>";
-//     print_r( $wristband_meta );
-//     echo "<br />";
-// }
-// die;
-
-
 ?>
 <div class="col-md-12 white">
 	<div class="gap-top">
 		<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
 	</div>
 	<div style="margin-top: 20px;">
-			<h2><?php echo get_order_number_format( $order_id ); ?></h2>
+			<h2><?php echo get_order_number_format( $order_id ); ?> <a class="edit-order" href="<?php echo home_url('admin-dashboard/?action=view&ID='.$order_id); ?>">Cancel</a></h2> 
 	</div>
 
 	<div class="table-1 no-overflow">
@@ -55,7 +44,15 @@ if ( $order ) :
 						<table class="tbl-info" width="100%">
 							<tr>
 								<td>Width:</td>
-								<td><?php echo $wristband_meta['size']; ?></td>
+								<td>
+									<select class="width" name="width">
+										<option value="<?php echo $wristband_meta['size']; ?>"><?php echo $wristband_meta['size']; ?> Inch</option>
+										<option value="1/2">1/2 inch</option>
+									    <option value="3/4">3/4 inch</option>
+									    <option value="1">1 inch</option>
+									    <option value="1/4">1/4 inch</option>
+									</select>
+								</td>
 							</tr>
 							<?php
 								$color = $wristband_meta['colors'];
@@ -64,9 +61,9 @@ if ( $order ) :
 									$sizes = $colors['sizes'];
 									foreach ( $sizes as $size ) {
 										if ( $size >= 1 && $count === 1 ) {
-											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Adult Size</td></tr>'; 
+											echo '<tr><td>Qty/Color/Size</td><td><input type="number" name="qty1" value=' . $size . '> ' . $colors['name'] . ' ' . $colors['type'] . ' Adult Size</td></tr>'; 
 										} elseif ( $size >= 1 && $count === 2  ) {
-											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Medium Size</td></tr>'; 
+											echo '<tr><td>Qty/Color/Size</td><td><input type="number" name="qty2" value=' . $size . '> ' . $colors['type'] . ' Medium Size</td></tr>'; 
 										} elseif ( $size >= 1 && $count === 3  ) {
 											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Youth Size</td></tr>'; 
 										} 
@@ -78,9 +75,9 @@ if ( $order ) :
 								$options = $wristband_meta['messages'];
 								foreach ( $options as $key => $msg ) {
 									if ( empty( $msg ) ) {
-										$msg = 'None';
+										$msg = '';
 									}
-									echo '<tr><td>' . $key . ':</td><td>' . $msg . '</td></tr>'; 
+									echo '<tr><td>' . $key . ':</td><td><input type="text" name="width" value=' . $msg . '></td></tr>'; 
 								}
 
 							?>
@@ -133,26 +130,12 @@ if ( $order ) :
 		</div>
 		<?php } ?>
 	</div>
-
-	<div class="order-edit">
-		<p class="approval">
-			Your design is beign updated by the ADMIN and it needs your approval.
-		</p>
-	
-	</div>
-
+	<form>
+		<button class="btn" type="button">Save</button>
+	</form>
 
 <?php endif; ?>
 	</div>
-	<?php 
-		$question = get_post_meta( $order_id, '_report_content', true );
-
-		if ( $question ) {
-			include ('customer-dashboard-single-report.php'); 
-		} else {
-			include ('customer-dashboard-notif-form.php'); 
-		}
-		
-	?>
+	
 </div>
 

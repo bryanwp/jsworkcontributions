@@ -62,9 +62,7 @@ if ( $customer_orders ) : ?>
 				<th>Front Message</th>
 				<th>Name</th>
 				<th>Payment Method</th>
-				<th>Sub Total</th>
-				<th>Tax</th>
-				<th>Grand Total</th>
+				<th>Total</th>
 			</tr>
 		</thead>
 
@@ -124,13 +122,11 @@ if ( $customer_orders ) : ?>
 						<?php //echo wc_get_order_status_name( $order->get_status() ); ?>
 					</td>
 					<td>
-						<?php echo $sub_total; ?>
-					</td>
-					<td>
-						<?php echo $tax; ?>
-					</td>
-					<td>
-						<?php echo $order->get_formatted_order_total(); ?>
+						<table class="total">
+							<tr><td>Sub Total:</td><td><?php echo $sub_total; ?></td></tr>
+							<tr><td>Tax:</td><td><?php echo $tax; ?></td></tr>
+							<tr class="grand-total"><td>Grand Total:</td><td><?php echo $order->get_formatted_order_total(); ?></td></tr>
+						</table>
 					</td>
 				</tr><?php
       }

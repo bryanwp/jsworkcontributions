@@ -4,6 +4,7 @@ jQuery(document).ready(function ($) {
    (function loop() {
    setTimeout(function () {
        $("time.timeago").timeago();
+       //notif();
        loop()
      }, 10000);
    }());
@@ -317,16 +318,27 @@ jQuery(document).ready(function ($) {
       }).get();
 
       $.each( badge, function( index, value ) {
-         console.log( value );
+         // console.log( value );
          var post_id = value;
-         $.get(sheldz_ajax.ajaxUrl + '?action=check-notif&post-id='+post_id, function(response) { 
+         $.get(sheldz_ajax.ajaxUrl + '?action=check-notif&post-id='+post_id, function( response ) { 
             
-            console.log(response.data);
-
+            if ( response.data.length > 0 ) {
+               $('#'+value).empty().append( response.data.length ).fadeIn();
+            }
          });
 
       });
    }
+
+   $('.width').click(function(){
+        var width = $(this).val();
+        console.log(width);
+         $(this).empty();
+         $(this).append('<option value="1/2">1/2 inch</option>');
+         $(this).append('<option value="3/4">3/4 inch</option>');
+         $(this).append('<option value="1">1 inch</option>');
+         $(this).append('<option value="1/4">1/4 inch</option>');
+   });
 
 
 });

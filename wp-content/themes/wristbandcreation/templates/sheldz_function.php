@@ -355,27 +355,69 @@ function get_order_number_format( $order_id ){
 	return $format;
 }
 
-// add_action('wp_ajax_check-notif', 'check_notif');
-// add_action('wp_ajax_nopriv_check-notif', 'check_notif');
-// function check_notif( $post = false ) {
-// 	global $wpdb;
-// 	$post = $_POST;
+add_action('wp_ajax_check-notif', 'check_notif');
+add_action('wp_ajax_nopriv_check-notif', 'check_notif');
+function check_notif( $post ) {
+	global $wpdb;
+	$post = $_REQUEST;
+	$post_id = $post['post-id'];
 
-// 	$sql = "SELECT a.comment_ID, b.meta_value
-// 			FROM $wpdb->comments as a
-// 			INNER JOIN $wpdb->commentmeta as b
-// 			ON a.comment_ID = b.comment_id
-// 			where a.comment_post_ID = '$post['post-id']' AND b.meta_key = 'notification_admin_user'";
+	$sql = "SELECT a.comment_ID, b.meta_value
+			FROM $wpdb->comments as a
+			INNER JOIN $wpdb->commentmeta as b
+			ON a.comment_ID = b.comment_id
+			where a.comment_post_ID = '$post_id' AND b.meta_key = 'notification_admin_user' AND b.meta_value = '0-1'";
 	
-// 	//$status = get_comment_meta( $post['post-id'], 'notification_admin_user', true );
+	$results = $wpdb->get_results( $sql );
+	//$status = get_comment_meta( $post['post-id'], 'notification_admin_user', true );
 
-// 	if ( current_user_can( 'manage_options' ) ) {
-// 		if ( $status == '0-1' ) {
-// 			$isFresh = true;
-// 			exit( wp_send_json_success( $isFresh ) );
-// 		} else {
-// 			$isFresh = false;
-// 			exit( wp_send_json_success( $isFresh ) );
-// 		}
-// 	}
-// }
+
+	if ( current_user_can( 'manage_options' ) ) {
+		if ( $results ) {
+			$isFresh = true;
+			exit( wp_send_json_success( $results ) );
+		} else {
+			$isFresh = false;
+			exit( wp_send_json_success( $results ) );
+		}
+	}
+}
+
+add_action( 'init', 'check_notif_onload' );
+function check_notif_onload( $post_id ) {
+	global $wpdb;
+
+	$sql = "SELECT COUNT(*)
+			FROM $wpdb->comments as a
+			INNER JOIN $wpdb->commentmeta as b
+			ON a.comment_ID = b.comment_id
+			WHERE a.comment_post_ID = '$post_id' AND b.meta_key ='notification_admin_user' AND b.meta_value = '0-1'";
+	$results = $wpdb->get_var( $sql );
+
+	if ( $results ) {
+		$output = '<span class="badge" id=' . $post_id . ' style="display:inline">'. $results .'</span>';
+		return $output;
+	} else {
+		$output = '<span class="badge" id=' . $post_id . '></span>';
+		return $output;
+	}
+}
+
+function get_status( $status ) {
+ 	if ($status == 'pending_production') {
+	    return 'Pending Production';
+	} elseif ($status == 'pending_artwork_approval') {
+	    return 'Pending Artwork Approval';
+	} elseif ($status == 'in_production') {
+	    return 'In Production';
+	} elseif ($status == 'in_reproduction') {
+	    return 'In Reproduction';
+	} elseif ($status == 'produced_pending_shipment') {
+	    return 'Produced Pending Shipment';
+	} elseif ($status == 'shipped') {
+	    return 'Shipped';
+	} else {
+	    return 'No Status Yet';
+	}
+
+}

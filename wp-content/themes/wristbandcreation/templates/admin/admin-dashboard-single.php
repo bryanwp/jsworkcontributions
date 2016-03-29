@@ -1,7 +1,7 @@
 <?php
 $order_id = '';
 if ( isset( $_GET['ID'] ) ) {
-			$order_id = $_GET['ID'];
+			$order_id = $_GET['ID'];  
 }
 
 $key = get_post_meta( $order_id, '_order_key', true );
@@ -24,46 +24,39 @@ $items = $order->get_items();
 
 
 ?>
-<div class="col-md-10 white">
-	<div class="gap-top"></div>
-	<div class="dash-title-holder">
-		<h2>Order #<?php echo $order_id; ?></h2>
-		<ul>
-			<?php 
-				$checkReport = get_post_meta( $order_id, '_report_title', true );
-				if ( $checkReport ) { ?>
-				<a href="<?php echo home_url('admin-dashboard/?action=view-report&post-id='. $order_id  ); ?>"><li>View Report</li></a>
-			<?php } else { ?>
-				<a href="<?php echo home_url('admin-dashboard/?action=report&ID='. $order_id  ); ?>"><li>Send Report</li></a>
-			<?php } ?>
-		</ul>
+<div class="col-md-12 white">
+	<div class="gap-top">
+		<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
 	</div>
-	<hr class="divider-full" />
-	<div class="dash-filter">
-		<p class="approval">Your design is beign updated by the ADMIN and it needs your approval. Click <a href="#">HERE</a> to see the revision.</p>
-		<!-- <span>Filter:</span> -->
+	<div style="margin-top: 20px;">
+			<h2><?php echo get_order_number_format( $order_id ); ?> <a class="edit-order" href="<?php echo home_url('admin-dashboard/?action=order-edit&ID='.$order_id); ?>">Edit</a></h2> 
 	</div>
-	<div style="height: 10px"></div>
-	<?php foreach ( $items as $item ) {
-	    $wristband_meta = maybe_unserialize( $item['wristband_meta']);
-	    $color = $wristband_meta['colors'];
-	 ?>
-	   	<div class="item-holder row">
-			<div class="col-md-3">
-				<div class="item-picture">
-					<?php
-					$image = str_replace( 'emboss', 'embossed', strtolower( $item['name'] ) );
 
-					?>
-					<img src="<?php echo home_url('wp-content/uploads/main-' . $image . '.png'); ?>" class="img-thumbnail" alt="Cinque Terre" width="304" height="236">
-				</div>
-			</div>
-			<div class="col-md-9 item-info">
-				<ul class="item-info-row">
-					<li class="item-info-col">
-						<strong><?php echo $item['name']; ?> Wristband</strong>
-						<ul>
-							<li>Width <?php echo $wristband_meta['size']; ?></li>
+	<div class="table-1 no-overflow">
+		<?php
+
+
+// echo "<pre>";
+// print_r($customer_orders);
+// die;
+
+if ( $order ) : 
+       
+?>
+	<div class="order-container">
+		<?php foreach ( $items as $item ) {
+		    $wristband_meta = maybe_unserialize( $item['wristband_meta']);
+		    $color = $wristband_meta['colors'];
+		?>
+		<div class="details-container">
+			<h3><?php echo $item['name']; ?> Wristband</h3>
+			<div class="row">
+					<div class="col-md-6">
+						<table class="tbl-info" width="100%">
+							<tr>
+								<td>Width:</td>
+								<td><?php echo $wristband_meta['size']; ?></td>
+							</tr>
 							<?php
 								$color = $wristband_meta['colors'];
 								foreach ($color as $colors) {
@@ -71,48 +64,102 @@ $items = $order->get_items();
 									$sizes = $colors['sizes'];
 									foreach ( $sizes as $size ) {
 										if ( $size >= 1 && $count === 1 ) {
-											echo '<li>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Adult Size</li>'; 
+											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Adult Size</td></tr>'; 
 										} elseif ( $size >= 1 && $count === 2  ) {
-											echo '<li>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Medium Size</li>'; 
+											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Medium Size</td></tr>'; 
 										} elseif ( $size >= 1 && $count === 3  ) {
-											echo '<li>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Youth Size</li>'; 
+											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Youth Size</td></tr>'; 
 										} 
 										$count++;
 									}
 								}
 							?>
-						</ul>
-					</li>
-					<li class="item-info-col">
-						<strong>Wristband Text and Design</strong>
-						<ul>
 							<?php
 								$options = $wristband_meta['messages'];
 								foreach ( $options as $key => $msg ) {
-									echo '<li>' . $key . ':<br /> ' . $msg . '</li>'; 
+									if ( empty( $msg ) ) {
+										$msg = 'None';
+									}
+									echo '<tr><td>' . $key . ':</td><td>' . $msg . '</td></tr>'; 
 								}
+
 							?>
-						</ul>
-					</li>
-					<li class="item-info-col">
-						<strong>Additional Options</strong>
-						<ul>
+						</table>
+					</div>
+
+					<div class="col-md-6">
+						<table class="tbl-info" width="100%">
 							<?php
 								$options = $wristband_meta['additional_options'];
 								if ( $options ) {
 									foreach ( $options as $option ) {
-									echo '<li>' . $option . ' Adult Size</li>'; 
+									echo '<tr><td>Addtional Options</td><td>' . $option . '</td></tr>'; 
 									}
 								} else {
-									echo '<li>No addtional options</li>'; 
+									echo '<tr><td>Addtional Options</td><td>None</td></tr>'; 
 								}
 							?>
-						</ul>
-					</li>
-				</ul>
+						</table>
+						<table class="tbl-info" width="100%">
+							<tr>
+								<td>
+									Date: 
+								</td>
+								<td>
+									 <?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Payment Method: 
+								</td>
+								<td>
+									<?php echo get_post_meta( $order_id, '_payment_method_title', true ); ?>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Grand total: 
+								</td>
+								<td>
+									<?php echo $order->get_formatted_order_total(); ?>
+								</td>
+
+							</tr>
+						</table>
+					</div>
+				
 			</div>
 		</div>
+		<?php } ?>
+	</div>
 
-	<?php } ?>
+	<div class="artwork">
+		<img src="google.com">
+		<p>
+			Add an artwork of the wristband.
+		</p>
+		<form>
+		<p>
+			<input type="file" name="image-upload">
+		</p>
+		<p>
+			<button type="submit" name="upload-image">Upload</button>
+		</p>
+		</form>
+	</div>
+
+
+<?php endif; ?>
+	</div>
+	<?php 
+		$question = get_post_meta( $order_id, '_report_content', true );
+
+		if ( $question ) {
+			include ('admin-dashboard-single-report.php'); 
+		} else {
+			include ('admin-dashboard-notif-form.php'); 
+		}
+	?>
 </div>
 

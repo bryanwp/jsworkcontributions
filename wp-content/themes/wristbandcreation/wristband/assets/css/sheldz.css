@@ -166,12 +166,7 @@ table.table-info td {
 table.table-info {
     width: 100%;
 }
-p.approval {
-    border-left: 3px solid #00B131;
-    padding: 5px 10px;
-    background: #E1F5FD;
-    margin: 5px 0px;
-}
+
 .shadow-wrap {
     box-shadow: 0px 0px 5px #888888;
 }
@@ -435,6 +430,7 @@ table.tbl-info {
 a.orders {
     font-size: 12px;
     font-weight: bold;
+    position: relative;
 }
 td.dates p {
     margin: 0px;
@@ -469,8 +465,49 @@ table.total tr {
 }
 .badge {
     background: #F00;
-    padding: 5px 8px;
+    padding: 0px 7px;
     color: #fff;
     border-radius: 50%;
     display: none;
+    font-weight: lighter;
+    font-size: 8px;
+    position: absolute;
+    top: -6px;
+    left: -20px;
+}
+a.edit-order {
+    background: #00ADEE;
+    color: #F3F3F3;
+    margin-left: 5px;
+    font-size: 15px;
+    padding: 3px 10px;
+    border-radius: 2px;
+}
+a.edit-order:hover {
+    background: #1D429A;
+    color: #F3F3F3;
+}
+.artwork img {
+    width: 100px;
+    border: 1px solid;
+    height: 100px;
+    float: left;
+    margin-right: 10px;
+}
+.artwork {
+    background: #F1FBFC;
+    padding: 10px;
+    height: 120px;
+    border: dashed 2px #DCDCDC;
+}
+.artwork p {
+    margin: 0px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #404040;
+}
+p.status {
+    margin: 0px;
+    font-size: 11px;
+    color: #4C4B4B;
 }
