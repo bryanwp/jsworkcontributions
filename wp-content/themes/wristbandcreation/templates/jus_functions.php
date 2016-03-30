@@ -263,32 +263,51 @@ function change_status() {
 			
 			echo $post['wtotalprice'];
 			$totalkey = 'wtotalprice';
-			for ($x=0; $x < sizeof($arrquantity); $x++) { 
-				# code...
-				for ($i=1; $i < $row + 2 ; $i++) { 
-					if(isset($post[$arrquantity[$x].$i])){
-						$newkey = $arrquantity[$x].$i;
-						echo $newkey.'='.$post[$arrquantity[$x].$i]."</br>";
-						add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrquantity[$x].$i]);
-					}
-				}
+			$count = $post['img-count'];
+			$image_arr = '';
+			for ( $x=1;$x<=$count;$x++ ) {
+				$name = 'img'.$x;
+				$image_arr[$x] = $post[$name];
 			}
+			echo $count;
+			echo $image_arr;
+			die();
+			// for ($x=0; $x < sizeof($arrquantity); $x++) { 
+			// 	# code...
+			// 	for ($i=1; $i < $row + 2 ; $i++) { 
+			// 		if(isset($post[$arrquantity[$x].$i])){
+			// 			$newkey = $arrquantity[$x].$i;
+			// 			echo $newkey.'='.$post[$arrquantity[$x].$i]."</br>";
+			// 			add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrquantity[$x].$i]);
+			// 		}
+			// 	}
+			// }
 
-			for ($x=0; $x < sizeof($arrprice); $x++) { 
-				# code...
-				for ($i=1; $i < $row + 2 ; $i++) { 
-					if(isset($post[$arrprice[$x].$i])){
-						$newkey = $arrprice[$x].$i;
-						echo $newkey.'='.$post[$arrprice[$x].$i]."</br>";
-						add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrprice[$x].$i]);
-					}
-				}
-			}
+			// for ($x=0; $x < sizeof($arrprice); $x++) { 
+			// 	# code...
+			// 	for ($i=1; $i < $row + 2 ; $i++) { 
+			// 		if(isset($post[$arrprice[$x].$i])){
+			// 			$newkey = $arrprice[$x].$i;
+			// 			echo $newkey.'='.$post[$arrprice[$x].$i]."</br>";
+			// 			add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrprice[$x].$i]);
+			// 		}
+			// 	}
+			// }
 
 			for ($x=0; $x < sizeof($arrtotal); $x++) { 
 				# code...
 				for ($i=1; $i < $row + 2 ; $i++) { 
-					if(isset($post[$arrtotal[$x].$i])){
+					if(isset($post[$arrtotal[$x].$i]) && ($post[$arrtotal[$x].$i]!= 0)){
+						if(isset($post[$arrquantity[$x].$i])){
+							$newkey = $arrquantity[$x].$i;
+							echo $newkey.'='.$post[$arrquantity[$x].$i]."</br>";
+							add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrquantity[$x].$i]);
+						}
+						if(isset($post[$arrprice[$x].$i])){
+							$newkey = $arrprice[$x].$i;
+							echo $newkey.'='.$post[$arrprice[$x].$i]."</br>";
+							add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrprice[$x].$i]);
+						}	
 						$newkey = $arrtotal[$x].$i;
 						echo $newkey.'='.$post[$arrtotal[$x].$i]."</br>";
 						add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrtotal[$x].$i]);
@@ -297,6 +316,7 @@ function change_status() {
 			}
 
 			add_post_meta($post['order_id'],'supplier_'.$totalkey, $post['wtotalprice']);
+			add_post_meta($post['order_id'],'supplier_maxrowval', $post['maxrowval']);
 			if ( ! add_post_meta( $post['order_id'], $key, $post['newstatus'], true ) ) { 
 				   update_post_meta ( $post['order_id'], $key, $post['newstatus'] );
 				}
@@ -313,4 +333,39 @@ function change_status() {
 	}
 
 }
+
+add_action( 'init', 'change_label_name' );
+function change_label_name($label) {
+	$arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg","keychains","shipdhl_"];
+	$newlabel = ["Mold - Set Up ","Printing - Set Up ","Laser Engraving ","Color Fill ","Embossed-Color ","Imprinting Fee ","Swirl ","Segmented ","Glow ","Dual Layer ","Inside Embossed ","Individual Packaging ","Keychains ","Shipping (DHL) "];
+	for ($x=0; $x < sizeof($arrtotal) ; $x++) { 
+		# code...
+		if ($label == $arrtotal[$x]) {
+			return $newlabel[$x];
+		}
+	}
+}
+
+
+
+// add_action( 'init', 'save_artwork' );
+// function save_artwork() {
+// 	$post = $_POST;
+// 	$user_id = get_current_user_id();
+
+// 	if ( isset( $post['form-action'] ) && $post['form-action'] === 'admin-artwork' ) {
+// 		$count = $post['img-count'];
+// 		$image_arr = '';
+// 		for ( $x=1;$x<=$count;$x++ ) {
+// 			$name = 'img'.$x;
+// 			$image_arr[$x] = $post[$name];
+// 		}
+
+// 	   	if ( ! add_post_meta( $post['post-id'], 'admin_artwork',   $image_arr, true ) ) { 
+// 	    	update_post_meta( $post['post-id'], 'admin_artwork',   $image_arr );
+// 	    }
+// 	}
+
+// }
+
 

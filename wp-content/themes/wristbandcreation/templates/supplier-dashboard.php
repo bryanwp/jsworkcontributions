@@ -23,7 +23,7 @@ include ('custom-header.php'); ?>
 	if ( $action === 'view') {
 		include ('supplier-single-order.php');
 	} elseif ( $action === 'profile' ) {
-		include ('admin/admin-dashboard-profile.php');
+		include ('supplier-dashboard-profile.php');
 	} elseif ( $action === 'notification' ) {
 		include ('admin/admin-dashboard-notification.php');
 	} elseif ( $action === 'report' ) {
@@ -45,6 +45,7 @@ include ('custom-header.php'); ?>
 		<?php
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
   'meta_key'    => '_customer_user',
+  'numberposts' => 999,
   'post_type'   => wc_get_order_types( 'view-orders' ),
   'post_status' => array_keys( wc_get_order_statuses() )
 ) ) );
