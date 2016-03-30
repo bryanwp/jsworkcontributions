@@ -32,6 +32,8 @@ include ('custom-header.php'); ?>
 		include ( 'admin/admin-dashboard-single-report.php' );
 	} elseif ( $action === 'order-edit' ) {
 		include ( 'admin/admin-dashboard-single-edit.php' );
+	} elseif ( $action === 'wristband_meta' ) {
+		include ( 'admin/wristband_meta.php' );
 	}
 	
 	?>
@@ -46,9 +48,9 @@ include ('custom-header.php'); ?>
 		<div class="table-1">
 		<?php
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
-  'meta_key'    => '_customer_user',
-  'post_type'   => wc_get_order_types( 'view-orders' ),
-  'post_status' => array_keys( wc_get_order_statuses() )
+	'numberposts' => 9999999,
+    'post_type'   => wc_get_order_types( 'view-orders' ),
+    'post_status' => array_keys( wc_get_order_statuses() )
 ) ) );
 
 if ( $customer_orders ) : ?>

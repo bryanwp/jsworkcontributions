@@ -103,7 +103,7 @@ ul.dash-nav li {
   /*  margin-right: -30px;*/
     margin-top: -22px;
     min-height: 86.7vh;
-    background: #585454;
+   /* background: #585454;*/
 }
 ul.dash-nav:before {
     content: '';
@@ -585,4 +585,7 @@ a.save-artwork {
     padding-bottom: 3px;
     font-family: Arial, Helvetica, sans-serif;
   /*  display: none;*/
+}
+div#wristband-builder-content {
+    margin-top: 40px;
 }

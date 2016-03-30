@@ -344,4 +344,10 @@ jQuery(document).ready(function ($) {
       $('#admin-artwork-form').submit();
    });
 
+   setDataforEdit();
+   function setDataforEdit(){
+      console.log('adsfad');
+      $('.style option[val=107]').attr('selected','selected');
+   }
+
 });
