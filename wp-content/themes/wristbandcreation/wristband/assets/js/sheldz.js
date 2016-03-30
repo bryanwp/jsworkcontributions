@@ -340,5 +340,8 @@ jQuery(document).ready(function ($) {
          $(this).append('<option value="1/4">1/4 inch</option>');
    });
 
+   $('.save-artwork ').click(function(){
+      $('#admin-artwork-form').submit();
+   });
 
 });

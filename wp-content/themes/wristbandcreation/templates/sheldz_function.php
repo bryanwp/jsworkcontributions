@@ -421,3 +421,23 @@ function get_status( $status ) {
 	}
 
 }
+
+add_action( 'init', 'save_artwork' );
+function save_artwork() {
+	$post = $_POST;
+	$user_id = get_current_user_id();
+
+	if ( isset( $post['form-action'] ) && $post['form-action'] === 'admin-artwork' ) {
+		$count = $post['img-count'];
+		$image_arr = '';
+		for ( $x=1;$x<=$count;$x++ ) {
+			$name = 'img'.$x;
+			$image_arr[$x] = $post[$name];
+		}
+
+	   	if ( ! add_post_meta( $post['post-id'], 'admin_artwork',   $image_arr, true ) ) { 
+	    	update_post_meta( $post['post-id'], 'admin_artwork',   $image_arr );
+	    }
+	}
+
+}

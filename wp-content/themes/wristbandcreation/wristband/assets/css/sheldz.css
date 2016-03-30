@@ -482,6 +482,8 @@ a.edit-order {
     font-size: 15px;
     padding: 3px 10px;
     border-radius: 2px;
+    font-weight: normal;
+    cursor: pointer;
 }
 a.edit-order:hover {
     background: #1D429A;
@@ -491,14 +493,13 @@ a.edit-order:hover {
     width: 100px;
     border: 1px solid;
     height: 100px;
-    float: left;
     margin-right: 10px;
 }
 .artwork {
     background: #F1FBFC;
     padding: 10px;
-    height: 120px;
-    border: dashed 2px #DCDCDC;
+   /* height: 120px;*/
+    border: dashed 2px #656565;
 }
 .artwork p {
     margin: 0px;
@@ -510,4 +511,78 @@ p.status {
     margin: 0px;
     font-size: 11px;
     color: #4C4B4B;
+}
+.artwork center {
+    margin: 20px 0px;
+}
+.artwork button {
+    padding: 10px 70px;
+    border: 1px dashed;
+    background: #F1FBFC;
+    border-radius: 5px;
+    color: #313131;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.file {
+    display: none;
+}
+.file img {
+    float: left;
+}
+.img-holder {
+    float: left;
+    position: relative;
+}
+.img-holder p {
+    font-weight: normal;
+    text-align: center;
+}
+.remove-file {
+    position: absolute;
+    cursor: pointer;
+    background: red;
+    color: #fff;
+    width: 14px;
+    height: 14px;
+    text-align: center;
+    font-size: 9px;
+    border-radius: 50%;
+    line-height: 13px;
+    text-indent: 1px;
+    right: 14px;
+    top: 3px;
+    display: none;
+}
+.img-holder:hover .remove-file{
+    display: inline;
+}
+.add-btn {
+    height: 100px;
+    margin-top: 0px!important;
+    width: 100px;
+    padding: 10px!important;
+}
+.artwork-title {
+    margin-top: 1.5em;
+    margin-bottom: 5px;
+}
+.artwork-title h3 {
+    margin: 0px;
+}
+a.save-artwork {
+    background: #00ADEE;
+    color: #FFFFFF;
+    margin-left: 5px;
+    font-size: 14px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-weight: normal;
+    cursor: pointer;
+    /* text-transform: lowercase; */
+    padding-bottom: 3px;
+    font-family: Arial, Helvetica, sans-serif;
+  /*  display: none;*/
 }

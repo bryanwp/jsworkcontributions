@@ -118,7 +118,7 @@ if ( $order ) :
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td> 
 									Grand total: 
 								</td>
 								<td>
@@ -133,20 +133,51 @@ if ( $order ) :
 		</div>
 		<?php } ?>
 	</div>
+	
+	<div class="artwork-title">
+		<h3>Artwork <a class="save-artwork">Save</a></h3>
 
-	<div class="artwork">
-		<img src="google.com">
-		<p>
-			Add an artwork of the wristband.
-		</p>
-		<form>
-		<p>
-			<input type="file" name="image-upload">
-		</p>
-		<p>
-			<button type="submit" name="upload-image">Upload</button>
-		</p>
-		</form>
+	</div>
+	<div class="artwork col-md-12">
+		<?php 
+		$artwork = get_post_meta( $order_id, 'admin_artwork', true );
+
+		if ( $artwork ) { ?>
+			<div class="file" style="display: inline;">
+				<form id="admin-artwork-form" method="post">
+					<?php
+						foreach ($artwork as $key => $value) { ?>
+						
+							<div class="img-holder">
+								<span class="remove-file">x</span>
+								<img class="img-artwork" src="<?php echo $value; ?>">
+								<input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>">
+							</div>
+						<?php } ?>
+					<input id="art-work-count" type="hidden" name="img-count" value="0">
+					<input type="hidden" name="form-action" value="admin-artwork">
+					<input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
+				</form>
+				<button class="media-button add-btn">Add Artwork</button>
+			</div> <!--container for the upload files-->	
+		<?php } else { ?>
+			<div class="file">
+				<form id="admin-artwork-form" method="post">
+					<input id="art-work-count" type="hidden" name="img-count" value="0">
+					<input type="hidden" name="form-action" value="admin-artwork">
+					<input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
+				</form>
+				<button class="media-button add-btn">Add Artwork</button>
+			</div> <!--container for the upload files-->	
+			<center class="no-file">
+				<p>
+					Add an artwork of the wristband.
+				</p>
+				<p>
+					<button class="media-button" type="submit" name="upload-image">Upload</button>
+				</p>
+			</center>
+		<?php } ?>
 	</div>
 
 
