@@ -255,3 +255,36 @@ form#changing-status input, select, textarea{
 form#changing-status .priceinputstyle {
   color: #000;
 }
+.file-supp {
+  display: none;
+}
+
+.remove-file-supp {
+    position: absolute;
+    cursor: pointer;
+    background: red;
+    color: #fff;
+    width: 14px;
+    height: 14px;
+    text-align: center;
+    font-size: 9px;
+    border-radius: 50%;
+    line-height: 13px;
+    text-indent: 1px;
+    right: 14px;
+    top: 3px;
+    display: none;
+}
+
+.img-holder-supp {
+    float: left;
+    position: relative;
+}
+.img-holder-supp p {
+    font-weight: normal;
+    text-align: center;
+}
+
+.img-holder-supp:hover .remove-file-supp{
+    display: inline;
+}

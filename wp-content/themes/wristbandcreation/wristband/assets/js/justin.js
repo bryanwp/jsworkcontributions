@@ -4,8 +4,10 @@ jQuery(document).ready(function ($) {
  $('#wtotalprice').change(function(){
       var sumtotal = 0;
       var totalprice = 0;
+      console.log(row);
       for (var i = 1; i < row + 1; i++) {
-         totalprice = parseInt($('.num_'+i+' input.thetotal').val());
+         totalprice = parseFloat($('.num_'+i+' input.thetotal').val() == '' ? 0 : $('.num_'+i+' input.thetotal').val());
+         if (isNaN(totalprice)){totalprice = 0;}
          sumtotal += totalprice;
          totalprice = 0;
       };
@@ -13,14 +15,7 @@ jQuery(document).ready(function ($) {
       $('#wtotalprice1').val(sumtotal);
 
    })
-
- $('#status-submit').click(function(){
-
-      console.log('here');
-
- })
-
-  function readURL(input) {
+ function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             
@@ -44,6 +39,7 @@ jQuery(document).ready(function ($) {
             arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg_","keychains_","shipdhl_"];
             
             row++;
+            $('#maxrowval').val(row);
             for(x = 0; x < 14; x++)
             {
                 if (value == x) {            
@@ -51,9 +47,8 @@ jQuery(document).ready(function ($) {
                   $('<div><div class="form-group clearfix num_'+row+'" id="divappend_'+value+'" >'+
                         '<label class="pricestyle"> '+arrlabel[value]+' </label>'+
                         '<input type="number" name="'+arrquantity[value]+i+'" id="'+arrquantity[value]+i+'" class="form-control priceinputstyle inputqty" placeholder="Quantity" value="">'+
-                        '<input type="number" name="'+arrprice[value]+i+'" id="'+arrprice[value]+i+'" class="form-control priceinputstyle inputprice" placeholder="Unit Price" value="">'+
+                        '<input type="number" step="any" name="'+arrprice[value]+i+'" id="'+arrprice[value]+i+'" class="form-control priceinputstyle inputprice" placeholder="Unit Price" value="">'+
                         '<input type="number" name="'+arrtotal[value]+i+'" id="'+arrtotal[value]+i+'" value="" class="form-control priceinputstyle thetotal" placeholder="Total" readonly>'+
-                        '<input type="hidden" name="maxrowval" value="'+row+'">'+
                      '<a href="#" id="removestyle">Remove</a></div>').appendTo($('#appendedid'));
                }
             }
@@ -64,6 +59,7 @@ jQuery(document).ready(function ($) {
 
          .on('click','#removestyle',function() { 
                $(this).parent('div').remove();
+               $('#wtotalprice').trigger('change');
                return false;
               })
          .on('change','.inputqty',function(){

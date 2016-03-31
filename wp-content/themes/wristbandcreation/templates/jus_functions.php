@@ -251,17 +251,17 @@ function change_status() {
 	$user_id = get_current_user_id();
 	$post = $_POST;
 	$key = '_new_status';
-	$row = isset($post['maxrowval']);
+	if (!empty($_POST["maxrowval"])) {$row = $_POST["maxrowval"];} else { $row = ''; }
 	$arrquantity = ["moldquantity_", "printingquantity_", "laserquantity_","colorfillquantity_","embossedquantity_","imprintingquantity_","swirlquantity_","segmentedquantity_","glowquantity_","duallayerquantity_","insideembossedquantity_","individualpkgquantity_","keychainsquantity_","shipdhlquantity_"];
 	$arrprice = ["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
     $arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg","keychains","shipdhl_"];
-
+    echo $row;
 	if ( isset( $post['status-submit'] ) ) {
 
 		if ($post['newstatus'] == 'shipped') {
 			# code...
 			
-			echo $post['wtotalprice'];
+			// echo $post['wtotalprice'].'</br>';
 			$totalkey = 'wtotalprice';
 			$count = $post['img-count'];
 			$image_arr = '';
@@ -269,51 +269,39 @@ function change_status() {
 				$name = 'img'.$x;
 				$image_arr[$x] = $post[$name];
 			}
-			echo $count;
-			echo $image_arr;
-			die();
-			// for ($x=0; $x < sizeof($arrquantity); $x++) { 
-			// 	# code...
-			// 	for ($i=1; $i < $row + 2 ; $i++) { 
-			// 		if(isset($post[$arrquantity[$x].$i])){
-			// 			$newkey = $arrquantity[$x].$i;
-			// 			echo $newkey.'='.$post[$arrquantity[$x].$i]."</br>";
-			// 			add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrquantity[$x].$i]);
-			// 		}
-			// 	}
-			// }
+			echo '<pre>';
+			// var_dump($image_arr);
+			 print_r($post);
+			// echo $count.'</br>';
 
-			// for ($x=0; $x < sizeof($arrprice); $x++) { 
-			// 	# code...
-			// 	for ($i=1; $i < $row + 2 ; $i++) { 
-			// 		if(isset($post[$arrprice[$x].$i])){
-			// 			$newkey = $arrprice[$x].$i;
-			// 			echo $newkey.'='.$post[$arrprice[$x].$i]."</br>";
-			// 			add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrprice[$x].$i]);
-			// 		}
-			// 	}
-			// }
-
+		 echo $row;
 			for ($x=0; $x < sizeof($arrtotal); $x++) { 
 				# code...
-				for ($i=1; $i < $row + 2 ; $i++) { 
+				for ($i=1; $i < $row + 2 ; $i++) {
+
 					if(isset($post[$arrtotal[$x].$i]) && ($post[$arrtotal[$x].$i]!= 0)){
 						if(isset($post[$arrquantity[$x].$i])){
-							$newkey = $arrquantity[$x].$i;
-							echo $newkey.'='.$post[$arrquantity[$x].$i]."</br>";
-							add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrquantity[$x].$i]);
+							$newkey1 = $arrquantity[$x].$i;
+							echo $newkey1.'='.$post[$arrquantity[$x].$i]."</br>";
+							add_post_meta( $post['order_id'], 'supplier_'.$newkey1,$post[$arrquantity[$x].$i]);
 						}
 						if(isset($post[$arrprice[$x].$i])){
-							$newkey = $arrprice[$x].$i;
-							echo $newkey.'='.$post[$arrprice[$x].$i]."</br>";
-							add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrprice[$x].$i]);
-						}	
-						$newkey = $arrtotal[$x].$i;
-						echo $newkey.'='.$post[$arrtotal[$x].$i]."</br>";
-						add_post_meta( $post['order_id'], 'supplier_'.$newkey,$post[$arrtotal[$x].$i]);
+							$newkey2 = $arrprice[$x].$i;
+							echo $newkey2.'='.$post[$arrprice[$x].$i]."</br>";
+							add_post_meta( $post['order_id'], 'supplier_'.$newkey2,$post[$arrprice[$x].$i]);
+						}
+						$newkey3 = $arrtotal[$x].$i;
+						echo $newkey3.'='.$post[$arrtotal[$x].$i]."</br>";
+						add_post_meta( $post['order_id'], 'supplier_'.$newkey3,$post[$arrtotal[$x].$i]);
 					}
 				}
 			}
+
+			//die();
+
+			if ( ! add_post_meta( $post['post-id'], 'supplier_artwork',   $image_arr, true ) ) { 
+		    	update_post_meta( $post['post-id'], 'supplier_artwork',   $image_arr );
+		    }
 
 			add_post_meta($post['order_id'],'supplier_'.$totalkey, $post['wtotalprice']);
 			add_post_meta($post['order_id'],'supplier_maxrowval', $post['maxrowval']);

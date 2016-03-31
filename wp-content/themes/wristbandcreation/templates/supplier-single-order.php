@@ -109,8 +109,9 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
             $artwork = get_post_meta( $order_id, 'admin_artwork', true );
 
             if ( $artwork ) { ?>
-              <div class="file" style="display: inline;">
-               <?php
+              <div class="file-supp" style="display: inline;">
+                <div class="fpost-img">
+                  <?php
                     foreach ($artwork as $key => $value) { ?>
                     
                       <div class="img-holder">
@@ -119,24 +120,27 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
                         <input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>">
                       </div>
                     <?php } ?>
-                  <input id="art-work-count" type="hidden" name="img-count" value="0">
+                  <input id="art-work-count-supp" type="hidden" name="img-count" value="0">
                   <input type="hidden" name="form-action" value="admin-artwork">
                   <input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
-                <button class="media-button add-btn">Add Artwork</button>
+                </div>
+                <button class="media-button-supp add-btn">Add Artwork</button>
               </div> <!--container for the upload files-->  
             <?php } else { ?>
-              <div class="file">
-                  <input id="art-work-count" type="hidden" name="img-count" value="0">
+              <div class="file-supp">
+                <div class="fpost-img">
+                  <input id="art-work-count-supp" type="hidden" name="img-count" value="0">
                   <input type="hidden" name="form-action" value="admin-artwork">
                   <input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
-                <button class="media-button add-btn">Add Artwork</button>
+                </div>
+                <button class="media-button-supp add-btn">Add Artwork</button>
               </div> <!--container for the upload files-->  
               <center class="no-file">
                 <p>
                   Add an artwork of the wristband.
                 </p>
                 <p>
-                  <button class="media-button" type="submit" name="upload-image">Upload</button>
+                  <button class="media-button-supp" type="submit" name="upload-image">Upload</button>
                 </p>
               </center>
             <?php } ?>
@@ -181,6 +185,7 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
             <option value="shipped" <?php if($poststatusmeta == "shipped") echo "selected"; ?>>shipped</option>
           </select> 
           <input type="hidden" value="<?php echo $order_id; ?>" name="order_id">
+          <input type="hidden" name="maxrowval" id="maxrowval" value="">
           <?php if($poststatusmeta == "shipped") {?>
           <input type="submit" id="status-submit" name="status-submit" value="Change Status" disabled>
           <?php } else { ?>
@@ -193,7 +198,7 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
 
       $supplier = 'supplier_';
       $rowval = get_post_meta($order_id, $supplier.'maxrowval', TRUE);
-
+      $totalkey = get_post_meta($order_id, $supplier.'wtotalprice', TRUE);
       //echo $rowval;
       $arrquantity = ["moldquantity_", "printingquantity_", "laserquantity_","colorfillquantity_","embossedquantity_","imprintingquantity_","swirlquantity_","segmentedquantity_","glowquantity_","duallayerquantity_","insideembossedquantity_","individualpkgquantity_","keychainsquantity_","shipdhlquantity_"];
       $arrprice = ["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
@@ -209,16 +214,16 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
       </tr>
           <?php
                 for ($i=0; $i < sizeof($arrtotal) ; $i++) { 
-
+                  $x=0;
                   for ($j=0; $j < $rowval ; $j++) { 
 
                     $qty = get_post_meta($order_id, $supplier.$arrquantity[$i].$j, TRUE);
                     $price = get_post_meta($order_id, $supplier.$arrprice[$i].$j, TRUE);
                     $total = get_post_meta($order_id, $supplier.$arrtotal[$i].$j, TRUE);
-
+                    
                     if($total != ''){
-
-                      echo '<tr><td>'.change_label_name($arrtotal[$i]).'('.$j.')'.'</td>';
+                      $x++;
+                      echo '<tr><td>'.change_label_name($arrtotal[$i]).'('.$x.')'.'</td>';
                       echo '<td>'.$qty.'</td>';
                       echo '<td>'.$price.'</td>';
                       echo '<td>'.$total.'</td></tr>';
@@ -226,10 +231,36 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
                   }
                 }
           ?>
-
-
+          <tr>
+            <td>Grand Total</td>
+            <td></td>
+            <td></td>
+            <td><?php echo $totalkey;?></td>
+          </tr>
      </table>
-    <?php } ?>
+
+    <?php $meta = get_post_meta($order_id,"supplier_artwork");
+            // echo '<pre>';
+            // print_r($meta);
+            // echo sizeof($meta);
+
+          for ($i=0; $i < sizeof($meta); $i++) { 
+            # code...
+            //var_dump($meta[$i]);
+            //echo sizeof($meta[$i]);
+            for ($k=0; $k < sizeof($meta[$i]) + 1 ; $k++) { 
+              # code...
+              echo '<img src="'.$meta[$i][$k].'">';
+            }
+
+          }
+            // foreach ($meta as $key => $value) {
+            //   # code...
+            //   echo $value;
+            //   var_dump($value);
+            //   var_dump($key);
+            // }
+     } ?>
 
   </div>
 
