@@ -344,10 +344,122 @@ jQuery(document).ready(function ($) {
       $('#admin-artwork-form').submit();
    });
 
-   setDataforEdit();
-   function setDataforEdit(){
-      console.log('adsfad');
-      $('.style option[val=107]').attr('selected','selected');
+   $(document) 
+   .on('click', '.add-note', function (){
+      var container = $('.post-order-notes .notes');
+         
+      container.html('');
+      var el = '';
+         el +='<form method="post">';
+            el +='<p>';
+               el +='<input class="note-title" type="text" name="note-title" placeholder="Note Title">';
+            el +='</p>';
+            el +='<p>';
+               el +='<textarea class="note-content" name="note-content">';
+               el +='</textarea>';
+            el +='</p>';
+            el +='<div class="note-action-div">';
+               el +='<input class="save-note btn" type="button" value="Save">';
+               el +='<input class="cancel-note btn" type="button" value="Cancel">';
+            el +='</div>';
+         el +='</form>';
+
+      container.append(el);
+   })
+   .on('click', '.save-note', function(){
+      var title     = $('.note-title').val(),
+          content   = $('.note-content').val(),
+          action    = 'save-post-order-notes',
+          container = $('.post-order-notes .notes'),
+          post_id   = $('input[name=post-id]').val();
+
+      container.html('');
+      var el = '';
+
+      el +='<h3 class="note-title">'+title+'</h3>';
+      el +='<span class="note-content">'+nl2br(content)+'</span>';
+      container.append( el );
+
+      $.ajax({
+         url: sheldz_ajax.ajaxUrl,
+         type: 'POST',
+         data: {
+            title: title,
+            content: content,
+            postid: post_id,
+            action: action
+         },
+         dataType: 'json',
+         success: function( response ) {
+            console.log( response.data );
+         }
+      })
+   })
+   .on('click', '.cancel-note', function(){
+
+      var container = $('.post-order-notes .notes');
+      container.html('');
+         var el ='';
+         el +='<center>';
+            el +='<p>Add Notes</p>';
+            el +='<p><button class="add-note" type="submit" name="upload-image">Add</button></p>';
+         el +='</center>';
+         container.append( el );
+   })
+   .on('click', '.cancel-edit', function(){
+
+      var container = $('.post-order-notes .notes'),
+          title     = $('.default-title').val(),
+          content   = $('.default-content').val();
+
+      container.html('');     
+         var el = '';
+             el +='<h3 class="note-title">'+title+'</h3>';
+             el +='<span class="note-content">'+nl2br(content)+'</span>';
+         container.append(el);
+   })
+   .on('click', '.edit-notes', function(){
+      var title     = $('.note-title').text(),
+          content   = $('.note-content').text(),
+          action    = 'save-post-order-notes',
+          container = $('.post-order-notes .notes');
+   
+      container.html('');
+      var el = '';
+      el +='<form method="post">';
+         el +='<p>';
+            el +='<input class="note-title" type="text" name="note-title" placeholder="Note Title" value="'+title+'">';
+         el +='</p>';
+         el +='<p>';
+            el +='<textarea class="note-content" name="note-content">';
+            el += content.replace("<br>", "\ln");
+            el +='</textarea>';
+         el +='</p>';
+         el +='<div class="note-action-div">';
+            el +='<input class="save-note btn" type="button" value="Save">';
+            el +='<input class="cancel-edit btn" type="button" value="Cancel">';
+            el +='<input class="default-title" type="hidden" name="default" value="'+title+'">';
+            el +='<input class="default-content" type="hidden" name="default" value="'+content+'">';
+         el +='</div>';
+      el +='</form>';
+
+      container.append(el);
+   });
+
+   function nl2br (str, is_xhtml) {
+       var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+       return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
    }
+
+   $(document)
+   .on('click', '.ctab', function(){
+      $(this).addClass('active-tab');
+      $('.stab').removeClass('active-tab');
+   })
+   .on('click', '.stab', function(){
+      $(this).addClass('active-tab');
+      $('.ctab').removeClass('active-tab');
+   })
+
 
 });

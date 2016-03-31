@@ -134,63 +134,100 @@ if ( $order ) :
 		<?php } ?>
 	</div>
 	
+	
 	<div class="artwork-title">
-		<h3>Artwork <a class="save-artwork">Save</a></h3>
-
+		<h3>Post Order Notes <a class="edit-notes">edit</a></h3>
 	</div>
-	<div class="artwork col-md-12">
-		<?php 
-		$artwork = get_post_meta( $order_id, 'admin_artwork', true );
+	<div class="post-order-notes col-md-12">
+		<?php
+		 $notes = get_post_meta( $order_id, 'post_order_note', true );
 
-		if ( $artwork ) { ?>
-			<div class="file" style="display: inline;">
-				<form id="admin-artwork-form" method="post">
-					<?php
-						foreach ($artwork as $key => $value) { ?>
-						
-							<div class="img-holder">
-								<span class="remove-file">x</span>
-								<img class="img-artwork" src="<?php echo $value; ?>">
-								<input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>">
-							</div>
-						<?php } ?>
-					<input id="art-work-count" type="hidden" name="img-count" value="0">
-					<input type="hidden" name="form-action" value="admin-artwork">
-					<input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
-				</form>
-				<button class="media-button add-btn">Add Artwork</button>
-			</div> <!--container for the upload files-->	
-		<?php } else { ?>
-			<div class="file">
-				<form id="admin-artwork-form" method="post">
-					<input id="art-work-count" type="hidden" name="img-count" value="0">
-					<input type="hidden" name="form-action" value="admin-artwork">
-					<input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
-				</form>
-				<button class="media-button add-btn">Add Artwork</button>
-			</div> <!--container for the upload files-->	
+		 if ( $notes ) { ?>
+		 <div class="notes">
+		 	<h3 class="note-title"><?php echo $notes['title']; ?></h3>
+		 	<span class="note-content"><?php echo nl2br( $notes['content'] ); ?></span>
+		 </div>
+
+		<?php } else {?>
+		<div class="notes">
 			<center class="no-file">
 				<p>
-					Add an artwork of the wristband.
+					Add Notes
 				</p>
 				<p>
-					<button class="media-button" type="submit" name="upload-image">Upload</button>
+					<button class='add-note' type='submit' name='upload-image'>Add</button>
 				</p>
 			</center>
+		</div>
 		<?php } ?>
 	</div>
 
-
+	
 <?php endif; ?>
 	</div>
-	<?php 
-		$question = get_post_meta( $order_id, '_report_content', true );
 
-		if ( $question ) {
-			include ('admin-dashboard-single-report.php'); 
-		} else {
-			include ('admin-dashboard-notif-form.php'); 
-		}
-	?>
+	<div class="admin-tab row">
+		<div class="ctab col-md-6 active-tab">customer</div>
+		<div class="stab col-md-6">supplier</div>
+	</div>
+	<div class="admin-tab-content row">
+		<div class="ctab-content col-md-12">
+			<div class="artwork-title">
+				<h3>For Customer Artwork <a class="save-artwork">Save</a></h3>
+			</div>
+			<div class="artwork col-md-12">
+				<?php 
+				$artwork = get_post_meta( $order_id, 'admin_artwork', true );
+
+				if ( $artwork ) { ?>
+					<div class="file" style="display: inline;">
+						<form id="admin-artwork-form" method="post">
+							<?php
+								foreach ($artwork as $key => $value) { ?>
+								
+									<div class="img-holder">
+										<span class="remove-file">x</span>
+										<img class="img-artwork" src="<?php echo $value; ?>">
+										<input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>">
+									</div>
+								<?php } ?>
+							<input id="art-work-count" type="hidden" name="img-count" value="0">
+							<input type="hidden" name="form-action" value="admin-artwork">
+							<input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
+						</form>
+						<button class="media-button add-btn">Add Artwork</button>
+					</div> <!--container for the upload files-->	
+				<?php } else { ?>
+					<div class="file">
+						<form id="admin-artwork-form" method="post">
+							<input id="art-work-count" type="hidden" name="img-count" value="0">
+							<input type="hidden" name="form-action" value="admin-artwork">
+							<input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
+						</form>
+						<button class="media-button add-btn">Add Artwork</button>
+					</div> <!--container for the upload files-->	
+					<center class="no-file">
+						<p>
+							Add an artwork of the wristband.
+						</p>
+						<p>
+							<button class="media-button" type="submit" name="upload-image">Upload</button>
+						</p>
+					</center>
+				<?php } ?>
+			</div>
+			<?php 
+				$question = get_post_meta( $order_id, '_report_content', true );
+
+				if ( $question ) {
+					include ('admin-dashboard-single-report.php'); 
+				} else {
+					include ('admin-dashboard-notif-form.php'); 
+				}
+			?>
+		</div>
+	
+	</div>
+
 </div>
-
+<div class="col-md-12" style="height: 20px;"></div>

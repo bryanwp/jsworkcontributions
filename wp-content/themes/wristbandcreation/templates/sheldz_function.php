@@ -484,3 +484,22 @@ function enqueue_wristband_css_js(){
     wp_enqueue_style('wristband_style');
     wp_enqueue_style('list_of_fonts');
 }
+
+add_action('wp_ajax_save-post-order-notes', 'save_post_order_notes');
+add_action('wp_ajax_nopriv_save-post-order-notes', 'save_post_order_notes');
+function save_post_order_notes( $post ){
+	$post = $_REQUEST;
+	$notes = array(
+		'title'   => $post['title'],
+		'content' => $post['content']
+	);
+
+	$post_id = $post['postid'];
+
+	if ( ! add_post_meta( $post_id, 'post_order_note', $notes, true ) ) {
+		update_post_meta( $post_id, 'post_order_note', $notes );
+	}
+
+
+	exit(wp_send_json_success( $post['content'] ) );
+}

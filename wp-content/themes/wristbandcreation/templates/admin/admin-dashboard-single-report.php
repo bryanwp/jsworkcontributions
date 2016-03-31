@@ -6,7 +6,7 @@
 	}
 ?>
 
-	<div class="dash-title-holder">
+	<div class="dash-title-holder col-md-12">
 		<h2>Question <span class="time-ago"><time class="timeago" datetime="<?php echo get_post_meta( $order_id, '_report_time_added', true ); ?>" >asd</time></span></h2>
 	</div>
 	<hr class="divider-full" />
