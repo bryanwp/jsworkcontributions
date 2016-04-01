@@ -1,5 +1,5 @@
 <?php
- //Template Name: Admin Dashboard
+ //Template Name: Supplier Dashboard
 check_if_login();
 
 // foreach ( $results as $result => $post_id ) {
