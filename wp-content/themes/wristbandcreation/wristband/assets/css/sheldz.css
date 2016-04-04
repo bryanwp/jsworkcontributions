@@ -487,7 +487,7 @@ a.edit-order:hover {
     margin-bottom: 15px;
     border: dashed 2px #656565;
 }
-.artwork p, .post-order-notes p {
+.artwork p {
     margin: 0px;
     font-size: 13px;
     font-weight: bold;
@@ -580,23 +580,21 @@ div#wristband-builder-content {
     padding: 10px;
     border: dashed 2px #656565;
 }
-.post-order-notes p {
-    margin: 10px 0;
-}
 .note-title {
     color: #484747;
 }
 .note-content {
     width: 100%;
-    min-height: 120px;
-    height: calc(100% - 0.75em);
-    white-space: pre-wrap;  
-}
-.post-order-notes br {
-    content: '';
+    color: #002F58;
+    margin: 1px 0;
+    outline: none;
+    border: none;
+    background: none!important;
+    resize: none;
+    min-height: 100px;
 }
 .notes h3 {
-    margin: 0px 0px 5px 0px;
+    margin: 0px 0px -5px 0px;
 }
 .note-action-div {
     float: right;
@@ -639,4 +637,46 @@ div#wristband-builder-content {
     background: #B3EAFF;
     margin: 0px;
     padding-bottom: 10px;
+}
+.notes {
+    background: #FFFCDD;
+    float: left;
+    width: 350px;
+    padding: 10px;
+    box-shadow: 0px 0px 5px #909090;
+    margin: 4px;
+}
+span.note-date {
+    font-size: 10px;
+    font-style: italic;
+    color: #9E9E9E;
+}
+input.note-title {
+    background: none!important;
+    color: #000!important;
+    border: none;
+    padding: 0px 5px;
+    font-size: 15px;
+    font-weight: bold;
+    outline: none;
+}
+.notes {
+    background: #FFFCDD;
+    float: left;
+    width: 350px;
+    padding: 10px;
+    box-shadow: 0px 0px 5px #909090;
+}
+.btn {
+    font-size: 10px;
+    font-weight: lighter;
+    margin-left: 2px;
+    background: #B3EAFF;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.order-edit {
+    padding: 0px;
+    margin-top: 10px;
 }

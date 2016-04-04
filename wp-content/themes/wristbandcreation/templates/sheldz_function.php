@@ -438,6 +438,20 @@ function save_artwork() {
 	   	if ( ! add_post_meta( $post['post-id'], 'admin_artwork',   $image_arr, true ) ) { 
 	    	update_post_meta( $post['post-id'], 'admin_artwork',   $image_arr );
 	    }
+
+	    if ( ! add_post_meta( $post['post-id'], 'artwork_approve', 'not_approved', true ) ) {
+	    	update_post_meta( $post['post-id'], 'artwork_approve', 'not_approved' );
+	    }	
+	}
+
+}
+
+add_action( 'wp_ajax_accept-artwork', 'accept_artwork' );
+add_action( 'wp_ajax_nopriv_accept-artwork', 'accept_artwork' );
+function accept_artwork() {
+	$post = $_REQUEST;
+	if ( update_post_meta( $post['postid'], 'artwork_approve', 'approved' ) ) {
+		exit(wp_send_json_success( 'success' ));
 	}
 
 }
@@ -483,4 +497,17 @@ function enqueue_wristband_css_js(){
     wp_enqueue_style('jquery-file-upload_style');
     wp_enqueue_style('wristband_style');
     wp_enqueue_style('list_of_fonts');
+}
+
+// Post order notes ajax function...
+add_action('wp_ajax_save-post-order-notes', 'save_post_order_notes');
+add_action('wp_ajax_nopriv_save-post-order-notes', 'save_post_order_notes');
+function save_post_order_notes() {
+	$post = $_REQUEST;
+
+	if ( ! add_post_meta( $post['postid'], 'post_order_note', $post['notes'], true ) ) {
+		update_post_meta( $post['postid'], 'post_order_note', $post['notes'] );
+	}
+	exit(wp_send_json_success($post['notes']));
+
 }

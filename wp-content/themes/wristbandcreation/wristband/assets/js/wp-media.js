@@ -35,7 +35,7 @@ $(document).ready( function() {
 
 					el +='<div class="img-holder">';
 						el +='<span class="remove-file">x</span>';
-						el +='<img class="img-artwork" src="'+attachment.url+'" alt="'+attachment.title+'">';
+						el +='<img class="img-artwork artw" src="'+attachment.url+'" alt="'+attachment.title+'">';
 						// el +='<p>'+attachment.filename+'</p>';
 						el +='<input type="hidden" class="attachment_id" name=" " value="'+attachment.url+'">';
 					el +='</div>';
@@ -59,7 +59,7 @@ $(document).ready( function() {
   	function artworkCounter() {
 	    var count    =  $('#art-work-count'),
 	    	counter  =  1,
-	        artworks =  $('.img-artwork').map(function(){return true;}).get(),
+	        artworks =  $('.artw').map(function(){return true;}).get(),
 			names 	 =  $('.attachment_id').map(function(){
 							$(this).attr( 'name', 'img'+counter );
 							counter++;

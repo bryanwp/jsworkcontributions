@@ -133,13 +133,68 @@ if ( $order ) :
 		</div>
 		<?php } ?>
 	</div>
-
-	<div class="order-edit">
-		<p class="approval">
-			Your design is beign updated by the ADMIN and it needs your approval.
-		</p>
-	
+	<!-- Start Post Order Notes -->
+	<div class="artwork-title">
+		<h3>Post Order Notes</h3>
+		<!-- <a class="edit-notes">Add Note</a> -->
 	</div>
+	<div class="post-order-notes col-md-12">
+		<?php
+		 $notes = get_post_meta( $order_id, 'post_order_note', true );
+
+		 if ( $notes ) { 
+
+			foreach( $notes as $note ) {?>
+
+		 <div class="notes">
+		 	<h3 class="note-title"><?php echo $note['title']; ?></h3>
+		 	<span class="note-date"><?php echo $note['date']; ?></span>
+		 	<p class="note-content"><?php echo nl2br( $note['content'] ); ?></p>
+		 	<input type="hidden" id="n-title" name="n-title" value="<?php echo $note['title']; ?>">
+		 	<input type="hidden" id="n-date" name="n-date" value="<?php echo $note['date']; ?>">
+		 	<input type="hidden" id="n-content" name="n-content" value="<?php echo nl2br( $note['content'] ); ?>">
+		 </div>
+			
+		<?php } 
+		} ?>
+	</div>
+	<!-- End Post Order Notes -->
+
+	<?php 
+	$approve = get_post_meta( $order_id, 'artwork_approve', true );
+	if ( $approve == 'not_approved') {
+		$out = '';
+		
+		$out .='<div class="order-edit col-md-12">';
+			$out .='<p class="approval">';
+				$out .='Your design is beign updated by the ADMIN and it needs your approval.';
+				$out .='<a class="btn app-design">Approve</a>';
+			$out .='</p>';
+		$out .='</div>';
+		$out .='<input type="hidden" id="postid" name="postid" value="'.$order_id.'" >';
+		echo $out;
+	}
+
+		
+	?>
+	<div class="artwork col-md-12">
+		
+				<?php 
+				$artwork = get_post_meta( $order_id, 'admin_artwork', true );
+
+				if ( $artwork ) { ?>
+					<div class="file" style="display: inline;">
+						
+					<?php
+						foreach ($artwork as $key => $value) { ?>
+							<div class="img-holder">
+								<img class="img-artwork" src="<?php echo $value; ?>">
+								<input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>">
+							</div>
+					<?php } ?>
+					</div> <!--container for the upload files-->	
+				<?php } ?>
+			</div>
 
 
 <?php endif; ?>

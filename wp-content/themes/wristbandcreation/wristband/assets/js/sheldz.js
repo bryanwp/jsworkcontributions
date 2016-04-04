@@ -309,7 +309,7 @@ jQuery(document).ready(function ($) {
    });
 
 
-   notif();
+   // notif();
    function notif() {
       
       var badge = $('.badge').map(function () { 
@@ -346,76 +346,111 @@ jQuery(document).ready(function ($) {
 
    $(document) 
    .on('click', '.add-note', function (){
-      var container = $('.post-order-notes .notes');
-         
-      container.html('');
-      var el = '';
-         el +='<form method="post">';
-            el +='<p>';
-               el +='<input class="note-title" type="text" name="note-title" placeholder="Note Title">';
-            el +='</p>';
-            el +='<p>';
-               el +='<textarea class="note-content" name="note-content">';
-               el +='</textarea>';
-            el +='</p>';
-            el +='<div class="note-action-div">';
-               el +='<input class="save-note btn" type="button" value="Save">';
-               el +='<input class="cancel-note btn" type="button" value="Cancel">';
-            el +='</div>';
-         el +='</form>';
+      var container = $('.post-order-notes');
+      $(this).closest('.notes').remove();
+      
+      if ( $('.add-note-holder').checkElementCount() > 0 ) {
+        $('.add-note-holder').remove();
+      }  
 
-      container.append(el);
+      if ( $('.notsave').checkElementCount() < 1 ) {
+        var el = '';
+          el +='<div class="notes notsave">';
+           el +='<form method="post">';
+              el +='<p>';
+                 el +='<input id="nt" class="note-title" type="text" name="n-title" placeholder="Note Title">';
+              el +='</p>';
+              el +='<p>';
+                 el +='<textarea id="nc" class="note-content" name="note-content" placeholder="Content...">';
+                 el +='</textarea>';
+              el +='</p>';
+              el +='<div class="note-action-div">';
+                 el +='<input class="save-note btn" type="button" value="Save">';
+                 el +='<input class="cancel-note btn" type="button" value="Cancel">';
+              el +='</div>';
+           el +='</form>';  
+          el +='</div>';
+        container.append(el);
+      } 
+      
    })
    .on('click', '.save-note', function(){
-      var title     = $('.note-title').val(),
-          content   = $('.note-content').val(),
-          action    = 'save-post-order-notes',
-          container = $('.post-order-notes .notes'),
-          post_id   = $('input[name=post-id]').val();
-
+      var container = $(this).closest('.post-order-notes .notsave'),
+          title     = $('#nt').val(),
+          content   = $('#nc').val(),
+          d         = $.getCurrentDate();
+     
       container.html('');
       var el = '';
 
       el +='<h3 class="note-title">'+title+'</h3>';
-      el +='<span class="note-content">'+nl2br(content)+'</span>';
+      el +='<span class="note-date">'+d+'</span>';
+      el +='<p class="note-content">'+nl2br(content)+'</p>';
+      el +='<input type="hidden" id="n-title" name="n-title" value="'+title+'">';
+      el +='<input type="hidden" id="n-date" name="n-date" value="'+d+'">';
+      el +='<input type="hidden" id="n-content" name="n-content" value="'+content+'">';
       container.append( el );
+      $('.notes').removeClass('notsave');
+
+      var arr       = $('.notes').getElementArr(),
+          action    = 'save-post-order-notes',
+          post_id   = $('input[name=post-id]').val();
 
       $.ajax({
          url: sheldz_ajax.ajaxUrl,
          type: 'POST',
          data: {
-            title: title,
-            content: content,
+            notes:  arr,
             postid: post_id,
             action: action
          },
          dataType: 'json',
          success: function( response ) {
             console.log( response.data );
+         },
+         error: function(e){
+            console.log(e);
          }
       })
    })
    .on('click', '.cancel-note', function(){
 
-      var container = $('.post-order-notes .notes');
-      container.html('');
+      var container = $('.post-order-notes');
+      var count = $('.notes').checkElementCount();
+
+      if ( count > 1 ) {
+        $(this).closest('.notes').remove();
+      } else {
+         container.html('');
          var el ='';
-         el +='<center>';
-            el +='<p>Add Notes</p>';
-            el +='<p><button class="add-note" type="submit" name="upload-image">Add</button></p>';
-         el +='</center>';
+         el+='<div class="notes add-note-holder">';
+           el +='<center>';
+              el +='<p>Add Notes</p>';
+              el +='<p><button class="add-note" type="submit" name="upload-image">Add</button></p>';
+           el +='</center>';
+         el+='</div>';
          container.append( el );
+      }
    })
    .on('click', '.cancel-edit', function(){
 
       var container = $('.post-order-notes .notes'),
           title     = $('.default-title').val(),
           content   = $('.default-content').val();
+      
+      var currentdate = new Date(); 
+      var datetime = currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + "  "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
 
       container.html('');     
          var el = '';
              el +='<h3 class="note-title">'+title+'</h3>';
-             el +='<span class="note-content">'+nl2br(content)+'</span>';
+             el +='<span class="note-date">'+datetime+'</span>'
+             el +='<p class="note-content">'+nl2br(content)+'</p>';
          container.append(el);
    })
    .on('click', '.edit-notes', function(){
@@ -423,7 +458,7 @@ jQuery(document).ready(function ($) {
           content   = $('.note-content').text(),
           action    = 'save-post-order-notes',
           container = $('.post-order-notes .notes');
-   
+         
       container.html('');
       var el = '';
       el +='<form method="post">';
@@ -444,9 +479,10 @@ jQuery(document).ready(function ($) {
       el +='</form>';
 
       container.append(el);
+      $('.note-content').hasScrollBar();
    });
 
-   function nl2br (str, is_xhtml) {
+   function nl2br(str, is_xhtml) {
        var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
        return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
    }
@@ -460,6 +496,43 @@ jQuery(document).ready(function ($) {
       $(this).addClass('active-tab');
       $('.ctab').removeClass('active-tab');
    })
+   .on('keypress', '#nc', function(e){
+      if(e.which == 13) {
+         $('#nc').hasScrollBar();
+      }
+   })
+   .on('keyup', '#nc', function(){
+      $('#nc').hasScrollBar();
+   });
 
+   //tabs for customer and supplier
+   $(document)
+   .on('click', '.ctab', function(){
+      $('.ctab-content').fadeIn(0);
+      $('.stab-content').fadeOut(0);
+   })
+   .on('click', '.stab', function(){
+      $('.stab-content').fadeIn(0);
+      $('.ctab-content').fadeOut(0);
+   })
+
+   //customer dashboard
+   $(document)
+   .on('click', '.approval', function(){
+      var post_id = $('#postid').val(),
+          action = 'accept-artwork';
+      $.ajax({
+        url: sheldz_ajax.ajaxUrl,
+        type: 'POST',
+        data: {
+          action: action,
+          postid: post_id
+        },
+        dataType: 'json',
+        success: function(response) {
+          $('.approval').html('').append('Artwork Confirmation Sent.');
+        }
+      })
+   })
 
 });
