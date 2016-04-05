@@ -41,110 +41,21 @@ $items = $order->get_items();
 // die;
 
 if ( $order ) : 
-       
+    echo do_shortcode('[the-cart-meta item_key="'.$order_id.'"]');
 ?>
-	<div class="order-container">
-		<?php foreach ( $items as $item ) {
-		    $wristband_meta = maybe_unserialize( $item['wristband_meta']);
-		    $color = $wristband_meta['colors'];
-		?>
-		<div class="details-container">
-			<h3><?php echo $item['name']; ?> Wristband</h3>
-			<div class="row">
-					<div class="col-md-6">
-						<table class="tbl-info" width="100%">
-							<tr>
-								<td>Width:</td>
-								<td><?php echo $wristband_meta['size']; ?></td>
-							</tr>
-							<?php
-								$color = $wristband_meta['colors'];
-								foreach ($color as $colors) {
-									$count = 1;
-									$sizes = $colors['sizes'];
-									foreach ( $sizes as $size ) {
-										if ( $size >= 1 && $count === 1 ) {
-											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Adult Size</td></tr>'; 
-										} elseif ( $size >= 1 && $count === 2  ) {
-											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Medium Size</td></tr>'; 
-										} elseif ( $size >= 1 && $count === 3  ) {
-											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Youth Size</td></tr>'; 
-										} 
-										$count++;
-									}
-								}
-							?>
-							<?php
-								$options = $wristband_meta['messages'];
-								foreach ( $options as $key => $msg ) {
-									if ( empty( $msg ) ) {
-										$msg = 'None';
-									}
-									echo '<tr><td>' . $key . ':</td><td>' . $msg . '</td></tr>'; 
-								}
 
-							?>
-						</table>
-					</div>
-
-					<div class="col-md-6">
-						<table class="tbl-info" width="100%">
-							<?php
-								$options = $wristband_meta['additional_options'];
-								if ( $options ) {
-									foreach ( $options as $option ) {
-									echo '<tr><td>Addtional Options</td><td>' . $option . '</td></tr>'; 
-									}
-								} else {
-									echo '<tr><td>Addtional Options</td><td>None</td></tr>'; 
-								}
-							?>
-						</table>
-						<table class="tbl-info" width="100%">
-							<tr>
-								<td>
-									Date: 
-								</td>
-								<td>
-									 <?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Payment Method: 
-								</td>
-								<td>
-									<?php echo get_post_meta( $order_id, '_payment_method_title', true ); ?>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Grand total: 
-								</td>
-								<td>
-									<?php echo $order->get_formatted_order_total(); ?>
-								</td>
-
-							</tr>
-						</table>
-					</div>
-				
-			</div>
-		</div>
-		<?php } ?>
-	</div>
 	<!-- Start Post Order Notes -->
+	<?php
+		 $notes = get_post_meta( $order_id, 'post_order_note', true );
+
+	if ( $notes ) { ?>
 	<div class="artwork-title">
 		<h3>Post Order Notes</h3>
 		<!-- <a class="edit-notes">Add Note</a> -->
 	</div>
 	<div class="post-order-notes col-md-12">
-		<?php
-		 $notes = get_post_meta( $order_id, 'post_order_note', true );
 
-		 if ( $notes ) { 
-
-			foreach( $notes as $note ) {?>
+		<?php foreach( $notes as $note ) {?>
 
 		 <div class="notes">
 		 	<h3 class="note-title"><?php echo $note['title']; ?></h3>
@@ -155,9 +66,10 @@ if ( $order ) :
 		 	<input type="hidden" id="n-content" name="n-content" value="<?php echo nl2br( $note['content'] ); ?>">
 		 </div>
 			
-		<?php } 
-		} ?>
+		<?php } ?>
+		
 	</div>
+	<?php } ?>
 	<!-- End Post Order Notes -->
 
 	<?php 
@@ -177,24 +89,24 @@ if ( $order ) :
 
 		
 	?>
-	<div class="artwork col-md-12">
-		
-				<?php 
-				$artwork = get_post_meta( $order_id, 'admin_artwork', true );
+	<?php 
+	$artwork = get_post_meta( $order_id, 'admin_artwork', true );
 
-				if ( $artwork ) { ?>
-					<div class="file" style="display: inline;">
-						
-					<?php
-						foreach ($artwork as $key => $value) { ?>
-							<div class="img-holder">
-								<img class="img-artwork" src="<?php echo $value; ?>">
-								<input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>">
-							</div>
-					<?php } ?>
-					</div> <!--container for the upload files-->	
-				<?php } ?>
-			</div>
+	if ( $artwork ) { ?>
+		<div class="artwork col-md-12">
+			
+			<div class="file" style="display: inline;">
+				
+			<?php
+				foreach ($artwork as $key => $value) { ?>
+					<div class="img-holder">
+						<img class="img-artwork" src="<?php echo $value; ?>">
+						<input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>">
+					</div>
+			<?php } ?>
+			</div> <!--container for the upload files-->	
+		</div>
+	<?php } ?>
 
 
 <?php endif; ?>

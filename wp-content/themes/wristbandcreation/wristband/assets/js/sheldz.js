@@ -24,8 +24,6 @@ jQuery(document).ready(function ($) {
    			secret_question	  = $('#secret_question').val(),
    			sanswer			  = $('#sanswer').val();
 
-   			//console.log( secret_question );
-
    			var noError = false;
    			var noPassError = false;
    			var noPassErrorChar = false;
@@ -534,5 +532,8 @@ jQuery(document).ready(function ($) {
         }
       })
    })
+
+   
+
 
 });

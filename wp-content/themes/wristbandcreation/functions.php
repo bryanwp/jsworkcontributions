@@ -43,8 +43,8 @@ function avada_lang_setup() {
 }
 add_action( 'after_setup_theme', 'avada_lang_setup' );
 
-// Add My Custom Functions File - Sh
-include_once( get_stylesheet_directory() . '/templates/sheldz_function.php' );
+// Add My Custom Functions File 
+include_once( get_stylesheet_directory() . '/templates/inc/sheldz_function.php' );
 include_once( get_stylesheet_directory() . '/templates/jus_functions.php' );
 
 

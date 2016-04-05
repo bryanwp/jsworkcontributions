@@ -4,6 +4,10 @@
 * Sheldz
 */
 
+//include shortcodes/views for dynamic viewing
+include_once( get_stylesheet_directory() . '/templates/inc/shortcodes.php' );
+
+//Register function for new user..
 add_action('init', 'register_new_user_phase_two');
 function register_new_user_phase_two(){
 
