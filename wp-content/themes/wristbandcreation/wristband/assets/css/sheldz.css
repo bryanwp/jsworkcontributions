@@ -678,5 +678,22 @@ input.note-title {
 }
 .order-edit {
     padding: 0px;
-    margin-top: 10px;
+}
+.reorder {
+    padding: 0px;
+}
+.reorder div {
+    float: right;
+}
+.btn-order {
+    float: right;
+    padding: 10px 15px;
+    background: #213F99;
+    color: #fff;
+    margin: 10px 0px 5px 5px;
+    cursor: pointer;
+}
+.btn-order:hover {
+    background: #B3EAFF;
+    color: #3A3A3A;
 }

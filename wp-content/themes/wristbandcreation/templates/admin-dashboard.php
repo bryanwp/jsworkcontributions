@@ -34,6 +34,8 @@ include ('custom-header.php'); ?>
 		include ( 'admin/admin-dashboard-single-edit.php' );
 	} elseif ( $action === 'wristband_meta' ) {
 		include ( 'admin/wristband_meta.php' );
+	} elseif ( $action === 'create' ) {
+		include ( 'admin/admin-dashboard-register.php' );
 	}
 	
 	?>
@@ -80,7 +82,7 @@ if ( $customer_orders ) : ?>
         $orders = new WC_Order( $order_id ); 
         $items = $orders->get_items();
 
-        ?><tr>		
+        ?><tr data-href="<?php echo esc_url( home_url('admin-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">		
         			<td data-title="<?php esc_attr_e( 'Order Number', 'woocommerce' ); ?>">
 						<a class="orders" href="<?php echo esc_url( home_url('admin-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
 							<?php echo check_notif_onload( $order_id ); ?>

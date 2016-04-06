@@ -5,7 +5,7 @@
 		$order_id = $_GET['ID'];
 	}
 ?>
-<div class="col-md-12 white">
+<div class="col-md-12">
 	<div class="dash-title-holder">
 		<h2>Ask Question</h2>
 	</div>
@@ -33,6 +33,7 @@
 				</div>
 			</p>
 			<p class="form-button">
+				<input type="hidden" name="user" value="<?php echo $user; ?>">
 				<input type="hidden" name="form-action" value="send-report">
 				<input type="hidden" name="order-id" value="<?php echo $order_id ?>">
 				<input type="submit" id="profile" class="save-button" name="profile" value="Send Report">

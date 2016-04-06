@@ -53,4 +53,55 @@
       return time;
    }
 
+   $.getCommentsUser = function(){
+      var action   = 'getComments-ajax',
+          usercode = '1-0',
+          comments = '',
+          id       = $('#post_id').val();
+
+      $.ajax({
+        url: plugins_ajax.ajaxUrl, 
+        method: 'POST',
+        data:{
+          action: action,
+          id: id,
+          code: usercode
+        },
+        dataType: 'json',
+        success: function( respones ){
+          comments = respones.data;
+          $('#reply-list').append(comments);
+        },
+        error: function(e){
+          console.log(e.responseText);
+        }
+
+      });
+   }
+  $.getCommentsAdmin = function(){
+      var action   = 'getComments-ajax',
+          usercode = '0-1',
+          comments = '',
+          id       = $('#post_id').val();
+
+      $.ajax({
+        url: plugins_ajax.ajaxUrl, 
+        method: 'POST',
+        data:{
+          action: action,
+          id: id,
+          code: usercode
+        },
+        dataType: 'json',
+        success: function( respones ){
+          comments = respones.data;
+          $('#reply-list').append(comments);
+        },
+        error: function(e){
+          console.log(e.responseText);
+        }
+
+      });
+   }
+
 })(jQuery);

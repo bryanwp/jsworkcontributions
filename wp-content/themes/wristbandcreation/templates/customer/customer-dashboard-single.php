@@ -43,6 +43,11 @@ $items = $order->get_items();
 if ( $order ) : 
     echo do_shortcode('[the-cart-meta item_key="'.$order_id.'"]');
 ?>
+	<!-- Start Reorder/Order and Edit -->
+	<div class="reorder col-md-12">
+			<a class="order-again btn-order">Order Again</a>
+			<a class="order-edit btn-order">Order & Edit</a>
+	</div>
 
 	<!-- Start Post Order Notes -->
 	<?php
@@ -112,11 +117,29 @@ if ( $order ) :
 <?php endif; ?>
 	</div>
 	<?php 
-		$question = get_post_meta( $order_id, '_report_content', true );
+		$question = get_post_meta( $order_id, 'customer_report_content', true );
 
-		if ( $question ) {
-			include ('customer-dashboard-single-report.php'); 
+		if ( $question ) { ?>
+			<div class="dash-title-holder">
+				<h2>Question <span class="time-ago"><time class="timeago" datetime="<?php echo get_post_meta( $order_id, 'customer_report_time_added', true ); ?>" >asd</time></span></h2>
+			</div>
+			<hr class="divider-full" />
+			<div class="dash-filter">
+				<!-- <span>Filter:</span> -->
+			</div>
+			
+			<div class="report-box">
+
+				<p class="report-content">
+					<?php echo get_post_meta( $order_id, 'customer_report_content', true ); ?>
+				</p>
+			</div>
+			<div id="creply" class="reply-container">
+				<?php include ('customer-dashboard-single-report.php'); ?>
+			</div>
+		<?php
 		} else {
+			$user = "customer";
 			include ('customer-dashboard-notif-form.php'); 
 		}
 		

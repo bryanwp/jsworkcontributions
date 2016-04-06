@@ -24,6 +24,9 @@ function theme_enqueue_styles() {
         wp_localize_script('sheldz-js', 'sheldz_ajax', array( 
         'ajaxUrl' => admin_url('admin-ajax.php')
         ));
+        wp_localize_script('plugins-js', 'plugins_ajax', array( 
+        'ajaxUrl' => admin_url('admin-ajax.php')
+        ));
       }
 
     wp_register_style('list_of_icons', get_stylesheet_directory_uri() . '/wristband/assets/css/list-icons.css', array());

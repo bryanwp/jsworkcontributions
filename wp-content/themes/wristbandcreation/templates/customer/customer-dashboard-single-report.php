@@ -6,25 +6,11 @@
 	}
 ?>
 
-	<div class="dash-title-holder">
-		<h2>Question <span class="time-ago"><time class="timeago" datetime="<?php echo get_post_meta( $order_id, '_report_time_added', true ); ?>" >asd</time></span></h2>
-	</div>
-	<hr class="divider-full" />
-	<div class="dash-filter">
-		<!-- <span>Filter:</span> -->
-	</div>
 	
-	<div class="report-box">
-
-		<p class="report-content">
-			<?php echo get_post_meta( $order_id, '_report_content', true ); ?>
-		</p>
-	</div>
-	<div class="reply-container">
 		<h3>Replies</h3>
 		<div class="comment-list">
 			<ul id="reply-list">
-				<?php get_comments_list( $order_id ); ?>
+				<?php get_comments_list( $order_id, 'notification_admin_user' ); ?>
 			</ul>
 		</div>
 		<div class="comment-editor" contenteditable>
@@ -38,7 +24,7 @@
 				<input class="reply-btn" type="button" name="submit" value="Reply" >
 			</form>
 		</div>
-	</div>
+	
 
 
 

@@ -175,12 +175,30 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 					$redirect = home_url('login');
 					$role = get_user_meta( $current_user->ID, 'user_custom_role', true );
 
-					$orders  = "dash-active";
-					$profile = "";
+					$orders  = "dash-active"; $profile = "";
+					$profile = ""; $Orderlogs ="";
+
 					if ( isset( $_GET['action'] ) ) {
-						if ( $_GET['action'] == profile ) {
-							$profile = "dash-active";
+						if ( $_GET['action'] == 'profile' ) {
+							$create = "";
 							$orders  = "";
+							$profile = "dash-active";
+							$Orderlogs = "";
+						} elseif ( $_GET['action'] == 'create' ) {
+							$create = "dash-active";
+							$orders  = "";
+							$profile = "";
+							$Orderlogs = "";
+						} elseif ( $_GET['action'] == 'Orderlogs' ) {
+							$create = "";
+							$orders  = "";
+							$profile = "";
+							$Orderlogs = "dash-active";
+						} else {
+							$create = "";
+							$orders  = "dash-active";
+							$profile = "";
+							$Orderlogs = "";
 						}
 					}
 
@@ -190,7 +208,8 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 							<ul class="dash-custom-nav">
 								<li><a class="nav-a <?php echo $orders; ?>" href="<?php echo home_url('admin-dashboard'); ?>">All Orders</a></li>
 								<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('admin-dashboard/?action=profile'); ?>">Profile</a></li>
-								<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('admin-dashboard/?action=Orderlogs'); ?>">Order Logs</a></li>
+								<li><a class="nav-a <?php echo $create; ?>" href="<?php echo home_url('admin-dashboard/?action=create'); ?>">Create Account</a></li>
+								<li><a class="nav-a <?php echo $Orderlogs; ?>" href="<?php echo home_url('admin-dashboard/?action=Orderlogs'); ?>">Order Logs</a></li>
 								<li><a class="nav-a" href="<?php echo wp_logout_url( $redirect ); ?>">Log out</a></li>
 							</ul>
 						</div>

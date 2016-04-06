@@ -77,7 +77,14 @@ function cart_meta( $atts ){
 						foreach ($clipart as $clipart_key => $clipart_value) {
 							
 							if ( ! empty( $clipart_value ) ) {
-								echo '<span>' . str_replace( '_', ' ', ucwords( $clipart_key ) ) . ': <i class="fa ' . $clipart_value . '"></i>'. str_replace( 'aykun-', '', $clipart_value) .' </span><br />'; 
+								$icon = '';
+								if (preg_match('/(\.jpg|\.png|\.bmp)$/', $clipart_value)){ 
+					              $icon = '<img src="'.wp_upload_dir()['baseurl'] . '/clipart/' . $clipart_value.'" alt="" width="16px" height="16px">';
+					            } else {
+					              $icon = '<i class="fa ' . $clipart_value . '"></i>';
+					            }
+
+								echo '<span>' . str_replace( '_', ' ', ucwords( $clipart_key ) ) . ':'. $icon .' '. str_replace( 'aykun-', '', $clipart_value) .' </span><br />'; 
 							}
 						}
 

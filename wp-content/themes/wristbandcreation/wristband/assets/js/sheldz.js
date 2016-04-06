@@ -9,6 +9,26 @@ jQuery(document).ready(function ($) {
      }, 10000);
    }());
 
+   setInterval(function(){
+      var pathname = window.location.pathname;
+      var req = window.location.search;
+      var page = req.substring(1,12);
+      
+      if ( pathname == '/customer-dashboard/' && page == 'action=view') {
+          $.getCommentsUser();
+      }
+
+      if ( pathname == '/admin-dashboard/' && page == 'action=view' ) {
+          $.getCommentsAdmin();
+      }
+
+
+   }, 10000);
+
+   $('tr[data-href]').on("click", function() {
+    document.location = $(this).data('href');
+   });
+
    $('.submit').click(function(){
    		
    		var fname 		 	  = $('#fname').val(),
@@ -74,7 +94,7 @@ jQuery(document).ready(function ($) {
    					$('.err-container').fadeIn();
 		   	   		$('.err-msg').empty();
 	   				$('.err-msg').append( 'Please enter the same password in the two password fields.' );
-	   				return false;b
+	   				return false;
    				} else if ( ! noPassErrorChar ) {
    					$('.err-container').fadeIn();
 		   	   		$('.err-msg').empty();
@@ -86,8 +106,8 @@ jQuery(document).ready(function ($) {
 	   				$('.err-msg').append( 'Email is invalid.' );
 	   				return false;
    				} else {
+            console.log('no errors at all');
    					return true;
-   					console.log('no errors at all');
    				}
    			}		
    });
@@ -532,8 +552,5 @@ jQuery(document).ready(function ($) {
         }
       })
    })
-
-   
-
 
 });

@@ -224,16 +224,16 @@ function save_single_report() {
 	if ( isset( $post['form-action'] ) && $post['form-action'] === 'send-report' ) {
 
 		// add_post_meta( $post['order-id'], '_report_title', $post['report_title'] );
-		add_post_meta( $post['order-id'], '_report_content', $post['report_content'] );
+		add_post_meta( $post['order-id'], $post['user'].'_report_content', $post['report_content'] );
 
 		//$time = current_time('mysql');
 		$time = date('Y-m-d') . 'T' . date('H:i:s') . 'Z';
-		add_post_meta( $post['order-id'], '_report_time_added', $time );
+		add_post_meta( $post['order-id'], $post['user'].'_report_time_added', $time );
 
 		// add_post_meta( $post['order-id'], '_report_content', $post['report_content'] );
 
 		$order_link = home_url('customer-dashboard/?action=view&ID='. $post['order-id'] );
-		add_post_meta( $post['order-id'], '_report_order_link', $order_link);
+		add_post_meta( $post['order-id'], $post['user'].'_report_order_link', $order_link);
 
 		// $redirect = home_url( 'customer-dashboard/?action=view-report&post-id='. $post['order-id'] );
 		// exit( wp_redirect( $redirect ) );	
@@ -290,17 +290,14 @@ function get_notification( $user_id ){
 	$results = $wpdb->get_results( $sql );
 }
 
-function get_comments_list( $order_id ){
+function get_comments_list( $order_id , $meta_key ){
 
 	$args = array(
 		'comment_post_ID' => $order_id,
+		'meta_key' => $meta_key
 	);
 
 	$comments =  fetch_comments( $args ); 
-
-	// echo "<pre>";
-	// print_r($comments);
-	// die;
 		
 	foreach ( $comments as $comment ) { 
 		$user = get_user_by( 'email', $comment->comment_author_email );
@@ -314,7 +311,55 @@ function get_comments_list( $order_id ){
 				</div>
 			</li>
 		<?php
+		update_comment_meta( $comment->comment_ID, $meta_key, '1-1' );
 	 } 	
+}
+
+add_action( 'wp_ajax_getComments-ajax', 'getComments_ajax' );
+add_action( 'wp_ajax_nopriv_getComments-ajax', 'getComments_ajax' );
+function getComments_ajax(){
+	$post = $_REQUEST;
+	$order_id = $post['id'];
+	$user = $post['code'];
+	global $wpdb;
+
+	$sql = "SELECT 
+		a.comment_ID,
+		a.comment_post_ID,
+		a.comment_content,
+		a.comment_author_email,
+		a.user_id,
+		a.comment_date,
+		b.meta_key,
+		b.meta_value
+
+		FROM $wpdb->comments as a
+		INNER JOIN $wpdb->commentmeta as b
+		ON a.comment_ID = b.comment_id
+		where a.comment_post_ID = '$order_id'
+		AND b.meta_key = 'notification_admin_user'
+		AND b.meta_value = '$user'";
+	
+	$results = $wpdb->get_results( $sql );
+	$c = '';
+	if ( $results ) {
+		foreach ( $results as $comment ) { 
+			$user = get_user_by( 'email', $comment->comment_author_email );
+			$datetime = str_replace(" ", "T", $comment->comment_date) . 'Z';
+	
+			$c.='<li>';
+				$c.='<div class="single-comment">';
+					$c.='<p>'.$user->display_name .'<span class="time-ago"><time class="timeago" datetime="'.$datetime.'"> ...</time></span></p>';
+					$c.='<span>'.$comment->comment_content.'</span>';
+				$c.='</div>';
+			$c.='</li>';
+
+			if (update_comment_meta( $comment->comment_ID, 'notification_admin_user', '1-1' ) ) {
+				exit(wp_send_json_success( $c ) );
+			}
+			
+	 	} 
+	}
 }
 
 function fetch_comments( $args ){
@@ -333,7 +378,7 @@ function fetch_comments( $args ){
 		FROM $wpdb->comments as a
 		INNER JOIN $wpdb->commentmeta as b
 		ON a.comment_ID = b.comment_id
-		where a.comment_post_ID = '{$args['comment_post_ID']}' AND b.meta_key = 'notification_admin_user'";
+		where a.comment_post_ID = '{$args['comment_post_ID']}' AND b.meta_key = '{$args['meta_key']}'";
 	
 	$results = $wpdb->get_results( $sql );
 	return $results;

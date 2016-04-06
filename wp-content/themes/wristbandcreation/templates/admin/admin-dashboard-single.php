@@ -29,7 +29,7 @@ $items = $order->get_items();
 		<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
 	</div>
 	<div style="margin-top: 20px;">
-			<h2><?php echo get_order_number_format( $order_id ); ?> <a class="edit-order" href="<?php echo home_url('admin-dashboard/?action=order-edit&ID='.$order_id); ?>">Edit</a></h2> 
+			<h2><?php echo get_order_number_format( $order_id ) .' ('. get_status( get_post_meta( $order_id, '_new_status', true ) ) .')'; ?> <a class="edit-order" href="<?php echo home_url('admin-dashboard/?action=order-edit&ID='.$order_id); ?>">Edit</a></h2> 
 	</div>
 
 	<div class="table-1 no-overflow">
@@ -229,12 +229,15 @@ if ( $order ) :
 				<?php } ?>
 			</div>
 			<?php 
-				$question = get_post_meta( $order_id, '_report_content', true );
+				$question = get_post_meta( $order_id, 'customer_report_content', true );
 
-				if ( $question ) {
+				if ( $question ) { ?>
+					<div class="dash-title-holder col-md-12">
+						<h2>Customer Question <span class="time-ago"><time class="timeago" datetime="<?php echo get_post_meta( $order_id, 'customer_report_time_added', true ); ?>" >asd</time></span></h2>
+					</div>
+				<?php
+					$user = "notification_admin_user";
 					include ('admin-dashboard-single-report.php'); 
-				} else {
-					include ('admin-dashboard-notif-form.php'); 
 				}
 			?>
 		</div> 
@@ -243,11 +246,11 @@ if ( $order ) :
 		<!-- Supplier Tab Start -->
 		<div class="stab-content col-md-12" style="display: none;">
 			<div class="artwork-title">
-				<h3>Sample Images from Supplier</h3>
+				<h3>Images from Supplier</h3>
 			</div>
 			<div class="artwork col-md-12">
 				<?php 
-				$artwork = get_post_meta( $order_id, 'admin_artwork', true );
+				$artwork = get_post_meta( $order_id, 'supplier_artwork', true );
 
 				if ( $artwork ) { ?>
 					<div class="file" style="display: inline;">
@@ -265,31 +268,24 @@ if ( $order ) :
 						<button class="media-button add-btn">Add Artwork</button>
 					</div> <!--container for the upload files-->	
 				<?php } else { ?>
-					<div class="file">
-						<form id="admin-artwork-form" method="post">
-							<input id="art-work-count" type="hidden" name="img-count" value="0">
-							<input type="hidden" name="form-action" value="admin-artwork">
-							<input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
-						</form>
-						<button class="media-button add-btn">Add Artwork</button>
-					</div> <!--container for the upload files-->	
 					<center class="no-file">
 						<p>
-							Add an artwork of the wristband.
+							Pending Supplier Artwork Upload.
 						</p>
-						<p>
-							<button class="media-button" type="submit" name="upload-image">Upload</button>
-						</p>
+						<span>(Waiting for the supplier)</span>
 					</center>
 				<?php } ?>
 			</div>
 			<?php 
-				$question = get_post_meta( $order_id, '_report_content', true );
+				$question = get_post_meta( $order_id, 'supplier_report_content', true );
 
-				if ( $question ) {
+				if ( $question ) { ?>
+					<div class="dash-title-holder col-md-12">
+						<h2>Supplier Question <span class="time-ago"><time class="timeago" datetime="<?php echo get_post_meta( $order_id, 'supplier_report_time_added', true ); ?>" >asd</time></span></h2>
+					</div>
+				<?php
+					$user = "notification_admin_supplier";
 					include ('admin-dashboard-single-report.php'); 
-				} else {
-					include ('admin-dashboard-notif-form.php'); 
 				}
 			?>
 		</div>
