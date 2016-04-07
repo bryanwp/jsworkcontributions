@@ -558,5 +558,36 @@ function save_post_order_notes() {
 		update_post_meta( $post['postid'], 'post_order_note', $post['notes'] );
 	}
 	exit(wp_send_json_success($post['notes']));
+}
 
+add_action('init', 'save_user_made_by_admin');
+function save_user_made_by_admin() {
+	$post = $_POST;
+
+	if ( isset( $post['form-action'] ) && $post['form-action'] === 'add_new_aes' ) {
+
+	    $userdata = array(
+	      'user_login'  =>  $post['email'],
+	      'user_pass'   =>  $post['pass'],
+	      'first-name'  => $post['fname'],
+	      'last-name'   => $post['lname'],
+	      'user_email'  => $post['email'],
+	      'user_nicename' => $post['fname'] . ' ' . $post['lname']
+	    );
+
+        $user_id = wp_insert_user( $userdata );
+
+        if ( ! is_wp_error( $user_id ) ) {
+	    	//adding user meta
+	    	add_user_meta( $user_id, 'custom_role', $post['custom_role']  ); 
+	    	
+	    	 $redirect = home_url('admin-dashboard/?action=create&st='.$post['custom_role'] );
+			exit (wp_redirect($redirect));
+        } else {
+        	echo 'error';
+       } 
+
+       
+
+	}
 }

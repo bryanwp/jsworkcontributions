@@ -1,4 +1,4 @@
-<?php
+	<?php
 $order_id = '';
 if ( isset( $_GET['ID'] ) ) {
 			$order_id = $_GET['ID'];  
@@ -134,7 +134,12 @@ if ( $order ) :
 		<?php } ?>
 	</div>
 	
+	<div class="box col-md-12">
+		<span>Send e-mail confirmation for the customer</span>
+		<button type="button" class="btn">Send</button>
+	</div>
 	
+
 	<div class="artwork-title">
 		<h3>Post Order Notes <a class="add-note btn">Add Note</a></h3>
 		<!-- <a class="edit-notes">Add Note</a> -->

@@ -551,6 +551,40 @@ jQuery(document).ready(function ($) {
           $('.approval').html('').append('Artwork Confirmation Sent.');
         }
       })
+   });
+
+   $(document)
+   .on('click', '#create-user', function(){
+      if ( $('#user-fname').val() == "") {
+        create_error(); return false;
+      }
+
+      if ( $('#user-lname').val() == "") {
+        create_error(); return false;
+      }
+
+      if ( $('#email').val() == "") {
+        create_error(); return false;
+      }
+
+      if ( $('#user-pass').val() == "") {
+        create_error(); return false;
+      }
+
+      if ( $('#user-role').val() == "") {
+        create_error(); return false;
+      }
    })
+
+   function create_error(){
+      var con = $('.err-container');
+      var err = $('.err-msg');
+
+      con.fadeIn();
+      err.html('');
+      err.append('All fields are required');
+
+      return false
+   }
 
 });
