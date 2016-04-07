@@ -133,7 +133,7 @@ if ( $customer_orders ) : ?>
 			              } elseif ($poststatusmeta == 'shipped') {
 			                echo 'Shipped';
 			              } else {
-			                echo 'No Status Yet';
+			                echo 'Pending Production';
 			              }
 
 			             ?>

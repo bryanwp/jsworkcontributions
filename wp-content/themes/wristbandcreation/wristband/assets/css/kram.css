@@ -288,3 +288,11 @@ form#changing-status .priceinputstyle {
 .img-holder-supp:hover .remove-file-supp{
     display: inline;
 }
+
+.trackstyle {
+    margin-bottom: 10px;
+}
+
+input#trackingnum {
+    width: 50%;
+}

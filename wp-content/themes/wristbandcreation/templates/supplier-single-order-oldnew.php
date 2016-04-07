@@ -110,7 +110,9 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
             <option value="in_reproduction" <?php if($poststatusmeta == "in_reproduction") echo "selected"; ?>>in re-production</option>
             <option value="produced_pending_shipment" <?php if($poststatusmeta == "produced_pending_shipment") echo "selected"; ?>>produced – pending shipment</option>
             <option value="shipped" <?php if($poststatusmeta == "shipped") echo "selected"; ?>>shipped</option>
-            </select>
+            </select> 
+            <input type="hidden" value="<?php echo $order_id; ?>" name="order_id">
+            <input type="hidden" name="maxrowval" id="maxrowval" value="">
             <?php if($poststatusmeta == "shipped") {?>
             <input type="submit" id="status-submit" name="status-submit" value="Change Status" disabled>
             <?php } else { ?>
@@ -182,7 +184,6 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
 
           </select>
           <button id="addfield" type="button" >Add Field</button>
-          <input type="hidden" name="maxrowval" id="maxrowval" value="">
           <input type="submit" id="profile" class="save-button" name="profile" value="Send Report">
           <!-- <div class="form-group clearfix">
             <label class="pricestyle"> Select file to upload </label>
@@ -206,39 +207,150 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
       $arrprice = ["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
       $arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg","keychains","shipdhl_"];
       ?>
-  <div>
+<!--     <div class="col-lg-12">
+     <H2>Wristand Shipped Price for <?php// echo get_order_number_format( $order_id ); ?> </H2> -->
+      <!-- <form id="change-list" method="post"> -->
+     <!-- <table class="tbl-info" width="100%">
+      <tr>
+        <th>Label</th>
+        <th>quantity</th>
+        <th>Unit Price</th>
+        <th>Total Price</th>
+        <th></th>
+      </tr>
+          <?php
+
+                // $qty = get_post_meta($order_id, $supplier.'wpqty', TRUE);
+                // $price = get_post_meta($order_id, $supplier.'wpprice', TRUE);
+                // $total = get_post_meta($order_id, $supplier.'wptotal', TRUE);
+                // // for ($i=0; $i < sizeof($arrtotal) ; $i++) {
+                // //   for ($j=0; $j < $rowval ; $j++) { 
+                // //       if($total[$i][$j] != ''){
+                // //         //$x++;
+                // //       echo '';
+                // //       echo '<tr><td>'.change_label_name($arrtotal[$i]).'('.$j.')'.'</td>';
+                // //       echo '<td><input type="text" name="qty" value="'.$qty[$i][$j].'"></td>';
+                // //       echo '<td><input type="text" name="price" value="'.$price[$i][$j].'"></td>';
+                // //       echo '<td>'.$total[$i][$j].'</td><td><input type="submit" name="update-price-list" value="update"><input type="submit" name="delete-price-list" value="delete"></td></tr>';
+                // //       //echo $total[$i][$j].'<br>';
+                // //       // echo '<input type="hidden" value="'.$qty[$i][$j].'" name="oldqty">';
+                // //       // echo '<input type="hidden" value="'.$price[$i][$j].'" name="oldprice">';
+                // //       // echo '<input type="hidden" value="'.$total[$i][$j].'" name="oldtotal">';
+                // //       echo '<input type="hidden" value="'.$i.'" name="val1">';
+                // //       echo '<input type="hidden" value="'.$j.'" name="val2">';
+                // //       echo '<input type="hidden" value="'.$order_id.'" name="order_id">';
+
+                // //       echo '';
+                // //       }
+                // //   }
+                // // }
+                // echo "<pre>";
+                // // print_r($qty);
+                // // print_r($total);
+                // foreach ($total as $key => $value) {
+                //   # code...
+
+                //   // echo $key.'<br>';
+                //   // print_r($value);
+                //   // echo '<br>';
+                //   // echo '<td><input type="text" name="'.change_qty_name($key).$i.'" value="'.$qty[change_qty_name($key)][$i].'"></td>';
+                //   // echo '<td><input type="text" name="'.change_price_name($key).$i.'" value="'.$price[change_price_name($key)][$i].'"></td>';
+                    
+
+                //   for ($i=0; $i <sizeof($value) ; $i++) { 
+                //     # code...
+                //     echo '<form id="change-list" method="post">';
+                //     echo '<tr><td>'.change_label_name($key).'('.$i.')</td>';
+                //     echo '<td><input type="text" name="qty" value="'.$qty[change_qty_name($key)][$i].'"></td>';
+                //     echo '<td><input type="text" name="price" value="'.$price[change_price_name($key)][$i].'"></td>';
+                //     echo '<td>'.$value[$i].'</td><td><input type="submit" name="update-price-list" value="update"><input type="submit" name="delete-price-list" value="Delete"></td></tr>';
+                //     echo '<input type="hidden" name="key" value="'.$key.'">';
+                //     echo '<input type="hidden" name="var" value="'.$i.'">';
+                //     echo '<input type="hidden" value="'.$order_id.'" name="order_id">';
+                //     echo '</form>';
+                //   }
+
+                //    // echo '<tr><td>'.change_label_name($key).'('.$j.')</td>';
+                //    //    echo '<td><input type="text" name="qty" value="'.$qty[change_qty_name($key).$j].'"></td>';
+                //    //    echo '<td><input type="text" name="price" value="'.$price[change_price_name($key).$j].'"></td>';
+                //    //    echo '<td>'.$value.'</td><td><input type="submit" name="delete-price-list" value="Delete"></td></tr>';
+
+                // }
+
+          ?>
+          <tr>
+            <td>Grand Total</td>
+            <td></td>
+            <td></td>
+            <td><?php //echo $totalkey;?></td>
+            <td></td>
+          </tr>
+     </table> -->
+     <!-- <input type="hidden" value="<?php //echo $order_id; ?>" name="order_id">
+     <input type="submit" name="update-price-list" value="update">
+    </form> -->
+  <div class="col-lg-12">
      <H2>Wristand Shipped Price for <?php echo get_order_number_format( $order_id ); ?> </H2>
     <form id="change-list" method="post">
     <div id='appendedid'>
             <div></div>
+
     <?php
     $qty = get_post_meta($order_id, $supplier.'wpqty', TRUE);
     $price = get_post_meta($order_id, $supplier.'wpprice', TRUE);
     $total = get_post_meta($order_id, $supplier.'wptotal', TRUE);
-    // echo "<pre>";
-    //             print_r($qty);
-    //             print_r($total);
-    // echo "</pre>";
+    echo "<pre>";
+                print_r($qty);
+                print_r($total);
      //echo '<form id="change-list" method="post">';
-    $j = 0;
                 foreach ($total as $key => $value) {
                   # code...
-                  $k = change_to_int($key);
+
+                  // echo $key.'<br>';
+                  // print_r($value);
+                  // echo '<br>';
+                  // echo '<td><input type="text" name="'.change_qty_name($key).$i.'" value="'.$qty[change_qty_name($key)][$i].'"></td>';
+                  // echo '<td><input type="text" name="'.change_price_name($key).$i.'" value="'.$price[change_price_name($key)][$i].'"></td>';
+                   echo '';
+
                   for ($i=0; $i <sizeof($value) ; $i++) { 
-                    echo '<div><div class="form-group clearfix num_'.$j.'" id="divappend_'.$k.'" >
-                          <label class="pricestyle"> '.change_label_name($key).' </label>
-                          <input type="number" name="'.change_qty_name($key).$i.'" id="'.change_qty_name($key).$i.'" class="form-control priceinputstyle inputqty" placeholder="Quantity" value="'.$qty[change_qty_name($key)][$i].'">
-                          <input type="number" step="any" name="'.change_price_name($key).$i.'" class="form-control priceinputstyle inputprice" placeholder="Unit Price" value="'.$price[change_price_name($key)][$i].'">
-                          <input type="number" name="'.$key.$i.'" value="'.$value[$i].'" class="form-control priceinputstyle thetotal" readonly>
-                          <input type="hidden" value="'.$order_id.'" name="order_id">
-                          <a href="#" id="removestyle">Remove</a></div></div>';
-                    $j++;
+                    # code...
+                    
+                    echo '<div><div class="form-group clearfix num_'.$i.'" id="divappend_0" >';
+                    echo '<label class="pricestyle"> '.change_label_name($key).' </label>';
+                    echo '<input type="number" name="'.change_qty_name($key).$i.'" id="'.change_qty_name($key).$i.'" class="form-control priceinputstyle inputqty" placeholder="Quantity" value="'.$qty[change_qty_name($key)][$i].'">';
+                    echo '<input type="number" step="any" name="'.change_price_name($key).$i.'" class="form-control priceinputstyle inputprice" placeholder="Unit Price" value="'.$price[change_price_name($key)][$i].'">';
+                    echo '<input type="number" name="'.$key.$i.'" value="'.$value[$i].'" class="form-control priceinputstyle thetotal" readonly>';
+                    echo '<input type="hidden" name="key" value="'.$key.'">';
+                    echo '<input type="hidden" name="var" value="'.$i.'">';
+                    echo '<input type="hidden" value="'.$order_id.'" name="order_id">';
+                    echo '<a href="#" id="removestyle">Remove</a></div>';
                   }
+                  echo '';
+                  // for(x = 0; x < 14; x++)
+                  // {
+                  //     if (value == x) {            
+                  //       var i = $('#appendedid #divappend_'+value+'').size() + 1;
+                  //       $('<div><div class="form-group clearfix num_'+row+'" id="divappend_'+value+'" >'+
+                  //             '<label class="pricestyle"> '+arrlabel[value]+' </label>'+
+                  //             '<input type="number" name="'+arrquantity[value]+i+'" id="'+arrquantity[value]+i+'" class="form-control priceinputstyle inputqty" placeholder="Quantity" value="">'+
+                  //             '<input type="number" step="any" name="'+arrprice[value]+i+'" id="'+arrprice[value]+i+'" class="form-control priceinputstyle inputprice" placeholder="Unit Price" value="">'+
+                  //             '<input type="number" name="'+arrtotal[value]+i+'" id="'+arrtotal[value]+i+'" value="" class="form-control priceinputstyle thetotal" placeholder="Total" readonly>'+
+                  //          '<a href="#" id="removestyle">Remove</a></div>').appendTo($('#appendedid'));
+                  //    }
+                  // }
+
+                   // echo '<tr><td>'.change_label_name($key).'('.$j.')</td>';
+                   //    echo '<td><input type="text" name="qty" value="'.$qty[change_qty_name($key).$j].'"></td>';
+                   //    echo '<td><input type="text" name="price" value="'.$price[change_price_name($key).$j].'"></td>';
+                   //    echo '<td>'.$value.'</td><td><input type="submit" name="delete-price-list" value="Delete"></td></tr>';
+
                 }
+               // echo '</form>';
 
     ?> 
-    
-    </div>
+  </div>
+
           <select id="selectedfield">
             <option value="0">Mold - Set Up</option>
             <option value="1">Printing - Set Up</option>
@@ -256,26 +368,16 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
             <option value="13">Shipping (DHL)</option>
           </select>
           <button id="addfield" type="button" >Add Field</button>
-          <input type="hidden" value="<?php echo $order_id; ?>" name="order_id">
-          <input type="hidden" value="<?php echo $j; ?>" name="var">
-          <input type="hidden" name="maxrowval" id="maxrowval" value="<?php echo $rowval; ?>">
-          <div class = "priceinputstyle">
-            TOTAL : <p id="wtotalprice"><?php echo $totalkey; ?></p>
-            <input type="hidden" name="wtotalprice" id="wtotalprice1" value="<?php echo $totalkey; ?>">
-          </div>
-          <input type="submit" id="update-price-list" name="update-price-list" value="Update">
+
     <?php $meta = get_post_meta($order_id,"supplier_artwork");
           for ($i=0; $i < sizeof($meta); $i++) { 
             for ($k=0; $k < sizeof($meta[$i]) + 1 ; $k++) { 
               echo '<img src="'.$meta[$i][$k].'">';
             }
 
-          } ?>
-        </form>
-      </div>
-<?php } ?>
-</div>
-</div>
+          }?></form></div><?php
+     } ?>
+
 
 
 

@@ -4,8 +4,8 @@ jQuery(document).ready(function ($) {
  $('#wtotalprice').change(function(){
       var sumtotal = 0;
       var totalprice = 0;
-      console.log(row);
-      for (var i = 1; i < row + 1; i++) {
+      var row = $('.clearfix').length;
+      for (var i = 0; i < row + 1; i++) {
          totalprice = parseFloat($('.num_'+i+' input.thetotal').val() == '' ? 0 : $('.num_'+i+' input.thetotal').val());
          if (isNaN(totalprice)){totalprice = 0;}
          sumtotal += totalprice;
@@ -49,7 +49,7 @@ jQuery(document).ready(function ($) {
                         '<input type="number" name="'+arrquantity[value]+i+'" id="'+arrquantity[value]+i+'" class="form-control priceinputstyle inputqty" placeholder="Quantity" value="">'+
                         '<input type="number" step="any" name="'+arrprice[value]+i+'" id="'+arrprice[value]+i+'" class="form-control priceinputstyle inputprice" placeholder="Unit Price" value="">'+
                         '<input type="number" name="'+arrtotal[value]+i+'" id="'+arrtotal[value]+i+'" value="" class="form-control priceinputstyle thetotal" placeholder="Total" readonly>'+
-                     '<a href="#" id="removestyle">Remove</a></div>').appendTo($('#appendedid'));
+                     '<a href="#" id="removestyle">Remove</a></div></div>').appendTo($('#appendedid'));
                }
             }
          return false;

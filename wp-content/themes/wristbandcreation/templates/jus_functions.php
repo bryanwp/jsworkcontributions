@@ -254,8 +254,11 @@ function change_status() {
 	if (!empty($_POST["maxrowval"])) {$row = $_POST["maxrowval"];} else { $row = ''; }
 	$arrquantity = ["moldquantity_", "printingquantity_", "laserquantity_","colorfillquantity_","embossedquantity_","imprintingquantity_","swirlquantity_","segmentedquantity_","glowquantity_","duallayerquantity_","insideembossedquantity_","individualpkgquantity_","keychainsquantity_","shipdhlquantity_"];
 	$arrprice = ["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
-    $arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg","keychains","shipdhl_"];
+    $arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg_","keychains_","shipdhl_"];
     echo $row;
+
+    //$parrqty[];
+
 	if ( isset( $post['status-submit'] ) ) {
 
 		if ($post['newstatus'] == 'shipped') {
@@ -271,33 +274,51 @@ function change_status() {
 			}
 			echo '<pre>';
 			// var_dump($image_arr);
-			 print_r($post);
+			print_r($post);
 			// echo $count.'</br>';
 
-		 echo $row;
+		 //echo $row;
 			for ($x=0; $x < sizeof($arrtotal); $x++) { 
 				# code...
 				for ($i=1; $i < $row + 2 ; $i++) {
 
 					if(isset($post[$arrtotal[$x].$i]) && ($post[$arrtotal[$x].$i]!= 0)){
 						if(isset($post[$arrquantity[$x].$i])){
-							$newkey1 = $arrquantity[$x].$i;
+							$newkey1 = $arrquantity[$x];
 							echo $newkey1.'='.$post[$arrquantity[$x].$i]."</br>";
-							add_post_meta( $post['order_id'], 'supplier_'.$newkey1,$post[$arrquantity[$x].$i]);
+							$parrqty[$newkey1][] = $post[$arrquantity[$x].$i];
+							//add_post_meta( $post['order_id'], 'supplier_'.$newkey1,$post[$arrquantity[$x].$i]);
 						}
 						if(isset($post[$arrprice[$x].$i])){
-							$newkey2 = $arrprice[$x].$i;
+							$newkey2 = $arrprice[$x];
 							echo $newkey2.'='.$post[$arrprice[$x].$i]."</br>";
-							add_post_meta( $post['order_id'], 'supplier_'.$newkey2,$post[$arrprice[$x].$i]);
+							//$parrprice[]
+							$parrprice[$newkey2][] = $post[$arrprice[$x].$i];
+							//add_post_meta( $post['order_id'], 'supplier_'.$newkey2,$post[$arrprice[$x].$i]);
 						}
-						$newkey3 = $arrtotal[$x].$i;
+						$newkey3 = $arrtotal[$x];
 						echo $newkey3.'='.$post[$arrtotal[$x].$i]."</br>";
-						add_post_meta( $post['order_id'], 'supplier_'.$newkey3,$post[$arrtotal[$x].$i]);
+						$parrtotal[$newkey3][] = $post[$arrtotal[$x].$i];
+						//add_post_meta( $post['order_id'], 'supplier_'.$newkey3,$post[$arrtotal[$x].$i]);
 					}
 				}
 			}
+			print_r($parrqty);
+			print_r($parrprice);
+			print_r($parrtotal);
+			die();
 
-			//die();
+			if ( ! add_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty, true ) ) { 
+		    	update_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty );
+		    }
+
+		    if ( ! add_post_meta( $post['order_id'], 'supplier_wpprice',   $parrprice, true ) ) { 
+		    	update_post_meta( $post['order_id'], 'supplier_wpprice',   $parrprice );
+		    }
+
+		    if ( ! add_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal, true ) ) { 
+		    	update_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal );
+		    }
 
 			if ( ! add_post_meta( $post['post-id'], 'supplier_artwork',   $image_arr, true ) ) { 
 		    	update_post_meta( $post['post-id'], 'supplier_artwork',   $image_arr );
@@ -328,8 +349,42 @@ function change_label_name($label) {
 	$newlabel = ["Mold - Set Up ","Printing - Set Up ","Laser Engraving ","Color Fill ","Embossed-Color ","Imprinting Fee ","Swirl ","Segmented ","Glow ","Dual Layer ","Inside Embossed ","Individual Packaging ","Keychains ","Shipping (DHL) "];
 	for ($x=0; $x < sizeof($arrtotal) ; $x++) { 
 		# code...
-		if ($label == $arrtotal[$x]) {
+		if (strpos($label, $arrtotal[$x]) !== false) {
 			return $newlabel[$x];
+		}
+	}
+}
+
+function change_qty_name($label) {
+	$arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg","keychains","shipdhl_"];
+	$newlabel =	["moldquantity_", "printingquantity_", "laserquantity_","colorfillquantity_","embossedquantity_","imprintingquantity_","swirlquantity_","segmentedquantity_","glowquantity_","duallayerquantity_","insideembossedquantity_","individualpkgquantity_","keychainsquantity_","shipdhlquantity_"];
+	for ($x=0; $x < sizeof($arrtotal) ; $x++) { 
+		# code...
+		if (strpos($label, $arrtotal[$x]) !== false) {
+			return $newlabel[$x];
+		}
+	}
+}
+
+function change_price_name($label) {
+	$arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg","keychains","shipdhl_"];
+	$newlabel =	["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
+    for ($x=0; $x < sizeof($arrtotal) ; $x++) { 
+		# code...
+		if (strpos($label, $arrtotal[$x]) !== false) {
+			return $newlabel[$x];
+		}
+	}
+}
+
+
+function change_to_int($key) {
+	$arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg","keychains","shipdhl_"];
+	// $newlabel =	["1", "1", "2","3","4","5","6","7","8","9","10","11","12","13"];
+    for ($x=0; $x < sizeof($arrtotal) ; $x++) { 
+		# code...
+		if (strpos($key, $arrtotal[$x]) !== false) {
+			return $x;
 		}
 	}
 }
@@ -357,3 +412,83 @@ function change_label_name($label) {
 // }
 
 
+add_action( 'init', 'change_list' );
+function change_list() {
+	$user_id = get_current_user_id();
+	$post = $_POST;
+	$key = '_new_status';
+	if (!empty($_POST["maxrowval"])) {$row = $_POST["maxrowval"];} else { $row = ''; }
+	$arrquantity = ["moldquantity_", "printingquantity_", "laserquantity_","colorfillquantity_","embossedquantity_","imprintingquantity_","swirlquantity_","segmentedquantity_","glowquantity_","duallayerquantity_","insideembossedquantity_","individualpkgquantity_","keychainsquantity_","shipdhlquantity_"];
+	$arrprice = ["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
+    $arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg_","keychains_","shipdhl_"];
+    echo $row;
+
+	if ( isset( $post['update-price-list'] ) ) {
+			# code...
+			
+			// echo $post['wtotalprice'].'</br>';
+			$totalkey = 'wtotalprice';
+			echo '<pre>';
+			// var_dump($image_arr);
+			 print_r($post);
+			// echo $count.'</br>';
+
+		 //echo $row;
+			for ($x=0; $x < sizeof($arrtotal); $x++) { 
+				# code...
+				for ($i=0; $i < $row*3 ; $i++) {
+
+					if(isset($post[$arrtotal[$x].$i]) && ($post[$arrtotal[$x].$i]!= 0)){
+						if(isset($post[$arrquantity[$x].$i])){
+							$newkey1 = $arrquantity[$x];
+							echo $newkey1.'='.$post[$arrquantity[$x].$i]."</br>";
+							$parrqty[$newkey1][] = $post[$arrquantity[$x].$i];
+							//add_post_meta( $post['order_id'], 'supplier_'.$newkey1,$post[$arrquantity[$x].$i]);
+						}
+						if(isset($post[$arrprice[$x].$i])){
+							$newkey2 = $arrprice[$x];
+							echo $newkey2.'='.$post[$arrprice[$x].$i]."</br>";
+							//$parrprice[]
+							$parrprice[$newkey2][] = $post[$arrprice[$x].$i];
+							//add_post_meta( $post['order_id'], 'supplier_'.$newkey2,$post[$arrprice[$x].$i]);
+						}
+						$newkey3 = $arrtotal[$x];
+						echo $newkey3.'='.$post[$arrtotal[$x].$i]."</br>";
+						$parrtotal[$newkey3][] = $post[$arrtotal[$x].$i];
+						//add_post_meta( $post['order_id'], 'supplier_'.$newkey3,$post[$arrtotal[$x].$i]);
+					}
+				}
+			}
+			print_r($parrqty);
+			print_r($parrprice);
+			print_r($parrtotal);
+			//die();
+
+			if ( ! add_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty, true ) ) { 
+		    	update_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty );
+		    }
+
+		    if ( ! add_post_meta( $post['order_id'], 'supplier_wpprice',   $parrprice, true ) ) { 
+		    	update_post_meta( $post['order_id'], 'supplier_wpprice',   $parrprice );
+		    }
+
+		    if ( ! add_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal, true ) ) { 
+		    	update_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal );
+		    }
+
+
+		    if ( ! add_post_meta( $post['order_id'], 'supplier_'.$totalkey, $post['wtotalprice'], true ) ) { 
+		    	update_post_meta( $post['order_id'], 'supplier_'.$totalkey, $post['wtotalprice'] );
+		    }
+
+		    if ( ! add_post_meta( $post['order_id'], 'supplier_maxrowval', $post['maxrowval'], true ) ) { 
+		    	update_post_meta( $post['order_id'], 'supplier_maxrowval', $post['maxrowval'] );
+		    }
+
+		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
+		exit( wp_redirect( $redirect ) );
+	}
+
+	// $redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
+	// exit( wp_redirect( $redirect ) );
+}
