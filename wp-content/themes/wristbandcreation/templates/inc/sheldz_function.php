@@ -73,13 +73,21 @@ function register_new_user_phase_two(){
 
 	        if ( ! is_wp_error( $user_id ) ) {
 		    	//adding user meta
-		    	add_user_meta( $user_id, 'user_company_name', $company_name  );
-		    	add_user_meta( $user_id, 'user_phone', $phone  );
-		    	add_user_meta( $user_id, 'user_credit_card_no', $card  );
-		    	add_user_meta( $user_id, 'user_country', $country  );
-		    	add_user_meta( $user_id, 'user_address', $address  );
+		    	// add_user_meta( $user_id, 'user_company_name', $company_name  );
+		    	// add_user_meta( $user_id, 'user_phone', $phone  );
+		    	// add_user_meta( $user_id, 'user_credit_card_no', $card  );
+		    	// add_user_meta( $user_id, 'user_country', $country  );
+		    	// add_user_meta( $user_id, 'user_address', $address  );
 		    	add_user_meta( $user_id, 'user_secret_question', $secret_question  );
 		    	add_user_meta( $user_id, 'user_secret_answer', $sanswer  );
+
+		    	add_user_meta( $user_id, 'billing_first_name', $fname );
+				add_user_meta( $user_id, 'billing_last_name', $lname );
+				add_user_meta( $user_id, 'billing_company', $company_name );
+				add_user_meta( $user_id, 'billing_email', $email );
+				add_user_meta( $user_id, 'billing_phone', $phone );
+				add_user_meta( $user_id, 'billing_country', $country );
+				add_user_meta( $user_id, 'billing_address_1', $address );
 
 		    	$redirect = home_url('login');
 		      	exit (wp_redirect($redirect));
@@ -569,8 +577,8 @@ function save_user_made_by_admin() {
 	    $userdata = array(
 	      'user_login'  =>  $post['email'],
 	      'user_pass'   =>  $post['pass'],
-	      'first-name'  => $post['fname'],
-	      'last-name'   => $post['lname'],
+	      'first_name'  => $post['fname'],
+	      'last_name'   => $post['lname'],
 	      'user_email'  => $post['email'],
 	      'user_nicename' => $post['fname'] . ' ' . $post['lname']
 	    );
@@ -581,13 +589,10 @@ function save_user_made_by_admin() {
 	    	//adding user meta
 	    	add_user_meta( $user_id, 'custom_role', $post['custom_role']  ); 
 	    	
-	    	 $redirect = home_url('admin-dashboard/?action=create&st='.$post['custom_role'] );
+	    	$redirect = home_url('admin-dashboard/?action=create&st='.$post['custom_role'] );
 			exit (wp_redirect($redirect));
         } else {
         	echo 'error';
        } 
-
-       
-
 	}
 }

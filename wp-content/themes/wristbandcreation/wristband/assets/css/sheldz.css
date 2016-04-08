@@ -80,7 +80,7 @@ span.welcome {
 .err-msg {
     padding: 10px 10px;
     font-size: 14px;
-    color: #985252;
+    color: #5D5D5D;
 }
 .dash-nav{
     list-style: none;
@@ -591,8 +591,7 @@ div#wristband-builder-content {
     outline: none;
     border: none;
     background: none!important;
-    resize: none;
-    min-height: 100px;
+    resize: none;   
 }
 .notes h3 {
     margin: 0px 0px -5px 0px;
@@ -640,12 +639,9 @@ div#wristband-builder-content {
     padding-bottom: 10px;
 }
 .notes {
-    background: #FFFCDD;
-    float: left;
-    width: 350px;
-    padding: 10px;
-    box-shadow: 0px 0px 5px #909090;
-    margin: 4px;
+    background: none;
+    width: 100%;
+    padding: 5px 10px;
 }
 span.note-date {
     font-size: 10px;
@@ -660,13 +656,6 @@ input.note-title {
     font-size: 15px;
     font-weight: bold;
     outline: none;
-}
-.notes {
-    background: #FFFCDD;
-    float: left;
-    width: 350px;
-    padding: 10px;
-    box-shadow: 0px 0px 5px #909090;
 }
 .btn {
     font-size: 10px;
@@ -719,5 +708,7 @@ input.note-title {
 .suc-container {
     background: #D3FBFF;
     border-left: 3px solid #1A80B6;
-    display: none;
+}
+.box span {
+    margin-left: 10px;
 }

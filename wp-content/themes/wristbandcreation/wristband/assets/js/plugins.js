@@ -21,7 +21,6 @@
 	    		date = $.getCurrentDate();
 	    	}
 	    	notes = { 
-	    			title: el.find('#n-title').val(), 
 	    			content: el.find('#n-content').val(),
 	    			date: date
 	    		};

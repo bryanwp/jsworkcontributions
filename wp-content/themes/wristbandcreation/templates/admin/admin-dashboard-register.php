@@ -13,7 +13,7 @@
                 	<p class="err-msg"></p>
              	</div>
 
-                <?php if( isset($_GET['st'] ) ) : ?>
+                <?php if( isset( $_GET['st'] ) ) : ?>
                     <div class="suc-container">
                         <p class="err-msg">New <?php echo $_GET['st']; ?> was added.</p>
                     </div>

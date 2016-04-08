@@ -24,7 +24,7 @@ jQuery(document).ready(function ($) {
       }
 
 
-   }, 10000);
+   }, 6000);
 
    $('tr[data-href]').on("click", function() {
     document.location = $(this).data('href');
@@ -377,9 +377,6 @@ jQuery(document).ready(function ($) {
           el +='<div class="notes notsave">';
            el +='<form method="post">';
               el +='<p>';
-                 el +='<input id="nt" class="note-title" type="text" name="n-title" placeholder="Note Title">';
-              el +='</p>';
-              el +='<p>';
                  el +='<textarea id="nc" class="note-content" name="note-content" placeholder="Content...">';
                  el +='</textarea>';
               el +='</p>';
@@ -402,7 +399,6 @@ jQuery(document).ready(function ($) {
       container.html('');
       var el = '';
 
-      el +='<h3 class="note-title">'+title+'</h3>';
       el +='<span class="note-date">'+d+'</span>';
       el +='<p class="note-content">'+nl2br(content)+'</p>';
       el +='<input type="hidden" id="n-title" name="n-title" value="'+title+'">';
@@ -507,14 +503,14 @@ jQuery(document).ready(function ($) {
    }
 
    $(document)
-   .on('click', '.ctab', function(){
-      $(this).addClass('active-tab');
-      $('.stab').removeClass('active-tab');
-   })
-   .on('click', '.stab', function(){
-      $(this).addClass('active-tab');
-      $('.ctab').removeClass('active-tab');
-   })
+   // .on('click', '.ctab', function(){
+   //    $(this).addClass('active-tab');
+   //    $('.stab').removeClass('active-tab');
+   // })
+   // .on('click', '.stab', function(){
+   //    $(this).addClass('active-tab');
+   //    $('.ctab').removeClass('active-tab');
+   // })
    .on('keypress', '#nc', function(e){
       if(e.which == 13) {
          $('#nc').hasScrollBar();
@@ -525,15 +521,15 @@ jQuery(document).ready(function ($) {
    });
 
    //tabs for customer and supplier
-   $(document)
-   .on('click', '.ctab', function(){
-      $('.ctab-content').fadeIn(0);
-      $('.stab-content').fadeOut(0);
-   })
-   .on('click', '.stab', function(){
-      $('.stab-content').fadeIn(0);
-      $('.ctab-content').fadeOut(0);
-   })
+   // $(document)
+   // .on('click', '.ctab', function(){
+   //    $('.ctab-content').fadeIn(0);
+   //    $('.stab-content').fadeOut(0);
+   // })
+   // .on('click', '.stab', function(){
+   //    $('.stab-content').fadeIn(0);
+   //    $('.ctab-content').fadeOut(0);
+   // })
 
    //customer dashboard
    $(document)
