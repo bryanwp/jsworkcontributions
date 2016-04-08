@@ -100,6 +100,9 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
         <form id="changing-status" method="post">
           <center><h2>Wristband Price</h2></center>
           <div class="form-group clearfix trackstyle">
+            <div class="err-container">
+                  <p class="err-msg"></p>
+              </div>
             <label class="pricestyle"> Tracking Number </label>
 <!--             <input type="text" name="trackingnum" id="trackingnum" class="form-control priceinputstyle1" placeholder="Input Here" value=""> -->
             <input type="text" name="trackingnum" id="trackingnum" class="form-control" placeholder="Input Here" value="">
@@ -183,7 +186,7 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
           </select>
           <button id="addfield" type="button" >Add Field</button>
           <input type="hidden" name="maxrowval" id="maxrowval" value="">
-          <input type="submit" id="profile" class="save-button" name="profile" value="Send Report">
+          <input type="submit" id="save-price" class="save-button" name="save-price" value="Save">
           <!-- <div class="form-group clearfix">
             <label class="pricestyle"> Select file to upload </label>
             <input type="file" name="fileToUpload" id="fileToUpload" value="" class="form-control ">

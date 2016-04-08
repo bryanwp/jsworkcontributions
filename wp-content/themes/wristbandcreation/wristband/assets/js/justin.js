@@ -55,6 +55,20 @@ jQuery(document).ready(function ($) {
          return false;
    })
 
+    $('#save-price').click(function(){
+      var tracknum = $('#trackingnum').val();
+ 
+      if (tracknum == '') {
+      console.log('hello dragoooooonnn');
+      console.log(tracknum); 
+          $('.err-container').fadeIn();
+            $('.err-msg').empty();
+          $('.err-msg').append( 'Tracking number required' );
+        return false;
+      }
+    })
+
+
    $(document)
 
          .on('click','#removestyle',function() { 
