@@ -1,3 +1,4 @@
+//Jquery scripts and function
 jQuery(document).ready(function ($) {
    $("time.timeago").timeago();
  
