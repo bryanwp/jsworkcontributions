@@ -163,7 +163,6 @@ jQuery(document).ready(function ($) {
                   console.log( 'Email is invalid' ); 
                   $('.email-checker').empty().append('Email is in used already').css('color', '#F90000');
                   $('#profile').prop( 'disabled', true );
-
                } else {
 
                   //console.log('Email is valid');
@@ -194,11 +193,16 @@ jQuery(document).ready(function ($) {
                $('.err-container').fadeIn();
                $('.err-msg').empty();
                $('.err-msg').append( 'Email already exists!' );
+               $('#admin-email').removeClass('valid-email');
+               $('#admin-email').addClass('invalid-email');
+               $('#check-email').val('false');
 
             } else {
-
-               $('.err-container').fadeOut();
-               console.log('Email is valid');
+              $('#admin-email').removeClass('invalid-email');
+              $('#admin-email').addClass('valid-email');
+              $('#check-email').val('true');
+              $('.err-container').fadeOut();
+              //console.log('Email is valid');
 
             }
 
@@ -571,6 +575,70 @@ jQuery(document).ready(function ($) {
       if ( $('#user-role').val() == "") {
         create_error(); return false;
       }
+
+      if ( $('#check-email').val() != "true" ) {
+        return false;
+      }
+      var btn = $(this);
+      btn.val('Creating User...')
+      .css({'cursor':'wait', 'background':'#7D7D7D'})
+      .prop( "disabled", true );
+
+      var fname = $('#user-fname').val(),
+          lname = $('#user-lname').val(),
+          email = $('#email').val(),
+          pass  = $('#user-pass').val(),
+          role  = $('#user-role').val(),
+          action= 'save-user-made-by-admin';
+
+      $.ajax({
+        url: sheldz_ajax.ajaxUrl,
+        type: 'POST',
+        data: {
+          action: action,
+          fname: fname,
+          lname: lname,
+          email: email,
+          role: role,
+          pass: pass
+        },
+        dataType: 'json',
+        success: function( response ) {
+
+          btn.val('Creat User')
+          .css({'cursor':'pointer', 'background':'#1A80B6'})
+          .prop( "disabled", false );
+
+          var con = $('.suc-container');
+          var err = $('.err-msg');
+
+          con.fadeIn();
+          err.html('');
+          err.append('New '+role+ ' is added.');
+
+          var table = $('.admin-users');
+          var el = '';
+
+          el+='<tr>';
+              el+='<td><input class="cbox" type="checkbox" name="check" value="'+response.data+'"> '+fname+' '+lname+'</td>';
+              el+='<td>'+email+'</td>';
+              el+='<td>'+role+'</td>';
+              el+='<input type="hidden" id="user_id" value="'+response.data+'">';
+          el+='</tr>';
+          table.prepend(el);
+
+          //remove all values - empty
+          $('#user-fname').val('');
+          $('#user-lname').val('');
+          $('#email').val('');
+          $('#user-pass').val('');
+          $('#user-role').val('');
+          $('#admin-email').removeClass('valid-email');
+        },
+        error: function(e) {
+          console.log(e);
+        } 
+      });
    })
 
    function create_error(){
@@ -583,5 +651,18 @@ jQuery(document).ready(function ($) {
 
       return false
    }
+
+  $(document)
+  .on('click', '.cbox', function(){
+     var allVals = new Array();
+     var checked = $('.cbox:checked');
+     $.each( checked, function(index, value){
+        // allVals.push(count, $(this).val());
+        allVals.push( $(this).val() );
+     });
+    $('#selected-ids').val( JSON.stringify(allVals) );
+    console.log( allVals ); 
+
+  })
 
 });
