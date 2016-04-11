@@ -606,7 +606,7 @@ function bulk_action(){
 		$ids = json_decode( stripslashes($post['selected-ids']), true ); 
 		require_once(ABSPATH.'wp-admin/includes/user.php' );
 		foreach ( $ids as $id ) {
-			wp_delete_user( $id );
+			wp_delete_user( $id ); 
 		}
 	}
 }
