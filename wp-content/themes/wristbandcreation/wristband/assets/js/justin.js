@@ -57,15 +57,24 @@ jQuery(document).ready(function ($) {
 
     $('#save-price').click(function(){
       var tracknum = $('#trackingnum').val();
- 
+      var total = $('#wtotalprice1').val();
+         $('.err-container1').empty();
       if (tracknum == '') {
-      console.log('hello dragoooooonnn');
-      console.log(tracknum); 
-          $('.err-container').fadeIn();
-            $('.err-msg').empty();
-          $('.err-msg').append( 'Tracking number required' );
-        return false;
+           $('.err-container1').fadeIn();
+          $('.err-msg1').empty();
+          $('<p class="err-msg1">Tracking number required</p>').appendTo($('.err-container1'));
+        if(total =='' || total == 0){
+          $('<p class="err-msg1">No Field added</p>').appendTo($('.err-container1'));
+          return false;
+        }
+       return false; 
+      } else {
+         if(total =='' || total == 0){
+          $('<p class="err-msg1">No Field added / Field added does not have Quantity or Price</p>').appendTo($('.err-container1'));
+          return false;
+        }
       }
+      
     })
 
 

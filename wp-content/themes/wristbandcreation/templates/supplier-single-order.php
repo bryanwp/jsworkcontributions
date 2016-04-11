@@ -100,25 +100,28 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
         <form id="changing-status" method="post">
           <center><h2>Wristband Price</h2></center>
           <div class="form-group clearfix trackstyle">
-            <div class="err-container">
-                  <p class="err-msg"></p>
+            <div class="err-container1">
+                  <!-- <p class="err-msg"></p> -->
               </div>
-            <label class="pricestyle"> Tracking Number </label>
+
+            <label class="tracknum-label"> Tracking Number </label>
 <!--             <input type="text" name="trackingnum" id="trackingnum" class="form-control priceinputstyle1" placeholder="Input Here" value=""> -->
             <input type="text" name="trackingnum" id="trackingnum" class="form-control" placeholder="Input Here" value="">
-            <select name="newstatus">
-            <option value="pending_production"  <?php if($poststatusmeta == "pending_production") echo "selected"; ?>>pending production</option>
-            <option value="pending_artwork_approval" <?php if($poststatusmeta == "pending_artwork_approval") echo "selected"; ?> >pending artwork approval</option>
-            <option value="in_production" <?php if($poststatusmeta == "in_production") echo "selected"; ?>>in production</option>
-            <option value="in_reproduction" <?php if($poststatusmeta == "in_reproduction") echo "selected"; ?>>in re-production</option>
-            <option value="produced_pending_shipment" <?php if($poststatusmeta == "produced_pending_shipment") echo "selected"; ?>>produced – pending shipment</option>
-            <option value="shipped" <?php if($poststatusmeta == "shipped") echo "selected"; ?>>shipped</option>
-            </select>
+            
             <?php if($poststatusmeta == "shipped") {?>
-            <input type="submit" id="status-submit" name="status-submit" value="Change Status" disabled>
+            <input type="submit" id="status-submit" name="status-submit" class="save-button-design" value="Change Status" style="color : white!important" disabled>
             <?php } else { ?>
-            <input type="submit" id="status-submit" name="status-submit" value="Change Status">
+            <input type="submit" id="status-submit" name="status-submit" class="save-button-design" value="Change Status" style="color : white!important">
             <?php } ?>
+            <select name="newstatus">
+            <option value="0"  <?php if($poststatusmeta == "pending_production") echo "selected"; ?>>pending production</option>
+            <option value="1" <?php if($poststatusmeta == "pending_artwork_approval") echo "selected"; ?> >pending artwork approval</option>
+            <option value="2" <?php if($poststatusmeta == "in_production") echo "selected"; ?>>in production</option>
+            <option value="3" <?php if($poststatusmeta == "in_reproduction") echo "selected"; ?>>in re-production</option>
+            <option value="4" <?php if($poststatusmeta == "produced_pending_shipment") echo "selected"; ?>>produced – pending shipment</option>
+            <option value="5" <?php if($poststatusmeta == "shipped") echo "selected"; ?>>shipped</option>
+            </select>
+            
           </div>
 
           <!-- Artwork Approval -->
@@ -186,7 +189,7 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
           </select>
           <button id="addfield" type="button" >Add Field</button>
           <input type="hidden" name="maxrowval" id="maxrowval" value="">
-          <input type="submit" id="save-price" class="save-button" name="save-price" value="Save">
+          <input type="submit" id="save-price" class="save-button-design" name="save-price" value="Save" style="color : white!important">
           <!-- <div class="form-group clearfix">
             <label class="pricestyle"> Select file to upload </label>
             <input type="file" name="fileToUpload" id="fileToUpload" value="" class="form-control ">
@@ -266,7 +269,7 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
             TOTAL : <p id="wtotalprice"><?php echo $totalkey; ?></p>
             <input type="hidden" name="wtotalprice" id="wtotalprice1" value="<?php echo $totalkey; ?>">
           </div>
-          <input type="submit" id="update-price-list" name="update-price-list" value="Update">
+          <input class="edit-order" type="submit" id="update-price-list" name="update-price-list" value="Update">
     <?php $meta = get_post_meta($order_id,"supplier_artwork");
           for ($i=0; $i < sizeof($meta); $i++) { 
             for ($k=0; $k < sizeof($meta[$i]) + 1 ; $k++) { 

@@ -296,3 +296,33 @@ form#changing-status .priceinputstyle {
 input#trackingnum {
     width: 50%;
 }
+
+.save-button-design {
+    background: #00ADEE;
+    margin-left: 5px;
+    font-size: 15px;
+    padding: 3px 10px;
+    border-radius: 2px;
+    font-weight: normal;
+    cursor: pointer;
+    border : 0px;
+}
+
+.tracknum-label {
+    float: left;
+    width: 15%;
+}
+
+.err-msg1{
+    padding: 10px 10px;
+    font-size: 14px;
+    color: #985252;
+    background: #FFE1E1;
+    border-left: 3px solid #F5A5A5;
+    border-bottom: 1px solid white;
+    
+}
+
+.err-container1 {
+  display: none;
+}
