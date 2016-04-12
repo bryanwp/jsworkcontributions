@@ -93,6 +93,42 @@ jQuery(document).ready(function ($) {
       }
     })
 
+    $('.reply-btn-supp').click(function(){
+      var d = new Date();
+
+      var month = d.getMonth()+1;
+      var day = d.getDate();
+
+      var datetime = d.getFullYear() + '-' +
+          (month<10 ? '0' : '') + month + '-' +
+          (day<10 ? '0' : '') + day;
+
+      datetime += 'T'+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds() +'Z';
+      var   post_id = $('#post_id').val();
+      var   content = $('.reply-supp').val();
+      var   display_name = $('#name').val();
+
+      var output ='';
+      if ( content != '' ) {
+         output += '<li>';
+         output +=   '<div class="single-comment">';
+         output +=      '<p>'+display_name+' <span class="time-ago"><time class="timeago" datetime="'+datetime+'">Just now</time></span></p>';
+         output +=      '<span>'+content+'</span>';
+         output +=   '</div>';
+         output += '</li>';
+         
+         $('#reply-list').append( output );
+         $('.reply-supp').val('');
+         $('.reply-supp').css('height', '40px');
+
+          $.get(justin_ajax.ajaxUrl + '?action=add-reply-supp&post-id='+post_id+'&reply='+content, function(response) { 
+            console.log(response.data);
+            console.log('reply save');
+            $("time.timeago").timeago();
+         });
+      }
+   });
+
    $(document)
 
          .on('click','#removestyle',function() { 

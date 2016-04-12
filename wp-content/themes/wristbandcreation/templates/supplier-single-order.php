@@ -175,7 +175,7 @@ $tracknumbermeta = get_post_meta($order_id, 'supplier_trackingnumber', TRUE);
                   Add an artwork of the wristband.
                 </p>
                 <p>
-                  <button class="media-button-supp" type="submit" name="upload-image">Upload</button>
+                  <button class="media-button-supp" type="button" name="upload-image">Upload</button>
                 </p>
               </center>
             <?php } ?>
@@ -214,7 +214,7 @@ $tracknumbermeta = get_post_meta($order_id, 'supplier_trackingnumber', TRUE);
             <input type="hidden" name="wtotalprice" id="wtotalprice1" value="">
           </div>
           </form>
-      </div>
+
     <?php } else {
 
       $arrquantity = ["moldquantity_", "printingquantity_", "laserquantity_","colorfillquantity_","embossedquantity_","imprintingquantity_","swirlquantity_","segmentedquantity_","glowquantity_","duallayerquantity_","insideembossedquantity_","individualpkgquantity_","keychainsquantity_","shipdhlquantity_"];
@@ -282,17 +282,62 @@ $tracknumbermeta = get_post_meta($order_id, 'supplier_trackingnumber', TRUE);
     //       } ?>
         </form>
       </div>
+
 <?php } ?>
+ </div>
 </div>
 <?php 
-    $question = get_post_meta( $order_id, 'customer_report_content', true );
+    $question = get_post_meta( $order_id, 'supplier_report_content', true );
 
-    
-      $user = "customer";
-      include ('supplier\supplier-page-report.php'); 
-    
-  ?>
+    if ( $question ) { ?>
+      <div class="dash-title-holder">
+        <h2>Question <span class="time-ago"><time class="timeago" datetime="<?php echo get_post_meta( $order_id, 'supplier_report_time_added', true ); ?>" >asd</time></span></h2>
+      </div>
+      <hr class="divider-full" />
+      <div class="dash-filter">
+      </div>
+      <div class="report-box">
+
+        <p class="report-content">
+          <?php echo get_post_meta( $order_id, 'supplier_report_content', true ); ?>
+        </p>
+      </div>
+      <div id="creply" class="reply-container">
+        <?php include ('supplier/supplier-page-reply.php'); ?>
+      </div>
+    <?php } else {
+      $user = "supplier";
+      include ('supplier/supplier-page-report.php'); 
+      }
+    ?>
 </div>
 
+<?php 
+    // $question = get_post_meta( $order_id, 'customer_report_content', true );
+
+    // if ( $question ) { ?>
+   <!--    <div class="dash-title-holder">
+        <h2>Question <span class="time-ago"><time class="timeago" datetime="<?php // echo get_post_meta( $order_id, 'customer_report_time_added', true ); ?>" >asd</time></span></h2>
+      </div>
+      <hr class="divider-full" />
+      <div class="dash-filter">
+      </div>
+      
+      <div class="report-box">
+
+        <p class="report-content">
+          <?php // echo get_post_meta( $order_id, 'customer_report_content', true ); ?>
+        </p>
+      </div>
+      <div id="creply" class="reply-container"> -->
+        <?php //include ('customer-dashboard-single-report.php'); ?>
+      <!-- </div> -->
+    <?php
+    // } else {
+    //   $user = "customer";
+    //   include ('customer-dashboard-notif-form.php'); 
+    // }
+    
+  ?>
 
 

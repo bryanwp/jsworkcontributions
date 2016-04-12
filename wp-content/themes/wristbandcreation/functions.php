@@ -24,6 +24,9 @@ function theme_enqueue_styles() {
         wp_localize_script('sheldz-js', 'sheldz_ajax', array( 
         'ajaxUrl' => admin_url('admin-ajax.php')
         ));
+        wp_localize_script('justin-js', 'justin_ajax', array( 
+        'ajaxUrl' => admin_url('admin-ajax.php')
+        ));
         wp_localize_script('plugins-js', 'plugins_ajax', array( 
         'ajaxUrl' => admin_url('admin-ajax.php')
         ));

@@ -240,7 +240,7 @@ function save_single_report() {
 
 		// add_post_meta( $post['order-id'], '_report_content', $post['report_content'] );
 
-		$order_link = home_url('customer-dashboard/?action=view&ID='. $post['order-id'] );
+		$order_link = home_url('supplier-dashboard/?action=view&ID='. $post['order-id'] );
 		add_post_meta( $post['order-id'], $post['user'].'_report_order_link', $order_link);
 
 		// $redirect = home_url( 'customer-dashboard/?action=view-report&post-id='. $post['order-id'] );

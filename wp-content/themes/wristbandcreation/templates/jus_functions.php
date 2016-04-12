@@ -489,3 +489,57 @@ function change_list() {
 	}
 
 }
+add_action( 'init', 'supplier_report' );
+function supplier_report(){
+	$post = $_POST;
+
+	if (isset($post['send-report-supp'])) {
+
+		var_dump($post);
+		// die();
+		//add report content
+		add_post_meta( $post['order-id'], $post['user'].'_report_content', $post['report_content'] );
+		//add report time
+		$time = date('Y-m-d') . 'T' . date('H:i:s') . 'Z';
+		add_post_meta( $post['order-id'], $post['user'].'_report_time_added', $time );
+	}
+}
+
+add_action('wp_ajax_add-reply-supp', 'add_reply_supp');
+add_action('wp_ajax_nopriv_add-reply-supp', 'add_reply_supp');
+function add_reply_supp( $post = false ){
+	
+	$time = date('Y-m-d') . 'T' . date('H:i:s') . 'Z';
+	$user_id = get_current_user_id();
+	$user = wp_get_current_user();
+	$post = $_REQUEST;
+
+	$data = array(
+	    'comment_post_ID' 		=> $post['post-id'],
+	    'comment_author' 		=> $user->display_name,
+	    'comment_author_email'  => $user->user_email,
+	    'comment_content' 		=> $post['reply'],
+	    'user_id' 				=> $user_id,
+	    'comment_date' 			=> $time,
+	    'comment_approved' 		=> 1,
+	);
+
+	$insert_comment = wp_insert_comment( $data );
+
+	if ( $insert_comment ) {
+		/* Admin - User Notification
+		*	1 = Seen or the Created by the user
+		* 	0 = Not seen by the other user
+		* 	1-0 = Created by admin, notified to the user
+		*	0-1 = Created by user, notified to the admin
+		*	1-1 = both seen by the user and admin
+		*/
+		if ( current_user_can( 'manage_options' ) ) {
+			add_comment_meta( $insert_comment, 'notification_admin_supplier', '1-0' );
+			exit( wp_send_json_success( $insert_comment ) );
+		} else {
+			add_comment_meta( $insert_comment, 'notification_admin_supplier', '0-1' );
+			exit( wp_send_json_success( $insert_comment ) );
+		}
+	}
+}
