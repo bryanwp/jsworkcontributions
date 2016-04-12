@@ -252,18 +252,35 @@ function change_status() {
 	$post = $_POST;
 	$status = ["pending_production","pending_artwork_approval","in_production","in_reproduction","produced_pending_shipment","shipped"];
 	$key = '_new_status';
-	var_dump($post);
-	die();
+	
 	if ( isset( $post['status-submit'] ) ) {
+			// var_dump($post);
+			// die();
 			$x = $post['newstatus'];
-			if ( ! add_post_meta( $post['order_id'], $key, $status[$x], true ) ) { 
-				   update_post_meta ( $post['order_id'], $key, $status[$x]  );
+			if ( ! add_post_meta( $post['post-id'], $key, $status[$x], true ) ) { 
+				   update_post_meta ( $post['post-id'], $key, $status[$x]  );
 				}
-		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
+		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['post-id'] );
 		exit( wp_redirect( $redirect ) );	
 
 	}
+}
 
+add_action( 'init', 'add_track' );
+function add_track() {
+	$user_id = get_current_user_id();
+	$post = $_POST;
+	
+	if ( isset( $post['track-submit'] ) ) {
+			$tracking = $post['trackingnum'];
+			echo $tracking;
+			if ( ! add_post_meta( $post['post-id'], 'supplier_trackingnumber', $tracking, true ) ) { 
+				   update_post_meta ( $post['post-id'], 'supplier_trackingnumber', $tracking  );
+				}
+		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['post-id'] );
+		exit( wp_redirect( $redirect ) );	
+
+	}
 }
 
 add_action( 'init', 'save_price_changes' );
@@ -281,18 +298,6 @@ function save_price_changes() {
     if (isset( $post['save-price'] )) {
 			# code...
 	    		$totalkey = 'wtotalprice';
-				$count = $post['img-count'];
-				$image_arr = '';
-				for ( $x=1;$x<=$count;$x++ ) {
-					$name = 'img'.$x;
-					$image_arr[$x] = $post[$name];
-				}
-				echo '<pre>';
-				// var_dump($image_arr);
-				print_r($post);
-				// echo $count.'</br>';
-
-			 	//echo $row;
 				for ($x=0; $x < sizeof($arrtotal); $x++) { 
 					# code...
 					for ($i=1; $i < $row + 2 ; $i++) {
@@ -318,10 +323,6 @@ function save_price_changes() {
 						}
 					}
 				}
-				print_r($parrqty);
-				print_r($parrprice);
-				print_r($parrtotal);
-				// die();
 
 				if ( ! add_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty, true ) ) { 
 			    	update_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty );
@@ -335,16 +336,8 @@ function save_price_changes() {
 			    	update_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal );
 			    }
 
-				if ( ! add_post_meta( $post['post-id'], 'supplier_artwork',   $image_arr, true ) ) { 
-			    	update_post_meta( $post['post-id'], 'supplier_artwork',   $image_arr );
-			    }
-
 				add_post_meta($post['order_id'],'supplier_'.$totalkey, $post['wtotalprice']);
 				add_post_meta($post['order_id'],'supplier_maxrowval', $post['maxrowval']);
-				if ( ! add_post_meta( $post['order_id'], $key, $post['newstatus'], true ) ) { 
-					   update_post_meta ( $post['order_id'], $key, $post['newstatus'] );
-					}
-
 	}
 
 }
@@ -399,25 +392,27 @@ function change_to_int($key) {
 
 
 
-// add_action( 'init', 'save_artwork' );
-// function save_artwork() {
-// 	$post = $_POST;
-// 	$user_id = get_current_user_id();
+add_action( 'init', 'supp_artwork' );
+function supp_artwork() {
+	$post = $_POST;
+	$user_id = get_current_user_id();
 
-// 	if ( isset( $post['form-action'] ) && $post['form-action'] === 'admin-artwork' ) {
-// 		$count = $post['img-count'];
-// 		$image_arr = '';
-// 		for ( $x=1;$x<=$count;$x++ ) {
-// 			$name = 'img'.$x;
-// 			$image_arr[$x] = $post[$name];
-// 		}
+	if (isset($post['supp_artwork'])) {
+		# code...
+		//var_dump($post);
+			$count = $post['img-count'];
+			$image_arr = '';
+			for ( $x=1;$x<=$count;$x++ ) {
+				$name = 'img'.$x;
+				$image_arr[$x] = $post[$name];
+			}
+		//	var_dump($image_arr);
+			if ( ! add_post_meta( $post['post-id'], 'supplier_artwork',   $image_arr, true ) ) { 
+	    		update_post_meta( $post['post-id'], 'supplier_artwork',   $image_arr );
+	    	}
+	}
 
-// 	   	if ( ! add_post_meta( $post['post-id'], 'admin_artwork',   $image_arr, true ) ) { 
-// 	    	update_post_meta( $post['post-id'], 'admin_artwork',   $image_arr );
-// 	    }
-// 	}
-
-// }
+}
 
 
 add_action( 'init', 'change_list' );
@@ -436,9 +431,9 @@ function change_list() {
 			
 			// echo $post['wtotalprice'].'</br>';
 			$totalkey = 'wtotalprice';
-			echo '<pre>';
-			// var_dump($image_arr);
-			 print_r($post);
+			// echo '<pre>';
+			// // var_dump($image_arr);
+			//  print_r($post);
 			// echo $count.'</br>';
 
 		 //echo $row;
@@ -467,11 +462,7 @@ function change_list() {
 					}
 				}
 			}
-			print_r($parrqty);
-			print_r($parrprice);
-			print_r($parrtotal);
-			die();
-
+			
 			if ( ! add_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty, true ) ) { 
 		    	update_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty );
 		    }
@@ -497,6 +488,4 @@ function change_list() {
 		exit( wp_redirect( $redirect ) );
 	}
 
-	// $redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
-	// exit( wp_redirect( $redirect ) );
 }

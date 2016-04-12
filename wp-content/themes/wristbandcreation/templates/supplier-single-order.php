@@ -10,6 +10,10 @@ $order = new WC_Order( $order_id );
 $items = $order->get_items();
 $key = '_new_status';
 $poststatusmeta = get_post_meta($order_id, $key, TRUE);
+$tracknumbermeta = get_post_meta($order_id, 'supplier_trackingnumber', TRUE);
+      $supplier = 'supplier_';
+      $rowval = get_post_meta($order_id, $supplier.'maxrowval', TRUE);
+      $totalkey = get_post_meta($order_id, $supplier.'wtotalprice', TRUE);
 ?>
 <div class="col-md-12 white">
 	<div class="gap-top">
@@ -93,41 +97,50 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
         </div>
         <?php } ?>
       </div>
-      <?php endif;
-
-      if ($poststatusmeta != 'shipped') { ?>
+      <?php endif; ?>
       <div class="col-lg-12">
-        <form id="changing-status" method="post">
-          <center><h2>Wristband Price</h2></center>
-          <div class="form-group clearfix trackstyle">
-            <div class="err-container1">
-                  <!-- <p class="err-msg"></p> -->
-              </div>
 
-            <label class="tracknum-label"> Tracking Number </label>
-<!--             <input type="text" name="trackingnum" id="trackingnum" class="form-control priceinputstyle1" placeholder="Input Here" value=""> -->
-            <input type="text" name="trackingnum" id="trackingnum" class="form-control" placeholder="Input Here" value="">
-            
-            <?php if($poststatusmeta == "shipped") {?>
-            <input type="submit" id="status-submit" name="status-submit" class="save-button-design" value="Change Status" style="color : white!important" disabled>
-            <?php } else { ?>
+          <center><h2>Wristband Price</h2></center>
+
+          <div class="form-group clearfix trackstyle">
+          <form id="changing-tracknum" method="post">
+            <div class="err-container1">
+            </div>
+            <div class="err-container2">
+            </div>
+            <div class="err-container3">
+            </div>
+          <label class="tracknum-label"> Tracking Number </label>
+            <input type="text" name="trackingnum" id="trackingnum" class="form-control" placeholder="Input Here" value="<?php echo $tracknumbermeta; ?>">
+            <input type="submit" id="track-submit" name="track-submit" class="save-button-design" value="Send Track Number" style="color : white!important">
+            <input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
+          </form>
+          <form id="changing-status" method="post">
             <input type="submit" id="status-submit" name="status-submit" class="save-button-design" value="Change Status" style="color : white!important">
-            <?php } ?>
-            <select name="newstatus">
+            <input type="hidden" id="savedstatus" value="<?php echo $poststatusmeta;?>" >
+            <select name="newstatus" id="newstatus">
             <option value="0"  <?php if($poststatusmeta == "pending_production") echo "selected"; ?>>pending production</option>
             <option value="1" <?php if($poststatusmeta == "pending_artwork_approval") echo "selected"; ?> >pending artwork approval</option>
             <option value="2" <?php if($poststatusmeta == "in_production") echo "selected"; ?>>in production</option>
             <option value="3" <?php if($poststatusmeta == "in_reproduction") echo "selected"; ?>>in re-production</option>
             <option value="4" <?php if($poststatusmeta == "produced_pending_shipment") echo "selected"; ?>>produced – pending shipment</option>
             <option value="5" <?php if($poststatusmeta == "shipped") echo "selected"; ?>>shipped</option>
-            </select>
-            
+            </select> 
+          </form>           
           </div>
 
           <!-- Artwork Approval -->
           <div class="artwork col-md-12">
+          <!-- <div class="artwork-title"> -->
+        
+          <!-- </div> -->
+          <form id="supplier-artwork" method="post">
+          <input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
+          <div class="artwork-title">
+          For supplier Artwork<input type="submit" class="save-button-design" name="supp_artwork" value="Save">
+          </div>
             <?php 
-            $artwork = get_post_meta( $order_id, 'admin_artwork', true );
+            $artwork = get_post_meta( $order_id, 'supplier_artwork', true );
 
             if ( $artwork ) { ?>
               <div class="file-supp" style="display: inline;">
@@ -140,6 +153,7 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
                         <img class="img-artwork" src="<?php echo $value; ?>">
                         <input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>">
                       </div>
+
                     <?php } ?>
                   <input id="art-work-count-supp" type="hidden" name="img-count" value="0">
                   <input type="hidden" name="form-action" value="admin-artwork">
@@ -165,8 +179,12 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
                 </p>
               </center>
             <?php } ?>
+            </form>
           </div>
+
           <!-- End of Artwork Approval -->
+          <?php   if ($totalkey == '' || $totalkey == 0) {?>
+          <form id="save-price-field" method="post">
           <div id='appendedid'>
             <div></div>
           </div>
@@ -189,31 +207,21 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
           </select>
           <button id="addfield" type="button" >Add Field</button>
           <input type="hidden" name="maxrowval" id="maxrowval" value="">
+          <input type="hidden" name="order_id" id="order_id" value="<?php echo $order_id; ?>">
           <input type="submit" id="save-price" class="save-button-design" name="save-price" value="Save" style="color : white!important">
-          <!-- <div class="form-group clearfix">
-            <label class="pricestyle"> Select file to upload </label>
-            <input type="file" name="fileToUpload" id="fileToUpload" value="" class="form-control ">
-            <img id="imageprev" src="http://goo.gl/pB9rpQ" alt="your image" class="imagestyle"/>
-          </div> -->
           <div class = "priceinputstyle">
             TOTAL : <p id="wtotalprice"></p>
             <input type="hidden" name="wtotalprice" id="wtotalprice1" value="">
           </div>
-         </form>
-
+          </form>
       </div>
     <?php } else {
 
-      $supplier = 'supplier_';
-      $rowval = get_post_meta($order_id, $supplier.'maxrowval', TRUE);
-      $totalkey = get_post_meta($order_id, $supplier.'wtotalprice', TRUE);
-      //echo $rowval;
       $arrquantity = ["moldquantity_", "printingquantity_", "laserquantity_","colorfillquantity_","embossedquantity_","imprintingquantity_","swirlquantity_","segmentedquantity_","glowquantity_","duallayerquantity_","insideembossedquantity_","individualpkgquantity_","keychainsquantity_","shipdhlquantity_"];
       $arrprice = ["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
       $arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg","keychains","shipdhl_"];
       ?>
   <div>
-     <H2>Wristand Shipped Price for <?php echo get_order_number_format( $order_id ); ?> </H2>
     <form id="change-list" method="post">
     <div id='appendedid'>
             <div></div>
@@ -221,11 +229,6 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
     $qty = get_post_meta($order_id, $supplier.'wpqty', TRUE);
     $price = get_post_meta($order_id, $supplier.'wpprice', TRUE);
     $total = get_post_meta($order_id, $supplier.'wptotal', TRUE);
-    // echo "<pre>";
-    //             print_r($qty);
-    //             print_r($total);
-    // echo "</pre>";
-     //echo '<form id="change-list" method="post">';
     $j = 0;
                 foreach ($total as $key => $value) {
                   # code...
@@ -243,7 +246,6 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
                 }
 
     ?> 
-    
     </div>
           <select id="selectedfield">
             <option value="0">Mold - Set Up</option>
@@ -269,18 +271,27 @@ $poststatusmeta = get_post_meta($order_id, $key, TRUE);
             TOTAL : <p id="wtotalprice"><?php echo $totalkey; ?></p>
             <input type="hidden" name="wtotalprice" id="wtotalprice1" value="<?php echo $totalkey; ?>">
           </div>
-          <input class="edit-order" type="submit" id="update-price-list" name="update-price-list" value="Update">
-    <?php $meta = get_post_meta($order_id,"supplier_artwork");
-          for ($i=0; $i < sizeof($meta); $i++) { 
-            for ($k=0; $k < sizeof($meta[$i]) + 1 ; $k++) { 
-              echo '<img src="'.$meta[$i][$k].'">';
-            }
+          <input class="edit-order save-button-design" type="submit" id="update-price-list" name="update-price-list" value="Update" style="color : white!important">
+    <?php 
+    // $meta = get_post_meta($order_id,"supplier_artwork");
+    //       for ($i=0; $i < sizeof($meta); $i++) { 
+    //         for ($k=0; $k < sizeof($meta[$i]) + 1 ; $k++) { 
+    //           echo '<img src="'.$meta[$i][$k].'">';
+    //         }
 
-          } ?>
+    //       } ?>
         </form>
       </div>
 <?php } ?>
 </div>
+<?php 
+    $question = get_post_meta( $order_id, 'customer_report_content', true );
+
+    
+      $user = "customer";
+      include ('supplier\supplier-page-report.php'); 
+    
+  ?>
 </div>
 
 

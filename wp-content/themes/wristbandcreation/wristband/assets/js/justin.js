@@ -59,24 +59,39 @@ jQuery(document).ready(function ($) {
       var tracknum = $('#trackingnum').val();
       var total = $('#wtotalprice1').val();
          $('.err-container1').empty();
-      if (tracknum == '') {
-           $('.err-container1').fadeIn();
-          $('.err-msg1').empty();
-          $('<p class="err-msg1">Tracking number required</p>').appendTo($('.err-container1'));
-        if(total =='' || total == 0){
-          $('<p class="err-msg1">No Field added</p>').appendTo($('.err-container1'));
-          return false;
-        }
-       return false; 
-      } else {
+         $('.err-container1').fadeIn();
          if(total =='' || total == 0){
           $('<p class="err-msg1">No Field added / Field added does not have Quantity or Price</p>').appendTo($('.err-container1'));
           return false;
         }
-      }
-      
     })
 
+    // $('#status-submit').click(function(){
+    //   var status    = ["pending_production","pending_artwork_approval","in_production","in_reproduction","produced_pending_shipment","shipped"],
+    //       prevstatus = status.indexOf($('#savedstatus').val()),
+    //       newstatus = $('#newstatus').val();
+    //   $('.err-container2').empty();
+    //   $('.err-container2').fadeIn();
+
+    //   if (newstatus <= prevstatus) {
+    //       console.log('hello');
+    //       $('<p class="err-msg2">Cannot Save Status</p>').appendTo($('.err-container2')); 
+    //       return false;
+    //   }
+
+    // })
+
+    $('#track-submit').click(function(){
+
+      var trackval = $('#trackingnum').val();
+      $('.err-container3').empty();
+      $('.err-container3').fadeIn();
+      if (trackval == '' || trackval == 0) {
+              console.log('dragon empty');
+              $('<p class="err-msg3">Track Number Empty</p>').appendTo($('.err-container3'));
+        return false;
+      }
+    })
 
    $(document)
 

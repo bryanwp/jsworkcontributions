@@ -312,7 +312,6 @@ input#trackingnum {
     float: left;
     width: 15%;
 }
-
 .err-msg1{
     padding: 10px 10px;
     font-size: 14px;
@@ -322,7 +321,31 @@ input#trackingnum {
     border-bottom: 1px solid white;
     
 }
+.err-msg2{
+    padding: 10px 10px;
+    font-size: 14px;
+    color: #2F288E;
+    background: #B3EAFF;
+    border-left: 3px solid #2F288E;
+    border-bottom: 1px solid white;
+    
+}
+
+.err-msg3{
+    padding: 10px 10px;
+    font-size: 14px;
+    color: #985252;
+    background: #FFE1E1;
+    border-left: 3px solid #F5A5A5;
+    border-bottom: 1px solid white;
+}
 
 .err-container1 {
+  display: none;
+}
+.err-container2 {
+  display: none;
+}
+.err-container3 {
   display: none;
 }
