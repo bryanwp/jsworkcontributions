@@ -495,7 +495,7 @@ function supplier_report(){
 
 	if (isset($post['send-report-supp'])) {
 
-		var_dump($post);
+		// var_dump($post);
 		// die();
 		//add report content
 		add_post_meta( $post['order-id'], $post['user'].'_report_content', $post['report_content'] );
