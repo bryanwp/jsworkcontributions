@@ -568,31 +568,45 @@ function save_post_order_notes() {
 	exit(wp_send_json_success($post['notes']));
 }
 
-add_action('init', 'save_user_made_by_admin');
+// add_action('init', 'save_user_made_by_admin');
+add_action( 'wp_ajax_save-user-made-by-admin', 'save_user_made_by_admin');
+add_action( 'wp_ajax_nopriv_save-user-made-by-admin', 'save_user_made_by_admin');
 function save_user_made_by_admin() {
-	$post = $_POST;
+	$post = $_REQUEST;
 
-	if ( isset( $post['form-action'] ) && $post['form-action'] === 'add_new_aes' ) {
+	$userdata = array(
+      'user_login'  =>  $post['email'],
+      'user_pass'   =>  $post['pass'],
+      'first_name'  => $post['fname'],
+      'last_name'   => $post['lname'],
+      'user_email'  => $post['email'],
+      'user_nicename' => $post['fname'] . ' ' . $post['lname']
+    );
 
-	    $userdata = array(
-	      'user_login'  =>  $post['email'],
-	      'user_pass'   =>  $post['pass'],
-	      'first_name'  => $post['fname'],
-	      'last_name'   => $post['lname'],
-	      'user_email'  => $post['email'],
-	      'user_nicename' => $post['fname'] . ' ' . $post['lname']
-	    );
+    if ( $post['role'] == 'Admin' ) {
+    	$userdata['role'] = 'Administrator';
+    }
 
-        $user_id = wp_insert_user( $userdata );
+    $user_id = wp_insert_user( $userdata );
 
         if ( ! is_wp_error( $user_id ) ) {
 	    	//adding user meta
-	    	add_user_meta( $user_id, 'custom_role', $post['custom_role']  ); 
-	    	
-	    	$redirect = home_url('admin-dashboard/?action=create&st='.$post['custom_role'] );
-			exit (wp_redirect($redirect));
+	    	add_user_meta( $user_id, 'custom_role', $post['role']  ); 
+			exit (wp_send_json_success( $user_id ) );
         } else {
-        	echo 'error';
+        	exit (wp_send_json_error( false ) );
        } 
+}
+
+add_action('init', 'bulk_action');
+function bulk_action(){
+	$post = $_POST;
+	if ( isset( $post['form-action'] ) && $post['form-action'] === 'bulk' ) {
+
+		$ids = json_decode( stripslashes($post['selected-ids']), true ); 
+		require_once(ABSPATH.'wp-admin/includes/user.php' );
+		foreach ( $ids as $id ) {
+			wp_delete_user( $id ); 
+		}
 	}
 }
