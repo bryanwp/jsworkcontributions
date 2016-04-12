@@ -298,24 +298,31 @@ input#form-title {
     color: #585454;
     min-height: 40px;
     font-size: 14px;
+    background: none;
+}
+.comment-editor form {
+    position: relative;
 }
 .comment-editor {
     margin-top: 10px;
-    border: 2px solid #E2E2E2;
+    border: 2px solid #256077;
     border-radius: 5px;
-    background: #fff;
+    background: none;
     min-height: 40px;
 }
 .comment-editor input[name=submit] {
     border: none;
     background: none;
-    width: 7%;
+    width: 10%;
     padding: 10px 0px;
     color: #585454;
     cursor: pointer;
     float: right;
-    border-left: solid #E8E8E8;
+    border-left: 2px solid #256077;
     height: 40px;
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 .hiddendiv {
     display: none;
@@ -637,6 +644,7 @@ div#wristband-builder-content {
     background: #B3EAFF;
     margin: 0px;
     padding-bottom: 10px;
+    margin-top: 15px;
 }
 .notes {
     background: none;
@@ -793,4 +801,15 @@ input.note-title {
 .filter select {
     height: 26px;
     width: 100px;
+}
+.comment-list {
+    height: 300px;
+    overflow-x: hidden;
+}
+.tc-box {
+    border: 5px solid #256077;
+}
+.t-no {
+    font-size: 17px;
+    font-weight: bold;
 }

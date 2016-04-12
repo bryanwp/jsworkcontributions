@@ -35,7 +35,7 @@
 	    if ( scrollHeight > this.height() ) {
 	    	//scrollHeight = scrollHeight + 10;
 	        $(this).css('height', scrollHeight );
-	        return;
+	        return scrollHeight;
 	    }  
   	}
   	
@@ -52,7 +52,7 @@
       return time;
    }
 
-   $.getCommentsUser = function(){
+   $.getCommentsUser = function( $user ){
       var action   = 'getComments-ajax',
           usercode = '1-0',
           comments = '',
@@ -64,12 +64,14 @@
         data:{
           action: action,
           id: id,
-          code: usercode
+          code: usercode,
+          user: $user
         },
         dataType: 'json',
         success: function( respones ){
           comments = respones.data;
-          $('#reply-list').append(comments);
+          $('.reply-list').append(comments);
+          $(".comment-list").scrollTop($(".comment-list")[0].scrollHeight);
         },
         error: function(e){
           console.log(e.responseText);
@@ -77,7 +79,7 @@
 
       });
    }
-  $.getCommentsAdmin = function(){
+  $.getCommentsAdmin = function( $user ){
       var action   = 'getComments-ajax',
           usercode = '0-1',
           comments = '',
@@ -89,12 +91,18 @@
         data:{
           action: action,
           id: id,
-          code: usercode
+          code: usercode,
+          user: $user
         },
         dataType: 'json',
         success: function( respones ){
           comments = respones.data;
-          $('#reply-list').append(comments);
+          if ( $user == 'notification_admin_user' ) {
+              $('.ctab-content').find('.reply-list').append(comments);
+          } else if ( $user == 'notification_admin_supplier' ) {
+              $('.stab-content').find('.reply-list').append(comments);
+          }
+          $(".comment-list").scrollTop($(".comment-list")[0].scrollHeight);
         },
         error: function(e){
           console.log(e.responseText);

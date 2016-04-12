@@ -43,9 +43,13 @@ $items = $order->get_items();
 if ( $order ) : 
      echo do_shortcode('[the-cart-meta item_key="'.$order_id.'"]');  
 ?>	
+	
 	<div class="box col-md-12">
 		<span>Send e-mail confirmation for the customer</span>
 		<button type="button" class="btn">Send</button>
+	</div>
+	<div class="track-box col-md-12">
+		<span class="t-no">Tracking Number: <?php echo get_post_meta( $order_id, 'supplier_trackingnumber', true ); ?></span>
 	</div>
 	
 
@@ -89,14 +93,9 @@ if ( $order ) :
 	
 <?php endif; ?>
 	</div>
-
-	<div class="admin-tab row">
-		<div class="ctab col-md-6 active-tab">customer</div>
-		<div class="stab col-md-6">supplier</div>
-	</div>
 	<div class="admin-tab-content row">
 		<!-- Customer Tab Start -->
-		<div class="ctab-content col-md-6">
+		<div class="ctab-content tc-box col-md-6">
 			<div class="artwork-title">
 				<h3>For Customer Artwork <a class="save-artwork">Save</a></h3>
 			</div>
@@ -157,7 +156,7 @@ if ( $order ) :
 		<!-- Customer Tab end -->
 		
 		<!-- Supplier Tab Start -->
-		<div class="stab-content col-md-6">
+		<div class="stab-content tc-box col-md-6">
 			<div class="artwork-title">
 				<h3>Images from Supplier</h3>
 			</div>
@@ -172,13 +171,10 @@ if ( $order ) :
 								foreach ($artwork as $key => $value) { ?>
 								
 									<div class="img-holder">
-										<span class="remove-file">x</span>
 										<img class="img-artwork" src="<?php echo $value; ?>">
 										<input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>">
 									</div>
 								<?php } ?>
-							
-						<button class="media-button add-btn">Add Artwork</button>
 					</div> <!--container for the upload files-->	
 				<?php } else { ?>
 					<center class="no-file">

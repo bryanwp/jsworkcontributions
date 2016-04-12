@@ -258,7 +258,7 @@ function add_reply( $post = false ){
 	$user_id = get_current_user_id();
 	$user = wp_get_current_user();
 	$post = $_REQUEST;
-
+ 
 	$data = array(
 	    'comment_post_ID' 		=> $post['post-id'],
 	    'comment_author' 		=> $user->display_name,
@@ -272,7 +272,7 @@ function add_reply( $post = false ){
 	$insert_comment = wp_insert_comment( $data );
 
 	if ( $insert_comment ) {
-		/* Admin - User Notification
+		/* Admin - User/supplier Notification
 		*	1 = Seen or the Created by the user
 		* 	0 = Not seen by the other user
 		* 	1-0 = Created by admin, notified to the user
@@ -280,10 +280,10 @@ function add_reply( $post = false ){
 		*	1-1 = both seen by the user and admin
 		*/
 		if ( current_user_can( 'manage_options' ) ) {
-			add_comment_meta( $insert_comment, 'notification_admin_user', '1-0' );
+			add_comment_meta( $insert_comment, $post['user'], '1-0' );
 			exit( wp_send_json_success( $insert_comment ) );
 		} else {
-			add_comment_meta( $insert_comment, 'notification_admin_user', '0-1' );
+			add_comment_meta( $insert_comment, $post['user'], '0-1' );
 			exit( wp_send_json_success( $insert_comment ) );
 		}
 	}
@@ -329,6 +329,7 @@ function getComments_ajax(){
 	$post = $_REQUEST;
 	$order_id = $post['id'];
 	$user = $post['code'];
+	$meta_key = $post['user'];
 	global $wpdb;
 
 	$sql = "SELECT 
@@ -345,7 +346,7 @@ function getComments_ajax(){
 		INNER JOIN $wpdb->commentmeta as b
 		ON a.comment_ID = b.comment_id
 		where a.comment_post_ID = '$order_id'
-		AND b.meta_key = 'notification_admin_user'
+		AND b.meta_key = '$meta_key'
 		AND b.meta_value = '$user'";
 	
 	$results = $wpdb->get_results( $sql );
@@ -357,12 +358,12 @@ function getComments_ajax(){
 	
 			$c.='<li>';
 				$c.='<div class="single-comment">';
-					$c.='<p>'.$user->display_name .'<span class="time-ago"><time class="timeago" datetime="'.$datetime.'"> ...</time></span></p>';
+					$c.='<p>'.$user->display_name .' <span class="time-ago"><time class="timeago" datetime="'.$datetime.'"> ...</time></span></p>';
 					$c.='<span>'.$comment->comment_content.'</span>';
 				$c.='</div>';
 			$c.='</li>';
 
-			if (update_comment_meta( $comment->comment_ID, 'notification_admin_user', '1-1' ) ) {
+			if (update_comment_meta( $comment->comment_ID, $post['user'], '1-1' ) ) {
 				exit(wp_send_json_success( $c ) );
 			}
 			
