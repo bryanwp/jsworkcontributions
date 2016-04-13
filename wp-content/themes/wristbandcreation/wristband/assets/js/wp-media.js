@@ -36,17 +36,17 @@ $(document).ready( function() {
 					el +='<div class="img-holder">';
 						el +='<span class="remove-file">x</span>';
 						el +='<img class="img-artwork artw" src="'+attachment.url+'" alt="'+attachment.title+'">';
-						// el +='<p>'+attachment.filename+'</p>';
 						el +='<input type="hidden" class="attachment_id" name=" " value="'+attachment.url+'">';
 					el +='</div>';
 
 					//el +='<input type="hidden" id="post-featured" name="post_featured" value="">';
-
+ 
 					// $('.artwork').empty().html(''); //remove old uploaded file from other tab	
 					div.append(el); //render the current uploaded file	
 					$('.no-file').remove();
 					$('.file').fadeIn();
 					artworkCounter();
+					$.saveArtWorkAdmin();
 		});
 
 		file_frame.open();
@@ -103,7 +103,7 @@ $(document).ready( function() {
 						el +='<span class="remove-file-supp">x</span>';
 						el +='<img class="img-artwork-supp" src="'+attachment.url+'" alt="'+attachment.title+'">';
 						// el +='<p>'+attachment.filename+'</p>';
-						el +='<input type="hidden" class="attachment_id_supp" name=" " value="'+attachment.url+'">';
+						el +='<input type="hidden" class="attachment_id" name=" " value="'+attachment.url+'">';
 					el +='</div>';
 
 					//el +='<input type="hidden" id="post-featured" name="post_featured" value="">';
@@ -113,6 +113,7 @@ $(document).ready( function() {
 					$('.no-file').remove();
 					$('.file-supp').fadeIn();
 					artworkCounterSupp();
+					$.saveArtWorkSupplier();
 		});
 
 		file_frame.open();
@@ -133,20 +134,19 @@ $(document).ready( function() {
 	}
 
 
-
-
-
     $(document)
 
 
     .on('click', '.remove-file', function(){
       	$(this).parent().remove();
         artworkCounter();
+        $.saveArtWorkAdmin();
    	})
 
     .on('click', '.remove-file-supp', function(){
       	$(this).parent().remove();
         artworkCounterSupp();
+        $.saveArtWorkSupplier();
    	});
 
 });

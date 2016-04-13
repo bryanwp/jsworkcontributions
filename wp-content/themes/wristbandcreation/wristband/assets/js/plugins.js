@@ -111,4 +111,56 @@
       });
    }
 
+  $.saveArtWorkAdmin = function() {
+    var parent = $('#admin-artwork-form');
+    var post_id = parent.find('input[name=post-id]').val();
+    var img_arr = {};
+    var count = 1;
+    parent.find('.attachment_id').map(function(){
+      img_arr[count] = $(this).val();
+      count++;
+    }).get();
+    //console.log(img_arr);
+    var saveto = 'admin_artwork';
+    $.ajax({
+      url: plugins_ajax.ajaxUrl,
+      method: 'POST',
+      data:{
+        action: 'accept-artwork-ajax',
+        post_id: post_id,
+        meta_key: saveto,
+        img_arr: img_arr
+      },
+      success: function( respones ){
+        console.log( respones.data );
+      }
+    });
+  }
+
+  $.saveArtWorkSupplier = function() {
+    var parent = $('#supplier-artwork');
+    var post_id = parent.find('input[name=post-id]').val();
+    var img_arr = {};
+    var count = 1;
+    parent.find('.attachment_id').map(function(){
+      img_arr[count] = $(this).val();
+      count++;
+    }).get();
+    //console.log(img_arr);
+    var saveto = 'supplier_artwork';
+    $.ajax({
+      url: plugins_ajax.ajaxUrl,
+      method: 'POST',
+      data:{
+        action: 'accept-artwork-ajax',
+        post_id: post_id,
+        meta_key: saveto,
+        img_arr: img_arr
+      },
+      success: function( respones ){
+        console.log( respones.data );
+      }
+    });
+  }
+
 })(jQuery);

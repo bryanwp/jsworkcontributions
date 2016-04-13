@@ -4,7 +4,7 @@
 * Sheldz
 */
 
-//include shortcodes/views for dynamic viewing
+//include shortcodes/views for dynamic viewing 
 include_once( get_stylesheet_directory() . '/templates/inc/shortcodes.php' );
 
 //Register function for new user..
@@ -462,9 +462,7 @@ function check_notif_onload( $post_id ) {
 }
 
 function get_status( $status ) {
- 	if ($status == 'pending_production') {
-	    return 'Pending Production';
-	} elseif ($status == 'pending_artwork_approval') {
+ 	if ($status == 'pending_artwork_approval') {
 	    return 'Pending Artwork Approval';
 	} elseif ($status == 'in_production') {
 	    return 'In Production';
@@ -475,33 +473,49 @@ function get_status( $status ) {
 	} elseif ($status == 'shipped') {
 	    return 'Shipped';
 	} else {
-	    return 'No Status Yet';
+	    return 'Pending Production';
 	}
 
 }
 
-add_action( 'init', 'save_artwork' );
-function save_artwork() {
-	$post = $_POST;
-	$user_id = get_current_user_id();
+// add_action( 'init', 'save_artwork' );
+// function save_artwork() {
+// 	$post = $_POST;
+// 	$user_id = get_current_user_id();
 
-	if ( isset( $post['form-action'] ) && $post['form-action'] === 'admin-artwork' ) {
-		$count = $post['img-count'];
-		$image_arr = '';
-		for ( $x=1;$x<=$count;$x++ ) {
-			$name = 'img'.$x;
-			$image_arr[$x] = $post[$name];
-		}
+// 	if ( isset( $post['form-action'] ) && $post['form-action'] === 'admin-artwork' ) {
+// 		$count = $post['img-count'];
+// 		$image_arr = '';
+// 		for ( $x=1;$x<=$count;$x++ ) {
+// 			$name = 'img'.$x;
+// 			$image_arr[$x] = $post[$name];
+// 		}
 
-	   	if ( ! add_post_meta( $post['post-id'], 'admin_artwork',   $image_arr, true ) ) { 
-	    	update_post_meta( $post['post-id'], 'admin_artwork',   $image_arr );
-	    }
+// 	   	if ( ! add_post_meta( $post['post-id'], 'admin_artwork',   $image_arr, true ) ) { 
+// 	    	update_post_meta( $post['post-id'], 'admin_artwork',   $image_arr );
+// 	    }
 
-	    if ( ! add_post_meta( $post['post-id'], 'artwork_approve', 'not_approved', true ) ) {
-	    	update_post_meta( $post['post-id'], 'artwork_approve', 'not_approved' );
-	    }	
+// 	    if ( ! add_post_meta( $post['post-id'], 'artwork_approve', 'not_approved', true ) ) {
+// 	    	update_post_meta( $post['post-id'], 'artwork_approve', 'not_approved' );
+// 	    }	
+// 	}
+// }
+
+add_action( 'wp_ajax_accept-artwork-ajax', 'save_artwork_ajax' );
+add_action( 'wp_ajax_nopriv_accept-artwork-ajax', 'save_artwork_ajax' );
+function save_artwork_ajax(){
+	$post = $_REQUEST;
+
+	if ( ! add_post_meta( $post['post_id'], $post['meta_key'],   $post['img_arr'], true ) ) { 
+	    	update_post_meta( $post['post_id'], $post['meta_key'],   $post['img_arr'] );
 	}
 
+	if ( $post['meta_key'] == 'admin_artwork' ) {
+		if ( ! add_post_meta( $post['post_id'], 'artwork_approve', 'not_approved', true ) ) {
+    		update_post_meta( $post['post_id'], 'artwork_approve', 'not_approved' );
+    	}
+	}
+	exit( wp_send_json_success($post['img_arr']) );
 }
 
 add_action( 'wp_ajax_accept-artwork', 'accept_artwork' );

@@ -98,7 +98,7 @@ if ( $order ) :
 		<!-- Customer Tab Start -->
 		<div class="ctab-content tc-box col-md-6">
 			<div class="artwork-title">
-				<h3>For Customer Artwork <a class="save-artwork">Save</a></h3>
+				<h3>For Customer Artwork</h3>
 			</div>
 			<div class="artwork col-md-12">
 				<?php 

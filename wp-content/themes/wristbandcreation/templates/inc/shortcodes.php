@@ -130,7 +130,6 @@ function cart_meta( $atts ){
 <?php 
 }
 
-// add_shortcode( 'supplier-pricing-for-super-admin', 'supplier_pricing_for_superadmin' );
 add_action( 'supplier_pricing','supplier_pricing_for_supper_admin' );
 function supplier_pricing_for_supper_admin( $order_id ){ ?>
 		<div id='appendedid'>
@@ -175,3 +174,28 @@ function supplier_pricing_for_supper_admin( $order_id ){ ?>
     </div>
     <?php 
 }
+
+add_action('post-order-notes', 'post_order_notes');
+function post_order_notes( $order_id ){
+	$notes = get_post_meta( $order_id, 'post_order_note', true );
+		?>	
+		<div class="artwork-title">
+		<h3>Post Order Notes</h3>
+		</div>
+		<div class="post-order-notes col-md-12">
+		<?php
+		if ( $notes ) { 
+			foreach( $notes as $note ) {?>
+				<div class="notes">
+					<span class="note-date"><?php echo $note['date']; ?></span>
+					<p class="note-content"><?php echo nl2br( $note['content'] ); ?></p>
+					<input type="hidden" id="n-title" name="n-title" value="<?php echo $note['title']; ?>">
+					<input type="hidden" id="n-date" name="n-date" value="<?php echo $note['date']; ?>">
+					<input type="hidden" id="n-content" name="n-content" value="<?php echo nl2br( $note['content'] ); ?>">
+				</div>
+		<?php } 
+		} ?>
+		</div>
+		<?php
+}
+

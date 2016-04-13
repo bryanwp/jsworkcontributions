@@ -294,7 +294,7 @@ input#form-title {
     resize: none;
     padding: 10px;
     outline: none;
-    overflow: auto;
+    overflow: hidden;
     color: #585454;
     min-height: 40px;
     font-size: 14px;
