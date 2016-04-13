@@ -129,3 +129,49 @@ function cart_meta( $atts ){
 	</table>
 <?php 
 }
+
+// add_shortcode( 'supplier-pricing-for-super-admin', 'supplier_pricing_for_superadmin' );
+add_action( 'supplier_pricing','supplier_pricing_for_supper_admin' );
+function supplier_pricing_for_supper_admin( $order_id ){ ?>
+		<div id='appendedid'>
+            <div></div>
+    		<table style="width:100%;">
+				<thead>
+					<th>Proceess Name</th>
+					<th>Quantity</th>
+					<th>Unit Price</th>
+					<th>Total</th>
+				</thead>
+		    <?php
+		    $qty = get_post_meta($order_id, 'supplier_wpqty', TRUE);
+		    $price = get_post_meta($order_id, 'supplier_wpprice', TRUE);
+		    $total = get_post_meta($order_id, 'supplier_wptotal', TRUE);
+		    $grand_total = 0;
+		    $j = 0;
+                foreach ( $total as $key => $value) {
+
+                  $k = change_to_int($key);
+                  for ($i=0; $i <sizeof($value) ; $i++) { 
+                    ?>
+						<tr>
+							<td><?php echo change_label_name($key); ?></td>
+							<td><?php echo $qty[change_qty_name($key)][$i]; ?></td>
+							<td><?php echo $price[change_price_name($key)][$i]; ?></td>
+							<td><?php echo $value[$i]; ?></td>
+						</tr>
+			
+                    <?php
+                    $grand_total = $grand_total + $value[$i];
+                    $j++;
+                  }
+                }
+
+    ?>
+    	<tr>
+    		<td colspan="3">Grand Total</td>
+    		<td colspan="3"><?php echo $grand_total; ?></td>
+    	</tr>
+    </table>
+    </div>
+    <?php 
+}

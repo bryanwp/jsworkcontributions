@@ -10,7 +10,14 @@ jQuery(document).ready(function ($) {
      }, 10000);
    }());
 
-   $(".comment-list").scrollTop($(".comment-list")[0].scrollHeight);
+   function set_scroll(){
+      var req = window.location.search;
+      var page = req.substring(1,12);
+      if ( page == 'action=view') {
+          $(".comment-list").scrollTop($(".comment-list")[0].scrollHeight);
+      }
+   } set_scroll();
+
    setInterval(function(){
       var pathname = window.location.pathname;
       var req = window.location.search;

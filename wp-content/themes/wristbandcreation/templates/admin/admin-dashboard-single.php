@@ -52,6 +52,7 @@ if ( $order ) :
 		<span class="t-no">Tracking Number: <?php echo get_post_meta( $order_id, 'supplier_trackingnumber', true ); ?></span>
 	</div>
 	
+	<?php do_action('supplier_pricing', $order_id); ?>
 
 	<div class="artwork-title">
 		<h3>Post Order Notes <a class="add-note btn">Add Note</a></h3>
