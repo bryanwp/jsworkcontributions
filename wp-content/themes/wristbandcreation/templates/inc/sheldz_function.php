@@ -105,6 +105,7 @@ function check_if_login(){
 	//initializing redirect url
 	$current_user = wp_get_current_user();
 	$redirect = home_url( 'login' );
+	$role = get_user_meta ( $current_user->ID, 'custom_role', true );
 
 	if ( ! is_user_logged_in () ) {
 		if ( is_page( 'customer-dashboard' ) ) {
@@ -134,6 +135,8 @@ function check_if_login(){
 			exit( wp_redirect( $redirect ) );
 		}
 	}
+
+
 
 }
 
