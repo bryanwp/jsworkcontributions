@@ -23,13 +23,9 @@ include ('custom-header.php'); ?>
 	if ( $action === 'view') {
 		include ('supplier-single-order.php');
 	} elseif ( $action === 'profile' ) {
-		include ('supplier-dashboard-profile.php');
+		include ('supplier/supplier-dashboard-profile.php');
 	} elseif ( $action === 'notification' ) {
 		include ('admin/admin-dashboard-notification.php');
-	} elseif ( $action === 'report' ) {
-		include ('admin/admin-dashboard-notif-form.php');
-	} elseif ( $action === 'view-report' ) {
-		include ( 'admin/admin-dashboard-single-report.php' );
 	}
 	
 	?>

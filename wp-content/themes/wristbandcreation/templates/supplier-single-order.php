@@ -14,6 +14,7 @@ $tracknumbermeta = get_post_meta($order_id, 'supplier_trackingnumber', TRUE);
       $supplier = 'supplier_';
       $rowval = get_post_meta($order_id, $supplier.'maxrowval', TRUE);
       $totalkey = get_post_meta($order_id, $supplier.'wtotalprice', TRUE);
+
 ?>
 <div class="col-md-12 white">
 	<div class="gap-top">
@@ -40,18 +41,20 @@ $tracknumbermeta = get_post_meta($order_id, 'supplier_trackingnumber', TRUE);
           <center><h2>Wristband Price</h2></center>
 
           <div class="form-group clearfix trackstyle">
-          <form id="changing-tracknum" method="post">
-            <div class="err-container1">
-            </div>
-            <div class="err-container2">
-            </div>
-            <div class="err-container3">
-            </div>
-          <label class="tracknum-label"> Tracking Number </label>
-            <input type="text" name="trackingnum" id="trackingnum" class="form-control" placeholder="Input Here" value="<?php echo $tracknumbermeta; ?>">
-            <input type="submit" id="track-submit" name="track-submit" class="save-button-design" value="Send Track Number" style="color : white!important">
-            <input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
-          </form>
+          <?php if($poststatusmeta == "shipped") { ?>
+            <form id="changing-tracknum" method="post">
+              <div class="err-container1">
+              </div>
+              <div class="err-container2">
+              </div>
+              <div class="err-container3">
+              </div>
+            <label class="tracknum-label"> Tracking Number </label>
+              <input type="text" name="trackingnum" id="trackingnum" class="form-control" placeholder="Input Here" value="<?php echo $tracknumbermeta; ?>">
+              <input type="submit" id="track-submit" name="track-submit" class="save-button-design" value="Send Track Number" style="color : white!important">
+              <input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
+            </form>
+          <?php } ?>
           <form id="changing-status" method="post">
             <input type="submit" id="status-submit" name="status-submit" class="save-button-design" value="Change Status" style="color : white!important">
             <input type="hidden" id="savedstatus" value="<?php echo $poststatusmeta;?>" >
@@ -63,6 +66,7 @@ $tracknumbermeta = get_post_meta($order_id, 'supplier_trackingnumber', TRUE);
             <option value="4" <?php if($poststatusmeta == "produced_pending_shipment") echo "selected"; ?>>produced – pending shipment</option>
             <option value="5" <?php if($poststatusmeta == "shipped") echo "selected"; ?>>shipped</option>
             </select> 
+            <input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
           </form>           
           </div>
 
@@ -209,14 +213,6 @@ $tracknumbermeta = get_post_meta($order_id, 'supplier_trackingnumber', TRUE);
             <input type="hidden" name="wtotalprice" id="wtotalprice1" value="<?php echo $totalkey; ?>">
           </div>
           <input class="edit-order save-button-design" type="submit" id="update-price-list" name="update-price-list" value="Update" style="color : white!important">
-    <?php 
-    // $meta = get_post_meta($order_id,"supplier_artwork");
-    //       for ($i=0; $i < sizeof($meta); $i++) { 
-    //         for ($k=0; $k < sizeof($meta[$i]) + 1 ; $k++) { 
-    //           echo '<img src="'.$meta[$i][$k].'">';
-    //         }
-
-    //       } ?>
         </form>
       </div>
 

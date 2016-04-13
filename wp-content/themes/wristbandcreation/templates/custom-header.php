@@ -173,7 +173,7 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 				} else {
 					$current_user = wp_get_current_user();
 					$redirect = home_url('login');
-					$role = get_user_meta( $current_user->ID, 'user_custom_role', true );
+					$role = get_user_meta( $current_user->ID, 'custom_role', true );
 
 					$orders  = "dash-active"; $profile = "";
 					$profile = ""; $Orderlogs ="";
@@ -225,7 +225,15 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 								<li><a class="nav-a" href="<?php echo wp_logout_url( $redirect ); ?>">Log out</a></li>
 							</ul>
 						</div>
-						<?php } 
+						<?php }	elseif ( $role == 'Supplier' ) { ?>
+							<div class="nav-wrap">
+								<ul class="dash-custom-nav">
+									<li><a class="nav-a <?php echo $orders; ?>" href="<?php echo home_url('supplier-dashboard'); ?>">My Orders</a></li>
+									<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('supplier-dashboard/?action=profile'); ?>">Profile</a></li>
+									<li><a class="nav-a" href="<?php echo wp_logout_url( $redirect ); ?>">Log out</a></li>
+								</ul>
+							</div>
+						<?php }
 					}
 					// echo '<p>WELCOME ' . $current_user->user_firstname . ' | <a href=' . wp_logout_url( $redirect ) . '>Log out</a></p>' ;
 				}

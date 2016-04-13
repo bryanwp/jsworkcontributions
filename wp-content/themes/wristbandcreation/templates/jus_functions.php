@@ -75,10 +75,27 @@ function my_check_login(){
   if ( ! is_wp_error( $user ) ) {
     // echo home_url();
     // echo "<pre>";
-    // var_dump($user->roles);
-    // echo $user->roles[0];
+    // var_dump($user);
+    $role = get_user_meta ( $user->ID, 'custom_role', true );
+    // echo $role;
+    // echo $user->ID;
     // echo "</pre>";
     // die();
+
+    if($role == 'Supplier'){
+    	wp_redirect( home_url('supplier-dashboard') );
+    	exit; 
+    } elseif ($role == 'Admin') {
+    	wp_redirect( home_url('admin-dashboard') );
+    	exit;
+    } elseif ($role == 'Employee') {
+    	wp_redirect( home_url('employee-dashboard') );
+    	exit;
+    } else {
+    	wp_redirect( home_url('customer-dashboard') );
+    	exit; 
+    }
+
     wp_redirect( home_url() );
     exit;    
   } else {      
@@ -432,7 +449,7 @@ function change_list() {
 			// echo $post['wtotalprice'].'</br>';
 			$totalkey = 'wtotalprice';
 			// echo '<pre>';
-			// // var_dump($image_arr);
+			// var_dump($image_arr);
 			//  print_r($post);
 			// echo $count.'</br>';
 
@@ -494,7 +511,6 @@ function supplier_report(){
 	$post = $_POST;
 
 	if (isset($post['send-report-supp'])) {
-
 		// var_dump($post);
 		// die();
 		//add report content
