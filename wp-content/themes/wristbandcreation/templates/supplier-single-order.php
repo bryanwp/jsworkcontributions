@@ -32,71 +32,8 @@ $tracknumbermeta = get_post_meta($order_id, 'supplier_trackingnumber', TRUE);
 // die;
 
     if ( $order ) : 
-
+      echo do_shortcode('[the-cart-meta item_key="'.$order_id.'"]');
       ?>
-    <div class="order-container">
-      <?php foreach ( $items as $item ) {
-        $wristband_meta = maybe_unserialize( $item['wristband_meta']);
-        $color = $wristband_meta['colors'];
-        ?>
-        <div class="details-container">
-          <h3><?php echo $item['name']; ?> Wristband</h3>
-          <div class="row">
-            <div class="col-md-6">
-              <table class="tbl-info" width="100%">
-                <tr>
-                  <td>Width:</td>
-                  <td><?php echo $wristband_meta['size']; ?></td>
-                </tr>
-                <?php
-                $color = $wristband_meta['colors'];
-                foreach ($color as $colors) {
-                  $count = 1;
-                  $sizes = $colors['sizes'];
-                  foreach ( $sizes as $size ) {
-                    if ( $size >= 1 && $count === 1 ) {
-                      echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Adult Size</td></tr>'; 
-                    } elseif ( $size >= 1 && $count === 2  ) {
-                      echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Medium Size</td></tr>'; 
-                    } elseif ( $size >= 1 && $count === 3  ) {
-                      echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Youth Size</td></tr>'; 
-                    } 
-                    $count++;
-                  }
-                }
-                ?>
-                <?php
-                $options = $wristband_meta['messages'];
-                foreach ( $options as $key => $msg ) {
-                  if ( empty( $msg ) ) {
-                    $msg = 'None';
-                  }
-                  echo '<tr><td>' . $key . ':</td><td>' . $msg . '</td></tr>'; 
-                }
-
-                ?>
-              </table>
-            </div>
-
-            <div class="col-md-6">
-              <table class="tbl-info" width="100%">
-                <?php
-                $options = $wristband_meta['additional_options'];
-                if ( $options ) {
-                  foreach ( $options as $option ) {
-                    echo '<tr><td>Addtional Options</td><td>' . $option . '</td></tr>'; 
-                  }
-                } else {
-                  echo '<tr><td>Addtional Options</td><td>None</td></tr>'; 
-                }
-                ?>
-              </table>
-            </div>
-
-          </div>
-        </div>
-        <?php } ?>
-      </div>
       <?php endif; ?>
       <div class="col-lg-12">
 
@@ -156,7 +93,7 @@ $tracknumbermeta = get_post_meta($order_id, 'supplier_trackingnumber', TRUE);
 
                     <?php } ?>
                   <input id="art-work-count-supp" type="hidden" name="img-count" value="0">
-                  <input type="hidden" name="form-action" value="admin-artwork">
+                  <!-- <input type="hidden" name="form-action" value="admin-artwork"> -->
                   <input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
                 </div>
                 <button class="media-button-supp add-btn">Add Artwork</button>
@@ -165,7 +102,7 @@ $tracknumbermeta = get_post_meta($order_id, 'supplier_trackingnumber', TRUE);
               <div class="file-supp">
                 <div class="fpost-img">
                   <input id="art-work-count-supp" type="hidden" name="img-count" value="0">
-                  <input type="hidden" name="form-action" value="admin-artwork">
+                  <!-- <input type="hidden" name="form-action" value="admin-artwork"> -->
                   <input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
                 </div>
                 <button class="media-button-supp add-btn">Add Artwork</button>

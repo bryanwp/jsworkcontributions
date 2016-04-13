@@ -18,7 +18,7 @@
 				<?php 
 					 $current_user = wp_get_current_user();
 				?>
-				<textarea class="reply-supp" name="reply-supp" style="margin: 0px; width: 90%; height: 40px;" placeholder="Add Reply..."></textarea>
+				<textarea class="reply-supp" name="reply-supp" style="margin: 0px; width: 90%; height: 40px; background-color: none" placeholder="Add Reply..."></textarea>
 				<input id="post_id" type="hidden" name="post-id" value="<?php echo $order_id; ?>">
 				<input id="name" type="hidden" name="name" value="<?php echo $current_user->display_name  ?>">
 				<input class="reply-btn-supp" type="button" name="submit" value="Reply" >

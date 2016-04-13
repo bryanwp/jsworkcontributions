@@ -444,19 +444,19 @@ function change_list() {
 					if(isset($post[$arrtotal[$x].$i]) && ($post[$arrtotal[$x].$i]!= 0)){
 						if(isset($post[$arrquantity[$x].$i])){
 							$newkey1 = $arrquantity[$x];
-							echo $newkey1.'='.$post[$arrquantity[$x].$i]."</br>";
+							//echo $newkey1.'='.$post[$arrquantity[$x].$i]."</br>";
 							$parrqty[$newkey1][] = $post[$arrquantity[$x].$i];
 							//add_post_meta( $post['order_id'], 'supplier_'.$newkey1,$post[$arrquantity[$x].$i]);
 						}
 						if(isset($post[$arrprice[$x].$i])){
 							$newkey2 = $arrprice[$x];
-							echo $newkey2.'='.$post[$arrprice[$x].$i]."</br>";
+							//echo $newkey2.'='.$post[$arrprice[$x].$i]."</br>";
 							//$parrprice[]
 							$parrprice[$newkey2][] = $post[$arrprice[$x].$i];
 							//add_post_meta( $post['order_id'], 'supplier_'.$newkey2,$post[$arrprice[$x].$i]);
 						}
 						$newkey3 = $arrtotal[$x];
-						echo $newkey3.'='.$post[$arrtotal[$x].$i]."</br>";
+						//echo $newkey3.'='.$post[$arrtotal[$x].$i]."</br>";
 						$parrtotal[$newkey3][] = $post[$arrtotal[$x].$i];
 						//add_post_meta( $post['order_id'], 'supplier_'.$newkey3,$post[$arrtotal[$x].$i]);
 					}
