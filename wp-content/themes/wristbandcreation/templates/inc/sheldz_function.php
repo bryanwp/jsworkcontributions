@@ -182,24 +182,33 @@ function update_profile(){
 add_action('wp_ajax_change-user-password', 'change_user_password');
 add_action('wp_ajax_nopriv_change-user-password', 'change_user_password');
 function change_user_password(){
+	include_once($_SERVER['DOCUMENT_ROOT'].'/wp-includes/class-phpass.php' );
 	$post = $_REQUEST;
 	$new_pass = $post['pass'];
 
-	$userdata = array(
-		'ID' 		=> get_current_user_id(), 
-		'user_pass' => $new_pass 
-	);
-	
-	$user = wp_update_user( $userdata );
+	$wp_hasher = new PasswordHash(8, TRUE);
 
-	if ( $user ) {
-		$result = 'success';
-		exit( wp_send_json_success( $result ) );
+	$password_hashed = $post['hash'];
+	$plain_password = $post['current'];
+
+	if($wp_hasher->CheckPassword($plain_password, $password_hashed)) {
+		   
+		$userdata = array(
+			'ID' 		=> get_current_user_id(), 
+			'user_pass' => $new_pass 
+		);
+		
+		$user = wp_update_user( $userdata );
+
+		if ( $user ) {
+			$result = 'success';
+			exit( wp_send_json_success( $result ) );
+		}
+
 	} else {
-		$result = 'wala ma change';
-		exit( wp_send_json_success( $result ) );
-	}
-	
+	    $result = $password_hashed;
+	 	exit( wp_send_json_success( $result ) );
+	}	
 }
 
 add_action( 'init', 'update_user_billing_address' );
@@ -645,5 +654,36 @@ function bulk_action(){
 		foreach ( $ids as $id ) {
 			wp_delete_user( $id ); 
 		}
+	}
+}
+
+function action_log( $msg ) {
+	$current_user = wp_get_current_user();
+	$myfile = fopen("log.txt", "w")or die('Cannot open file:  '.$my_file);;
+
+	if ( $myfile ) {
+		$txt = $msg.$current_user->display_name."\n";
+		$result = false;
+	 	if ( fwrite( $myfile, $txt ) ) {
+	 		$result = true;
+	 	}
+		fclose( $myfile );
+		return $result;
+	} else {
+		$result = false;
+		return $result;
+	}
+	
+}
+
+add_action('wp_ajax_action-log-ajax', 'action_log_ajax');
+add_action('wp_ajax_nopriv_action-log-ajax', 'action_log_ajax');
+function action_log_ajax(){
+	$post = $_REQUEST;
+
+	if ( action_log( $post['msg'] ) ) {
+		exit(wp_send_json_success(true));
+	} else {
+		exit(wp_send_json_error(true));
 	}
 }

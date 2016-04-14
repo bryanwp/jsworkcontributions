@@ -2,7 +2,7 @@
 $order_id = '';
 if ( isset( $_GET['ID'] ) ) {
 			$order_id = $_GET['ID'];  
-}
+} 
 
 $key = get_post_meta( $order_id, '_order_key', true );
 $pay_link = home_url('checkout/order-pay/' . $order_id . '?pay_for_order=true&key=' . $key);
@@ -45,14 +45,25 @@ if ( $order ) :
 ?>	
 	
 	<div class="box col-md-12">
-		<span>Send e-mail confirmation for the customer</span>
-		<button type="button" class="btn">Send</button>
-	</div>
-	<div class="track-box col-md-12">
-		<span class="t-no">Tracking Number: <?php echo get_post_meta( $order_id, 'supplier_trackingnumber', true ); ?></span>
+		<?php
+		$track = get_post_meta( $order_id, 'supplier_trackingnumber', true );
+		if ( $track ) {
+			echo '<p class="t-no">Tracking Number: '.$track.'</p>';
+		} else {
+			echo '<p class="t-no">Tracking Number: Waiting for the supplier.</p>';
+		}
+		?>
+		
+		<!-- <span>Send e-mail confirmation for the customer</span> -->
+		<?php
+		$qty = get_post_meta($order_id, 'supplier_wpqty', TRUE); 
+		if ( $qty ) {
+			do_action('supplier_pricing', $order_id); 
+		}
+		?>
 	</div>
 	
-	<?php do_action('supplier_pricing', $order_id); ?>
+	
 
 	<div class="artwork-title">
 		<h3>Post Order Notes <a class="add-note btn">Add Note</a></h3>

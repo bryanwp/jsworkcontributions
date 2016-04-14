@@ -167,8 +167,8 @@ function supplier_pricing_for_supper_admin( $order_id ){ ?>
 
     ?>
     	<tr>
-    		<td colspan="3">Grand Total</td>
-    		<td colspan="3"><?php echo $grand_total; ?></td>
+    		<td colspan="3"><strong>Grand Total</strong></td>
+    		<td colspan="3"><strong>$<?php echo $grand_total; ?></strong></td>
     	</tr>
     </table>
     </div>

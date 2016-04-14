@@ -141,8 +141,8 @@ if ( $customer_orders ) : ?>
     ?></tbody>
 
 	</table>
-
-<?php endif; ?>
+<?php 
+endif; ?>
 		</div>
 	</div>
 </div>

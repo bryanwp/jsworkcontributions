@@ -39,7 +39,7 @@
 	    }  
   	}
   	
-  	$.getCurrentDate = function(){
+  	$.getCurrentDate = function( $req ){
       var a = new Date( $.now() );
       var months = ['January','Febuary','March','April','May','June','July','August','September','October','November','December'];
       var year = a.getFullYear();
@@ -49,7 +49,13 @@
       var min = a.getMinutes();
       var sec = a.getSeconds();
       var time = month + ' ' + date + ', ' + year;
-      return time;
+      var date_time = month + ' ' + date + ', ' + year + ' ' +hour+':'+min+':'+sec;
+      if ( $req == '' ) {
+        return date;
+      } else {
+        return date_time;
+      }
+      
    }
 
    $.getCommentsUser = function( $user ){
@@ -102,7 +108,9 @@
           } else if ( $user == 'notification_admin_supplier' ) {
               $('.stab-content').find('.reply-list').append(comments);
           }
-          $(".comment-list").scrollTop($(".comment-list")[0].scrollHeight);
+          if(typeof(variable) != "undefined" && variable !== null) {
+            $(".comment-list").scrollTop($(".comment-list")[0].scrollHeight);
+          }
         },
         error: function(e){
           console.log(e.responseText);
@@ -159,6 +167,26 @@
       },
       success: function( respones ){
         console.log( respones.data );
+      }
+    });
+  }
+
+  $.send_log_changes = function( $msg ) {
+    
+    var msg = $msg;
+    $.ajax({
+      url: plugins_ajax.ajaxUrl,
+      method: 'POST',
+      data: {
+        action: 'action_log_ajax',
+        msg: msg,
+      },
+      dataType: 'json',
+      success: function( respones ) {
+        console.log(respones);
+      },
+      error: function( e ) {
+         console.log('error');
       }
     });
   }

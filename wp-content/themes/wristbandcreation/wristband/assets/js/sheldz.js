@@ -13,8 +13,11 @@ jQuery(document).ready(function ($) {
    function set_scroll(){
       var req = window.location.search;
       var page = req.substring(1,12);
+
       if ( page == 'action=view') {
-          $(".comment-list").scrollTop($(".comment-list")[0].scrollHeight);
+        if(typeof(variable) != "undefined" && variable !== null) {
+            $(".comment-list").scrollTop($(".comment-list")[0].scrollHeight);
+        }
       }
    } set_scroll();
 
@@ -239,11 +242,12 @@ jQuery(document).ready(function ($) {
       } 
 
    var current_password = $('#current').val(),
+        hash  = $('#hash').val(),
       password = $('#cpass').val();
 
-   $.get(sheldz_ajax.ajaxUrl + '?action=change-user-password&pass='+password, function(response) {
+   $.get(sheldz_ajax.ajaxUrl + '?action=change-user-password&pass='+password+'&current='+current_password+'&hash='+hash, function(response) {
             
-               console.log(response.data);
+               console.log(response);
    
 
          });
@@ -383,6 +387,9 @@ jQuery(document).ready(function ($) {
           content   = $('#nc').val(),
           d         = $.getCurrentDate();
      
+     if (content == "")
+      return;
+
       container.html('');
       var el = '';
 
@@ -408,6 +415,8 @@ jQuery(document).ready(function ($) {
          },
          dataType: 'json',
          success: function( response ) {
+            var msg = $.getCurrentDate('date_time') +' - Added Post Order Note - by - ';
+            $.send_log_changes(msg);
             console.log( response.data );
          },
          error: function(e){

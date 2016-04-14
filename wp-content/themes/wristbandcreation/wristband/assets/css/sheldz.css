@@ -7,7 +7,7 @@ p[align=center] {
 
 #main {
     padding: 0px!important;
-}
+} 
 .log-in-logo {
     float: left;
 }
@@ -323,6 +323,8 @@ input#form-title {
     position: absolute;
     right: 0;
     top: 0;
+    outline: none;
+
 }
 .hiddendiv {
     display: none;
@@ -697,9 +699,10 @@ input.note-title {
 }
 .box {
     background: #F1FBFC;
-    padding: 0px;
-    border-left: 3px solid #B3EAFF;
+    padding: 15px 15px;
     margin: 10px 0px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 .admin-reg {
     margin: 10px auto;
@@ -718,9 +721,7 @@ input.note-title {
     border-left: 3px solid #1A80B6;
     display: none;
 }
-.box span {
-    margin-left: 10px;
-}
+
 .valid-email::before {
     content: '✓';
     position: absolute;
@@ -812,4 +813,5 @@ input.note-title {
 .t-no {
     font-size: 17px;
     font-weight: bold;
+    margin: 0px;
 }

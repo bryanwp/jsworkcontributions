@@ -61,11 +61,11 @@
 					<hr class="divider-full" />
 					<p class="error"></p>
 					<form method="post" role="form">
-						<!--<p class="form-row form-row-first">
+						<p class="form-row form-row-first">
 							<label for="current">Current Password</label>
 							<input type="password" class="input-text pass" name="current" id="current">
 							<input type="hidden" id='hash' name="current-password" value="<?php echo $user->user_pass; ?>">
-						</p> -->
+						</p> 
 						<p class="form-row form-row-first">
 							<label for="npass">New Password</label>
 							<input type="password" class="input-text pass" name="pass" id="npass">
