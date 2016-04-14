@@ -121,7 +121,6 @@ function check_if_login(){
 	}
 
 	if ( is_page( 'supplier-dashboard' ) ) {
-		$role = get_user_meta ( $current_user->ID, 'custom_role', true );
 		if ( $role != 'Supplier' ) {
 			$redirect = home_url( 'customer-dashboard' );
 			exit( wp_redirect( $redirect ) );
@@ -129,9 +128,22 @@ function check_if_login(){
 	}
 
 	if ( is_page( 'employee-dashboard' ) ) {
-		$role = get_user_meta ( $current_user->ID, 'custom_role', true );
 		if ( $role != 'Employee' ) {
 			$redirect = home_url( 'customer-dashboard' );
+			exit( wp_redirect( $redirect ) );
+		}
+	}
+
+		if ( is_page( 'customer-dashboard' ) ) {
+		$role = get_user_meta ( $current_user->ID, 'custom_role', true );
+		if ( $role == 'Employee' ) {
+			$redirect = home_url( 'employee-dashboard' );
+			exit( wp_redirect( $redirect ) );
+		} elseif ($role == 'Supplier') {
+			$redirect = home_url( 'supplier-dashboard' );
+			exit( wp_redirect( $redirect ) );
+		} elseif ($role == 'Admin') {
+			$redirect = home_url( 'admin-dashboard' );
 			exit( wp_redirect( $redirect ) );
 		}
 	}
