@@ -36,6 +36,8 @@ include ('custom-header.php'); ?>
 		include ( 'admin/wristband_meta.php' );
 	} elseif ( $action === 'create' ) {
 		include ( 'admin/admin-dashboard-register.php' );
+	} elseif ( $action === 'log' ) {
+		include ( 'admin/admin-dashboard-log.php' );
 	}
 	
 	?>
@@ -144,6 +146,7 @@ if ( $customer_orders ) : ?>
 <?php 
 endif; ?>
 		</div>
+		<a href="<?php echo home_url('admin-dashboard/?action=log'); ?>">view logs</a>
 	</div>
 </div>
 <?php include ('custom-footer.php'); ?>

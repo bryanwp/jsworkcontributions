@@ -42,21 +42,29 @@
   	$.getCurrentDate = function( $req ){
       var a = new Date( $.now() );
       var months = ['January','Febuary','March','April','May','June','July','August','September','October','November','December'];
-      var year = a.getFullYear();
+      var year  = a.getFullYear();
       var month = months[a.getMonth()];
-      var day = a.getDate();
-      var hour = a.getHours();
-      var min = a.getMinutes();
-      var sec = a.getSeconds();
+      var day  = check( a.getDate() );
+      var hour = check( a.getHours() );
+      var min  = check( a.getMinutes() );
+      var sec  = check( a.getSeconds() );
       var date = month + ' ' + day + ', ' + year;
-      var date_time = month + ' ' + day + ', ' + year + ' ' +hour+':'+min+':'+sec;
+      var date_time = month + ' ' + day + ', ' + year + ' ' + hour +':'+ min +':'+ sec;
       if ( $req == '' ) {
         return date;
       } else {
         return date_time;
       }
+
+      function check( val ){
+        if ( val.length == 1 ) {
+          val = '0' + val;
+          return val;
+        }
+      }
       
    }
+   
 
    $.getCommentsUser = function( $user ){
       var action   = 'getComments-ajax',

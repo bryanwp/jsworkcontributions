@@ -21,6 +21,16 @@ jQuery(document).ready(function ($) {
       }
    } set_scroll();
 
+   function view_log(){
+      var req = window.location.search;
+      var page = req.substring(1,12);
+      var text_path = $('#log-link').val();
+
+      if ( page == 'action=log' ) {
+          $('#log-con').load( text_path);
+      }  
+   } view_log();
+
    setInterval(function(){
       var pathname = window.location.pathname;
       var req = window.location.search;
@@ -41,6 +51,16 @@ jQuery(document).ready(function ($) {
    $('tr[data-href]').on("click", function() {
     document.location = $(this).data('href');
    });
+
+   // $('#logout-btn').click(function(){
+   //    var href = $('#log-href').val();
+   //    var msg = $.getCurrentDate('date_time') +' ---- logout ---- ';
+      
+   //    if($.send_log_changes( msg )){
+   //      window.location.href = href;
+   //    }
+      
+   // });
 
    $('.submit').click(function(){
    		

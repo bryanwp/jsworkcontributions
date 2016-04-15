@@ -737,8 +737,8 @@ function get_full_date( $req ){
 function logout_user(){
 	$redirect = home_url('login');
 	//send report to log
-	$msg = get_full_date( $req = 'full_date' ) . ' ---- Logout ----  ';
-	action_log( $msg );
+	// $msg = get_full_date( $req = 'full_date' ) . ' ---- Logout ----  ';
+	// action_log( $msg );
 	//end send report
 
 	return wp_logout_url( $redirect );

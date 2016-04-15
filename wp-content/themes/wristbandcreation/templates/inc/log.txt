@@ -35,7 +35,4 @@ April 15, 2016 14:07:45 Updated his/her profile Information - by -  Joy Lopez
 April 15, 2016 14:8:1 - Updated his/her profile Password by - Joy Lopez
 April 15, 2016 14:8:43 - Updated his/her profile Password by - Joy Lopez
 April 15, 2016 14:13:4 - New Employee (dfa@mail.com) was created by - Joy Lopez
-April 15, 2016 14:37:51 ---- Logout ----  Joy Lopez
-April 15, 2016 14:46:08 ---- Logout ----  Joy Lopez
-April 15, 2016 14:46:28 ---- Logout ----  Joy Lopez
-April 15, 2016 14:46:54 ---- Logout ----  Joy Lopez
+April undefined, 2016 undefined:undefined:undefined ---- logout ---- Joy Lopez
