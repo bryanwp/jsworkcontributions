@@ -44,12 +44,12 @@
       var months = ['January','Febuary','March','April','May','June','July','August','September','October','November','December'];
       var year = a.getFullYear();
       var month = months[a.getMonth()];
-      var date = a.getDate();
+      var day = a.getDate();
       var hour = a.getHours();
       var min = a.getMinutes();
       var sec = a.getSeconds();
-      var time = month + ' ' + date + ', ' + year;
-      var date_time = month + ' ' + date + ', ' + year + ' ' +hour+':'+min+':'+sec;
+      var date = month + ' ' + day + ', ' + year;
+      var date_time = month + ' ' + day + ', ' + year + ' ' +hour+':'+min+':'+sec;
       if ( $req == '' ) {
         return date;
       } else {
@@ -141,6 +141,8 @@
       },
       success: function( respones ){
         console.log( respones.data );
+        var msg = $.getCurrentDate('date_time') +' - New Customer Image/Artwork Added by - ';
+        $.send_log_changes( msg );
       }
     });
   }
@@ -167,28 +169,48 @@
       },
       success: function( respones ){
         console.log( respones.data );
+        var msg = $.getCurrentDate('date_time') +' - New Supplier Image/Artwork Added by - ';
+        $.send_log_changes( msg );
       }
     });
   }
 
   $.send_log_changes = function( $msg ) {
     
-    var msg = $msg;
-    $.ajax({
+    var msgs = $msg;
+    var action = 'action-log-ajax';
+    // var action = plugins_ajax.ajaxUrl + '?action=action-log-ajax';
+    console.log(msgs);
+    
+    $.post({
       url: plugins_ajax.ajaxUrl,
       method: 'POST',
       data: {
-        action: 'action_log_ajax',
-        msg: msg,
+        action: action,
+        msg: msgs
       },
       dataType: 'json',
       success: function( respones ) {
         console.log(respones);
-      },
-      error: function( e ) {
-         console.log('error');
       }
+
     });
-  }
+
+  // $.post(
+  //     action, 
+  //    {
+  //       filename: 'log.txt',
+  //       msg: msgs
+  //    });
+  //  var data = {
+  //     action : 'action-log-ajax',
+  //     msg: msgs   
+  //   };
+
+  //   $.post( plugins_ajax.ajax_url, data, function( respones ) {
+  //     console.log( respones.data );
+  //   });
+ }
+ 
 
 })(jQuery);

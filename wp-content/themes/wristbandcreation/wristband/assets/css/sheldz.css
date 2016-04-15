@@ -240,6 +240,14 @@ p.error {
     border-left: 3px solid #FF9393;
     display: none;
 }
+p.scp {
+    padding: 5px 10px;
+    background: #B5FFCA;
+    margin: 0px 10px;
+    color: #246108;
+    border-left: 3px solid #326340;
+    display: none;
+}
 .select {
     -webkit-appearance: menulist-button!important;
 }
@@ -726,7 +734,7 @@ input.note-title {
     content: '✓';
     position: absolute;
     right: 30px;
-    top: 20px;
+    top: 13px;
     background: #00D80B;
     padding: 0px 5px;
     color: #fff;
@@ -739,7 +747,7 @@ input.note-title {
 .invalid-email::before {
     content: '✕';
     right: 30px;
-    top: 20px;
+    top: 13px;
     background: #FF7272;
     padding: 0px 5px;
     color: #fff;

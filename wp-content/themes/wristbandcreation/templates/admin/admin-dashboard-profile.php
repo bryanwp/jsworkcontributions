@@ -59,8 +59,9 @@
 				<a href="#Change" data-toggle="collapse"><p>Change Password</p></a>
 				<div id="Change" class="collapse">
 					<hr class="divider-full" />
+					<p class="scp"></p>
 					<p class="error"></p>
-					<form method="post" role="form">
+					<form class="pass-frame">
 						<p class="form-row form-row-first">
 							<label for="current">Current Password</label>
 							<input type="password" class="input-text pass" name="current" id="current">
@@ -76,8 +77,8 @@
 						</p>
 						<div class="clear"></div>
 						<p class="form-button">
-							<input type="button" id="pass" class="save-button" name="password" value="Update Profile">
-							<input type="hidden" name="form-action" value="password">
+							<input type="button" id="cpass-btn" class="save-button" name="password" value="Update Profile">
+							<!-- <input type="hidden" name="form-action" value="password"> -->
 						</p>
 						<p></p>
 

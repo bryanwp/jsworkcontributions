@@ -172,7 +172,6 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 					<?php
 				} else {
 					$current_user = wp_get_current_user();
-					$redirect = home_url('login');
 					$role = get_user_meta( $current_user->ID, 'custom_role', true );
 
 					$orders  = "dash-active"; $profile = "";
@@ -210,7 +209,7 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 								<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('admin-dashboard/?action=profile'); ?>">Profile</a></li>
 								<li><a class="nav-a <?php echo $create; ?>" href="<?php echo home_url('admin-dashboard/?action=create'); ?>">Create Account</a></li>
 								<li><a class="nav-a <?php echo $Orderlogs; ?>" href="<?php echo home_url('admin-dashboard/?action=Orderlogs'); ?>">Order Logs</a></li>
-								<li><a class="nav-a" href="<?php echo wp_logout_url( $redirect ); ?>">Log out</a></li>
+								<li><a class="nav-a" href="<?php echo logout_user(); ?>">Log out</a></li>
 							</ul>
 						</div>
 
@@ -222,7 +221,7 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 							<ul class="dash-custom-nav">
 								<li><a class="nav-a <?php echo $orders; ?>" href="<?php echo home_url('customer-dashboard'); ?>">My Orders</a></li>
 								<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('customer-dashboard/?action=profile'); ?>">Profile</a></li>
-								<li><a class="nav-a" href="<?php echo wp_logout_url( $redirect ); ?>">Log out</a></li>
+								<li><a class="nav-a" href="<?php echo logout_user(); ?>">Log out</a></li>
 							</ul>
 						</div>
 						<?php }	elseif ( $role == 'Supplier' ) { ?>
@@ -230,7 +229,7 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 								<ul class="dash-custom-nav">
 									<li><a class="nav-a <?php echo $orders; ?>" href="<?php echo home_url('supplier-dashboard'); ?>">My Orders</a></li>
 									<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('supplier-dashboard/?action=profile'); ?>">Profile</a></li>
-									<li><a class="nav-a" href="<?php echo wp_logout_url( $redirect ); ?>">Log out</a></li>
+									<li><a class="nav-a" href="<?php echo logout_user(); ?>">Log out</a></li>
 								</ul>
 							</div>
 						<?php }

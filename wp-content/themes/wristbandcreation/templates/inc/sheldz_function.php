@@ -187,7 +187,13 @@ function update_profile(){
 			'display_name' 	=> $post['first_name'] . ' ' . $post['last_name'],
 		);	
 
-		wp_update_user( $userdata );
+		$update = wp_update_user( $userdata );
+		if ( ! is_wp_error( $update ) ) {
+			//send report to log
+			$msg = get_full_date( $req = 'full_date' ) . ' Updated his/her profile Information - by -  ';
+			action_log( $msg );
+			//end send report
+		}
 	}
 }
 
@@ -664,38 +670,76 @@ function bulk_action(){
 		$ids = json_decode( stripslashes($post['selected-ids']), true ); 
 		require_once(ABSPATH.'wp-admin/includes/user.php' );
 		foreach ( $ids as $id ) {
-			wp_delete_user( $id ); 
+			$user = get_userdata( $id );
+			
+			//delete user
+			if ( wp_delete_user( $id ) ) {
+				//send report to log
+				$msg = get_full_date( $req = 'full_date' ) . ' - User '. $user->user_email . ' was Delete - by -  ';
+				action_log( $msg );
+				//end send report
+			}
 		}
 	}
 }
 
 function action_log( $msg ) {
 	$current_user = wp_get_current_user();
-	$myfile = fopen("log.txt", "w")or die('Cannot open file:  '.$my_file);;
-
+	// $path = "/wp-content/themes/wristbandcreation/templates/inc/log.txt";
+	$path =  get_stylesheet_directory() . "/templates/inc/log.txt";
+	// ini_set("allow_url_fopen", true);
+	$myfile = (file_exists($path)) ? fopen($path, "a+") : fopen($path, "w+");
+	$txt = $msg.$current_user->display_name."\n";
+	
 	if ( $myfile ) {
-		$txt = $msg.$current_user->display_name."\n";
-		$result = false;
-	 	if ( fwrite( $myfile, $txt ) ) {
-	 		$result = true;
-	 	}
+	 	fwrite( $myfile, $txt );
 		fclose( $myfile );
+		chmod($path, 0777);
+		$result = $path;
 		return $result;
 	} else {
-		$result = false;
+		$result = $path;
 		return $result;
 	}
-	
 }
 
 add_action('wp_ajax_action-log-ajax', 'action_log_ajax');
 add_action('wp_ajax_nopriv_action-log-ajax', 'action_log_ajax');
 function action_log_ajax(){
+	
 	$post = $_REQUEST;
+	$msg = $post['msg'];
+	$write = action_log( $msg );
 
-	if ( action_log( $post['msg'] ) ) {
-		exit(wp_send_json_success(true));
+	exit( wp_send_json_success( $write ) );
+}
+
+function get_full_date( $req ){
+
+	date_default_timezone_set('Singapore');
+    // $months = ['January','Febuary','March','April','May','June','July','August','September','October','November','December'];
+    $year = date("Y");
+    $month = date("F");
+    $day = date("d");
+    $hour = date("H");
+	$min =  date("i");
+	$sec = 	date("s");
+	$date = $month . ' ' . $day . ', ' . $year;
+	$date_time =  $month . ' ' . $day . ', ' . $year . ' ' . $hour .':' . $min . ':' . $sec;
+
+	if ( $req == '' ) {
+	   return $date;
 	} else {
-		exit(wp_send_json_error(true));
+	   return $date_time;
 	}
+}
+
+function logout_user(){
+	$redirect = home_url('login');
+	//send report to log
+	$msg = get_full_date( $req = 'full_date' ) . ' ---- Logout ----  ';
+	action_log( $msg );
+	//end send report
+
+	return wp_logout_url( $redirect );
 }

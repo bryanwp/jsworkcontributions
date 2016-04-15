@@ -199,32 +199,36 @@ jQuery(document).ready(function ($) {
 
          var email = $('#email').val();
          // console.log( 'undefined ang current' );
-         $.get(sheldz_ajax.ajaxUrl + '?action=check-email&email=' + email, function(response) {
-            if (response.data[0]) {
+         if ( isEmail(email) ) {
+            $.get(sheldz_ajax.ajaxUrl + '?action=check-email&email=' + email, function(response) {
+                if (response.data[0]) {
 
-               $('.err-container').fadeIn();
-               $('.err-msg').empty();
-               $('.err-msg').append( 'Email already exists!' );
-               $('#admin-email').removeClass('valid-email');
-               $('#admin-email').addClass('invalid-email');
-               $('#check-email').val('false');
+                   $('.err-container').fadeIn();
+                   $('.err-msg').empty();
+                   $('.err-msg').append( 'Email already exists!' );
+                   $('#admin-email').removeClass('valid-email');
+                   $('#admin-email').addClass('invalid-email');
+                   $('#check-email').val('false');
 
-            } else {
-              $('#admin-email').removeClass('invalid-email');
-              $('#admin-email').addClass('valid-email');
-              $('#check-email').val('true');
-              $('.err-container').fadeOut();
-              //console.log('Email is valid');
+                } else {
+                  $('#admin-email').removeClass('invalid-email');
+                  $('#admin-email').addClass('valid-email');
+                  $('#check-email').val('true');
+                  $('.err-container').fadeOut();
+                  //console.log('Email is valid');
 
-            }
+                }
+            });
+         }
+         
 
-         });
+      
 
       }
 
    });
 
-   $('#pass').click(function(){
+   $('#cpass-btn').click(function(){
 
       if ( $('#current').val() == '' ) {
          $('.error').empty().append('All fields are required.').fadeIn();
@@ -241,16 +245,31 @@ jQuery(document).ready(function ($) {
          return false;
       } 
 
-   var current_password = $('#current').val(),
+    var current_password = $('#current').val(),
         hash  = $('#hash').val(),
       password = $('#cpass').val();
+      $('html').css('cursor', 'wait');
+      $(this).css('background', '#ADB6B7').attr('value', 'Changing Password..');
+      var btn = $(this);
+     
+     $.get(sheldz_ajax.ajaxUrl + '?action=change-user-password&pass='+password+'&current='+current_password+'&hash='+hash, function(response) {
+          // console.log(response.data);
+          $('body').css('cursor', 'default');
+          btn.css('background', '#DDF3FB').attr('value', 'Update Profile');
+          
+          if (response.data == 'success') {
+            $('.error').fadeOut(0);
+            $('.scp').empty().append('User Profile Updated.').fadeIn();
+            $('.pass-frame input[type=password]').val('');
+             //save action to log
+             var msg = $.getCurrentDate('date_time') +' - Updated his/her profile Password by - ';
+             $.send_log_changes( msg );
 
-   $.get(sheldz_ajax.ajaxUrl + '?action=change-user-password&pass='+password+'&current='+current_password+'&hash='+hash, function(response) {
-            
-               console.log(response);
-   
-
-         });
+          } else {
+            $('.pass-frame input[type=password]').val('');
+            $('.error').empty().append('Your current password didn\'t match.').fadeIn();
+          }
+      });
     
    });
 
@@ -313,6 +332,16 @@ jQuery(document).ready(function ($) {
             console.log('reply save');
             $("time.timeago").timeago();
             $(".comment-list").scrollTop($(".comment-list")[0].scrollHeight);
+
+            //saving action log
+            var who;
+            if ( user == 'notification_admin_user' ) {
+              who = 'customer';
+            } else {
+              who = 'supplier';
+            }
+            var msg = $.getCurrentDate('date_time') +' - Replied from '+who+' question by - ';
+            $.send_log_changes( msg );
         });
       }
    });
@@ -416,7 +445,7 @@ jQuery(document).ready(function ($) {
          dataType: 'json',
          success: function( response ) {
             var msg = $.getCurrentDate('date_time') +' - Added Post Order Note - by - ';
-            $.send_log_changes(msg);
+            $.send_log_changes( msg );
             console.log( response.data );
          },
          error: function(e){
@@ -626,6 +655,10 @@ jQuery(document).ready(function ($) {
           $('#user-pass').val('');
           $('#user-role').val('');
           $('#admin-email').removeClass('valid-email');
+
+          //save action to log
+          var msg = $.getCurrentDate('date_time') +' - New '+role+' ('+email+') was created by - ';
+          $.send_log_changes( msg );
         },
         error: function(e) {
           console.log(e);
