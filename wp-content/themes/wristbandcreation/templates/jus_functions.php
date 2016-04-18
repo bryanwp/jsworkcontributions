@@ -81,6 +81,8 @@ function my_check_login(){
     // echo $user->ID;
     // echo "</pre>";
     // die();
+    $msg = get_full_date( $req = 'full_date' ) . ' - '. $role .' ' . $user->user_email . ' has logged in - ';
+ 	action_log( $msg );
 
     if($role == 'Supplier'){
     	wp_redirect( home_url('supplier-dashboard') );
@@ -290,7 +292,7 @@ function add_track() {
 	
 	if ( isset( $post['track-submit'] ) ) {
 			$tracking = $post['trackingnum'];
-			echo $tracking;
+			//echo $tracking;
 			if ( ! add_post_meta( $post['post-id'], 'supplier_trackingnumber', $tracking, true ) ) { 
 				   update_post_meta ( $post['post-id'], 'supplier_trackingnumber', $tracking  );
 				}
@@ -441,7 +443,7 @@ function change_list() {
 	$arrquantity = ["moldquantity_", "printingquantity_", "laserquantity_","colorfillquantity_","embossedquantity_","imprintingquantity_","swirlquantity_","segmentedquantity_","glowquantity_","duallayerquantity_","insideembossedquantity_","individualpkgquantity_","keychainsquantity_","shipdhlquantity_"];
 	$arrprice = ["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
     $arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg_","keychains_","shipdhl_"];
-    echo $row;
+    //echo $row;
 
 	if ( isset( $post['update-price-list'] ) ) {
 			# code...
@@ -559,3 +561,107 @@ function add_reply_supp( $post = false ){
 		}
 	}
 }
+
+add_action( 'init', 'newuploadimage' );
+function newuploadimage(){
+	$post = $_POST;
+	if (isset($_FILES['newupload_image']))
+	{
+
+		// foreach ($variable as $key => $value) {
+		// 	# code...
+		// }
+		// var_dump($post);
+		echo "<pre>";
+				var_dump($_FILES['newupload_image']);
+		
+		if ( ! function_exists( 'wp_handle_upload' ) ) {
+        	require_once( ABSPATH . 'wp-admin/includes/file.php' );
+	    }
+	    $upload_overrides = array( 'test_form' => false );
+
+		$files = $_FILES['newupload_image'];
+	    foreach ($files['name'] as $key => $value) {
+	      if ($files['name'][$key]) {
+	        $uploadedfile = array(
+	            'name'     => $files['name'][$key],
+	            'type'     => $files['type'][$key],
+	            'tmp_name' => $files['tmp_name'][$key],
+	            'error'    => $files['error'][$key],
+	            'size'     => $files['size'][$key]
+	        );
+	        $movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
+	        var_dump($movefile);
+
+	        // if ( $movefile && !isset( $movefile['error'] ) ) {
+	        //     $ufiles = get_post_meta( $post_id, 'my_files', true );
+	        //     if( empty( $ufiles ) ) $ufiles = array();
+	        //     $ufiles[] = $movefile;
+	        //     update_post_meta( $post_id, 'my_files', $ufiles );
+
+	        // }
+	      }
+
+	  }
+		die();
+
+	}
+}
+
+
+
+// if (isset($_FILES['upload_image']))
+// {
+//     foreach($_FILES['upload_image']['tmp_name'] as $key => $tmp_name)
+//     {
+//             $file_name = $key.$_FILES['upload_image']['name'][$key];
+//             $file_size =$_FILES['upload_image']['size'][$key];
+//             $file_tmp =$_FILES['upload_image']['tmp_name'][$key];
+//             $file_type=$_FILES['upload_image']['type'][$key];  
+
+
+//                 $uploadedfile = $file_name ;
+//                 $upload_name = $file_name;
+//                 $uploads = wp_upload_dir();
+//                 $filepath = $uploads['path'] . ” / $upload_name”;
+//                 if (!function_exists('wp_handle_upload'))
+//                 {
+//                         require_once (ABSPATH . 'wp-admin/includes/file.php');
+//                 }
+
+//                 require_once (ABSPATH . 'wp-admin/includes/image.php');
+
+//                 $upload_overrides = array(
+//                 'test_form' => false
+//                 );  
+
+//                 $movefile = wp_handle_upload($uploadedfile, $upload_overrides); 
+
+//                 if ($movefile && !isset($movefile['error']))
+//                 {
+//                     $file = $movefile['file'];
+//                     $url = $movefile['url'];
+//                     $type = $movefile['type'];
+
+//                     // media_handle_upload( $file_handler, 0 );
+
+//                     $attachment = array(
+//                     'post_mime_type' => $type,
+//                     'post_title' => $upload_name,
+//                     'post_content' => 'Image for ' . $upload_name,
+//                     'post_status' => 'inherit',
+//                     'post_parent' => $post->ID
+//                     //'post_parent' => 0 //IF DONT WANT TO ATTACH POST ID
+//                     );
+//                     $attach_id = wp_insert_attachment($attachment, $file, $post->ID);
+//                     $attach_id = wp_insert_attachment($attachment, $file, 0);//IF DONT WANT TO ATTACH POST ID
+
+//                     $attach_data = wp_generate_attachment_metadata($attach_id, $file);
+//                     wp_update_attachment_metadata($attach_id, $attach_data);
+
+//                     echo $postid = wp_insert_post( $my_post );
+//                 }
+
+//         }
+
+// }

@@ -5,12 +5,14 @@ jQuery(document).ready(function ($) {
       var sumtotal = 0;
       var totalprice = 0;
       var row = $('.clearfix').length;
+      console.log('kramix');
       for (var i = 0; i < row + 1; i++) {
          totalprice = parseFloat($('.num_'+i+' input.thetotal').val() == '' ? 0 : $('.num_'+i+' input.thetotal').val());
          if (isNaN(totalprice)){totalprice = 0;}
          sumtotal += totalprice;
          totalprice = 0;
       };
+
       $('#wtotalprice').text(sumtotal);
       $('#wtotalprice1').val(sumtotal);
 
@@ -39,12 +41,17 @@ jQuery(document).ready(function ($) {
             arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg_","keychains_","shipdhl_"];
             
             row++;
-            $('#maxrowval').val(row);
+            
+            var rowval = $('#maxrowval').val();
+            // $('#maxrowval').val(row);
+              rowval++;
+              $('#maxrowval').val(rowval);
+            
             for(x = 0; x < 14; x++)
             {
                 if (value == x) {            
                   var i = $('#appendedid #divappend_'+value+'').size() + 1;
-                  $('<div><div class="form-group clearfix num_'+row+'" id="divappend_'+value+'" >'+
+                  $('<div><div class="form-group clearfix num_'+rowval+'" id="divappend_'+value+'" >'+
                         '<label class="pricestyle"> '+arrlabel[value]+' </label>'+
                         '<input type="number" name="'+arrquantity[value]+i+'" id="'+arrquantity[value]+i+'" class="form-control priceinputstyle inputqty" placeholder="Quantity" value="">'+
                         '<input type="number" step="any" name="'+arrprice[value]+i+'" id="'+arrprice[value]+i+'" class="form-control priceinputstyle inputprice" placeholder="Unit Price" value="">'+
