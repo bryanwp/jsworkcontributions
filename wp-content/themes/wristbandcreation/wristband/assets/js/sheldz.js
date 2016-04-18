@@ -28,6 +28,7 @@ jQuery(document).ready(function ($) {
 
       if ( page == 'action=log' ) {
           $('#log-con').load( text_path);
+          $(".lined").linedtextarea({selectedLine: 1});
       }  
    } view_log();
 
@@ -709,5 +710,25 @@ jQuery(document).ready(function ($) {
     console.log( allVals ); 
 
   })
+  .on('click', '#logout', function() {
+    $('.logout').submit();
+  })
+  .on('click', '#set-date', function(){
+    var d = $('.log-date').val();
+    console.log(d);
+    var text_path = '/wp-content/themes/wristbandcreation/templates/logs/'+d+'.txt';
+    $('.linedwrap').remove();
 
+    var el ='<textarea class="lined" id="log-con" name="log-text">';
+    $('.logcon').append(el);
+
+   $('#log-con').load( text_path );
+   $(".lined").linedtextarea({selectedLine: 1});
+  })
+  // .on('change', '.log-date', function(){
+  //   var url = window.location.href,
+  //       sd  = $(this).val();
+  //       link = url + '&log-date=' + sd;
+  //   $('#set-date').attr('href', link);
+  // })
 });

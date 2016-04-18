@@ -190,7 +190,7 @@ function update_profile(){
 		$update = wp_update_user( $userdata );
 		if ( ! is_wp_error( $update ) ) {
 			//send report to log
-			$msg = get_full_date( $req = 'full_date' ) . ' Updated his/her profile Information - by -  ';
+			$msg = get_full_date( $req = 'full_date' ) . ' - Updated his/her profile Information - by -  ';
 			action_log( $msg );
 			//end send report
 		}
@@ -686,7 +686,7 @@ function bulk_action(){
 function action_log( $msg ) {
 	$current_user = wp_get_current_user();
 	// $path = "/wp-content/themes/wristbandcreation/templates/inc/log.txt";
-	$path =  get_stylesheet_directory() . "/templates/inc/log.txt";
+	$path =  get_stylesheet_directory() . "/templates/logs/". date('Y-m-d') .".txt";
 	// ini_set("allow_url_fopen", true);
 	$myfile = (file_exists($path)) ? fopen($path, "a+") : fopen($path, "w+");
 	$txt = $msg.$current_user->display_name."\n";
@@ -736,10 +736,27 @@ function get_full_date( $req ){
 
 function logout_user(){
 	$redirect = home_url('login');
-	//send report to log
-	// $msg = get_full_date( $req = 'full_date' ) . ' ---- Logout ----  ';
-	// action_log( $msg );
-	//end send report
+	$output = '';
+		$output.='<form method="post" class="logout">';
+			$output.='<input type="hidden" name="form-action" value="logout">';
+			$output.='<input type="hidden" name="logout-url" value="'. wp_logout_url( $redirect ) .'">';
+		$output.='</form>';
+	return $output;
+	 
+}
 
-	return wp_logout_url( $redirect );
+add_action('init', 'logout_user_handler');
+function logout_user_handler(){
+	$post = $_POST;
+
+	if ( isset( $post['form-action'] ) && $post['form-action'] === 'logout' ) {
+		//send report to log
+		$user = wp_get_current_user();
+
+		$msg = get_full_date( $req = 'full_date' ) . ' - '. $user->user_email .' has logged out - ';
+		action_log( $msg );
+		//end send report
+
+		exit( wp_redirect( $post['logout-url'] ) );
+	}
 }
