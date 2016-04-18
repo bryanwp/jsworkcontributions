@@ -81,7 +81,7 @@ function my_check_login(){
     // echo $user->ID;
     // echo "</pre>";
     // die();
-    $msg = get_full_date( $req = 'full_date' ) . ' - '. $role .' ' . $user->user_email . ' has logged in - ';
+    $msg = get_full_date( $req = 'full_date' ) . ' - '. $role .' ' . $user->user_email . ' has logged in - ' . $user->display_name;
  	action_log( $msg );
 
     if($role == 'Supplier'){
@@ -565,16 +565,14 @@ function add_reply_supp( $post = false ){
 add_action( 'init', 'newuploadimage' );
 function newuploadimage(){
 	$post = $_POST;
+	$user_id = get_current_user_id();
+
 	if (isset($_FILES['newupload_image']))
 	{
 
-		// foreach ($variable as $key => $value) {
-		// 	# code...
-		// }
-		// var_dump($post);
-		echo "<pre>";
-				var_dump($_FILES['newupload_image']);
-		
+		$ufiles = array();
+			$role = get_user_meta ( $user_id, 'custom_role', true );
+	
 		if ( ! function_exists( 'wp_handle_upload' ) ) {
         	require_once( ABSPATH . 'wp-admin/includes/file.php' );
 	    }
@@ -591,77 +589,67 @@ function newuploadimage(){
 	            'size'     => $files['size'][$key]
 	        );
 	        $movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
-	        var_dump($movefile);
 
-	        // if ( $movefile && !isset( $movefile['error'] ) ) {
-	        //     $ufiles = get_post_meta( $post_id, 'my_files', true );
-	        //     if( empty( $ufiles ) ) $ufiles = array();
-	        //     $ufiles[] = $movefile;
-	        //     update_post_meta( $post_id, 'my_files', $ufiles );
-
-	        // }
+	        if ( $movefile && !isset( $movefile['error'] ) ) {
+	        	$ufiles[] = $movefile;
+	        }
 	      }
 
 	  }
-		die();
+
+	  if ( ! add_post_meta( $post['order_id'],  $role . '_artwork',   $ufiles, true ) ) { 
+		    	update_post_meta( $post['order_id'],  $role . '_artwork',   $ufiles );
+		    }
+		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
+		exit( wp_redirect( $redirect ) );
 
 	}
 }
 
+add_action( 'init', 'updateuploadimage' );
 
+function updateuploadimage(){
+	$post = $_POST;
+	$user_id = get_current_user_id();
+	
+	if (isset($post['supp_update_artwork'])) {
+		// echo '<pre>';
+		// var_dump($post);
+		// var_dump($_FILES['add_image']);
+		$role = get_user_meta ( $user_id, 'custom_role', true );
+		$ufiles = array();
+		for ($i=0; $i < sizeof($post) ; $i++) { 
+			if(isset($post['img-file_'.$i])){
 
-// if (isset($_FILES['upload_image']))
-// {
-//     foreach($_FILES['upload_image']['tmp_name'] as $key => $tmp_name)
-//     {
-//             $file_name = $key.$_FILES['upload_image']['name'][$key];
-//             $file_size =$_FILES['upload_image']['size'][$key];
-//             $file_tmp =$_FILES['upload_image']['tmp_name'][$key];
-//             $file_type=$_FILES['upload_image']['type'][$key];  
+				$movefile = array(
+					'file'     => $post['img-file_'.$i],
+		            'url'     => $post['img-url_'.$i],
+		            'type' => $post['img-type_'.$i]
+	        	);
+				// var_dump($movefile);
 
+				if ( $movefile ) {
+	        		$ufiles[] = $movefile;
+	        	}
 
-//                 $uploadedfile = $file_name ;
-//                 $upload_name = $file_name;
-//                 $uploads = wp_upload_dir();
-//                 $filepath = $uploads['path'] . ” / $upload_name”;
-//                 if (!function_exists('wp_handle_upload'))
-//                 {
-//                         require_once (ABSPATH . 'wp-admin/includes/file.php');
-//                 }
+			}
+		}
 
-//                 require_once (ABSPATH . 'wp-admin/includes/image.php');
-
-//                 $upload_overrides = array(
-//                 'test_form' => false
-//                 );  
-
-//                 $movefile = wp_handle_upload($uploadedfile, $upload_overrides); 
-
-//                 if ($movefile && !isset($movefile['error']))
-//                 {
-//                     $file = $movefile['file'];
-//                     $url = $movefile['url'];
-//                     $type = $movefile['type'];
-
-//                     // media_handle_upload( $file_handler, 0 );
-
-//                     $attachment = array(
-//                     'post_mime_type' => $type,
-//                     'post_title' => $upload_name,
-//                     'post_content' => 'Image for ' . $upload_name,
-//                     'post_status' => 'inherit',
-//                     'post_parent' => $post->ID
-//                     //'post_parent' => 0 //IF DONT WANT TO ATTACH POST ID
-//                     );
-//                     $attach_id = wp_insert_attachment($attachment, $file, $post->ID);
-//                     $attach_id = wp_insert_attachment($attachment, $file, 0);//IF DONT WANT TO ATTACH POST ID
-
-//                     $attach_data = wp_generate_attachment_metadata($attach_id, $file);
-//                     wp_update_attachment_metadata($attach_id, $attach_data);
-
-//                     echo $postid = wp_insert_post( $my_post );
-//                 }
-
-//         }
-
-// }
+		
+		if (($_FILES['add_image']['type'] == "")){
+			
+		}else{
+			if ( ! function_exists( 'wp_handle_upload' ) ) 
+    			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			$uploadedfile = $_FILES['add_image'];
+			$upload_overrides = array( 'test_form' => false );
+			$movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
+			if ( $movefile && !isset( $movefile['error'] ) ) {
+	        	$ufiles[] = $movefile;
+	        }
+		}
+		update_post_meta( $post['order_id'], $role . '_artwork', $ufiles );
+		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
+		exit( wp_redirect( $redirect ) );
+	}
+}

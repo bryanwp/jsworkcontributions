@@ -29,7 +29,7 @@ jQuery(document).ready(function ($) {
         }
     }
     
-    $("#fileToUpload").change(function(){
+    $("#add_image").change(function(){
         readURL(this);
     })
 
@@ -165,5 +165,10 @@ jQuery(document).ready(function ($) {
 
          })
 
+        .on('click', '.remove-file-img', function(){
+          
+          $(this).parent().remove();
+
+        })
 
 });

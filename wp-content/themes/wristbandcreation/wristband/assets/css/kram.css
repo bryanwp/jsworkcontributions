@@ -349,3 +349,34 @@ input#trackingnum {
 .err-container3 {
   display: none;
 }
+
+.remove-file-img {
+    position: absolute;
+    cursor: pointer;
+    background: red;
+    color: #fff;
+    width: 14px;
+    height: 14px;
+    text-align: center;
+    font-size: 9px;
+    border-radius: 50%;
+    line-height: 13px;
+    text-indent: 1px;
+    right: 14px;
+    top: 3px;
+    display: none;
+}
+
+.img-holder:hover .remove-file-img{
+    display: inline;
+}
+
+img#imageprev {
+    border: 1px dashed;
+    background: none;
+    border-radius: 5px;
+    color: #313131;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
