@@ -22,6 +22,9 @@ $items = $order->get_items();
 // }
 // die;
 
+// woocommerce_order_again_button( $order_id );
+wc_get_template( 'order/order-again.php', array( 'order' => $order ) );
+
 
 ?>
 <div class="col-md-12 white">
