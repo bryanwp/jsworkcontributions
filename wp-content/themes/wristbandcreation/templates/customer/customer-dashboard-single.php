@@ -12,21 +12,28 @@ $pay_link = home_url('checkout/order-pay/' . $order_id . '?pay_for_order=true&ke
 $order = new WC_Order( $order_id );
 $items = $order->get_items();
 
-// foreach ( $items as $item ) {
-//     $wristband_meta = maybe_unserialize( $item['wristband_meta']);
-//     $color = $wristband_meta['colors'];
-
-//     echo "<pre>";
-//     print_r( $wristband_meta );
-//     echo "<br />";
-// }
+// $_SESSION['to_order_again'] = 
+// echo "<pre>";
+// print_r( $items['wristband_meta'] );
+// die;
+foreach ( $items as $item ) {
+    $wristband_meta = maybe_unserialize( $item['wristband_meta']);
+    // $color = $wristband_meta['colors'];
+    $_SESSION['to_order_again'] = $wristband_meta;
+    // echo "<pre>";
+    // print_r( $wristband_meta );
+    // echo "<br />";
+}
 // die;
 
 // woocommerce_order_again_button( $order_id );
-wc_get_template( 'order/order-again.php', array( 'order' => $order ) );
-
+// wc_get_template( 'order/order-again.php', array( 'order' => $order ) );
 
 ?>
+<p class="order-again">
+	<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'order_again', $order_id ) , 'woocommerce-order_again' ) ); ?>" class="button"><?php _e( 'Order Again', 'woocommerce' ); ?></a>
+</p>
+
 <div class="col-md-12 white">
 	<div class="gap-top">
 		<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
@@ -37,11 +44,6 @@ wc_get_template( 'order/order-again.php', array( 'order' => $order ) );
 
 	<div class="table-1 no-overflow">
 		<?php
-
-
-// echo "<pre>";
-// print_r($customer_orders);
-// die;
 
 if ( $order ) : 
     echo do_shortcode('[the-cart-meta item_key="'.$order_id.'"]');

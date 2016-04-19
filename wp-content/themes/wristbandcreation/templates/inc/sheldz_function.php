@@ -760,3 +760,44 @@ function logout_user_handler(){
 		exit( wp_redirect( $post['logout-url'] ) );
 	}
 }
+
+/* additional action
+ * Date: Apri 19, 2016
+ * Purposr: Setting Session for order again cart
+ * Author: Sheldon A.
+*/
+add_action('wc_order_again', 'set_cart_session_for_order_again');
+function set_cart_session_for_order_again(){
+  if ( isset ( $_SESSION['to_order_again'] ) ) {
+    $cart = WC()->cart->get_cart();
+    $count = 1;
+    foreach ( $cart as $cart_item_key => $cart_item ) {
+      if ( $count == 1 ) {
+        $cart[$cart_item_key]['wristband_meta'] = $_SESSION['to_order_again'];
+        // echo $cart_item_key;
+      }
+      $count++;
+    }
+    WC()->session->set( 'cart', $cart );
+	//wp_redirect( home_url('checkout') );
+  }
+}
+
+function init_total_order_again(){
+	?>
+	<div class="cart_totals calculated_shipping">
+	<h2 data-fontsize="18" data-lineheight="27">Cart Totals</h2>
+	<table cellspacing="0">
+		<tbody><tr class="cart-subtotal">
+			<th>Subtotal</th>
+			<td><span class="amount"><?php echo round($wristband_meta['total_price'], 2); ?></span></td>
+		</tr>
+		<tr class="order-total">
+			<th>Total</th>
+			<td><strong><span class="amount"><?php echo round($wristband_meta['total_price'], 2); ?></span></strong> </td>
+		</tr>	
+	</tbody></table>
+	<div class="wc-proceed-to-checkout">
+	</div>
+	<?php
+}

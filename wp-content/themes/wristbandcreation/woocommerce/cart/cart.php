@@ -34,7 +34,24 @@ do_action( 'woocommerce_before_cart' ); ?>
 	<?php do_action( 'woocommerce_before_cart_contents' ); ?>
 
 	<?php
-	foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+	$carts = WC()->cart->get_cart();
+	// echo "<pre>";
+	// // print_r($_SESSION['to_order_again']);
+	// print_r($cart);
+	// die;
+
+	if ( isset ( $_SESSION['to_order_again'] ) ) {
+	    $count = 1;
+	    foreach ( $carts as $cart_item_key => $cart_item ) {
+	      if ( $count == 1 ) {
+	        $carts[$cart_item_key]['wristband_meta'] = $_SESSION['to_order_again'];
+	        // echo $cart_item_key;
+	      }
+	    $count++;
+		}
+    }
+
+	foreach ( $carts as $cart_item_key => $cart_item ) {
 		$meta = isset($cart_item['wristband_meta']) ? $cart_item['wristband_meta'] : array();
 		$_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 		$product_id   = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
@@ -198,7 +215,10 @@ do_action( 'woocommerce_before_cart' ); ?>
 <td>$<span id="total">23.38</span></td>
 </tr>
 </tbody></table> -->
-<?php woocommerce_cart_totals(); ?>
+
+<?php 
+	woocommerce_cart_totals();
+?>
 <!-- <div class="text-center"><img src="http://imprint.com/templates/mobile/images/spinner-bar.gif" alt="Retrieving shipping rate...please wait" id="total_loading" class="loading"></div> -->
 </div>
 </div>
@@ -213,5 +233,5 @@ do_action( 'woocommerce_before_cart' ); ?>
 </div>
 
 <?php do_action( 'woocommerce_after_cart' );
-
-// Omit closing PHP tag to avoid "Headers already sent" issues.
+do_action('wc_order_again');
+// Omit closing PHP tag to avoid "Headers already sent" issues
