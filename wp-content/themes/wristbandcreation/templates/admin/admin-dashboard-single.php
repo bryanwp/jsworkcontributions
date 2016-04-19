@@ -174,8 +174,8 @@ if ( $order ) :
 			</div>
 			<div class="artwork col-md-12">
 				<?php 
-				$artwork = get_post_meta( $order_id, 'supplier_artwork', true );
-
+				$artwork = get_post_meta( $order_id, 'Supplier_artwork', true );
+				// var_dump($artwork);
 				if ( $artwork ) { ?>
 					<div class="file" style="display: inline;">
 						
@@ -183,9 +183,10 @@ if ( $order ) :
 								foreach ($artwork as $key => $value) { ?>
 								
 									<div class="img-holder">
-										<img class="img-artwork" src="<?php echo $value; ?>">
-										<input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>">
+										<img class="img-artwork" src="<?php echo $value['url']; ?>">
+										<!-- <input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>"> -->
 									</div>
+
 								<?php } ?>
 					</div> <!--container for the upload files-->	
 				<?php } else { ?>

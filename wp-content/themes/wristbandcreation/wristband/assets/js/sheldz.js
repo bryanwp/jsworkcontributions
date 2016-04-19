@@ -41,6 +41,10 @@ jQuery(document).ready(function ($) {
           $.getCommentsUser( 'notification_admin_user' );
       }
 
+       if ( pathname == '/supplier-dashboard/' && page == 'action=view') {
+          $.getCommentsUser( 'notification_admin_user' );
+      }
+
       if ( pathname == '/admin-dashboard/' && page == 'action=view' ) {
           $.getCommentsAdmin( 'notification_admin_user' );
           $.getCommentsAdmin( 'notification_admin_supplier' );

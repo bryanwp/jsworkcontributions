@@ -74,7 +74,7 @@ $upimage = get_post_meta($order_id, 'Supplier_artwork', TRUE);
     <form method="post" enctype="multipart/form-data">
       <div class="file-supp" style="display: inline;">
           Select image to upload:
-          <input type="file" class="save-button-design" name="newupload_image[]" id="newupload_image" multiple="multiple">
+          <input type="file" accept="image/*" class="save-button-design" name="newupload_image[]" id="newupload_image" multiple="multiple">
           <input type="hidden" name="order_id" id="order_id" value="<?php echo $order_id; ?>">
         <input type="submit"  class="save-button-design"  value="Upload Image" name="up-image">
       </div> 
@@ -103,9 +103,9 @@ $upimage = get_post_meta($order_id, 'Supplier_artwork', TRUE);
               <input type="hidden" class="attachment_id" name="img-type_<?php echo $i;?>" value="<?php echo $value['type']; ?>">
             </div>
             <?php } ?>
-            <img id="imageprev" src="<?php echo ABSPATH.'wp-content/uploads/placeholder.png'; ?>" alt="your image"  />
+            <img id="imageprev" src="" alt=""  />
           </div>
-          <input type="file" name="add_image" id="add_image">
+          <input type="file" name="add_image" accept="image/*" id="add_image">
           <input type="hidden" name="order_id" id="order_id" value="<?php echo $order_id; ?>">
         </div>
       </form>
