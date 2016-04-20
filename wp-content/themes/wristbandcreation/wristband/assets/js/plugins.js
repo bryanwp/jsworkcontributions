@@ -51,16 +51,21 @@
       var date = month + ' ' + day + ', ' + year;
       var date_time = month + ' ' + day + ', ' + year + ' ' + hour +':'+ min +':'+ sec;
       if ( $req == '' ) {
+        console.log(date);
         return date;
       } else {
+        console.log(date);
         return date_time;
       }
 
       function check( val ){
         if ( val.length == 1 ) {
-          val = '0' + val;
+          var vals = '0' + val;
+          return vals;
+        } else {
           return val;
         }
+        
       }
       
    }
