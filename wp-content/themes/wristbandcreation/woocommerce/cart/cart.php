@@ -36,20 +36,20 @@ do_action( 'woocommerce_before_cart' ); ?>
 	<?php
 	$carts = WC()->cart->get_cart();
 	// echo "<pre>";
-	// // print_r($_SESSION['to_order_again']);
+	// print_r($_SESSION['to_order_again']);
 	// print_r($cart);
 	// die;
 
-	if ( isset ( $_SESSION['to_order_again'] ) ) {
-	    $count = 1;
-	    foreach ( $carts as $cart_item_key => $cart_item ) {
-	      if ( $count == 1 ) {
-	        $carts[$cart_item_key]['wristband_meta'] = $_SESSION['to_order_again'];
-	        // echo $cart_item_key;
-	      }
-	    $count++;
-		}
-    }
+	// if ( isset ( $_SESSION['to_order_again'] ) ) {
+	//     $count = 1;
+	//     foreach ( $carts as $cart_item_key => $cart_item ) {
+	//       if ( $count == 1 ) {
+	//         $carts[$cart_item_key]['wristband_meta'] = $_SESSION['to_order_again'];
+	//         // echo $cart_item_key;
+	//       }
+	//     $count++;
+	// 	}
+ //    }
 
 	foreach ( $carts as $cart_item_key => $cart_item ) {
 		$meta = isset($cart_item['wristband_meta']) ? $cart_item['wristband_meta'] : array();
@@ -233,5 +233,4 @@ do_action( 'woocommerce_before_cart' ); ?>
 </div>
 
 <?php do_action( 'woocommerce_after_cart' );
-do_action('wc_order_again');
 // Omit closing PHP tag to avoid "Headers already sent" issues

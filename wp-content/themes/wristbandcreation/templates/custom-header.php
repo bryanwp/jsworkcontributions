@@ -2,7 +2,10 @@
 session_start();
 ?>
 <!DOCTYPE html>
-<?php global $woocommerce; ?> 
+<?php
+global $woocommerce; 
+do_action('wc_order_edit');
+?> 
 <html class="<?php echo ( ! Avada()->settings->get( 'smooth_scrolling' ) ) ? 'no-overflow-y' : ''; ?>" <?php language_attributes(); ?>>
 <head>
 	<?php if ( isset( $_SERVER['HTTP_USER_AGENT'] ) && ( false !== strpos( $_SERVER['HTTP_USER_AGENT'], 'MSIE' ) ) ) : ?>

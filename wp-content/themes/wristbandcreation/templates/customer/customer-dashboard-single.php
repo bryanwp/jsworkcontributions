@@ -30,9 +30,6 @@ foreach ( $items as $item ) {
 // wc_get_template( 'order/order-again.php', array( 'order' => $order ) );
 
 ?>
-<p class="order-again">
-	<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'order_again', $order_id ) , 'woocommerce-order_again' ) ); ?>" class="button"><?php _e( 'Order Again', 'woocommerce' ); ?></a>
-</p>
 
 <div class="col-md-12 white">
 	<div class="gap-top">
@@ -50,8 +47,14 @@ if ( $order ) :
 ?>
 	<!-- Start Reorder/Order and Edit -->
 	<div class="reorder col-md-12">
-			<a class="order-again btn-order">Order Again</a>
-			<a class="order-edit btn-order">Order & Edit</a>
+			<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'order_again', $order_id ) , 'woocommerce-order_again' ) ); ?>" class="order-again btn-order"><?php _e( 'Order Again', 'woocommerce' ); ?></a>
+			<!-- <a class="order-again btn-order">Order Again</a> -->
+			<a class="order-edit btn-order order_edit_form">Order & Edit</a>
+			<form method="post" id="order-edit" style="display: none;">
+				<input type="hidden" name="form-action" value="order_edit">
+				<input type="hidden" name="url" value="<?php echo esc_url( wp_nonce_url( add_query_arg( 'order_again', $order_id ) , 'woocommerce-order_again' ) ); ?>">
+				<input type="hidden" name="order_id" value="<?php echo $order_id; ?>">
+			</form>
 	</div>
 
 	<!-- Start Post Order Notes -->

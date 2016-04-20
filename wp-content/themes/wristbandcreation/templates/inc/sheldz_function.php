@@ -778,26 +778,53 @@ function set_cart_session_for_order_again(){
       }
       $count++;
     }
+    unset($_SESSION['to_order_again']);
     WC()->session->set( 'cart', $cart );
 	//wp_redirect( home_url('checkout') );
+	// echo "<pre>";
+	// print_r($_SESSION['to_order_again']);
+	// print_r($cart);
+	?>
+		please wait we are setting the cart...
+		<script type="text/javascript">
+			   window.location.reload(1);
+		</script>
+	<?php
+	die;
+  } else if ( isset ( $_SESSION['order_and_edit'] ) ) {
+    $cart = WC()->cart->get_cart();
+    $count = 1;
+    $ses_id ='';
+    foreach ( $cart as $cart_item_key => $cart_item ) {
+      if ( $count == 1 ) {
+      	$ses_id = $cart_item_key;
+        $cart[$cart_item_key]['wristband_meta'] = $_SESSION['order_and_edit'];
+        // echo $cart_item_key;
+      }
+      $count++;
+    }
+    unset($_SESSION['order_and_edit']);
+    WC()->session->set( 'cart', $cart );
+	?>
+		please wait we are setting the editor...
+		<script type="text/javascript">
+			    window.location.href = "<?php echo home_url('order-now/?id='.$ses_id.'&Status=edit'); ?>";
+		</script>
+	<?php
+	die;
   }
 }
 
-function init_total_order_again(){
-	?>
-	<div class="cart_totals calculated_shipping">
-	<h2 data-fontsize="18" data-lineheight="27">Cart Totals</h2>
-	<table cellspacing="0">
-		<tbody><tr class="cart-subtotal">
-			<th>Subtotal</th>
-			<td><span class="amount"><?php echo round($wristband_meta['total_price'], 2); ?></span></td>
-		</tr>
-		<tr class="order-total">
-			<th>Total</th>
-			<td><strong><span class="amount"><?php echo round($wristband_meta['total_price'], 2); ?></span></strong> </td>
-		</tr>	
-	</tbody></table>
-	<div class="wc-proceed-to-checkout">
-	</div>
-	<?php
+add_action( 'wc_order_edit', 'order_and_edit' );
+function order_and_edit(){
+	$post = $_POST;
+	if ( isset( $post['form-action'] ) && $post['form-action'] === 'order_edit' ) {
+		$_SESSION['order_and_edit'] = $_SESSION['to_order_again'];
+		unset( $_SESSION['to_order_again'] );
+		?>
+			<script type="text/javascript">
+				window.location.href = "<?php echo $post['url']; ?>";
+			</script>
+		<?php
+	}
 }

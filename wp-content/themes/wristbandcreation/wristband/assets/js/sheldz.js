@@ -729,10 +729,7 @@ jQuery(document).ready(function ($) {
    $('#log-con').load( text_path );
    $(".lined").linedtextarea({selectedLine: 1});
   })
-  // .on('change', '.log-date', function(){
-  //   var url = window.location.href,
-  //       sd  = $(this).val();
-  //       link = url + '&log-date=' + sd;
-  //   $('#set-date').attr('href', link);
-  // })
+ .on('click', '.order_edit_form', function(){
+    $('#order-edit').submit();
+ })
 });
