@@ -234,12 +234,20 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 						<?php }	elseif ( $role == 'Supplier' ) { ?>
 							<div class="nav-wrap">
 								<ul class="dash-custom-nav">
-									<li><a class="nav-a <?php echo $orders; ?>" href="<?php echo home_url('supplier-dashboard'); ?>">My Orders</a></li>
+									<li><a class="nav-a <?php echo $orders; ?>" href="<?php echo home_url('supplier-dashboard'); ?>">All Orders</a></li>
 									<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('supplier-dashboard/?action=profile'); ?>">Profile</a></li>
 									<li><a id="logout" class="nav-a" href="#"><?php echo logout_user(); ?>Log out</a></li>
 								</ul>
 							</div>
-						<?php }
+						<?php } elseif ($role == 'Employee') { ?>
+							<div class="nav-wrap">
+								<ul class="dash-custom-nav">
+									<li><a class="nav-a <?php echo $orders; ?>" href="<?php echo home_url('employee-dashboard'); ?>">All Orders</a></li>
+									<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('employee-dashboard/?action=profile'); ?>">Profile</a></li>
+									<li><a id="logout" class="nav-a" href="#"><?php echo logout_user(); ?>Log out</a></li>
+								</ul>
+							</div>
+						<? }
 					}
 					// echo '<p>WELCOME ' . $current_user->user_firstname . ' | <a href=' . wp_logout_url( $redirect ) . '>Log out</a></p>' ;
 				}
