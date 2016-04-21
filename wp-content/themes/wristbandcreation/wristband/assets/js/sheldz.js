@@ -36,20 +36,31 @@ jQuery(document).ready(function ($) {
       var pathname = window.location.pathname;
       var req = window.location.search;
       var page = req.substring(1,12);
-      
+
+      //Customer
       if ( pathname == '/customer-dashboard/' && page == 'action=view') {
         var hasComment = $('#hasComment').val();
           if ( hasComment == 'true' ) {
-            console.log( hasComment );
               $.getCommentsUser( 'notification_admin_user' );
           }
       }
 
-       if ( pathname == '/supplier-dashboard/' && page == 'action=view') {
-          $.getCommentsUser( 'notification_admin_user' );
+      //supplier
+      if ( pathname == '/supplier-dashboard/' && page == 'action=view') {
+        var hasComment = $('#hasComment').val();
+          if ( hasComment == 'true' ) {
+             $.getCommentsUser( 'notification_admin_supplier' );
+          }
       }
 
+      //Admin
       if ( pathname == '/admin-dashboard/' && page == 'action=view' ) {
+          $.getCommentsAdmin( 'notification_admin_user' );
+          $.getCommentsAdmin( 'notification_admin_supplier' );
+      }
+
+      //Empoyee
+      if ( pathname == '/employee-dashboard/' && page == 'action=view' ) {
           $.getCommentsAdmin( 'notification_admin_user' );
           $.getCommentsAdmin( 'notification_admin_supplier' );
       }
@@ -340,7 +351,7 @@ jQuery(document).ready(function ($) {
       var   content       = parent.find('.reply').val();
       var   display_name  = parent.find('#name').val();
       var   user          = parent.find('#user').val();
-
+      $(".comment-list").scrollTop($(".comment-list")[0].scrollHeight);
       var output ='';
       if ( content != '' ) {
          output += '<li>';
@@ -737,6 +748,12 @@ jQuery(document).ready(function ($) {
     $('#order-edit').submit();
  })
  .on('click', '#send_report', function(){
+    var text = $('#addpost').val();
+    if ( text == '' ) {
+      return false;
+    }
+ })
+ .on('click', '#send-report-supp', function(){
     var text = $('#addpost').val();
     if ( text == '' ) {
       return false;

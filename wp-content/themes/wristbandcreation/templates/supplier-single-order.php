@@ -209,6 +209,7 @@ $upimage = get_post_meta($order_id, 'Supplier_artwork', TRUE);
   $question = get_post_meta( $order_id, 'supplier_report_content', true );
 
   if ( $question ) { ?>
+  <input id="hasComment" type="hidden" name="hasComment" value="true">
   <div class="dash-title-holder">
     <h2>Question <span class="time-ago"><time class="timeago" datetime="<?php echo get_post_meta( $order_id, 'supplier_report_time_added', true ); ?>" >asd</time></span></h2>
   </div>
@@ -225,6 +226,9 @@ $upimage = get_post_meta($order_id, 'Supplier_artwork', TRUE);
     <?php include ('supplier/supplier-page-reply.php'); ?>
   </div>
   <?php } else {
+    ?>
+    <input id="hasComment" type="hidden" name="hasComment" value="false">
+    <?php
     $user = "supplier";
     include ('supplier/supplier-page-report.php'); 
   }

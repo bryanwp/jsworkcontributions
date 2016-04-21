@@ -326,13 +326,27 @@ function add_reply( $post = false ){
 		*	0-1 = Created by user, notified to the admin
 		*	1-1 = both seen by the user and admin
 		*/
-		if ( current_user_can( 'manage_options' ) ) {
-			add_comment_meta( $insert_comment, $post['user'], '1-0' );
-			exit( wp_send_json_success( $insert_comment ) );
+
+		$role = get_user_meta( get_current_user_id(),  'custom_role', true );
+		
+		if ( $role ) {
+			if ( $role == 'Admin' || $role == 'Employee' ) {
+				add_comment_meta( $insert_comment, $post['user'], '1-0' );
+				exit( wp_send_json_success( $insert_comment ) );
+			} else {
+				add_comment_meta( $insert_comment, $post['user'], '0-1' );
+				exit( wp_send_json_success( $insert_comment ) );
+			}
 		} else {
-			add_comment_meta( $insert_comment, $post['user'], '0-1' );
-			exit( wp_send_json_success( $insert_comment ) );
+			if ( current_user_can( 'manage_options' ) ) {
+				add_comment_meta( $insert_comment, $post['user'], '1-0' );
+				exit( wp_send_json_success( $insert_comment ) );
+			} else {
+				add_comment_meta( $insert_comment, $post['user'], '0-1' );
+				exit( wp_send_json_success( $insert_comment ) );
+			} 
 		}
+		
 	}
 }
 
