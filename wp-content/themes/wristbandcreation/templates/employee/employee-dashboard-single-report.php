@@ -15,7 +15,15 @@
 	<div class="report-box">
 
 		<p class="report-content">
-			<?php echo get_post_meta( $order_id, 'supplier_report_content', true ); ?>
+			<?php 
+			if ( $user == 'notification_admin_user' ) {
+				echo get_post_meta( $order_id, 'customer_report_content', true );
+			} elseif (  $user == 'notification_admin_supplier'  ) {
+				echo get_post_meta( $order_id, 'supplier_report_content', true );
+			}
+			?>
+
+			<?php  ?>
 		</p>
 	</div>
 	
@@ -39,6 +47,4 @@
 			</form>
 		</div>
 	</div>
-
-
 

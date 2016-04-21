@@ -600,9 +600,15 @@ function newuploadimage(){
 	  if ( ! add_post_meta( $post['order_id'],  $role . '_artwork',   $ufiles, true ) ) { 
 		    	update_post_meta( $post['order_id'],  $role . '_artwork',   $ufiles );
 		    }
-		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
-		exit( wp_redirect( $redirect ) );
+		if ($role == 'Supplier' ) {
+			
+			$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
+			exit( wp_redirect( $redirect ) );
 
+		} elseif ($role == 'Employee') {
+			$redirect = home_url( 'employee-dashboard/?action=view&ID='. $post['order_id'] );
+			exit( wp_redirect( $redirect ) );
+		}
 	}
 }
 
@@ -649,7 +655,14 @@ function updateuploadimage(){
 	        }
 		}
 		update_post_meta( $post['order_id'], $role . '_artwork', $ufiles );
-		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
-		exit( wp_redirect( $redirect ) );
+		if ($role == 'Supplier' ) {
+			
+			$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
+			exit( wp_redirect( $redirect ) );
+
+		} elseif ($role == 'Employee') {
+			$redirect = home_url( 'employee-dashboard/?action=view&ID='. $post['order_id'] );
+			exit( wp_redirect( $redirect ) );
+		}
 	}
 }

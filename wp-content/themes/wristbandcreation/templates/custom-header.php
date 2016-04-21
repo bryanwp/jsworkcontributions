@@ -247,7 +247,7 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 									<li><a id="logout" class="nav-a" href="#"><?php echo logout_user(); ?>Log out</a></li>
 								</ul>
 							</div>
-						<? }
+						<?php }
 					}
 					// echo '<p>WELCOME ' . $current_user->user_firstname . ' | <a href=' . wp_logout_url( $redirect ) . '>Log out</a></p>' ;
 				}
