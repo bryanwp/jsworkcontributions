@@ -8,7 +8,7 @@
 	<div style="height: 10px"></div>
 
 	<div class="row row-fix">
-		<div class="col-md-3 profile-left shadow-wrap">
+<!-- 		<div class="col-md-3 profile-left shadow-wrap">
 			<p>Profile Details</p>
 			<div>
 				<img src="http://0.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=32&d=mm&r=g" class="img-thumbnail" alt="Cinque Terre" width="100%">
@@ -20,8 +20,8 @@
 			<p><?php echo $user->display_name; ?></p>
 			<hr class="divider-full" />
 			<p class="isEmail"><?php echo $user->user_email; ?></p>
-		</div>
-		<div class="col-md-9 profile-right">
+		</div> -->
+		<div class="col-md-12 profile-right">
 <!-- 			<div class="my-profile-info shadow-wrap">
 				<p>
 					
@@ -59,13 +59,14 @@
 				<a href="#Change" data-toggle="collapse"><p>Change Password</p></a>
 				<div id="Change" class="collapse">
 					<hr class="divider-full" />
+					<p class="scp"></p>
 					<p class="error"></p>
-					<form method="post" role="form">
-						<!--<p class="form-row form-row-first">
+					<form class="pass-frame">
+						<p class="form-row form-row-first">
 							<label for="current">Current Password</label>
 							<input type="password" class="input-text pass" name="current" id="current">
 							<input type="hidden" id='hash' name="current-password" value="<?php echo $user->user_pass; ?>">
-						</p> -->
+						</p> 
 						<p class="form-row form-row-first">
 							<label for="npass">New Password</label>
 							<input type="password" class="input-text pass" name="pass" id="npass">
@@ -76,8 +77,8 @@
 						</p>
 						<div class="clear"></div>
 						<p class="form-button">
-							<input type="button" id="pass" class="save-button" name="password" value="Update Profile">
-							<input type="hidden" name="form-action" value="password">
+							<input type="button" id="cpass-btn" class="save-button" name="password" value="Update Profile">
+							<!-- <input type="hidden" name="form-action" value="password"> -->
 						</p>
 						<p></p>
 

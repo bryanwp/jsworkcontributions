@@ -278,25 +278,21 @@ function save_single_report() {
 	$user_id = get_current_user_id();
 	$post = $_POST;
 
-
-
 	if ( isset( $post['form-action'] ) && $post['form-action'] === 'send-report' ) {
 
-		// add_post_meta( $post['order-id'], '_report_title', $post['report_title'] );
-		add_post_meta( $post['order-id'], $post['user'].'_report_content', $post['report_content'] );
+		if ( add_post_meta( $post['order-id'], $post['user'].'_report_content', $post['report_content'], true ) ){
+			update_user_meta( $post['order-id'], $post['user'].'_report_content', $post['report_content'] );
+		}
 
-		//$time = current_time('mysql');
 		$time = date('Y-m-d') . 'T' . date('H:i:s') . 'Z';
-		add_post_meta( $post['order-id'], $post['user'].'_report_time_added', $time );
-
-		// add_post_meta( $post['order-id'], '_report_content', $post['report_content'] );
+		if ( add_post_meta( $post['order-id'], $post['user'].'_report_time_added', $time, true ) ) {
+			update_user_meta( $post['order-id'], $post['user'].'_report_time_added', $time);
+		}
 
 		$order_link = home_url('supplier-dashboard/?action=view&ID='. $post['order-id'] );
-		add_post_meta( $post['order-id'], $post['user'].'_report_order_link', $order_link);
-
-		// $redirect = home_url( 'customer-dashboard/?action=view-report&post-id='. $post['order-id'] );
-		// exit( wp_redirect( $redirect ) );	
-
+		if ( add_post_meta( $post['order-id'], $post['user'].'_report_order_link', $order_link, true ) ) {
+			update_user_meta( $post['order-id'], $post['user'].'_report_order_link', $order_link);
+		}
 	}
 
 }

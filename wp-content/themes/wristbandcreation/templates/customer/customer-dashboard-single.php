@@ -36,7 +36,7 @@ foreach ( $items as $item ) {
 		<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
 	</div>
 	<div style="margin-top: 20px;">
-			<h2><?php echo get_order_number_format( $order_id ); ?></h2>
+			<h2><?php echo get_order_number_format( $order_id ); ?> (<?php echo get_status( get_post_meta( $order_id, '_new_status', true ) ); ?>)</h2>
 	</div>
 
 	<div class="table-1 no-overflow">
@@ -58,7 +58,12 @@ if ( $order ) :
 	</div>
 
 	<!-- Start Post Order Notes -->
-		<?php do_action( 'post-order-notes', $order_id ); ?>
+	<?php 
+		$note = get_post_meta( $order_id, 'post_order_note', true );
+		if ( $note ) {
+			do_action( 'post-order-notes', $order_id ); 
+		}
+	?>
 	<!-- End Post Order Notes -->
 
 	<?php 
@@ -104,6 +109,7 @@ if ( $order ) :
 		$question = get_post_meta( $order_id, 'customer_report_content', true );
 
 		if ( $question ) { ?>
+			<input id="hasComment" type="hidden" name="hasComment" value="true">
 			<div class="dash-title-holder">
 				<h2>Question <span class="time-ago"><time class="timeago" datetime="<?php echo get_post_meta( $order_id, 'customer_report_time_added', true ); ?>" >asd</time></span></h2>
 			</div>
@@ -123,10 +129,10 @@ if ( $order ) :
 			</div>
 		<?php
 		} else {
+			?> <input id="hasComment" type="hidden" name="hasComment" value="false"> <?php
 			$user = "customer";
 			include ('customer-dashboard-notif-form.php'); 
 		}
 		
 	?>
 </div>
-

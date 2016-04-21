@@ -38,7 +38,11 @@ jQuery(document).ready(function ($) {
       var page = req.substring(1,12);
       
       if ( pathname == '/customer-dashboard/' && page == 'action=view') {
-          $.getCommentsUser( 'notification_admin_user' );
+        var hasComment = $('#hasComment').val();
+          if ( hasComment == 'true' ) {
+            console.log( hasComment );
+              $.getCommentsUser( 'notification_admin_user' );
+          }
       }
 
        if ( pathname == '/supplier-dashboard/' && page == 'action=view') {
@@ -731,5 +735,11 @@ jQuery(document).ready(function ($) {
   })
  .on('click', '.order_edit_form', function(){
     $('#order-edit').submit();
+ })
+ .on('click', '#send_report', function(){
+    var text = $('#addpost').val();
+    if ( text == '' ) {
+      return false;
+    }
  })
 });

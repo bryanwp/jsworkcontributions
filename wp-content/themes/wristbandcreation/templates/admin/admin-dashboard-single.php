@@ -160,7 +160,7 @@ if ( $order ) :
 						<h2>Customer Question <span class="time-ago"><time class="timeago" datetime="<?php echo get_post_meta( $order_id, 'customer_report_time_added', true ); ?>" >asd</time></span></h2>
 					</div>
 				<?php
-					$user = "notification_admin_user";
+					$user = "notification_admin_user"; 
 					include ('admin-dashboard-single-report.php'); 
 				}
 			?>
