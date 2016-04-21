@@ -413,16 +413,6 @@ jQuery(document).ready(function ($) {
       });
    }
 
-   $('.width').click(function(){
-        var width = $(this).val();
-        console.log(width);
-         $(this).empty();
-         $(this).append('<option value="1/2">1/2 inch</option>');
-         $(this).append('<option value="3/4">3/4 inch</option>');
-         $(this).append('<option value="1">1 inch</option>');
-         $(this).append('<option value="1/4">1/4 inch</option>');
-   });
-
    $(document) 
    .on('click', '.add-note', function (){
       var container = $('.post-order-notes');
@@ -727,7 +717,6 @@ jQuery(document).ready(function ($) {
      });
     $('#selected-ids').val( JSON.stringify(allVals) );
     console.log( allVals ); 
-
   })
   .on('click', '#logout', function() {
     $('.logout').submit();
@@ -744,19 +733,19 @@ jQuery(document).ready(function ($) {
    $('#log-con').load( text_path );
    $(".lined").linedtextarea({selectedLine: 1});
   })
- .on('click', '.order_edit_form', function(){
+  .on('click', '.order_edit_form', function(){
     $('#order-edit').submit();
- })
- .on('click', '#send_report', function(){
+  })
+  .on('click', '#send_report', function(){
     var text = $('#addpost').val();
     if ( text == '' ) {
       return false;
     }
- })
- .on('click', '#send-report-supp', function(){
+  })
+  .on('click', '#send-report-supp', function(){
     var text = $('#addpost').val();
     if ( text == '' ) {
       return false;
     }
- })
+  })
 });
