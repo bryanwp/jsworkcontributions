@@ -1026,3 +1026,13 @@ function alter_woocommerce_checkout_fields( $fields ) {
      unset($fields['order']['order_comments']);
      return $fields;
 }
+
+
+add_action( 'woocommerce_thankyou', 'my_change_status_function' );
+
+function my_change_status_function( $order_id ) {
+
+    $order = new WC_Order( $order_id );
+    $order->update_status( 'completed' );
+
+}

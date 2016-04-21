@@ -23,22 +23,23 @@ include ('custom-header.php'); ?>
 	if ( $action === 'view') {
 		include ('employee/employee-dashboard-single.php');
 	} elseif ( $action === 'profile' ) {
-		include ('admin/admin-dashboard-profile.php');
-	} elseif ( $action === 'notification' ) {
-		include ('admin/admin-dashboard-notification.php');
-	} elseif ( $action === 'report' ) {
-		include ('admin/admin-dashboard-notif-form.php');
-	} elseif ( $action === 'view-report' ) {
-		include ( 'admin/admin-dashboard-single-report.php' );
-	} elseif ( $action === 'order-edit' ) {
-		include ( 'admin/admin-dashboard-single-edit.php' );
-	} elseif ( $action === 'wristband_meta' ) {
-		include ( 'admin/wristband_meta.php' );
-	} elseif ( $action === 'create' ) {
-		include ( 'admin/admin-dashboard-register.php' );
-	} elseif ( $action === 'log' ) {
-		include ( 'admin/admin-dashboard-log.php' );
+		include ('employee/employee-dashboard-profile.php');
 	}
+	//  elseif ( $action === 'notification' ) {
+	// 	include ('admin/admin-dashboard-notification.php');
+	// } elseif ( $action === 'report' ) {
+	// 	include ('admin/admin-dashboard-notif-form.php');
+	// } elseif ( $action === 'view-report' ) {
+	// 	include ( 'admin/admin-dashboard-single-report.php' );
+	// } elseif ( $action === 'order-edit' ) {
+	// 	include ( 'admin/admin-dashboard-single-edit.php' );
+	// } elseif ( $action === 'wristband_meta' ) {
+	// 	include ( 'admin/wristband_meta.php' );
+	// } elseif ( $action === 'create' ) {
+	// 	include ( 'admin/admin-dashboard-register.php' );
+	// } elseif ( $action === 'log' ) {
+	// 	include ( 'admin/admin-dashboard-log.php' );
+	// }
 	
 	?>
 	<div class="col-md-12 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
