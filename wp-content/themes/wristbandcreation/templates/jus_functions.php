@@ -81,7 +81,7 @@ function my_check_login(){
     // echo $user->ID;
     // echo "</pre>";
     // die();
-    $msg = get_full_date( $req = 'full_date' ) . '- '. $role .' ' . $user->user_email . ' has logged in - ' . $user->display_name;
+    $msg = get_full_date( $req = 'full_date' ) . ' - '. $role . '' . $user->user_email . ' has logged in - ' . $user->display_name;
  	action_log( $msg );
 
     if($role == 'Supplier'){
