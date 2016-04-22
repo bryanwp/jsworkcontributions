@@ -94,8 +94,13 @@ function my_check_login(){
     	wp_redirect( home_url('employee-dashboard') );
     	exit;
     } else {
-    	wp_redirect( home_url('customer-dashboard') );
-    	exit; 
+    	if ( current_user_can( 'manage_options' ) ) {
+    		wp_redirect( home_url('admin-dashboard') );
+    		exit; 
+    	} else {
+    		wp_redirect( home_url('customer-dashboard') );
+    		exit; 
+    	}
     }
 
     wp_redirect( home_url() );
