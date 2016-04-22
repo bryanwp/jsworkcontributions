@@ -94,12 +94,15 @@ function my_check_login(){
     	wp_redirect( home_url('employee-dashboard') );
     	exit;
     } else {
-    	if ( current_user_can( 'manage_options' ) ) {
-    		wp_redirect( home_url('admin-dashboard') );
-    		exit; 
-    	} else {
-    		wp_redirect( home_url('customer-dashboard') );
-    		exit; 
+    	$user_role = $user->roles;
+    	foreach ($user_role as $key => $value) {
+    		if ( $key == 0 && $value == 'administrator') {
+    			wp_redirect( home_url('admin-dashboard') ); 
+    			exit;
+    		} else {
+    			wp_redirect( home_url('customer-dashboard') );
+    			exit; 
+    		}
     	}
     }
 
