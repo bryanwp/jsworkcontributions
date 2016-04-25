@@ -85,8 +85,38 @@ jQuery(document).ready(function ($) {
     //       $('<p class="err-msg2">Cannot Save Status</p>').appendTo($('.err-container2')); 
     //       return false;
     //   }
+    //   console.log(newstatus);
 
     // })
+
+    // $('#status-submit').click(function(){
+    //   console.log()
+    // })
+
+    $('#newstatus').change(function(){
+      var newstatus = $('#newstatus').val();
+      if ( newstatus == 5) {
+        $('.tracknum-design').show();
+      } else {
+        $('.tracknum-design').hide();
+      }
+
+    })
+
+    $('#status-submit').click(function(){
+       var status    = ["pending_production","pending_artwork_approval","in_production","in_reproduction","produced_pending_shipment","shipped"],
+          newstatus = $('#newstatus').val(),
+          trackval = $('#trackingnum').val();
+        $('.err-container3').empty();
+        $('.err-container3').fadeIn();
+       console.log(trackval);
+       if ( newstatus == 5 ) {
+        if (trackval == '' || trackval == 0) {
+              $('<p class="err-msg3">Track Number Empty</p>').appendTo($('.err-container3'));
+              return false;
+        }
+      }
+    })
 
     $('#track-submit').click(function(){
 
@@ -94,7 +124,6 @@ jQuery(document).ready(function ($) {
       $('.err-container3').empty();
       $('.err-container3').fadeIn();
       if (trackval == '' || trackval == 0) {
-              console.log('dragon empty');
               $('<p class="err-msg3">Track Number Empty</p>').appendTo($('.err-container3'));
         return false;
       }

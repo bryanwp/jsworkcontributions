@@ -36,21 +36,37 @@ $upimage = get_post_meta($order_id, 'Supplier_artwork', TRUE);
       <center><h2>Wristband Price</h2></center>
 
       <div class="form-group clearfix trackstyle">
-        <?php if($poststatusmeta == "shipped") { ?>
-        <form id="changing-tracknum" method="post">
+
           <div class="err-container1">
           </div>
           <div class="err-container2">
           </div>
           <div class="err-container3">
           </div>
-          <label class="tracknum-label"> Tracking Number </label>
-          <input type="text" name="trackingnum" id="trackingnum" class="form-control" placeholder="Input Here" value="<?php echo $tracknumbermeta; ?>">
-          <input type="submit" id="track-submit" name="track-submit" class="save-button-design" value="Send Track Number" style="color : white!important">
-          <input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
-        </form>
-        <?php } ?>
+
+      <?php if ( $tracknumbermeta ): ?>
+            <form id="changing-tracknum" method="post">
+              <label class="tracknum-label"> Tracking Number </label>
+              <input type="text" name="trackingnum" id="trackingnum" class="form-control" placeholder="Input Here" value="<?php echo $tracknumbermeta; ?>">
+              <input type="submit" id="track-submit" name="track-submit" class="save-button-design" value="Update Track Number" style="color : white!important">
+              <input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
+            </form>
+      <?php endif; ?>
+
+      <?php if ($poststatusmeta == 'shipped'): ?>
+        
+        <h3>STATUS: SHIPPED</h3>
+
+      <?php else: ?>
         <form id="changing-status" method="post">
+
+        <?php if ( !$tracknumbermeta ): ?>
+            <div class="tracknum-design" style="display: none;">
+            <label class="tracknum-label"> Tracking Number </label>
+            <input type="text" name="trackingnum" id="trackingnum" class="form-control" placeholder="Input Here" value="<?php echo $tracknumbermeta; ?>">
+            <!-- <input type="submit" id="track-submit" name="track-submit" class="save-button-design" value="Send Track Number" style="color : white!important"> -->
+            </div>
+        <?php endif; ?>
           <input type="submit" id="status-submit" name="status-submit" class="save-button-design" value="Change Status" style="color : white!important">
           <input type="hidden" id="savedstatus" value="<?php echo $poststatusmeta;?>" >
           <select name="newstatus" id="newstatus">
@@ -62,11 +78,12 @@ $upimage = get_post_meta($order_id, 'Supplier_artwork', TRUE);
             <option value="5" <?php if($poststatusmeta == "shipped") echo "selected"; ?>>shipped</option>
           </select> 
           <input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
-        </form>           
+        </form> 
+      <?php endif; ?>          
       </div>
 
       <!-- Artwork Approval -->
-         <div class="artwork col-md-12">
+         <div class="artwork col-md-12 ">
   <?php 
   if ( !$upimage) { 
     ?>

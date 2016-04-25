@@ -9,25 +9,25 @@ add_filter("woocommerce_checkout_fields", "order_fields");
 
 function order_fields($fields) {
 
-    $order = array(
-        "billing_first_name", 
-        "billing_last_name", 
-        "billing_company", 
-        "billing_address_1", 
-        "billing_address_2", 
-        "billing_postcode", 
-        "billing_country",
-        "billing_phone", 
-        "billing_email"
+	$order = array(
+		"billing_first_name", 
+		"billing_last_name", 
+		"billing_company", 
+		"billing_address_1", 
+		"billing_address_2", 
+		"billing_postcode", 
+		"billing_country",
+		"billing_phone", 
+		"billing_email"
 
-    );
-    foreach($order as $field)
-    {
-        $ordered_fields[$field] = $fields["billing"][$field];
-    }
+		);
+	foreach($order as $field)
+	{
+		$ordered_fields[$field] = $fields["billing"][$field];
+	}
 
-    $fields["billing"] = $ordered_fields;
-    return $fields;
+	$fields["billing"] = $ordered_fields;
+	return $fields;
 
 }
 
@@ -38,16 +38,16 @@ function my_check_login(){
         // check input and
         // do my login stuff here 
 
-  if(isset($_POST['login-submit'])) {
-  $creds                  = array();
-  $creds['user_login']    = stripslashes( trim( $_POST['username'] ) );
-  $creds['user_password'] = stripslashes( trim( $_POST['password'] ) );
-  $creds['remember']      = isset( $_POST['remember'] ) ? sanitize_text_field( $_POST['remember'] ) : '';
+	if(isset($_POST['login-submit'])) {
+		$creds                  = array();
+		$creds['user_login']    = stripslashes( trim( $_POST['username'] ) );
+		$creds['user_password'] = stripslashes( trim( $_POST['password'] ) );
+		$creds['remember']      = isset( $_POST['remember'] ) ? sanitize_text_field( $_POST['remember'] ) : '';
   //$redirect_to            = esc_url_raw( $_POST['redirect_to'] );
-  $secure_cookie          = null;
+		$secure_cookie          = null;
   // if($redirect_to == '')
   //  $redirect_to= get_site_url(); 
-    
+
   //  if ( ! force_ssl_admin() ) {
   //      $user = is_email( $creds['user_login'] ) ? get_user_by( 'email', $creds['user_login'] ) : get_user_by( 'login', sanitize_user( $creds['user_login'] ) );
 
@@ -66,61 +66,61 @@ function my_check_login(){
   // }
 
   // $user = wp_signon( $creds, $secure_cookie );
-  $user = wp_signon( $creds, false );
+		$user = wp_signon( $creds, false );
 
   // if ( $secure_cookie && strstr( $redirect_to, 'wp-admin' ) ) {
   //  $redirect_to = str_replace( 'http:', 'https:', $redirect_to );
   // }
 
-  if ( ! is_wp_error( $user ) ) {
+		if ( ! is_wp_error( $user ) ) {
     // echo home_url();
     // echo "<pre>";
     // var_dump($user);
-    $role = get_user_meta ( $user->ID, 'custom_role', true );
+			$role = get_user_meta ( $user->ID, 'custom_role', true );
     // echo $role;
     // echo $user->ID;
     // echo "</pre>";
     // die();
-    $msg = get_full_date( $req = 'full_date' ) . ' - '. $role . '' . $user->user_email . ' has logged in - ' . $user->display_name;
- 	action_log( $msg );
+			$msg = get_full_date( $req = 'full_date' ) . ' - '. $role . '' . $user->user_email . ' has logged in - ' . $user->display_name;
+			action_log( $msg );
 
-    if($role == 'Supplier'){
-    	wp_redirect( home_url('supplier-dashboard') );
-    	exit; 
-    } elseif ($role == 'Admin') {
-    	wp_redirect( home_url('admin-dashboard') );
-    	exit;
-    } elseif ($role == 'Employee') {
-    	wp_redirect( home_url('employee-dashboard') );
-    	exit;
-    } else {
-    	$user_role = $user->roles;
-    	foreach ($user_role as $key => $value) {
-    		if ( $key == 0 && $value == 'administrator') {
-    			wp_redirect( home_url('admin-dashboard') ); 
-    			exit;
-    		} else {
-    			wp_redirect( home_url('customer-dashboard') );
-    			exit; 
-    		}
-    	}
-    }
+			if($role == 'Supplier') {
+				wp_redirect( home_url('supplier-dashboard') );
+				exit; 
+			} elseif ($role == 'Admin') {
+				wp_redirect( home_url('admin-dashboard') );
+				exit;
+			} elseif ($role == 'Employee') {
+				wp_redirect( home_url('employee-dashboard') );
+				exit;
+			} else {
+				$user_role = $user->roles;
+				foreach ($user_role as $key => $value) {
+					if ( $key == 0 && $value == 'administrator') {
+						wp_redirect( home_url('admin-dashboard') ); 
+						exit;
+					} else {
+						wp_redirect( home_url('customer-dashboard') );
+						exit; 
+					}
+				}
+			}
 
-    wp_redirect( home_url() );
-    exit;    
-  } else {      
-    if ( $user->errors ) {
+			wp_redirect( home_url() );
+			exit;    
+		} else {      
+			if ( $user->errors ) {
       // $errors['invalid_user'] = __('<strong>ERROR</strong>: Invalid user or password.');  
       //echo "hello from the other side";
-    	$redirect = home_url() . '/login/?error=Invaliduser';
-    	exit(wp_redirect($redirect));
-    } else {
+				$redirect = home_url() . '/login/?error=Invaliduser';
+				exit(wp_redirect($redirect));
+			} else {
       // $errors['invalid_user_credentials'] = __( 'Please enter your username and password to login.', 'kvcodes' );
       //echo "hello from the other side";
-    	$redirect = home_url() . '/login/?error=InvaliduserCredentials';
-    	exit(wp_redirect($redirect));
-    }
-  }
+				$redirect = home_url() . '/login/?error=InvaliduserCredentials';
+				exit(wp_redirect($redirect));
+			}
+		}
   // $creds = array();
   // $creds['user_login'] = 'example';
   // $creds['user_password'] = 'plaintextpw';
@@ -135,7 +135,7 @@ function my_check_login(){
   // if ( is_wp_error($user) )
   //  echo $user->get_error_message();  
 
-  }
+	}
 }
 
 // function display_login_error($message) {
@@ -151,109 +151,109 @@ add_action('init', 'my_forgot_pass');
 
 function my_forgot_pass(){
 			//Error Viewer
-				if (isset( $_REQUEST['error'] ) ) {
+	if (isset( $_REQUEST['error'] ) ) {
 
-					if( $_REQUEST['error'] === 'email' ) { 	
-						forpass_errors()->add('empty_email', __('Please enter an email'));
-					} elseif ( $_REQUEST['error'] === 'incorrect-email' ) {
-						forpass_errors()->add('incorrect_email', __('Please enter a correct email'));
-					} elseif ( $_REQUEST['error'] === 'wrong-email' ) {
-						forpass_errors()->add('wrong_email', __('Email doesn&apos;t exist</strong>'));
-					} elseif ( $_REQUEST['error'] === 'answer' ) {
-						forpass_errors()->add('incorrect_answer', __('Please Enter the correct answer'));
-					} elseif ( $_REQUEST['error'] === 'password' ) {
-						forpass_errors()->add('match_password', __('Password doesn&apos;t match'));
-					} elseif ( $_REQUEST['error'] === 'invalid-password' ) {
-						forpass_errors()->add('invalid_password', __('Invalid Password'));
-					} elseif( $_REQUEST['error'] === 'Invaliduser' ) { 	
-						forpass_errors()->add('Invalid_user', __('Invalid user or password'));
-					} elseif ( $_REQUEST['error'] === 'InvaliduserCredentials' ) {
-						forpass_errors()->add('Invalid_userCredentials', __('Please enter your username and password to login'));
-					} else {
-						forpass_errors()->add('empty_password', __('string'));
-					}
-				}
-				
+		if( $_REQUEST['error'] === 'email' ) { 	
+			forpass_errors()->add('empty_email', __('Please enter an email'));
+		} elseif ( $_REQUEST['error'] === 'incorrect-email' ) {
+			forpass_errors()->add('incorrect_email', __('Please enter a correct email'));
+		} elseif ( $_REQUEST['error'] === 'wrong-email' ) {
+			forpass_errors()->add('wrong_email', __('Email doesn&apos;t exist</strong>'));
+		} elseif ( $_REQUEST['error'] === 'answer' ) {
+			forpass_errors()->add('incorrect_answer', __('Please Enter the correct answer'));
+		} elseif ( $_REQUEST['error'] === 'password' ) {
+			forpass_errors()->add('match_password', __('Password doesn&apos;t match'));
+		} elseif ( $_REQUEST['error'] === 'invalid-password' ) {
+			forpass_errors()->add('invalid_password', __('Invalid Password'));
+		} elseif( $_REQUEST['error'] === 'Invaliduser' ) { 	
+			forpass_errors()->add('Invalid_user', __('Invalid user or password'));
+		} elseif ( $_REQUEST['error'] === 'InvaliduserCredentials' ) {
+			forpass_errors()->add('Invalid_userCredentials', __('Please enter your username and password to login'));
+		} else {
+			forpass_errors()->add('empty_password', __('string'));
+		}
+	}
+
 				// check if email is right and existing
-				if ( isset( $_POST['action'] ) && 'check-email' == $_POST['action'] ) {
-					$email = trim( $_POST['user_login'] );
+	if ( isset( $_POST['action'] ) && 'check-email' == $_POST['action'] ) {
+		$email = trim( $_POST['user_login'] );
 					//echo $email;
 					//validation for email
-					if( empty( $email ) ) {
-		              $redirect = home_url() . '/forgot-password/?error=email';
-		              exit ( wp_redirect( $redirect ) );
-					} else if( ! is_email( $email )) {
-						$redirect = home_url() . '/forgot-password/?error=incorrect-email';
-		              	exit ( wp_redirect( $redirect ) );
-					} else if( ! email_exists( $email ) ) {
-						$redirect = home_url() . '/forgot-password/?error=wrong-email';
-		              	exit ( wp_redirect( $redirect ) );
-					} 
+		if( empty( $email ) ) {
+			$redirect = home_url() . '/forgot-password/?error=email';
+			exit ( wp_redirect( $redirect ) );
+		} else if( ! is_email( $email )) {
+			$redirect = home_url() . '/forgot-password/?error=incorrect-email';
+			exit ( wp_redirect( $redirect ) );
+		} else if( ! email_exists( $email ) ) {
+			$redirect = home_url() . '/forgot-password/?error=wrong-email';
+			exit ( wp_redirect( $redirect ) );
+		} 
 
-				}	
+	}	
 
-				if ( isset( $_POST['action'] ) == 'check-email'){
+	if ( isset( $_POST['action'] ) == 'check-email'){
 					//echo "dragoon";
-					$forpass = forpass_errors();
-					foreach ($forpass as $key => $value) {
-			            unset($forpass->$key);
-			        }
-				}
+		$forpass = forpass_errors();
+		foreach ($forpass as $key => $value) {
+			unset($forpass->$key);
+		}
+	}
 
-				if ( isset( $_POST['action'] ) && 'reset' == $_POST['action'] ) {
+	if ( isset( $_POST['action'] ) && 'reset' == $_POST['action'] ) {
 					//initializing required information
-					$answer = trim( $_POST['security-answer'] );
-					$email = trim( $_POST['user_login'] );
-					$user = get_user_by( 'email', $email );
-					$id = $user->ID;
-					$user_secret_answer = get_user_meta( $id, 'user_secret_answer', true );
+		$answer = trim( $_POST['security-answer'] );
+		$email = trim( $_POST['user_login'] );
+		$user = get_user_by( 'email', $email );
+		$id = $user->ID;
+		$user_secret_answer = get_user_meta( $id, 'user_secret_answer', true );
 
 					//validation for security answer
-					if ( $answer != $user_secret_answer ) {
-						$redirect = home_url() . '/forgot-password/?action=check-email&error=answer&user_login=' . $email;
-		              	exit ( wp_redirect( $redirect ) );
-					}
-				}
+		if ( $answer != $user_secret_answer ) {
+			$redirect = home_url() . '/forgot-password/?action=check-email&error=answer&user_login=' . $email;
+			exit ( wp_redirect( $redirect ) );
+		}
+	}
 
-				if ( isset($_POST['action'] ) && 'change-password' == $_POST['action'] ) {
+	if ( isset($_POST['action'] ) && 'change-password' == $_POST['action'] ) {
 					//initializing required information
 					//echo "went here";
 					//die();
-					$email = trim( $_POST['user_login'] );
-					$user = get_user_by( 'email', $email );
-					$id = $user->ID;
-					$pass1 = $_POST['password'];
-					$pass2 = $_POST['password2'];
+		$email = trim( $_POST['user_login'] );
+		$user = get_user_by( 'email', $email );
+		$id = $user->ID;
+		$pass1 = $_POST['password'];
+		$pass2 = $_POST['password2'];
 
 					//Validation for new password
-					if ( trim($pass1) == '' ) {
-						$redirect = home_url() . '/forgot-password/?action=reset&error=invalid-password&user_login=' . $email;
-						exit ( wp_redirect($redirect) );
-					} elseif(!preg_match('/^[a-zA-Z0-9]{4,16}$/', $pass1 ) ) {
-			            $redirect = home_url() . '/forgot-password/?action=reset&error=invalid-password&user_login=' . $email;
-						exit ( wp_redirect( $redirect ) );
-				    }
-					if ( trim( $pass2 ) == '' ) {
-						$redirect = home_url() . '/forgot-password/?action=reset&error=invalid-password&user_login=' . $email;
-						exit ( wp_redirect( $redirect ) );
-					} elseif ( $pass1 != $pass2 ) {
-						$redirect = home_url() . '/forgot-password/?action=reset&error=password&user_login=' . $email;
-						exit ( wp_redirect( $redirect ) );
-					} else {
+		if ( trim($pass1) == '' ) {
+			$redirect = home_url() . '/forgot-password/?action=reset&error=invalid-password&user_login=' . $email;
+			exit ( wp_redirect($redirect) );
+		} elseif(!preg_match('/^[a-zA-Z0-9]{4,16}$/', $pass1 ) ) {
+			$redirect = home_url() . '/forgot-password/?action=reset&error=invalid-password&user_login=' . $email;
+			exit ( wp_redirect( $redirect ) );
+		}
+		if ( trim( $pass2 ) == '' ) {
+			$redirect = home_url() . '/forgot-password/?action=reset&error=invalid-password&user_login=' . $email;
+			exit ( wp_redirect( $redirect ) );
+		} elseif ( $pass1 != $pass2 ) {
+			$redirect = home_url() . '/forgot-password/?action=reset&error=password&user_login=' . $email;
+			exit ( wp_redirect( $redirect ) );
+		} else {
 
-						$update_user = wp_update_user( array (
-								'ID' 		=> $id, 
-								'user_pass' => $pass2
-							)
-						);
+			$update_user = wp_update_user( array (
+				'ID' 		=> $id, 
+				'user_pass' => $pass2
+				)
+			);
 
-						if ( $update_user ) {
-							$redirect = home_url() . '/login';
-							exit ( wp_redirect( $redirect ) );
-						}
-					}
-				}
+			if ( $update_user ) {
+				$redirect = home_url() . '/login';
+				exit ( wp_redirect( $redirect ) );
+			}
+		}
 	}
+}
 	// used for tracking error messages
 function forpass_errors(){
     static $wp_error; // Will hold global variable safely
@@ -265,10 +265,10 @@ function show_error_messages() {
 	if($codes = forpass_errors()->get_error_codes()) {
 		echo '<div class="this_errors errorstyle">';
 		    // Loop error codes and display errors
-		   foreach($codes as $code){
-		        $message = forpass_errors()->get_error_message($code);
-		        echo '<span class="error"><strong>' . __('Error') . '</strong>: ' . $message . '</span><br/>';
-		    }
+		foreach($codes as $code){
+			$message = forpass_errors()->get_error_message($code);
+			echo '<span class="error"><strong>' . __('Error') . '</strong>: ' . $message . '</span><br/>';
+		}
 		echo '</div>';
 	}
 }
@@ -284,9 +284,21 @@ function change_status() {
 			// var_dump($post);
 			// die();
 			$x = $post['newstatus'];
+			$tracking = $post['trackingnum'];
+			// echo $x;
+			//echo $tracking;
+		if ($status[$x] == 'shipped') {
 			if ( ! add_post_meta( $post['post-id'], $key, $status[$x], true ) ) { 
-				   update_post_meta ( $post['post-id'], $key, $status[$x]  );
-				}
+			update_post_meta ( $post['post-id'], $key, $status[$x]  );
+			}
+			if ( ! add_post_meta( $post['post-id'], 'supplier_trackingnumber', $tracking, true ) ) { 
+				update_post_meta ( $post['post-id'], 'supplier_trackingnumber', $tracking  );
+			}
+		} else {
+			if ( ! add_post_meta( $post['post-id'], $key, $status[$x], true ) ) { 
+			update_post_meta ( $post['post-id'], $key, $status[$x]  );
+			}
+		}
 		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['post-id'] );
 		exit( wp_redirect( $redirect ) );	
 
@@ -299,11 +311,11 @@ function add_track() {
 	$post = $_POST;
 	
 	if ( isset( $post['track-submit'] ) ) {
-			$tracking = $post['trackingnum'];
+		$tracking = $post['trackingnum'];
 			//echo $tracking;
-			if ( ! add_post_meta( $post['post-id'], 'supplier_trackingnumber', $tracking, true ) ) { 
-				   update_post_meta ( $post['post-id'], 'supplier_trackingnumber', $tracking  );
-				}
+		if ( ! add_post_meta( $post['post-id'], 'supplier_trackingnumber', $tracking, true ) ) { 
+			update_post_meta ( $post['post-id'], 'supplier_trackingnumber', $tracking  );
+		}
 		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['post-id'] );
 		exit( wp_redirect( $redirect ) );	
 
@@ -319,52 +331,52 @@ function save_price_changes() {
 	if (!empty($_POST["maxrowval"])) {$row = $_POST["maxrowval"];} else { $row = ''; }
 	$arrquantity = ["moldquantity_", "printingquantity_", "laserquantity_","colorfillquantity_","embossedquantity_","imprintingquantity_","swirlquantity_","segmentedquantity_","glowquantity_","duallayerquantity_","insideembossedquantity_","individualpkgquantity_","keychainsquantity_","shipdhlquantity_"];
 	$arrprice = ["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
-    $arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg_","keychains_","shipdhl_"];
+	$arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg_","keychains_","shipdhl_"];
     // /echo $row;
 
-    if (isset( $post['save-price'] )) {
+	if (isset( $post['save-price'] )) {
 			# code...
-	    		$totalkey = 'wtotalprice';
-				for ($x=0; $x < sizeof($arrtotal); $x++) { 
+		$totalkey = 'wtotalprice';
+		for ($x=0; $x < sizeof($arrtotal); $x++) { 
 					# code...
-					for ($i=1; $i < $row + 2 ; $i++) {
+			for ($i=1; $i < $row + 2 ; $i++) {
 
-						if(isset($post[$arrtotal[$x].$i]) && ($post[$arrtotal[$x].$i]!= 0)){
-							if(isset($post[$arrquantity[$x].$i])){
-								$newkey1 = $arrquantity[$x];
+				if(isset($post[$arrtotal[$x].$i]) && ($post[$arrtotal[$x].$i]!= 0)){
+					if(isset($post[$arrquantity[$x].$i])){
+						$newkey1 = $arrquantity[$x];
 								// echo $newkesy1.'='.$post[$arrquantity[$x].$i]."</br>";
-								$parrqty[$newkey1][] = $post[$arrquantity[$x].$i];
+						$parrqty[$newkey1][] = $post[$arrquantity[$x].$i];
 								//add_post_meta( $post['order_id'], 'supplier_'.$newkey1,$post[$arrquantity[$x].$i]);
-							}
-							if(isset($post[$arrprice[$x].$i])){
-								$newkey2 = $arrprice[$x];
+					}
+					if(isset($post[$arrprice[$x].$i])){
+						$newkey2 = $arrprice[$x];
 								// echo $nsewkey2.'='.$post[$arrprice[$x].$i]."</br>";
 								//$parrprice[]
-								$parrprice[$newkey2][] = $post[$arrprice[$x].$i];
+						$parrprice[$newkey2][] = $post[$arrprice[$x].$i];
 								//add_post_meta( $post['order_id'], 'supplier_'.$newkey2,$post[$arrprice[$x].$i]);
-							}
-							$newkey3 = $arrtotal[$x];
-							// echo s$newkey3.'='.$post[$arrtotal[$x].$i]."</br>";
-							$parrtotal[$newkey3][] = $post[$arrtotal[$x].$i];
-							//add_post_meta( $post['order_id'], 'supplier_'.$newkey3,$post[$arrtotal[$x].$i]);
-						}
 					}
+					$newkey3 = $arrtotal[$x];
+							// echo s$newkey3.'='.$post[$arrtotal[$x].$i]."</br>";
+					$parrtotal[$newkey3][] = $post[$arrtotal[$x].$i];
+							//add_post_meta( $post['order_id'], 'supplier_'.$newkey3,$post[$arrtotal[$x].$i]);
 				}
+			}
+		}
 
-				if ( ! add_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty, true ) ) { 
-			    	update_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty );
-			    }
+		if ( ! add_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty, true ) ) { 
+			update_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty );
+		}
 
-			    if ( ! add_post_meta( $post['order_id'], 'supplier_wpprice',   $parrprice, true ) ) { 
-			    	update_post_meta( $post['order_id'], 'supplier_wpprice',   $parrprice );
-			    }
+		if ( ! add_post_meta( $post['order_id'], 'supplier_wpprice',   $parrprice, true ) ) { 
+			update_post_meta( $post['order_id'], 'supplier_wpprice',   $parrprice );
+		}
 
-			    if ( ! add_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal, true ) ) { 
-			    	update_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal );
-			    }
+		if ( ! add_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal, true ) ) { 
+			update_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal );
+		}
 
-				add_post_meta($post['order_id'],'supplier_'.$totalkey, $post['wtotalprice']);
-				add_post_meta($post['order_id'],'supplier_maxrowval', $post['maxrowval']);
+		add_post_meta($post['order_id'],'supplier_'.$totalkey, $post['wtotalprice']);
+		add_post_meta($post['order_id'],'supplier_maxrowval', $post['maxrowval']);
 	}
 
 }
@@ -397,7 +409,7 @@ function change_qty_name($label) {
 function change_price_name($label) {
 	$arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg","keychains","shipdhl_"];
 	$newlabel =	["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
-    for ($x=0; $x < sizeof($arrtotal) ; $x++) { 
+	for ($x=0; $x < sizeof($arrtotal) ; $x++) { 
 		# code...
 		if (strpos($label, $arrtotal[$x]) !== false) {
 			return $newlabel[$x];
@@ -409,7 +421,7 @@ function change_price_name($label) {
 function change_to_int($key) {
 	$arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg","keychains","shipdhl_"];
 	// $newlabel =	["1", "1", "2","3","4","5","6","7","8","9","10","11","12","13"];
-    for ($x=0; $x < sizeof($arrtotal) ; $x++) { 
+	for ($x=0; $x < sizeof($arrtotal) ; $x++) { 
 		# code...
 		if (strpos($key, $arrtotal[$x]) !== false) {
 			return $x;
@@ -427,16 +439,16 @@ function supp_artwork() {
 	if (isset($post['supp_artwork'])) {
 		# code...
 		//var_dump($post);
-			$count = $post['img-count'];
-			$image_arr = '';
-			for ( $x=1;$x<=$count;$x++ ) {
-				$name = 'img'.$x;
-				$image_arr[$x] = $post[$name];
-			}
+		$count = $post['img-count'];
+		$image_arr = '';
+		for ( $x=1;$x<=$count;$x++ ) {
+			$name = 'img'.$x;
+			$image_arr[$x] = $post[$name];
+		}
 		//	var_dump($image_arr);
-			if ( ! add_post_meta( $post['post-id'], 'supplier_artwork',   $image_arr, true ) ) { 
-	    		update_post_meta( $post['post-id'], 'supplier_artwork',   $image_arr );
-	    	}
+		if ( ! add_post_meta( $post['post-id'], 'supplier_artwork',   $image_arr, true ) ) { 
+			update_post_meta( $post['post-id'], 'supplier_artwork',   $image_arr );
+		}
 	}
 
 }
@@ -450,66 +462,66 @@ function change_list() {
 	if (!empty($_POST["maxrowval"])) {$row = $_POST["maxrowval"];} else { $row = ''; }
 	$arrquantity = ["moldquantity_", "printingquantity_", "laserquantity_","colorfillquantity_","embossedquantity_","imprintingquantity_","swirlquantity_","segmentedquantity_","glowquantity_","duallayerquantity_","insideembossedquantity_","individualpkgquantity_","keychainsquantity_","shipdhlquantity_"];
 	$arrprice = ["moldprice_", "printingprice_", "laserprice_","colorfillprice_","embossedprice_","imprintingprice_","swirlprice_","segmentedprice_","glowprice_","duallayerprice_","insideembossedprice_","individualpkgprice_","keychainsprice_","shipdhlprice_"];
-    $arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg_","keychains_","shipdhl_"];
+	$arrtotal = ["mold_","printing_","laser_","colorfill_","embossedp_","imprintingp_","swirlp_","segmentedp_","glowp_","duallayerp_","insideembossed_","individualpkg_","keychains_","shipdhl_"];
     //echo $row;
 
 	if ( isset( $post['update-price-list'] ) ) {
 			# code...
-			
+
 			// echo $post['wtotalprice'].'</br>';
-			$totalkey = 'wtotalprice';
+		$totalkey = 'wtotalprice';
 			// echo '<pre>';
 			// var_dump($image_arr);
 			//  print_r($post);
 			// echo $count.'</br>';
 
 		 //echo $row;
-			for ($x=0; $x < sizeof($arrtotal); $x++) { 
+		for ($x=0; $x < sizeof($arrtotal); $x++) { 
 				# code...
-				for ($i=0; $i < $row*10 ; $i++) {
+			for ($i=0; $i < $row*10 ; $i++) {
 
-					if(isset($post[$arrtotal[$x].$i]) && ($post[$arrtotal[$x].$i]!= 0)){
-						if(isset($post[$arrquantity[$x].$i])){
-							$newkey1 = $arrquantity[$x];
+				if(isset($post[$arrtotal[$x].$i]) && ($post[$arrtotal[$x].$i]!= 0)){
+					if(isset($post[$arrquantity[$x].$i])){
+						$newkey1 = $arrquantity[$x];
 							//echo $newkey1.'='.$post[$arrquantity[$x].$i]."</br>";
-							$parrqty[$newkey1][] = $post[$arrquantity[$x].$i];
+						$parrqty[$newkey1][] = $post[$arrquantity[$x].$i];
 							//add_post_meta( $post['order_id'], 'supplier_'.$newkey1,$post[$arrquantity[$x].$i]);
-						}
-						if(isset($post[$arrprice[$x].$i])){
-							$newkey2 = $arrprice[$x];
+					}
+					if(isset($post[$arrprice[$x].$i])){
+						$newkey2 = $arrprice[$x];
 							//echo $newkey2.'='.$post[$arrprice[$x].$i]."</br>";
 							//$parrprice[]
-							$parrprice[$newkey2][] = $post[$arrprice[$x].$i];
+						$parrprice[$newkey2][] = $post[$arrprice[$x].$i];
 							//add_post_meta( $post['order_id'], 'supplier_'.$newkey2,$post[$arrprice[$x].$i]);
-						}
-						$newkey3 = $arrtotal[$x];
-						//echo $newkey3.'='.$post[$arrtotal[$x].$i]."</br>";
-						$parrtotal[$newkey3][] = $post[$arrtotal[$x].$i];
-						//add_post_meta( $post['order_id'], 'supplier_'.$newkey3,$post[$arrtotal[$x].$i]);
 					}
+					$newkey3 = $arrtotal[$x];
+						//echo $newkey3.'='.$post[$arrtotal[$x].$i]."</br>";
+					$parrtotal[$newkey3][] = $post[$arrtotal[$x].$i];
+						//add_post_meta( $post['order_id'], 'supplier_'.$newkey3,$post[$arrtotal[$x].$i]);
 				}
 			}
-			
-			if ( ! add_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty, true ) ) { 
-		    	update_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty );
-		    }
+		}
 
-		    if ( ! add_post_meta( $post['order_id'], 'supplier_wpprice',   $parrprice, true ) ) { 
-		    	update_post_meta( $post['order_id'], 'supplier_wpprice',   $parrprice );
-		    }
+		if ( ! add_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty, true ) ) { 
+			update_post_meta( $post['order_id'], 'supplier_wpqty',   $parrqty );
+		}
 
-		    if ( ! add_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal, true ) ) { 
-		    	update_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal );
-		    }
+		if ( ! add_post_meta( $post['order_id'], 'supplier_wpprice',   $parrprice, true ) ) { 
+			update_post_meta( $post['order_id'], 'supplier_wpprice',   $parrprice );
+		}
+
+		if ( ! add_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal, true ) ) { 
+			update_post_meta( $post['order_id'], 'supplier_wptotal',   $parrtotal );
+		}
 
 
-		    if ( ! add_post_meta( $post['order_id'], 'supplier_'.$totalkey, $post['wtotalprice'], true ) ) { 
-		    	update_post_meta( $post['order_id'], 'supplier_'.$totalkey, $post['wtotalprice'] );
-		    }
+		if ( ! add_post_meta( $post['order_id'], 'supplier_'.$totalkey, $post['wtotalprice'], true ) ) { 
+			update_post_meta( $post['order_id'], 'supplier_'.$totalkey, $post['wtotalprice'] );
+		}
 
-		    if ( ! add_post_meta( $post['order_id'], 'supplier_maxrowval', $post['maxrowval'], true ) ) { 
-		    	update_post_meta( $post['order_id'], 'supplier_maxrowval', $post['maxrowval'] );
-		    }
+		if ( ! add_post_meta( $post['order_id'], 'supplier_maxrowval', $post['maxrowval'], true ) ) { 
+			update_post_meta( $post['order_id'], 'supplier_maxrowval', $post['maxrowval'] );
+		}
 
 		$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
 		exit( wp_redirect( $redirect ) );
@@ -541,14 +553,14 @@ function add_reply_supp( $post = false ){
 	$post = $_REQUEST;
 
 	$data = array(
-	    'comment_post_ID' 		=> $post['post-id'],
-	    'comment_author' 		=> $user->display_name,
-	    'comment_author_email'  => $user->user_email,
-	    'comment_content' 		=> $post['reply'],
-	    'user_id' 				=> $user_id,
-	    'comment_date' 			=> $time,
-	    'comment_approved' 		=> 1,
-	);
+		'comment_post_ID' 		=> $post['post-id'],
+		'comment_author' 		=> $user->display_name,
+		'comment_author_email'  => $user->user_email,
+		'comment_content' 		=> $post['reply'],
+		'user_id' 				=> $user_id,
+		'comment_date' 			=> $time,
+		'comment_approved' 		=> 1,
+		);
 
 	$insert_comment = wp_insert_comment( $data );
 
@@ -579,35 +591,35 @@ function newuploadimage(){
 	{
 
 		$ufiles = array();
-			$role = get_user_meta ( $user_id, 'custom_role', true );
-	
+		$role = get_user_meta ( $user_id, 'custom_role', true );
+
 		if ( ! function_exists( 'wp_handle_upload' ) ) {
-        	require_once( ABSPATH . 'wp-admin/includes/file.php' );
-	    }
-	    $upload_overrides = array( 'test_form' => false );
+			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+		}
+		$upload_overrides = array( 'test_form' => false );
 
 		$files = $_FILES['newupload_image'];
-	    foreach ($files['name'] as $key => $value) {
-	      if ($files['name'][$key]) {
-	        $uploadedfile = array(
-	            'name'     => $files['name'][$key],
-	            'type'     => $files['type'][$key],
-	            'tmp_name' => $files['tmp_name'][$key],
-	            'error'    => $files['error'][$key],
-	            'size'     => $files['size'][$key]
-	        );
-	        $movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
+		foreach ($files['name'] as $key => $value) {
+			if ($files['name'][$key]) {
+				$uploadedfile = array(
+					'name'     => $files['name'][$key],
+					'type'     => $files['type'][$key],
+					'tmp_name' => $files['tmp_name'][$key],
+					'error'    => $files['error'][$key],
+					'size'     => $files['size'][$key]
+					);
+				$movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
 
-	        if ( $movefile && !isset( $movefile['error'] ) ) {
-	        	$ufiles[] = $movefile;
-	        }
-	      }
+				if ( $movefile && !isset( $movefile['error'] ) ) {
+					$ufiles[] = $movefile;
+				}
+			}
 
-	  }
+		}
 
-	  if ( ! add_post_meta( $post['order_id'],  $role . '_artwork',   $ufiles, true ) ) { 
-		    	update_post_meta( $post['order_id'],  $role . '_artwork',   $ufiles );
-		    }
+		if ( ! add_post_meta( $post['order_id'],  $role . '_artwork',   $ufiles, true ) ) { 
+			update_post_meta( $post['order_id'],  $role . '_artwork',   $ufiles );
+		}
 		if ($role == 'Supplier' ) {
 			
 			$redirect = home_url( 'supplier-dashboard/?action=view&ID='. $post['order_id'] );
@@ -637,14 +649,14 @@ function updateuploadimage(){
 
 				$movefile = array(
 					'file'     => $post['img-file_'.$i],
-		            'url'     => $post['img-url_'.$i],
-		            'type' => $post['img-type_'.$i]
-	        	);
+					'url'     => $post['img-url_'.$i],
+					'type' => $post['img-type_'.$i]
+					);
 				// var_dump($movefile);
 
 				if ( $movefile ) {
-	        		$ufiles[] = $movefile;
-	        	}
+					$ufiles[] = $movefile;
+				}
 
 			}
 		}
@@ -654,13 +666,13 @@ function updateuploadimage(){
 			
 		}else{
 			if ( ! function_exists( 'wp_handle_upload' ) ) 
-    			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+				require_once( ABSPATH . 'wp-admin/includes/file.php' );
 			$uploadedfile = $_FILES['add_image'];
 			$upload_overrides = array( 'test_form' => false );
 			$movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
 			if ( $movefile && !isset( $movefile['error'] ) ) {
-	        	$ufiles[] = $movefile;
-	        }
+				$ufiles[] = $movefile;
+			}
 		}
 		update_post_meta( $post['order_id'], $role . '_artwork', $ufiles );
 		if ($role == 'Supplier' ) {
