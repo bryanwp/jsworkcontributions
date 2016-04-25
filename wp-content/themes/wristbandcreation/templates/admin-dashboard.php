@@ -66,7 +66,8 @@ if ( $customer_orders ) : ?>
 				<th>Order</th>
 				<th>Date</th>
 				<th>Front Message</th>
-				<th>Name</th>
+				<th>First Name</th>
+				<th>Last Name</th>
 				<th>Payment Method</th>
 				<th>Sub Total</th>
 				<th>Tax</th>
@@ -118,11 +119,14 @@ if ( $customer_orders ) : ?>
 							}
 						?>
 					</td>
-					
 					<td>
 						<?php
-							echo get_post_meta( $customer_order->ID, '_billing_first_name', true ) . ' ' . get_post_meta( $customer_order->ID, '_billing_last_name', true );
-
+							echo get_post_meta( $customer_order->ID, '_billing_first_name', true );
+						?>	
+					</td>
+					<td>
+						<?php
+							echo get_post_meta( $customer_order->ID, '_billing_last_name', true );
 						?>	
 					</td>
 					<td>

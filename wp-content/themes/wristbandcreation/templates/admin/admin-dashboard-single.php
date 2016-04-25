@@ -49,6 +49,7 @@ if ( $order ) :
 		$track = get_post_meta( $order_id, 'supplier_trackingnumber', true );
 		if ( $track ) {
 			echo '<p class="t-no">Tracking Number: '.$track.'</p>';
+			echo '<a href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . $track .'" > here </a>';
 		} else {
 			echo '<p class="t-no">Tracking Number: Waiting for the supplier.</p>';
 		}

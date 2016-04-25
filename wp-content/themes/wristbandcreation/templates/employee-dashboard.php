@@ -40,8 +40,8 @@ include ('custom-header.php'); ?>
 	// } elseif ( $action === 'log' ) {
 	// 	include ( 'admin/admin-dashboard-log.php' );
 	// }
-	
 	?>
+
 	<div class="col-md-12 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
 		<div class="gap-top">
 			<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
@@ -143,7 +143,6 @@ if ( $customer_orders ) : ?>
 				</tr><?php
       }
     ?></tbody>
-
 	</table>
 <?php 
 endif; ?>

@@ -83,6 +83,25 @@ if ( $order ) :
 
 		
 	?>
+	<div class="box col-md-12">	
+		<?php
+		$track = get_post_meta( $order_id, 'supplier_trackingnumber', true );
+		if ( $track ) {
+			echo '<p class="t-no">Tracking Number: '.$track.'</p>';
+			echo '<a href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . $track .'" > here </a>';
+		} else {
+			echo '<p class="t-no">Tracking Number: Waiting for the supplier.</p>';
+		}
+		?>
+		
+		<!-- <span>Send e-mail confirmation for the customer</span> -->
+		<?php
+		$qty = get_post_meta($order_id, 'supplier_wpqty', TRUE); 
+		if ( $qty ) {
+			do_action('supplier_pricing', $order_id); 
+		}
+		?>
+	</div>
 	<?php 
 	$artwork = get_post_meta( $order_id, 'admin_artwork', true );
 
