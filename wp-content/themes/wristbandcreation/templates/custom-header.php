@@ -154,8 +154,8 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 		<div class="min-height fusion-secondary-header">
 			<div class="log-in-logo">
 				<a class="fusion-logo-link" href="<?php echo home_url(); ?>">
-					<?php $logo_url = Avada_Sanitize::get_url_with_correct_scheme( Avada()->settings->get( 'logo' ) ); ?>
-					<img src="<?php echo $logo_url; ?>" width="<?php echo $logo_size['width']; ?>" height="<?php echo $logo_size['height']; ?>" alt="<?php bloginfo( 'name' ); ?>" class="fusion-logo-1x fusion-standard-logo" />
+					<?php $logo_url = Avada_Sanitize::get_url_with_correct_scheme( Avada()->settings->get( 'logo' ) );?>
+					<img src="<?php echo $logo_url['url']; ?>" width="<?php echo $logo_size['width']; ?>" height="<?php echo $logo_size['height']; ?>" alt="<?php bloginfo( 'name' ); ?>" class="fusion-logo-1x fusion-standard-logo" />
 				</a>
 			</div>
 			<div class="welcome">
