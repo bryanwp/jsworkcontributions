@@ -1,6 +1,9 @@
 /*==========*/
 /*custom CSS*/
 /*==========*/
+html {
+    overflow-y: auto !important;
+}
 p[align=center] {
     display: none;
 }

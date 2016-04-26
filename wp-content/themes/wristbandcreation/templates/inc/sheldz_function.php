@@ -840,3 +840,16 @@ function order_and_edit(){
 		<?php
 	}
 }
+
+add_action('init', 'set_order_session');
+function set_order_session(){
+	global $woocommerce;
+	if ( is_page('cart') || is_page('order-now') ) {
+		session_start();
+		do_action('wc_order_again');
+	}
+}
+function wpdocs_dequeue_script() {
+   wp_dequeue_script( 'webfontloader' );
+}
+add_action( 'wp_print_scripts', 'wpdocs_dequeue_script', 100 );

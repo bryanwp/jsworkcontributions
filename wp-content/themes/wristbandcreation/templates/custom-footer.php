@@ -109,6 +109,8 @@
 				<?php
 			} // end is not blank page check
 			?>
+			<div style="display: none;" id="payment-channel"></div>
+			<div style="display: none;" id="text-6-container-div1"></div>
 		</div> <!-- wrapper -->
 
 		<?php
