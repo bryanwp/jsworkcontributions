@@ -9,12 +9,12 @@ if ( is_page('customer-dashboard') ) {
 <!DOCTYPE html>
 <html class="<?php echo ( ! Avada()->settings->get( 'smooth_scrolling' ) ) ? 'no-overflow-y' : ''; ?>" <?php language_attributes(); ?>>
 <head>
-	<?php if ( isset( $_SERVER['HTTP_USER_AGENT'] ) && ( false !== strpos( $_SERVER['HTTP_USER_AGENT'], 'MSIE' ) ) ) : ?>
+	<!-- <?php if ( isset( $_SERVER['HTTP_USER_AGENT'] ) && ( false !== strpos( $_SERVER['HTTP_USER_AGENT'], 'MSIE' ) ) ) : ?>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<?php endif; ?>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
+ -->
 	<?php
 	if ( ! function_exists( '_wp_render_title_tag' ) ) {
 		function avada_render_title() {
