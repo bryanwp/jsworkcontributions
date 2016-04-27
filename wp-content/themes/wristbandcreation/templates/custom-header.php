@@ -1,11 +1,12 @@
 <?php
-session_start();
-?>
-<!DOCTYPE html>
-<?php
-global $woocommerce; 
-do_action('wc_order_edit');
+if ( is_page('customer-dashboard') ) {
+	session_start();
+	global $woocommerce; 
+	do_action('wc_order_edit');
+}
 ?> 
+
+<!DOCTYPE html>
 <html class="<?php echo ( ! Avada()->settings->get( 'smooth_scrolling' ) ) ? 'no-overflow-y' : ''; ?>" <?php language_attributes(); ?>>
 <head>
 	<?php if ( isset( $_SERVER['HTTP_USER_AGENT'] ) && ( false !== strpos( $_SERVER['HTTP_USER_AGENT'], 'MSIE' ) ) ) : ?>
