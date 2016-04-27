@@ -9,12 +9,6 @@ if ( is_page('customer-dashboard') ) {
 <!DOCTYPE html>
 <html class="<?php echo ( ! Avada()->settings->get( 'smooth_scrolling' ) ) ? 'no-overflow-y' : ''; ?>" <?php language_attributes(); ?>>
 <head>
-	<!-- <?php if ( isset( $_SERVER['HTTP_USER_AGENT'] ) && ( false !== strpos( $_SERVER['HTTP_USER_AGENT'], 'MSIE' ) ) ) : ?>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<?php endif; ?>
-
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
- -->
 	<?php
 	if ( ! function_exists( '_wp_render_title_tag' ) ) {
 		function avada_render_title() {
@@ -48,36 +42,16 @@ if ( is_page('customer-dashboard') ) {
 	echo $viewport;
 	?>
 	
-	<?php if ( Avada()->settings->get( 'favicon' ) ) : ?>
-		<link rel="shortcut icon" href="<?php echo Avada()->settings->get( 'favicon' ); ?>" type="image/x-icon" />
-	<?php endif; ?>
-
-	<?php if ( Avada()->settings->get( 'iphone_icon' ) ) : ?>
-		<!-- For iPhone -->
-		<link rel="apple-touch-icon-precomposed" href="<?php echo Avada()->settings->get( 'iphone_icon' ); ?>">
-	<?php endif; ?>
-
-	<?php if ( Avada()->settings->get( 'iphone_icon_retina' ) ) : ?>
-		<!-- For iPhone 4 Retina display -->
-		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo Avada()->settings->get( 'iphone_icon_retina' ); ?>">
-	<?php endif; ?>
-
-	<?php if ( Avada()->settings->get( 'ipad_icon' ) ) : ?>
-		<!-- For iPad -->
-		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo Avada()->settings->get( 'ipad_icon' ); ?>">
-	<?php endif; ?>
-
-	<?php if ( Avada()->settings->get( 'ipad_icon_retina' ) ) : ?>
-		<!-- For iPad Retina display -->
-		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo Avada()->settings->get( 'ipad_icon_retina' ); ?>">
-	<?php endif; ?>
+	<?php // if ( Avada()->settings->get( 'favicon' ) ) : ?>
+		<!-- <link rel="shortcut icon" href="<?php // echo Avada()->settings->get( 'favicon' ); ?>" type="image/x-icon" /> -->
+	<?php //endif; ?>
 
 	<?php wp_head(); ?>
 
 	<?php
 
-	$object_id = get_queried_object_id();
-	$c_pageID  = Avada::c_pageID();
+	// $object_id = get_queried_object_id();
+	// $c_pageID  = Avada::c_pageID();
 	?>
 
 	<!--[if lte IE 8]>
@@ -120,13 +94,13 @@ if ( is_page('customer-dashboard') ) {
 	<![endif]-->
 
 	<script type="text/javascript">
-		var doc = document.documentElement;
-		doc.setAttribute('data-useragent', navigator.userAgent);
+		// var doc = document.documentElement;
+		// doc.setAttribute('data-useragent', navigator.userAgent);
 	</script>
 
 	<?php echo Avada()->settings->get( 'google_analytics' ); ?>
 
-	<?php echo Avada()->settings->get( 'space_head' ); ?>
+	<?php // echo Avada()->settings->get( 'space_head' ); ?>
 
 </head>
 <?php
