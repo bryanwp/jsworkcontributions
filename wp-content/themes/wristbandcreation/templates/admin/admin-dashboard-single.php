@@ -5,17 +5,17 @@ if ( isset( $_GET['ID'] ) ) {
 } 
 
 	
-	$args = array(
-		'full_name' => 'Jon Snow Man',
-		'order_name' => 'wristband',
-		'order_id' => $order_id,
-		'arrival' => 'Friday',
-		'sub_total' => '300',
-		'tax' => '2',
-		'total' => '302'
-		);
+	// $args = array(
+	// 	'full_name' => 'Jon Snow Man',
+	// 	'order_name' => 'wristband',
+	// 	'order_id' => $order_id,
+	// 	'arrival' => 'Friday',
+	// 	'sub_total' => '300',
+	// 	'tax' => '2',
+	// 	'total' => '302'
+	// 	);
 	// wp_send_email_after_order( $args );
-	wp_send_email_shipping_confirmation( $args );
+	// wp_send_email_shipping_confirmation( $args );
 
 
 $key = get_post_meta( $order_id, '_order_key', true );
