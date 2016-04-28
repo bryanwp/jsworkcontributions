@@ -287,7 +287,7 @@ function wp_send_email_after_order( $args ){
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 	$headers[] = "X-Mailer: PHP \r\n";
 	$headers[] = 'From: Wristband Creation Team <no-reply@kulayfulwp.local>' . "\r\n";
-	$mail = wp_mail( 'chris@kulayful.com', 'Order Confirmation', $content, $headers );
+	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Order Confirmation', $content, $headers );
 }
 
 /*	
@@ -381,6 +381,6 @@ function wp_send_email_shipping_confirmation( $args ){
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 	$headers[] = "X-Mailer: PHP \r\n";
 	$headers[] = 'From: Wristband Creation Team <no-reply@kulayfulwp.local>' . "\r\n";
-	$mail = wp_mail( 'chris@kulayful.com', 'Shipped Confirmation', $content, $headers );
+	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Shipped Confirmation', $content, $headers );
 }
 
