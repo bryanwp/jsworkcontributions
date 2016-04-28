@@ -199,3 +199,82 @@ function post_order_notes( $order_id ){
 		<?php
 }
 
+function email_content_after_order( $args ){
+	
+	extract( $args );
+	
+	$content = '';
+	//populating content
+	$content.='<!DOCTYPE html>';
+	$content.='<html lang="en">';
+		$content.='<head>';
+			$content.='<meta charset="UTF-8">';
+			$content.='<title>Expat Media Success Registration</title>';
+			$content.='<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">';
+			// $content.='<style type="text/css">';
+			// 	$content.='.title{ text-align: right;font-size: 18px;font-family: sans-serif;color: #585858; }';
+			// $content.='</style>';
+		$content.='</head>';
+		$content.='<body style="font-family: sans-serif; font-weight: lighter;">';
+			$content.='<div style="width: 650px; margin: 0px auto;">';
+				$content.='<table width="100%" style="border-bottom: 2px solid #ECE9E9;">';
+					$content.='<tr>';
+						$content.='<td><img style="width: 250px;" src="https://gwplabs.com/wp-content/uploads/wclogo.png" alt="logo"></td>';
+						$content.='<td><p style="text-align:right;font-size: 18px;font-family: sans-serif;color: #585858;">Order Confirmation</p></td>';
+					$content.='</tr>';
+				$content.='</table>';
+				$content.='<p style="color: #F5B07C;font-size: 18px;">Hello ' . $full_name . ',</p>';
+				$content.='<p>';
+					$content.='Thank you for shopping with us. You Ordered <span style="color: #3EBEEF;">"'. $order_name . '".</span><br />';
+					$content.='We\'ll send a confirmation when your item ships.';
+				$content.='</p>';
+				$content.='<p style="color: #F5B07C;font-size: 18px; padding-bottom: 7px; border-bottom: 2px solid #ECE9E9; margin-bottom: -7px;">Details</p>';
+				$content.='<p style="color: #9C9C9C;">Order <span style="color: #3EBEEF;">#' . $order_id . '</span></p>';
+				$content.='<table width="100%" style="font-weight: lighter;    border-top: 3px solid #CAC4C4;background: #F3F3F3; padding: 20px 10px;">';
+					$content.='<tr style="height: 130px;">';
+						$content.='<td width="50%" style="vertical-align: top;">';
+							$content.='<span style="color: #7B7B7B;">Arriving</span><br />';
+							$content.='<span style="font-weight: normal;color: #2EB904;">' . $arrival . '</span> ';
+							$content.='<p style="text-align: center;margin-top: 40px;">';
+								$content.='<a style="padding: 16px 40px;color: #1D1D1D;text-decoration: none;font-weight: normal;border-radius: 5px;border: 1px solid #CCAF47;background: linear-gradient(to bottom, #fefcea 0%,#E4C553 52%);" href="' . home_url('customer-dashboard/?action=view&ID=' . $order_id ) . '">View or manage order</a>';
+							$content.='</p>';
+						$content.='</td>';
+						$content.='<td width="50%" style="vertical-align: top;padding-left: 10px;">';
+							$content.='<div style="margin: 0px auto;width: 160px;">';
+								$content.='<span style="color: #7B7B7B;">Ship to:</span><br />';
+								$content.='<span>' . $full_name . '</span>';
+								$content.='<p>';
+									$content.='<span style="font-size: 13px;color: #5A5A5A;">Total Before Tax:&nbsp;&nbsp;$' . $sub_total . '</span> <br />';
+									$content.='<span style="font-size: 13px;color: #5A5A5A;">Estimated Tax:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$' . $tax . '</span> <br />';
+									$content.='<span style="font-size: 14px;color: #5A5A5A;font-weight: bold;">Order Total: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$' . $total . '</span>';
+								$content.='</p>';
+							$content.='</div>';
+						$content.='</td>';
+					$content.='</tr>';
+				$content.='</table>';
+				$content.='<p style="color: #737373;">We hope to see you again soon.</p>';
+				$content.='<p style="margin-top: -10px; font-weight: bold;">Wristband Creation</p>';
+				$content.='<hr style="border-top: 1px solid #ECE9E9;">';
+				$content.='<p style="color: #565656;font-size: 14px;">';
+					$content.='The payment of your invoice is processed by WristbandCreation.com. If you need more information please contact (800) 403-8050';
+				$content.='</p>';
+				$content.='<p style="color: #565656;font-size: 14px;">';
+					$content.='By placing your order, you agree to WristbandCreation.com\'s <span style="color: #00A9D4;">Privacy Notice</span> and <span style="color: #00A9D4;">Condition of use</span>. Unless otherwise noted, items sold by WristbandCreation.com LLC are subject to sales tax in select states in accordance with the applicable laws of the state. If your order contains one or more items from a seller other than WristbandCreation.com LLC, it may be subject to state and local sales tax, depending upon the seller\'s business policies and the location of their operations. Learn more about <span style="color: #00A9D4;">tax and seller information</span>.';
+				$content.='</p>';
+			$content.='</div>';
+		$content.='</body>';
+	$content.='</html>';
+
+	return $content;
+}
+
+function wp_send_email_after_order( $args ){
+	
+	$content   =  email_content_after_order( $args );
+	$headers[] = 'MIME-Version: 1.0' . "\r\n";
+	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+	$headers[] = "X-Mailer: PHP \r\n";
+	$headers[] = 'From: no-reply@kulayfulwp.local' . "\r\n";
+	$mail = wp_mail( 'Kiltance1981@gustr.com', 'Sample email', $content, $headers );
+}
+
