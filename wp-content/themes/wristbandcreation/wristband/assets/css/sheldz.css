@@ -881,3 +881,11 @@ textarea#log-con {
 .linedwrap .codelines .lineselect {
     color: red;
 }
+a.package_btn {
+    font-size: 12px;
+    font-weight: normal;
+    background: #213F99;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 3px;
+}

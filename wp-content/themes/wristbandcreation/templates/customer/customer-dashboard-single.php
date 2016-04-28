@@ -36,7 +36,7 @@ foreach ( $items as $item ) {
 		<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
 	</div>
 	<div style="margin-top: 20px;">
-			<h2><?php echo get_order_number_format( $order_id ); ?> (<?php echo get_status( get_post_meta( $order_id, '_new_status', true ) ); ?>)</h2>
+			<h1><?php echo get_order_number_format( $order_id ); ?>  (<?php echo get_status( get_post_meta( $order_id, '_new_status', true ) ); ?>)</h1>
 	</div>
 
 	<div class="table-1 no-overflow">
@@ -87,8 +87,9 @@ if ( $order ) :
 		<?php
 		$track = get_post_meta( $order_id, 'supplier_trackingnumber', true );
 		if ( $track ) {
-			echo '<p class="t-no">Tracking Number: '.$track.'</p>';
-			echo '<a href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . $track .'" > here </a>';
+			echo '<p class="t-no">Tracking Number: '.$track;
+			echo ' <a class="package_btn" href="https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . $track .'"  target="_blank"> Track your package </a>';
+			echo '</p>';
 		} else {
 			echo '<p class="t-no">Tracking Number: Waiting for the supplier.</p>';
 		}

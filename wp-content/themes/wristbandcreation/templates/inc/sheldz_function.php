@@ -849,7 +849,78 @@ function set_order_session(){
 		do_action('wc_order_again');
 	}
 }
-function wpdocs_dequeue_script() {
-   wp_dequeue_script( 'webfontloader' );
+// function wpdocs_dequeue_script() {
+   
+// }
+// add_action( 'wp_print_scripts', 'wpdocs_dequeue_script', 100 );
+
+add_action( 'wp_print_scripts', 'deregister_scripts' );
+function deregister_scripts(){
+	wp_deregister_script( 'webfontloader' );
+	wp_deregister_script('admin-bar');
+	wp_deregister_script('greensock');
+	wp_deregister_script('layerslider');
+	wp_deregister_script('layerslider-transitions');
+	wp_deregister_script('bbpress-editor');
+	wp_deregister_script('contact-form-7');
+	wp_deregister_script('tp-tools');
+	wp_deregister_script('revmin');
+	wp_deregister_script('wc-add-to-cart');
+	wp_deregister_script('woocommerce');
+	wp_deregister_script('wc-cart-fragments');
+	wp_deregister_script('mod-home-script');
+	wp_deregister_script('media-editor');
+	wp_deregister_script('media-audiovideo');
+	wp_deregister_script('comment-reply');
+	wp_deregister_script('cssua');
+	wp_deregister_script('Froogaloop');
+	wp_deregister_script('jquery.easyPieChart');
+	wp_deregister_script('jquery.infinitescroll');
+	wp_deregister_script('imagesLoaded');
+	wp_deregister_script('excanvas');
+	wp_deregister_script('isotope');
+	wp_deregister_script('jquery.appear');
+	wp_deregister_script('jquery.touchSwipe');
+	wp_deregister_script('jquery.carouFredSel');
+	wp_deregister_script('jquery.countTo');
+	wp_deregister_script('jquery.countdown');
+	wp_deregister_script('jquery.cycle');
+	wp_deregister_script('jquery.easing');
+	wp_deregister_script('jquery.elasticslider');
+	wp_deregister_script('jquery.fitvids');
+	wp_deregister_script('jquery.flexslider');
+	wp_deregister_script('jquery.fusion_maps');
+	wp_deregister_script('jquery.hoverflow');
+	wp_deregister_script('jquery.hoverIntent');
+	wp_deregister_script('jquery.placeholder');
+	wp_deregister_script('jquery.toTop');
+	wp_deregister_script('jquery.waypoints');
+	wp_deregister_script('modernizr');
+	wp_deregister_script('jquery.requestAnimationFrame');
+	wp_deregister_script('jquery.mousewheel');
+	wp_deregister_script('ilightbox.packed');
+	wp_deregister_script('avada-lightbox');
+	wp_deregister_script('avada-header');
+	wp_deregister_script('avada-select');
+	wp_deregister_script('avada-parallax');
+	wp_deregister_script('avada-video-bg');
+	wp_deregister_script('avada-woocommerce');
+	wp_deregister_script('sendpress-signup-form-js');
+	wp_deregister_script('wp-embed');
+	wp_deregister_script('avada');
 }
-add_action( 'wp_print_scripts', 'wpdocs_dequeue_script', 100 );
+
+// add_action('wp_head', 'debug_scripts_queued');
+// function debug_scripts_queued() {
+//     global $wp_scripts;
+//     echo '<!--- SCRIPTS QUEUED'."\r\n";
+//     foreach ( $wp_scripts->queue as $script ) {
+//         echo "\r\nSCRIPT: ".$script."\r\n";
+//         $deps = $wp_scripts->registered[$script]->deps;
+//         if ($deps) {
+//             echo "DEPENDENCIES: ";
+//             print_r($deps);
+//         }
+//     }
+//     echo "\r\n--->";
+// }
