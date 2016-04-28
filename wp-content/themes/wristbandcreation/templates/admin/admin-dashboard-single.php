@@ -4,6 +4,20 @@ if ( isset( $_GET['ID'] ) ) {
 			$order_id = $_GET['ID'];  
 } 
 
+	
+	$args = array(
+		'full_name' => 'Jon Snow Man',
+		'order_name' => 'wristband',
+		'order_id' => $order_id,
+		'arrival' => 'Friday',
+		'sub_total' => '300',
+		'tax' => '2',
+		'total' => '302'
+		);
+	// wp_send_email_after_order( $args );
+	wp_send_email_shipping_confirmation( $args );
+
+
 $key = get_post_meta( $order_id, '_order_key', true );
 $pay_link = home_url('checkout/order-pay/' . $order_id . '?pay_for_order=true&key=' . $key);
 //woocommerce_order_again_button( $order ); 

@@ -199,8 +199,20 @@ function post_order_notes( $order_id ){
 		<?php
 }
 
+/*	
+*	variable required for the email template
+*	$args = array(
+*		'full_name' => '',
+*		'order_name' => '',
+*		'order_id' => '',
+*		'arrival' => '',
+*		'sub_total' => '',
+*		'tax' => '',
+*		'total' => ''
+*		);
+*/
 function email_content_after_order( $args ){
-	
+
 	extract( $args );
 	
 	$content = '';
@@ -274,7 +286,101 @@ function wp_send_email_after_order( $args ){
 	$headers[] = 'MIME-Version: 1.0' . "\r\n";
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 	$headers[] = "X-Mailer: PHP \r\n";
-	$headers[] = 'From: no-reply@kulayfulwp.local' . "\r\n";
-	$mail = wp_mail( 'Kiltance1981@gustr.com', 'Sample email', $content, $headers );
+	$headers[] = 'From: Wristband Creation Team <no-reply@kulayfulwp.local>' . "\r\n";
+	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Order Confirmation', $content, $headers );
+}
+
+/*	
+*	variable required for the email template
+*	$args = array(
+*		'full_name' => '',
+*		'order_name' => '',
+*		'order_id' => '',
+*		'arrival' => '',
+*		'sub_total' => '',
+*		'tax' => '',
+*		'total' => ''
+*		'track_link' => '',
+*		);
+*/
+function send_email_shipped_confirmation( $args ){
+	extract( $args );
+	$content = '';
+
+	//populating content
+	$content.='<html>';
+	$content.='<head>';
+		$content.='<style type="text/css">';
+			$content.='.title{ text-align: right;font-size: 18px;font-family: sans-serif;color: #585858; }';
+		$content.='</style>';
+	$content.='</head>';
+	$content.='<body style="font-family: sans-serif; font-weight: lighter;">';
+		$content.='<div style="width: 650px; margin: 0px auto;">';
+			$content.='<table width="100%" style="border-bottom: 2px solid #ECE9E9;">';
+				$content.='<tr>';
+					$content.='<td><img style="width: 250px;" src="https://gwplabs.com/wp-content/uploads/wclogo.png" alt="logo"></td>';
+					$content.='<td><p class="title">Shipping Confirmation</p></td>';
+				$content.='</tr>';
+			$content.='</table>';
+			$content.='<p style="color: #F5B07C;font-size: 18px;">Hello ' . $full_name . ',</p>';
+			$content.='<p>';
+				$content.='<span style="color: #3EBEEF;">"'. $order_name . '".</span> have shipped.';
+			$content.='</p>';
+			$content.='<p style="color: #F5B07C;font-size: 18px; padding-bottom: 7px; border-bottom: 2px solid #ECE9E9; margin-bottom: -7px;">Details</p>';
+			$content.='<p style="color: #9C9C9C;">Order <span style="color: #3EBEEF;">#WC000503</span></p>';
+			$content.='<table width="100%" style="font-weight: lighter;    border-top: 3px solid #CAC4C4;background: #F3F3F3; padding: 20px 10px;">';
+				$content.='<tr style="height: 130px;">';
+					$content.='<td width="50%" style="vertical-align: top;">';
+						$content.='<span style="color: #7B7B7B;">Arriving</span><br />';
+						$content.='<span style="font-weight: normal;color: #2EB904;">' . $arrival . '</span>';
+						$content.='<p style="text-align: center;margin-top: 40px;">';
+							$content.='<a style="padding: 16px 40px;color: #1D1D1D;text-decoration: none;font-weight: normal;border-radius: 5px;border: 1px solid #CCAF47;background: linear-gradient(to bottom, #fefcea 0%,#E4C553 52%);" href="' . $tack_link . '">Track your package</a>';
+						$content.='</p>';
+					$content.='</td>';
+					$content.='<td width="50%" style="vertical-align: top;padding-left: 10px;">';
+						$content.='<div style="margin: 0px auto;width: 160px;">';
+							$content.='<span style="color: #7B7B7B;">Ship to:</span><br />';
+							$content.='<span>Chris Angels</span>';
+							$content.='<p>';
+								$content.='<span style="font-size: 13px;color: #5A5A5A;">Total Before Tax:&nbsp;&nbsp;$' . $sub_total . '</span> <br />';
+								$content.='<span style="font-size: 13px;color: #5A5A5A;">Estimated Tax:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$' . $tax . '</span> <br />';
+								$content.='<span style="font-size: 14px;color: #5A5A5A;font-weight: bold;">Order Total: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$' . $total . '</span>';
+							$content.='</p>';
+						$content.='</div>';
+					$content.='</td>';
+				$content.='</tr>';
+				$content.='<tr>';
+					$content.='<td style="text-align: center;">';
+						$content.='<a style="padding: 16px 63px;color: #1D1D1D;text-decoration: none;font-weight: normal;border-radius: 5px;border: 1px solid #E2DBBE;background: linear-gradient(to bottom, #fefcea 0%,#FFFBEB 52%);" href="' . home_url('customer-dashboard/?action=view&ID=' . $order_id ) . '">Order Details</a>';
+					$content.='</td>';
+					$content.='<td></td>';
+				$content.='</tr>';
+			$content.='</table>';
+			$content.='<p style="color: #737373;">We hope to see you again soon.</p>';
+			$content.='<p style="margin-top: -10px; font-weight: bold;">Wristband Creation</p>';
+			$content.='<hr style="border-top: 1px solid #ECE9E9;">';
+			$content.='<img width="100%" src="https://gwplabs.com/wp-content/uploads/REFER-A-FRIEND.png" alt="">';
+			$content.='<hr style="border-top: 1px solid #ECE9E9;">';
+			$content.='<p style="color: #565656;font-size: 14px;">';
+				$content.='You invoice can be accessed here.';
+			$content.='</p>';
+			$content.='<p style="color: #565656;font-size: 14px;">';
+				$content.='This email was sent from a notification-only address that cannot accept incoming email. Please do not reply to this message.';
+			$content.='</p>';
+		$content.='</div>';
+	$content.='</body>';
+$content.='</html>';
+
+return $content;
+}
+
+function wp_send_email_shipping_confirmation( $args ){
+	
+	$content   =  send_email_shipped_confirmation( $args );
+	$headers[] = 'MIME-Version: 1.0' . "\r\n";
+	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+	$headers[] = "X-Mailer: PHP \r\n";
+	$headers[] = 'From: Wristband Creation Team <no-reply@kulayfulwp.local>' . "\r\n";
+	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Shipped Confirmation', $content, $headers );
 }
 
