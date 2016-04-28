@@ -100,57 +100,54 @@ function register_new_user_phase_two(){
 }
 
 
-add_action( 'init', 'check_if_login' );
-function check_if_login(){
-	//initializing redirect url
-	$current_user = wp_get_current_user();
-	$redirect = home_url( 'login' );
-	$role = get_user_meta ( $current_user->ID, 'custom_role', true );
+// add_action( 'init', 'check_if_login' );
+// function check_if_login(){
+// 	//initializing redirect url
+// 	$current_user = wp_get_current_user();
+// 	$redirect = home_url( 'login' );
+// 	$role = get_user_meta ( $current_user->ID, 'custom_role', true );
 
-	if ( ! is_user_logged_in () ) {
-		if ( is_page( 'customer-dashboard' ) ) {
-			exit( wp_redirect( $redirect ) );
-		}
-	}
+// 	if ( ! is_user_logged_in () ) {
+// 		if ( is_page( 'customer-dashboard' ) ) {
+// 			exit( wp_redirect( $redirect ) );
+// 		}
+// 	}
 
-	if ( is_page( 'admin-dashboard' ) ) {
-		if ( ! current_user_can( 'manage_options' ) ) {
-			$redirect = home_url( 'customer-dashboard' );
-			exit( wp_redirect( $redirect ) );
-		}
-	}
+// 	if ( is_page( 'admin-dashboard' ) ) {
+// 		if ( ! current_user_can( 'manage_options' ) ) {
+// 			$redirect = home_url( 'customer-dashboard' );
+// 			exit( wp_redirect( $redirect ) );
+// 		}
+// 	}
 
-	if ( is_page( 'supplier-dashboard' ) ) {
-		if ( $role != 'Supplier' ) {
-			$redirect = home_url( 'customer-dashboard' );
-			exit( wp_redirect( $redirect ) );
-		}
-	}
+// 	if ( is_page( 'supplier-dashboard' ) ) {
+// 		if ( $role != 'Supplier' ) {
+// 			$redirect = home_url( 'customer-dashboard' );
+// 			exit( wp_redirect( $redirect ) );
+// 		}
+// 	}
 
-	if ( is_page( 'employee-dashboard' ) ) {
-		if ( $role != 'Employee' ) {
-			$redirect = home_url( 'customer-dashboard' );
-			exit( wp_redirect( $redirect ) );
-		}
-	}
+// 	if ( is_page( 'employee-dashboard' ) ) {
+// 		if ( $role != 'Employee' ) {
+// 			$redirect = home_url( 'customer-dashboard' );
+// 			exit( wp_redirect( $redirect ) );
+// 		}
+// 	}
 
-		if ( is_page( 'customer-dashboard' ) ) {
-		$role = get_user_meta ( $current_user->ID, 'custom_role', true );
-		if ( $role == 'Employee' ) {
-			$redirect = home_url( 'employee-dashboard' );
-			exit( wp_redirect( $redirect ) );
-		} elseif ($role == 'Supplier') {
-			$redirect = home_url( 'supplier-dashboard' );
-			exit( wp_redirect( $redirect ) );
-		} elseif ($role == 'Admin') {
-			$redirect = home_url( 'admin-dashboard' );
-			exit( wp_redirect( $redirect ) );
-		}
-	}
-
-
-
-}
+// 		if ( is_page( 'customer-dashboard' ) ) {
+// 		$role = get_user_meta ( $current_user->ID, 'custom_role', true );
+// 		if ( $role == 'Employee' ) {
+// 			$redirect = home_url( 'employee-dashboard' );
+// 			exit( wp_redirect( $redirect ) );
+// 		} elseif ($role == 'Supplier') {
+// 			$redirect = home_url( 'supplier-dashboard' );
+// 			exit( wp_redirect( $redirect ) );
+// 		} elseif ($role == 'Admin') {
+// 			$redirect = home_url( 'admin-dashboard' );
+// 			exit( wp_redirect( $redirect ) );
+// 		}
+// 	}
+// }
 
 add_action('wp_ajax_check-email', 'check_email');
 add_action('wp_ajax_nopriv_check-email', 'check_email');
@@ -854,8 +851,11 @@ function set_order_session(){
 // }
 // add_action( 'wp_print_scripts', 'wpdocs_dequeue_script', 100 );
 
-add_action( 'wp_print_scripts', 'deregister_scripts' );
+function remove_scripts(){
+	add_action( 'wp_head', 'deregister_scripts' );
+}
 function deregister_scripts(){
+
 	wp_deregister_script( 'webfontloader' );
 	wp_deregister_script('admin-bar');
 	wp_deregister_script('greensock');
@@ -908,19 +908,40 @@ function deregister_scripts(){
 	wp_deregister_script('sendpress-signup-form-js');
 	wp_deregister_script('wp-embed');
 	wp_deregister_script('avada');
+
+	wp_deregister_style('admin-bar');
+	wp_deregister_style('layerslider');
+	wp_deregister_style('ls-google-fonts');
+	wp_deregister_style('bbp-default');
+	wp_deregister_style('contact-form-7');
+	wp_deregister_style('rs-plugin-settings');
+	wp_deregister_style('woocommerce-layout');
+	wp_deregister_style('woocommerce-smallscreen');
+	wp_deregister_style('woocommerce-general');
+	wp_deregister_style('yoast-seo-adminbar');
+	wp_deregister_style('media-views');
+	wp_deregister_style('imgareaselect');
+	wp_deregister_style('list_of_icons');
+	wp_deregister_style('avada-iLightbox');
+	wp_deregister_style('avada-animations');
+	wp_deregister_style('avada-woocommerce');
+	wp_deregister_style('avada-bbpress');
+	wp_deregister_style('sendpress-fe-css');
+	wp_deregister_style('avada-shortcodes');
+
 }
 
-// add_action('wp_head', 'debug_scripts_queued');
-// function debug_scripts_queued() {
-//     global $wp_scripts;
-//     echo '<!--- SCRIPTS QUEUED'."\r\n";
-//     foreach ( $wp_scripts->queue as $script ) {
-//         echo "\r\nSCRIPT: ".$script."\r\n";
-//         $deps = $wp_scripts->registered[$script]->deps;
-//         if ($deps) {
-//             echo "DEPENDENCIES: ";
-//             print_r($deps);
-//         }
-//     }
-//     echo "\r\n--->";
-// }
+add_action('wp_head', 'debug_scripts_queued');
+function debug_scripts_queued() {
+    global $wp_styles;
+    echo '<!--- SCRIPTS QUEUED'."\r\n";
+    foreach ( $wp_styles->queue as $script ) {
+        echo "\r\nSCRIPT: ".$script."\r\n";
+        $deps = $wp_styles->registered[$script]->deps;
+        if ($deps) {
+            echo "DEPENDENCIES: ";
+            print_r($deps);
+        }
+    }
+    echo "\r\n--->";
+}

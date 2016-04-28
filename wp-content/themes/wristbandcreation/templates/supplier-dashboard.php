@@ -1,6 +1,6 @@
 <?php
  //Template Name: Supplier Dashboard
-check_if_login();
+// check_if_login();
 
 // foreach ( $results as $result => $post_id ) {
 // 	$order = new WC_Order($post_id);

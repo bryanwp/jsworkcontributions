@@ -46,7 +46,10 @@ if ( is_page('customer-dashboard') ) {
 		<!-- <link rel="shortcut icon" href="<?php // echo Avada()->settings->get( 'favicon' ); ?>" type="image/x-icon" /> -->
 	<?php //endif; ?>
 
-	<?php wp_head(); ?>
+	<?php
+		remove_scripts();
+		wp_head();
+	?>
 
 	<?php
 

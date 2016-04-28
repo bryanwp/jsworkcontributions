@@ -49,10 +49,11 @@ function avada_lang_setup() {
 }
 add_action( 'after_setup_theme', 'avada_lang_setup' );
 
+
+
 // Add My Custom Functions File 
 include_once( get_stylesheet_directory() . '/templates/inc/sheldz_function.php' );
 include_once( get_stylesheet_directory() . '/templates/jus_functions.php' );
-
 
 /* To work with TypeKit
 function theme_typekit() {
