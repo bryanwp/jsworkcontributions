@@ -248,7 +248,7 @@ function email_content_after_order( $args ){
 							$content.='<span style="color: #7B7B7B;">Arriving</span><br />';
 							$content.='<span style="font-weight: normal;color: #2EB904;">' . $arrival . '</span> ';
 							$content.='<p style="text-align: center;margin-top: 40px;">';
-								$content.='<a style="padding: 16px 40px;color: #1D1D1D;text-decoration: none;font-weight: normal;border-radius: 5px;border: 1px solid #CCAF47;background: linear-gradient(to bottom, #fefcea 0%,#E4C553 52%);" href="' . home_url('customer-dashboard/?action=view&ID=' . $order_id ) . '">View or manage order</a>';
+								$content.='<a style="font-size: 14px;font-weight: bold;padding: 16px 40px;color: #1D1D1D;text-decoration: none;border-radius: 5px;border: 1px solid #CCAF47;background: linear-gradient(to bottom, #fefcea 0%,#E4C553 52%);" href="' . home_url('customer-dashboard/?action=view&ID=' . $order_id ) . '">View or manage order</a>';
 							$content.='</p>';
 						$content.='</td>';
 						$content.='<td width="50%" style="vertical-align: top;padding-left: 10px;">';
@@ -287,7 +287,7 @@ function wp_send_email_after_order( $args ){
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 	$headers[] = "X-Mailer: PHP \r\n";
 	$headers[] = 'From: Wristband Creation Team <no-reply@kulayfulwp.local>' . "\r\n";
-	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Order Confirmation', $content, $headers );
+	$mail = wp_mail( 'chris@kulayful.com', 'Order Confirmation', $content, $headers );
 }
 
 /*	
@@ -311,7 +311,7 @@ function send_email_shipped_confirmation( $args ){
 	$content.='<html>';
 	$content.='<head>';
 		$content.='<style type="text/css">';
-			$content.='.title{ text-align: right;font-size: 18px;font-family: sans-serif;color: #585858; }';
+			$content.='.title{  }';
 		$content.='</style>';
 	$content.='</head>';
 	$content.='<body style="font-family: sans-serif; font-weight: lighter;">';
@@ -319,7 +319,7 @@ function send_email_shipped_confirmation( $args ){
 			$content.='<table width="100%" style="border-bottom: 2px solid #ECE9E9;">';
 				$content.='<tr>';
 					$content.='<td><img style="width: 250px;" src="https://gwplabs.com/wp-content/uploads/wclogo.png" alt="logo"></td>';
-					$content.='<td><p class="title">Shipping Confirmation</p></td>';
+					$content.='<td><p style="text-align: right;font-size: 18px;font-family: sans-serif;color: #585858;" >Shipping Confirmation</p></td>';
 				$content.='</tr>';
 			$content.='</table>';
 			$content.='<p style="color: #F5B07C;font-size: 18px;">Hello ' . $full_name . ',</p>';
@@ -334,7 +334,7 @@ function send_email_shipped_confirmation( $args ){
 						$content.='<span style="color: #7B7B7B;">Arriving</span><br />';
 						$content.='<span style="font-weight: normal;color: #2EB904;">' . $arrival . '</span>';
 						$content.='<p style="text-align: center;margin-top: 40px;">';
-							$content.='<a style="padding: 16px 40px;color: #1D1D1D;text-decoration: none;font-weight: normal;border-radius: 5px;border: 1px solid #CCAF47;background: linear-gradient(to bottom, #fefcea 0%,#E4C553 52%);" href="' . $tack_link . '">Track your package</a>';
+							$content.='<a style="font-size: 14px;font-weight: bold;padding: 16px 40px;color: #1D1D1D;text-decoration: none;border-radius: 5px;border: 1px solid #CCAF47;background: linear-gradient(to bottom, #fefcea 0%,#E4C553 52%);" href="' . $tack_link . '">Track your package</a>';
 						$content.='</p>';
 					$content.='</td>';
 					$content.='<td width="50%" style="vertical-align: top;padding-left: 10px;">';
@@ -351,7 +351,7 @@ function send_email_shipped_confirmation( $args ){
 				$content.='</tr>';
 				$content.='<tr>';
 					$content.='<td style="text-align: center;">';
-						$content.='<a style="padding: 16px 63px;color: #1D1D1D;text-decoration: none;font-weight: normal;border-radius: 5px;border: 1px solid #E2DBBE;background: linear-gradient(to bottom, #fefcea 0%,#FFFBEB 52%);" href="' . home_url('customer-dashboard/?action=view&ID=' . $order_id ) . '">Order Details</a>';
+						$content.='<a style="font-size: 14px;font-weight: bold;padding: 16px 63px;color: #1D1D1D;text-decoration: none;border-radius: 5px;border: 1px solid #E2DBBE;background: linear-gradient(to bottom, #fefcea 0%,#FFFBEB 52%);" href="' . home_url('customer-dashboard/?action=view&ID=' . $order_id ) . '">Order Details</a>';
 					$content.='</td>';
 					$content.='<td></td>';
 				$content.='</tr>';
@@ -381,6 +381,6 @@ function wp_send_email_shipping_confirmation( $args ){
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 	$headers[] = "X-Mailer: PHP \r\n";
 	$headers[] = 'From: Wristband Creation Team <no-reply@kulayfulwp.local>' . "\r\n";
-	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Shipped Confirmation', $content, $headers );
+	$mail = wp_mail( 'chris@kulayful.com', 'Shipped Confirmation', $content, $headers );
 }
 
