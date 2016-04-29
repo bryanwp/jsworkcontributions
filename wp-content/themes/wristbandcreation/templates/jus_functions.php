@@ -284,7 +284,11 @@ function change_status() {
 			// var_dump($post);
 			// die();
 			$x = $post['newstatus'];
-			$tracking = $post['trackingnum'];
+			$tracking = '';
+			if (isset( $post['trackingnum'] ) ) {
+				$tracking = $post['trackingnum'];
+			}
+			
 			// echo $x;
 			//echo $tracking;
 
@@ -302,20 +306,27 @@ function change_status() {
 			$user_id = get_post_meta( $post['post-id'], '_customer_user', true );
 			$user = get_userdata( $user_id );
 
-			$order = new WC_Order( $order_id );
+			$order = new WC_Order( $post['post-id'] );
 			$items = $order->get_items();
 			$order_name = '';
 			$arrival = '';
+			$sub = 0;
 			foreach ($items as $value) {
 		    	$order_name = $value['name'];
-		    	$arrival = $value['guaranteed_delivery'];
+		    	if ( ! empty( $value['guaranteed_delivery'] ) ) {
+		    		$arrival = $value['guaranteed_delivery'];
+		    	} else {
+		    		$arrival = 'undefine';
+		    	}
+		    	
+		    	$sub = $value['line_subtotal'];
 		    }
 			$args = array(
 				'full_name' => $user->display_name,
 				'order_name' => $order_name,
 				'order_id' => $post['post-id'],
 				'arrival' => $arrival,
-				'sub_total' => get_cart_subtotal( $post['post-id'] ),
+				'sub_total' => $sub,
 				'tax' => get_post_meta( $post['post-id'], '_order_tax', true ),
 				'total' => get_post_meta( $post['post-id'], '_order_total', true ),
 				'user_id' => $user_id,
