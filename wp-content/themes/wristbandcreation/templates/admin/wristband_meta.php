@@ -14,4 +14,9 @@ foreach ( $items as $item ) {
     print_r( $wristband_meta );
     echo "<br />";
 }
+// echo "<pre>";
+    
+//     foreach ($items as $value) {
+//     	print_r( $value['name'] );
+//     }
 die;

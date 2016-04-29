@@ -235,13 +235,114 @@ function email_content_after_order( $args ){
 						$content.='<td><p style="text-align:right;font-size: 18px;font-family: sans-serif;color: #585858;">Order Confirmation</p></td>';
 					$content.='</tr>';
 				$content.='</table>';
-				$content.='<p style="color: #F5B07C;font-size: 18px;">Hello ' . $full_name . ',</p>';
+				$content.='<p style="color: #1D429A;font-size: 18px;">Hello ' . $full_name . ',</p>';
 				$content.='<p>';
 					$content.='Thank you for shopping with us. You Ordered <span style="color: #3EBEEF;">"'. $order_name . '".</span><br />';
 					$content.='We\'ll send a confirmation when your item ships.';
 				$content.='</p>';
-				$content.='<p style="color: #F5B07C;font-size: 18px; padding-bottom: 7px; border-bottom: 2px solid #ECE9E9; margin-bottom: -7px;">Details</p>';
-				$content.='<p style="color: #9C9C9C;">Order <span style="color: #3EBEEF;">#' . $order_id . '</span></p>';
+				$content.='<p style="color: #1D429A;font-size: 18px; padding-bottom: 7px; border-bottom: 2px solid #ECE9E9; margin-bottom: -7px;">Details</p>';
+				$content.='<p style="color: #9C9C9C;">Order <span style="color: #3EBEEF;">#' . get_order_number_format( $order_id ) . '</span></p>';
+
+				$content.='<table border="1" bordercolor="grey" width="100%" cellspacing="0" cellpadding="0" style"border: #ccc solid 1px;">';
+					$content.='<thead>';
+					$content.='<tr style="background: #DCDCDC;">';
+						$content.='<th style="padding: 5px;font-weight: bold;">Item</th>';
+						$content.='<th style="padding: 5px;font-weight: bold;text-align: center;">Quantity</th>';
+						$content.='<th style="padding: 5px;font-weight: bold;text-align: center;">Sub Total</th>';
+					$content.='</tr>';
+					$content.='</thead>';
+					$content.='<tbody>';
+					 	//do_action( 'woocommerce_before_cart_contents' );
+					$order = new WC_Order( $order_id );
+					$cart_items = $order->get_items();
+
+					foreach ( $cart_items as $cart_item ) {
+						$wristband_meta = maybe_unserialize( $cart_item['wristband_meta']);
+					    $color = $wristband_meta['colors'];
+
+						if ( $cart_item ) {
+							
+							$content.='<tr>';
+								$content.='<td style="padding: 5px;">';
+									$total_qty = 0;
+									$content.= '<b>'. $cart_item['name'] .' Wristbands </b><br />';
+									$content.= '<label>Wristband Width: '.$wristband_meta['size'].' Inch</label><br />';
+									$content.= '<br /><b>Quantity and Colors:</b>';
+
+									$color = $wristband_meta['colors'];
+									foreach ($color as $colors) {
+										$count = 1;
+										$sizes = $colors['sizes'];
+										foreach ( $sizes as $size ) {
+											if ( $size >= 1 && $count === 1 ) {
+												$content.= '<div><span>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' | Adult Size</span></div>'; 
+											} elseif ( $size >= 1 && $count === 2  ) {
+												$content.= '<div><span>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' | Medium Size</span></div>'; 
+											} elseif ( $size >= 1 && $count === 3  ) {
+												$content.= '<div><span>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' | Youth Size</span></div>'; 
+											} 
+											$total_qty = $total_qty + $size;
+											$count++;
+										}
+									}                  
+									$options = $wristband_meta['messages'];
+									$content.= '<br /><b>Text on Wristbands:</b><br />';
+									foreach ( $options as $key => $msg ) {
+										if ( ! empty( $msg ) ) {
+											$content.= '<span>' . $key . ': ' . $msg . '</span><br />'; 
+										}
+										
+									}
+
+									$clipart = $wristband_meta['clipart'];
+									$content.= '<br /><b>Clipart:</b><br />';
+									foreach ($clipart as $clipart_key => $clipart_value) {
+										
+										if ( ! empty( $clipart_value ) ) {
+											$icon = '';
+											if (preg_match('/(\.jpg|\.png|\.bmp)$/', $clipart_value)){ 
+								              $icon = '<img src="'.wp_upload_dir()['baseurl'] . '/clipart/' . $clipart_value.'" alt="" width="16px" height="16px">';
+								            } else {
+								              $icon = '<i class="fa ' . $clipart_value . '"></i>';
+								            }
+											$content.= '<span>' . str_replace( '_', ' ', ucwords( $clipart_key ) ) . ':'. $icon .' '. str_replace( 'aykun-', '', $clipart_value) .' </span><br />'; 
+										}
+									}
+
+									$options = $wristband_meta['additional_options'];
+									if ( $options ) {
+										$content.= '<br /><b>Additional Options:</b><br />';
+										foreach ( $options as $option ) {
+											$content.= '<span>' . $option . '</span><br />'; 
+										}
+									} 
+
+									$content.= '<br /><b>Production and Shipping:</b><br />';
+									$content.= '<span>' . $wristband_meta['customization_location'] . '</span><br />'; 
+									$content.= '<span>' . $wristband_meta['customization_date_production'] . '</span><br />'; 
+									$content.= '<span>' . $wristband_meta['customization_date_shipping'] . '</span><br />'; 
+										$content.='<br/>';
+								$content.='</td>';
+								$content.='<td style="text-align: center; vertical-align: top;padding: 5px;">';
+									$content.= $total_qty;
+								$content.='</td>';
+								$content.='<td style="text-align: center; vertical-align: top;padding: 5px;"> $';
+									$content.= round($wristband_meta['total_price'], 2);
+								$content.='</td>';
+							$content.='</tr>';
+						}
+					}
+
+					$content.='</tbody>';
+					$content.='<tfoot>';
+						$content.='<tr>';
+							$content.='<td colspan="2" style="padding: 5px;"><b>Grand Total</b></td>';
+							$content.='<td style="text-align: center;padding: 5px;"><b> '. $order->get_formatted_order_total() .' </b></td>';
+						$content.='</tr>';
+					$content.='</tfoot>';
+				$content.='</table>';
+				/* End Table - Order Summary - */
+
 				$content.='<table width="100%" style="font-weight: lighter;    border-top: 3px solid #CAC4C4;background: #F3F3F3; padding: 20px 10px;">';
 					$content.='<tr style="height: 130px;">';
 						$content.='<td width="50%" style="vertical-align: top;">';
@@ -252,9 +353,16 @@ function email_content_after_order( $args ){
 							$content.='</p>';
 						$content.='</td>';
 						$content.='<td width="50%" style="vertical-align: top;padding-left: 10px;">';
-							$content.='<div style="margin: 0px auto;width: 160px;">';
-								$content.='<span style="color: #7B7B7B;">Ship to:</span><br />';
-								$content.='<span>' . $full_name . '</span>';
+							$content.='<div style="margin: 0px auto;width: 220px;">';
+								$content.='<span style="color: #7B7B7B;">Shipping Address:</span><br />';
+
+								$user_id = get_current_user_id();
+
+								$content.='<span>' . get_user_meta( $user_id, 'shipping_first_name', true ) . ' ' . get_user_meta( $user_id, 'shipping_last_name', true ) . '</span><br />';
+								$content.='<span>' . get_user_meta( $user_id, 'shipping_address_1', true ) . '</span><br />';
+								$content.='<span>' . get_user_meta( $user_id, 'shipping_address_2', true ) . '</span><br />';
+								$content.='<span>' . get_user_meta( $user_id, 'shipping_state', true ) . '</span><br />';
+								$content.='<span>' . get_user_meta( $user_id, 'billing_phone', true ) . '</span><br />';
 								$content.='<p>';
 									$content.='<span style="font-size: 13px;color: #5A5A5A;">Total Before Tax:&nbsp;&nbsp;$' . $sub_total . '</span> <br />';
 									$content.='<span style="font-size: 13px;color: #5A5A5A;">Estimated Tax:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$' . $tax . '</span> <br />';
@@ -264,15 +372,17 @@ function email_content_after_order( $args ){
 						$content.='</td>';
 					$content.='</tr>';
 				$content.='</table>';
-				$content.='<p style="color: #737373;">We hope to see you again soon.</p>';
-				$content.='<p style="margin-top: -10px; font-weight: bold;">Wristband Creation</p>';
+
+				$content.='<p style="color: #737373;">We look forward to your continued business!</p>';
+				$content.='<p style="margin-top: -10px; font-weight: bold;">WristbandCreation.com</p>';
 				$content.='<hr style="border-top: 1px solid #ECE9E9;">';
+				$content.='<img width="100%" src="https://gwplabs.com/wp-content/uploads/REFER-A-FRIEND.png" alt="">';
 				$content.='<p style="color: #565656;font-size: 14px;">';
-					$content.='The payment of your invoice is processed by WristbandCreation.com. If you need more information please contact (800) 403-8050';
+					$content.='This email was sent from a notification-only address that cannot accept incoming email. Please do not reply to this message.';
 				$content.='</p>';
-				$content.='<p style="color: #565656;font-size: 14px;">';
-					$content.='By placing your order, you agree to WristbandCreation.com\'s <span style="color: #00A9D4;">Privacy Notice</span> and <span style="color: #00A9D4;">Condition of use</span>. Unless otherwise noted, items sold by WristbandCreation.com LLC are subject to sales tax in select states in accordance with the applicable laws of the state. If your order contains one or more items from a seller other than WristbandCreation.com LLC, it may be subject to state and local sales tax, depending upon the seller\'s business policies and the location of their operations. Learn more about <span style="color: #00A9D4;">tax and seller information</span>.';
-				$content.='</p>';
+				// $content.='<p style="color: #565656;font-size: 14px;">';
+				// 	$content.='By placing your order, you agree to WristbandCreation.com\'s <span style="color: #00A9D4;">Privacy Notice</span> and <span style="color: #00A9D4;">Condition of use</span>. Unless otherwise noted, items sold by WristbandCreation.com LLC are subject to sales tax in select states in accordance with the applicable laws of the state. If your order contains one or more items from a seller other than WristbandCreation.com LLC, it may be subject to state and local sales tax, depending upon the seller\'s business policies and the location of their operations. Learn more about <span style="color: #00A9D4;">tax and seller information</span>.';
+				// $content.='</p>';
 			$content.='</div>';
 		$content.='</body>';
 	$content.='</html>';
@@ -286,8 +396,8 @@ function wp_send_email_after_order( $args ){
 	$headers[] = 'MIME-Version: 1.0' . "\r\n";
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 	$headers[] = "X-Mailer: PHP \r\n";
-	$headers[] = 'From: Wristband Creation Team <no-reply@kulayfulwp.local>' . "\r\n";
-	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Order Confirmation', $content, $headers );
+	$headers[] = 'From: kulayfulwp Testing <no-reply@'. home_url() .'>' . "\r\n";
+	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Your Order of Customized Silicone Wristbands', $content, $headers );
 }
 
 /*	
@@ -322,19 +432,19 @@ function send_email_shipped_confirmation( $args ){
 					$content.='<td><p style="text-align: right;font-size: 18px;font-family: sans-serif;color: #585858;" >Shipping Confirmation</p></td>';
 				$content.='</tr>';
 			$content.='</table>';
-			$content.='<p style="color: #F5B07C;font-size: 18px;">Hello ' . $full_name . ',</p>';
+			$content.='<p style="color: #213F99;font-size: 18px;">Hello ' . $full_name . ',</p>';
 			$content.='<p>';
 				$content.='<span style="color: #3EBEEF;">"'. $order_name . '".</span> have shipped.';
 			$content.='</p>';
-			$content.='<p style="color: #F5B07C;font-size: 18px; padding-bottom: 7px; border-bottom: 2px solid #ECE9E9; margin-bottom: -7px;">Details</p>';
+			$content.='<p style="color: #213F99;font-size: 18px; padding-bottom: 7px; border-bottom: 2px solid #ECE9E9; margin-bottom: -7px;">Details</p>';
 			$content.='<p style="color: #9C9C9C;">Order <span style="color: #3EBEEF;">#WC000503</span></p>';
 			$content.='<table width="100%" style="font-weight: lighter;    border-top: 3px solid #CAC4C4;background: #F3F3F3; padding: 20px 10px;">';
-				$content.='<tr style="height: 130px;">';
+				$content.='<tr style="height: 135px;">';
 					$content.='<td width="50%" style="vertical-align: top;">';
 						$content.='<span style="color: #7B7B7B;">Arriving</span><br />';
 						$content.='<span style="font-weight: normal;color: #2EB904;">' . $arrival . '</span>';
 						$content.='<p style="text-align: center;margin-top: 40px;">';
-							$content.='<a style="font-size: 14px;font-weight: bold;padding: 16px 40px;color: #1D1D1D;text-decoration: none;border-radius: 5px;border: 1px solid #CCAF47;background: linear-gradient(to bottom, #fefcea 0%,#E4C553 52%);" href="' . $tack_link . '">Track your package</a>';
+							$content.='<a style="font-size: 14px;font-weight: bold;padding: 16px 40px;color: #1D1D1D;text-decoration: none;border-radius: 5px;border: 1px solid #90D0E8;background: linear-gradient(to bottom, #E6F8FF 0%,#96E1FF 52%);" href="' . $tack_link . '">Track your package</a>';
 						$content.='</p>';
 					$content.='</td>';
 					$content.='<td width="50%" style="vertical-align: top;padding-left: 10px;">';
@@ -350,8 +460,8 @@ function send_email_shipped_confirmation( $args ){
 					$content.='</td>';
 				$content.='</tr>';
 				$content.='<tr>';
-					$content.='<td style="text-align: center;">';
-						$content.='<a style="font-size: 14px;font-weight: bold;padding: 16px 63px;color: #1D1D1D;text-decoration: none;border-radius: 5px;border: 1px solid #E2DBBE;background: linear-gradient(to bottom, #fefcea 0%,#FFFBEB 52%);" href="' . home_url('customer-dashboard/?action=view&ID=' . $order_id ) . '">Order Details</a>';
+					$content.='<td style="text-align: center;height: 60px;vertical-align: top;">';
+						$content.='<a style="font-size: 14px;font-weight: bold;padding: 16px 63px;color: #1D1D1D;text-decoration: none;border-radius: 5px;border: 1px solid #B9B8B6;background: linear-gradient(to bottom, #F3F2F1 0%,#D4D2CA 52%);" href="' . home_url('customer-dashboard/?action=view&ID=' . $order_id ) . '">Order Details</a>';
 					$content.='</td>';
 					$content.='<td></td>';
 				$content.='</tr>';
@@ -381,6 +491,6 @@ function wp_send_email_shipping_confirmation( $args ){
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 	$headers[] = "X-Mailer: PHP \r\n";
 	$headers[] = 'From: Wristband Creation Team <no-reply@kulayfulwp.local>' . "\r\n";
-	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Shipped Confirmation', $content, $headers );
+	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Your Wristbands Has Shipped Out', $content, $headers );
 }
 

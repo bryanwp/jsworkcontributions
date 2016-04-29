@@ -287,13 +287,42 @@ function change_status() {
 			$tracking = $post['trackingnum'];
 			// echo $x;
 			//echo $tracking;
+
+		//Shipp	
 		if ($status[$x] == 'shipped') {
+
 			if ( ! add_post_meta( $post['post-id'], $key, $status[$x], true ) ) { 
 			update_post_meta ( $post['post-id'], $key, $status[$x]  );
 			}
 			if ( ! add_post_meta( $post['post-id'], 'supplier_trackingnumber', $tracking, true ) ) { 
 				update_post_meta ( $post['post-id'], 'supplier_trackingnumber', $tracking  );
 			}
+			
+			//initailizing and populating required data for the sending of email
+			$user_id = get_post_meta( $post['post-id'], '_customer_user', true );
+			$user = get_userdata( $user_id );
+
+			$order = new WC_Order( $order_id );
+			$items = $order->get_items();
+			$order_name = '';
+			$arrival = '';
+			foreach ($items as $value) {
+		    	$order_name = $value['name'];
+		    	$arrival = $value['guaranteed_delivery'];
+		    }
+			$args = array(
+				'full_name' => $user->display_name,
+				'order_name' => $order_name,
+				'order_id' => $post['post-id'],
+				'arrival' => $arrival,
+				'sub_total' => get_cart_subtotal( $post['post-id'] ),
+				'tax' => get_post_meta( $post['post-id'], '_order_tax', true ),
+				'total' => get_post_meta( $post['post-id'], '_order_total', true ),
+				'user_id' => $user_id,
+				'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $post['post-id'], 'supplier_trackingnumber', true )
+			);
+			wp_send_email_shipping_confirmation( $args );
+
 		} else {
 			if ( ! add_post_meta( $post['post-id'], $key, $status[$x], true ) ) { 
 			update_post_meta ( $post['post-id'], $key, $status[$x]  );

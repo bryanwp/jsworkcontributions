@@ -838,10 +838,11 @@ function order_and_edit(){
 	}
 }
 
-add_action('init', 'set_order_session');
+add_action('wp_head', 'set_order_session');
 function set_order_session(){
-	global $woocommerce;
 	if ( is_page('cart') || is_page('order-now') ) {
+	session_start();
+	global $woocommerce;
 		session_start();
 		do_action('wc_order_again');
 	}
