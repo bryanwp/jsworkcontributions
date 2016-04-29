@@ -129,48 +129,44 @@ if ( $order ) :
 			</div>
 			<div class="artwork col-md-12">
 				<?php 
-					if ( !$upimage) { 
-						?>
+				$artwork = get_post_meta( $order_id, 'admin_artwork', true );
 
-						<form method="post" enctype="multipart/form-data">
-							<div class="file-supp" style="display: inline;">
-								Select image to upload:
-								<input type="file" accept="image/*" class="save-button-design" name="newupload_image[]" id="newupload_image" multiple="multiple">
-								<input type="hidden" name="order_id" id="order_id" value="<?php echo $order_id; ?>">
-								<input type="submit"  class="save-button-design"  value="Upload Image" name="up-image">
-							</div> 
-						</form>
-						<?php       
-					} else {
-						?>
-						<form  method="post" enctype="multipart/form-data">
-							<div class="artwork-title">
-								<input type="submit" class="save-button-design" name="supp_update_artwork" value="Update">
-							</div>
-							<div class="file-supp" style="display: inline;">
-								<div class="fpost-img">
-									<?php 
-									$i = 0;
-									foreach ($upimage as $key => $value) {
-										$i++;
-										?>
-
-										<div class="img-holder">
-											<span class="remove-file-img">x</span>
-
-											<img class="img-artwork" name="image-url" src="<?php echo $value['url']; ?>">
-											<input type="hidden" class="attachment_id" name="img-file_<?php echo $i;?>" value="<?php echo $value['file']; ?>">
-											<input type="hidden" class="attachment_id" name="img-url_<?php echo $i;?>" value="<?php echo $value['url']; ?>">   
-											<input type="hidden" class="attachment_id" name="img-type_<?php echo $i;?>" value="<?php echo $value['type']; ?>">
-										</div>
-										<?php } ?>
-										<img id="imageprev" src="" alt=""  />
+				if ( $artwork ) { ?>
+					<div class="file" style="display: inline;">
+						<form id="admin-artwork-form" method="post">
+							<?php
+								foreach ($artwork as $key => $value) { ?>
+								
+									<div class="img-holder">
+										<span class="remove-file">x</span>
+										<img class="img-artwork artw" src="<?php echo $value; ?>">
+										<input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>">
 									</div>
-									<input type="file" name="add_image" accept="image/*" id="add_image">
-									<input type="hidden" name="order_id" id="order_id" value="<?php echo $order_id; ?>">
-								</div>
-							</form>
-							<?php } ?>
+								<?php } ?>
+							<input id="art-work-count" type="hidden" name="img-count" value="0">
+							<input type="hidden" name="form-action" value="admin-artwork">
+							<input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
+						</form>
+						<button class="media-button add-btn">Add Artwork</button>
+					</div> <!--container for the upload files-->	
+				<?php } else { ?>
+					<div class="file">
+						<form id="admin-artwork-form" method="post">
+							<input id="art-work-count" type="hidden" name="img-count" value="0">
+							<input type="hidden" name="form-action" value="admin-artwork">
+							<input type="hidden" name="post-id" value="<?php echo $order_id; ?>">
+						</form>
+						<button class="media-button add-btn">Add Artwork</button>
+					</div> <!--container for the upload files-->	
+					<center class="no-file">
+						<p>
+							Add an artwork of the wristband.
+						</p>
+						<p>
+							<button class="media-button" type="submit" name="upload-image">Upload</button>
+						</p>
+					</center>
+				<?php } ?>
 			</div>
 			<?php 
 				$question = get_post_meta( $order_id, 'customer_report_content', true );
