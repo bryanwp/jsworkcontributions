@@ -5,19 +5,20 @@ if ( isset( $_GET['ID'] ) ) {
 } 
 
 	
-	// $args = array(
-	// 	'full_name' => 'Jon Snow Man',
-	// 	'order_name' => 'wristband',
-	// 	'order_id' => $order_id,
-	// 	'arrival' => 'Friday, April 29',
-	// 	'sub_total' => '10.00',
-	// 	'tax' => '2.00',
-	// 	'total' => '12.00',
-	// 	'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $order_id, 'supplier_trackingnumber', true )
-	// 	);
+	$args = array(
+		'full_name' => 'Jon Snow Man',
+		'order_name' => 'wristband',
+		'order_id' => $order_id,
+		'arrival' => 'Friday, April 29',
+		'sub_total' => '10.00',
+		'tax' => '2.00',
+		'total' => '12.00',
+		'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $order_id, 'supplier_trackingnumber', true )
+		);
+	echo send_email_shipped_confirmation( $args );
 // wp_send_email_after_order( $args );
 // wp_send_email_shipping_confirmation( $args );
-// die;
+die;
 
 $key = get_post_meta( $order_id, '_order_key', true );
 $pay_link = home_url('checkout/order-pay/' . $order_id . '?pay_for_order=true&key=' . $key);
