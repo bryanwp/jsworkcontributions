@@ -492,11 +492,11 @@ function wp_send_email_shipping_confirmation( $args ){
 	$headers[] = "X-Mailer: PHP \r\n";
 	$headers[] = 'From: Wristband Creation Team <no-reply@' . $_SERVER[HTTP_HOST] . '>' . "\r\n";
 	$mail = wp_mail( $args['email'], 'Your Wristbands Has Shipped Out', $content, $headers );
-	if ( $mail ) {
-		echo "SENT";
-	} else {
-		echo "<pre>";
-		print_r($headers);
-	}
+	// if ( $mail ) {
+	// 	echo "SENT";
+	// } else {
+	// 	echo "<pre>";
+	// 	print_r($headers);
+	// }
 }
 
