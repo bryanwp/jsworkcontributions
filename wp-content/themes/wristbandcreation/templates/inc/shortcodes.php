@@ -396,8 +396,8 @@ function wp_send_email_after_order( $args ){
 	$headers[] = 'MIME-Version: 1.0' . "\r\n";
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 	$headers[] = "X-Mailer: PHP \r\n";
-	$headers[] = 'From: kulayfulwp Testing <no-reply@'. home_url() .'>' . "\r\n";
-	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Your Order of Customized Silicone Wristbands', $content, $headers );
+	$headers[] = 'From: Wristband Creation Team <no-reply@' . $_SERVER[HTTP_HOST] . '>' . "\r\n";
+	$mail = wp_mail( $args['email'], 'Your Order of Customized Silicone Wristbands', $content, $headers );
 }
 
 /*	
@@ -490,7 +490,13 @@ function wp_send_email_shipping_confirmation( $args ){
 	$headers[] = 'MIME-Version: 1.0' . "\r\n";
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 	$headers[] = "X-Mailer: PHP \r\n";
-	$headers[] = 'From: Wristband Creation Team <no-reply@'. home_url() .'>' . "\r\n";
-	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Your Wristbands Has Shipped Out', $content, $headers );
+	$headers[] = 'From: Wristband Creation Team <no-reply@' . $_SERVER[HTTP_HOST] . '>' . "\r\n";
+	$mail = wp_mail( $args['email'], 'Your Wristbands Has Shipped Out', $content, $headers );
+	if ( $mail ) {
+		echo "SENT";
+	} else {
+		echo "<pre>";
+		print_r($headers);
+	}
 }
 
