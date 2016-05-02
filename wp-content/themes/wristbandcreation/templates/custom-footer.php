@@ -132,9 +132,9 @@
 
 		<?php
 		
-		//if ( ! is_page('login') ) {
+		if ( ! is_page('login') ) {
 			wp_footer();
-		//}
+		}
 
 		// Echo the scripts added to the "before </body>" field in Theme Options
 		echo Avada()->settings->get( 'space_body' );

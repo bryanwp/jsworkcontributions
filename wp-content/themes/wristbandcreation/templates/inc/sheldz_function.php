@@ -925,7 +925,7 @@ function deregister_scripts(){
 	wp_deregister_style('list_of_icons');
 	wp_deregister_style('avada-iLightbox');
 	wp_deregister_style('avada-animations');
-	// wp_deregister_style('avada-woocommerce');
+	wp_deregister_style('avada-woocommerce');
 	wp_deregister_style('avada-bbpress');
 	wp_deregister_style('sendpress-fe-css');
 	wp_deregister_style('avada-shortcodes');
