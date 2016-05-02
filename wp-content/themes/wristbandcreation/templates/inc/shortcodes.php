@@ -14,9 +14,9 @@ function cart_meta( $atts ){
 	<table class="shop_table cart" cellspacing="0" cellpadding="0">
 		<thead>
 		<tr >
-			<th class="white CssTitleBold"><?php _e( 'Item', 'woocommerce' ); ?></th>
-			<th class="white CssTitleBold"><?php _e( 'Quantity', 'woocommerce' ); ?></th>
-			<th class="white CssTitleBold"><?php _e( 'Sub Total', 'woocommerce' ); ?></th>
+			<th class="CssTitleBold"><?php _e( 'Item', 'woocommerce' ); ?></th>
+			<th class="CssTitleBold"><?php _e( 'Quantity', 'woocommerce' ); ?></th>
+			<th class="CssTitleBold"><?php _e( 'Sub Total', 'woocommerce' ); ?></th>
 		</tr>
 		</thead>
 		<tbody>
