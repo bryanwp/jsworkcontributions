@@ -490,7 +490,7 @@ function wp_send_email_shipping_confirmation( $args ){
 	$headers[] = 'MIME-Version: 1.0' . "\r\n";
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 	$headers[] = "X-Mailer: PHP \r\n";
-	$headers[] = 'From: Wristband Creation Team <no-reply@kulayfulwp.local>' . "\r\n";
+	$headers[] = 'From: Wristband Creation Team <no-reply@'. home_url() .'>' . "\r\n";
 	$mail = wp_mail( 'philwebservices.alag@gmail.com', 'Your Wristbands Has Shipped Out', $content, $headers );
 }
 

@@ -321,6 +321,7 @@ function change_status() {
 		    	
 		    	$sub = $value['line_subtotal'];
 		    }
+
 			$args = array(
 				'full_name' => $user->display_name,
 				'order_name' => $order_name,
