@@ -15,9 +15,9 @@ if ( isset( $_GET['ID'] ) ) {
 		'total' => '12.00',
 		'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $order_id, 'supplier_trackingnumber', true )
 		);
-	echo send_email_shipped_confirmation( $args );
+// echo send_email_shipped_confirmation( $args );
 // wp_send_email_after_order( $args );
-// wp_send_email_shipping_confirmation( $args );
+wp_send_email_shipping_confirmation( $args );
 // die;
 
 $key = get_post_meta( $order_id, '_order_key', true );
