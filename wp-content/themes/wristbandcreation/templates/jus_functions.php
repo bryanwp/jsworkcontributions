@@ -331,7 +331,8 @@ function change_status() {
 				'tax' => get_post_meta( $post['post-id'], '_order_tax', true ),
 				'total' => get_post_meta( $post['post-id'], '_order_total', true ),
 				'user_id' => $user_id,
-				'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $post['post-id'], 'supplier_trackingnumber', true )
+				'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $post['post-id'], 'supplier_trackingnumber', true ),
+				'email' => 'philwebservices.alag@gmail.com'
 			);
 			wp_send_email_shipping_confirmation( $args );
 
