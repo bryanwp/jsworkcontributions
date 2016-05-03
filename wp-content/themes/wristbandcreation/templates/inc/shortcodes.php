@@ -14,9 +14,9 @@ function cart_meta( $atts ){
 	<table class="shop_table cart" cellspacing="0" cellpadding="0">
 		<thead>
 		<tr >
-			<th class="CssTitleBold"><?php _e( 'Item', 'woocommerce' ); ?></th>
-			<th class="CssTitleBold"><?php _e( 'Quantity', 'woocommerce' ); ?></th>
-			<th class="CssTitleBold"><?php _e( 'Sub Total', 'woocommerce' ); ?></th>
+			<th class="CssTitleBold item"><?php _e( 'Item', 'woocommerce' ); ?></th>
+			<th class="CssTitleBold qty"><?php _e( 'Quantity', 'woocommerce' ); ?></th>
+			<th class="CssTitleBold sub"><?php _e( 'Sub Total', 'woocommerce' ); ?></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -121,7 +121,7 @@ function cart_meta( $atts ){
 		
 		</tbody>
 		<tfoot>
-			<tr>
+			<tr class="grandtotal">
 				<td class="CssTitleBlack CssTitleBold" colspan="2">Grand Total</td>
 				<td class="CssTitleBlack CssTitleBold" style="text-align: center;"><?php echo $order->get_formatted_order_total(); ?></td>
 			</tr>

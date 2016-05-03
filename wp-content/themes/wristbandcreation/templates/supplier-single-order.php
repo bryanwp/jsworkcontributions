@@ -28,7 +28,9 @@ $upimage = get_post_meta($order_id, 'Supplier_artwork', TRUE);
   <div class="table-1 no-overflow">
     <?php
     if ( $order ) : 
+      echo '<div id="sup-table">';
       echo do_shortcode('[the-cart-meta item_key="'.$order_id.'"]');
+      echo '</div>';
     endif; 
     ?>
     <div class="col-lg-12">

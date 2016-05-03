@@ -889,3 +889,14 @@ a.package_btn {
     padding: 4px 10px;
     border-radius: 3px;
 }
+
+/*Supplier Table view */
+#sup-table .sub {
+    display: none;
+}
+#sup-table .product-subtotal {
+    display: none;
+}
+#sup-table .grandtotal {
+    display: none;
+}
