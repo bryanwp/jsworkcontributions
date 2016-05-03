@@ -534,5 +534,6 @@ function get_req_info_for_email( $order_id ) {
 		'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $order_id, 'supplier_trackingnumber', true ),
 		'email' => 'philwebservices.alag@gmail.com'
 	);
+	return $args;
 }
 
