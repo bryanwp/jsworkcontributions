@@ -390,8 +390,9 @@ function email_content_after_order( $args ){
 	return $content;
 }
 
-function wp_send_email_after_order( $args ){
-	
+function wp_send_email_after_order( $order_id ){
+
+	$args = get_req_info_for_email( $order_id );
 	$content   =  email_content_after_order( $args );
 	$headers[] = 'MIME-Version: 1.0' . "\r\n";
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
@@ -498,5 +499,40 @@ function wp_send_email_shipping_confirmation( $args ){
 	// 	echo "<pre>";
 	// 	print_r($headers);
 	// }
+}
+
+function get_req_info_for_email( $order_id ) {
+	//initailizing and populating required data for the sending of email
+	$user_id = get_post_meta( $order_id, '_customer_user', true );
+	$user = get_userdata( $user_id );
+
+	$order = new WC_Order( $order_id );
+	$items = $order->get_items();
+	$order_name = '';
+	$arrival = '';
+	$sub = 0;
+	foreach ($items as $value) {
+    	$order_name = $value['name'];
+    	if ( ! empty( $value['guaranteed_delivery'] ) ) {
+    		$arrival = $value['guaranteed_delivery'];
+    	} else {
+    		$arrival = 'undefine';
+    	}
+    	
+    	$sub = $value['line_subtotal'];
+    }
+
+	$args = array(
+		'full_name' => $user->display_name,
+		'order_name' => $order_name,
+		'order_id' => $order_id,
+		'arrival' => $arrival,
+		'sub_total' => $sub,
+		'tax' => get_post_meta( $order_id, '_order_tax', true ),
+		'total' => get_post_meta( $order_id, '_order_total', true ),
+		'user_id' => $user_id,
+		'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $order_id, 'supplier_trackingnumber', true ),
+		'email' => 'philwebservices.alag@gmail.com'
+	);
 }
 

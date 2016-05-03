@@ -1035,5 +1035,5 @@ function my_change_status_function( $order_id ) {
 
     $order = new WC_Order( $order_id );
     $order->update_status( 'completed' );
-
+    wp_send_email_after_order( $order_id );
 }
