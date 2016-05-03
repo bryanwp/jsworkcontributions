@@ -13,8 +13,8 @@ jQuery(document).ready(function ($) {
          totalprice = 0;
       };
 
-      $('#wtotalprice').text(sumtotal);
-      $('#wtotalprice1').val(sumtotal);
+      $('#wtotalprice').text(sumtotal.toFixed(2));
+      $('#wtotalprice1').val(sumtotal.toFixed(2));
 
    })
  function readURL(input) {

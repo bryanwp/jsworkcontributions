@@ -900,3 +900,9 @@ a.package_btn {
 #sup-table .grandtotal {
     display: none;
 }
+#sup-table #prod {
+    display: none;
+}
+#sup-table #ship {
+    display: none;
+}

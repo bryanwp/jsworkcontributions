@@ -98,8 +98,8 @@ function cart_meta( $atts ){
 
 						echo '<br /><label class="CssTitleBlack CssTitleBold">Production and Shipping:</label><br />';
 						echo '<span>' . $wristband_meta['customization_location'] . '</span><br />'; 
-						echo '<span>' . $wristband_meta['customization_date_production'] . '</span><br />'; 
-						echo '<span>' . $wristband_meta['customization_date_shipping'] . '</span><br />'; 
+						echo '<span id="prod">' . $wristband_meta['customization_date_production'] . '</span><br />'; 
+						echo '<span id="ship">' . $wristband_meta['customization_date_shipping'] . '</span><br />'; 
 
 						?><br/>
 					</td>
