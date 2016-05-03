@@ -6,19 +6,20 @@ if ( isset( $_GET['ID'] ) ) {
 $order = new WC_Order( $order_id );
 $items = $order->get_items();
 
-// foreach ( $items as $item ) {
-//     $wristband_meta = maybe_unserialize( $item['wristband_meta']);
-//     $color = $wristband_meta['colors'];
+foreach ( $items as $item ) {
+    $wristband_meta = maybe_unserialize( $item['wristband_meta']);
+    $color = $wristband_meta['colors'];
 
-//     echo "<pre>";
-//     print_r( $wristband_meta );
-//     echo "<br />";
-// }
+    echo "<pre>";
+    print_r( $wristband_meta );
+    echo "<br />";
+}
+wp_send_email_after_order( $order_id );
 // echo "<pre>";
     
     // foreach ($items as $value) {
     // 	print_r( $value['line_subtotal'] );
     // }
-echo "<pre>";
-print_r( $items );
+// echo "<pre>";
+// print_r( $items );
 die;

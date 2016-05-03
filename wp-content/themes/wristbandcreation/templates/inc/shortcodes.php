@@ -221,7 +221,6 @@ function email_content_after_order( $args ){
 	$content.='<html lang="en">';
 		$content.='<head>';
 			$content.='<meta charset="UTF-8">';
-			$content.='<title>Expat Media Success Registration</title>';
 			$content.='<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">';
 			// $content.='<style type="text/css">';
 			// 	$content.='.title{ text-align: right;font-size: 18px;font-family: sans-serif;color: #585858; }';
@@ -237,7 +236,7 @@ function email_content_after_order( $args ){
 				$content.='</table>';
 				$content.='<p style="color: #1D429A;font-size: 18px;">Hello ' . $full_name . ',</p>';
 				$content.='<p>';
-					$content.='Thank you for shopping with us. You Ordered <span style="color: #3EBEEF;">"'. $order_name . '".</span><br />';
+					$content.='Thank you for shopping with us. You Ordered <span style="color: #3EBEEF;">"'. $order_name . ' Wristband".</span><br />';
 					$content.='We\'ll send a confirmation when your item ships.';
 				$content.='</p>';
 				$content.='<p style="color: #1D429A;font-size: 18px; padding-bottom: 7px; border-bottom: 2px solid #ECE9E9; margin-bottom: -7px;">Details</p>';
@@ -513,10 +512,12 @@ function get_req_info_for_email( $order_id ) {
 	$sub = 0;
 	foreach ($items as $value) {
     	$order_name = $value['name'];
-    	if ( ! empty( $value['guaranteed_delivery'] ) ) {
-    		$arrival = $value['guaranteed_delivery'];
+    	$meta = maybe_unserialize( $value['wristband_meta'] );
+
+    	if ( ! empty( $meta['guaranteed_delivery'] ) ) {
+    		$arrival = $meta['guaranteed_delivery'];
     	} else {
-    		$arrival = 'undefine';
+    		$arrival = 'undefined';
     	}
     	
     	$sub = $value['line_subtotal'];
@@ -532,7 +533,7 @@ function get_req_info_for_email( $order_id ) {
 		'total' => get_post_meta( $order_id, '_order_total', true ),
 		'user_id' => $user_id,
 		'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $order_id, 'supplier_trackingnumber', true ),
-		'email' => 'philwebservices.alag@gmail.com'
+		'email' => 'Yourstrather1941@cuvox.de'
 	);
 	return $args;
 }
