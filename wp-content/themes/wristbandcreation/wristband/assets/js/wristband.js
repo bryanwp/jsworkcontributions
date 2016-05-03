@@ -522,7 +522,6 @@ jQuery(function ($) {
                     messages['Inside Message'] = $('input[name="inside_message"]').val();
 
                     messages['Additional Notes'] = $('textarea#additional_notes').val();
-
                     $.extend(this.data, {
                         product: $('select#style').val(),
                         size: $('select#width').val(),
