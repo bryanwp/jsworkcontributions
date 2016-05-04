@@ -1,6 +1,7 @@
 <?php 
 $order_id = '';
 if ( isset( $_GET['ID'] ) ) {
+		
 			$order_id = $_GET['ID'];  
 }
 $order = new WC_Order( $order_id );
@@ -22,9 +23,10 @@ $items = $order->get_items();
     // }
 // print_r( $items );
 // print_r( get_req_info_for_email( $order_id ) ) ;
+echo $order_id;
 
 $args = get_req_info_for_email( $order_id );
-wp_send_email_shipping_confirmation( $args );
-wp_send_email_after_order( $args );
+// wp_send_email_shipping_confirmation( $args );
+wp_send_email_after_order( $order_id );
 
 die;

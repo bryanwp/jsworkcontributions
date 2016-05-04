@@ -484,8 +484,9 @@ $content.='</html>';
 return $content;
 }
 
-function wp_send_email_shipping_confirmation( $args ){
+function wp_send_email_shipping_confirmation( $order_id ){
 	
+	$args      =  get_req_info_for_email( $order_id );
 	$content   =  send_email_shipped_confirmation( $args );
 	$headers[] = 'MIME-Version: 1.0' . "\r\n";
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
@@ -530,7 +531,7 @@ function get_req_info_for_email( $order_id ) {
 		'total' => get_post_meta( $order_id, '_order_total', true ),
 		'user_id' => $user_id,
 		'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $order_id, 'supplier_trackingnumber', true ),
-		'email' => 'philwebservices.alag@gmail.com' //get_user_meta( $user_id, 'billing_email', true )
+		'email' => 'Ocks1977@cuvox.de' //get_user_meta( $user_id, 'billing_email', true )
 	);
 	return $args;
 }

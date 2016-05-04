@@ -452,7 +452,8 @@ function fetch_comments( $args ){
 }
 
 function get_order_number_format( $order_id ){
-	$length = strlen( $order_id );
+	$id = (string)$order_id;
+	$length = strlen( $id );
 	$format = '';
 	if ( $length == 3 ) {
 		 $format = 'WC-000' . $order_id;
