@@ -63,6 +63,10 @@ include ('custom-header.php'); ?>
              	<div class="form-group">
                 	<input type="text" name="sanswer" id="sanswer" tabindex="1" class="form-control" placeholder="Security Answer" value="">
              	</div>
+               <div class="form-group">
+                 <div><div style="width: 304px; height: 78px;"><iframe src="https://www.google.com/recaptcha/api2/anchor?k=6LeA3A8TAAAAAH_P6KbEt2YAklZK_WeDo2EWcqkZ&amp;co=aHR0cDovL2t1bGF5ZnVsd3AubG9jYWw6ODA.&amp;hl=en&amp;v=r20160425122911&amp;size=normal&amp;cb=hmcg54exuix6" title="recaptcha widget" width="304" height="78" role="presentation" frameborder="0" scrolling="no" name="undefined"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; "></textarea></div>
+                </div>
+
              	<div class="form-group">
              	    <input type="hidden" name="role" value="user">
              		<input type="submit" name="add_user" value="Submit" class="submit">

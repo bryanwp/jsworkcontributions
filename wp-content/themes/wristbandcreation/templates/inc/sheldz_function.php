@@ -817,7 +817,7 @@ function set_cart_session_for_order_again(){
 	?>
 		please wait we are setting the editor...
 		<script type="text/javascript">
-			    window.location.href = "<?php echo home_url('order-now/?id='.$ses_id.'&Status=edit'); ?>";
+			    window.location.href = "<?php echo home_url('order-now/?id='.$ses_id.'&Status=copy'); ?>";
 		</script>
 	<?php
 	die;

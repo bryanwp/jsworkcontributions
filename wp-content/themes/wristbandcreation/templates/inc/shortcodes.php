@@ -492,12 +492,6 @@ function wp_send_email_shipping_confirmation( $args ){
 	$headers[] = "X-Mailer: PHP \r\n";
 	$headers[] = 'From: Wristband Creation Team <no-reply@' . $_SERVER[HTTP_HOST] . '>' . "\r\n";
 	$mail = wp_mail( $args['email'], 'Your Wristbands Has Shipped Out', $content, $headers );
-	// if ( $mail ) {
-	// 	echo "SENT";
-	// } else {
-	// 	echo "<pre>";
-	// 	print_r($headers);
-	// }
 }
 
 function get_req_info_for_email( $order_id ) {
@@ -517,7 +511,10 @@ function get_req_info_for_email( $order_id ) {
     	if ( ! empty( $meta['guaranteed_delivery'] ) ) {
     		$arrival = $meta['guaranteed_delivery'];
     	} else {
-    		$arrival = 'undefined';
+    		$date_production = substr( $meta['customization_date_production'], 0, 1);
+    		$date_shipping   = substr( $meta['customization_date_shipping'], 0, 1);
+    		$date_shipped    = get_post_meta( $order_id, '_completed_date' , true );
+    		$arrival = calculate_guaranteed_delivery( $date_production, $date_shipping, $date_shipped );
     	}
     	
     	$sub = $value['line_subtotal'];
@@ -533,8 +530,22 @@ function get_req_info_for_email( $order_id ) {
 		'total' => get_post_meta( $order_id, '_order_total', true ),
 		'user_id' => $user_id,
 		'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $order_id, 'supplier_trackingnumber', true ),
-		'email' => 'Yourstrather1941@cuvox.de'
+		'email' => 'philwebservices.alag@gmail.com' //get_user_meta( $user_id, 'billing_email', true )
 	);
 	return $args;
+}
+
+function calculate_guaranteed_delivery( $date_production, $date_shipping, $date_shipped ) {
+	//initializing...
+	$date1 = substr($date_shipped, 0, 10);
+	$add_days = $date_shipping + $date_production;
+	$date = date( 'F j Y', strtotime( $date1 . ' + ' . $add_days . ' days' ) ); // ' . $add_days . '
+
+	$check_day = date( 'l', strtotime( $date1 . ' + ' . $add_days . ' days' ) );
+	if ( $check_day == 'Saturday' || $check_day == 'Sunday') {
+		$add_days = $add_days + 2;
+		$date = date( 'F j Y', strtotime( $date1 . ' + ' . $add_days . ' days' ) );
+	}
+	return $date;
 }
 
