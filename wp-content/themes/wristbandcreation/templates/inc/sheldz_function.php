@@ -950,10 +950,10 @@ function debug_scripts_queued() {
 
 add_action( 'phpmailer_init', 'wpse8170_phpmailer_init' );
 function wpse8170_phpmailer_init( PHPMailer $phpmailer ) {
-    $phpmailer->Host = 'gwplabs.com';
+    $phpmailer->Host = 'box978.bluehost.com';
     $phpmailer->Port = 25; // could be different
-    $phpmailer->Username = 'no-reply@gwplabs.com'; // if required
-    $phpmailer->Password = 'Mq?WQTXLV1%5'; // if required
+    $phpmailer->Username = 'gwplabsc@box978.bluehost.com'; // if required
+    $phpmailer->Password = '3VlvUopv-4'; // if required
     $phpmailer->SMTPAuth = true; // if required
     // $phpmailer->SMTPSecure = 'ssl'; // enable if required, 'tls' is another possible value
 
