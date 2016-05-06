@@ -955,7 +955,7 @@ function wpse8170_phpmailer_init( PHPMailer $phpmailer ) {
     $phpmailer->Username = 'gwplabsc@box978.bluehost.com'; // if required
     $phpmailer->Password = '3VlvUopv-4'; // if required
     $phpmailer->SMTPAuth = true; // if required
-    // $phpmailer->SMTPSecure = 'ssl'; // enable if required, 'tls' is another possible value
+    $phpmailer->SMTPSecure = 'ssl'; // enable if required, 'tls' is another possible value
 
     $phpmailer->IsSMTP();
 }
