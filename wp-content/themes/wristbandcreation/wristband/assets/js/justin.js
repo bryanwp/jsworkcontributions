@@ -152,8 +152,9 @@ jQuery(document).ready(function ($) {
          output +=      '<span>'+content+'</span>';
          output +=   '</div>';
          output += '</li>';
-         
-         $('#reply-list').append( output );
+
+
+         $('.reply-list').append( output );
          $('.reply-supp').val('');
          $('.reply-supp').css('height', '40px');
 

@@ -9,7 +9,7 @@
 	
 		<h3>Replies</h3>
 		<div class="comment-list">
-			<ul class="reply-list">
+			<ul class="reply-list supplier-app">
 				<?php get_comments_list( $order_id, 'notification_admin_supplier' ); ?>
 			</ul>
 		</div>

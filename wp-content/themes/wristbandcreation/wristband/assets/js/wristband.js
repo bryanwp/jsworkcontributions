@@ -3443,7 +3443,6 @@ jQuery(function ($) {
                     if (typeof timer !== undefined) {
                         clearTimeout(timer);
                     }
-
                     if($('input[name="continues_message"]').val().length > 80){
                         Builder.appendAlertMsg('exceeded limit of characters<br/> ',$('#cwarning-msg'),'continues-each-message');
                         $("#wbc_add_to_cart").attr('disabled','disabled');
@@ -3451,9 +3450,7 @@ jQuery(function ($) {
                         $('.alert-notify.continues-each-message').remove();
                         $("#wbc_add_to_cart").removeAttr('disabled');
                     }
-
                     timer = setTimeout(function () {
-                        $("#status").html("Stopped").css("color", "#990000");
                         setTimeout(function () {
                             var cpos = $('input[name="continues_message"]').getCursorPosition();
                             var contString = $('input[name="continues_message"]').val();
@@ -3461,10 +3458,10 @@ jQuery(function ($) {
                             for (var x = 0; x < contString.length; x++)
                             {
                                 $('input[name="continues_message"]').val($('#continues_message').val() + contString.charAt(x));
-                                $('input[name="continues_message"]').trigger("custom", [cpos]);
+                               // $('input[name="continues_message"]').trigger("custom", [cpos]);
                             }
                             if (contString.length === 0) {
-                                $('input[name="continues_message"]').trigger("custom", [cpos]);
+                               // $('input[name="continues_message"]').trigger("custom", [cpos]);
                             }
                         }, 100);
                     }, timeout);
@@ -3563,6 +3560,16 @@ jQuery(function ($) {
                                 $("#bandtextcont2").attr("display", "none");
                             }
                         }
+                        //  else {
+                        //     if ($("#bandtextcontainer2")[0].getBoundingClientRect().width < (size_[newwidth][$('.wbdiv').width()]['ChromeInsideMin'])) {
+                        //         $("#front-textinside1").text($('#inside_message').val());
+                        //         $('input[name=textinside]').val($('#inside_message').val().length);
+                        //         $("#front-textinside2").text('');
+                        //     } else {
+                        //         $("#front-textinside2").text($('#inside_message').val().substring($('input[name=textinside]').val(), $('#inside_message').val().length));
+                        //     }
+                        // }
+                        
                         setCaretToPos(document.getElementById("continues_message"), cpos);
                         //code for chrome - END
                     } else {
@@ -4104,6 +4111,8 @@ jQuery(function ($) {
                         var type = 'success',
                                 title = 'Success';
 
+                       
+                        console.log(response);         
                         $icon.removeClass('fa-spinner');
                         $icon.addClass('fa-shopping-cart');
                         // $button_text.text('Add to Cart');
