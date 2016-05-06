@@ -462,7 +462,7 @@ jQuery(document).ready(function ($) {
 
       var arr       = $('.notes').getElementArr(),
           action    = 'save-post-order-notes',
-          post_id   = $('input[name=post-id]').val();
+          post_id   = $('#post_id').val();
 
       $.ajax({
          url: sheldz_ajax.ajaxUrl,

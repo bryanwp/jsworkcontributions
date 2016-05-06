@@ -635,11 +635,17 @@ add_action('wp_ajax_save-post-order-notes', 'save_post_order_notes');
 add_action('wp_ajax_nopriv_save-post-order-notes', 'save_post_order_notes');
 function save_post_order_notes() {
 	$post = $_REQUEST;
-
+	$check = '';
 	if ( ! add_post_meta( $post['postid'], 'post_order_note', $post['notes'], true ) ) {
-		update_post_meta( $post['postid'], 'post_order_note', $post['notes'] );
+		
+		if ( update_post_meta( $post['postid'], 'post_order_note', $post['notes'] ) ) {
+			$check = 'working';
+		} else {
+			$check = 'wala';
+		}
+
 	}
-	exit(wp_send_json_success($post['notes']));
+	exit( wp_send_json_success( $post['postid'] ) ); 
 }
 
 // add_action('init', 'save_user_made_by_admin');

@@ -71,6 +71,7 @@
 					<!-- <a class="edit-notes">Add Note</a> -->
 				</div>
 				<div class="post-order-notes col-md-12">
+					<input id="post_id" type="hidden" name="post_id" value="<?php echo $order_id; ?>">
 					<?php
 					$notes = get_post_meta( $order_id, 'post_order_note', true );
 
