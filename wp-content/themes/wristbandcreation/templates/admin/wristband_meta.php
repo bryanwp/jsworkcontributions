@@ -26,7 +26,15 @@ $items = $order->get_items();
 echo $order_id;
 
 //$args = get_req_info_for_email( $order_id );
-wp_send_email_shipping_confirmation( $order_id );
+
 // wp_send_email_after_order( $order_id );
+if ( isset($_GET['what'])) {
+	if ( $_GET['what'] == 'ship' ) {
+		wp_send_email_shipping_confirmation( $order_id );
+	} elseif ( $_GET['what'] == 'order' ) {
+		wp_send_email_after_order( $order_id );
+	}
+}
+
 
 die;

@@ -543,7 +543,7 @@ function get_req_info_for_email( $order_id ) {
 		'total' => get_post_meta( $order_id, '_order_total', true ),
 		'user_id' => $user_id,
 		'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $order_id, 'supplier_trackingnumber', true ),
-		'email' => 'philwebservices.alag@gmail.com' //get_user_meta( $user_id, 'billing_email', true )
+		'email' => 'chris@kulayful.com' //get_user_meta( $user_id, 'billing_email', true )
 	);
 	return $args;
 }

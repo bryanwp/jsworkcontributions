@@ -303,8 +303,8 @@ function change_status() {
 			}
 			
 			//initailizing and populating required data for the sending of email
-			$args = get_req_info_for_email( $post['post-id'] );
-			wp_send_email_shipping_confirmation( $args );
+			// $args = get_req_info_for_email( $post['post-id'] );
+			wp_send_email_shipping_confirmation( $post['post-id'] );
 
 		} else {
 			if ( ! add_post_meta( $post['post-id'], $key, $status[$x], true ) ) { 
