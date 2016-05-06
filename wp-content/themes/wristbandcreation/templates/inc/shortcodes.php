@@ -487,12 +487,18 @@ return $content;
 function wp_send_email_shipping_confirmation( $order_id ){
 	
 	$args      =  get_req_info_for_email( $order_id );
+
+	ini_set("SMTP", "aspmx.l.google.com");
+    ini_set("sendmail_from", "sheldongwapo@gmail.com");
+
 	$content   =  send_email_shipped_confirmation( $args );
 	$headers[] = 'MIME-Version: 1.0' . "\r\n";
 	$headers[] = 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 	$headers[] = "X-Mailer: PHP \r\n";
 	$headers[] = 'From: Wristband Creation Team <no-reply@' . $_SERVER[HTTP_HOST] . '>' . "\r\n";
+
 	$mail = wp_mail( $args['email'], 'Your Wristbands Has Shipped Out', $content, $headers );
+
 }
 
 function get_req_info_for_email( $order_id ) {
@@ -531,7 +537,7 @@ function get_req_info_for_email( $order_id ) {
 		'total' => get_post_meta( $order_id, '_order_total', true ),
 		'user_id' => $user_id,
 		'tack_link' => 'https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=' . get_post_meta( $order_id, 'supplier_trackingnumber', true ),
-		'email' => get_user_meta( $user_id, 'billing_email', true )
+		'email' => 'philwebservices.alag@gmail.com' //get_user_meta( $user_id, 'billing_email', true )
 	);
 	return $args;
 }

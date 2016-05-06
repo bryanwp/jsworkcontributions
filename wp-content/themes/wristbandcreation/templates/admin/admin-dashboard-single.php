@@ -90,7 +90,6 @@ if ( $order ) :
 	<div class="post-order-notes col-md-12">
 		<?php
 		 $notes = get_post_meta( $order_id, 'post_order_note', true );
-
 		 if ( $notes ) { 
 
 			foreach( $notes as $note ) {?>
