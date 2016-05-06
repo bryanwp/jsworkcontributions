@@ -497,7 +497,10 @@ function wp_send_email_shipping_confirmation( $order_id ){
 	$headers[] = "X-Mailer: PHP \r\n";
 	$headers[] = 'From: Wristband Creation Team <no-reply@' . $_SERVER[HTTP_HOST] . '>' . "\r\n";
 
-	$mail = wp_mail( $args['email'], 'Your Wristbands Has Shipped Out', $content, $headers );
+	$to = $args['email'];
+	$subject = "Your Wristbands Has Shipped Out";
+
+	wp_mail( $to, $subject, $content, $headers );
 
 }
 
