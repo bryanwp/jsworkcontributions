@@ -500,7 +500,10 @@ function wp_send_email_shipping_confirmation( $order_id ){
 	$to = $args['email'];
 	$subject = "Your Wristbands Has Shipped Out";
 
-	wp_mail( $to, $subject, $content, $headers );
+	$mail = wp_mail( $to, $subject, $content, $headers );
+	if ( ! $mail ) {
+		echo "not sent";
+	}
 
 }
 
