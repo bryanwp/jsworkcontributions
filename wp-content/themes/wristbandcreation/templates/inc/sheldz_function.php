@@ -948,14 +948,14 @@ function debug_scripts_queued() {
     echo "\r\n--->";
 }
 
-add_action( 'phpmailer_init', 'wpse8170_phpmailer_init' );
-function wpse8170_phpmailer_init( PHPMailer $phpmailer ) {
-    $phpmailer->Host = 'box978.bluehost.com';
-    $phpmailer->Port = 25; // could be different
-    $phpmailer->Username = 'gwplabsc@box978.bluehost.com'; // if required
-    $phpmailer->Password = '3VlvUopv-4'; // if required
-    $phpmailer->SMTPAuth = true; // if required
-    $phpmailer->SMTPSecure = 'ssl'; // enable if required, 'tls' is another possible value
+// add_action( 'phpmailer_init', 'wpse8170_phpmailer_init' );
+// function wpse8170_phpmailer_init( PHPMailer $phpmailer ) {
+//     $phpmailer->Host = 'bluehost.com';
+//     $phpmailer->Port = 25; // could be different
+//     $phpmailer->Username = 'gwplabsc@box978.bluehost.com'; // if required
+//     $phpmailer->Password = '3VlvUopv-4'; // if required
+//     $phpmailer->SMTPAuth = true; // if required
+//     $phpmailer->SMTPSecure = 'ssl'; // enable if required, 'tls' is another possible value
 
-    $phpmailer->IsSMTP();
-}
+//     $phpmailer->IsSMTP();
+// }
