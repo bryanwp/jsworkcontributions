@@ -466,6 +466,7 @@ tr.grand-total {
 }
 table.orders tr:hover {
     background: #C4ECFB;
+    cursor: pointer;
 }
 table.total tr {
     background: none!important;
