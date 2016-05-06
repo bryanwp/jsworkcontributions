@@ -30,9 +30,11 @@ echo $order_id;
 // wp_send_email_after_order( $order_id );
 if ( isset($_GET['what'])) {
 	if ( $_GET['what'] == 'ship' ) {
-		wp_send_email_shipping_confirmation( $order_id );
+		// wp_send_email_shipping_confirmation( $order_id );
+		echo "shipping";
 	} elseif ( $_GET['what'] == 'order' ) {
-		wp_send_email_after_order( $order_id );
+		// wp_send_email_after_order( $order_id );
+		echo "order";
 	}
 }
 
