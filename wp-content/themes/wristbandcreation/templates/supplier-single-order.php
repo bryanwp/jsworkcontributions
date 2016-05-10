@@ -216,7 +216,7 @@ $upimage = get_post_meta($order_id, 'Supplier_artwork', TRUE);
         <input type="hidden" value="<?php echo $j; ?>" name="var">
         <input type="hidden" name="maxrowval" id="maxrowval" value="<?php echo $rowval; ?>">
         <div class = "priceinputstyle">
-          TOTAL : <p id="wtotalprice"><?php echo $totalkey; ?></p>
+          TOTAL : <p id="wtotalprice">$ <?php echo $totalkey; ?></p>
           <input type="hidden" name="wtotalprice" id="wtotalprice1" value="<?php echo $totalkey; ?>">
         </div>
         <input class="edit-order save-button-design" type="submit" id="update-price-list" name="update-price-list" value="Update" style="color : white!important">

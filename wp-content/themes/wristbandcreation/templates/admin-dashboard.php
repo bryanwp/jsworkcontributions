@@ -113,7 +113,6 @@ if ( $customer_orders ) : ?>
 							$options = $wristband_meta['messages'];
 							$sub_total = $item['line_subtotal'];
 							$tax = $item['line_tax'];
-						    
 						    echo ($options['Front Message']);
 						           
 							}
@@ -134,7 +133,7 @@ if ( $customer_orders ) : ?>
 						<?php //echo wc_get_order_status_name( $order->get_status() ); ?>
 					</td>
 					<td>
-						<?php echo $sub_total; ?>
+						<?php echo "$".$sub_total; ?>
 					</td>
 					<td>
 						<?php echo $tax; ?>

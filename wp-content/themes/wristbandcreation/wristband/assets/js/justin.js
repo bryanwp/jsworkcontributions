@@ -13,7 +13,7 @@ jQuery(document).ready(function ($) {
          totalprice = 0;
       };
 
-      $('#wtotalprice').text(sumtotal.toFixed(2));
+      $('#wtotalprice').text("$ "+sumtotal.toFixed(2));
       $('#wtotalprice1').val(sumtotal.toFixed(2));
 
    })
