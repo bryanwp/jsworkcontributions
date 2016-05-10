@@ -149,7 +149,6 @@ if ( $customer_orders ) : ?>
 <?php 
 endif; ?>
 		</div>
-		<a href="<?php echo home_url('admin-dashboard/?action=log'); ?>">view logs</a>
 	</div>
 </div>
 <?php include ('custom-footer.php'); ?>
