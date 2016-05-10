@@ -104,7 +104,7 @@ if ( $order ) :
 		?>
 	</div>
 	<?php 
-	$artwork = get_post_meta( $order_id, 'Admin_artwork', true );
+	$artwork = get_post_meta( $order_id, 'Employee_artwork', true );
 
 	if ( $artwork ) { ?>
 		<div class="artwork col-md-12">
