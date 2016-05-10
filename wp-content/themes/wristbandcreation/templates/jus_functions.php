@@ -647,6 +647,10 @@ function newuploadimage(){
 				update_post_meta( $post['order_id'],  $role . '_artwork',   $ufiles );
 			}
 
+			if ( ! add_post_meta( $post['order_id'],  'artwork_approve',   'not_approved', true ) ) { 
+				update_post_meta( $post['order_id'],  'artwork_approve',   'not_approved' );
+			}
+
 			$redirect = home_url( 'employee-dashboard/?action=view&ID='. $post['order_id'] );
 			exit( wp_redirect( $redirect ) );
 		} elseif ($role == 'Admin') {
@@ -654,11 +658,19 @@ function newuploadimage(){
 				update_post_meta( $post['order_id'],  'Employee_artwork',   $ufiles );
 			}
 
+			if ( ! add_post_meta( $post['order_id'],  'artwork_approve',   'not_approved', true ) ) { 
+				update_post_meta( $post['order_id'],  'artwork_approve',   'not_approved' );
+			}
+
 			$redirect = home_url( 'admin-dashboard/?action=view&ID='. $post['order_id'] );
 			exit( wp_redirect( $redirect ) );
 		} elseif ($role == '') {
 			if ( ! add_post_meta( $post['order_id'],  'Employee_artwork',   $ufiles, true ) ) { 
 				update_post_meta( $post['order_id'],  'Employee_artwork',   $ufiles );
+			}
+
+			if ( ! add_post_meta( $post['order_id'],  'artwork_approve',   'not_approved', true ) ) { 
+				update_post_meta( $post['order_id'],  'artwork_approve',   'not_approved' );
 			}
 
 			$redirect = home_url( 'admin-dashboard/?action=view&ID='. $post['order_id'] );
