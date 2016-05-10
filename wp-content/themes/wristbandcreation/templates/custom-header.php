@@ -206,7 +206,7 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 								<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('admin-dashboard/?action=profile'); ?>">Profile</a></li>
 								<li><a class="nav-a <?php echo $create; ?>" href="<?php echo home_url('admin-dashboard/?action=create'); ?>">Create Account</a></li>
 								<li><a class="nav-a <?php echo $Orderlogs; ?>" href="<?php echo home_url('admin-dashboard/?action=Orderlogs'); ?>">Order Logs</a></li>
-								<li><a class="nav-a" href="<?php echo home_url('admin-dashboard/?action=log'); ?>">View Logs</a></li>
+								<li><a class="nav-a <?php echo $log; ?>" href="<?php echo home_url('admin-dashboard/?action=log'); ?>">View Logs</a></li>
 								<li><a id="logout" class="nav-a" href="#"><?php echo logout_user(); ?>Log out</a></li>
 								<!-- <li>Log out</li> -->
 							</ul>
