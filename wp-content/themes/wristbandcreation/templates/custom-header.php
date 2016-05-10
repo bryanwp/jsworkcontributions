@@ -1,10 +1,23 @@
 <?php
+session_start();
 if ( is_page('customer-dashboard') ) {
-	session_start();
 	global $woocommerce; 
 	do_action('wc_order_edit');
 }
-?> 
+
+// if ( ! is_page( 'login' ) || ! is_page( 'register' ) ) {
+
+// 	$role = "";
+// 	if ( isset( $_SESSION['role'] ) ) {
+// 		$role = $_SESSION['role'];
+// 	} else {
+// 		$role = 'customer';
+// 	}
+
+	
+
+// }
+?>
 
 <!DOCTYPE html>
 <html class="<?php echo ( ! Avada()->settings->get( 'smooth_scrolling' ) ) ? 'no-overflow-y' : ''; ?>" <?php language_attributes(); ?>>

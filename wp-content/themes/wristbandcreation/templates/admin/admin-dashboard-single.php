@@ -193,7 +193,7 @@ if ( $order ) :
 		<div class="stab-content tc-box col-md-6">
 			<div class="artwork-title">
 				<h3>Images from Supplier</h3>
-			</div>
+			</div> 
 			<div class="artwork col-md-12">
 				<?php 
 				$artwork = get_post_meta( $order_id, 'Supplier_artwork', true );

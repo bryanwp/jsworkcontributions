@@ -114,8 +114,8 @@ if ( $order ) :
 			<?php
 				foreach ($artwork as $key => $value) { ?>
 					<div class="img-holder">
-						<img class="img-artwork" src="<?php echo $value; ?>">
-						<input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>">
+						<img class="img-artwork" src="<?php echo $value['url']; ?>">
+						<!-- <input type="hidden" class="attachment_id" name="img<?php echo $key; ?>" value="<?php echo $value; ?>"> -->
 					</div>
 			<?php } ?>
 			</div> <!--container for the upload files-->	
