@@ -74,10 +74,12 @@ if ( $order ) :
 		
 		<!-- <span>Send e-mail confirmation for the customer</span> -->
 		<?php
-		$qty = get_post_meta($order_id, 'supplier_wpqty', TRUE); 
-		if ( $qty ) {
-			do_action('supplier_pricing', $order_id); 
-		}
+		if ( ! isset( $_SESSION['role'] ) ) {
+			$qty = get_post_meta($order_id, 'supplier_wpqty', TRUE); 
+			if ( $qty ) {
+				do_action('supplier_pricing', $order_id); 
+			}
+		}	
 		?>
 	</div>
 	

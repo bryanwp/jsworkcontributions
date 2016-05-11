@@ -672,7 +672,7 @@ function save_user_made_by_admin() {
         if ( ! is_wp_error( $user_id ) ) {
 	    	//adding user meta
 	    	add_user_meta( $user_id, 'custom_role', $post['role']  ); 
-			exit (wp_send_json_success( $user_id ) );
+			exit ( wp_send_json_success( $user_id ) );
         } else {
         	exit (wp_send_json_error( false ) );
        } 

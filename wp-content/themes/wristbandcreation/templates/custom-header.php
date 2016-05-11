@@ -1,22 +1,54 @@
 <?php
 session_start();
+
 if ( is_page('customer-dashboard') ) {
 	global $woocommerce; 
 	do_action('wc_order_edit');
 }
+// $actual_link = $_SERVER[REQUEST_URI];
+// echo define('requestURIWithoutParametr',parse_url( requestURIfromHome, PHP_URL_PATH ) );
+// die;
+if ( ! is_page( 'login' ) || ! is_page( 'register' ) ) {
 
-// if ( ! is_page( 'login' ) || ! is_page( 'register' ) ) {
+	$role = "";
+	if ( isset( $_SESSION['role'] ) ) {
+		$role = $_SESSION['role'];
+	} else {
+		if ( current_user_can( 'manage_options' ) ) {
+			$role = 'admin';
+		} else {
+			$role = 'customer';
+		}
+	}
 
-// 	$role = "";
-// 	if ( isset( $_SESSION['role'] ) ) {
-// 		$role = $_SESSION['role'];
-// 	} else {
-// 		$role = 'customer';
-// 	}
+	$role = strtolower( $role );
 
-	
-
-// }
+	if ( is_page( 'employee-dashboard' ) ) {
+		if ( $role != 'employee' && ! current_user_can( 'manage_options' ) ) {
+			wp_redirect( home_url( $role . '-dashboard' ) );
+			// echo $role;
+			// exit;
+		}
+	} elseif ( is_page( 'supplier-dashboard' ) ) {
+		if ( $role != 'supplier' && ! current_user_can( 'manage_options' ) ) {
+			wp_redirect( home_url( $role . '-dashboard' ) );
+			// echo $role;
+			// exit;
+		}
+	} elseif ( is_page( 'customer-dashboard' ) ) {
+		if ( $role != 'customer' && ! current_user_can( 'manage_options' ) ) {
+			// wp_redirect( home_url( $role . '-dashboard' ) );
+			// echo $role;
+			// exit;
+		}
+	} elseif ( is_page( 'admin-dashboard' ) ) {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_redirect( home_url( $role . '-dashboard' ) );
+			// echo $role;
+			// exit;
+		}
+	}
+}
 ?>
 
 <!DOCTYPE html>
