@@ -36,7 +36,7 @@ if ( ! is_page( 'login' ) || ! is_page( 'register' ) ) {
 			// exit;
 		}
 	} elseif ( is_page( 'customer-dashboard' ) ) {
-		if ( $role != 'customer' ) ) {
+		if ( $role != 'customer' ) {
 			// wp_redirect( home_url( $role . '-dashboard' ) );
 			// echo $role;
 			// exit;
