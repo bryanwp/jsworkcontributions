@@ -212,21 +212,31 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 							$orders  = "";
 							$profile = "dash-active";
 							$Orderlogs = "";
+							$log = "";
 						} elseif ( $_GET['action'] == 'create' ) {
 							$create = "dash-active";
 							$orders  = "";
 							$profile = "";
 							$Orderlogs = "";
+							$log = "";
 						} elseif ( $_GET['action'] == 'Orderlogs' ) {
 							$create = "";
 							$orders  = "";
 							$profile = "";
 							$Orderlogs = "dash-active";
-						} else {
+							$log = "";
+						} elseif ( $_GET['action'] == 'log' ) {
+							$create = "";
+							$orders  = "";
+							$profile = "";
+							$Orderlogs = "";
+							$log = "dash-active";
+						}  else {
 							$create = "";
 							$orders  = "dash-active";
 							$profile = "";
 							$Orderlogs = "";
+							$log = "";
 						}
 					}
 

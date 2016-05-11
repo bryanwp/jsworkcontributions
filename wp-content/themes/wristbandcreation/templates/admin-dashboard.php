@@ -133,10 +133,13 @@ if ( $customer_orders ) : ?>
 						<?php //echo wc_get_order_status_name( $order->get_status() ); ?>
 					</td>
 					<td>
-						<?php echo "$".$sub_total; ?>
+					
+						<?php // echo "$".$sub_total; ?>
+						<?php echo "$".number_format((float)$sub_total, 2, '.', ','); ?>
 					</td>
 					<td>
-						<?php echo $tax; ?>
+						<?php// echo $tax; ?>
+						<?php echo "$".number_format((float)$tax, 2, '.', ','); ?>
 					</td>
 					<td>
 						<?php echo $order->get_formatted_order_total(); ?>
