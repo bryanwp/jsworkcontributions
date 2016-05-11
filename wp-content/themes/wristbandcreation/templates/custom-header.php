@@ -24,19 +24,19 @@ if ( ! is_page( 'login' ) || ! is_page( 'register' ) ) {
 	$role = strtolower( $role );
 
 	if ( is_page( 'employee-dashboard' ) ) {
-		if ( $role != 'employee' && ! current_user_can( 'manage_options' ) ) {
+		if ( $role != 'employee' ) {
 			wp_redirect( home_url( $role . '-dashboard' ) );
 			// echo $role;
 			// exit;
 		}
 	} elseif ( is_page( 'supplier-dashboard' ) ) {
-		if ( $role != 'supplier' && ! current_user_can( 'manage_options' ) ) {
+		if ( $role != 'supplier' ) ) {
 			wp_redirect( home_url( $role . '-dashboard' ) );
 			// echo $role;
 			// exit;
 		}
 	} elseif ( is_page( 'customer-dashboard' ) ) {
-		if ( $role != 'customer' && ! current_user_can( 'manage_options' ) ) {
+		if ( $role != 'customer' ) ) {
 			// wp_redirect( home_url( $role . '-dashboard' ) );
 			// echo $role;
 			// exit;
