@@ -1,5 +1,6 @@
 	
 	<div class="col-md-12 logcon">
+	<?php the_title( '<h1>', '</h1>' ); ?>
 	<!-- <div id="log-con"></div> -->
 	<input class="log-date" type="date" name="calendar">
 	<button id="set-date" type="button">get</button>

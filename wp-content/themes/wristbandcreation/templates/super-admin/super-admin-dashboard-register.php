@@ -104,7 +104,7 @@
                 <div class="form-group">
                     <select class="form-control select" name="custom_role" id="user-role">
                         <option value="" default> -- Role --</option>
-                        <option value="Administrator">Admin</option>
+                        <option value="Admin">Admin</option>
                         <option value="Employee">Employee</option>
                         <option value="Supplier">Supplier</option>
                     </select>

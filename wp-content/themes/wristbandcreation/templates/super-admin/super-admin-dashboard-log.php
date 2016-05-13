@@ -1,10 +1,5 @@
 	
-	
-<?php 
-    echo "<pre>";
-    var_dump($post);
-    echo "</pre>";
- ?>
+
 	<div class="col-md-12 logcon">
 	<!-- <div id="log-con"></div> -->
 	    <div style="margin-top: 20px;">

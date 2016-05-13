@@ -11,7 +11,7 @@ if ( is_page('customer-dashboard') ) {
 if ( ! is_page( 'login' ) || ! is_page( 'register' ) ) {
 
 	$role = "";
-	
+
 	if ( isset( $_SESSION['role'] ) ) {
 		$role = $_SESSION['role'];
 	} 
