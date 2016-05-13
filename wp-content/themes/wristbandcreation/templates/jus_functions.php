@@ -78,7 +78,16 @@ function my_check_login(){
     // var_dump($user);
 			$role = get_user_meta ( $user->ID, 'custom_role', true );
 			session_start();
-			$_SESSION['role'] = $role;
+			if ( $role ) {
+				$_SESSION['role'] = $role;
+			} else {
+				if ( current_user_can( 'manage_options' ) ) {
+					$_SESSION['role'] = 'super-admin';
+				} else {
+					$_SESSION['role'] = 'customer';
+				}
+			}
+			
     // echo $role;
     // echo $user->ID;
     // echo "</pre>";

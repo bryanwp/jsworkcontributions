@@ -616,7 +616,7 @@ function custom_get_order( $keyword, $filter ){
 		case 'post_id':
 			foreach ( $results as $key => $value ) {
 				if ( $keyword == $key ) {
-					$post_ids = $key;
+					$post_ids[] = $key;
 				}
 			}
 			break;
