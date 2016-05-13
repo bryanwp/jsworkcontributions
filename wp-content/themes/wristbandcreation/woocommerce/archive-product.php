@@ -42,7 +42,7 @@ get_header( 'shop' ); ?>
 		?>
 
 		<?php if ( have_posts() ) : ?>
-
+			<?php do_action('woocommerce_after_shop_loop'); ?>
 			<?php
 				/**
 				 * woocommerce_before_shop_loop hook
@@ -73,6 +73,7 @@ get_header( 'shop' ); ?>
 				 */
 				do_action( 'woocommerce_after_shop_loop' );
 			?>
+
 
 		<?php elseif ( ! woocommerce_product_subcategories( array( 'before' => woocommerce_product_loop_start( false ), 'after' => woocommerce_product_loop_end( false ) ) ) ) : ?>
 

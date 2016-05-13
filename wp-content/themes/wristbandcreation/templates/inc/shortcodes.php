@@ -562,3 +562,55 @@ function calculate_guaranteed_delivery( $date_production, $date_shipping, $date_
 	return $date;
 }
 
+function custom_get_order(){
+
+	global $wpdb;
+
+	$sql = "SELECT ID FROM $wpdb->posts WHERE post_status = 'wc-completed'";
+
+	$posts = $wpdb->get_results( $sql );
+	$results ="";
+
+	foreach ( $posts as $post ) { 
+
+		foreach ($post as $id ) {
+			$metas = "SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id = '$id'";
+			$pmeta = $wpdb->get_results( $metas );
+
+			foreach ( $pmeta as $m ) {
+				$results[$id]['post_meta'][$m->meta_key] = $m->meta_value;
+			}
+		}
+		// $post['pmeta'] = $pmeta;
+	}
+	$oit = 'line_item';
+	foreach ( $results as $id => $metas ) {
+		
+		$sql_line = "SELECT
+					order_item_id,
+					order_item_name
+					FROM wcv2_woocommerce_order_items
+					WHERE order_id = '$id'
+					AND order_item_type = '$oit'";
+
+		$order = $wpdb->get_results( $sql_line );
+
+		foreach ($order as $k => $v) {
+			$results[$id]['order_item'][$v->order_item_name]['woo_id'] = $v->order_item_id;
+			$woo = $results[$id]['order_item'];
+			foreach ( $woo as $woo_id ) {
+
+				$metas = "SELECT meta_key, meta_value FROM wcv2_woocommerce_order_itemmeta WHERE order_item_id = '{$woo_id['woo_id']}'";
+				$woo_meta = $wpdb->get_results( $metas );
+
+				foreach ( $woo_meta as $m ) {
+					$results[$id]['order_item'][$v->order_item_name][$m->meta_key] = $m->meta_value;
+				}
+			}	
+		}
+		
+	}
+
+	return $results;
+}
+

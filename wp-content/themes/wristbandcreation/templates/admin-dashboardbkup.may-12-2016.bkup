@@ -1,15 +1,11 @@
 <?php
  //Template Name: Admin Dashboard
-check_if_login();
+// check_if_login();
 
-// foreach ( $results as $result => $post_id ) {
-// 	$order = new WC_Order($post_id);
-// 	$status = wc_get_order_statuses( $post_id );
-	
-// }
-// echo '<pre>';
-// print_r( $results );
-// die;
+$post = custom_get_order();
+echo "<pre>";
+print_r( $post );
+die;
 
 include ('custom-header.php'); ?>
 
@@ -32,6 +28,12 @@ include ('custom-header.php'); ?>
 		include ( 'admin/admin-dashboard-single-report.php' );
 	} elseif ( $action === 'order-edit' ) {
 		include ( 'admin/admin-dashboard-single-edit.php' );
+	} elseif ( $action === 'wristband_meta' ) {
+		include ( 'admin/wristband_meta.php' );
+	} elseif ( $action === 'create' ) {
+		include ( 'admin/admin-dashboard-register.php' );
+	} elseif ( $action === 'log' ) {
+		include ( 'admin/admin-dashboard-log.php' );
 	}
 	
 	?>
@@ -46,9 +48,9 @@ include ('custom-header.php'); ?>
 		<div class="table-1">
 		<?php
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
-  'meta_key'    => '_customer_user',
-  'post_type'   => wc_get_order_types( 'view-orders' ),
-  'post_status' => array_keys( wc_get_order_statuses() )
+	'numberposts' => 9999999,
+    'post_type'   => wc_get_order_types( 'view-orders' ),
+    'post_status' => array_keys( wc_get_order_statuses() )
 ) ) );
 
 if ( $customer_orders ) : ?>
@@ -60,9 +62,12 @@ if ( $customer_orders ) : ?>
 				<th>Order</th>
 				<th>Date</th>
 				<th>Front Message</th>
-				<th>Name</th>
+				<th>First Name</th>
+				<th>Last Name</th>
 				<th>Payment Method</th>
-				<th>Total</th>
+				<th>Sub Total</th>
+				<th>Tax</th>
+				<th>Grand Total</th>
 			</tr>
 		</thead>
 
@@ -76,7 +81,7 @@ if ( $customer_orders ) : ?>
         $orders = new WC_Order( $order_id ); 
         $items = $orders->get_items();
 
-        ?><tr>		
+        ?><tr data-href="<?php echo esc_url( home_url('admin-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">		
         			<td data-title="<?php esc_attr_e( 'Order Number', 'woocommerce' ); ?>">
 						<a class="orders" href="<?php echo esc_url( home_url('admin-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
 							<?php echo check_notif_onload( $order_id ); ?>
@@ -104,17 +109,19 @@ if ( $customer_orders ) : ?>
 							$options = $wristband_meta['messages'];
 							$sub_total = $item['line_subtotal'];
 							$tax = $item['line_tax'];
-						    
 						    echo ($options['Front Message']);
 						           
 							}
 						?>
 					</td>
-					
 					<td>
 						<?php
-							echo get_post_meta( $customer_order->ID, '_billing_first_name', true ) . ' ' . get_post_meta( $customer_order->ID, '_billing_last_name', true );
-
+							echo get_post_meta( $customer_order->ID, '_billing_first_name', true );
+						?>	
+					</td>
+					<td>
+						<?php
+							echo get_post_meta( $customer_order->ID, '_billing_last_name', true );
 						?>	
 					</td>
 					<td>
@@ -122,19 +129,24 @@ if ( $customer_orders ) : ?>
 						<?php //echo wc_get_order_status_name( $order->get_status() ); ?>
 					</td>
 					<td>
-						<table class="total">
-							<tr><td>Sub Total:</td><td><?php echo $sub_total; ?></td></tr>
-							<tr><td>Tax:</td><td><?php echo $tax; ?></td></tr>
-							<tr class="grand-total"><td>Grand Total:</td><td><?php echo $order->get_formatted_order_total(); ?></td></tr>
-						</table>
+					
+						<?php // echo "$".$sub_total; ?>
+						<?php echo "$".number_format((float)$sub_total, 2, '.', ','); ?>
+					</td>
+					<td>
+						<?php// echo $tax; ?>
+						<?php echo "$".number_format((float)$tax, 2, '.', ','); ?>
+					</td>
+					<td>
+						<?php echo $order->get_formatted_order_total(); ?>
 					</td>
 				</tr><?php
       }
     ?></tbody>
 
 	</table>
-
-<?php endif; ?>
+<?php 
+endif; ?>
 		</div>
 	</div>
 </div>
