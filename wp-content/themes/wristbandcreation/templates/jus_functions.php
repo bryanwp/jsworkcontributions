@@ -77,7 +77,7 @@ function my_check_login(){
     // echo "<pre>";
     // var_dump($user);
 			$role = get_user_meta ( $user->ID, 'custom_role', true );
-
+			session_start();
 			$_SESSION['role'] = $role;
     // echo $role;
     // echo $user->ID;
