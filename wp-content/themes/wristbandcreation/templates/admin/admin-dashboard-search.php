@@ -8,28 +8,34 @@
 		<h2>All Orders</h2>
 	</div>
 
-	<div class="search-con">
-		<form method="get">
-			<input type="hidden" name="action" value="search">
-			<select name="f" id="filter-search">
-				<option value="post_id">Order Number</option>
-				<option value="date">Date</option>
-				<option value="name">Customer Name</option>
-				<option value="method">Payment Method</option>
-				<option value="msg">Front Message</option>
-				<option value="status">Status</option>
-			</select>
-			<input type="text" name="k" placeholder="Search">
-			<input type="submit">
-		</form>
-	</div>
+		<div class="search-con">
+			<form id="search" method="get">
+				<input type="hidden" name="action" value="search">
+				<select name="f" id="filter-search">
+					<option value="post_id">Order Number</option>
+					<option value="date">Date</option>
+					<option value="name">Customer Name</option>
+					<option value="method">Payment Method</option>
+					<option value="msg">Front Message</option>
+					<option value="status">Status</option>
+				</select>
+				<div class="keyword-con">
+					<input id="keyword" type="text" name="k" placeholder="Search">
+				</div>
+				<input type="submit">
+			</form>
+		</div>
 
 	<?php
 	$keyword = $_GET['k'];
 	$filter  = $_GET['f'];
 	$post_id = custom_get_order( $keyword, $filter );
-	?>
 
+	if ( empty( $post_id ) ) {
+		echo '<p class="no-found">0 result in search</p>';
+	}
+	?>
+	
 	<div class="table-1">
 	<?php
 		$customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
@@ -39,16 +45,6 @@
 		    'post__in'    => $post_id
 		    // 'post_status' => array_keys( wc_get_order_statuses() )
 		) ) );
-		$page = get_query_var( 'page', 1 );
-		if ( $page == 0 ) {
-			$page = 1;
-		}
-		$total_order = count( $customer_orders );
-		$paginate_by = 3;
-		$total_page  = $total_order / $paginate_by;
-		$total_page  = ceil( $total_page );
-		$post_start  = ( $page * $paginate_by ) - $paginate_by;
-		$post_end    = $page * $paginate_by;
 
 		if ( $customer_orders ) : ?>
 
@@ -72,8 +68,6 @@
 				<tbody><?php
 			  $post_counter = 1;
 		      foreach ( $customer_orders as $customer_order ) {
-		      	if ( $post_start < $post_counter && $post_end >= $post_counter  ) {
-
 		        $order = wc_get_order( $customer_order );
 		        $order->populate( $customer_order );
 		        $item_count = $order->get_item_count();
@@ -97,8 +91,9 @@
 						</p>
 					</td>
         			<td class="dates">
-						<p class="date"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?></p>
-						<span><?php echo date( 'H:i:s', strtotime( $order->order_date ) ); ?></span>
+        				<?php $cdate = get_post_meta( $customer_order->ID, '_completed_date', true ) ?>
+						<p class="date"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $cdate ) ); ?></p>
+						<span><?php echo date( 'H:i:s', strtotime( $cdate ) ); ?></span>
 					</td>
 					<td class="order-fmsg">
 						<?php 
@@ -142,22 +137,11 @@
 						<?php echo $order->get_formatted_order_total(); ?>
 					</td>
 				</tr><?php
-				 } //if else pagination
-				 $post_counter++;
 		      } // foreach
 		    ?></tbody>
 
 			</table>
 		<?php endif; ?>
-		<div class="pagination">
-			<ul>
-			<?php 
-			for ($i=1; $i <= $total_page; $i++) { ?>
-
-				<li><a href="<?php echo home_url( $post_slug . '/?page='.$i ); ?>"><?php echo $i; ?></a></li>
-			<?php } ?>
-			</ul>
-		</div>
 
 	</div>
 	

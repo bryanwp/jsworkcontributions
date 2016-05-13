@@ -747,5 +747,44 @@ jQuery(document).ready(function ($) {
     if ( text == '' ) {
       return false;
     }
+  });
+
+  $('#filter-search').change(function(){
+    var filter = $('#filter-search').val();
+    // console.log(filter);
+    if ( filter == 'method' ) {
+        $('#keyword').remove();
+        var x ='';
+        x+='<select id="keyword" name="k">';
+          x+='<option value="PayPal">PayPal</option>';
+          x+='<option value="Credit Card Payment">Credit Card</option>';
+        x+='</select>'
+        $('.keyword-con').append(x);
+    } else if ( filter == 'status' ) {
+        $('#keyword').remove();
+        var x ='';
+        x+='<select id="keyword" name="k">';
+          x+='<option value="pending_production">Pending Production</option>';
+          x+='<option value="pending_artwork_approval">Pending Artwork Approval</option>';
+          x+='<option value="in_production">In Production</option>';
+          x+='<option value="in_reproduction">In Reproduction</option>';
+          x+='<option value="produced_pending_shipment">Produced Pending Shipment</option>';
+          x+='<option value="shipped">Shipped</option>';
+        x+='</select>'
+        $('.keyword-con').append(x);
+    } else if ( filter == 'date' ) {
+       var x='';
+       $('#keyword').remove();
+       x+='<input id="keyword" type="date" name="k" placeholder="Search">';
+       $('.keyword-con').append(x);
+    } else {
+      var x='';
+      $('#keyword').remove();
+      x+='<input id="keyword" type="text" name="k" placeholder="Search">';
+      $('.keyword-con').append(x);
+    }
+
   })
+
+
 });

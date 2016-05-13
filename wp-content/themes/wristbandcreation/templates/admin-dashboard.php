@@ -45,7 +45,7 @@ include ('custom-header.php'); ?>
 			<h2>All Orders</h2>
 		</div>
 		<div class="search-con">
-			<form method="get">
+			<form id="search" method="get">
 				<input type="hidden" name="action" value="search">
 				<select name="f" id="filter-search">
 					<option value="post_id">Order Number</option>
@@ -55,7 +55,9 @@ include ('custom-header.php'); ?>
 					<option value="msg">Front Message</option>
 					<option value="status">Status</option>
 				</select>
-				<input type="text" name="k" placeholder="Search">
+				<div class="keyword-con">
+					<input id="keyword" type="text" name="k" placeholder="Search">
+				</div>
 				<input type="submit">
 			</form>
 		</div>
@@ -72,7 +74,7 @@ if ( $page == 0 ) {
 	$page = 1;
 }
 $total_order = count( $customer_orders );
-$paginate_by = 3;
+$paginate_by = 5;
 $total_page  = $total_order / $paginate_by;
 $total_page  = ceil( $total_page );
 $post_start  = ( $page * $paginate_by ) - $paginate_by;
@@ -125,8 +127,9 @@ if ( $customer_orders ) : ?>
 						</p>
 					</td>
         			<td class="dates">
-						<p class="date"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?></p>
-						<span><?php echo date( 'H:i:s', strtotime( $order->order_date ) ); ?></span>
+        				<?php $cdate = get_post_meta( $customer_order->ID, '_completed_date', true ) ?>
+						<p class="date"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $cdate ) ); ?></p>
+						<span><?php echo date( 'H:i:s', strtotime( $cdate ) ); ?></span>
 					</td>
 					<td class="order-fmsg">
 						<?php 

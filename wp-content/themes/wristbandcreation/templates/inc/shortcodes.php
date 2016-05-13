@@ -612,6 +612,7 @@ function custom_get_order( $keyword, $filter ){
 	}
 
 	$post_ids = '';
+	
 	switch ( $filter ) {
 		case 'post_id':
 			foreach ( $results as $key => $value ) {
@@ -620,7 +621,54 @@ function custom_get_order( $keyword, $filter ){
 				}
 			}
 			break;
-		
+		case 'name':
+			$keyword = strtolower( $keyword );
+			foreach ( $results as $key => $value ) {
+				$fullname = $value['post_meta']['_billing_first_name'] .' '. $value['post_meta']['_billing_last_name'];
+				$fullname = strtolower( $fullname );
+				if ( $keyword == strtolower( $value['post_meta']['_billing_first_name'] ) || $keyword == strtolower( $value['post_meta']['_billing_last_name']  ) || $keyword === $fullname ) {
+					$post_ids[] = $key;
+				}
+			}
+			break;
+		case 'method':
+			foreach ( $results as $key => $value ) {
+				if ( $keyword ==  $value['post_meta']['_payment_method_title'] ) {
+					$post_ids[] = $key;
+				}
+			}
+			break;
+		case 'status':
+			foreach ( $results as $key => $value ) {
+				if ( $keyword ==  $value['post_meta']['_new_status'] ) {
+					$post_ids[] = $key;
+				}
+			}
+			break;
+		case 'msg':
+			// echo "<pre>";
+			// print_r($results);
+			// die;
+			$keyword = strtolower( $keyword );
+			foreach ( $results as $key => $value ) {
+				$item = $value['order_item'];
+				foreach ( $item as $k => $v ) {
+					if ( strpos( strtolower( $v['wristband_meta'] ), $keyword )  ) {
+						$post_ids[] = $key;
+					}
+				}
+			}
+			break;
+		case 'date':
+			// echo "<pre>";
+			// print_r($results);
+			// die;
+			foreach ( $results as $key => $value ) {
+				if ( substr( $value['post_meta']['_completed_date'], 0, 10 ) == $keyword ) {
+						$post_ids[] = $key;
+				}
+			}
+			break;
 		default:
 			# code...
 			break;
