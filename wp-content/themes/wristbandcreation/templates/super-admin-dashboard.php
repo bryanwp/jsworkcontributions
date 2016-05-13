@@ -1,37 +1,15 @@
 <?php
- //Template Name: Admin Dashboard
+ //Template Name: Super Admin Dashboard
 // check_if_login();
 
-// $post = custom_get_order();
-// $arr = "";
-// foreach ( $post as $id => $data ) {
+// foreach ( $results as $result => $post_id ) {
+// 	$order = new WC_Order($post_id);
+// 	$status = wc_get_order_statuses( $post_id );
 	
-// 	$arr[$id]['status'] = $data['post_meta']['_new_status'];
-// 	$arr[$id]['completed_date'] = $data['post_meta']['_completed_date'];
-
-// 	foreach ($data as $order_item => $order) {
-// 		foreach ( $order as $wmeta ) {
-// 			if ( is_array( $wmeta ) ) {
-// 				foreach ($wmeta as $k => $wm) {
-// 					$wristband_meta = '';
-// 					if ( $k == 'wristband_meta' ) {
-// 						$wristband_meta = maybe_unserialize( $wm );
-// 					}
-// 					if ( is_array( $wristband_meta['messages'] ) ) {
-// 						foreach ( $wristband_meta['messages'] as $key => $value) {
-// 							$arr[$id]['msg'][$key] = $value;
-// 						}
-// 					}
-// 				}
-// 			}
-// 		}
-// 	}
 // }
-
-// echo "<pre>";
-// print_r($arr);
+// echo '<pre>';
+// print_r( $results );
 // die;
- 
 
 include ('custom-header.php'); ?>
 
@@ -43,23 +21,23 @@ include ('custom-header.php'); ?>
 	}
 
 	if ( $action === 'view') {
-		include ('admin/admin-dashboard-single.php');
+		include ('super-admin/super-admin-dashboard-single.php');
 	} elseif ( $action === 'profile' ) {
-		include ('admin/admin-dashboard-profile.php');
+		include ('super-admin/super-admin-dashboard-profile.php');
 	} elseif ( $action === 'notification' ) {
-		include ('admin/admin-dashboard-notification.php');
+		include ('super-admin/super-admin-dashboard-notification.php');
 	} elseif ( $action === 'report' ) {
-		include ('admin/admin-dashboard-notif-form.php');
+		include ('super-admin/super-admin-dashboard-notif-form.php');
 	} elseif ( $action === 'view-report' ) {
-		include ( 'admin/admin-dashboard-single-report.php' );
+		include ( 'super-admin/super-admin-dashboard-single-report.php' );
 	} elseif ( $action === 'order-edit' ) {
-		include ( 'admin/admin-dashboard-single-edit.php' );
+		include ( 'super-admin/super-admin-dashboard-single-edit.php' );
 	} elseif ( $action === 'wristband_meta' ) {
 		include ( 'admin/wristband_meta.php' );
 	} elseif ( $action === 'create' ) {
-		include ( 'admin/admin-dashboard-register.php' );
+		include ( 'super-admin/super-admin-dashboard-register.php' );
 	} elseif ( $action === 'log' ) {
-		include ( 'admin/admin-dashboard-log.php' );
+		include ( 'super-admin/super-admin-dashboard-log.php' );
 	}
 	
 	?>
@@ -77,19 +55,8 @@ include ('custom-header.php'); ?>
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
 	'numberposts' => 9999999,
     'post_type'   => wc_get_order_types( 'view-orders' ),
-    'post_status' => 'wc-completed'
-    // 'post_status' => array_keys( wc_get_order_statuses() )
+    'post_status' => array_keys( wc_get_order_statuses() )
 ) ) );
-$page = get_query_var( 'page', 1 );
-if ( $page == 0 ) {
-	$page = 1;
-}
-$total_order = count( $customer_orders );
-$paginate_by = 3;
-$total_page  = $total_order / $paginate_by;
-$total_page  = ceil( $total_page );
-$post_start  = ( $page * $paginate_by ) - $paginate_by;
-$post_end    = $page * $paginate_by;
 
 if ( $customer_orders ) : ?>
 
@@ -99,7 +66,6 @@ if ( $customer_orders ) : ?>
 			<tr>
 				<th>Order</th>
 				<th>Date</th>
-				<!-- <th>Quantity</th> -->
 				<th>Front Message</th>
 				<th>First Name</th>
 				<th>Last Name</th>
@@ -111,10 +77,7 @@ if ( $customer_orders ) : ?>
 		</thead>
 
 		<tbody><?php
-	  $post_counter = 1;
       foreach ( $customer_orders as $customer_order ) {
-      	if ( $post_start < $post_counter && $post_end >= $post_counter  ) {
-
         $order = wc_get_order( $customer_order );
         $order->populate( $customer_order );
         $item_count = $order->get_item_count();
@@ -123,9 +86,9 @@ if ( $customer_orders ) : ?>
         $orders = new WC_Order( $order_id ); 
         $items = $orders->get_items();
 
-        ?><tr data-href="<?php echo esc_url( home_url('admin-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">		
+        ?><tr data-href="<?php echo esc_url( home_url('super-admin-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">		
         			<td data-title="<?php esc_attr_e( 'Order Number', 'woocommerce' ); ?>">
-						<a class="orders" href="<?php echo esc_url( home_url('admin-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
+						<a class="orders" href="<?php echo esc_url( home_url('super-admin-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
 							<?php echo check_notif_onload( $order_id ); ?>
 							<?php echo get_order_number_format( $order->get_order_number() ); ?> 
 						</a>
@@ -183,27 +146,13 @@ if ( $customer_orders ) : ?>
 						<?php echo $order->get_formatted_order_total(); ?>
 					</td>
 				</tr><?php
-		 } //if else pagination
-		 $post_counter++;
-      } // foreach
+      }
     ?></tbody>
 
 	</table>
-<?php endif; ?>
-			<div class="pagination">
-				<ul>
-				<?php 
-				 global $post;
-    			$post_slug=$post->post_name;
-				for ($i=1; $i <= $total_page; $i++) { ?>
-
-					<li><a href="<?php echo home_url( $post_slug . '/?page='.$i ); ?>"><?php echo $i; ?></a></li>
-				<?php } ?>
-				</ul>
-			</div>
-
+<?php 
+endif; ?>
 		</div>
-	
 	</div>
 </div>
 <?php include ('custom-footer.php'); ?>

@@ -15,7 +15,7 @@ if ( ! is_page( 'login' ) || ! is_page( 'register' ) ) {
 		$role = $_SESSION['role'];
 	} else {
 		if ( current_user_can( 'manage_options' ) ) {
-			$role = 'admin';
+			$role = 'super-admin';
 		} else {
 			$role = 'customer';
 		}
@@ -42,6 +42,10 @@ if ( ! is_page( 'login' ) || ! is_page( 'register' ) ) {
 			// exit;
 		}
 	} elseif ( is_page( 'admin-dashboard' ) ) {
+		if ( $role != 'admin' ) {
+			wp_redirect( home_url( $role . '-dashboard' ) );		
+		}
+	} elseif ( is_page( 'super-admin-dashboard' ) ) {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_redirect( home_url( $role . '-dashboard' ) );
 			// echo $role;
@@ -244,11 +248,11 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 
 						<div class="nav-wrap">
 							<ul class="dash-custom-nav">
-								<li><a class="nav-a <?php echo $orders; ?>" href="<?php echo home_url('admin-dashboard'); ?>">All Orders</a></li>
-								<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('admin-dashboard/?action=profile'); ?>">Profile</a></li>
-								<li><a class="nav-a <?php echo $create; ?>" href="<?php echo home_url('admin-dashboard/?action=create'); ?>">Create Account</a></li>
-								<li><a class="nav-a <?php echo $Orderlogs; ?>" href="<?php echo home_url('admin-dashboard/?action=Orderlogs'); ?>">Order Logs</a></li>
-								<li><a class="nav-a <?php echo $log; ?>" href="<?php echo home_url('admin-dashboard/?action=log'); ?>">View Logs</a></li>
+								<li><a class="nav-a <?php echo $orders; ?>" href="<?php echo home_url('super-admin-dashboard'); ?>">All Orders</a></li>
+								<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('super-admin-dashboard/?action=profile'); ?>">Profile</a></li>
+								<li><a class="nav-a <?php echo $create; ?>" href="<?php echo home_url('super-admin-dashboard/?action=create'); ?>">Create Account</a></li>
+								<li><a class="nav-a <?php echo $Orderlogs; ?>" href="<?php echo home_url('super-admin-dashboard/?action=Orderlogs'); ?>">Order Logs</a></li>
+								<li><a class="nav-a <?php echo $log; ?>" href="<?php echo home_url('super-admin-dashboard/?action=log'); ?>">View Logs</a></li>
 								<li><a id="logout" class="nav-a" href="#"><?php echo logout_user(); ?>Log out</a></li>
 								<!-- <li>Log out</li> -->
 							</ul>
@@ -281,7 +285,21 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 									<li><a id="logout" class="nav-a" href="#"><?php echo logout_user(); ?>Log out</a></li>
 								</ul>
 							</div>
-						<?php }
+						<?php }elseif ($role == 'Admin') { ?>
+							
+							<div class="nav-wrap">
+								<ul class="dash-custom-nav">
+									<li><a class="nav-a <?php echo $orders; ?>" href="<?php echo home_url('admin-dashboard'); ?>">All Orders</a></li>
+									<li><a class="nav-a <?php echo $profile; ?>" href="<?php echo home_url('admin-dashboard/?action=profile'); ?>">Profile</a></li>
+									<li><a class="nav-a <?php echo $create; ?>" href="<?php echo home_url('admin-dashboard/?action=create'); ?>">Create Account</a></li>
+									<li><a class="nav-a <?php echo $Orderlogs; ?>" href="<?php echo home_url('admin-dashboard/?action=Orderlogs'); ?>">Order Logs</a></li>
+									<li><a class="nav-a <?php echo $log; ?>" href="<?php echo home_url('admin-dashboard/?action=log'); ?>">View Logs</a></li>
+									<li><a id="logout" class="nav-a" href="#"><?php echo logout_user(); ?>Log out</a></li>
+									<!-- <li>Log out</li> -->
+								</ul>
+							</div>
+
+						<?php	}
 					}
 					// echo '<p>WELCOME ' . $current_user->user_firstname . ' | <a href=' . wp_logout_url( $redirect ) . '>Log out</a></p>' ;
 				}

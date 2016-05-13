@@ -47,9 +47,9 @@ $items = $order->get_items();
 	</div>
 	<div style="margin-top: 20px;">
 			<?php the_title( '<h1>', '</h1>' ); ?>
-			<h3><?php echo get_order_number_format( $order_id ) .'<br/>';
-					echo 'Status: '.get_status( get_post_meta( $order_id, '_new_status', true ) ); ?> 
-			<!-- <a class="edit-order" href="<?php //echo home_url('admin-dashboard/?action=order-edit&ID='.$order_id); ?>">Edit</a> -->
+			<h3><?php echo get_order_number_format( $order_id ).'<br/>';
+					echo 'Status: ' . get_status( get_post_meta( $order_id, '_new_status', true ) ); ?> 
+			<!-- <a class="edit-order" href="<?php // echo home_url('admin-dashboard/?action=order-edit&ID='.$order_id); ?>">Edit</a> -->
 			</h3> 
 	</div>
 
@@ -189,7 +189,7 @@ if ( $order ) :
 					</div>
 				<?php
 					$user = "notification_admin_user"; 
-					include ('admin-dashboard-single-report.php'); 
+					include ('super-admin-dashboard-single-report.php'); 
 				}
 			?>
 		</div> 
@@ -235,7 +235,7 @@ if ( $order ) :
 					</div>
 				<?php
 					$user = "notification_admin_supplier";
-					include ('admin-dashboard-single-report.php'); 
+					include ('super-admin-dashboard-single-report.php'); 
 				}
 			?>
 		</div>
