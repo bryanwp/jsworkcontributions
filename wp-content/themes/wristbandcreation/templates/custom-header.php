@@ -11,16 +11,10 @@ if ( is_page('customer-dashboard') ) {
 if ( ! is_page( 'login' ) || ! is_page( 'register' ) ) {
 
 	$role = "";
+	
 	if ( isset( $_SESSION['role'] ) ) {
 		$role = $_SESSION['role'];
-	} else {
-		if ( current_user_can( 'manage_options' ) ) {
-			$role = 'super-admin';
-		} else {
-			$role = 'customer';
-		}
-	}
-
+	} 
 	$role = strtolower( $role );
 
 	if ( is_page( 'employee-dashboard' ) ) {
@@ -37,7 +31,7 @@ if ( ! is_page( 'login' ) || ! is_page( 'register' ) ) {
 		}
 	} elseif ( is_page( 'customer-dashboard' ) ) {
 		if ( $role != 'customer' ) {
-			// wp_redirect( home_url( $role . '-dashboard' ) );
+			wp_redirect( home_url( $role . '-dashboard' ) );
 			// echo $role;
 			// exit;
 		}
