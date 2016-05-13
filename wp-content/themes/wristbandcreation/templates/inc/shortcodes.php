@@ -562,7 +562,7 @@ function calculate_guaranteed_delivery( $date_production, $date_shipping, $date_
 	return $date;
 }
 
-function custom_get_order(){
+function custom_get_order( $keyword, $filter ){
 
 	global $wpdb;
 
@@ -611,6 +611,21 @@ function custom_get_order(){
 		
 	}
 
-	return $results;
+	$post_ids = '';
+	switch ( $filter ) {
+		case 'post_id':
+			foreach ( $results as $key => $value ) {
+				if ( $keyword == $key ) {
+					$post_ids = $key;
+				}
+			}
+			break;
+		
+		default:
+			# code...
+			break;
+	}
+
+	return $post_ids;
 }
 

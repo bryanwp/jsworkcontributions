@@ -1,38 +1,9 @@
 <?php
  //Template Name: Admin Dashboard
 // check_if_login();
-
-// $post = custom_get_order();
-// $arr = "";
-// foreach ( $post as $id => $data ) {
-	
-// 	$arr[$id]['status'] = $data['post_meta']['_new_status'];
-// 	$arr[$id]['completed_date'] = $data['post_meta']['_completed_date'];
-
-// 	foreach ($data as $order_item => $order) {
-// 		foreach ( $order as $wmeta ) {
-// 			if ( is_array( $wmeta ) ) {
-// 				foreach ($wmeta as $k => $wm) {
-// 					$wristband_meta = '';
-// 					if ( $k == 'wristband_meta' ) {
-// 						$wristband_meta = maybe_unserialize( $wm );
-// 					}
-// 					if ( is_array( $wristband_meta['messages'] ) ) {
-// 						foreach ( $wristband_meta['messages'] as $key => $value) {
-// 							$arr[$id]['msg'][$key] = $value;
-// 						}
-// 					}
-// 				}
-// 			}
-// 		}
-// 	}
-// }
-
-// echo "<pre>";
-// print_r($arr);
-// die;
  
-
+global $post;
+$post_slug = $post->post_name;
 include ('custom-header.php'); ?>
 
 <div class="row">
@@ -60,6 +31,8 @@ include ('custom-header.php'); ?>
 		include ( 'admin/admin-dashboard-register.php' );
 	} elseif ( $action === 'log' ) {
 		include ( 'admin/admin-dashboard-log.php' );
+	} elseif ( $action === 'search' ) {
+		include ( 'admin/admin-dashboard-search.php' );
 	}
 	
 	?>
@@ -71,7 +44,21 @@ include ('custom-header.php'); ?>
 			<?php the_title( '<h1>', '</h1>' ); ?>
 			<h2>All Orders</h2>
 		</div>
-
+		<div class="search-con">
+			<form method="get">
+				<input type="hidden" name="action" value="search">
+				<select name="f" id="filter-search">
+					<option value="post_id">Order Number</option>
+					<option value="date">Date</option>
+					<option value="name">Customer Name</option>
+					<option value="method">Payment Method</option>
+					<option value="msg">Front Message</option>
+					<option value="status">Status</option>
+				</select>
+				<input type="text" name="k" placeholder="Search">
+				<input type="submit">
+			</form>
+		</div>
 		<div class="table-1">
 		<?php
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
@@ -193,8 +180,6 @@ if ( $customer_orders ) : ?>
 			<div class="pagination">
 				<ul>
 				<?php 
-				 global $post;
-    			$post_slug=$post->post_name;
 				for ($i=1; $i <= $total_page; $i++) { ?>
 
 					<li><a href="<?php echo home_url( $post_slug . '/?page='.$i ); ?>"><?php echo $i; ?></a></li>
