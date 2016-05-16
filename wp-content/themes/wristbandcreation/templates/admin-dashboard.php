@@ -7,6 +7,9 @@ $post_slug = $post->post_name;
 include ('custom-header.php'); ?>
 
 <div class="row">
+<div class="gap-top">
+	<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
+</div>
 	<?php
 	$action = '';
 	if ( isset( $_GET['action'] ) ) {
@@ -33,13 +36,14 @@ include ('custom-header.php'); ?>
 		include ( 'admin/admin-dashboard-log.php' );
 	} elseif ( $action === 'search' ) {
 		include ( 'admin/admin-dashboard-search.php' );
+	} elseif ( $action === 'Orderlogs' ) {
+		include ( 'admin/admin-dashboard-reporting.php' );
 	}
+
 	
 	?>
 	<div class="col-md-12 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
-		<div class="gap-top">
-			<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
-		</div>
+		
 		<div style="margin-top: 20px;">
 			<?php the_title( '<h1>', '</h1>' ); ?>
 			<h2>All Orders</h2>

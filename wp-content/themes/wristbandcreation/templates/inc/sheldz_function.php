@@ -965,3 +965,145 @@ function debug_scripts_queued() {
 
 //     $phpmailer->IsSMTP();
 // }
+
+/*
+* Description: get_reporting_info() for reporting page
+* by: Sheldon A.
+*/
+function get_reporting_info( $method, $date ) {
+	// echo $method . ' ' . $date ;
+	global $wpdb;
+	$year = date(Y);
+	// echo $date;
+	$ret = '';
+	switch ( $method ) {
+		case 'customer_count':
+			$sql = "SELECT b.meta_value as id
+			FROM $wpdb->posts as a
+			INNER JOIN $wpdb->postmeta as b
+			ON a.ID = b.post_id
+			INNER JOIN $wpdb->postmeta as c
+			ON a.ID = c.post_id
+			AND c.meta_key = '_completed_date'
+			WHERE a.post_status = 'wc-completed'
+			AND b.meta_key = '_customer_user'
+			AND DATE_FORMAT( c.meta_value, '%M' ) = '$date'
+			AND DATE_FORMAT( c.meta_value, '%Y' ) = '$year'
+			GROUP BY b.meta_value";
+
+			$result = $wpdb->get_results( $sql );
+			$ret = count( $result );
+			break;
+		case 'order_count':
+			$sql = "SELECT a.ID
+			FROM $wpdb->posts as a
+			INNER JOIN $wpdb->postmeta as c
+			ON a.ID = c.post_id
+			AND c.meta_key = '_completed_date'
+			WHERE a.post_status = 'wc-completed'
+			AND DATE_FORMAT( c.meta_value, '%M' ) = '$date'
+			AND DATE_FORMAT( c.meta_value, '%Y' ) = '$year'";
+
+			$result = $wpdb->get_results( $sql );
+			$ret = count( $result );
+			break;
+		case 'sales_amount':
+			$sql = "SELECT woo.meta_value
+			FROM $wpdb->posts as a
+				INNER JOIN $wpdb->postmeta as c
+					ON a.ID = c.post_id
+					AND c.meta_key = '_completed_date'
+				INNER JOIN wcv2_woocommerce_order_items as wo
+					ON a.ID = wo.order_id
+					AND wo.order_item_type = 'line_item'
+				INNER JOIN wcv2_woocommerce_order_itemmeta as woo
+					ON wo.order_item_id = woo.order_item_id
+					AND woo.meta_key = '_line_total'
+			WHERE a.post_status = 'wc-completed'
+			AND DATE_FORMAT( c.meta_value, '%M' ) = '$date'
+			AND DATE_FORMAT( c.meta_value, '%Y' ) = '$year'";
+
+			$result = $wpdb->get_results( $sql );
+			// $ret = $result;
+			$sum = 0;
+
+			foreach ( $result as $v ) {
+				$sales = $v->meta_value;
+				$sum = $sum + (float)$sales;
+			}
+			// echo "<pre>";
+			// print_r( $result );
+			$ret = round( $sum, 2 );
+			break;
+	}
+
+	wp_reset_query();
+	return $ret;
+}
+function search_reporting_info( $method, $date_from, $date_to ) {
+	global $wpdb;
+	$ret = "";
+	switch ( $method ) {
+		case 'customer_count':
+			$sql = "SELECT b.meta_value as id
+			FROM $wpdb->posts as a
+			INNER JOIN $wpdb->postmeta as b
+			ON a.ID = b.post_id
+			INNER JOIN $wpdb->postmeta as c
+			ON a.ID = c.post_id
+			AND c.meta_key = '_completed_date'
+			WHERE a.post_status = 'wc-completed'
+			AND b.meta_key = '_customer_user'
+			AND STR_TO_DATE( c.meta_value, '%Y-%m-%d' ) >= '$date_from'
+			AND STR_TO_DATE( c.meta_value, '%Y-%m-%d' ) <= '$date_to'
+			GROUP BY b.meta_value";
+
+			$result = $wpdb->get_results( $sql );
+			$ret = count( $result );
+			break;
+		case 'order_count':
+			$sql = "SELECT a.ID
+			FROM $wpdb->posts as a
+			INNER JOIN $wpdb->postmeta as c
+			ON a.ID = c.post_id
+			AND c.meta_key = '_completed_date'
+			WHERE a.post_status = 'wc-completed'
+			AND STR_TO_DATE( c.meta_value, '%Y-%m-%d' ) >= '$date_from'
+			AND STR_TO_DATE( c.meta_value, '%Y-%m-%d' ) <= '$date_to'";
+
+			$result = $wpdb->get_results( $sql );
+			$ret = count( $result );
+			break;
+		case 'sales_amount':
+			$sql = "SELECT woo.meta_value
+			FROM $wpdb->posts as a
+				INNER JOIN $wpdb->postmeta as c
+					ON a.ID = c.post_id
+					AND c.meta_key = '_completed_date'
+				INNER JOIN wcv2_woocommerce_order_items as wo
+					ON a.ID = wo.order_id
+					AND wo.order_item_type = 'line_item'
+				INNER JOIN wcv2_woocommerce_order_itemmeta as woo
+					ON wo.order_item_id = woo.order_item_id
+					AND woo.meta_key = '_line_total'
+			WHERE a.post_status = 'wc-completed'
+			AND STR_TO_DATE( c.meta_value, '%Y-%m-%d' ) >= '$date_from'
+			AND STR_TO_DATE( c.meta_value, '%Y-%m-%d' ) <= '$date_to'";
+
+			$result = $wpdb->get_results( $sql );
+			// $ret = $result;
+			$sum = 0;
+
+			foreach ( $result as $v ) {
+				$sales = $v->meta_value;
+				$sum = $sum + (float)$sales;
+			}
+			// echo "<pre>";
+			// print_r( $result );
+			$ret = round( $sum, 2 );
+			break;
+	}
+
+	wp_reset_query();
+	return $ret;
+} 

@@ -749,6 +749,9 @@ jQuery(document).ready(function ($) {
     }
   });
 
+  /*
+  * Filter Search for dashboards
+  */
   $('#filter-search').change(function(){
     var filter = $('#filter-search').val();
     // console.log(filter);
@@ -783,8 +786,25 @@ jQuery(document).ready(function ($) {
       x+='<input id="keyword" type="text" name="k" placeholder="Search">';
       $('.keyword-con').append(x);
     }
+  });
 
-  })
+  /*
+  * Filter Search in Reporting Page
+  */
+  $(document)
+    .on('click', '#reset-btn', function(){
+    $('#search-from').val('');
+    $('#search-to').val('');
+    console.log('hi');
+    })
+    .on('click', '.search-btn', function(){
+      var frm = $('#search-from').val();
+      var to  = $('#search-to').val();
+
+      if ( frm == '' || to == '' ) {
+        return false;
+      }
+    })
 
 
 });
