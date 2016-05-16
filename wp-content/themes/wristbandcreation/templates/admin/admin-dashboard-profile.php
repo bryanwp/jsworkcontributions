@@ -1,6 +1,5 @@
 
 <div class="col-md-12 white" >
-
 	<div style="margin-top: 20px;">
 			<?php the_title( '<h1>', '</h1>' ); ?>
 		</div>

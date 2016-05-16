@@ -34,6 +34,7 @@ include ('custom-header.php'); ?>
 			<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
 		</div>
 		<div style="margin-top: 20px;">
+			<?php the_title( '<h1>', '</h1>' ); ?>
 			<h2>All Orders</h2>
 		</div>
 

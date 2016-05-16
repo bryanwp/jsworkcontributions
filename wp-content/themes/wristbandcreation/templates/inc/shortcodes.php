@@ -27,14 +27,15 @@ function cart_meta( $atts ){
 		$order = new WC_Order( $item_key );
 		$cart_items = $order->get_items();
 
+		$qtytotal = 0;
+
 		foreach ( $cart_items as $cart_item ) {
 			$wristband_meta = maybe_unserialize( $cart_item['wristband_meta']);
 		    $color = $wristband_meta['colors'];
 
 		 //    echo "<pre>";
 			// print_r( $wristband_meta );
-			// die;
-
+			// die();
 			if ( $cart_item ) {
 				?>
 				<tr class="<?php echo esc_attr(apply_filters('woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key)); ?>">
@@ -98,6 +99,7 @@ function cart_meta( $atts ){
 
 						echo '<br /><label class="CssTitleBlack CssTitleBold">Production and Shipping:</label><br />';
 						echo '<span>' . $wristband_meta['customization_location'] . '</span><br />'; 
+						echo '<span>Guaranteed to arrive on </span>'.$wristband_meta['guaranteed_delivery'];
 						echo '<span id="prod">' . $wristband_meta['customization_date_production'] . '</span><br />'; 
 						echo '<span id="ship">' . $wristband_meta['customization_date_shipping'] . '</span><br />'; 
 
@@ -105,7 +107,9 @@ function cart_meta( $atts ){
 					</td>
 
 					<td class="product-quantity">
-						<?php echo $total_qty; ?>
+						<?php echo $wristband_meta['total_qty'];
+							$qtytotal = $qtytotal + $wristband_meta['total_qty'];
+						?>
 					</td>
 
 					<td class="product-subtotal">
@@ -120,6 +124,7 @@ function cart_meta( $atts ){
 		?>
 		
 		</tbody>
+		<input type="hidden" name="qtytotal" id="qtytotal" value="<?php echo $qtytotal; ?>">
 		<tfoot>
 			<tr class="grandtotal">
 				<td class="CssTitleBlack CssTitleBold" colspan="2">Grand Total</td>

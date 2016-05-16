@@ -9,7 +9,7 @@ $pay_link = home_url('checkout/order-pay/' . $order_id . '?pay_for_order=true&ke
 $order = new WC_Order( $order_id );
 $items = $order->get_items();
 $key = '_new_status';
-$poststatusmeta = get_post_meta($order_id, $key, TRUE);
+$poststatusmeta = get_post_meta($order_id, $key, TRUE) == '' ? 'pending production' : get_post_meta($order_id, $key, TRUE);
 $tracknumbermeta = get_post_meta($order_id, 'supplier_trackingnumber', TRUE);
 $supplier = 'supplier_';
 $rowval = get_post_meta($order_id, $supplier.'maxrowval', TRUE);
@@ -22,7 +22,9 @@ $upimage = get_post_meta($order_id, 'Supplier_artwork', TRUE);
     <span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
   </div>
   <div style="margin-top: 20px;">
-    <h2><?php echo get_order_number_format( $order_id ); ?></h2> 
+      <?php the_title( '<h1>', '</h1>' ); ?>
+    <h3><?php echo get_order_number_format( $order_id ); ?></h3> 
+    <h3><?php echo 'Status: '.get_status( get_post_meta( $order_id, '_new_status', true ) ); ?></h3>
   </div>
 
   <div class="table-1 no-overflow">
@@ -34,8 +36,6 @@ $upimage = get_post_meta($order_id, 'Supplier_artwork', TRUE);
     endif; 
     ?>
     <div class="col-lg-12">
-
-      <center><h2>Wristband Price</h2></center>
 
       <div class="form-group clearfix trackstyle">
 
@@ -132,6 +132,7 @@ $upimage = get_post_meta($order_id, 'Supplier_artwork', TRUE);
     </div>
 
     <!-- End of Artwork Approval -->
+          <center><h2>Wristband Price</h2></center>
     <?php   if ($totalkey == '' || $totalkey == 0) {?>
     <form id="save-price-field" method="post">
       <div id='appendedid'>

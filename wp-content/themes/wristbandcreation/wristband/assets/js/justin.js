@@ -43,20 +43,33 @@ jQuery(document).ready(function ($) {
             row++;
             
             var rowval = $('#maxrowval').val();
+            var qtytotal = $('#qtytotal').val();
             // $('#maxrowval').val(row);
               rowval++;
               $('#maxrowval').val(rowval);
             
             for(x = 0; x < 14; x++)
             {
+
                 if (value == x) {            
                   var i = $('#appendedid #divappend_'+value+'').size() + 1;
-                  $('<div><div class="form-group clearfix num_'+rowval+'" id="divappend_'+value+'" >'+
+                  // console.log(value);
+                  if (value == 0 || value == 1 || value == 4 || value == 13) {
+                    $('<div><div class="form-group clearfix num_'+rowval+'" id="divappend_'+value+'" >'+
                         '<label class="pricestyle"> '+arrlabel[value]+' </label>'+
-                        '<input type="number" name="'+arrquantity[value]+i+'" id="'+arrquantity[value]+i+'" class="form-control priceinputstyle inputqty" placeholder="Quantity" value="">'+
+                        '<input type="number" name="'+arrquantity[value]+i+'" id="'+arrquantity[value]+i+'" class="form-control priceinputstyle inputqty" placeholder="Quantity" value="1">'+
                         '<input type="number" step="any" name="'+arrprice[value]+i+'" id="'+arrprice[value]+i+'" class="form-control priceinputstyle inputprice" placeholder="Unit Price" value="">'+
                         '<input type="number" name="'+arrtotal[value]+i+'" id="'+arrtotal[value]+i+'" value="" class="form-control priceinputstyle thetotal" placeholder="Total" readonly>'+
                      '<a href="#" id="removestyle">Remove</a></div></div>').appendTo($('#appendedid'));
+                  } else {
+                    $('<div><div class="form-group clearfix num_'+rowval+'" id="divappend_'+value+'" >'+
+                        '<label class="pricestyle"> '+arrlabel[value]+' </label>'+
+                        '<input type="number" name="'+arrquantity[value]+i+'" id="'+arrquantity[value]+i+'" class="form-control priceinputstyle inputqty" placeholder="Quantity" value="'+qtytotal+'">'+
+                        '<input type="number" step="any" name="'+arrprice[value]+i+'" id="'+arrprice[value]+i+'" class="form-control priceinputstyle inputprice" placeholder="Unit Price" value="">'+
+                        '<input type="number" name="'+arrtotal[value]+i+'" id="'+arrtotal[value]+i+'" value="" class="form-control priceinputstyle thetotal" placeholder="Total" readonly>'+
+                     '<a href="#" id="removestyle">Remove</a></div></div>').appendTo($('#appendedid'));
+                  }
+                  
                }
             }
          return false;

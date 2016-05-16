@@ -83,15 +83,18 @@ function my_check_login(){
 			} else {
 				if ( current_user_can( 'manage_options' ) ) {
 					$_SESSION['role'] = 'super-admin';
+					$role = 'super-admin';
 				} else {
 					$_SESSION['role'] = 'customer';
+					$role = 'customer';
 				}
 			}
-			
-    // echo $role;
-    // echo $user->ID;
-    // echo "</pre>";
-    // die();
+	
+	// echo $_SESSION['role'];		
+ //    echo $role;
+ //    echo $user->ID;
+ //    echo "</pre>";
+ //    die();
 			$msg = get_full_date( $req = 'full_date' ) . ' - '. $role . '' . $user->user_email . ' has logged in - ' . $user->display_name;
 			action_log( $msg );
 

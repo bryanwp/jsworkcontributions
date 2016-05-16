@@ -86,21 +86,18 @@
 						}
 					?>
 						<footer id="footer" class="fusion-footer-copyright-area<?php echo $footer_copyright_center_class; ?>">
-							<div class="fusion-row">
-								<div class="fusion-copyright-content">
-
-									<?php
+							<center>
+									<!-- <?php
 									/**
 									 * avada_footer_copyright_content hook
 									 *
 									 * @hooked avada_render_footer_copyright_notice - 10 (outputs the HTML for the Theme Options footer copyright text)
 									 * @hooked avada_render_footer_social_icons - 15 (outputs the HTML for the footer social icons)
 									 */
-									do_action( 'avada_footer_copyright_content' );
-									?>
-
-								</div> <!-- fusion-fusion-copyright-content -->
-							</div> <!-- fusion-row -->
+									//do_action( 'avada_footer_copyright_content' );
+									?> -->
+									© 2015 WrisbandCreation. All Rights Reserved.
+							</center>
 						</footer> <!-- #footer -->
 				<?php
 				} // end footer copyright area check
