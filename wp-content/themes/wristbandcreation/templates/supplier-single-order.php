@@ -18,9 +18,6 @@ $upimage = get_post_meta($order_id, 'Supplier_artwork', TRUE);
 
 ?>
 <div class="col-md-12 white">
-	<div class="gap-top">
-    <span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
-  </div>
   <div style="margin-top: 20px;">
       <?php the_title( '<h1>', '</h1>' ); ?>
     <h3><?php echo get_order_number_format( $order_id ); ?></h3> 

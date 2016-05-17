@@ -81,13 +81,21 @@ function my_check_login(){
 			if ( $role ) {
 				$_SESSION['role'] = $role;
 			} else {
-				if ( !current_user_can( 'manage_options' ) ) {
-					$_SESSION['role'] = 'customer';
-					$role = 'customer';
-				} else {
+				// if ( !current_user_can( 'manage_options' ) ) {
+				// 	$_SESSION['role'] = 'customer';
+				// 	$role = 'customer';
+				// } else {
+				// 	$_SESSION['role'] = 'super-admin';
+				// 	$role = 'super-admin';
+				// }
+
+				if (is_super_admin( $user->ID )) {
+					# code...
 					$_SESSION['role'] = 'super-admin';
-					$role = 'super-admin';
+				}else{
+					$_SESSION['role'] = 'customer';
 				}
+
 			}
 	
 	// echo $_SESSION['role'];		

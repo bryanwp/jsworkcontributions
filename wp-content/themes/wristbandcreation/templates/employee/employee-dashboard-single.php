@@ -25,11 +25,9 @@
 
 	?>
 	<div class="col-md-12 white">
-		<div class="gap-top">
-			<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
-		</div>
 		<div style="margin-top: 20px;">
-			<h2><?php echo get_order_number_format( $order_id ) .' ('. get_status( get_post_meta( $order_id, '_new_status', true ) ) .')'; ?> 
+		<?php the_title( '<h1>', '</h1>' ); ?>
+			<h2><?php echo get_order_number_format( $order_id ) .'<br/>Status: '. get_status( get_post_meta( $order_id, '_new_status', true ) ); ?> 
 				<!-- <a class="edit-order" href="<?php //echo home_url('admin-dashboard/?action=order-edit&ID='.$order_id); ?>">Edit</a></h2>  -->
 			</div>
 

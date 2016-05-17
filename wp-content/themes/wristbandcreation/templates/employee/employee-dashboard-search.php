@@ -71,9 +71,9 @@
 		        $orders = new WC_Order( $order_id ); 
 		        $items = $orders->get_items();
 
-		        ?><tr data-href="<?php echo esc_url( home_url('admin-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">		
+		        ?><tr data-href="<?php echo esc_url( home_url('employee-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">		
         			<td data-title="<?php esc_attr_e( 'Order Number', 'woocommerce' ); ?>">
-						<a class="orders" href="<?php echo esc_url( home_url('admin-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
+						<a class="orders" href="<?php echo esc_url( home_url('employee-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
 							<?php echo check_notif_onload( $order_id ); ?>
 							<?php echo get_order_number_format( $order->get_order_number() ); ?> 
 						</a>

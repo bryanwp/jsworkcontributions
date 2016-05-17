@@ -1,6 +1,8 @@
-
+<?php 
+				// $user = wp_get_current_user();
+				$user = get_user_by( "id", get_current_user_id() );
+?>
 <div class="col-md-12 white" >
-	<div class="gap-top"></div>
 	<div style="margin-top: 20px;">
 			<?php the_title( '<h1>', '</h1>' ); ?>
 	</div>
@@ -11,20 +13,7 @@
 	<div style="height: 10px"></div>
 
 	<div class="row row-fix">
-		<div class="col-md-3 profile-left shadow-wrap">
-			<p>Profile Details</p>
-			<div>
-				<img src="http://0.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=32&d=mm&r=g" class="img-thumbnail" alt="Cinque Terre" width="100%">
-			</div>
-			<?php 
-				// $user = wp_get_current_user();
-				$user = get_user_by( "id", get_current_user_id() );
-			?>
-			<p><?php echo $user->display_name; ?></p>
-			<hr class="divider-full" />
-			<p class="isEmail"><?php echo $user->user_email; ?></p>
-		</div>
-		<div class="col-md-9 profile-right">
+		<div class="col-md-12">
 <!-- 			<div class="my-profile-info shadow-wrap">
 				<p>
 					

@@ -14,6 +14,9 @@
 include ('custom-header.php'); ?>
 
 <div class="row">
+		<div class="gap-top">
+			<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
+		</div>
 	<?php
 	$action = '';
 	if ( isset( $_GET['action'] ) ) {
@@ -38,16 +41,33 @@ include ('custom-header.php'); ?>
 		include ( 'super-admin/super-admin-dashboard-register.php' );
 	} elseif ( $action === 'log' ) {
 		include ( 'super-admin/super-admin-dashboard-log.php' );
+	} elseif ( $action === 'search' ) {
+		include ( 'super-admin/super-admin-dashboard-search.php' );
+	} elseif ( $action === 'Orderlogs' ) {
+		include ( 'super-admin/super-admin-dashboard-reporting.php' );
 	}
-	
 	?>
 	<div class="col-md-12 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
-		<div class="gap-top">
-			<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
-		</div>
 		<div style="margin-top: 20px;">
 			<?php the_title( '<h1>', '</h1>' ); ?>
 			<h2>All Orders</h2>
+		</div>
+		<div class="search-con">
+			<form id="search" method="get">
+				<input type="hidden" name="action" value="search">
+				<select name="f" id="filter-search">
+					<option value="post_id">Order Number</option>
+					<option value="date">Date</option>
+					<option value="name">Customer Name</option>
+					<option value="method">Payment Method</option>
+					<option value="msg">Front Message</option>
+					<option value="status">Status</option>
+				</select>
+				<div class="keyword-con">
+					<input id="keyword" type="text" name="k" placeholder="Search">
+				</div>
+				<input type="submit">
+			</form>
 		</div>
 
 		<div class="table-1">
@@ -55,8 +75,20 @@ include ('custom-header.php'); ?>
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
 	'numberposts' => 9999999,
     'post_type'   => wc_get_order_types( 'view-orders' ),
-    'post_status' => array_keys( wc_get_order_statuses() )
+    'post_status' => 'wc-completed'
+    // 'post_status' => array_keys( wc_get_order_statuses() )
 ) ) );
+
+$page = get_query_var( 'page', 1 );
+if ( $page == 0 ) {
+	$page = 1;
+}
+$total_order = count( $customer_orders );
+$paginate_by = 5;
+$total_page  = $total_order / $paginate_by;
+$total_page  = ceil( $total_page );
+$post_start  = ( $page * $paginate_by ) - $paginate_by;
+$post_end    = $page * $paginate_by;
 
 if ( $customer_orders ) : ?>
 
@@ -66,6 +98,7 @@ if ( $customer_orders ) : ?>
 			<tr>
 				<th>Order</th>
 				<th>Date</th>
+				<!-- <th>Quantity</th> -->
 				<th>Front Message</th>
 				<th>First Name</th>
 				<th>Last Name</th>
@@ -77,7 +110,9 @@ if ( $customer_orders ) : ?>
 		</thead>
 
 		<tbody><?php
+		$post_counter = 1;
       foreach ( $customer_orders as $customer_order ) {
+      	if ( $post_start < $post_counter && $post_end >= $post_counter  ) {
         $order = wc_get_order( $customer_order );
         $order->populate( $customer_order );
         $item_count = $order->get_item_count();
@@ -101,8 +136,9 @@ if ( $customer_orders ) : ?>
 						</p>
 					</td>
         			<td class="dates">
-						<p class="date"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?></p>
-						<span><?php echo date( 'H:i:s', strtotime( $order->order_date ) ); ?></span>
+						<?php $cdate = get_post_meta( $customer_order->ID, '_completed_date', true ) ?>
+						<p class="date"><?php echo date_i18n( get_option( 'date_format' ), strtotime( $cdate ) ); ?></p>
+						<span><?php echo date( 'H:i:s', strtotime( $cdate ) ); ?></span>
 					</td>
 					<td class="order-fmsg">
 						<?php 
@@ -146,12 +182,23 @@ if ( $customer_orders ) : ?>
 						<?php echo $order->get_formatted_order_total(); ?>
 					</td>
 				</tr><?php
-      }
+      }//if else pagination
+		 $post_counter++;
+     } // foreach
     ?></tbody>
 
 	</table>
 <?php 
 endif; ?>
+		<div class="pagination">
+				<ul>
+				<?php 
+				for ($i=1; $i <= $total_page; $i++) { ?>
+
+					<li><a href="<?php echo home_url( $post_slug . '/?page='.$i ); ?>"><?php echo $i; ?></a></li>
+				<?php } ?>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>
