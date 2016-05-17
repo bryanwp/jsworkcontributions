@@ -407,9 +407,19 @@ ul.dash-custom-nav li a:hover {
 }
 .order-container h2 {
     margin: 0px;
-    background: #06406D;
-    color: #fff;
-    padding: 10px 15px;
+    /* background: #06406D; */
+    /* color: #fff; */
+    padding: 11px 0px;
+}
+.order-container th {
+    color: #fff!important;
+}
+.order-container .reorder {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 0;
+    width: 230px;
 }
 .details-container {
     /*border: 1px solid #6D6C6C;*/
@@ -422,8 +432,9 @@ table.tbl-info {
     margin-bottom: 10px;
 }
 .order-container {
-    border: 1px solid #5D5D5D;
-    margin-bottom: 10px;
+    /*border: 1px solid #5D5D5D;*/
+    margin-bottom: 20px;
+    position: relative;
 }
 .table-1 table th {
     padding: 5px 10px;

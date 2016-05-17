@@ -52,17 +52,56 @@ function cart_meta( $atts ){
 						foreach ($color as $colors) {
 							$count = 1;
 							$sizes = $colors['sizes'];
-							foreach ( $sizes as $size ) {
+
+							$size_arr = array();
+							foreach ($sizes as  $size) {
 								if ( $size >= 1 && $count === 1 ) {
-									echo '<div class="fusion-li-item-content"><span>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' | Adult Size</span></div>'; 
+									$size_arr['adult'] = array(
+											'qty'  => $size,
+											'color' => $colors['name'],
+											'type' => $colors['type'],
+											'size' => 'adult'
+										);
 								} elseif ( $size >= 1 && $count === 2  ) {
-									echo '<div class="fusion-li-item-content"><span>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' | Medium Size</span></div>'; 
+									$size_arr['Medium'] = array(
+											'qty'  => $size,
+											'color' => $colors['name'],
+											'type' => $colors['type'],
+											'size' => 'medium'
+										);
 								} elseif ( $size >= 1 && $count === 3  ) {
-									echo '<div class="fusion-li-item-content"><span>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' | Youth Size</span></div>'; 
+									$size_arr['Youth'] = array(
+											'qty'  => $size,
+											'color' => $colors['name'],
+											'type' => $colors['type'],
+											'size' => 'Youth'
+										);
 								} 
 								$total_qty = $total_qty + $size;
 								$count++;
 							}
+							if (! empty( $size_arr ) ) {
+								foreach ( $size_arr as $k => $v ) {
+									$total_qty = $wristband_meta['total_qty'];
+									if ( $total_qty >= 100 ) {
+										$p = round( ( $v['qty'] / $total_qty ) * 100 );
+										$size_arr[$k]['plus'] = '(+' . (int)$p . ')';
+									}
+								}
+							}
+
+							foreach ($size_arr as $k => $v) {
+								echo '<div class="fusion-li-item-content">
+										<span>' 
+										. $v['qty'] . ' ' 
+										. $v['color'] . ' ' 
+										. $v['type'] . ' ' 
+										. $v['plus'] . ' | ' 
+										. $k . ' Size
+										</span>
+									</div>';
+							}
+						
 						}                  
 						$options = $wristband_meta['messages'];
 						echo '<br /><label class="CssTitleBlack CssTitleBold">Text on Wristbands:</label><br />';
@@ -90,8 +129,8 @@ function cart_meta( $atts ){
 						}
 
 						$options = $wristband_meta['additional_options'];
-						echo '<br /><label class="CssTitleBlack CssTitleBold">Additional Options:</label><br />';
 						if ( $options ) {
+							echo '<br /><label class="CssTitleBlack CssTitleBold">Additional Options:</label><br />';
 							foreach ( $options as $option ) {
 								echo '<span>' . $option . '</span><br />'; 
 							}
@@ -99,16 +138,26 @@ function cart_meta( $atts ){
 
 						echo '<br /><label class="CssTitleBlack CssTitleBold">Production and Shipping:</label><br />';
 						echo '<span>' . $wristband_meta['customization_location'] . '</span><br />'; 
-						echo '<span>Guaranteed to arrive on </span>'.$wristband_meta['guaranteed_delivery'];
-						echo '<span id="prod">' . $wristband_meta['customization_date_production'] . '</span><br />'; 
-						echo '<span id="ship">' . $wristband_meta['customization_date_shipping'] . '</span><br />'; 
+						echo '<span id="prod">Production Time: 	' . $wristband_meta['customization_date_production'] . '</span><br />'; 
+						echo '<span id="ship">Shipping Time: ' . $wristband_meta['customization_date_shipping'] . '</span><br />'; 
+
+						$date_production = substr( $meta['customization_date_production'], 0, 1);
+			    		$date_shipping   = substr( $meta['customization_date_shipping'], 0, 1);
+			    		$date_shipped    = get_post_meta( $order_id, '_completed_date' , true );
+			    		$arrival = calculate_guaranteed_delivery( $date_production, $date_shipping, $date_shipped );
+						echo '<span>Guaranteed to arrive on </span>'.$arrival;
 
 						?><br/>
 					</td>
 
 					<td class="product-quantity">
-						<?php echo $wristband_meta['total_qty'];
-							$qtytotal = $qtytotal + $wristband_meta['total_qty'];
+						<?php 
+						$total_qty = $wristband_meta['total_qty'];
+						if ( $total_qty >= 100 ) {
+							$total_qty = $total_qty + 100;
+						}
+						echo $total_qty;
+						$qtytotal = $qtytotal + $wristband_meta['total_qty'];
 						?>
 					</td>
 
@@ -124,6 +173,11 @@ function cart_meta( $atts ){
 		?>
 		
 		</tbody>
+		<?php 
+		if ( $qtytotal >= 100 ) {
+			$qtytotal = $qtytotal + 100;
+		}
+		?>
 		<input type="hidden" name="qtytotal" id="qtytotal" value="<?php echo $qtytotal; ?>">
 		<tfoot>
 			<tr class="grandtotal">
@@ -564,7 +618,8 @@ function calculate_guaranteed_delivery( $date_production, $date_shipping, $date_
 		$add_days = $add_days + 2;
 		$date = date( 'F j Y', strtotime( $date1 . ' + ' . $add_days . ' days' ) );
 	}
-	return $date;
+	$delivery = date('l', strtotime( $date) ) .', ' . $date;
+	return $delivery;
 }
 
 function custom_get_order( $keyword, $filter ){

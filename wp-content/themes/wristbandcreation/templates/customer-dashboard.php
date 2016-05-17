@@ -14,6 +14,9 @@
 include ('custom-header.php'); ?>
 
 <div class="row">
+	<div class="gap-top">
+		<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
+	</div>
 <!-- 	<div class="col-md-2">
 		<ul class="dash-nav">
 			<a href="<?php echo home_url('customer-dashboard'); ?>">
@@ -53,10 +56,8 @@ include ('custom-header.php'); ?>
 	
 	?>
 	<div class="col-md-12 white" <?php echo ($action == '') ? 'style="display:block"' : 'style="display:none"';?>>
-		<div class="gap-top">
-			<span class="welcome"><?php echo 'Welcome ' . $current_user->user_firstname; ?></span>
-		</div>
 		<div style="margin-top: 20px;">
+			<?php the_title( '<h1>', '</h1>' ); ?>
 			<h2>My Orders</h2>
 		</div>
 
@@ -66,7 +67,7 @@ $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_q
   'meta_key'    => '_customer_user',
   'meta_value'  => get_current_user_id(),
   'post_type'   => wc_get_order_types( 'view-orders' ),
-  'post_status' => array_keys( wc_get_order_statuses() )
+  'post_status' => 'wc-completed'
 ) ) );
 
 // echo "<pre>";
@@ -83,95 +84,22 @@ if ( $customer_orders ) :
 		$items = $order->get_items();
 ?>
 	<div class="order-container">
-		<a href="<?php echo esc_url( home_url('customer-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>"><h2><?php echo get_order_number_format( $order_id ); ?></h2></a>
-		<?php foreach ( $items as $item ) {
-		    $wristband_meta = maybe_unserialize( $item['wristband_meta']);
-		    $color = $wristband_meta['colors'];
-		?>
-		<div class="details-container">
-			<h3><?php echo $item['name']; ?> Wristband</h3>
-			<div class="row">
-					<div class="col-md-6">
-						<table class="tbl-info" width="100%">
-							<tr>
-								<td>Width:</td>
-								<td><?php echo $wristband_meta['size']; ?></td>
-							</tr>
-							<?php
-								$color = $wristband_meta['colors'];
-								foreach ($color as $colors) {
-									$count = 1;
-									$sizes = $colors['sizes'];
-									foreach ( $sizes as $size ) {
-										if ( $size >= 1 && $count === 1 ) {
-											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Adult Size</td></tr>'; 
-										} elseif ( $size >= 1 && $count === 2  ) {
-											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Medium Size</td></tr>'; 
-										} elseif ( $size >= 1 && $count === 3  ) {
-											echo '<tr><td>Qty/Color/Size</td><td>' . $size . ' ' . $colors['name'] . ' ' . $colors['type'] . ' Youth Size</td></tr>'; 
-										} 
-										$count++;
-									}
-								}
-							?>
-							<?php
-								$options = $wristband_meta['messages'];
-								foreach ( $options as $key => $msg ) {
-									if ( empty( $msg ) ) {
-										$msg = 'None';
-									}
-									echo '<tr><td>' . $key . ':</td><td>' . $msg . '</td></tr>'; 
-								}
-
-							?>
-						</table>
-					</div>
-
-					<div class="col-md-6">
-						<table class="tbl-info" width="100%">
-							<?php
-								$options = $wristband_meta['additional_options'];
-								if ( $options ) {
-									foreach ( $options as $option ) {
-									echo '<tr><td>Addtional Options</td><td>' . $option . '</td></tr>'; 
-									}
-								} else {
-									echo '<tr><td>Addtional Options</td><td>None</td></tr>'; 
-								}
-							?>
-						</table>
-						<table class="tbl-info" width="100%">
-							<tr>
-								<td>
-									Date: 
-								</td>
-								<td>
-									 <?php echo date_i18n( get_option( 'date_format' ), strtotime( $order->order_date ) ); ?>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Payment Method: 
-								</td>
-								<td>
-									<?php echo get_post_meta( $order_id, '_payment_method_title', true ); ?>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Grand total: 
-								</td>
-								<td>
-									<?php echo $order->get_formatted_order_total(); ?>
-								</td>
-
-							</tr>
-						</table>
-					</div>
-				
-			</div>
+		<a href="<?php echo esc_url( home_url('customer-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
+			<h2>
+				<?php echo get_order_number_format( $order_id ); ?> (<?php echo get_status( get_post_meta( $order_id, '_new_status', true ) ); ?>)
+			</h2>
+		</a>
+		<div class="reorder col-md-12">
+			<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'order_again', $order_id ) , 'woocommerce-order_again' ) ); ?>" class="order-again btn-order"><?php _e( 'Order Again', 'woocommerce' ); ?></a>
+			<!-- <a class="order-again btn-order">Order Again</a> -->
+			<a class="order-edit btn-order order_edit_form">Order & Edit</a>
+			<form method="post" id="order-edit" style="display: none;">
+				<input type="hidden" name="form-action" value="order_edit">
+				<input type="hidden" name="url" value="<?php echo esc_url( wp_nonce_url( add_query_arg( 'order_again', $order_id ) , 'woocommerce-order_again' ) ); ?>">
+				<input type="hidden" name="order_id" value="<?php echo $order_id; ?>">
+			</form>
 		</div>
-		<?php } ?>
+		<?php echo do_shortcode('[the-cart-meta item_key="'.$order_id.'"]'); ?>
 	</div>
 <?php } ?>
 
