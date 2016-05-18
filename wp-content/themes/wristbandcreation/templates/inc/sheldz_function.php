@@ -56,14 +56,19 @@ function register_new_user_phase_two(){
 		$role = $post['role'];
 	}
 
+	// echo "<pre>";
+	// var_dump($post);
+	// echo $country;
+	// die();
+
 	if ( isset( $post['add_user'] ) ) {
 
 	    if ( $post['add_user'] === "Submit") {
 		    $userdata = array(
 		      'user_login'  =>  $email,
 		      'user_pass'   =>  $cpass,
-		      'first-name'  => $fname,
-		      'last-name'   => $lname,
+		      'first_name'  => $fname,
+		      'last_name'   => $lname,
 		      'role'        => $role,
 		      'user_email'  => $email,
 		      'user_nicename' => $fname

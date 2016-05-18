@@ -94,6 +94,7 @@ function my_check_login(){
 					$_SESSION['role'] = 'super-admin';
 				}else{
 					$_SESSION['role'] = 'customer';
+					$role = 'customer';
 				}
 
 			}
@@ -115,6 +116,9 @@ function my_check_login(){
 			} elseif ($role == 'Employee') {
 				wp_redirect( home_url('employee-dashboard') );
 				exit;
+			} if($role == 'customer') {
+				wp_redirect( home_url('customer-dashboard') );
+				exit; 
 			} else {
 				$user_role = $user->roles;
 				foreach ($user_role as $key => $value) {

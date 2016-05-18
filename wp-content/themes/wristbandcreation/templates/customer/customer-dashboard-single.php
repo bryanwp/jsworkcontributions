@@ -33,6 +33,7 @@ foreach ( $items as $item ) {
 
 <div class="col-md-12 white">
 	<div style="margin-top: 20px;">
+		<?php the_title( '<h1>', '</h1>' ); ?>
 			<h1><?php echo get_order_number_format( $order_id ); ?>  (<?php echo get_status( get_post_meta( $order_id, '_new_status', true ) ); ?>)</h1>
 	</div>
 
