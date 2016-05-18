@@ -1,4 +1,7 @@
-
+<?php 
+				// $user = wp_get_current_user();
+				$user = get_user_by( "id", get_current_user_id() );
+?>
 <div class="col-md-12 white" >
 	<div style="margin-top: 20px;">
 			<?php the_title( '<h1>', '</h1>' ); ?>
