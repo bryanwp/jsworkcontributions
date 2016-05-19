@@ -98,7 +98,7 @@ if ( $customer_orders ) :
 				<input type="hidden" name="url" value="<?php echo esc_url( wp_nonce_url( add_query_arg( 'order_again', $order_id ) , 'woocommerce-order_again' ) ); ?>">
 				<input type="hidden" name="order_id" value="<?php echo $order_id; ?>">
 			</form>
-		</div>
+	</div>
 		<?php echo do_shortcode('[the-cart-meta item_key="'.$order_id.'"]'); ?>
 	</div>
 <?php } ?>

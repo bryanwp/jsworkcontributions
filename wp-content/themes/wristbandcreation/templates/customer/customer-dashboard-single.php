@@ -44,6 +44,7 @@ if ( $order ) :
     echo do_shortcode('[the-cart-meta item_key="'.$order_id.'"]');
 ?>
 	<!-- Start Reorder/Order and Edit -->
+
 	<div class="reorder col-md-12">
 			<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'order_again', $order_id ) , 'woocommerce-order_again' ) ); ?>" class="order-again btn-order"><?php _e( 'Order Again', 'woocommerce' ); ?></a>
 			<!-- <a class="order-again btn-order">Order Again</a> -->

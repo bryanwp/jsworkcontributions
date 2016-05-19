@@ -215,6 +215,7 @@ jQuery(document).ready(function ($) {
                   console.log( 'Email is invalid' ); 
                   $('.email-checker').empty().append('Email is in used already').css('color', '#F90000');
                   $('#profile').prop( 'disabled', true );
+                  return false;
                } else {
 
                   //console.log('Email is valid');

@@ -29,11 +29,11 @@ function cart_meta( $atts ){
 
 		$qtytotal = 0;
 
-		foreach ( $cart_items as $cart_item ) {
+		foreach ( $cart_items as $cart_item_key => $cart_item ) {
 			$wristband_meta = maybe_unserialize( $cart_item['wristband_meta']);
 		    $color = $wristband_meta['colors'];
 
-		 //    echo "<pre>";
+		    // echo $cart_item_key;
 			// print_r( $wristband_meta );
 			// die();
 			if ( $cart_item ) {

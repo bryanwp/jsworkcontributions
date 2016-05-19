@@ -2,7 +2,15 @@
   
 //Template Name: Register
 
-include ('custom-header.php'); ?>
+include ('custom-header.php'); 
+$countries_obj = new WC_Countries();
+    $countries = $countries_obj->__get('countries');
+// echo "<pre>";
+//     var_dump($countries_obj);
+//     var_dump($countries);
+//     die();
+
+?>
 <div class="container white">
    <div class="row reg-form">
     <div class="col-md-12">
@@ -35,8 +43,13 @@ include ('custom-header.php'); ?>
                 	<input type="text" name="card" id="card" tabindex="1" class="form-control" placeholder="Credit Card No." value="">
              	</div>
              	<div class="form-group">
-                	<input type="text" name="country" id="country" tabindex="1" class="form-control" placeholder="Country" value="">
-             	</div>
+                	<!-- <input type="text" name="country" id="country" tabindex="1" class="form-control" placeholder="Country" value=""> -->
+                 	<select class="country_select" name="country" id="country">
+                        <?php foreach ($countries as $key => $value): ?>
+                            <option value="<?php echo $key?>"><?php echo $value?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
              	<div class="form-group">
                 	<input type="text" name="address" id="address" tabindex="1" class="form-control" placeholder="Address" value="">
              	</div>

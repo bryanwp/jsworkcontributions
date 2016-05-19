@@ -91,7 +91,7 @@ function register_new_user_phase_two(){
 				add_user_meta( $user_id, 'billing_company', $company_name );
 				add_user_meta( $user_id, 'billing_email', $email );
 				add_user_meta( $user_id, 'billing_phone', $phone );
-				add_user_meta( $user_id, 'billing_country', $country );
+				add_user_meta( $user_id, 'billing_country', sanitize_text_field( $country ) );
 				add_user_meta( $user_id, 'billing_address_1', $address );
 
 		    	$redirect = home_url('login');
