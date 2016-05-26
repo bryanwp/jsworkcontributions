@@ -105,12 +105,14 @@ function cart_meta( $atts ){
 						}                  
 						$options = $wristband_meta['messages'];
 						echo '<br /><label class="CssTitleBlack CssTitleBold">Text on Wristbands:</label><br />';
+						echo '<span>Font Style: ' . $wristband_meta['font'] . '</span><br />';
 						foreach ( $options as $key => $msg ) {
 							if ( ! empty( $msg ) ) {
 								echo '<span>' . $key . ': ' . $msg . '</span><br />'; 
 							}
 							
 						}
+
 
 						$clipart = $wristband_meta['clipart'];
 						echo '<br /><label class="CssTitleBlack CssTitleBold">Clipart:</label><br />';

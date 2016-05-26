@@ -499,6 +499,11 @@ add_action('init','init_actions');
 
 function display_order_summary($_product, $meta)
 {
+
+// echo "<pre>";
+// var_dump($meta);
+// die();
+
   ?>
   <!-- SOL : View Product Summary Details -->
     <!-- <label class="t-heading CssTitleBlack CssTitleBold"><?php echo $_product->get_title() . ' - ' . (isset($meta['size']) ? $meta['size'] : '') . ' Inch'; ?></label> -->
@@ -665,9 +670,25 @@ function display_order_summary($_product, $meta)
           <!-- <span style="height:22.1px;margin-right:5px;" class="icon-wrapper circle-no">
               <i class="fusion-li-icon fa fa-angle-right" style="color:#333333;"></i>
             </span> -->
-
           <div class="fusion-li-item-content">
-            <span>Guaranteed to arrive on </span><?php echo $meta['guaranteed_delivery']; ?>
+            <span>Guaranteed to arrive on </span><?php //echo $meta['guaranteed_delivery']; ?>
+            <?php 
+              $now = new DateTime();           
+              $newdate = $now->format("l, M d Y");
+              if (isset($meta['total_days'])) {
+                $additionaldays = $meta['total_days'];
+                $datetoformat = date('l, M d Y', strtotime($newdate. ' +'.$additionaldays.' weekdays'));
+                echo $datetoformat;
+              } else {
+                $production = $meta['customization_date_production'];
+                $arr1 = explode(' ',trim($production));
+                $shipping = $meta['customization_date_shipping'];
+                $arr2 = explode(' ',trim($shipping));
+                $total_days = $arr1[0] + $arr2[0];
+                $datetoformat = date('l, M d Y', strtotime($newdate. ' +'.$total_days.' weekdays'));
+                echo $datetoformat;
+              }
+            ?>
           </div>
         </li>
       <?php endif; ?>

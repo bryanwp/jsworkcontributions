@@ -68,6 +68,7 @@ include ('custom-header.php'); ?>
 		<div class="table-1">
 		<?php
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
+	'meta_key'    => '_customer_user',
 	'numberposts' => 9999999,
     'post_type'   => wc_get_order_types( 'view-orders' ),
     'post_status' => 'wc-completed'

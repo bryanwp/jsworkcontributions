@@ -10,6 +10,8 @@
 // echo '<pre>';
 // print_r( $results );
 // die;
+if ( isset( $_GET['set-ses'] ) )
+	include('customer/customer-session.php');
 
 include ('custom-header.php'); ?>
 
@@ -70,9 +72,7 @@ $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_q
   'post_status' => 'wc-completed'
 ) ) );
 
-// echo "<pre>";
-// print_r($customer_orders);
-// die;
+
 
 if ( $customer_orders ) : 
 	 foreach ( $customer_orders as $customer_order ) {
@@ -82,6 +82,18 @@ if ( $customer_orders ) :
 
        	$order = new WC_Order( $order_id );
 		$items = $order->get_items();
+		
+		// echo "<pre>";
+		// var_dump($order);
+		// die();
+		foreach ( $items as $item ) {
+		    $wristband_meta = maybe_unserialize( $item['wristband_meta']);
+		    // $color = $wristband_meta['colors'];
+		    $_SESSION['to_order_again'] = $wristband_meta;
+		    // echo "<pre>";
+		    // print_r( $wristband_meta );
+		    // echo "<br />";
+		}
 ?>
 	<div class="order-container">
 		<a href="<?php echo esc_url( home_url('customer-dashboard/?action=view&ID=' . $customer_order->ID ) ); ?>">
@@ -90,7 +102,7 @@ if ( $customer_orders ) :
 			</h2>
 		</a>
 		<div class="reorder col-md-12">
-			<a href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'order_again', $order_id ) , 'woocommerce-order_again' ) ); ?>" class="order-again btn-order"><?php _e( 'Order Again', 'woocommerce' ); ?></a>
+		<a href="<?php echo home_url( 'customer-dashboard/?set-ses='. $order_id ); ?>" class="order-again btn-order"><?php _e( 'Order Again', 'woocommerce' ); ?></a>
 			<!-- <a class="order-again btn-order">Order Again</a> -->
 			<a class="order-edit btn-order order_edit_form">Order & Edit</a>
 			<form method="post" id="order-edit" style="display: none;">

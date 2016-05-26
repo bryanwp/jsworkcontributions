@@ -790,11 +790,31 @@ function logout_user_handler(){
 add_action('wc_order_again', 'set_cart_session_for_order_again');
 function set_cart_session_for_order_again(){
   if ( isset ( $_SESSION['to_order_again'] ) ) {
+
+  	//setting the session in a variable
+   	$session = $_SESSION['to_order_again'];
+
+    //checking the session if an array or not
+    //if not array - the session is from dashboard
+    //if array - the session is fron single order/ dashboard-single
+    if ( ! is_array( $_SESSION['to_order_again'] ) ) {
+    	$order_id = $_SESSION['to_order_again'];
+    	$order = new WC_Order( $order_id );
+		$items = $order->get_items();
+		
+		foreach ( $items as $item ) {
+		    $wristband_meta = maybe_unserialize( $item['wristband_meta']);
+
+		    //setting new value of the session
+			$session = $wristband_meta;
+		}
+    }
+
     $cart = WC()->cart->get_cart();
     $count = 1;
     foreach ( $cart as $cart_item_key => $cart_item ) {
       if ( $count == 1 ) {
-        $cart[$cart_item_key]['wristband_meta'] = $_SESSION['to_order_again'];
+        $cart[$cart_item_key]['wristband_meta'] = $session;
         // echo $cart_item_key;
       }
       $count++;
@@ -840,13 +860,33 @@ add_action( 'wc_order_edit', 'order_and_edit' );
 function order_and_edit(){
 	$post = $_POST;
 	if ( isset( $post['form-action'] ) && $post['form-action'] === 'order_edit' ) {
-		$_SESSION['order_and_edit'] = $_SESSION['to_order_again'];
+		//checking the session if an array or not
+	    //if not array - the session is from dashboard
+	    //if array - the session is fron single order/ dashboard-single
+	    if ( ! is_array( $_SESSION['to_order_again'] ) ) {
+	    	$order_id = $post['order_id'];
+	    	$order = new WC_Order( $order_id );
+			$items = $order->get_items();
+			
+			foreach ( $items as $item ) {
+			    $wristband_meta = maybe_unserialize( $item['wristband_meta']);
+
+			    //setting new value of the session
+				$session = $wristband_meta;
+			}
+	    } else {
+	    	//setting the session in a variable
+	   		$session = $_SESSION['to_order_again'];
+	    }
+
+		$_SESSION['order_and_edit'] = $session;
 		unset( $_SESSION['to_order_again'] );
 		?>
 			<script type="text/javascript">
 				window.location.href = "<?php echo $post['url']; ?>";
 			</script>
 		<?php
+		break;
 	}
 }
 
@@ -1112,3 +1152,4 @@ function search_reporting_info( $method, $date_from, $date_to ) {
 	wp_reset_query();
 	return $ret;
 } 
+

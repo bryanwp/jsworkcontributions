@@ -60,8 +60,17 @@ $items = $order->get_items();
 
 if ( $order ) : 
      echo do_shortcode('[the-cart-meta item_key="'.$order_id.'"]');  
+
 ?>	
-	
+	<div>
+		<form method="post" id="make-refund">
+			<input type="hidden" name="" value="">
+			<input type="hidden" name="order_id" value="<?php echo $order_id; ?>">
+			<input type="hidden" name="amount" value="<?php echo $order->get_total(); ?>">
+			<input type="submit" id="refund-submit" name="refund-submit" value="refund">
+		</form>	
+	</div>	
+
 	<div class="box col-md-12">
 		<?php
 		$track = get_post_meta( $order_id, 'supplier_trackingnumber', true );
@@ -121,7 +130,7 @@ if ( $order ) :
 		<?php } ?>
 	</div>
 
-
+	
 
 	
 <?php endif; ?>

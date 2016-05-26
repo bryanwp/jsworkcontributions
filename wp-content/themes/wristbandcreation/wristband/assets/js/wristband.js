@@ -506,6 +506,7 @@ jQuery(function ($) {
                 collectDataToPost: function () {
                     var addtional_options = [],
                             messages = {},
+                            fontStyle = $('#selectFont').val() == 'Select Font' ? 'Arial' : $('#selectFont').val(),
                             $production_time = $('select[name="customization_date_production"] option:selected'),
                             $shipping_time = $('select[name="customization_date_shipping"] option:selected');
 
@@ -526,14 +527,15 @@ jQuery(function ($) {
                         product: $('select#style').val(),
                         size: $('select#width').val(),
                         // font: $('select#font').val(),
-                        font: $('#selectFont').val(),
+                        font: fontStyle,
                         message_type: $('input[name="message_type"]:checked').val(),
                         messages: messages,
                         additional_options: addtional_options,
                         customization_location: $('input[name="customization_location"]:checked').data('title'),
                         customization_date_production: $production_time.text(),
                         customization_date_shipping: $shipping_time.text(),
-                        guaranteed_delivery: $('#delivery_date').text()
+                        guaranteed_delivery: $('#delivery_date').text(),
+                        total_days: $('#datetotal').text()
                     });
                 },
                 popupMsg: function (_status, _title, _message) {
@@ -590,7 +592,6 @@ jQuery(function ($) {
                         return;
                     }
                     var total_days = toInt($production_time.val()) + toInt($shipping_time.val());
-
                     // Start escape saturday and sunday and holiday
                     var flag = true, cntr = 0;
 
@@ -614,6 +615,8 @@ jQuery(function ($) {
                     var delivery_date = week_name[the_date.getDay()] + ', ' + month_name[the_date.getMonth()] + ' ' + the_date.getDate() + ' ' + the_date.getUTCFullYear();
                     $('#guaranteed_note').text('Guaranteed to be delivered on or before ');
                     $('#delivery_date').text(delivery_date);
+                    $('#datetotal').text(total_days);
+
                     this.data['guaranteed_delivery'] = delivery_date;
 
                 },

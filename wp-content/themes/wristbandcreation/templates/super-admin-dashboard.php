@@ -10,7 +10,8 @@
 // echo '<pre>';
 // print_r( $results );
 // die;
-
+global $post;
+$post_slug = $post->post_name;
 include ('custom-header.php'); ?>
 
 <div class="row">
@@ -73,8 +74,10 @@ include ('custom-header.php'); ?>
 		<div class="table-1">
 		<?php
 $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
+	'meta_key'    => '_customer_user',
 	'numberposts' => 9999999,
     'post_type'   => wc_get_order_types( 'view-orders' ),
+    // 'post_type'   => 'shop_order',
     'post_status' => 'wc-completed'
     // 'post_status' => array_keys( wc_get_order_statuses() )
 ) ) );
@@ -89,7 +92,9 @@ $total_page  = $total_order / $paginate_by;
 $total_page  = ceil( $total_page );
 $post_start  = ( $page * $paginate_by ) - $paginate_by;
 $post_end    = $page * $paginate_by;
-
+// echo "<pre>";
+// var_dump($customer_orders);
+// die();
 if ( $customer_orders ) : ?>
 
 	<table class="orders"  width="100%">
@@ -193,7 +198,7 @@ endif; ?>
 		<div class="pagination">
 				<ul>
 				<?php 
-				for ($i=1; $i <= $total_page; $i++) { ?>
+				for ($i=1; $i <= $total_page; $i++) {?>
 
 					<li><a href="<?php echo home_url( $post_slug . '/?page='.$i ); ?>"><?php echo $i; ?></a></li>
 				<?php } ?>

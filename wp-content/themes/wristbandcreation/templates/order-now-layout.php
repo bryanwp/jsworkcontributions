@@ -910,6 +910,7 @@ if (isset($_REQUEST['id'])) {
                         <p class="form-row form-row-wide">
                           <span id="guaranteed_note"></span>
                           <span id="delivery_date"></span>
+                          <span id="datetotal" style="display:none"></span>
                         </p>
                       </div><!--/.fusion-column-wrapper -->
 
