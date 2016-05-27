@@ -239,7 +239,6 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 					}
 
 					if ( current_user_can( 'manage_options' ) ) { ?>
-
 						<div class="nav-wrap">
 							<ul class="dash-custom-nav">
 								<li><a class="nav-a <?php echo $orders; ?>" href="<?php echo home_url('super-admin-dashboard'); ?>">All Orders</a></li>

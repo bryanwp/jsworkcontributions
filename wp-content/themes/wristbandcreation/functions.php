@@ -14,6 +14,7 @@ function theme_enqueue_styles() {
         wp_enqueue_style( 'kram-css', get_stylesheet_directory_uri() . '/wristband/assets/css/kram.css' );
 
         wp_enqueue_script('sheldz-js', get_stylesheet_directory_uri() . '/wristband/assets/js/sheldz.js', array( 'jquery' ), false, true);
+        wp_enqueue_script('recapgwp', 'https://www.google.com/recaptcha/api.js', array( 'jquery' ), false, true);
         wp_enqueue_script('justin-js', get_stylesheet_directory_uri() . '/wristband/assets/js/justin.js', array( 'jquery' ), false, true);
         wp_enqueue_script('timeago-js', get_stylesheet_directory_uri() . '/wristband/assets/js/timeago.js', array( 'jquery' ), false, true);
         wp_enqueue_script('plugins-js', get_stylesheet_directory_uri() . '/wristband/assets/js/plugins.js', array( 'jquery' ), false, true);

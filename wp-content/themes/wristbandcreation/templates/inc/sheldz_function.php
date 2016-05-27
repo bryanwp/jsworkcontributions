@@ -56,51 +56,72 @@ function register_new_user_phase_two(){
 		$role = $post['role'];
 	}
 
+	if (isset($post['g-recaptcha-response']) && $post['g-recaptcha-response']) {
+		 // echo "<pre>";
+		// var_dump($post);
+		$secret = "6Lef9SATAAAAAD6wUOqyCMNl7i42k1c4u0_ZdMHc";
+		$ip = $_SERVER['REMOTE_ADDR'];
+		$captcha = $post['g-recaptcha-response'];
+		$url = 'https://www.google.com/recaptcha/api/siteverify';
+		$rsp = file_get_contents( $url.'?secret='.$secret.'&response='.$captcha.'&remoteip='.$ip.'' );
+		// var_dump($rsp);
+		$arr = (json_decode($rsp,TRUE));
+
+
+		if ( $arr['success'] ) {
+			if ( isset( $post['add_user'] ) ) {
+			   if ( $post['add_user'] === "Submit") {
+			    $userdata = array(
+			      'user_login'  =>  $email,
+			      'user_pass'   =>  $cpass,
+			      'first_name'  => $fname,
+			      'last_name'   => $lname,
+			      'role'        => $role,
+			      'user_email'  => $email,
+			      'user_nicename' => $fname
+			    );
+
+		        $user_id = wp_insert_user( $userdata );
+
+		        if ( ! is_wp_error( $user_id ) ) {
+			    	//adding user meta
+			    	// add_user_meta( $user_id, 'user_company_name', $company_name  );
+			    	// add_user_meta( $user_id, 'user_phone', $phone  );
+			    	// add_user_meta( $user_id, 'user_credit_card_no', $card  );
+			    	// add_user_meta( $user_id, 'user_country', $country  );
+			    	// add_user_meta( $user_id, 'user_address', $address  );
+			    	add_user_meta( $user_id, 'user_secret_question', $secret_question  );
+			    	add_user_meta( $user_id, 'user_secret_answer', $sanswer  );
+
+			    	add_user_meta( $user_id, 'billing_first_name', $fname );
+					add_user_meta( $user_id, 'billing_last_name', $lname );
+					add_user_meta( $user_id, 'billing_company', $company_name );
+					add_user_meta( $user_id, 'billing_email', $email );
+					add_user_meta( $user_id, 'billing_phone', $phone );
+					add_user_meta( $user_id, 'billing_country', sanitize_text_field( $country ) );
+					add_user_meta( $user_id, 'billing_address_1', $address );
+
+			    	$redirect = home_url('login');
+			      	exit (wp_redirect($redirect));
+		        } else {
+		        	echo 'error';
+		       } 
+	   		}
+		}
+		} else {
+				$redirect = home_url('register');
+		      	exit (wp_redirect($redirect));
+		}
+
+
+	}
+
 	// echo "<pre>";
 	// var_dump($post);
 	// echo $country;
-	// die();
 
-	if ( isset( $post['add_user'] ) ) {
 
-	    if ( $post['add_user'] === "Submit") {
-		    $userdata = array(
-		      'user_login'  =>  $email,
-		      'user_pass'   =>  $cpass,
-		      'first_name'  => $fname,
-		      'last_name'   => $lname,
-		      'role'        => $role,
-		      'user_email'  => $email,
-		      'user_nicename' => $fname
-		    );
-
-	        $user_id = wp_insert_user( $userdata );
-
-	        if ( ! is_wp_error( $user_id ) ) {
-		    	//adding user meta
-		    	// add_user_meta( $user_id, 'user_company_name', $company_name  );
-		    	// add_user_meta( $user_id, 'user_phone', $phone  );
-		    	// add_user_meta( $user_id, 'user_credit_card_no', $card  );
-		    	// add_user_meta( $user_id, 'user_country', $country  );
-		    	// add_user_meta( $user_id, 'user_address', $address  );
-		    	add_user_meta( $user_id, 'user_secret_question', $secret_question  );
-		    	add_user_meta( $user_id, 'user_secret_answer', $sanswer  );
-
-		    	add_user_meta( $user_id, 'billing_first_name', $fname );
-				add_user_meta( $user_id, 'billing_last_name', $lname );
-				add_user_meta( $user_id, 'billing_company', $company_name );
-				add_user_meta( $user_id, 'billing_email', $email );
-				add_user_meta( $user_id, 'billing_phone', $phone );
-				add_user_meta( $user_id, 'billing_country', sanitize_text_field( $country ) );
-				add_user_meta( $user_id, 'billing_address_1', $address );
-
-		    	$redirect = home_url('login');
-		      	exit (wp_redirect($redirect));
-	        } else {
-	        	echo 'error';
-	       } 
-	   }
-	}
+	
 
 }
 
