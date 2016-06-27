@@ -12,12 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 ?>
-
 <?php if ( ! is_ajax() ) : ?>
 	<?php do_action( 'woocommerce_review_order_before_payment' ); ?>
 <?php endif; ?>
 
 <div id="payment" class="woocommerce-checkout-payment">
+
 	<?php if ( WC()->cart->needs_payment() ) : ?>
 	<ul class="payment_methods methods">
 		<?php

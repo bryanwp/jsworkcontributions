@@ -102,16 +102,16 @@
 	<?php if ( WC()->cart->tax_display_cart === 'excl' ) : ?>
 		<?php if ( get_option( 'woocommerce_tax_total_display' ) === 'itemized' ) : ?>
 			<?php foreach ( WC()->cart->get_tax_totals() as $code => $tax ) : ?>
-				<tr class="tax-rate tax-rate-<?php echo sanitize_title( $code ); ?>">
-					<th><?php echo esc_html( $tax->label ); ?></th>
-					<td><?php echo wp_kses_post( $tax->formatted_amount ); ?></td>
-				</tr>
+				<!--<tr class="tax-rate tax-rate-<?php echo sanitize_title( $code ); ?>">
+					<th><?php //echo esc_html( $tax->label ); ?></th>
+					<td><?php //echo wp_kses_post( $tax->formatted_amount ); ?></td>
+				</tr> -->
 			<?php endforeach; ?>
 		<?php else : ?>
-			<tr class="tax-total">
-				<th><?php echo esc_html( WC()->countries->tax_or_vat() ); ?></th>
-				<td><?php echo wc_price( WC()->cart->get_taxes_total() ); ?></td>
-			</tr>
+			<!--<tr class="tax-total">
+				<th><?php //echo esc_html( WC()->countries->tax_or_vat() ); ?></th>
+				<td><?php //echo wc_price( WC()->cart->get_taxes_total() ); ?></td>
+			</tr> -->
 		<?php endif; ?>
 	<?php endif; ?>
 
@@ -119,7 +119,8 @@
 
 	<tr class="order-total">
 		<th><?php _e( 'Total', 'woocommerce' ); ?></th>
-		<td><?php wc_cart_totals_order_total_html(); ?></td>
+		<!-- <td><?php // wc_cart_totals_order_total_html(); ?></td> -->
+		<td><?php echo WC()->cart->get_total_ex_tax(); ?></td>
 	</tr>
 
 	<?php do_action( 'woocommerce_review_order_after_order_total' ); ?>

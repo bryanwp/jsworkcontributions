@@ -3440,7 +3440,138 @@ jQuery(function ($) {
                     }, timeout);
                 })
 
-                //continuous message changes
+
+                //continuous message changes new
+
+                // $("#txtInputCont").on('paste', function () {
+                // $('input[name=wrapPaste]').val(1);
+                // });
+
+            //     .on('paste','input[name="continues_message"]',function(){
+            //         $('input[name=wrapPaste]').val(1);
+            //     })
+
+            //     // $("#txtInputCont").on('cut', function () {
+            //     //     $("#txtInputCont").val('');
+            //     //     $('input[name=wrapPaste]').val(0);
+            //     //     disableWrapped();
+            //     //     $("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
+            //     //     $("#front-endcont2").empty();
+            //     // });
+            //     .on('cut','input[name="continues_message"]',function(){
+            //         $("#continues_message").val('');
+            //         $('input[name=wrapPaste]').val(0);
+            //         disableWrapped();
+            //         $("#front-endcont1").empty().append($("#ifrontcontend").html());
+            //         $("#front-endcont2").empty();
+            //     })
+
+
+            // //     $("#txtInputCont").on('change keyup copy paste', function (e) {   
+            // //     if (e.keyCode === 46 || e.keyCode === 8) {
+            // //         if ($('input[name=wrapPaste]').val() === '1') {
+            // //             $('input[name=wrapPaste]').val(0);
+            // //             disableWrapped();
+            // //             $("#txtInputCont").val('');
+            // //         }
+            // //     }
+            // //     if ($("#txtInputCont").val().length < $('input[name=textcount]').val().length + 1) {
+            // //         $("#front-textcont2").text('');
+            // //         disableWrapped();
+            // //     }
+            // //     $("#front-textcontainer").text($('#txtInputCont').val());
+            // //     if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '750') {
+
+            // //         enableWrapped();
+            // //         $("#front-textcont1").text($('#txtInputCont').val().substring(0, Math.ceil($("#txtInputCont").val().length / 2)));
+            // //         $("#front-textcont2").text($('#txtInputCont').val().substring((Math.ceil($("#txtInputCont").val().length / 2) - 1), $("#txtInputCont").val().length));
+            // //     } else {
+            // //         disableWrapped();
+            // //         //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
+            // //         if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
+            // //             console.log($("#bandtextcontainer")[0].getBoundingClientRect().width);
+            // //             $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
+            // //             $("#front-endcont1").empty();
+            // //             $('input[name=isWrapCont]').val('1');
+
+            // //             var span_textcont1 = $('input[name=textcount]').val().length;
+            // //             $("#front-textcont2").text($('#txtInputCont').val().substring(span_textcont1 - 1, $("#txtInputCont").val().length));
+
+            // //         } else {
+            // //             $("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
+            // //             $("#front-endcont2").empty();
+            // //             $('input[name=isWrapCont]').val('0');
+
+            // //             $("#front-textcont1").text($('#txtInputCont').val().substring(0, $("#txtInputCont").val().length));
+            // //             $('input[name=textcount]').val($('#txtInputCont').val().substring(0, $("#txtInputCont").val().length));
+            // //         }
+            // //         if ($('input[name=wrapPaste]').val() === '1') {
+            // //             enableWrapped();
+            // //             $("#front-textcont1").text($('#txtInputCont').val().substring(0, Math.ceil($("#txtInputCont").val().length / 2)));
+            // //             $("#front-textcont2").text($('#txtInputCont').val().substring((Math.ceil($("#txtInputCont").val().length / 2) - 1), $("#txtInputCont").val().length));
+            // //             $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
+            // //             $("#front-endcont1").empty();
+            // //         }
+
+            // //     }
+            // // });
+
+            //     .on('change keyup copy paste','input[name="continues_message"]',function(e){
+
+            //         if ( e.keyCode === 46 || e.keyCode === 8 ) {
+            //             if ( $('input[name=wrapPaste]').val() === '1' ) {
+            //                 $('input[name="wrapPaste"]').val(0);
+            //                 disabledWrapped();
+            //                 $("#continues_message").val('');
+            //             }
+            //         }
+
+            //         if ($("#continues_message").val().length < $('input[name=textcount]').val().length + 1) {
+            //             $("#front-textcont2").text('');
+            //             disableWrapped();
+            //         }
+
+            //         $("#front-textcontainer").text($('#txtInputCont').val());
+            //         if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '750') {
+            //             enableWrapped();
+            //             $("#front-textcont1").text($('#continues_message').val().substring(0, Math.ceil($("#continues_message").val().length / 2)));
+            //             $("#front-textcont2").text($('#continues_message').val().substring((Math.ceil($("#continues_message").val().length / 2) - 1), $("#continues_message").val().length));
+            //         } else {
+            //             disableWrapped();
+            //             //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
+            //             if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
+            //                 console.log($("#bandtextcontainer")[0].getBoundingClientRect().width);
+            //                 $("#front-endcont2").empty().append($("#ifrontcontend").html());
+            //                 $("#front-endcont1").empty();
+            //                 $('input[name=isWrapCont]').val('1');
+
+            //                 var span_textcont1 = $('input[name=textcount]').val().length;
+            //                 $("#front-textcont2").text($('#continues_message').val().substring(span_textcont1 - 1, $("#continues_message").val().length));
+
+            //             } else {
+            //                 $("#front-endcont1").empty().append($("#ifrontcontend").html());
+            //                 $("#front-endcont2").empty();
+            //                 $('input[name=isWrapCont]').val('0');
+
+            //                 $("#front-textcont1").text($('#continues_message').val().substring(0, $("#continues_message").val().length));
+            //                 $('input[name=textcount]').val($('#continues_message').val().substring(0, $("#continues_message").val().length));
+            //             }
+            //             if ($('input[name=wrapPaste]').val() === '1') {
+            //                 enableWrapped();
+            //                 $("#front-textcont1").text($('#continues_message').val().substring(0, Math.ceil($("#continues_message").val().length / 2)));
+            //                 $("#front-textcont2").text($('#continues_message').val().substring((Math.ceil($("#continues_message").val().length / 2) - 1), $("#continues_message").val().length));
+            //                 $("#front-endcont2").empty().append($("#ifrontcontend").html());
+            //                 $("#front-endcont1").empty();
+            //             }
+            //         }
+
+            //     })
+
+                
+
+
+                //end of new
+                // continuous message changes
                 .on('paste keyup', 'input[name="continues_message"]', function () {
                     var timer, timeout = 300;
                     if (typeof timer !== undefined) {
@@ -3461,10 +3592,10 @@ jQuery(function ($) {
                             for (var x = 0; x < contString.length; x++)
                             {
                                 $('input[name="continues_message"]').val($('#continues_message').val() + contString.charAt(x));
-                               // $('input[name="continues_message"]').trigger("custom", [cpos]);
+                               $('input[name="continues_message"]').trigger("custom", [cpos]);
                             }
                             if (contString.length === 0) {
-                               // $('input[name="continues_message"]').trigger("custom", [cpos]);
+                               $('input[name="continues_message"]').trigger("custom", [cpos]);
                             }
                         }, 100);
                     }, timeout);
@@ -3562,17 +3693,7 @@ jQuery(function ($) {
                                 $("#front-endcont2-icon").trigger("change");
                                 $("#bandtextcont2").attr("display", "none");
                             }
-                        }
-                        //  else {
-                        //     if ($("#bandtextcontainer2")[0].getBoundingClientRect().width < (size_[newwidth][$('.wbdiv').width()]['ChromeInsideMin'])) {
-                        //         $("#front-textinside1").text($('#inside_message').val());
-                        //         $('input[name=textinside]').val($('#inside_message').val().length);
-                        //         $("#front-textinside2").text('');
-                        //     } else {
-                        //         $("#front-textinside2").text($('#inside_message').val().substring($('input[name=textinside]').val(), $('#inside_message').val().length));
-                        //     }
-                        // }
-                        
+                        }                        
                         setCaretToPos(document.getElementById("continues_message"), cpos);
                         //code for chrome - END
                     } else {
