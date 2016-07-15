@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'ProximaNovaSbold';
+    src: url('fonts/ProximaNovaSbold.eot');
+    src: url('fonts/ProximaNovaSbold.eot') format('embedded-opentype'),
+         url('fonts/ProximaNovaSbold.woff2') format('woff2'),
+         url('fonts/ProximaNovaSbold.woff') format('woff'),
+         url('fonts/ProximaNovaSbold.ttf') format('truetype'),
+         url('fonts/ProximaNovaSbold.svg#ProximaNovaSbold') format('svg');
+}

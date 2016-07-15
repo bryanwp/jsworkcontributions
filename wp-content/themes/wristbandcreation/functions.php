@@ -7,7 +7,13 @@ add_action( 'wp_enqueue_scripts', 'home_script' );
 function theme_enqueue_styles() {
     wp_enqueue_style( 'parent-stylesheet', get_template_directory_uri() . '/style.css' );
     wp_enqueue_style( 'custom-css', get_stylesheet_directory_uri() . '/responsive.css' );
-
+    wp_enqueue_style( 'new-order-now-css', get_stylesheet_directory_uri() . '/wristband/assets/css/new-order-now.css' );
+    wp_enqueue_script('new-bootstrap-js', get_stylesheet_directory_uri() . '/wristband/assets/js/newjs/bootstrap.min.js', array( 'jquery' ), false, true);
+    wp_enqueue_script('new-bootstrap-js', get_stylesheet_directory_uri() . '/wristband/assets/js/newjs/jquery.min.js', array( 'jquery' ), false, true);
+    wp_enqueue_script('new-bootstrap-js', get_stylesheet_directory_uri() . '/wristband/assets/js/newjs/css3-animate-it.js', array( 'jquery' ), false, true);
+    wp_enqueue_script('new-bootstrap-js', get_stylesheet_directory_uri() . '/wristband/assets/js/newjs/owl.carousel.js', array( 'jquery' ), false, true);
+    // wp_enqueue_script('new-bootstrap-js', get_stylesheet_directory_uri() . '/wristband/assets/js/bootstrap.min.js', array( 'jquery' ), false, true);    
+    // wp_enqueue_script('new-style-js', get_stylesheet_directory_uri() . '/wristband/assets/js/main-min.js', array( 'jquery' ), false, true);    
     //for the phase two tasks
    if ( is_page('login') or is_page('register') or is_page('supplier-dashboard') or is_page('employee-dashboard') or is_page('customer-dashboard') or is_page('forgot-password') or is_page('admin-dashboard') or is_page('super-admin-dashboard') ) {
         wp_enqueue_style( 'shedz-css', get_stylesheet_directory_uri() . '/wristband/assets/css/sheldz.css' );
@@ -32,6 +38,7 @@ function theme_enqueue_styles() {
         'ajaxUrl' => admin_url('admin-ajax.php')
         ));
       }
+
 
     wp_register_style('list_of_icons', get_stylesheet_directory_uri() . '/wristband/assets/css/list-icons.css', array());
     wp_enqueue_style('list_of_icons');
@@ -1059,3 +1066,9 @@ function my_change_status_function( $order_id ) {
     $order->update_status( 'completed' );
     wp_send_email_after_order( $order_id );
 }
+
+
+function register_my_menu() {
+  register_nav_menu('header-nav-menu',__( 'Header Nav Menu' ));
+}
+add_action( 'init', 'register_my_menu' );

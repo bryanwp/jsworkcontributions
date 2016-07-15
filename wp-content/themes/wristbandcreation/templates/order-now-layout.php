@@ -183,8 +183,6 @@ if (isset($_REQUEST['id'])) {
               </label>
               <select name="width" id="width" class="input-select enable-if-style-selected" disabled> inch</select>
             </p>
-
-
             <div class="form-group">
               <label class="form-group-heading CssTitleBlack" >Select Wristband Color</label>
               <div id="wristband-color-tab" class="fusion-tabs classic horizontal-tabs">
@@ -635,25 +633,7 @@ if (isset($_REQUEST['id'])) {
                                 <label for="font" class="form-group-heading CssTitleBlack">Font</label>
                               </td>
                               <td style="position: relative;">
-                                    <!-- <select name="font" id="font" class="input-select enable-if-style-selected">
-                                        <option value="-1">-- Select --</option>
-
-                                    <?php if (isset($GLOBALS['wbc_settings']->fonts)):
-                                        foreach ($GLOBALS['wbc_settings']->fonts as $font):
-                                            ?>
-                                            <?php
-                                            $Selected = "";
-                                            if ($metaInfo['FontStyle'] == esc_attr($font)) {
-                                                $Selected = "selected";
-                                            }
-                                            ?>
-                                            <option style="font-size:18px;font-family: '<?php echo esc_attr($font); ?>' !important;"
-                                              value="<?php echo esc_attr($font); ?>" <?php echo $Selected; ?> ><?php echo esc_attr($font); ?></option>
-                                        <?php endforeach;
-                                    endif;
-                                    ?>
-                                  </select> -->
-                                  <div class="dropdown">
+                                    <div class="dropdown">
 
                                     <?php if (isset($metaInfo['FontStyle'])) { ?>
                                     <input value="<?php echo $metaInfo['FontStyle']; ?>" id="selectFont" READONLY type="text" name="selectFont" class="caretfont input-select" style="font-family: <?php echo $metaInfo['FontStyle']; ?>" >
@@ -669,10 +649,9 @@ if (isset($_REQUEST['id'])) {
                                        foreach ($GLOBALS['wbc_settings']->fonts as $font):
                                         $newlabel = change_font_to_label(esc_attr($font));
                                       ?>
-                                      <!-- <li><button class="btn btn-default btn-block btn-font" data-font="Alba.ttf"><img src="https://wristbandcreation.com/wp-content/themes/kulayful/font-images/Alba.png"></button></li> -->
                                       <li>
                                         <div class="inner-content">
-                                          <label class="fontliststyle" style="font-family: '<?php echo esc_attr($font); ?>' !important;"><?php //echo esc_attr($font); ?>Ag</label><br>
+                                          <label class="fontliststyle" style="font-family: '<?php echo esc_attr($font); ?>' !important;">Ag</label><br>
                                           <label class="font-label"><?php echo ($newlabel)? $newlabel:esc_attr($font); ?></label>
                                           <input class="fontvalue" type="hidden" value="<?php echo esc_attr($font); ?>">
                                         </div>

@@ -385,7 +385,7 @@ jQuery(function ($) {
                 // Bind element to jquery library/packages on load
                 onLoad: function () {
                     $('select[name="style"], input[name="message_type"]').trigger('change');
-
+                    // console.log('onload');
                     // Trigger keyup on ready
                     $('.trigger-limit-char').trigger('keyup');
                     // $('select#customization_date_production').trigger('click');
@@ -468,6 +468,7 @@ jQuery(function ($) {
                     });
                 },
                 renderPriceChart: function () {
+                    //console.log('pricechart');
                     var price_charts = this.price_charts = Settings.products[$('select[name="style"]').val()]['sizes'][$('select#width').val()]['price_chart'];
                     $('#price_chart table tr td:not(:first-child)').remove();
                     for (var _qty in price_charts) {
@@ -1189,7 +1190,7 @@ jQuery(function ($) {
         var val = document.getElementById('EditModeID').name;
         val = val.split("|");
         var MultiAdd = val[2];
-        console.log(val);
+        //console.log(val);
         SetSelectCheckedText("style", val[0]);
         LoadTOArray(MultiAdd);
         $("#style").change();
@@ -1878,6 +1879,8 @@ jQuery(function ($) {
     }
 
     function AddNewColor($wc) {
+        console.log('step 1');
+        console.log($wc);
         // var $wc = $('#wristband-color-tab .color-wrap.selected > div'),
         var $tc = $('#wristband-text-color .color-wrap.selected > div'),
                 bg_style_tpl_text = '<div class="{{hide}}"><div class="color-wrap colortext--wrap color-text-added" data-toggle="modal" data-target="#wristband-text-color-modal" ' +
@@ -1906,8 +1909,8 @@ jQuery(function ($) {
         }
         // console.log(($wc.data('name')));
         if (typeof ($wc.data('name')) == 'undefined') {
-            console.log('2');
-            //Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.');
+            // console.log('step 2');
+            // Builder.popupMsg('error', 'Error', 'Please select wristband color/text color/quantity.');
             return;
         }
 
@@ -2494,18 +2497,19 @@ jQuery(function ($) {
                         $('#selectTextColorLabel').hide();
 
                         if (slctd_product.text_color) {
+                            console.log(slctd_product.text_color);
                             $('#wristband-text-color').closest('.form-group').show();
                             for (var i in slctd_product.text_color) {
                                 if (i == 0 && slctd_product.text_color[0].name != '') {
                                     var default_tc = slctd_product.text_color[0].name; // set if there is default text color set on the backend.
                                 }
-                                var tpl = '<li><div class="color-wrap ' + (i == 0 ? 'selected' : '') + '"><div data-name="{{name}}" data-color="{{color}}" style="background-color:{{color}};"></div></div></li>';
+                                var tpl = '<li><div class="color-box color-wrap ' + (i == 0 ? 'selected' : '') + '"><div data-name="{{name}}" data-color="{{color}}" style="background-color:{{color}}; height: 100%;"></div></div></li>';
                                 var render = Mustache.render(tpl, {
                                     name: slctd_product.text_color[i].name,
                                     color: slctd_product.text_color[i].color
                                 });
                                 $('#wristband-text-color ul').append(render);
-                                var tplModal = '<li><div class="color-wrap"><div data-name="{{name}}" data-color="{{color}}" style="background-color:{{color}};"></div></div></li>';
+                                var tplModal = '<li><div class="color-wrap"><div data-name="{{name}}" data-color="{{color}}" style="background-color:{{color}}"></div></div></li>';
                                 var renderModal = Mustache.render(tplModal, {
                                     name: slctd_product.text_color[i].name,
                                     color: slctd_product.text_color[i].color
@@ -2806,6 +2810,8 @@ jQuery(function ($) {
 
                 .on('click', '#add_color_to_selections', function (e) {
                     e.preventDefault();
+                    console.log('hello from the other side');
+                    console.log(clckcount);
                     //console.log($('#wristband-color-items .color-wrap.selected').find('div'));
                     if(clckcount == 0){
                         clckcount = 1;
@@ -3222,7 +3228,8 @@ jQuery(function ($) {
                 // Hide/Show message type fields
                 .on('change', 'input[name="message_type"]', function () {
                     var message_type = $('input[name="message_type"]:checked').val();
-                    //console.log(this.checked);
+                    // console.log(this.checked);
+                    // console.log(message_type);
                     if (this.checked) {
 
                         if (message_type == 'continues') {
@@ -3274,7 +3281,10 @@ jQuery(function ($) {
                     var width = $("#width").val();
                     var newwidth = width.replace('/', '_');
                     //console.log(txtlen);
-
+                    // console.log($("#bandtext1")[0].getBoundingClientRect().width);
+                    // console.log(size_[newwidth]);
+                    // console.log($('.wbdiv').width());
+                    // console.log(size_[newwidth][$('.wbdiv').width()]['ChromeFBPathLimit']);
                     if ($.browser.chrome) {
                         //code for chrome - START
                         $("#front-text1").text(front_msg);
@@ -3283,6 +3293,7 @@ jQuery(function ($) {
                         }
                         for (var x = 1; x <= 100; x++) {
                             if ($("#bandtext1")[0].getBoundingClientRect().width > size_[newwidth][$('.wbdiv').width()]['ChromeFBPathLimit']) {
+                                console.log("change size oskl");
                                 $('#bandtextpath1')[0].setAttribute('textLength', '270');
                                 $('#bandtextpath1')[0].setAttribute('startOffset', '0%');
                                 $('#bandtext1')[0].setAttribute('text-anchor', 'start');
@@ -3441,136 +3452,6 @@ jQuery(function ($) {
                 })
 
 
-                //continuous message changes new
-
-                // $("#txtInputCont").on('paste', function () {
-                // $('input[name=wrapPaste]').val(1);
-                // });
-
-            //     .on('paste','input[name="continues_message"]',function(){
-            //         $('input[name=wrapPaste]').val(1);
-            //     })
-
-            //     // $("#txtInputCont").on('cut', function () {
-            //     //     $("#txtInputCont").val('');
-            //     //     $('input[name=wrapPaste]').val(0);
-            //     //     disableWrapped();
-            //     //     $("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
-            //     //     $("#front-endcont2").empty();
-            //     // });
-            //     .on('cut','input[name="continues_message"]',function(){
-            //         $("#continues_message").val('');
-            //         $('input[name=wrapPaste]').val(0);
-            //         disableWrapped();
-            //         $("#front-endcont1").empty().append($("#ifrontcontend").html());
-            //         $("#front-endcont2").empty();
-            //     })
-
-
-            // //     $("#txtInputCont").on('change keyup copy paste', function (e) {   
-            // //     if (e.keyCode === 46 || e.keyCode === 8) {
-            // //         if ($('input[name=wrapPaste]').val() === '1') {
-            // //             $('input[name=wrapPaste]').val(0);
-            // //             disableWrapped();
-            // //             $("#txtInputCont").val('');
-            // //         }
-            // //     }
-            // //     if ($("#txtInputCont").val().length < $('input[name=textcount]').val().length + 1) {
-            // //         $("#front-textcont2").text('');
-            // //         disableWrapped();
-            // //     }
-            // //     $("#front-textcontainer").text($('#txtInputCont').val());
-            // //     if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '750') {
-
-            // //         enableWrapped();
-            // //         $("#front-textcont1").text($('#txtInputCont').val().substring(0, Math.ceil($("#txtInputCont").val().length / 2)));
-            // //         $("#front-textcont2").text($('#txtInputCont').val().substring((Math.ceil($("#txtInputCont").val().length / 2) - 1), $("#txtInputCont").val().length));
-            // //     } else {
-            // //         disableWrapped();
-            // //         //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
-            // //         if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
-            // //             console.log($("#bandtextcontainer")[0].getBoundingClientRect().width);
-            // //             $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
-            // //             $("#front-endcont1").empty();
-            // //             $('input[name=isWrapCont]').val('1');
-
-            // //             var span_textcont1 = $('input[name=textcount]').val().length;
-            // //             $("#front-textcont2").text($('#txtInputCont').val().substring(span_textcont1 - 1, $("#txtInputCont").val().length));
-
-            // //         } else {
-            // //             $("#front-endcont1").empty().append($("#front-endcont2-icon :selected").text());
-            // //             $("#front-endcont2").empty();
-            // //             $('input[name=isWrapCont]').val('0');
-
-            // //             $("#front-textcont1").text($('#txtInputCont').val().substring(0, $("#txtInputCont").val().length));
-            // //             $('input[name=textcount]').val($('#txtInputCont').val().substring(0, $("#txtInputCont").val().length));
-            // //         }
-            // //         if ($('input[name=wrapPaste]').val() === '1') {
-            // //             enableWrapped();
-            // //             $("#front-textcont1").text($('#txtInputCont').val().substring(0, Math.ceil($("#txtInputCont").val().length / 2)));
-            // //             $("#front-textcont2").text($('#txtInputCont').val().substring((Math.ceil($("#txtInputCont").val().length / 2) - 1), $("#txtInputCont").val().length));
-            // //             $("#front-endcont2").empty().append($("#front-endcont2-icon :selected").text());
-            // //             $("#front-endcont1").empty();
-            // //         }
-
-            // //     }
-            // // });
-
-            //     .on('change keyup copy paste','input[name="continues_message"]',function(e){
-
-            //         if ( e.keyCode === 46 || e.keyCode === 8 ) {
-            //             if ( $('input[name=wrapPaste]').val() === '1' ) {
-            //                 $('input[name="wrapPaste"]').val(0);
-            //                 disabledWrapped();
-            //                 $("#continues_message").val('');
-            //             }
-            //         }
-
-            //         if ($("#continues_message").val().length < $('input[name=textcount]').val().length + 1) {
-            //             $("#front-textcont2").text('');
-            //             disableWrapped();
-            //         }
-
-            //         $("#front-textcontainer").text($('#txtInputCont').val());
-            //         if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '750') {
-            //             enableWrapped();
-            //             $("#front-textcont1").text($('#continues_message').val().substring(0, Math.ceil($("#continues_message").val().length / 2)));
-            //             $("#front-textcont2").text($('#continues_message').val().substring((Math.ceil($("#continues_message").val().length / 2) - 1), $("#continues_message").val().length));
-            //         } else {
-            //             disableWrapped();
-            //             //if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '715') {
-            //             if ($("#bandtextcontainer")[0].getBoundingClientRect().width > '480') {
-            //                 console.log($("#bandtextcontainer")[0].getBoundingClientRect().width);
-            //                 $("#front-endcont2").empty().append($("#ifrontcontend").html());
-            //                 $("#front-endcont1").empty();
-            //                 $('input[name=isWrapCont]').val('1');
-
-            //                 var span_textcont1 = $('input[name=textcount]').val().length;
-            //                 $("#front-textcont2").text($('#continues_message').val().substring(span_textcont1 - 1, $("#continues_message").val().length));
-
-            //             } else {
-            //                 $("#front-endcont1").empty().append($("#ifrontcontend").html());
-            //                 $("#front-endcont2").empty();
-            //                 $('input[name=isWrapCont]').val('0');
-
-            //                 $("#front-textcont1").text($('#continues_message').val().substring(0, $("#continues_message").val().length));
-            //                 $('input[name=textcount]').val($('#continues_message').val().substring(0, $("#continues_message").val().length));
-            //             }
-            //             if ($('input[name=wrapPaste]').val() === '1') {
-            //                 enableWrapped();
-            //                 $("#front-textcont1").text($('#continues_message').val().substring(0, Math.ceil($("#continues_message").val().length / 2)));
-            //                 $("#front-textcont2").text($('#continues_message').val().substring((Math.ceil($("#continues_message").val().length / 2) - 1), $("#continues_message").val().length));
-            //                 $("#front-endcont2").empty().append($("#ifrontcontend").html());
-            //                 $("#front-endcont1").empty();
-            //             }
-            //         }
-
-            //     })
-
-                
-
-
-                //end of new
                 // continuous message changes
                 .on('paste keyup', 'input[name="continues_message"]', function () {
                     var timer, timeout = 300;
@@ -3626,6 +3507,9 @@ jQuery(function ($) {
                     var newwidth = width.replace('/', '_');
                     var value = $('input[name=isWrapCont]').val();
                     if ($.browser.chrome) {
+                        // console.log($("#bandtextcontainer")[0].getBoundingClientRect().width);
+                        // console.log(size_[newwidth][$('.wbdiv').width()]['ChromeContMax']);
+                        // console.log(size_[newwidth][$('.wbdiv').width()]['ChromeContMin']);
                         /*important*/
                         document.getElementById("bandtextcontainer").style.fontSize = '2px';
                         //code for chrome - START
@@ -3645,7 +3529,7 @@ jQuery(function ($) {
                         }
                         $("#front-textcontainer").text($('#continues_message').val());
                         if ($("#bandtextcontainer")[0].getBoundingClientRect().width > size_[newwidth][$('.wbdiv').width()]['ChromeContMax']) {
-
+                            console.log("here1");
                             $("#front-textcont1").text($('#continues_message').val().substring(0, Math.ceil($("#continues_message").val().length / 2)));
                             $("#front-textcont2").text($('#continues_message').val().substring(Math.ceil($("#continues_message").val().length / 2), $("#continues_message").val().length));
 
@@ -3674,6 +3558,7 @@ jQuery(function ($) {
                             }
                         } else {
                             if ($("#bandtextcontainer")[0].getBoundingClientRect().width > size_[newwidth][$('.wbdiv').width()]['ChromeContMin']) {
+                                console.log("here2");
                                 $('#bandtextpathcont1')[0].setAttribute('textLength', '280');
                                 $('#bandtextpathcont1')[0].setAttribute('startOffset', '0%');
                                 $('#bandtextcont1')[0].setAttribute('text-anchor', 'start');
@@ -3685,6 +3570,7 @@ jQuery(function ($) {
                                 $('input[name=isWrapCont]').val('1');
                                 $("#bandtextcont2").removeAttr("display");
                             } else {
+                                console.log("here3");
                                 $("#front-textcont1").text($('#continues_message').val());
                                 $('input[name=textcount]').val($('#continues_message').val().length);
                                 $("#front-textcont2").text('');
@@ -4086,7 +3972,7 @@ jQuery(function ($) {
                         
                     }
 
-                    // button.find('.icon-preview').removeClass(function (index, css) {
+                    // button.find('.toggle-modal-clipart').removeClass(function (index, css) {
                     //     console.log(css);
                     //     return (css.match(/(^|\s)fa-\S+/g) || []).join(' ');
                     // });
@@ -4529,17 +4415,17 @@ jQuery(function ($) {
       
     });
     $(window).resize(function () {
-        if ($(window).width() > '800') {
-            $("#additional-option-section > div").css("width", "48%");
-        } else {
-            if ($("#id_convert_to_keychains").is(':hidden')) {
-//                $("#additional-option-section > div").css("width", "25%");
-                $("#additional-option-section > div").css("width", "33%");
-            } else {
-//                $("#additional-option-section > div").css("width", "20%");
-                $("#additional-option-section > div").css("width", "25%");
-            }
-        }
+//         if ($(window).width() > '800') {
+//             $("#additional-option-section > div").css("width", "48%");
+//         } else {
+//             if ($("#id_convert_to_keychains").is(':hidden')) {
+// //                $("#additional-option-section > div").css("width", "25%");
+//                 $("#additional-option-section > div").css("width", "33%");
+//             } else {
+// //                $("#additional-option-section > div").css("width", "20%");
+//                 $("#additional-option-section > div").css("width", "25%");
+//             }
+//         }
         /*Footer for mobile*/
         if ($(window).width() > '736') {
             $("#mod-footer0").hide();
