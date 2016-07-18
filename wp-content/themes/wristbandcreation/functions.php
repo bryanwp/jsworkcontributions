@@ -8,12 +8,12 @@ function theme_enqueue_styles() {
     wp_enqueue_style( 'parent-stylesheet', get_template_directory_uri() . '/style.css' );
     wp_enqueue_style( 'custom-css', get_stylesheet_directory_uri() . '/responsive.css' );
     wp_enqueue_style( 'new-order-now-css', get_stylesheet_directory_uri() . '/wristband/assets/css/new-order-now.css' );
-    wp_enqueue_script('new-bootstrap-js', get_stylesheet_directory_uri() . '/wristband/assets/js/newjs/bootstrap.min.js', array( 'jquery' ), false, true);
-    wp_enqueue_script('new-bootstrap-js', get_stylesheet_directory_uri() . '/wristband/assets/js/newjs/jquery.min.js', array( 'jquery' ), false, true);
-    wp_enqueue_script('new-bootstrap-js', get_stylesheet_directory_uri() . '/wristband/assets/js/newjs/css3-animate-it.js', array( 'jquery' ), false, true);
-    wp_enqueue_script('new-bootstrap-js', get_stylesheet_directory_uri() . '/wristband/assets/js/newjs/owl.carousel.js', array( 'jquery' ), false, true);
+    // wp_enqueue_script('new-bootstrap-js', get_stylesheet_directory_uri() . '/wristband/assets/js/newjs/bootstrap.min.js', array( 'jquery' ), false, true);
+    // wp_enqueue_script('new-jquerymin-js', get_stylesheet_directory_uri() . '/wristband/assets/js/newjs/jquery.min.js', array( 'jquery' ), false, true);
+    // wp_enqueue_script('new-animate-js', get_stylesheet_directory_uri() . '/wristband/assets/js/newjs/css3-animate-it.js', array( 'jquery' ), false, true);
+    // wp_enqueue_script('new-owlcars-js', get_stylesheet_directory_uri() . '/wristband/assets/js/newjs/owl.carousel.js', array( 'jquery' ), false, true);
     // wp_enqueue_script('new-bootstrap-js', get_stylesheet_directory_uri() . '/wristband/assets/js/bootstrap.min.js', array( 'jquery' ), false, true);    
-    // wp_enqueue_script('new-style-js', get_stylesheet_directory_uri() . '/wristband/assets/js/main-min.js', array( 'jquery' ), false, true);    
+    wp_enqueue_script('new-style-js', get_stylesheet_directory_uri() . '/wristband/assets/js/main-min.js', array( 'jquery' ), false, true);    
     //for the phase two tasks
    if ( is_page('login') or is_page('register') or is_page('supplier-dashboard') or is_page('employee-dashboard') or is_page('customer-dashboard') or is_page('forgot-password') or is_page('admin-dashboard') or is_page('super-admin-dashboard') ) {
         wp_enqueue_style( 'shedz-css', get_stylesheet_directory_uri() . '/wristband/assets/css/sheldz.css' );
