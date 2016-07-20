@@ -120,8 +120,6 @@ get_header();
                         'post_type' => $type);
 
                     $my_query = new WP_Query($args);
-                    // echo "<pre>";
-                    // var_dump($my_query);
                         if( $my_query->have_posts() ) {
                             while ($my_query->have_posts()) : $my_query->the_post();
                 ?>

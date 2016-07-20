@@ -113,8 +113,7 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
 }
 
 ?>
-<body <?php body_class(); ?>>
-    <?php do_action( 'avada_before_body_content' ); ?>
+<body>
     <div class="navbar navbar-default navbar-home">
     <nav class="navbar-top">
         <div class="container">
@@ -220,6 +219,7 @@ if ( 'modern' == Avada()->settings->get( 'mobile_menu_design' ) ) {
         </nav>
     </div>
 </div>
+<div id="bodyform" style="overflow:hidden;">
 
 
 

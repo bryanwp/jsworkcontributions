@@ -1,3 +1,4 @@
+</div>
 <div class="footer-holder">
     <div class="footer-top">
         <div class="container p-0">
