@@ -276,7 +276,7 @@ get_header();
             </div>
             <div class="col-md-4 text-center approve-img">
                 <!-- <img src="<?php //echo get_stylesheet_directory_uri(); ?>/images/shop-approve.png" alt=""> -->
-                <a href="http://www.shopperapproved.com/reviews/wristbandcreation.com/" target="_blank" rel="nofollow" onclick="return sa_openurl(this.href);"><img class="sa_widget_footer" alt="" src="https://www.shopperapproved.com/widgets/widgetfooter-darknarrow.png" style="border: 0;"></a>
+                <a href="http://www.shopperapproved.com/reviews/wristbandcreation.com/" target="_blank" rel="nofollow" onclick="return sa_openurl(this.href);"><img class="sa_widget_footer" alt="" src="<?php echo get_stylesheet_directory_uri(); ?>/images/shop-approve.png" style="border: 0;"></a>
             </div>
             <div class="col-md-4 text-right">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/bighand2.png" alt="">

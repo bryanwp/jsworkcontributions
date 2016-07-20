@@ -1150,6 +1150,54 @@ hr {
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+.review-bg .sa_narrow .sa_review {
+  border: none !important;
+  color: #ffffff !important;
+  line-height: 23px !important;
+  font-size: 18px !important;
+  font-family: "ProximaNovaReg" !important;
+  height: auto !important;
+}
+.review-bg .sa_info {
+  width: 100% !important;
+}
+.review-bg .sa_narrow .sa_date, .review-bg .sa_narrow .sa_name {
+  font-size: 18px !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+.review-bg .sa_narrow .sa_name span {
+  font-weight: normal !important;
+}
+.review-bg .sa_narrow .sa_name {
+  margin-top: 0.5em;
+}
+.review-bg .sa_comments {
+  font-size: 30px !important;
+  font-family: "ProximaNovaLight" !important;
+  line-height: 1em !important;
+  margin-top: 0.5em;
+}
+.review-bg .shopperapproved_widget {
+  min-height: auto !important;
+  height: auto !important;
+}
+.review-bg .sa_location {
+  clear: both !important;
+  display: block !important;
+}
+.review-bg .sa_narrow .sa_star {
+  background-image: url('../images/image-for-css/widgetstar-small.png') !important;
+  margin-right: 5px;
+}
+.review-bg .sa_comments:before {
+  quotes: "“" "”" "‘" "’";
+  content: open-quote;
+}
+.review-bg .sa_comments:after {
+  quotes: "“" "”" "‘" "’";
+  content: close-quote;
+}
 .sr-only-focusable:active,
 .sr-only-focusable:focus {
   position: static;
@@ -15007,3 +15055,5 @@ input#CreateCheckbox:after {
     text-align: center;
   }
 }
+
+
