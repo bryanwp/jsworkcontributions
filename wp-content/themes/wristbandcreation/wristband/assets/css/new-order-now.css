@@ -12629,6 +12629,7 @@ input[type="checkbox"]:checked:before {
   font-size: 18px;
   text-transform: uppercase;
   letter-spacing: 2px;
+  display: inline-block;
 }
 .bg-blue-about .btn-about {
   margin-top: 2.5em;
